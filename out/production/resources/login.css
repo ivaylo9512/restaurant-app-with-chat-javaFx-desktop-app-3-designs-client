@@ -1,0 +1,42 @@
+.login-pane{
+    -fx-background-color: #2A2E37;
+    -fx-border-color: #89936e;
+    -fx-border-width: 1px;
+}
+.username{
+    -fx-background-color: transparent;
+    -fx-border-color: #89936e;
+    -fx-text-fill:white;
+}
+.username:hover{
+    -fx-border-color: transparent transparent #89936e transparent;
+}
+.username-error:hover{
+    -fx-border-color: transparent transparent #d77717 transparent;
+}
+.user-button{
+    -fx-background-color: transparent;
+    -fx-border-color: #89936e;
+    -fx-border-radius: 90;
+    -fx-background-radius: 90;
+
+}
+.user-button:hover{
+    -fx-background-color: rgb(137, 147, 110, 0.1);
+}
+
+.login-text{
+    -fx-fill: #89936e;
+    -fx-opacity: 0;
+}
+.register-text{
+    -fx-fill: #89936e;
+    -fx-opacity: 0;
+}
+.buttons-pane:hover .user-button{
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+.login-error{
+    -fx-border-color: #d77717
+}
