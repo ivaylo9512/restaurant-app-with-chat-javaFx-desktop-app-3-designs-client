@@ -1,0 +1,78 @@
+.visibility{
+visibility: collapse;
+}
+.menu-pane{
+    -fx-background-color: #2A2E37;
+    -fx-border-color: #89936e;
+    -fx-border-width: 1px;
+}
+.content-pane{
+    -fx-background-color: #2A2E37;
+    -fx-border-color: #89936e;
+    -fx-border-width: 1px;
+    visibility: visible;
+}
+.profile-button{
+    -fx-focus-color: transparent;
+    -fx-border-color: #89936e transparent #89936e transparent;
+    -fx-border-width: 1px;
+}
+.profile-button:hover {
+    -fx-background-color: rgb(137, 147, 110, 0.1);
+}
+
+.input-field{
+    -fx-background-color: rgb(137, 147, 110, 0.1);
+    -fx-border-color: #89936e;
+    -fx-text-fill:white;
+    -fx-opacity: 1;
+}
+.work-field{
+    -fx-background-color: rgb(137, 147, 110, 0.35);
+    -fx-border-color: #89936e;
+    -fx-text-fill:white;
+    -fx-opacity: 1;
+}
+.edit-button{
+    -fx-background-color: rgb(137, 147, 110, 0.1);
+    -fx-background-radius: 90px;
+    -fx-border-color: #89936e;
+    -fx-border-radius: 90px;
+}
+
+.editable .input-field{
+    -fx-background-color: transparent;
+}
+.orders-scroll-container{
+    -fx-background-color: transparent;
+}
+.orders-scroll-container > .viewport{
+    -fx-background-color: transparent;
+}
+.orders-container{
+    -fx-background-color: transparent;
+}
+.orders-container > Pane {
+    -fx-border-color: #89936e;
+    -fx-border-radius: 5px;
+    -fx-pref-height: 92.0;
+    -fx-pref-width: 355.0;
+}
+.order {
+    -fx-border-color: #89936e;
+    -fx-border-radius: 5px;
+    -fx-pref-height: 92.0;
+    -fx-pref-width: 355.0;
+}
+.orders-container > Pane:hover {
+    -fx-background-color: rgb(137, 147, 110, 0.1);
+}
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+    -fx-border-color: #89936e;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb{
+    -fx-background-color: #b2b2b2;
+}

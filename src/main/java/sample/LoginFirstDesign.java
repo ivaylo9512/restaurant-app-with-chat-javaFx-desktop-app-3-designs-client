@@ -9,7 +9,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 
-public class FirstScene extends Application {
+public class LoginFirstDesign extends Application {
 
     static CloseableHttpClient httpClient = HttpClients.createDefault();
     @Override

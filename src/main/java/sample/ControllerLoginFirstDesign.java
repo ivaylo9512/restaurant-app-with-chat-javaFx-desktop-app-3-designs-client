@@ -1,6 +1,5 @@
 package sample;
 
-import com.google.gson.Gson;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,25 +12,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.prefs.Preferences;
 
-public class ControllerFirstScene implements Initializable {
+public class ControllerLoginFirstDesign implements Initializable {
     @FXML public Text loginText, registerText;
     @FXML public Button login, register;
     @FXML
@@ -42,7 +29,7 @@ public class ControllerFirstScene implements Initializable {
     private TranslateTransition move, moveRegister;
     private FadeTransition fadeInLogin, fadeInRegister;
     private Boolean usernameHovered = false, registerHovered = false;
-    private CloseableHttpClient httpClient = FirstScene.httpClient;
+    private CloseableHttpClient httpClient = LoginFirstDesign.httpClient;
 //    @FXML
 //    public void login(){
 //        Map<String, Object> jsonValues = new HashMap<>();
