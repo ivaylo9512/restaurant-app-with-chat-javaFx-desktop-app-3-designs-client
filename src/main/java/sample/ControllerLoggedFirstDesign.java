@@ -2,6 +2,7 @@ package sample;
 
 import Animations.ResizeWidth;
 
+import Models.JwtUser;
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
