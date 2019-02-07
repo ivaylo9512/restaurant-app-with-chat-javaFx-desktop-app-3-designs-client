@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="mainPane" maxHeight="489.0" maxWidth="-Infinity" minHeight="50" minWidth="-Infinity" prefHeight="489.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerFirstScene">
+<Pane fx:id="mainPane" maxHeight="489.0" maxWidth="-Infinity" minHeight="50" minWidth="-Infinity" prefHeight="489.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstDesign">
    <children>
       <Pane fx:id="menuBar" layoutX="56.0" layoutY="79.0" prefHeight="326.0" prefWidth="488.0" styleClass="login-pane">
          <children>

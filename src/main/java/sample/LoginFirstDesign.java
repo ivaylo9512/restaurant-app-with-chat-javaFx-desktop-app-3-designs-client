@@ -1,4 +1,5 @@
 package sample;
+import Animations.MoveStage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,6 +27,6 @@ public class LoginFirstDesign extends Application {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         primaryStage.show();
-        MoveStage.moveStage(root, pane);
+        MoveStage.moveStage(root);
     }
 }

@@ -1,5 +1,7 @@
 package sample;
 
+import Animations.ResizeHeight;
+import Animations.ResizeWidth;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,7 +27,7 @@ public class ControllerLoginFirstDesign implements Initializable {
     public TextField username, password;
     @FXML public Pane loginPane, menuBar, mainPane;
     @FXML public Text errorField;
-    private ResizeWidthTransition resizeTextField, resizeLogin, resizeRegister;
+    private ResizeWidth resizeTextField, resizeLogin, resizeRegister;
     private TranslateTransition move, moveRegister;
     private FadeTransition fadeInLogin, fadeInRegister;
     private Boolean usernameHovered = false, registerHovered = false;
@@ -69,13 +71,13 @@ public class ControllerLoginFirstDesign implements Initializable {
         fade.setFromValue(1);
         fade.setToValue(0);
         fade.play();
-        ResizeHeightTransition resizeRegister = new ResizeHeightTransition(Duration.millis(750), menuBar, 80);
+        ResizeHeight resizeRegister = new ResizeHeight(Duration.millis(750), menuBar, 80);
         resizeRegister.setDelay(Duration.millis(100));
         resizeRegister.play();
         Timeline displayNewStage = new Timeline(new KeyFrame(Duration.millis(800), ae -> {
             try {
                 Stage window = (Stage)loginPane.getScene().getWindow();
-                SecondScene.displayLoggedScene(window.getX(), window.getY());
+                LoggedFirstDesign.displayLoggedScene(window.getX(), window.getY());
                 Timeline closeOldStage = new Timeline(new KeyFrame(Duration.millis(50), e -> window.close()));
                 closeOldStage.play();
 
@@ -110,10 +112,10 @@ public class ControllerLoginFirstDesign implements Initializable {
 //    }
 //    @FXML
 //    public void expandButtons() {
-//        resizeLogin = new ResizeWidthTransition(Duration.millis(450), login, 120);
+//        resizeLogin = new ResizeWidth(Duration.millis(450), login, 120);
 //        resizeLogin.play();
 //
-//        resizeRegister = new ResizeWidthTransition(Duration.millis(450), register, 120);
+//        resizeRegister = new ResizeWidth(Duration.millis(450), register, 120);
 //        resizeRegister.play();
 //
 //        moveRegister = new TranslateTransition(Duration.millis(449), register);
@@ -157,7 +159,7 @@ public class ControllerLoginFirstDesign implements Initializable {
 //            registerHovered = true;
 //        }
 //
-//        resizeTextField = new ResizeWidthTransition(Duration.millis(450), textField, 250);
+//        resizeTextField = new ResizeWidth(Duration.millis(450), textField, 250);
 //        resizeTextField.play();
 //
 //        move = new TranslateTransition(Duration.millis(202.5), textField);
