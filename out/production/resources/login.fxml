@@ -24,7 +24,7 @@
                            </ImageView>
                            <ImageView fitHeight="23.5" fitWidth="30.5" layoutX="130.5" layoutY="20.0">
                               <image>
-                                 <Image url="@../resources/in.png" />
+                                 <Image url="@in.png" />
                               </image>
                            </ImageView>
                            <Text fx:id="loginText" layoutX="182.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-text" text="Login" />

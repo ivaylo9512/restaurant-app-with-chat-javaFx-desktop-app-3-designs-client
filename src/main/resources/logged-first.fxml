@@ -17,7 +17,7 @@
                            <children>
                                     <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="39.0" layoutY="18.0">
                                        <image>
-                                                <Image url="@../resources/user.png" />
+                                                <Image url="@user.png" />
                                        </image>
                                     </ImageView>
                            </children>
@@ -26,7 +26,7 @@
                <children>
                   <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="39.0" layoutY="18.0">
                      <image>
-                        <Image url="@../resources/meal.png" />
+                        <Image url="@meal.png" />
                      </image>
                   </ImageView>
                </children>
@@ -35,7 +35,7 @@
                            <children>
                            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="39.0" layoutY="18.0">
                               <image>
-                                    <Image url="@../resources/notifications-button.png" />
+                                    <Image url="@notifications-button.png" />
                               </image>
                            </ImageView>
                            </children>
@@ -44,7 +44,7 @@
                <children>
                   <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="39.0" layoutY="18.0">
                      <image>
-                        <Image url="@../resources/plus.png" />
+                        <Image url="@plus.png" />
                      </image>
                   </ImageView>
                </children>
@@ -55,7 +55,7 @@
          <children>
             <ImageView fx:id="jobPosition" fitHeight="94.0" fitWidth="94.0" layoutX="197.0" layoutY="31.0">
                <image>
-                  <Image url="@../resources/waiter.png" />
+                  <Image url="@waiter.png" />
                </image>
             </ImageView>
              <Text fill="WHITE" layoutX="20.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" />
@@ -81,7 +81,7 @@
              <Text fill="#89936e" layoutX="375.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ORDERS" />
              <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="86.0" layoutY="76.0">
                  <image>
-                     <Image url="@../resources/edit-document.png" />
+                     <Image url="@edit-document.png" />
                  </image>
              </ImageView>
             <Text fx:id="editSaveText" fill="WHITE" layoutX="120.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="edit" />
