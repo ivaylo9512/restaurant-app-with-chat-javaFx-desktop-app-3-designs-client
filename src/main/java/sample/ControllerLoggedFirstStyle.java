@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-public class ControllerLoggedFirstDesign implements Initializable {
+public class ControllerLoggedFirstStyle implements Initializable {
     @FXML public Pane menuBar, mainPane, profileSettings, orders;
     @FXML public ImageView jobPosition;
     @FXML public TextField firstName, lastName, userName, age, country, role;

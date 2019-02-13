@@ -10,7 +10,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 
-public class LoginFirstDesign extends Application {
+public class LoginFirstStyle extends Application {
 
     static CloseableHttpClient httpClient = HttpClients.createDefault();
     @Override

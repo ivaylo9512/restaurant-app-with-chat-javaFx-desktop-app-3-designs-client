@@ -31,7 +31,7 @@ public class ControllerLoginFirstDesign implements Initializable {
     private TranslateTransition move, moveRegister;
     private FadeTransition fadeInLogin, fadeInRegister;
     private Boolean usernameHovered = false, registerHovered = false;
-    private CloseableHttpClient httpClient = LoginFirstDesign.httpClient;
+    private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
 //    @FXML
 //    public void login(){
 //        Map<String, Object> jsonValues = new HashMap<>();
@@ -77,7 +77,7 @@ public class ControllerLoginFirstDesign implements Initializable {
         Timeline displayNewStage = new Timeline(new KeyFrame(Duration.millis(800), ae -> {
             try {
                 Stage window = (Stage)loginPane.getScene().getWindow();
-                LoggedFirstDesign.displayLoggedScene(window.getX(), window.getY());
+                LoggedFirstStyle.displayLoggedScene(window.getX(), window.getY());
                 Timeline closeOldStage = new Timeline(new KeyFrame(Duration.millis(50), e -> window.close()));
                 closeOldStage.play();
 
