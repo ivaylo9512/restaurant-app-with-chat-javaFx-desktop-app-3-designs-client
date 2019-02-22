@@ -1,47 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="mainPane" maxHeight="489.0" maxWidth="-Infinity" minHeight="50" minWidth="-Infinity" prefHeight="489.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstDesign">
-   <children>
-      <Pane fx:id="menuBar" layoutX="56.0" layoutY="79.0" prefHeight="326.0" prefWidth="488.0" styleClass="login-pane">
-         <children>
-            <Pane fx:id="loginPane" prefHeight="326.0" prefWidth="488.0" styleClass="login-pane">
-               <children>
-                   <TextField fx:id="username" layoutX="132.0" layoutY="95.0" styleClass="username"/>
-                   <TextField fx:id="password" layoutX="132.0" layoutY="158.0" styleClass="password" />
-                <Pane layoutX="131.0" layoutY="212.0">
-   <children>
-                           <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="76.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="password.png" />
-                              </image>
-                           </ImageView>
-                           <ImageView fitHeight="23.5" fitWidth="30.5" layoutX="130.5" layoutY="20.0">
-                              <image>
-                                 <Image url="@in.png" />
-                              </image>
-                           </ImageView>
-                           <Text fx:id="loginText" layoutX="182.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-text" text="Login" />
-                           <Text fx:id="registerText" layoutX="7.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="register-text" text="Register" />
-                           <Button fx:id="login" layoutX="127.0" layoutY="12.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="user-button" textFill="#bed090" />
-                           <Button fx:id="register" layoutX="67.0" layoutY="12.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="user-button" textFill="#bed090" />
-                    </children>
-                </Pane>
-                  <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="232.0" layoutY="39.0">
-                     <image>
-                        <Image url="user-shape.png" />
-                     </image>
-                  </ImageView>
-                  <Circle fill="DODGERBLUE" layoutX="243.0" layoutY="51.0" radius="22.0" stroke="#89936e" strokeType="INSIDE" style="-fx-fill: transparent;" />
-                  <Text fx:id="errorField" fill="#d77717" layoutX="106.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="270.0" />
-               </children>
-            </Pane>
-         </children></Pane>
-   </children>
+<Pane maxHeight="489.0" maxWidth="-Infinity" prefHeight="489.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstDesign">
+    <children>
+        <Pane fx:id="loginPane" layoutX="190.0" layoutY="134.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="221.0" style="-fx-background-color: #2A2E37;" styleClass="login-pane">
+            <children>
+                <TextField fx:id="username" layoutX="48.0" layoutY="13.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="155.0" promptText="username">
+                    <font>
+                        <Font size="11.0" />
+                    </font></TextField>
+                <TextField fx:id="password" layoutX="48.0" layoutY="59.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="155.0" promptText="password">
+                    <font>
+                        <Font size="11.0" />
+                    </font></TextField>
+                <Button layoutX="6.0" layoutY="107.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="207.0" onMouseClicked="#login" styleClass="btn" text="LOGIN" textFill="#bfbfbf">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="13.0" prefHeight="32.0" prefWidth="32.0">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                            <image>
+                                <Image url="@user-icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="59.0" prefHeight="32.0" prefWidth="32.0">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                            <image>
+                                <Image url="@lock.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Label>
+            </children>
+        </Pane>
+        <Pane layoutX="124.0" layoutY="134.0" prefHeight="149.0" prefWidth="61.0" styleClass="login-pane">
+            <children>
+                <Button layoutX="7.0" layoutY="16.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="47.0" text="Login" textFill="#bfbfbf">
+                    <font>
+                        <Font size="9.0" />
+                    </font>
+                </Button>
+                <Button layoutX="7.0" layoutY="55.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="47.0" text="Sign" textFill="#bfbfbf">
+                    <font>
+                        <Font size="9.0" />
+                    </font>
+                </Button>
+                <Button layoutX="7.0" layoutY="94.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="47.0" text="Style" textFill="#bfbfbf">
+                    <font>
+                        <Font size="9.0" />
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+    </children>
 </Pane>

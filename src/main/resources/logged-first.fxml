@@ -1,57 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import java.lang.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="489.0" maxWidth="-Infinity" prefHeight="489.0" prefWidth="782.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Test">
+<Pane maxHeight="489.0" maxWidth="-Infinity" prefHeight="489.0" prefWidth="782.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedFirstStyle">
    <children>
-      <Pane layoutX="17.0" layoutY="45.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="103.0" style="-fx-background-color: #2A2E37;" styleClass="menuBar">
+      <Pane layoutX="17.0" layoutY="46.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="103.0" styleClass="menu-bar">
          <children>
             <Pane layoutY="189.0" prefHeight="212.0" prefWidth="103.0" style="-fx-background-color: #363b41;">
                <children>
                   <ImageView layoutX="20.0" layoutY="11.0" styleClass="shadow">
                      <image>
-                        <Image url="waiter-first.png" />
+                        <Image url="waiter-second.png" />
                      </image>
                   </ImageView>
-                  <ScrollPane layoutY="82.0" prefHeight="139.5" prefWidth="124.0">
+                  <ScrollPane layoutY="82.0" prefHeight="130.0" prefWidth="124.0">
                      <content>
                         <FlowPane prefHeight="130.0" prefWidth="103.0" vgap="6.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" text="Ivaylo" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label fx:id="firstName" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" text="Aleksandrov" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label fx:id="lastName" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" text="Bankya" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label fx:id="country" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" text="22" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label fx:id="age" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" text="22" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" text="chef" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label fx:id="role" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" text="chef" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Label>
                            </children>
                            <padding>
-                              <Insets bottom="10.0" left="15.5" top="15.0" />
+                              <Insets bottom="10.0" left="15.5" top="9.5" />
                            </padding>
                         </FlowPane>
                      </content>
@@ -59,184 +57,211 @@
                         <Insets bottom="10.0" />
                      </padding>
                   </ScrollPane>
-                  <Line endX="99.0" layoutX="-8.5" layoutY="82.0" startX="20.0" />
-                  <Pane layoutX="11.0" layoutY="81.5" prefHeight="1.0" prefWidth="80.0" style="-fx-background-color: #2A2E37;" styleClass="shadow2" />
+                  <Line endX="99.0" layoutX="-8.5" layoutY="82.0" startX="20.0" stroke="#363b41" />
+                  <Pane layoutX="11.0" layoutY="81.5" prefHeight="1.0" prefWidth="80.0" style="-fx-background-color: #363B41;" styleClass="shadow" />
                </children>
             </Pane>
-            <Pane prefHeight="189.0" prefWidth="103.0">
+            <Pane prefHeight="189.0" prefWidth="103.0" styleClass="menu">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" styleClass="shadow" text="Chat" textAlignment="CENTER" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Profile" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc">
+                  </Button>
+                  <Button layoutX="16.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Chat" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="115.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc">
+                  </Button>
+                  <Button layoutX="16.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Create" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" styleClass="shadow" text="Chat" textAlignment="CENTER" textFill="#bcbcbc">
+                  </Button>
+                  <Button layoutX="16.0" layoutY="115.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Alerts" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="147.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: #2A2E37;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc">
+                  </Button>
+                  <Button layoutX="16.0" layoutY="147.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Orders" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
-                  </Label>
+                  </Button>
                </children>
             </Pane>
          </children>
       </Pane>
-      <Pane layoutX="123.0" layoutY="234.0" prefHeight="212.0" prefWidth="637.0" style="-fx-background-color: #363b41;" />
-      <Pane fx:id="orders" layoutX="123.0" layoutY="45.0" prefHeight="189.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;">
+      <Pane layoutX="17.0" layoutY="18.0" prefHeight="28.0" prefWidth="743.0" styleClass="program-bar" />
+      <Pane layoutX="123.0" layoutY="46.0" prefHeight="400.0" prefWidth="637.0">
          <children>
-            <ScrollPane fx:id="scroll" hbarPolicy="NEVER" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="637.0" vbarPolicy="NEVER">
-               <content>
-                  <FlowPane orientation="VERTICAL" prefHeight="189.0" prefWidth="506.0">
-                     <children>
-                        <Pane prefHeight="189.0" prefWidth="127.2" styleClass="order-container">
+            <Pane layoutY="188.0" prefHeight="213.0" prefWidth="637.0" style="-fx-background-color: #363b41;" />
+            <Pane fx:id="orders" prefHeight="189.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;">
+               <children>
+                  <ScrollPane fx:id="scroll" hbarPolicy="NEVER" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="637.0" vbarPolicy="NEVER">
+                     <content>
+                        <FlowPane orientation="VERTICAL" prefHeight="189.0" prefWidth="506.0">
                            <children>
-                              <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" style="-fx-background-color: #2A2E37; -fx-background-radius: 10px;" styleClass="order">
+                              <Pane id="1" styleClass="order-container">
                                  <children>
-                                    <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
-                                       <graphic>
-                                          <ImageView fitHeight="15.0" fitWidth="15.0">
-                                             <image>
-                                                <Image url="cloud-down.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="192" textFill="#bcbcbc">
-                                       <font>
-                                          <Font size="10.0" />
-                                       </font>
-                                    </Label>
+                                    <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" styleClass="order">
+                                       <children>
+                                          <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+                                             <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                   <image>
+                                                      <Image url="cloud-down.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="192" textFill="#bcbcbc">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Pane>
+                              <Pane id="2" styleClass="order-container">
+                                 <children>
+                                    <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" styleClass="order">
+                                       <children>
+                                          <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+                                             <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                   <image>
+                                                      <Image url="cloud-down.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="192" textFill="#bcbcbc">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Pane>
+                              <Pane styleClass="order-container">
+                                 <children>
+                                    <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" styleClass="order">
+                                       <children>
+                                          <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+                                             <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                   <image>
+                                                      <Image url="cloud-down.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="192" textFill="#bcbcbc">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Pane>
+                              <Pane styleClass="order-container">
+                                 <children>
+                                    <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" styleClass="order">
+                                       <children>
+                                          <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+                                             <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                   <image>
+                                                      <Image url="cloud-down.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="192" textFill="#bcbcbc">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Pane>
+                              <Pane styleClass="order-container">
+                                 <children>
+                                    <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" styleClass="order">
+                                       <children>
+                                          <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+                                             <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                   <image>
+                                                      <Image url="cloud-down.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="192" textFill="#bcbcbc">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Pane>
+                              <Pane styleClass="order-container">
+                                 <children>
+                                    <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" styleClass="order">
+                                       <children>
+                                          <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+                                             <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                   <image>
+                                                      <Image url="cloud-down.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="192" textFill="#bcbcbc">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Pane>
+                              <Pane styleClass="order-container">
+                                 <children>
+                                    <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" styleClass="order">
+                                       <children>
+                                          <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+                                             <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                   <image>
+                                                      <Image url="cloud-down.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" text="192" textFill="#bcbcbc">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
                                  </children>
                               </Pane>
                            </children>
-                        </Pane>
-                        <Pane prefHeight="189.0" prefWidth="127.2" style="-fx-border-width: 0 1 0 0; -fx-border-color: #363b41;" styleClass="order-container">
-                           <children>
-                              <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" style="-fx-background-color: #2A2E37; -fx-background-radius: 10px;" styleClass="order">
-                                 <children>
-                                    <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2A2E37;">
-                                       <graphic>
-                                          <ImageView fitHeight="15.0" fitWidth="15.0">
-                                             <image>
-                                                <Image url="cloud-down.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2A2E37; -fx-border-radius: 2px; -fx-background-radius: 2px;" text="192" textFill="#bcbcbc">
-                                       <font>
-                                          <Font size="10.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </Pane>
-                        <Pane prefHeight="189.0" prefWidth="127.2" style="-fx-border-width: 0 1 0 0; -fx-border-color: #363b41;" styleClass="hover">
-                           <children>
-                              <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" style="-fx-background-color: #2A2E37; -fx-background-radius: 10px;">
-                                 <children>
-                                    <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2A2E37;">
-                                       <graphic>
-                                          <ImageView fitHeight="15.0" fitWidth="15.0">
-                                             <image>
-                                                <Image url="cloud-down.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2A2E37; -fx-border-radius: 2px; -fx-background-radius: 2px;" text="192" textFill="#bcbcbc">
-                                       <font>
-                                          <Font size="10.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </Pane>
-                        <Pane prefHeight="189.0" prefWidth="127.2" style="-fx-border-width: 0 1 0 0; -fx-border-color: #363b41;" styleClass="hover">
-                           <children>
-                              <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" style="-fx-background-color: #2A2E37; -fx-background-radius: 10px;">
-                                 <children>
-                                    <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2A2E37;">
-                                       <graphic>
-                                          <ImageView fitHeight="15.0" fitWidth="15.0">
-                                             <image>
-                                                <Image url="cloud-down.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2A2E37; -fx-border-radius: 2px; -fx-background-radius: 2px;" text="192" textFill="#bcbcbc">
-                                       <font>
-                                          <Font size="10.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </Pane>
-                        <Pane prefHeight="189.0" prefWidth="127.2" style="-fx-border-width: 0 1 0 0; -fx-border-color: #363b41;" styleClass="hover">
-                           <children>
-                              <Pane layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" style="-fx-background-color: #2A2E37; -fx-background-radius: 10px;">
-                                 <children>
-                                    <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2A2E37;">
-                                       <graphic>
-                                          <ImageView fitHeight="15.0" fitWidth="15.0">
-                                             <image>
-                                                <Image url="cloud-down.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2A2E37; -fx-border-radius: 2px; -fx-background-radius: 2px;" text="192" textFill="#bcbcbc">
-                                       <font>
-                                          <Font size="10.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </Pane>
-                        <Pane prefHeight="189.0" prefWidth="126.0" style="-fx-border-width: 0 1 0 0; -fx-border-color: #363b41;">
-                           <children>
-                              <Pane layoutX="20.0" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" style="-fx-background-color: #2A2E37; -fx-background-radius: 10px;">
-                                 <children>
-                                    <Button layoutX="28.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2A2E37;" text="192" textAlignment="CENTER" textFill="#bcbcbc">
-                                       <font>
-                                          <Font name="SansSerif Regular" size="9.0" />
-                                       </font>
-                                    </Button>
-                                    <Button layoutX="29.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" style="-fx-background-color: #2A2E37;">
-                                       <graphic>
-                                          <ImageView fitHeight="15.0" fitWidth="15.0">
-                                             <image>
-                                                <Image url="cloud-down.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                 </children>
-                              </Pane>
-                           </children>
-                        </Pane>
-                     </children>
-                  </FlowPane>
-               </content>
-            </ScrollPane>
+                        </FlowPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>
