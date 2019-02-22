@@ -46,18 +46,27 @@ ScrollPane:disabled{
 .order{
     -fx-background-color: #2A2E37;
     -fx-background-radius: 10px;
+    -fx-pref-height: 86.5;
+    -fx-pref-width: 86.5;
 }
 .order > Button{
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
+    -fx-pref-height: 28.0;
+    -fx-pref-width: 28.0;
+    -fx-min-height: 28.0;
+    -fx-min-width: 28.0;
 }
 .order > Label{
-    -fx-pref-height: 30px;
-    -fx-pref-width: 30px;
     -fx-background-color: #2A2E37;
     -fx-border-radius: 2px;
     -fx-background-radius: 2px;
+    -fx-pref-height: 30.0;
+    -fx-pref-width: 30.0;
+    -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
+    -fx-font-size: 10;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
 }

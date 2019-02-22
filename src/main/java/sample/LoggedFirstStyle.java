@@ -1,9 +1,8 @@
 package sample;
-import Animations.MoveStage;
+
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -13,13 +12,11 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class LoggedFirstStyle extends LoginFirstStyle {
-    private static Boolean update;
-    public static void displayLoggedScene(Double stageX, Double stageY) throws IOException {
+    public static void displayLoggedScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        Pane root = new FXMLLoader(LoggedFirstStyle.class.getResource("/third.fxml")).load();
-
+        Pane root = new FXMLLoader(LoggedFirstStyle.class.getResource("/logged-first.fxml")).load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(LoggedFirstStyle.class.getResource("/third.css").toString());
+        scene.getStylesheets().add(LoggedFirstStyle.class.getResource("/logged-first.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         Stage stage = new Stage();
@@ -32,9 +29,5 @@ public class LoggedFirstStyle extends LoginFirstStyle {
         stage.setHeight(primaryScreenBounds.getHeight());
         stage.setX(primaryScreenBounds.getMinX());
         stage.setY(primaryScreenBounds.getMinY());
-
     }
-
-
-
 }

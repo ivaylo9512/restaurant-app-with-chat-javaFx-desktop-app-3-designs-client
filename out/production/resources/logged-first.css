@@ -1,78 +1,86 @@
-.visibility{
-visibility: collapse;
+.shadow{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
-.menu-pane{
-    -fx-background-color: #2A2E37;
-    -fx-border-color: #89936e;
-    -fx-border-width: 1px;
-}
-.content-pane{
-    -fx-background-color: #2A2E37;
-    -fx-border-color: #89936e;
-    -fx-border-width: 1px;
-    visibility: visible;
-}
-.profile-button{
-    -fx-focus-color: transparent;
-    -fx-border-color: #89936e transparent #89936e transparent;
-    -fx-border-width: 1px;
-}
-.profile-button:hover {
-    -fx-background-color: rgb(137, 147, 110, 0.1);
+Label{
+    -fx-background-color: #363b41;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
 
-.input-field{
-    -fx-background-color: rgb(137, 147, 110, 0.1);
-    -fx-border-color: #89936e;
-    -fx-text-fill:white;
-    -fx-opacity: 1;
+Button{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
-.work-field{
-    -fx-background-color: rgb(137, 147, 110, 0.35);
-    -fx-border-color: #89936e;
-    -fx-text-fill:white;
-    -fx-opacity: 1;
+Button:focused{
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
-.edit-button{
-    -fx-background-color: rgb(137, 147, 110, 0.1);
-    -fx-background-radius: 90px;
-    -fx-border-color: #89936e;
-    -fx-border-radius: 90px;
+Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
 
-.editable .input-field{
+ScrollPane{
+    -fx-background-color: transparent;
+    -fx-padding: 0 1 0 0;
+    -fx-opacity: 1.0;
+    -fx-background-insets: 0, 0;
+}
+ScrollPane > .viewport{
     -fx-background-color: transparent;
 }
-.orders-scroll-container{
-    -fx-background-color: transparent;
+ScrollPane:disabled{
+    -fx-opacity: 0.55;
 }
-.orders-scroll-container > .viewport{
-    -fx-background-color: transparent;
+.menu Button{
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-background-color: #2A2E37;
 }
-.orders-container{
-    -fx-background-color: transparent;
+.order-container{
+    -fx-pref-height: 189.0px;
+    -fx-pref-width: 127.35px;
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #363b41;
 }
-.orders-container > Pane {
-    -fx-border-color: #89936e;
-    -fx-border-radius: 5px;
-    -fx-pref-height: 92.0;
-    -fx-pref-width: 355.0;
+.order-container:hover .order{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
-.order {
-    -fx-border-color: #89936e;
-    -fx-border-radius: 5px;
-    -fx-pref-height: 92.0;
-    -fx-pref-width: 355.0;
+.order{
+    -fx-background-color: #2A2E37;
+    -fx-background-radius: 10px;
+    -fx-pref-height: 86.5;
+    -fx-pref-width: 86.5;
 }
-.orders-container > Pane:hover {
-    -fx-background-color: rgb(137, 147, 110, 0.1);
+.order > Button{
+    -fx-background-color: #2A2E37;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-opacity: 1.0;
+    -fx-pref-height: 28.0;
+    -fx-pref-width: 28.0;
+    -fx-min-height: 28.0;
+    -fx-min-width: 28.0;
 }
-.scroll-bar:horizontal, .scroll-bar:vertical{
-    -fx-background-color:transparent;
-    -fx-border-color: #89936e;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
+.order > Label{
+    -fx-background-color: #2A2E37;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+    -fx-pref-height: 30.0;
+    -fx-pref-width: 30.0;
+    -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
+    -fx-font-size: 10;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-opacity: 1.0;
 }
-.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb{
-    -fx-background-color: #b2b2b2;
+.order > Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 15, 0.0 , 0 , 2 );
+}
+.order > Button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+.program-bar{
+    -fx-background-color: #2A2E37;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #363b41;
+}
+.menu-bar{
+    -fx-background-color: #2A2E37;
 }

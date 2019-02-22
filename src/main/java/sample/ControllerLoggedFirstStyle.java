@@ -1,108 +1,155 @@
 package sample;
 
-import Animations.ResizeWidth;
-
-import Models.JwtUser;
-import com.google.gson.Gson;
+import Animations.ExpandOrderPane;
+import Models.Order;
+import Models.User;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.google.gson.*;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.time.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.prefs.Preferences;
 
-public class ControllerLoggedFirstStyle implements Initializable {
-    @FXML public Pane menuBar, mainPane, profileSettings, orders;
-    @FXML public ImageView jobPosition;
-    @FXML public TextField firstName, lastName, userName, age, country, role;
-    @FXML public Button edit, editButton;
-    @FXML private Text editSaveText;
+
+public class ControllerLoggedFirstStyle {
+    @FXML Label firstName, lastName, country, age, role;
+    @FXML ScrollPane scroll;
     @FXML FlowPane flowPane;
-    private ResizeWidth resizeLogin;
-    private Pane currentPane = new Pane();
-    private Boolean editModeOn = false;
-    private JwtUser jwtUser;
+    @FXML Pane orders;
+    private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
+    private Preferences userPreference = Preferences.userRoot();
     @FXML
-    public void openButtonPane(MouseEvent event){
-        currentPane.getStyleClass().remove("content-pane");
-        Pane pane = (Pane) event.getSource();
-        String contentPaneId = "#" + pane.getId() + "-content";
-        currentPane = (Pane) mainPane.lookup(contentPaneId);
-        currentPane.getStyleClass().add("content-pane");
-        jobPosition.setImage(new Image(getClass().getResourceAsStream("/chef.png")));
-        if(jwtUser.getRole().equals("chef")){
-            jobPosition.setImage(new Image(getClass().getResource("/resources/chef.png").toString()));
-        }else if(jwtUser.getRole().equals("waiter")){
-            jobPosition.setImage(new Image(new File("src/main/java/resources/chef.png").toURI().toString()));
-        }
-    }
-    @FXML
-    public void editProperties(){
-        if (!editModeOn) {
-            profileSettings.getStyleClass().add("editable");
-            System.out.println(profileSettings.getStyleClass());
-            editSaveText.setText("save");
-            editModeOn = true;
-            firstName.setDisable(false);
-            lastName.setDisable(false);
-            userName.setDisable(false);
-            age.setDisable(false);
-            country.setDisable(false);
-            role.setDisable(false);
-        }else{
-            profileSettings.getStyleClass().remove("editable");
-            editSaveText.setText("edit");
-            editModeOn = false;
-            firstName.setDisable(true);
-            lastName.setDisable(true);
-            userName.setDisable(true);
-            age.setDisable(true);
-            country.setDisable(true);
-            role.setDisable(true);
-            savePropertiesData();
-        }
-    }
-
-    private void savePropertiesData() {
-        jwtUser.setFirstname(firstName.getText());
-        jwtUser.setLastname(lastName.getText());
-        jwtUser.setUsername(userName.getText());
-        jwtUser.setAge(Integer.parseInt(age.getText()));
-        jwtUser.setCountry(country.getText());
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        Preferences userPreference = Preferences.userRoot();
+    public void initialize(){
         Gson gson = new Gson();
-        jwtUser = gson.fromJson(userPreference.get("user", "{id:0}"), JwtUser.class);
-        System.out.println(editButton);
-        editButton.setOnMouseEntered(event -> {
-            System.out.println("hey");
-            if(!editModeOn) {
-                resizeLogin = new ResizeWidth(Duration.millis(450), edit, 90);
-                resizeLogin.play();
-            }
-        });
-        editButton.setOnMouseExited(event -> {
-            if(!editModeOn) {
-                resizeLogin.stop();
-                edit.setMinWidth(36);
+        String userJson = userPreference.get("user",null);
+        User user = gson.fromJson(userJson, User.class);
+
+        firstName.setText(user.getFirstName());
+        lastName.setText(user.getLastName());
+        country.setText(user.getCountry());
+        age.setText(String.valueOf(user.getAge()));
+        role.setText(user.getRole());
+
+        List<Order> orders = getOrders();
+        appendOrders(orders);
+
+        scroll.setOnScroll(event -> {
+            if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
+                FlowPane pane = (FlowPane) scroll.getContent();
+                scroll.setHvalue(scroll.getHvalue() - event.getDeltaY() / pane.getWidth());
+                System.out.println((pane.getWidth() - scroll.getWidth()) * scroll.getHvalue());
             }
         });
     }
     @FXML
-    public void addPane(MouseEvent event){
+    public List<Order> getOrders(){
+        List<Order> orders = new ArrayList<>();
+        HttpGet httpGet = new HttpGet("http://localhost:8080/api/auth/order/findAll");
+        httpGet.setHeader("Authorization", userPreference.get("token", null));
+        try(CloseableHttpResponse response = httpClient.execute(httpGet)) {
+
+            int responseStatus = response.getStatusLine().getStatusCode();
+            HttpEntity receivedEntity = response.getEntity();
+            String content = EntityUtils.toString(receivedEntity);
+
+            if(responseStatus != 200){
+                EntityUtils.consume(receivedEntity);
+                throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
+            }
+            System.out.println(content);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            orders = mapper.readValue(content, new TypeReference<List<Order>>(){});
+            EntityUtils.consume(receivedEntity);
+        } catch (IOException | HttpException e) {
+            e.printStackTrace();
+        }
+        return orders;
     }
 
+    private void appendOrders(List<Order> orders) {
+        orders.forEach(order -> {
+            Pane orderContainer = new Pane();
+            orderContainer.getStyleClass().add("order-container");
+
+            Pane orderPane = new Pane();
+            orderPane.setLayoutX(20.6);
+            orderPane.setLayoutY(51.0);
+            orderPane.getStyleClass().add("order");
+            orderContainer.getChildren().add(orderPane);
+
+            Image clout = new Image(getClass().getResourceAsStream("/cloud-down.png"));
+            ImageView imageView = new ImageView(clout);
+            imageView.setFitWidth(15);
+            imageView.setFitHeight(15);
+            imageView.fitWidthProperty().setValue(15);
+            imageView.fitHeightProperty().setValue(15);
+            Button button = new Button("", imageView);
+            button.setLayoutX(29);
+            button.setLayoutY(48);
+            button.setTranslateX(0);
+            button.setTranslateY(0);
+            orderPane.getChildren().add(button);
+
+            Label label = new Label(String.valueOf(order.getId()));
+            label.setLayoutX(28);
+            label.setLayoutY(11);
+            orderPane.getChildren().add(label);
+
+            flowPane.getChildren().add(orderContainer);
+
+
+        });
+//            LocalDate localDate = LocalDate.from(orderSerilized[0].getCreated());
+    }
+
+    @FXML
+    public void expandOrder(MouseEvent event){
+        Node intersectedNode = event.getPickResult().getIntersectedNode();
+
+        if(intersectedNode.getTypeSelector().equals("Pane") && intersectedNode.getStyleClass().get(0).equals("order")) {
+
+            Pane order = (Pane) intersectedNode;
+            Pane orderContainer = (Pane) event.getPickResult().getIntersectedNode().getParent();
+            FlowPane pane = (FlowPane) scroll.getContent();
+
+            double translateX = order.getLayoutX() + order.getParent().getLayoutX();
+            double translateY = order.getLayoutX() + order.getParent().getLayoutY();
+            double scrolledAmount = (pane.getWidth() - scroll.getWidth()) * scroll.getHvalue();
+
+            order.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
+            orders.getChildren().add(order);
+
+            ExpandOrderPane.expandPane(order, orderContainer, scrolledAmount, event, translateX, translateY, scroll);
+
+        }
+    }
 }

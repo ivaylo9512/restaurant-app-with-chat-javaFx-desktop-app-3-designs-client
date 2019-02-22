@@ -5,21 +5,35 @@
       <artifact name="fda.das.main:jar" />
     </artifacts-to-build>
   </component>
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/main/resources/logged-first.css" line="64" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="c96f4f85-f618-4eb0-8cb4-8c9cbd663497" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lock.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/user-icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.lock" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Models/Dish.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Models/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sample/LoginService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/Animations/ExpandOrderPane$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Animations/ExpandOrderPane$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/Animations/ExpandOrderPane.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Animations/ExpandOrderPane.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/Models/JwtUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/sample/ControllerLoggedFirstStyle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/sample/ControllerLoggedFirstStyle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/sample/ControllerLoginFirstDesign.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/sample/LoggedFirstStyle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/sample/LoggedFirstStyle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/sample/LoginFirstStyle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/sample/LoginFirstStyle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/logged-first.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/logged-first.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/logged-first.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/logged-first.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Animations/ExpandOrderPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Animations/ExpandOrderPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Models/JwtUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/ControllerLoggedFirstStyle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/ControllerLoggedFirstStyle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/ControllerLoginFirstDesign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/ControllerLoginFirstStyle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/LoggedFirstStyle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/LoggedFirstStyle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/LoginFirstStyle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/LoginFirstStyle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logged-first.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logged-first.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/logged-first.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logged-first.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/login.fxml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -76,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="102">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding>
                 <element signature="e#122#123#0" expanded="true" />
                 <element signature="e#185#186#0" expanded="true" />
@@ -86,21 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/logged-first.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="244" selection-start-line="9" selection-start-column="244" selection-end-line="9" selection-end-column="244" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/login.css">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/logged-first.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+            <state relative-caret-position="136">
+              <caret line="62" column="27" selection-start-line="62" selection-start-column="27" selection-end-line="62" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -108,8 +112,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/LoggedFirstStyle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="133">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -118,10 +122,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerLoginFirstDesign.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerLoggedFirstStyle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="79" selection-start-line="79" selection-end-line="79" />
+            <state relative-caret-position="51">
+              <caret line="48" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -130,13 +134,64 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Animations/ExpandOrderPane.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Animations/ResizeWidth.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-306">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="153">
+              <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#619#620#0" expanded="true" />
+                <element signature="e#688#689#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerLoginFirstStyle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="41" column="37" lean-forward="true" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/11.0.2/15eadef01f327a851a6d3af0ac89d56292076b13/javafx-graphics-11.0.2-sources.jar!/javafx/concurrent/Service.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="113">
+              <caret line="136" column="22" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sample/LoginService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1377">
+              <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1057#3558#0" expanded="true" />
+                <element signature="e#3557#3558#0" expanded="true" />
+                <element signature="e#3666#3667#0" expanded="true" />
+                <element signature="e#3734#3735#0" expanded="true" />
+                <element signature="e#4018#4019#0" expanded="true" />
+                <element signature="e#4106#4107#0" expanded="true" />
+                <element signature="e#4194#4195#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/11.0.2/15eadef01f327a851a6d3af0ac89d56292076b13/javafx-graphics-11.0.2-sources.jar!/javafx/stage/Window.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="131">
+              <caret line="89" column="13" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -144,39 +199,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/LoginFirstStyle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/login.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-59">
-              <caret line="6" column="244" selection-start-line="6" selection-start-column="244" selection-end-line="6" selection-end-column="244" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="39" column="74" selection-start-line="39" selection-start-column="74" selection-end-line="39" selection-end-column="74" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Animations/MoveStage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="320">
+              <caret line="21" column="38" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -209,6 +233,13 @@
       <find>Dish</find>
       <find>Order</find>
       <find>gson</find>
+      <find>system</find>
+      <find>ImageView(</find>
+      <find>button.setPrefWidth</find>
+      <find>86.5</find>
+      <find>fail</find>
+      <find>failed(</find>
+      <find>abstract</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -239,7 +270,6 @@
         <option value="$PROJECT_DIR$/src/main/java/sample/ControllerSecondDFirstS.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/ControllerSecondDesignFirst.java" />
         <option value="$PROJECT_DIR$/src/main/resources/logged-second.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/Models/Order.java" />
         <option value="$PROJECT_DIR$/src/main/java/Models/HttpResponse.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/SecondScene.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/Main.java" />
@@ -253,12 +283,20 @@
         <option value="$PROJECT_DIR$/src/main/java/Animations/ResizeHeight.java" />
         <option value="$PROJECT_DIR$/src/main/java/Animations/ResizeWidth.java" />
         <option value="$PROJECT_DIR$/src/main/resources/third.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/sample/LoggedFirstStyle.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Animations/ExpandOrderPane.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/resources/login.css" />
-        <option value="$PROJECT_DIR$/src/main/resources/logged-first.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/login.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/LoggedFirstStyle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Models/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Models/Dish.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Models/Order.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/resources/logged-first.css" />
+        <option value="$PROJECT_DIR$/src/main/resources/logged-first.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/Animations/ExpandOrderPane.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/ControllerLoggedFirstStyle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/LoginFirstStyle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/LoginService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/ControllerLoginFirstStyle.java" />
       </list>
     </option>
   </component>
@@ -363,7 +401,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550802871190" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550876016157" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15917969" />
@@ -371,23 +409,23 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\ivail\OneDrive\Работен плот\Restaurant-app-client-JavaFx-desktopApp-master\src\main\resources" />
-      <recent name="C:\Users\ivail\OneDrive\Работен плот\Visin-project-Javafx-client-desktopApp-master\Vision-project-JavaFx\out\production\classes" />
-      <recent name="C:\Users\ivail\OneDrive\Работен плот\Visin-project-Javafx-client-desktopApp-master\Vision-project-JavaFx\src\main\java\sample" />
-      <recent name="C:\Users\ivail\IdeaProjects\das\src\main\resources" />
-      <recent name="C:\Users\ivail\IdeaProjects\das\src\main\java\sample" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="Animations" />
-      <recent name="Models" />
-      <recent name="sample" />
-      <recent name="com.compan" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ivail\OneDrive\Работен плот\Visin-project-Javafx-client-desktopApp-master\Vision-project-JavaFx\src\main\java\sample" />
       <recent name="C:\Users\ivail\IdeaProjects\das\src\main\resources" />
       <recent name="C:\Users\ivail\IdeaProjects\das\src\main\java\domain" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Models" />
+      <recent name="Animations" />
+      <recent name="sample" />
+      <recent name="com.compan" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ivail\OneDrive\Работен плот\Restaurant-app-client-JavaFx-desktopApp-master\src\main\java\Models" />
+      <recent name="C:\Users\ivail\OneDrive\Работен плот\Restaurant-app-client-JavaFx-desktopApp-master\out\production\resources" />
+      <recent name="C:\Users\ivail\OneDrive\Работен плот\Restaurant-app-client-JavaFx-desktopApp-master\src\main\resources" />
+      <recent name="C:\Users\ivail\OneDrive\Работен плот\Visin-project-Javafx-client-desktopApp-master\Vision-project-JavaFx\out\production\classes" />
+      <recent name="C:\Users\ivail\OneDrive\Работен плот\Visin-project-Javafx-client-desktopApp-master\Vision-project-JavaFx\src\main\java\sample" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -468,11 +506,20 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="735" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2777328" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2777328" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -481,16 +528,16 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49554655" weight="0.3283582" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.47692308" visible="true" weight="0.30514097" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.46963564" visible="true" weight="0.30514097" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49959514" weight="0.3283582" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49959514" weight="0.3283582" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.52307695" side_tool="true" visible="true" weight="0.30514097" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5303644" side_tool="true" visible="true" weight="0.30514097" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.29662523" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.47935224" weight="0.3631841" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.47125506" weight="0.3631841" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -515,17 +562,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/11.0.2/15eadef01f327a851a6d3af0ac89d56292076b13/javafx-graphics-11.0.2-sources.jar!/javafx/scene/image/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16337">
-          <caret line="1106" selection-start-line="1106" selection-end-line="1106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/FirstSceneManager.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/domain/Main.class" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/domain/Test.class" />
     <entry file="file://$PROJECT_DIR$/src/main/java/domain/IFindById.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/domain/IFind.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/domain/FirstScene.class" />
@@ -552,8 +588,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/logged-second.fxml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/ExceptionClass2.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerTry.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/Models/Dish.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/Models/Order.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/Models/HttpResponse.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerSecondScene.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/InvalidRankCustomException.java" />
@@ -565,25 +599,11 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/SecondSceneManager.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/Test.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerSecondDesignFirst.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/Models/User.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/Models/JwtUser.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/out/production/resources/logged-first.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-153" />
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerLoggedFirstStyle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1445">
-          <caret line="104" column="42" selection-start-line="104" selection-start-column="42" selection-end-line="104" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Animations/ResizeHeight.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -592,6 +612,103 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Animations/MoveStage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/login.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-59">
+          <caret line="6" column="243" selection-start-line="6" selection-start-column="243" selection-end-line="6" selection-end-column="243" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Models/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="22" column="33" lean-forward="true" selection-end-line="91" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Models/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Models/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1720#1721#0" expanded="true" />
+            <element signature="e#1758#1759#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Models/Dish.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="50" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/11.0.2/15eadef01f327a851a6d3af0ac89d56292076b13/javafx-graphics-11.0.2-sources.jar!/javafx/scene/image/ImageView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="173" column="11" selection-start-line="173" selection-start-column="11" selection-end-line="173" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/logged-first.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Animations/ExpandOrderPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="106" selection-start-line="106" selection-end-line="106" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/logged-first.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="62" column="27" selection-start-line="62" selection-start-column="27" selection-end-line="62" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -607,30 +724,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Animations/MoveStage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Animations/ExpandOrderPane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="102">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
             <element signature="e#122#123#0" expanded="true" />
             <element signature="e#185#186#0" expanded="true" />
@@ -638,20 +735,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerLoginFirstDesign.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/11.0.2/15eadef01f327a851a6d3af0ac89d56292076b13/javafx-graphics-11.0.2-sources.jar!/javafx/stage/Window.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="131">
+          <caret line="89" column="13" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/LoggedFirstStyle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="133">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -660,43 +754,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/LoginFirstStyle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        <state relative-caret-position="320">
+          <caret line="21" column="38" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerLoggedFirstStyle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="39" column="74" selection-start-line="39" selection-start-column="74" selection-end-line="39" selection-end-column="74" />
+        <state relative-caret-position="51">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/login.css">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/11.0.2/15eadef01f327a851a6d3af0ac89d56292076b13/javafx-graphics-11.0.2-sources.jar!/javafx/concurrent/Service.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+        <state relative-caret-position="113">
+          <caret line="136" column="22" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/login.fxml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/LoginService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-59">
-          <caret line="6" column="244" selection-start-line="6" selection-start-column="244" selection-end-line="6" selection-end-column="244" />
+        <state relative-caret-position="-1377">
+          <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1057#3558#0" expanded="true" />
+            <element signature="e#3557#3558#0" expanded="true" />
+            <element signature="e#3666#3667#0" expanded="true" />
+            <element signature="e#3734#3735#0" expanded="true" />
+            <element signature="e#4018#4019#0" expanded="true" />
+            <element signature="e#4106#4107#0" expanded="true" />
+            <element signature="e#4194#4195#0" expanded="true" />
+          </folding>
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/logged-first.fxml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllerLoginFirstStyle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="9" column="244" selection-start-line="9" selection-start-column="244" selection-end-line="9" selection-end-column="244" />
+          <caret line="41" column="37" lean-forward="true" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
   </component>
   <component name="masterDetails">

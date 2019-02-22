@@ -35,9 +35,10 @@ dependencies {
 // https://mvnrepository.com/artifact/org.openjfx/javafx-graphics
     compile group: 'org.openjfx', name: 'javafx-graphics', version: '11.0.1'
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-maven-plugin
-    compile group: 'org.springframework.boot', name: 'spring-boot-maven-plugin', version: '2.1.2.RELEASE'
-// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.8'
+
 }
 javafx {
     modules = [ 'javafx.controls', 'javafx.fxml', ]

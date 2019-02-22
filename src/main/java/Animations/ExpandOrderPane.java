@@ -55,7 +55,6 @@ public class ExpandOrderPane {
             buttonX = button.getLayoutX();
             buttonY = button.getLayoutY();
             initialOffsetX = event.getX() - translatePaneX + scrolledAmount;
-            System.out.println(initialOffsetX);
             initialMouseX = event.getScreenX();
 
             orderWidth = currentOrder.getWidth();
@@ -64,7 +63,7 @@ public class ExpandOrderPane {
             buttonHeight = button.getHeight();
             labelWidth = label.getWidth();
 
-            xButtonRation = currentOrder.getPrefWidth() / (button.getLayoutX() + button.getPrefWidth() / 2);
+            xButtonRation = currentOrder.getWidth() / (button.getLayoutX() + buttonWidth / 2);
         }
 
         EventHandler panePress = (EventHandler<MouseEvent>) eventPress -> {
@@ -87,7 +86,6 @@ public class ExpandOrderPane {
                 }
                 System.out.println(expand);
                 if(expand >= 0){
-                    System.out.println(expand);
                     label.setPrefWidth(labelWidth);
                     order.setPrefWidth(orderWidth);
                     order.setPrefHeight(orderHeight);
@@ -109,7 +107,6 @@ public class ExpandOrderPane {
                     button.setTranslateX(translateButtonX);
                     button.setTranslateY(translateButtonY);
                     label.setPrefWidth(labelWidth - expand);
-
                     double maxWidth = orderWidth * 4;
                     if (currentOrder.getPrefWidth() > maxWidth) {
                         buttonExpanded = true;
