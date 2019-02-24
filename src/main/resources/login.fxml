@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="489.0" maxWidth="-Infinity" prefHeight="489.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
+<Pane fx:id="root" maxHeight="489.0" maxWidth="-Infinity" prefHeight="489.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
     <children>
         <Pane fx:id="loginPane" layoutX="190.0" layoutY="134.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="221.0" style="-fx-background-color: #2A2E37;" styleClass="login-pane">
             <children>
@@ -16,7 +18,7 @@
                     <font>
                         <Font size="11.0" />
                     </font></TextField>
-                <Button layoutX="6.0" layoutY="107.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="207.0" onMouseClicked="#login" styleClass="btn" text="LOGIN" textFill="#bfbfbf">
+                <Button layoutX="6.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="31.0" prefWidth="207.0" styleClass="btn" text="LOGIN" textFill="#bfbfbf">
                     <font>
                         <Font size="10.0" />
                     </font>

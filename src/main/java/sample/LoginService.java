@@ -1,6 +1,7 @@
 package sample;
 
-import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.stage.Stage;
@@ -18,25 +19,23 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 import java.util.prefs.Preferences;
 
 public class LoginService extends Service {
-    public Stage stage;
-    public String username;
-    public String password;
+    private final StringProperty username = new SimpleStringProperty(this, "username");
+    private final StringProperty password = new SimpleStringProperty(this, "username");
+    public final StringProperty usernameProperty() { return username; }
+    public final StringProperty passwordProperty() { return password; }
+
     private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
-    private boolean authenticated;
-    LoginService(){
-    }
     @Override
     protected Task createTask() {
-        return new Task<Void>() {
+        return new Task<Boolean>() {
             @Override
-            protected Void call() throws Exception {
+            protected Boolean call() throws Exception {
                 Map<String, Object> jsonValues = new HashMap<>();
-                jsonValues.put("username", username);
-                jsonValues.put("password", password);
+                jsonValues.put("username", username.get());
+                jsonValues.put("password", password.get());
                 JSONObject json = new JSONObject(jsonValues);
 
                 StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
@@ -53,10 +52,9 @@ public class LoginService extends Service {
 
                     if (responseStatus != 200) {
                         EntityUtils.consume(receivedEntity);
-                        throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
+                        throw new HttpException(content);
                     }
 
-                    authenticated = true;
                     String jwtToken = response.getHeaders("Authorization")[0].getValue();
                     String userJson = response.getHeaders("user")[0].getValue();
 
@@ -65,60 +63,9 @@ public class LoginService extends Service {
                     userPreference.put("token", jwtToken);
 
                     EntityUtils.consume(receivedEntity);
-                } catch (IOException | HttpException e) {
-                    e.printStackTrace();
-                    reset();
+                    return true;
                 }
-                final CountDownLatch latch = new CountDownLatch(1);
-                Platform.runLater(() -> {
-                    try {
-                        if (authenticated) {
-                            try {
-                                LoggedFirstStyle.displayLoggedScene();
-                                stage.close();
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    } finally {
-                        latch.countDown();
-                    }
-                });
-                latch.await();
-                return null;
             }
         };
-    }
-    @Override
-    protected void succeeded() {
-        reset();
-    }
-
-    @Override
-    protected void failed() {
-        reset();
-    }
-
-    private void changeScene(){
-        try {
-            LoggedFirstStyle.displayLoggedScene();
-            stage.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

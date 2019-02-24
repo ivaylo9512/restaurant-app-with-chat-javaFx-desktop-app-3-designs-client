@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
@@ -14,12 +15,7 @@
          <children>
             <Pane layoutY="189.0" prefHeight="212.0" prefWidth="103.0" style="-fx-background-color: #363b41;">
                <children>
-                  <ImageView layoutX="20.0" layoutY="11.0" styleClass="shadow">
-                     <image>
-                        <Image url="waiter-second.png" />
-                     </image>
-                  </ImageView>
-                  <ScrollPane layoutY="82.0" prefHeight="130.0" prefWidth="124.0">
+                  <ScrollPane layoutY="81.5" prefHeight="130" prefWidth="124">
                      <content>
                         <FlowPane prefHeight="130.0" prefWidth="103.0" vgap="6.0">
                            <children>
@@ -38,7 +34,7 @@
                                     <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="age" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" text="22" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label fx:id="age" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -58,6 +54,11 @@
                         <Insets bottom="10.0" />
                      </padding>
                   </ScrollPane>
+                  <ImageView layoutX="20.0" layoutY="11.0" styleClass="shadow">
+                     <image>
+                        <Image url="waiter-second.png" />
+                     </image>
+                  </ImageView>
                   <Line endX="99.0" layoutX="-8.5" layoutY="82.0" startX="20.0" stroke="#363b41" />
                   <Pane layoutX="11.0" layoutY="81.5" prefHeight="1.0" prefWidth="80.0" style="-fx-background-color: #363B41;" styleClass="shadow" />
                </children>
@@ -96,7 +97,36 @@
       <Pane layoutX="17.0" layoutY="18.0" prefHeight="28.0" prefWidth="743.0" styleClass="program-bar" />
       <Pane layoutX="123.0" layoutY="46.0" prefHeight="400.0" prefWidth="637.0">
          <children>
-            <Pane layoutY="188.0" prefHeight="213.0" prefWidth="637.0" style="-fx-background-color: #363b41;" />
+            <Pane layoutY="188.0" prefHeight="213.0" prefWidth="637.0" style="-fx-background-color: #363b41;">
+               <children>
+                  <Line endX="130.0" layoutX="105.5" layoutY="107.0" stroke="#bcbcbc" />
+                  <Line endX="130.0" layoutX="401.5" layoutY="107.0" stroke="#bcbcbc" />
+                  <Text fill="#bcbcbc" layoutX="253.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No chat chosen click or drag a chat" textAlignment="CENTER" wrappingWidth="131.0" />
+                  <Pane layoutX="103.0" layoutY="18.0" prefHeight="189.0" prefWidth="423.0" style="-fx-background-color: #363b41;">
+                     <children>
+                        <TextField layoutX="4.0" layoutY="147.0" prefHeight="39.0" prefWidth="414.0" style="-fx-background-color: #363b41; -fx-text-fill: #bcbcbc;">
+                           <effect>
+                              <InnerShadow height="13.0" radius="6.0" width="13.0" />
+                           </effect>
+                        </TextField>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="363.0" layoutY="5.0">
+                           <image>
+                              <Image url="@../../../../Hayley-profile-pic-circle.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="21.0" layoutY="47.0">
+                           <image>
+                              <Image url="@../../../../profile2.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#bcbcbc" layoutX="67.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello my name is carl and i live down stairs" wrappingWidth="170.5927734375" />
+                        <Text fill="#bcbcbc" layoutX="173.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello my name is Perryssssssss" textAlignment="RIGHT" />
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Pane>
+               </children></Pane>
             <Pane fx:id="orders" prefHeight="189.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;">
                <children>
                   <ScrollPane fx:id="scroll" hbarPolicy="NEVER" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="637.0" vbarPolicy="NEVER">
@@ -109,5 +139,19 @@
             </Pane>
          </children>
       </Pane>
+      <AnchorPane layoutX="175.0" layoutY="-232.0" prefHeight="200.0" prefWidth="466.0">
+         <children>
+            <ScrollPane layoutY="-4.0" prefHeight="157.0" prefWidth="469.0">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <FlowPane layoutY="-44.0" prefHeight="200.0" prefWidth="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="-44.0" />
+                        <FlowPane layoutX="230.0" layoutY="-44.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-44.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
    </children>
 </Pane>
