@@ -1,6 +1,7 @@
 package sample;
 
 import Animations.ExpandOrderPane;
+import Models.Chat;
 import Models.Order;
 import Models.User;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -22,6 +23,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -59,10 +61,11 @@ public class ControllerLoggedFirstStyle {
         country.setText(user.getCountry());
         age.setText(String.valueOf(user.getAge()));
         role.setText(user.getRole());
-
+        appendMessages();
         List<Order> orders = getOrders();
         appendOrders(orders);
 
+        getChats();
         scroll.setOnScroll(event -> {
             if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
                 FlowPane pane = (FlowPane) scroll.getContent();
@@ -71,6 +74,29 @@ public class ControllerLoggedFirstStyle {
             }
         });
     }
+    private void getChats(){
+        HttpGet get = new HttpGet("http://localhost:8080/api/auth/chat/getChats");
+        get.setHeader("Authorization", userPreference.get("token", null));
+
+        try(CloseableHttpResponse response = httpClient.execute(get)) {
+
+            int responseStatus = response.getStatusLine().getStatusCode();
+            HttpEntity entity = response.getEntity();
+            String content = EntityUtils.toString(entity);
+
+            if(responseStatus != 200){
+                EntityUtils.consume(entity);
+                throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
+            }
+
+            ObjectMapper mapper = new ObjectMapper();
+            System.out.println(content);
+            List<Chat> chats = mapper.readValue(content, new TypeReference<List<Chat>>(){});
+            System.out.println(chats.size());
+        } catch (IOException | HttpException e) {
+            e.printStackTrace();
+        }
+    }
     private void appendMessages(){
         HBox hBox = new HBox();
         hBox.getStyleClass().add("user-message");
@@ -78,7 +104,9 @@ public class ControllerLoggedFirstStyle {
         Text text = new Text();
         Text time = new Text();
         text.setText("Hello2.0");
-        time.setText("12:00");
+        text.getStyleClass().add("message");
+        time.getStyleClass().add("time");
+        time.setText("12:00  ");
         textFlow.getChildren().addAll(time, text);
         ImageView imageView = new ImageView();
         imageView.getStyleClass().add("shadow");
@@ -102,10 +130,11 @@ public class ControllerLoggedFirstStyle {
                 EntityUtils.consume(receivedEntity);
                 throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
             }
-            System.out.println(content);
+
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
             orders = mapper.readValue(content, new TypeReference<List<Order>>(){});
+
             EntityUtils.consume(receivedEntity);
         } catch (IOException | HttpException e) {
             e.printStackTrace();
