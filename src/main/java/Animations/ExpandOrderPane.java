@@ -84,7 +84,6 @@ public class ExpandOrderPane {
                         currentOrder.setTranslateX(expand);
                     }
                 }
-                System.out.println(expand);
                 if(expand >= 0){
                     label.setPrefWidth(labelWidth);
                     order.setPrefWidth(orderWidth);

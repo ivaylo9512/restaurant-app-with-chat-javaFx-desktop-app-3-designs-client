@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.*;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,14 +17,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
@@ -43,7 +44,8 @@ public class ControllerLoggedFirstStyle {
     @FXML Label firstName, lastName, country, age, role;
     @FXML ScrollPane scroll;
     @FXML FlowPane flowPane;
-    @FXML Pane orders;
+    @FXML Pane contentPain;
+    @FXML VBox vbox;
     private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
     private Preferences userPreference = Preferences.userRoot();
     @FXML
@@ -69,8 +71,24 @@ public class ControllerLoggedFirstStyle {
             }
         });
     }
-    @FXML
-    public List<Order> getOrders(){
+    private void appendMessages(){
+        HBox hBox = new HBox();
+        hBox.getStyleClass().add("user-message");
+        TextFlow textFlow = new TextFlow();
+        Text text = new Text();
+        Text time = new Text();
+        text.setText("Hello2.0");
+        time.setText("12:00");
+        textFlow.getChildren().addAll(time, text);
+        ImageView imageView = new ImageView();
+        imageView.getStyleClass().add("shadow");
+        HBox.setMargin(imageView,new Insets(-20,0,0,0));
+        hBox.getChildren().addAll(textFlow, imageView);
+        hBox.setAlignment(Pos.TOP_RIGHT);
+        vbox.getChildren().add(hBox);
+
+    }
+    private List<Order> getOrders(){
         List<Order> orders = new ArrayList<>();
         HttpGet httpGet = new HttpGet("http://localhost:8080/api/auth/order/findAll");
         httpGet.setHeader("Authorization", userPreference.get("token", null));
@@ -146,7 +164,7 @@ public class ControllerLoggedFirstStyle {
             double scrolledAmount = (pane.getWidth() - scroll.getWidth()) * scroll.getHvalue();
 
             order.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
-            orders.getChildren().add(order);
+            contentPain.getChildren().add(order);
 
             ExpandOrderPane.expandPane(order, orderContainer, scrolledAmount, event, translateX, translateY, scroll);
 

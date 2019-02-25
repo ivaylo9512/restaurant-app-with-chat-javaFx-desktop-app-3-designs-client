@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -85,7 +86,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="147.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#getOrders" prefHeight="22.0" prefWidth="72.0" text="Orders" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="147.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Orders" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -95,7 +96,7 @@
          </children>
       </Pane>
       <Pane layoutX="17.0" layoutY="18.0" prefHeight="28.0" prefWidth="743.0" styleClass="program-bar" />
-      <Pane layoutX="123.0" layoutY="46.0" prefHeight="400.0" prefWidth="637.0">
+      <Pane fx:id="contentPain" layoutX="123.0" layoutY="46.0" prefHeight="400.0" prefWidth="637.0">
          <children>
             <Pane layoutY="188.0" prefHeight="213.0" prefWidth="637.0" style="-fx-background-color: #363b41;">
                <children>
@@ -109,25 +110,162 @@
                               <InnerShadow height="13.0" radius="6.0" width="13.0" />
                            </effect>
                         </TextField>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="363.0" layoutY="5.0">
-                           <image>
-                              <Image url="@../../../../Hayley-profile-pic-circle.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="21.0" layoutY="47.0">
-                           <image>
-                              <Image url="@../../../../profile2.png" />
-                           </image>
-                        </ImageView>
-                        <Text fill="#bcbcbc" layoutX="67.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello my name is carl and i live down stairs" wrappingWidth="170.5927734375" />
-                        <Text fill="#bcbcbc" layoutX="173.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello my name is Perryssssssss" textAlignment="RIGHT" />
+                        <ScrollPane layoutX="4.0" layoutY="2.0" prefHeight="141.0" prefWidth="418.0">
+                           <content>
+                              <VBox fx:id="vbox" prefWidth="396.0">
+                                 <children>
+                                    <HBox alignment="TOP_RIGHT" prefWidth="379.0" styleClass="user-message">
+                                       <children>
+                                          <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Text fill="#2a2e37" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="12:30  " />
+                                                <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 300;" text="Hello" wrappingWidth="30.9111328125" />
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextFlow>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" styleClass="shadow">
+                                             <image>
+                                                <Image url="@../../../../../../Downloads/user%20(1).png" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </ImageView>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="TOP_RIGHT" prefWidth="379.0">
+                                       <children>
+                                          <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT">
+                                             <children>
+                                                <Text fill="#2a2e37" strokeType="OUTSIDE" strokeWidth="0.0" text="12:30  " />
+                                                <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 300;" text="I am dowstairs where are you?" wrappingWidth="30.9111328125" />
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </padding>
+                                          </TextFlow>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="65.0" right="40.0" top="8.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox prefWidth="379.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" styleClass="shadow">
+                                             <image>
+                                                <Image url="@../../../../../../Downloads/user%20(4).png" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets top="-20.0" />
+                                             </HBox.margin>
+                                          </ImageView>
+                                          <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 300;" text="Hello" wrappingWidth="30.9111328125" />
+                                                <Text fill="#2a2e37" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="  12:31" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                       <padding>
+                                          <Insets right="65.0" top="30.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox prefWidth="379.0">
+                                       <children>
+                                          <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 300;" text="I am dowstairs where are you?I am dowstairs where are you?I am dowstairs where are you?I am dowstairs where are you?I am dowstairs where are you?" wrappingWidth="30.9111328125" />
+                                                <Text fill="#2a2e37" strokeType="OUTSIDE" strokeWidth="0.0" text="  12:30" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                       <padding>
+                                          <Insets left="40.0" right="65.0" top="8.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="TOP_RIGHT" prefWidth="379.0">
+                                       <children>
+                                          <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Text fill="#2a2e37" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="12:30  " />
+                                                <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 300;" text="Hello" wrappingWidth="30.9111328125" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextFlow>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" styleClass="shadow">
+                                             <image>
+                                                <Image url="@../../../../../../Downloads/user%20(1).png" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets top="-20.0" />
+                                             </HBox.margin>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets left="65.0" top="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="TOP_RIGHT" prefWidth="379.0">
+                                       <children>
+                                          <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT">
+                                             <children>
+                                                <Text fill="#2a2e37" strokeType="OUTSIDE" strokeWidth="0.0" text="12:30  " />
+                                                <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: 300;" text="I am dowstairs where are you?" wrappingWidth="30.9111328125" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" top="5.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextFlow>
+                                       </children>
+                                       <padding>
+                                          <Insets left="65.0" right="40.0" top="8.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </Pane>
                </children></Pane>
-            <Pane fx:id="orders" prefHeight="189.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;">
+            <Pane prefHeight="189.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;">
                <children>
                   <ScrollPane fx:id="scroll" hbarPolicy="NEVER" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="637.0" vbarPolicy="NEVER">
                      <content>
@@ -139,19 +277,6 @@
             </Pane>
          </children>
       </Pane>
-      <AnchorPane layoutX="175.0" layoutY="-232.0" prefHeight="200.0" prefWidth="466.0">
-         <children>
-            <ScrollPane layoutY="-4.0" prefHeight="157.0" prefWidth="469.0">
-              <content>
-                <AnchorPane>
-                     <children>
-                        <FlowPane layoutY="-44.0" prefHeight="200.0" prefWidth="230.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="-44.0" />
-                        <FlowPane layoutX="230.0" layoutY="-44.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-44.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
-         </children>
-      </AnchorPane>
+      <Pane layoutX="807.0" layoutY="69.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </Pane>
