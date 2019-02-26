@@ -7,14 +7,12 @@ import javafx.util.Duration;
 public class ResizeWidth extends Transition {
 
     private double width;
-    private double newWidth;
     private double widthDifference;
     private Region region;
 
     public ResizeWidth(Duration duration, Region region, double newWidth ) {
         setCycleDuration(duration);
         this.region = region;
-        this.newWidth = newWidth;
         this.width = region.getWidth();
         this.widthDifference = newWidth - width;
     }

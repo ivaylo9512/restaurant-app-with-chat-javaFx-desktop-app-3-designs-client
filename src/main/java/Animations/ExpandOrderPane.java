@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -21,6 +22,7 @@ public class ExpandOrderPane {
     private static double buttonWidth;
     private static double buttonHeight;
     private static double labelWidth;
+    private static double maxOrderWidth;
 
     private static double buttonX;
     private static double buttonY;
@@ -32,38 +34,66 @@ public class ExpandOrderPane {
     private static double initialOffsetX;
     private static double initialMouseX;
 
-    private static boolean action = false;
-    private static Boolean buttonExpanded = false;
+    public static boolean action = false;
+    public static Boolean buttonExpanded = false;
 
     public static void expandPane(Pane order, Pane orderContainer, double scrolledAmount, MouseEvent event,
-                                  double translatePaneX, double translatePaneY, ScrollPane scrollPane){
+                                  double translatePaneX, double translatePaneY, Node intersectedNode, ScrollPane scrollPane){
+        currentOrder = order;
+        currentOrder.setLayoutX(translatePaneX - scrolledAmount);
 
-        if(action){
-            orderContainer.getChildren().add(order);
-            return;
-        }
-        if(!buttonExpanded) {
+        button = (Button) currentOrder.getChildren().get(0);
+        label = (Label) currentOrder.getChildren().get(1);
+
+        mouseX = event.getScreenX();
+        mouseY = event.getScreenY();
+        buttonX = button.getLayoutX();
+        buttonY = button.getLayoutY();
+        initialOffsetX = event.getX() - translatePaneX + scrolledAmount;
+        initialMouseX = event.getScreenX();
+
+        orderWidth = currentOrder.getWidth();
+        orderHeight = currentOrder.getHeight();
+        buttonWidth = button.getWidth();
+        buttonHeight = button.getHeight();
+        labelWidth = label.getWidth();
+        maxOrderWidth = orderWidth * 4;
+
+        xButtonRation = currentOrder.getWidth() / (button.getLayoutX() + buttonWidth / 2);
+
+        if(intersectedNode.getTypeSelector().equals("Button")){
+            buttonExpanded = true;
             action = true;
-            currentOrder = order;
-            currentOrder.setLayoutX(translatePaneX - scrolledAmount);
+            scrollPane.setDisable(true);
+            button = (Button) intersectedNode;
 
-            button = (Button) currentOrder.getChildren().get(0);
-            label = (Label) currentOrder.getChildren().get(1);
+            ResizeHeight heightPane = new ResizeHeight(Duration.millis(750),order, maxOrderWidth);
+            heightPane.play();
+            ResizeWidth widthPane = new ResizeWidth(Duration.millis(750),order, maxOrderWidth);
+            widthPane.play();
 
-            mouseX = event.getScreenX();
-            mouseY = event.getScreenY();
-            buttonX = button.getLayoutX();
-            buttonY = button.getLayoutY();
-            initialOffsetX = event.getX() - translatePaneX + scrolledAmount;
-            initialMouseX = event.getScreenX();
+            double expandButton = buttonWidth + (maxOrderWidth - orderWidth) / 15;
+            ResizeHeight heightButton = new ResizeHeight(Duration.millis(750),button, expandButton);
+            heightButton.play();
+            ResizeWidth widthButton = new ResizeWidth(Duration.millis(750),button, expandButton);
+            widthButton.play();
 
-            orderWidth = currentOrder.getWidth();
-            orderHeight = currentOrder.getHeight();
-            buttonWidth = button.getWidth();
-            buttonHeight = button.getHeight();
-            labelWidth = label.getWidth();
+            double expandLabel = maxOrderWidth - (orderWidth - labelWidth);
+            ResizeWidth widthLabel = new ResizeWidth(Duration.millis(750),label, expandLabel);
+            widthLabel.play();
 
-            xButtonRation = currentOrder.getWidth() / (button.getLayoutX() + buttonWidth / 2);
+            double translateButtonY = maxOrderWidth - expandButton - 10.5 - buttonY;
+            double translateButtonX = (maxOrderWidth - expandButton) / xButtonRation - buttonX;
+            TranslateTransition translateButton = new TranslateTransition(Duration.millis(750), button);
+            translateButton.setToX(translateButtonX);
+            translateButton.setToY(translateButtonY);
+            translateButton.play();
+
+            TranslateTransition translatePane = new TranslateTransition(Duration.millis(750),order);
+            translatePane.setToX(-(maxOrderWidth - order.getWidth()) / 2);
+            translatePane.setToY(0);
+            translatePane.play();
+
         }
 
         EventHandler panePress = (EventHandler<MouseEvent>) eventPress -> {
@@ -73,6 +103,7 @@ public class ExpandOrderPane {
         currentOrder.addEventFilter(MouseEvent.MOUSE_PRESSED, panePress);
 
         EventHandler paneDrag = (EventHandler<MouseEvent>) eventDrag -> {
+            scrollPane.setDisable(true);
             if(!buttonExpanded){
                 double fasterExpand = 1.8;
                 double expand = (initialMouseX - eventDrag.getScreenX()) * fasterExpand;
@@ -86,13 +117,13 @@ public class ExpandOrderPane {
                 }
                 if(expand >= 0){
                     label.setPrefWidth(labelWidth);
-                    order.setPrefWidth(orderWidth);
-                    order.setPrefHeight(orderHeight);
+                    currentOrder.setPrefWidth(orderWidth);
+                    currentOrder.setPrefHeight(orderHeight);
                     button.setPrefWidth(buttonWidth);
                     button.setPrefHeight(buttonHeight);
                     button.setTranslateY(0);
                     button.setTranslateX(0);
-                    order.setTranslateX(0);
+                    currentOrder.setTranslateX(0);
                 }
                 if(orderWidth - expand > orderWidth) {
                     button.setPrefWidth(buttonWidth - expand / 15);
@@ -106,8 +137,8 @@ public class ExpandOrderPane {
                     button.setTranslateX(translateButtonX);
                     button.setTranslateY(translateButtonY);
                     label.setPrefWidth(labelWidth - expand);
-                    double maxWidth = orderWidth * 4;
-                    if (currentOrder.getPrefWidth() > maxWidth) {
+
+                    if (currentOrder.getPrefWidth() >= maxOrderWidth) {
                         buttonExpanded = true;
                         mouseX = eventDrag.getScreenX();
                         mouseY = eventDrag.getScreenY();

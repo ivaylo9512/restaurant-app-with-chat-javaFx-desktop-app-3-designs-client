@@ -1,0 +1,40 @@
+.login-pane{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 15, 0.0 , 0 , 2 );
+    -fx-background-color: #2A2E37;
+}
+TextField{
+    -fx-background-color: #363b41;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-text-fill: #bcbcbc;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+Label{
+    -fx-background-color: #363b41;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+Button{
+    -fx-background-color: #2A2E37;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 15, 0.0 , 0 , 2 );
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+Button:focused{
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+}
+Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+ImageView{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
+}
+ScrollPane{
+    -fx-background-color: transparent;
+}
+ScrollPane > .viewport{
+    -fx-background-color: transparent;
+}
+.btn{
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+}

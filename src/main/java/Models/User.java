@@ -10,12 +10,13 @@ public class User {
     private int age;
     private String country;
     private String role;
+    private String profilePicture;
 
     public User(){
 
     }
 
-    public User(int id, String username, String password, String firstName, String lastName, int age, String country, String role) {
+    public User(int id, String username, String password, String firstName, String lastName, int age, String country, String role, String profilePicture) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -24,6 +25,7 @@ public class User {
         this.age = age;
         this.country = country;
         this.role = role;
+        this.profilePicture = profilePicture;
     }
 
     public String getUsername() {
@@ -88,5 +90,13 @@ public class User {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }
