@@ -91,7 +91,8 @@ public class ControllerLoggedFirstStyle {
             if(newValue){
                 currentOrderButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
                 currentOrderButton.addEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
-            }else if(!newValue){
+            }else{
+                currentOrderButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
                 currentOrderButton.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
             }
         });
@@ -308,14 +309,7 @@ public class ControllerLoggedFirstStyle {
 //            LocalDate localDate = LocalDate.from(orderSerilized[0].getCreated());
     }
     private EventHandler expandOrderHandler = (EventHandler<MouseEvent>) this::expandOrder;
-    private EventHandler reverseOrderHandler = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
-            ExpandOrderPane.reverseOrder();
-            event.getPickResult().getIntersectedNode().removeEventFilter(MouseEvent.MOUSE_CLICKED, this);
-            event.getPickResult().getIntersectedNode().addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
-        }
-    };
+    private EventHandler reverseOrderHandler = (EventHandler<MouseEvent>)e-> ExpandOrderPane.reverseOrder();
 
     @FXML
     public void expandOrder(MouseEvent event){

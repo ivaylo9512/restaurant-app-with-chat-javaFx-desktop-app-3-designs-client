@@ -189,31 +189,31 @@ public class ExpandOrderPane {
     };
 
     public static void reverseOrder() {
-        System.out.println("hey");
+        Timeline delay = new Timeline(new KeyFrame(Duration.millis(20), actionEvent1 -> {
             currentOrder.removeEventFilter(MouseEvent.MOUSE_CLICKED, panePress);
             currentOrder.removeEventFilter(MouseEvent.MOUSE_DRAGGED, paneDrag);
             currentOrder.removeEventFilter(MouseEvent.MOUSE_RELEASED, paneReleased);
-            TranslateTransition transitionPane = new TranslateTransition(Duration.millis(750),currentOrder);
+            TranslateTransition transitionPane = new TranslateTransition(Duration.millis(750), currentOrder);
             transitionPane.setToX(0);
             transitionPane.setToY(0);
             transitionPane.play();
 
-            TranslateTransition transitionButton = new TranslateTransition(Duration.millis(750),button);
+            TranslateTransition transitionButton = new TranslateTransition(Duration.millis(750), button);
             transitionButton.setToX(0);
             transitionButton.setToY(0);
             transitionButton.play();
 
-            ResizeHeight heightPane = new ResizeHeight(Duration.millis(750),currentOrder,orderHeight);
+            ResizeHeight heightPane = new ResizeHeight(Duration.millis(750), currentOrder, orderHeight);
             heightPane.play();
-            ResizeWidth widthPane = new ResizeWidth(Duration.millis(750),currentOrder,orderWidth);
+            ResizeWidth widthPane = new ResizeWidth(Duration.millis(750), currentOrder, orderWidth);
             widthPane.play();
 
-            ResizeHeight heightButton = new ResizeHeight(Duration.millis(750),button,buttonHeight);
+            ResizeHeight heightButton = new ResizeHeight(Duration.millis(750), button, buttonHeight);
             heightButton.play();
-            ResizeWidth widthButton = new ResizeWidth(Duration.millis(750),button,buttonWidth);
+            ResizeWidth widthButton = new ResizeWidth(Duration.millis(750), button, buttonWidth);
             widthButton.play();
 
-            ResizeWidth widthLabel = new ResizeWidth(Duration.millis(750),label,labelWidth);
+            ResizeWidth widthLabel = new ResizeWidth(Duration.millis(750), label, labelWidth);
             widthLabel.play();
 
             Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(Duration.millis(750), actionEvent -> {
@@ -225,5 +225,7 @@ public class ExpandOrderPane {
                 action = false;
             }));
             reAppendOrderInFlow.play();
+        }));
+        delay.play();
     }
 }
