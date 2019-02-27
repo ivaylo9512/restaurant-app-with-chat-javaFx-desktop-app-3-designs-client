@@ -10,6 +10,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.*;
 import javafx.animation.*;
 import javafx.beans.Observable;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -58,7 +59,7 @@ import java.util.prefs.Preferences;
 public class ControllerLoggedFirstStyle {
     @FXML Label firstName, lastName, country, age, role;
     @FXML FlowPane ordersFlow;
-    @FXML Pane contentPain;
+    @FXML Pane contentPane;
     @FXML VBox vbox, chatUsers;
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, ordersScroll;
     @FXML Button chatButton;
@@ -70,6 +71,7 @@ public class ControllerLoggedFirstStyle {
     private HashMap<ChatKey, List<Session>> chatsMap = new HashMap<>();
     private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
     private Preferences userPreference = Preferences.userRoot();
+    private Button currentOrderButton;
     @FXML
     public void initialize() throws IOException {
         mapper.registerModule(new JavaTimeModule());
@@ -84,6 +86,15 @@ public class ControllerLoggedFirstStyle {
         appendMessages();
 
         manageSceneScrolls();
+
+        ExpandOrderPane.buttonExpandedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                currentOrderButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
+                currentOrderButton.addEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
+            }else if(!newValue){
+                currentOrderButton.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
+            }
+        });
 
         scroll2.setOnMouseClicked(event -> {
             AnchorPane pane = (AnchorPane) scroll2.getParent();
@@ -108,7 +119,6 @@ public class ControllerLoggedFirstStyle {
         fixBlurryContent(chatUsersScroll);
         fixBlurryContent(scroll2);
         fixBlurryContent(ordersScroll);
-
         ordersScroll.setOnScroll(event -> {
             if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
                 FlowPane pane = (FlowPane) ordersScroll.getContent();
@@ -186,7 +196,6 @@ public class ControllerLoggedFirstStyle {
                     ImageView imageView = new ImageView(profilePicture);
                     imageView.setFitHeight(50);
                     imageView.setFitWidth(50);
-                    imageView.getStyleClass().add("shadow");
                     chatUsers.getChildren().add(imageView);
                     chatsMap.put(chatKey, new ArrayList<>());
 
@@ -281,11 +290,12 @@ public class ControllerLoggedFirstStyle {
             button.setPrefHeight(28);
             button.setMinWidth(28);
             button.setMinHeight(28);
-            button.addEventFilter(MouseEvent.MOUSE_CLICKED, this::expandOrder);
+            button.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
 
             Label label = new Label(String.valueOf(order.getId()));
             label.setLayoutX(28);
             label.setLayoutY(11);
+            label.setDisable(true);
 
             Pane orderContainer = new Pane();
             orderContainer.getStyleClass().add("order-container");
@@ -297,45 +307,53 @@ public class ControllerLoggedFirstStyle {
         });
 //            LocalDate localDate = LocalDate.from(orderSerilized[0].getCreated());
     }
+    private EventHandler expandOrderHandler = (EventHandler<MouseEvent>) this::expandOrder;
+    private EventHandler reverseOrderHandler = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            ExpandOrderPane.reverseOrder();
+            event.getPickResult().getIntersectedNode().removeEventFilter(MouseEvent.MOUSE_CLICKED, this);
+            event.getPickResult().getIntersectedNode().addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
+        }
+    };
 
     @FXML
     public void expandOrder(MouseEvent event){
         Node intersectedNode = event.getPickResult().getIntersectedNode();
-        System.out.println(intersectedNode.getTypeSelector());
-        System.out.println(intersectedNode.getTypeSelector());
+        if(!ExpandOrderPane.action && (intersectedNode.getTypeSelector().equals("Button")
+                ||intersectedNode.getStyleClass().get(0).equals("order"))){
 
-        if(intersectedNode.getTypeSelector().equals("Pane") &&
-                intersectedNode.getStyleClass().get(0).equals("order") && !ExpandOrderPane.action) {
-            Pane order = (Pane) intersectedNode;
-            Pane orderContainer = (Pane) intersectedNode.getParent();
-
-            double translateX = order.getLayoutX() + order.getParent().getLayoutX();
-            double translateY = order.getLayoutX() + order.getParent().getLayoutY();
-            double scrolledAmount = (ordersFlow.getWidth() - ordersScroll.getWidth()) * ordersScroll.getHvalue();
-
-            order.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
-            contentPain.getChildren().add(order);
-
-            ExpandOrderPane.action = true;
-            ExpandOrderPane.expandPane(order, orderContainer, scrolledAmount, event,
-                    translateX, translateY,intersectedNode, ordersScroll);
-        }
-
-        if(intersectedNode.getTypeSelector().equals("Button") && !ExpandOrderPane.action){
-            Pane order = (Pane) intersectedNode.getParent();
-            Pane orderContainer = (Pane) intersectedNode.getParent();
-            double translateX = order.getLayoutX() + order.getParent().getLayoutX();
-            double translateY = order.getLayoutX() + order.getParent().getLayoutY();
-            double scrolledAmount = (ordersFlow.getWidth() - ordersScroll.getWidth()) * ordersScroll.getHvalue();
-
-            order.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
-            order.setLayoutX(translateX- scrolledAmount);
-            contentPain.getChildren().add(order);
-
-            ExpandOrderPane.action = true;
-            ExpandOrderPane.expandPane(order, orderContainer, scrolledAmount, event,
-                    translateX, translateY,intersectedNode, ordersScroll);
+            if(intersectedNode.getTypeSelector().equals("Button")) {
+                currentOrderButton = (Button)intersectedNode;
+            }else{
+                Pane order = (Pane)intersectedNode;
+                currentOrderButton = (Button)order.getChildren().get(0);
+            }
+            ExpandOrderPane.expandPane(event,ordersScroll, contentPane);
 
         }
+
+
+//        if(intersectedNode.getTypeSelector().equals("Button") && !ExpandOrderPane.action){
+//            Pane order = (Pane) intersectedNode.getParent();
+//            Pane orderContainer = (Pane) order.getParent();
+//            double translateX = order.getLayoutX() + order.getParent().getLayoutX();
+//            double translateY = order.getLayoutX() + order.getParent().getLayoutY();
+//            double scrolledAmount = (ordersFlow.getWidth() - ordersScroll.getWidth()) * ordersScroll.getHvalue();
+//
+//            order.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
+//            order.setLayoutX(translateX- scrolledAmount);
+//            contentPane.getChildren().add(order);
+//
+//            ExpandOrderPane.action = true;
+//            Button button = (Button) event.getSource();
+//
+//            button.removeEventFilter(MouseEvent.MOUSE_CLICKED,expandOrderHandler);
+//            button.addEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
+//
+//            ExpandOrderPane.expandPane(order, orderContainer, scrolledAmount, event,
+//                    translateX, translateY,intersectedNode, ordersScroll);
+//
+//        }
     }
 }
