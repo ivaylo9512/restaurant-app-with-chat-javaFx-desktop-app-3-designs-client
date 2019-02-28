@@ -4,9 +4,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,11 +22,7 @@ import javafx.util.Duration;
 public class ExpandOrderPane {
     private static Pane currentOrder;
     private static Pane orderContainer;
-    private static Button button;
     private static Label label;
-    private static ScrollPane scrollPane;
-    private static Pane contentPane;
-
     private static double orderWidth;
     private static double orderHeight;
     private static double buttonWidth;
@@ -42,33 +41,34 @@ public class ExpandOrderPane {
     private static double initialOffsetX;
     private static double initialMouseX;
 
+    public static Button button;
+    public static ScrollPane scrollPane;
+    public static Pane contentPane;
     public static boolean action = false;
-
 
     private static BooleanProperty buttonExpanded = new SimpleBooleanProperty(false,"buttonExpanded");
     public static BooleanProperty buttonExpandedProperty(){return buttonExpanded;}
 
-    public static void expandPane(MouseEvent event,ScrollPane ordersScroll, Pane content){
+    public static void setCurrentOrder(MouseEvent event){
         Node intersectedNode = event.getPickResult().getIntersectedNode();
         if(intersectedNode.getTypeSelector().equals("Button")){
             button = (Button) intersectedNode;
             currentOrder = (Pane) button.getParent();
         }else{
             currentOrder = (Pane) intersectedNode;
+            button = (Button) currentOrder.getChildren().get(0);
         }
-
         action = true;
-        button = (Button) currentOrder.getChildren().get(0);
-        label = (Label) currentOrder.getChildren().get(1);
-        orderContainer = (Pane) currentOrder.getParent();
-        scrollPane = ordersScroll;
 
+        label = (Label) currentOrder.getChildren().get(1);
+
+        orderContainer = (Pane) currentOrder.getParent();
         currentOrder.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
-        contentPane = content;
         contentPane.getChildren().add(currentOrder);
 
         FlowPane ordersFlow = (FlowPane) scrollPane.getContent();
         double scrolledAmount = (ordersFlow.getWidth() - scrollPane.getWidth()) * scrollPane.getHvalue();
+
         translatePaneX = currentOrder.getLayoutX() + orderContainer.getLayoutX();
         currentOrder.setLayoutX(translatePaneX - scrolledAmount);
 
@@ -89,38 +89,7 @@ public class ExpandOrderPane {
         xButtonRation = currentOrder.getWidth() / (button.getLayoutX() + buttonWidth / 2);
 
         if(intersectedNode.getTypeSelector().equals("Button")){
-            buttonExpanded.setValue(true);
-            action = true;
-            scrollPane.setDisable(true);
-            button = (Button) intersectedNode;
-
-            ResizeHeight heightPane = new ResizeHeight(Duration.millis(750),currentOrder, maxOrderWidth);
-            heightPane.play();
-            ResizeWidth widthPane = new ResizeWidth(Duration.millis(750),currentOrder, maxOrderWidth);
-            widthPane.play();
-
-            double expandButton = buttonWidth + (maxOrderWidth - orderWidth) / 15;
-            ResizeHeight heightButton = new ResizeHeight(Duration.millis(750),button, expandButton);
-            heightButton.play();
-            ResizeWidth widthButton = new ResizeWidth(Duration.millis(750),button, expandButton);
-            widthButton.play();
-
-            double expandLabel = maxOrderWidth - (orderWidth - labelWidth);
-            ResizeWidth widthLabel = new ResizeWidth(Duration.millis(750),label, expandLabel);
-            widthLabel.play();
-
-            double translateButtonY = maxOrderWidth - expandButton - 10.5 - buttonY;
-            double translateButtonX = (maxOrderWidth - expandButton) / xButtonRation - buttonX;
-            TranslateTransition translateButton = new TranslateTransition(Duration.millis(750), button);
-            translateButton.setToX(translateButtonX);
-            translateButton.setToY(translateButtonY);
-            translateButton.play();
-
-            TranslateTransition translatePane = new TranslateTransition(Duration.millis(750),currentOrder);
-            translatePane.setToX(-(maxOrderWidth - currentOrder.getWidth()) / 2);
-            translatePane.setToY(0);
-            translatePane.play();
-
+            expandOrderOnClick();
         }
 
         currentOrder.addEventFilter(MouseEvent.MOUSE_PRESSED, panePress);
@@ -136,50 +105,9 @@ public class ExpandOrderPane {
     private static EventHandler paneDrag = (EventHandler<MouseEvent>) eventDrag -> {
         scrollPane.setDisable(true);
         if(!buttonExpanded.getValue()){
-            double fasterExpand = 1.8;
-            double expand = (initialMouseX - eventDrag.getScreenX()) * fasterExpand;
-            if(initialOffsetX < orderWidth / 2){
-                if(expand < 0 ){
-                    expand = 0;
-                }else{
-                    expand *= -1;
-                    currentOrder.setTranslateX(expand);
-                }
-            }
-            if(expand >= 0){
-                label.setPrefWidth(labelWidth);
-                currentOrder.setPrefWidth(orderWidth);
-                currentOrder.setPrefHeight(orderHeight);
-                button.setPrefWidth(buttonWidth);
-                button.setPrefHeight(buttonHeight);
-                button.setTranslateY(0);
-                button.setTranslateX(0);
-                currentOrder.setTranslateX(0);
-            }
-            if(orderWidth - expand > orderWidth) {
-                button.setPrefWidth(buttonWidth - expand / 15);
-                button.setPrefHeight(buttonWidth - expand / 15);
-                currentOrder.setPrefWidth(orderWidth - expand);
-                currentOrder.setPrefHeight(orderHeight - expand);
-
-                double translateButtonY = currentOrder.getPrefHeight() - button.getPrefHeight() - 10.5 - buttonY;
-                double translateButtonX = (currentOrder.getPrefWidth() - button.getWidth()) / xButtonRation - buttonX;
-
-                button.setTranslateX(translateButtonX);
-                button.setTranslateY(translateButtonY);
-                label.setPrefWidth(labelWidth - expand);
-
-                if (currentOrder.getPrefWidth() >= maxOrderWidth) {
-                    buttonExpanded.setValue(true);
-                    mouseX = eventDrag.getScreenX();
-                    mouseY = eventDrag.getScreenY();
-                }
-            }
+            expandOrderOnDrag(eventDrag);
         }else {
-            currentOrder.setTranslateX((currentOrder.getTranslateX()) + (eventDrag.getScreenX() - mouseX));
-            currentOrder.setTranslateY((currentOrder.getTranslateY()) + (eventDrag.getScreenY() - mouseY));
-            mouseX = eventDrag.getScreenX();
-            mouseY = eventDrag.getScreenY();
+            moveOrder(eventDrag);
         }
     };
     private static EventHandler paneReleased = (EventHandler<MouseEvent>) event1 -> {
@@ -188,8 +116,91 @@ public class ExpandOrderPane {
         }
     };
 
+    private static void moveOrder(MouseEvent eventDrag){
+        currentOrder.setTranslateX((currentOrder.getTranslateX()) + (eventDrag.getScreenX() - mouseX));
+        currentOrder.setTranslateY((currentOrder.getTranslateY()) + (eventDrag.getScreenY() - mouseY));
+        mouseX = eventDrag.getScreenX();
+        mouseY = eventDrag.getScreenY();
+    }
+
+    private static void expandOrderOnClick(){
+        buttonExpanded.setValue(true);
+        action = true;
+        scrollPane.setDisable(true);
+
+        ResizeHeight heightPane = new ResizeHeight(Duration.millis(750),currentOrder, maxOrderWidth);
+        heightPane.play();
+        ResizeWidth widthPane = new ResizeWidth(Duration.millis(750),currentOrder, maxOrderWidth);
+        widthPane.play();
+
+        double expandButton = buttonWidth + (maxOrderWidth - orderWidth) / 15;
+        ResizeHeight heightButton = new ResizeHeight(Duration.millis(750),button, expandButton);
+        heightButton.play();
+        ResizeWidth widthButton = new ResizeWidth(Duration.millis(750),button, expandButton);
+        widthButton.play();
+
+        double expandLabel = maxOrderWidth - (orderWidth - labelWidth);
+        ResizeWidth widthLabel = new ResizeWidth(Duration.millis(750),label, expandLabel);
+        widthLabel.play();
+
+        double translateButtonY = maxOrderWidth - expandButton - 10.5 - buttonY;
+        double translateButtonX = (maxOrderWidth - expandButton) / xButtonRation - buttonX;
+        TranslateTransition translateButton = new TranslateTransition(Duration.millis(750), button);
+        translateButton.setToX(translateButtonX);
+        translateButton.setToY(translateButtonY);
+        translateButton.play();
+
+        TranslateTransition translatePane = new TranslateTransition(Duration.millis(750),currentOrder);
+        translatePane.setToX(-(maxOrderWidth - currentOrder.getWidth()) / 2);
+        translatePane.setToY(0);
+        translatePane.play();
+    }
+
+    private static void expandOrderOnDrag(MouseEvent eventDrag){
+        double fasterExpand = 1.8;
+        double expand = (initialMouseX - eventDrag.getScreenX()) * fasterExpand;
+        if(initialOffsetX < orderWidth / 2){
+            if(expand < 0 ){
+                expand = 0;
+            }else{
+                expand *= -1;
+                currentOrder.setTranslateX(expand);
+            }
+        }
+        if(expand >= 0){
+            label.setPrefWidth(labelWidth);
+            currentOrder.setPrefWidth(orderWidth);
+            currentOrder.setPrefHeight(orderHeight);
+            button.setPrefWidth(buttonWidth);
+            button.setPrefHeight(buttonHeight);
+            button.setTranslateY(0);
+            button.setTranslateX(0);
+            currentOrder.setTranslateX(0);
+        }
+        if(orderWidth - expand > orderWidth) {
+            button.setPrefWidth(buttonWidth - expand / 15);
+            button.setPrefHeight(buttonWidth - expand / 15);
+            currentOrder.setPrefWidth(orderWidth - expand);
+            currentOrder.setPrefHeight(orderHeight - expand);
+
+            double translateButtonY = currentOrder.getPrefHeight() - button.getPrefHeight() - 10.5 - buttonY;
+            double translateButtonX = (currentOrder.getPrefWidth() - button.getWidth()) / xButtonRation - buttonX;
+
+            button.setTranslateX(translateButtonX);
+            button.setTranslateY(translateButtonY);
+            label.setPrefWidth(labelWidth - expand);
+
+            if (currentOrder.getPrefWidth() >= maxOrderWidth) {
+                buttonExpanded.setValue(true);
+                mouseX = eventDrag.getScreenX();
+                mouseY = eventDrag.getScreenY();
+            }
+        }
+
+    }
     public static void reverseOrder() {
         Timeline delay = new Timeline(new KeyFrame(Duration.millis(20), actionEvent1 -> {
+            buttonExpanded.setValue(false);
             currentOrder.removeEventFilter(MouseEvent.MOUSE_CLICKED, panePress);
             currentOrder.removeEventFilter(MouseEvent.MOUSE_DRAGGED, paneDrag);
             currentOrder.removeEventFilter(MouseEvent.MOUSE_RELEASED, paneReleased);
@@ -221,7 +232,6 @@ public class ExpandOrderPane {
                 orderContainer.getChildren().add(currentOrder);
                 currentOrder.setStyle("");
                 scrollPane.setDisable(false);
-                buttonExpanded.setValue(false);
                 action = false;
             }));
             reAppendOrderInFlow.play();

@@ -4,6 +4,7 @@
 Label{
     -fx-background-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-opacity: 1.0;
 }
 
 Button:focused{

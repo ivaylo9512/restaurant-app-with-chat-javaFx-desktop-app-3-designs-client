@@ -10,11 +10,13 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.*;
 import javafx.animation.*;
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -62,16 +64,15 @@ public class ControllerLoggedFirstStyle {
     @FXML Pane contentPane;
     @FXML VBox vbox, chatUsers;
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, ordersScroll;
-    @FXML Button chatButton;
     @FXML ScrollPane scroll2;
-    @FXML AnchorPane pane1;
+    @FXML AnchorPane pane1, contentRoot;
 
     private User loggedUser;
     private ObjectMapper mapper = new ObjectMapper();
     private HashMap<ChatKey, List<Session>> chatsMap = new HashMap<>();
     private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
     private Preferences userPreference = Preferences.userRoot();
-    private Button currentOrderButton;
+
     @FXML
     public void initialize() throws IOException {
         mapper.registerModule(new JavaTimeModule());
@@ -88,22 +89,17 @@ public class ControllerLoggedFirstStyle {
         manageSceneScrolls();
 
         ExpandOrderPane.buttonExpandedProperty().addListener((observable, oldValue, newValue) -> {
+            Button currentButton = ExpandOrderPane.button;
             if(newValue){
-                currentOrderButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
-                currentOrderButton.addEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
+                currentButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
+                currentButton.addEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
             }else{
-                currentOrderButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
-                currentOrderButton.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
+                currentButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
+                currentButton.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
             }
         });
-
-        scroll2.setOnMouseClicked(event -> {
-            AnchorPane pane = (AnchorPane) scroll2.getParent();
-            VBox vbox = (VBox) scroll2.getContent();
-            pane.setLayoutY(pane.getLayoutY() -3);
-            scroll2.setPrefHeight(scroll2.getPrefHeight() + 3);
-            scroll2.maxHeightProperty().bind(vbox.heightProperty());
-        });
+        ExpandOrderPane.scrollPane = ordersScroll;
+        ExpandOrderPane.contentPane = contentPane;
     }
 
     private void fixBlurryContent(ScrollPane scrollPane){
@@ -124,30 +120,38 @@ public class ControllerLoggedFirstStyle {
             if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
                 FlowPane pane = (FlowPane) ordersScroll.getContent();
                 ordersScroll.setHvalue(ordersScroll.getHvalue() - event.getDeltaY() / pane.getWidth());
-                System.out.println((pane.getWidth() - ordersScroll.getWidth()) * ordersScroll.getHvalue());
             }
         });
 
         AnchorPane anchorPane = (AnchorPane) menuScroll.getContent();
-//        chatUsersScroll.setDisable(true);
         menuScroll.addEventFilter(ScrollEvent.SCROLL, event -> {
-//            System.out.println(menuScroll.getVvalue());
-//            if(menuScroll.getVvalue() == 1){
-//                chatUsersScroll.setDisable(false);
-//                userInfoScroll.setDisable(true);
-//            }
-//            if(menuScroll.getVvalue() < 1){
-//                chatUsersScroll.setDisable(true);
-//                userInfoScroll.setDisable(false);
-//            }
-//            if(anchorPane.getHeight() <= menuScroll.getHeight()){
-//                chatUsersScroll.setDisable(false);
-//            }
             if (event.getDeltaY() != 0) {
-                FlowPane pane = (FlowPane) userInfoScroll.getContent();
-                userInfoScroll.setVvalue(userInfoScroll.getVvalue() - event.getDeltaY() / pane.getHeight());
-                event.consume();
+
+                if (menuScroll.getHeight() <= 211) {
+                    ScrollPane scrollPane;
+                    if (menuScroll.getVvalue() == 0) {
+                        scrollPane = userInfoScroll;
+                    }else {
+                        scrollPane = chatUsersScroll;
+                    }
+
+                    Pane content = (Pane) scrollPane.getContent();
+                    scrollPane.setVvalue(scrollPane.getVvalue() - event.getDeltaY() / content.getHeight());
+                    event.consume();
+                }else{
+                    chatUsersScroll.setDisable(true);
+                    userInfoScroll.setDisable(false);
+
+                    if(anchorPane.getHeight() <= menuScroll.getHeight()){
+                        chatUsersScroll.setDisable(false);
+                    }else if(menuScroll.getVvalue() == 1){
+                        chatUsersScroll.setDisable(false);
+                        userInfoScroll.setDisable(true);
+                    }
+                }
+
             }
+
         });
     }
 
@@ -210,10 +214,17 @@ public class ControllerLoggedFirstStyle {
     }
 
     @FXML
-    private void scrollToChats(MouseEvent e){
+    private void scrollToChats(){
         Animation animation = new Timeline(
             new KeyFrame(Duration.millis(1000), new KeyValue(
                     menuScroll.vvalueProperty(), 1)));
+        animation.play();
+    }
+    @FXML
+    private void scrollToProfile(){
+        Animation animation = new Timeline(
+                new KeyFrame(Duration.millis(1000), new KeyValue(
+                        menuScroll.vvalueProperty(), 0)));
         animation.play();
     }
 
@@ -306,8 +317,8 @@ public class ControllerLoggedFirstStyle {
 
             ordersFlow.getChildren().add(orderContainer);
         });
-//            LocalDate localDate = LocalDate.from(orderSerilized[0].getCreated());
     }
+
     private EventHandler expandOrderHandler = (EventHandler<MouseEvent>) this::expandOrder;
     private EventHandler reverseOrderHandler = (EventHandler<MouseEvent>)e-> ExpandOrderPane.reverseOrder();
 
@@ -317,37 +328,8 @@ public class ControllerLoggedFirstStyle {
         if(!ExpandOrderPane.action && (intersectedNode.getTypeSelector().equals("Button")
                 ||intersectedNode.getStyleClass().get(0).equals("order"))){
 
-            if(intersectedNode.getTypeSelector().equals("Button")) {
-                currentOrderButton = (Button)intersectedNode;
-            }else{
-                Pane order = (Pane)intersectedNode;
-                currentOrderButton = (Button)order.getChildren().get(0);
-            }
-            ExpandOrderPane.expandPane(event,ordersScroll, contentPane);
+            ExpandOrderPane.setCurrentOrder(event);
 
         }
-
-
-//        if(intersectedNode.getTypeSelector().equals("Button") && !ExpandOrderPane.action){
-//            Pane order = (Pane) intersectedNode.getParent();
-//            Pane orderContainer = (Pane) order.getParent();
-//            double translateX = order.getLayoutX() + order.getParent().getLayoutX();
-//            double translateY = order.getLayoutX() + order.getParent().getLayoutY();
-//            double scrolledAmount = (ordersFlow.getWidth() - ordersScroll.getWidth()) * ordersScroll.getHvalue();
-//
-//            order.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
-//            order.setLayoutX(translateX- scrolledAmount);
-//            contentPane.getChildren().add(order);
-//
-//            ExpandOrderPane.action = true;
-//            Button button = (Button) event.getSource();
-//
-//            button.removeEventFilter(MouseEvent.MOUSE_CLICKED,expandOrderHandler);
-//            button.addEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
-//
-//            ExpandOrderPane.expandPane(order, orderContainer, scrolledAmount, event,
-//                    translateX, translateY,intersectedNode, ordersScroll);
-//
-//        }
     }
 }

@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="489.0" maxWidth="-Infinity" prefHeight="489.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedFirstStyle">
    <children>
-      <AnchorPane layoutX="13.0" layoutY="18.0" minHeight="428.0" minWidth="747.0">
+      <AnchorPane fx:id="contentRoot" layoutX="13.0" layoutY="18.0" maxHeight="641.0">
          <children>
             <AnchorPane layoutX="4.0" layoutY="28.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="103.0" styleClass="menu-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="28.0">
                <children>
@@ -92,12 +92,12 @@
                   </AnchorPane>
                   <Pane prefHeight="189.0" prefWidth="103.0" styleClass="menu">
                      <children>
-                        <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Profile" textFill="#bcbcbc">
+                        <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToProfile" prefHeight="22.0" prefWidth="72.0" text="Profile" textFill="#bcbcbc">
                            <font>
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="chatButton" layoutX="16.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToChats" prefHeight="22.0" prefWidth="72.0" text="Chat" textFill="#bcbcbc">
+                        <Button layoutX="16.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToChats" prefHeight="22.0" prefWidth="72.0" text="Chat" textFill="#bcbcbc">
                            <font>
                               <Font size="10.0" />
                            </font>
