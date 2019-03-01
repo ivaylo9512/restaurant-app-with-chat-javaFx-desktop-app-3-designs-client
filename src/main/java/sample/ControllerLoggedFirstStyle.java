@@ -2,6 +2,7 @@ package sample;
 
 import Animations.ExpandOrderPane;
 import Animations.ResizeHeight;
+import Animations.ResizeMainChat;
 import Animations.ResizeWidth;
 import Models.*;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -41,14 +42,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.*;
 import java.util.ArrayList;
@@ -63,21 +58,26 @@ public class ControllerLoggedFirstStyle {
     @FXML FlowPane ordersFlow;
     @FXML Pane contentPane;
     @FXML VBox vbox, chatUsers;
-    @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, ordersScroll;
-    @FXML ScrollPane scroll2;
-    @FXML AnchorPane pane1, contentRoot;
+    @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, ordersScroll, mainChatScroll;
+    @FXML AnchorPane contentRoot, mainChat;
+    @FXML ImageView roleImage;
 
     private User loggedUser;
     private ObjectMapper mapper = new ObjectMapper();
     private HashMap<ChatKey, List<Session>> chatsMap = new HashMap<>();
     private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
     private Preferences userPreference = Preferences.userRoot();
+    private Image profileImage;
 
     @FXML
     public void initialize() throws IOException {
         mapper.registerModule(new JavaTimeModule());
         String userJson = userPreference.get("user",null);
         loggedUser = mapper.readValue(userJson, User.class);
+        InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
+        profileImage = new Image(in);
+        in.close();
+
         displayUserInfo();
 
         List<Order> orders = getOrders();
@@ -88,6 +88,8 @@ public class ControllerLoggedFirstStyle {
 
         manageSceneScrolls();
 
+        ExpandOrderPane.scrollPane = ordersScroll;
+        ExpandOrderPane.contentPane = contentPane;
         ExpandOrderPane.buttonExpandedProperty().addListener((observable, oldValue, newValue) -> {
             Button currentButton = ExpandOrderPane.button;
             if(newValue){
@@ -98,8 +100,8 @@ public class ControllerLoggedFirstStyle {
                 currentButton.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
             }
         });
-        ExpandOrderPane.scrollPane = ordersScroll;
-        ExpandOrderPane.contentPane = contentPane;
+
+        ResizeMainChat.resize(mainChat);
     }
 
     private void fixBlurryContent(ScrollPane scrollPane){
@@ -114,7 +116,7 @@ public class ControllerLoggedFirstStyle {
         fixBlurryContent(menuScroll);
         fixBlurryContent(userInfoScroll);
         fixBlurryContent(chatUsersScroll);
-        fixBlurryContent(scroll2);
+        fixBlurryContent(mainChatScroll);
         fixBlurryContent(ordersScroll);
         ordersScroll.setOnScroll(event -> {
             if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
@@ -161,6 +163,11 @@ public class ControllerLoggedFirstStyle {
         country.setText(loggedUser.getCountry());
         age.setText(String.valueOf(loggedUser.getAge()));
         role.setText(loggedUser.getRole());
+        if (loggedUser.getRole().equals("chef")) {
+            roleImage.setImage(new Image(getClass().getResourceAsStream("/chef-second.png")));
+        }else{
+            roleImage.setImage(new Image(getClass().getResourceAsStream("/chef-second.png")));
+        }
     }
     private void getChats(){
         HttpGet get = new HttpGet("http://localhost:8080/api/auth/chat/getChats");
@@ -229,8 +236,6 @@ public class ControllerLoggedFirstStyle {
     }
 
     private void appendMessages(){
-        HBox hBox = new HBox();
-        hBox.getStyleClass().add("user-message");
         TextFlow textFlow = new TextFlow();
         Text text = new Text();
         Text time = new Text();
@@ -239,19 +244,101 @@ public class ControllerLoggedFirstStyle {
         time.getStyleClass().add("time");
         time.setText("12:00  ");
         textFlow.getChildren().addAll(time, text);
+
         InputStream in = null;
         try {
             in = new BufferedInputStream(new URL("http://localhost:8080/images/download/user_2.png").openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ImageView imageView = new ImageView(new Image(in));
-
+        ImageView imageView = new ImageView(profileImage);
         imageView.getStyleClass().add("shadow");
+        imageView.setFitWidth(40);
+        imageView.setFitHeight(40);
+
+        HBox hBox = new HBox();
+        hBox.getStyleClass().add("user-message-first");
         HBox.setMargin(imageView,new Insets(-20,0,0,0));
         hBox.getChildren().addAll(textFlow, imageView);
         hBox.setAlignment(Pos.TOP_RIGHT);
-        vbox.getChildren().add(hBox);
+
+        TextFlow textFlow2 = new TextFlow();
+        Text text2 = new Text();
+        Text time2 = new Text();
+        text2.setText("Hello2.0");
+        text2.getStyleClass().add("message");
+        time2.getStyleClass().add("time");
+        time2.setText("12:00  ");
+        textFlow2.getChildren().addAll(time2, text2);
+
+        ImageView imageView1 = new ImageView(profileImage);
+        imageView1.getStyleClass().add("shadow");
+        imageView1.setFitWidth(40);
+        imageView1.setFitHeight(40);
+
+        HBox hBox2 = new HBox();
+        hBox2.getStyleClass().add("user-message-first");
+        HBox.setMargin(imageView1,new Insets(-20,0,0,0));
+        hBox2.getChildren().addAll(textFlow2, imageView1);
+        hBox2.setAlignment(Pos.TOP_RIGHT);
+
+        TextFlow textFlow1 = new TextFlow();
+        Text text1 = new Text();
+        Text time1 = new Text();
+        text1.setText("Hello2.0");
+        text1.getStyleClass().add("message");
+        time1.getStyleClass().add("time");
+        time1.setText("12:00  ");
+        textFlow1.getChildren().addAll(time1, text1);
+
+        HBox hBox1 = new HBox();
+        hBox1.getStyleClass().add("user-message");
+        hBox1.getChildren().addAll(textFlow1);
+        hBox1.setAlignment(Pos.TOP_RIGHT);
+
+        TextFlow textFlow3 = new TextFlow();
+        Text text3 = new Text();
+        Text time3 = new Text();
+        text3.setText("Hello2.0");
+        text3.getStyleClass().add("message");
+        time3.getStyleClass().add("time");
+        time3.setText("13:10  ");
+        textFlow3.getChildren().addAll(text3, time3);
+
+        ImageView imageView2 = new ImageView(profileImage);
+        imageView2.getStyleClass().add("shadow");
+        imageView2.setFitWidth(40);
+        imageView2.setFitHeight(40);
+
+        HBox hBox3 = new HBox();
+        hBox3.getStyleClass().add("other-user-message-first");
+        HBox.setMargin(imageView2,new Insets(-20,0,0,0));
+        hBox3.getChildren().addAll(imageView2, textFlow3);
+        hBox3.setAlignment(Pos.TOP_LEFT);
+
+        TextFlow textFlow4 = new TextFlow();
+        Text text4 = new Text();
+        Text time4 = new Text();
+        text4.setText("Hello2.0");
+        text4.getStyleClass().add("message");
+        time4.getStyleClass().add("time");
+        time4.setText("13:40  ");
+        textFlow4.getChildren().addAll(text4, time4);
+        HBox hBox4 = new HBox();
+        hBox4.getStyleClass().add("other-user-message");
+        hBox4.getChildren().addAll(textFlow4);
+        hBox4.setAlignment(Pos.TOP_LEFT);
+
+        VBox lastVBox = new VBox(hBox, hBox1, hBox2);
+        VBox currentVBox = new VBox(hBox3,hBox4);
+        vbox.getChildren().addAll(lastVBox, currentVBox);
+        System.out.println(vbox.getChildren().size());
+        VBox lastMessageBlock = (VBox) vbox.getChildren().get(vbox.getChildren().size() - 1);
+        HBox firstMessageBox = (HBox) lastMessageBlock.getChildren().get(0);
+        TextFlow firstTextFlow = (TextFlow) firstMessageBox.getChildren().get(1);
+        Text firstTime = (Text) firstTextFlow.getChildren().get(1);
+        System.out.println(firstTime.getText());
+
 
     }
     private List<Order> getOrders(){

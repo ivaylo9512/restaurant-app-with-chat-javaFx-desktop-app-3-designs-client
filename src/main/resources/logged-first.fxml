@@ -10,11 +10,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="489.0" maxWidth="-Infinity" prefHeight="489.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedFirstStyle">
+<AnchorPane style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedFirstStyle">
    <children>
-      <AnchorPane fx:id="contentRoot" layoutX="13.0" layoutY="18.0" maxHeight="641.0">
+      <AnchorPane fx:id="contentRoot" maxHeight="641.0" style="-fx-background-color: transparent;">
          <children>
-            <AnchorPane layoutX="4.0" layoutY="28.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="103.0" styleClass="menu-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="28.0">
+            <AnchorPane layoutY="28.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="103.0" styleClass="menu-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
                <children>
                   <AnchorPane layoutY="189.0" maxWidth="103.0" minWidth="103.0" prefHeight="212.5" prefWidth="103.0" snapToPixel="false" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="-1.0" AnchorPane.topAnchor="189.0">
                      <children>
@@ -60,10 +60,7 @@
                                           </ScrollPane>
                                           <Pane layoutX="11.0" layoutY="8.0" maxWidth="6.0" prefHeight="39.0" prefWidth="6.0">
                                              <children>
-                                                   <ImageView layoutX="10.5" styleClass="shadow">
-                                                      <image>
-                                                         <Image url="waiter-second.png" />
-                                                      </image>
+                                                   <ImageView fx:id="roleImage" layoutX="10.5" styleClass="shadow">
                                                    </ImageView>
                                                    <Pane layoutY="68.5" prefHeight="2.0" prefWidth="80.0" style="-fx-background-color: #363B41;" styleClass="shadow" />
                                              </children>
@@ -121,8 +118,8 @@
                   </Pane>
                </children>
             </AnchorPane>
-            <Pane layoutX="4.0" prefHeight="28.0" prefWidth="743.0" styleClass="program-bar" />
-            <Pane fx:id="contentPane" layoutX="110.0" layoutY="28.0" prefHeight="400.0" prefWidth="637.0">
+            <Pane prefHeight="28.0" prefWidth="742.65" styleClass="program-bar" />
+            <Pane fx:id="contentPane" layoutX="106.0" layoutY="28.0" prefHeight="400.0" prefWidth="637.0">
                <children>
                   <Pane layoutY="188.0" prefHeight="213.0" prefWidth="637.0" style="-fx-background-color: #363b41;">
                      <children>
@@ -133,7 +130,7 @@
                   </Pane>
                   <Pane prefHeight="189.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;">
                      <children>
-                        <ScrollPane fx:id="ordersScroll" hbarPolicy="NEVER" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="637.0" vbarPolicy="NEVER">
+                        <ScrollPane fx:id="ordersScroll" hbarPolicy="NEVER" layoutX="0.5" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="636.5" vbarPolicy="NEVER">
                            <content>
                               <FlowPane fx:id="ordersFlow" orientation="VERTICAL" prefHeight="189.0" prefWidth="506.0">
                         </FlowPane>
@@ -141,14 +138,14 @@
                         </ScrollPane>
                      </children>
                   </Pane>
-                  <AnchorPane layoutX="111.0" layoutY="203.0" prefHeight="189.0" prefWidth="423.0" style="-fx-background-color: #363b41;">
+                  <AnchorPane fx:id="mainChat" layoutX="111.0" layoutY="203.0" maxHeight="421.0" minHeight="189.0" minWidth="423.0" prefHeight="189.0" prefWidth="423.0" style="-fx-background-color: #363b41;" styleClass="main-chat">
                      <children>
                         <TextField layoutX="4.0" layoutY="145.0" prefHeight="39.0" prefWidth="414.0" style="-fx-background-color: #363b41; -fx-text-fill: #bcbcbc;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="5.0">
                            <effect>
                               <InnerShadow height="13.0" radius="6.0" width="13.0" />
                            </effect>
                         </TextField>
-                        <ScrollPane fx:id="scroll2" layoutX="3.0" prefHeight="141.0" prefWidth="418.0" AnchorPane.bottomAnchor="48.0">
+                        <ScrollPane fx:id="mainChatScroll" layoutX="3.0" layoutY="1.0" prefHeight="143.0" prefWidth="418.0" AnchorPane.bottomAnchor="45.0" AnchorPane.topAnchor="1.0">
                            <content>
                               <VBox fx:id="vbox" prefWidth="396.0">
                                  <children>
@@ -292,7 +289,7 @@
                                     </HBox>
                                  </children>
                                  <padding>
-                                    <Insets left="5.0" top="5.0" />
+                                    <Insets bottom="10.0" left="5.0" top="5.0" />
                                  </padding>
                               </VBox>
                            </content>
@@ -306,10 +303,5 @@
             </Pane>
          </children>
       </AnchorPane>
-      <ScrollPane fx:id="scroll1" layoutX="316.0" layoutY="-143.0" prefHeight="129.0" prefWidth="350.0" style="-fx-background-color: black;">
-        <content>
-          <AnchorPane fx:id="pane1" minHeight="0.0" minWidth="0.0" prefHeight="123.0" prefWidth="200.0" style="-fx-background-color: orange;" />
-        </content>
-      </ScrollPane>
    </children>
 </AnchorPane>

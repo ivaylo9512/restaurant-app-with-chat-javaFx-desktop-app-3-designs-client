@@ -110,15 +110,25 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
 }
 
-.user-message{
-    -fx-padding: 20 0 0 65;
-}
-.user-message .message{
+.main-chat .message{
     -fx-fill: #bcbcbc;
 }
-.user-message .time{
+
+.main-chat .time{
     -fx-fill: #2A2E37;
 }
-.user-message TextFlow{
+.main-chat TextFlow{
     -fx-padding: 5 0 5 0;
+}
+.user-message-first{
+    -fx-padding: 20 0 0 65;
+}
+.user-message{
+    -fx-padding: 8 40 0 65;
+}
+.other-user-message-first{
+    -fx-padding: 20 65 0 0;
+}
+.other-user-message{
+    -fx-padding: 8 65 0 40;
 }
