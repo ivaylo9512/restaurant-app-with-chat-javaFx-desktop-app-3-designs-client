@@ -11,6 +11,7 @@ public class ChatSpec {
     private boolean moreSessions = true;
     private Image secondUserPicture;
     private List<Session> sessions;
+
     public ChatSpec(int chatId, int userId, Image profilePicture) {
         this.chatId = chatId;
         this.userId = userId;
@@ -59,5 +60,13 @@ public class ChatSpec {
 
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
+    }
+
+    public boolean isMoreSessions() {
+        return moreSessions;
+    }
+
+    public void setMoreSessions(boolean moreSessions) {
+        this.moreSessions = moreSessions;
     }
 }

@@ -35,7 +35,7 @@ ScrollPane > .viewport{
     -fx-background-color: transparent;
 }
 .btn{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
     -fx-border-radius: 2px;
     -fx-background-radius: 2px;
 }

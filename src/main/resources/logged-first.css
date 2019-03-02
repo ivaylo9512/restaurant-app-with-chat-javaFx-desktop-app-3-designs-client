@@ -120,7 +120,10 @@ TextFlow {
     -fx-background-radius: 5;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
 }
+.chat-block{
+    -fx-padding: 0 0 7 0;
 
+}
 .main-chat .message{
     -fx-fill: #bcbcbc;
 }
@@ -139,15 +142,28 @@ TextFlow {
     -fx-padding: 5 0 5 0;
 }
 .user-message-first{
-    -fx-padding: 20 0 0 65;
+    -fx-padding: 15 0 0 65;
 }
 .user-message{
     -fx-padding: 8 40 0 65;
 }
 .second-user-message-first{
-    -fx-padding: 22 65 0 0;
+    -fx-padding: 17 65 0 0;
 }
 .second-user-message{
     -fx-padding: 8 65 0 40;
 }
+.session-date{
+    -fx-padding: 10 0 15 15;
+}
+.session-info{
+    -fx-padding: 10 0 0 15;
+}
+.session-info Text{
+    -fx-fill: #bcbcbc;
+}
+.session-date Text{
+    -fx-fill: #bcbcbc;
+}
+
 
