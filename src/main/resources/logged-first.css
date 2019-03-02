@@ -3,7 +3,7 @@
 }
 Label{
     -fx-background-color: #363b41;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
 }
 
@@ -29,7 +29,18 @@ ScrollPane ScrollBar .thumb{
     -fx-background-color:  #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
+TextArea .scroll-pane {
+    -fx-background-color: transparent;
+}
 
+TextArea .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+TextArea .scroll-pane .content{
+    -fx-background-color: transparent;
+}
 .scroll-bar > .increment-button,
 .scroll-bar > .decrement-button{
     -fx-pref-height:0;
@@ -43,11 +54,11 @@ ScrollPane ScrollBar .thumb{
 .menu Button{
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
     -fx-background-color: #2A2E37;
 }
 .menu Button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 0.5, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
     -fx-border-width: 0;
 }
 .order-container{
@@ -113,7 +124,14 @@ TextFlow {
 .main-chat .message{
     -fx-fill: #bcbcbc;
 }
+.main-chat Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
 
+}
+.main-chat Button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 0, 0.0 , 0 , 0 );
+
+}
 .main-chat .time{
     -fx-fill: #2A2E37;
 }
@@ -126,9 +144,10 @@ TextFlow {
 .user-message{
     -fx-padding: 8 40 0 65;
 }
-.other-user-message-first{
-    -fx-padding: 20 65 0 0;
+.second-user-message-first{
+    -fx-padding: 22 65 0 0;
 }
-.other-user-message{
+.second-user-message{
     -fx-padding: 8 65 0 40;
 }
+

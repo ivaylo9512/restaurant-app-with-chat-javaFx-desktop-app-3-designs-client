@@ -6,7 +6,7 @@ import java.util.List;
 public class Session{
 
     private LocalDate date;
-    private List<String> messages;
+    private List<Message> messages;
     public Session() {
     }
 
@@ -20,5 +20,13 @@ public class Session{
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }

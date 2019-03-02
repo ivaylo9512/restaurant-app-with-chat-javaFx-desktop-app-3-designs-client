@@ -36,40 +36,46 @@ public class ResizeMainChat {
             mouseX = event.getScreenX();
             mouseY = event.getScreenY();
             height = mainChat.getPrefHeight();
+            resize = !event.getPickResult().getIntersectedNode().getTypeSelector().equals("TextAreaSkin$ContentView") &&
+                    !event.getPickResult().getIntersectedNode().getTypeSelector().equals("Text") &&
+                    !event.getPickResult().getIntersectedNode().getTypeSelector().equals("Button") &&
+                    !event.getPickResult().getIntersectedNode().getTypeSelector().equals("ScrollBarSkin$1");
         });
 
         mainChat.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
             double moveY = mouseY - event.getScreenY();
             double moveX = mouseX - event.getScreenX();
+            if(resize) {
+                if (mainChat.getCursor().equals(Cursor.N_RESIZE)) {
 
-                if(mainChat.getCursor().equals(Cursor.N_RESIZE)){
-                    if(height + moveY <= mainChat.getMinHeight()){
-                        mainChat.setLayoutY(mainChat.getLayoutY() - (mainChat.getMinHeight()  - mainChat.getPrefHeight()) );
+                    if (height + moveY <= mainChat.getMinHeight()) {
+                        mainChat.setLayoutY(mainChat.getLayoutY() - (mainChat.getMinHeight() - mainChat.getPrefHeight()));
                         mainChat.setPrefHeight(mainChat.getMinHeight());
-                    }else if(height + moveY >= mainChat.getMaxHeight()){
-                        mainChat.setLayoutY(mainChat.getLayoutY() - (mainChat.getMaxHeight()  - mainChat.getPrefHeight()) );
+                    } else if (height + moveY >= mainChat.getMaxHeight()) {
+                        mainChat.setLayoutY(mainChat.getLayoutY() - (mainChat.getMaxHeight() - mainChat.getPrefHeight()));
                         mainChat.setPrefHeight(mainChat.getMaxHeight());
-                    }else{
+                    } else {
                         mainChat.setPrefHeight(height + moveY);
                         mainChat.setLayoutY(layoutY - moveY);
                     }
 
-                }else if (mainChat.getCursor().equals(Cursor.S_RESIZE)){
-                    if(height - moveY <= mainChat.getMinHeight()){
+                } else if (mainChat.getCursor().equals(Cursor.S_RESIZE)) {
+
+                    if (height - moveY <= mainChat.getMinHeight()) {
                         mainChat.setPrefHeight(mainChat.getMinHeight());
-                    }else if(height - moveY >= mainChat.getMaxHeight()){
+                    } else if (height - moveY >= mainChat.getMaxHeight()) {
                         mainChat.setPrefHeight(mainChat.getMaxHeight());
-                    }else{
+                    } else {
                         mainChat.setPrefHeight(height - moveY);
                     }
-                }else{
+
+                } else {
                     mainChat.setLayoutY(layoutY - moveY);
                     mainChat.setLayoutX(layoutX - moveX);
                 }
-        });
-        mainChat.setOnMouseReleased(event -> {
-            height = mainChat.getHeight();
+            }
         });
 
+        mainChat.setOnMouseReleased(event -> height = mainChat.getHeight());
     }
 }

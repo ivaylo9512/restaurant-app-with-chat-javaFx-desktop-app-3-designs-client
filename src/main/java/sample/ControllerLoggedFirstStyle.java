@@ -1,29 +1,20 @@
 package sample;
 
 import Animations.ExpandOrderPane;
-import Animations.ResizeHeight;
 import Animations.ResizeMainChat;
-import Animations.ResizeWidth;
 import Models.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.google.gson.*;
 import javafx.animation.*;
-import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.control.skin.ScrollPaneSkin;
+import javafx.scene.control.skin.TextAreaSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -31,25 +22,24 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.prefs.Preferences;
 
 
@@ -57,25 +47,26 @@ public class ControllerLoggedFirstStyle {
     @FXML Label firstName, lastName, country, age, role;
     @FXML FlowPane ordersFlow;
     @FXML Pane contentPane;
-    @FXML VBox vbox, chatUsers;
+    @FXML VBox mainChatBlock, chatUsers;
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, ordersScroll, mainChatScroll;
     @FXML AnchorPane contentRoot, mainChat;
     @FXML ImageView roleImage;
-
+    @FXML TextArea mainChatTextArea;
     private User loggedUser;
     private ObjectMapper mapper = new ObjectMapper();
-    private HashMap<ChatKey, List<Session>> chatsMap = new HashMap<>();
+    private HashMap<Integer, ChatSpec> chatsMap = new HashMap<>();
     private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
     private Preferences userPreference = Preferences.userRoot();
-    private Image profileImage;
-
+    private Image userProfileImage;
+    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private ChatSpec mainChatSpec;
     @FXML
     public void initialize() throws IOException {
         mapper.registerModule(new JavaTimeModule());
         String userJson = userPreference.get("user",null);
         loggedUser = mapper.readValue(userJson, User.class);
         InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
-        profileImage = new Image(in);
+        userProfileImage = new Image(in);
         in.close();
 
         displayUserInfo();
@@ -84,7 +75,7 @@ public class ControllerLoggedFirstStyle {
         appendOrders(orders);
 
         getChats();
-        appendMessages();
+//        appendMessages();
 
         manageSceneScrolls();
 
@@ -118,6 +109,14 @@ public class ControllerLoggedFirstStyle {
         fixBlurryContent(chatUsersScroll);
         fixBlurryContent(mainChatScroll);
         fixBlurryContent(ordersScroll);
+        mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
+                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
+                fixBlurryContent(textAreaScroll);
+
+            }
+        });
         ordersScroll.setOnScroll(event -> {
             if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
                 FlowPane pane = (FlowPane) ordersScroll.getContent();
@@ -163,10 +162,11 @@ public class ControllerLoggedFirstStyle {
         country.setText(loggedUser.getCountry());
         age.setText(String.valueOf(loggedUser.getAge()));
         role.setText(loggedUser.getRole());
+
         if (loggedUser.getRole().equals("chef")) {
             roleImage.setImage(new Image(getClass().getResourceAsStream("/chef-second.png")));
         }else{
-            roleImage.setImage(new Image(getClass().getResourceAsStream("/chef-second.png")));
+            roleImage.setImage(new Image(getClass().getResourceAsStream("/waiter-second.png")));
         }
     }
     private void getChats(){
@@ -190,26 +190,28 @@ public class ControllerLoggedFirstStyle {
 
                 try {
                     InputStream in;
-                    ChatKey chatKey;
+                    ChatSpec chatSpec;
                     Image profilePicture;
                     if(chat.getFirstUser().getId() == loggedUser.getId()){
                         in = new BufferedInputStream(
                         new URL(chat.getSecondUser().getProfilePicture()).openStream());
                         profilePicture = new Image(in);
-                        chatKey = new ChatKey(chat.getId(), chat.getSecondUser().getId(), profilePicture);
+                        chatSpec = new ChatSpec(chat.getId(), chat.getSecondUser().getId(), profilePicture);
                     }else{
                         in = new BufferedInputStream(
                                 new URL(chat.getFirstUser().getProfilePicture()).openStream());
                         profilePicture = new Image(in);
 
-                        chatKey = new ChatKey(chat.getId(), chat.getFirstUser().getId(), profilePicture);
+                        chatSpec = new ChatSpec(chat.getId(), chat.getFirstUser().getId(), profilePicture);
                     }
                     in.close();
                     ImageView imageView = new ImageView(profilePicture);
+                    imageView.setId(String.valueOf(chat.getId()));
                     imageView.setFitHeight(50);
                     imageView.setFitWidth(50);
+                    imageView.setOnMouseClicked(this::setMainChat);
                     chatUsers.getChildren().add(imageView);
-                    chatsMap.put(chatKey, new ArrayList<>());
+                    chatsMap.put(chat.getId(), chatSpec);
 
                 }catch (IOException e) {
                     e.printStackTrace();
@@ -219,7 +221,194 @@ public class ControllerLoggedFirstStyle {
             e.printStackTrace();
         }
     }
+    private void setMainChat(MouseEvent event){
+        ImageView imageView = (ImageView) event.getSource();
+        int chatId = Integer.parseInt(imageView.getId());
+        int pageSize = 3;
+        ChatSpec chat = chatsMap.get(chatId);
+//        int page = chat.getSessions().size() / perPage;
+        System.out.println(imageView.getId());
+        mainChatSpec = chat;
+        List<Session> sessions = getNextSessions(chatId,0,pageSize);
+        sessions.forEach(session -> {
+            session.getMessages().forEach(message -> {
+              appendMessage(message, chat);
+            });
+        });
+    }
+//    private void openChat(MouseEvent event){
+//        ImageView imageView = (ImageView) event.getSource();
+//        int chatId = Integer.parseInt(imageView.getId());
+//        int pageSize = 3;
+//        ChatSpec chat = chatsMap.get(chatId);
+////        int page = chat.getSessions().size() / perPage;
+//        System.out.println(imageView.getId());
+//
+//        List<Session> sessions = getNextSessions(chatId,0,pageSize);
+//        sessions.forEach(session -> {
+//            session.getMessages().forEach(this::appendMessage);
+//        });
+//    }
 
+    private List<Session> getNextSessions(int id, int page, int pageSize){
+        HttpGet get;
+        List<Session> sessions = new ArrayList<>();
+        try {
+
+            URIBuilder builder = new URIBuilder("http://localhost:8080/api/auth/chat/nextSessions");
+            builder
+                    .setParameter("chatId", String.valueOf(id))
+                    .setParameter("page", String.valueOf(page))
+                    .setParameter("pageSize", String.valueOf(pageSize));
+            get = new HttpGet(builder.build());
+            get.setHeader("Authorization", userPreference.get("token", null));
+
+            try(CloseableHttpResponse response = httpClient.execute(get)){
+
+                int responseStatus = response.getStatusLine().getStatusCode();
+                HttpEntity entity = response.getEntity();
+                String content = EntityUtils.toString(entity);
+
+                if(responseStatus != 200){
+                    EntityUtils.consume(entity);
+                    throw new HttpException("Invalid response code: " + responseStatus  + ". With an error message: " + content);
+                }
+                sessions = mapper.readValue(content, new TypeReference<List<Session>>(){});
+
+            } catch (IOException | HttpException e) {
+                e.printStackTrace();
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return sessions;
+    }
+    private void appendMessage(Message message, ChatSpec chat){
+        HBox hBox = new HBox();
+        VBox newBlock = new VBox();
+
+        Text text = new Text();
+        Text time = new Text();
+        ImageView imageView = new ImageView();
+        TextFlow textFlow = new TextFlow();
+
+        time.getStyleClass().add("time");
+        text.getStyleClass().add("message");
+        imageView.getStyleClass().add("shadow");
+        imageView.setFitWidth(40);
+        imageView.setFitHeight(40);
+        HBox.setMargin(imageView,new Insets(-20,0,0,0));
+
+        if(message.getReceiver() == loggedUser.getId()){
+            imageView.setImage(chat.getSecondUserPicture());
+            text.setText(message.getMessage());
+            time.setText("  " + timeFormatter.format(message.getDate()));
+            textFlow.getChildren().addAll(text, time);
+            hBox.setAlignment(Pos.TOP_LEFT);
+
+        }else{
+            imageView.setImage(userProfileImage);
+            text.setText(message.getMessage());
+            time.setText(timeFormatter.format(message.getDate()) + "  ");
+            textFlow.getChildren().addAll(time, text);
+            hBox.setAlignment(Pos.TOP_RIGHT);
+
+        }
+
+        boolean timeElapsed;
+        int timeToElapse = 10;
+
+        List<Node> messageBlocks = mainChatBlock.getChildren();
+        if(messageBlocks.size() > 0) {
+
+            VBox lastBlock = (VBox) messageBlocks.get(messageBlocks.size() - 1);
+            HBox lastMessage = (HBox) lastBlock.getChildren().get(lastBlock.getChildren().size() - 1);
+            LocalTime lastBlockStartedDate;
+            TextFlow firstTextFlow = (TextFlow)lastMessage.lookup("TextFlow");
+            Text lastBlockStartedText = (Text)firstTextFlow.lookup(".time");
+            lastBlockStartedDate = LocalTime.parse(lastBlockStartedText.getText().replaceAll("\\s+",""));
+
+            timeElapsed = java.time.Duration.between(lastBlockStartedDate, message.getDate()).toMinutes() > timeToElapse;
+
+            if(message.getReceiver() == loggedUser.getId()){
+                if(!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("second-user-message")){
+
+                    hBox.getStyleClass().add("second-user-message");
+                    hBox.getChildren().addAll(textFlow);
+                    lastBlock.getChildren().add(hBox);
+
+                }else{
+
+                    hBox.getStyleClass().add("second-user-message-first");
+                    hBox.getChildren().addAll(imageView, textFlow);
+                    newBlock.getChildren().add(hBox);
+                    mainChatBlock.getChildren().add(newBlock);
+
+                }
+            }else{
+                if(!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("user-message")){
+
+                    hBox.getStyleClass().add("user-message");
+                    hBox.getChildren().addAll(textFlow);
+                    lastBlock.getChildren().add(hBox);
+
+                }else{
+
+                    hBox.getStyleClass().add("user-message-first");
+                    hBox.getChildren().addAll(textFlow, imageView);
+                    newBlock.getChildren().add(hBox);
+                    mainChatBlock.getChildren().add(newBlock);
+
+                }
+            }
+        }else{
+
+            if(message.getReceiver() == loggedUser.getId()){
+                hBox.getStyleClass().add("second-user-message-first");
+                hBox.getChildren().addAll(imageView, textFlow);
+                newBlock.getChildren().add(hBox);
+            }else{
+                hBox.getStyleClass().add("user-message-first");
+                hBox.getChildren().addAll(textFlow, imageView);
+                newBlock.getChildren().add(hBox);
+            }
+            mainChatBlock.getChildren().add(newBlock);
+        }
+//
+//        if(message.getReceiver() == loggedUser.getId()){
+//            text.setText(message.getMessage());
+//            time.setText("  " + timeFormatter.format(message.getDate()));
+//            textFlow.getChildren().addAll(text, time);
+//
+//            ImageView imageView2 = new ImageView(userProfileImage);
+//            imageView2.getStyleClass().add("shadow");
+//            imageView2.setFitWidth(40);
+//            imageView2.setFitHeight(40);
+//
+//            hBox.getStyleClass().add("other-user-message-first");
+//            HBox.setMargin(imageView2,new Insets(-20,0,0,0));
+//            hBox.getChildren().addAll(imageView2, textFlow);
+//            hBox.setAlignment(Pos.TOP_LEFT);
+//
+//        }else{
+//            text.setText(message.getMessage());
+//            time.setText(timeFormatter.format(message.getDate()) + "  ");
+//            textFlow.getChildren().addAll(time, text);
+//
+//            ImageView imageView1 = new ImageView(userProfileImage);
+//            imageView1.getStyleClass().add("shadow");
+//            imageView1.setFitWidth(40);
+//            imageView1.setFitHeight(40);
+//
+//            hBox.getStyleClass().add("user-message-first");
+//            HBox.setMargin(imageView1,new Insets(-20,0,0,0));
+//            hBox.getChildren().addAll(textFlow, imageView1);
+//            hBox.setAlignment(Pos.TOP_RIGHT);
+//        }
+//        mainChatBlock.getChildren().addAll(hBox);
+
+    }
     @FXML
     private void scrollToChats(){
         Animation animation = new Timeline(
@@ -251,7 +440,7 @@ public class ControllerLoggedFirstStyle {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ImageView imageView = new ImageView(profileImage);
+        ImageView imageView = new ImageView(userProfileImage);
         imageView.getStyleClass().add("shadow");
         imageView.setFitWidth(40);
         imageView.setFitHeight(40);
@@ -271,7 +460,7 @@ public class ControllerLoggedFirstStyle {
         time2.setText("12:00  ");
         textFlow2.getChildren().addAll(time2, text2);
 
-        ImageView imageView1 = new ImageView(profileImage);
+        ImageView imageView1 = new ImageView(userProfileImage);
         imageView1.getStyleClass().add("shadow");
         imageView1.setFitWidth(40);
         imageView1.setFitHeight(40);
@@ -305,7 +494,7 @@ public class ControllerLoggedFirstStyle {
         time3.setText("13:10  ");
         textFlow3.getChildren().addAll(text3, time3);
 
-        ImageView imageView2 = new ImageView(profileImage);
+        ImageView imageView2 = new ImageView(userProfileImage);
         imageView2.getStyleClass().add("shadow");
         imageView2.setFitWidth(40);
         imageView2.setFitHeight(40);
@@ -331,14 +520,18 @@ public class ControllerLoggedFirstStyle {
 
         VBox lastVBox = new VBox(hBox, hBox1, hBox2);
         VBox currentVBox = new VBox(hBox3,hBox4);
-        vbox.getChildren().addAll(lastVBox, currentVBox);
-        System.out.println(vbox.getChildren().size());
-        VBox lastMessageBlock = (VBox) vbox.getChildren().get(vbox.getChildren().size() - 1);
+        mainChatBlock.getChildren().addAll(lastVBox, currentVBox);
+        System.out.println(mainChatBlock.getChildren().size());
+        VBox lastMessageBlock = (VBox) mainChatBlock.getChildren().get(mainChatBlock.getChildren().size() - 1);
         HBox firstMessageBox = (HBox) lastMessageBlock.getChildren().get(0);
         TextFlow firstTextFlow = (TextFlow) firstMessageBox.getChildren().get(1);
         Text firstTime = (Text) firstTextFlow.getChildren().get(1);
         System.out.println(firstTime.getText());
 
+        LocalTime localTime = LocalTime.of(13,10);
+        LocalTime localTime1 = LocalTime.of(13, 30);
+        System.out.println(localTime1.compareTo(localTime));
+        System.out.println(java.time.Duration.between(localTime,localTime1).toMinutes());
 
     }
     private List<Order> getOrders(){
