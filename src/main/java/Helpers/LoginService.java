@@ -1,4 +1,4 @@
-package sample;
+package Helpers;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -17,6 +17,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
+import sample.LoginFirstStyle;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import java.util.prefs.Preferences;
 
 public class LoginService extends Service {
     private final StringProperty username = new SimpleStringProperty(this, "username");
-    private final StringProperty password = new SimpleStringProperty(this, "username");
+    private final StringProperty password = new SimpleStringProperty(this, "password");
     public final StringProperty usernameProperty() { return username; }
     public final StringProperty passwordProperty() { return password; }
 

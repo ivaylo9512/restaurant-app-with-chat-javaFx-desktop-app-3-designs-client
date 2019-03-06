@@ -14,13 +14,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.skin.ListViewSkin;
-import javafx.scene.control.skin.ScrollPaneSkin;
-import javafx.scene.control.skin.TextAreaSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -28,13 +24,11 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import static sample.Reversed.reversed;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -266,7 +260,11 @@ public class ControllerLoggedFirstStyle {
             mainChatBlock.setId("beginning");
             mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
             mainChat.setDisable(false);
-            mainChat.setOpacity(1);
+            mainChat.setOpacity(0);
+
+            Timeline opacity = new Timeline(new KeyFrame(Duration.millis(200), event1 -> mainChat.setOpacity(1)));
+            opacity.play();
+
             mainChatSpec = chat;
 
             LinkedHashMap<LocalDate, Session> sessionsMap = mainChatSpec.getSessions();

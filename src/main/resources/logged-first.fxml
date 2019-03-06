@@ -138,7 +138,7 @@
                         </ScrollPane>
                      </children>
                   </Pane>
-                  <AnchorPane fx:id="mainChat" layoutX="111.0" layoutY="203.0" maxHeight="421.0" minHeight="189.0" minWidth="423.0" prefHeight="189.0" prefWidth="423.0" style="-fx-background-color: #363b41;" styleClass="main-chat">
+                  <AnchorPane fx:id="mainChat" disable="true" layoutX="111.0" layoutY="203.0" maxHeight="421.0" minHeight="189.0" minWidth="423.0" opacity="0.0" prefHeight="189.0" prefWidth="423.0" style="-fx-background-color: #363b41;" styleClass="main-chat">
                      <children>
                         <ScrollPane fx:id="mainChatScroll" layoutX="3.0" layoutY="1.0" prefHeight="143.0" prefWidth="418.0" AnchorPane.bottomAnchor="45.0" AnchorPane.topAnchor="1.0">
                            <content>

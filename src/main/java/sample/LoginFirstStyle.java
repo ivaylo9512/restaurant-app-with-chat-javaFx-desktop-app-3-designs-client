@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -13,7 +15,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 public class LoginFirstStyle extends Application {
-    static CloseableHttpClient httpClient = HttpClients.createDefault();
+    public static CloseableHttpClient httpClient = HttpClients.createDefault();
+    static Alert alert;
     @Override
     public void start(Stage primaryStage) throws Exception {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -23,17 +26,25 @@ public class LoginFirstStyle extends Application {
         scene.getStylesheets().add(getClass().getResource("/login.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
-        Stage stage = new Stage();
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        primaryStage.show();
 
-        root.setLayoutX((primaryScreenBounds.getMaxX() - root.getWidth())/2);
-        root.setLayoutY((primaryScreenBounds.getMaxY() - root.getHeight()) / 2);
+        primaryStage.setWidth(primaryScreenBounds.getWidth());
+        primaryStage.setHeight(primaryScreenBounds.getHeight());
+        primaryStage.setX(primaryScreenBounds.getMinX());
+        primaryStage.setY(primaryScreenBounds.getMinY());
 
-        stage.setWidth(primaryScreenBounds.getWidth());
-        stage.setHeight(primaryScreenBounds.getHeight());
-        stage.setX(primaryScreenBounds.getMinX());
-        stage.setY(primaryScreenBounds.getMinY());
+        Pane loginPane = (Pane) root.getChildren().get(1);
+        loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
+        loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
+
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(primaryStage);
+        alert.initStyle(StageStyle.TRANSPARENT);
+        DialogPane dialog = alert.getDialogPane();
+        dialog.setGraphic(null);
+        dialog.getStyleClass().add("alertBox");
+
     }
 }

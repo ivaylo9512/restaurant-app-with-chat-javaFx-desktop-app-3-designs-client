@@ -64,6 +64,12 @@ public class Scrolls {
                 event.consume();
             });
 
+            mainChatScrollBar.visibleAmountProperty().addListener((observable1, oldValue1, newValue1) -> {
+                if(newValue1.doubleValue() > 1 && !mainChatScrollBar.isDisabled()){
+                    content.setId("append");
+                }
+            });
+
             content.heightProperty().addListener((observable1, oldValue1, newValue1) -> {
                 if(!content.getId().equals("beginning")) {
                     double oldHeight = oldValue1.doubleValue();

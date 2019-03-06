@@ -31,15 +31,17 @@ public class ResizeMainChat {
         });
 
         mainChat.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            layoutY = mainChat.getLayoutY();
-            layoutX = mainChat.getLayoutX();
-            mouseX = event.getScreenX();
-            mouseY = event.getScreenY();
-            height = mainChat.getPrefHeight();
-            resize = !event.getPickResult().getIntersectedNode().getTypeSelector().equals("TextAreaSkin$ContentView") &&
-                    !event.getPickResult().getIntersectedNode().getTypeSelector().equals("Text") &&
-                    !event.getPickResult().getIntersectedNode().getTypeSelector().equals("Button") &&
-                    !event.getPickResult().getIntersectedNode().getTypeSelector().equals("ScrollBarSkin$1");
+            if (event.isPrimaryButtonDown()) {
+                layoutY = mainChat.getLayoutY();
+                layoutX = mainChat.getLayoutX();
+                mouseX = event.getScreenX();
+                mouseY = event.getScreenY();
+                height = mainChat.getPrefHeight();
+                resize = !event.getPickResult().getIntersectedNode().getTypeSelector().equals("TextAreaSkin$ContentView") &&
+                        !event.getPickResult().getIntersectedNode().getTypeSelector().equals("Text") &&
+                        !event.getPickResult().getIntersectedNode().getTypeSelector().equals("Button") &&
+                        !event.getPickResult().getIntersectedNode().getTypeSelector().equals("ScrollBarSkin$1");
+            }
         });
 
         mainChat.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
@@ -76,6 +78,10 @@ public class ResizeMainChat {
             }
         });
 
-        mainChat.setOnMouseReleased(event -> height = mainChat.getHeight());
+        mainChat.setOnMouseReleased(event ->{
+            if(event.isPrimaryButtonDown()){
+                height = mainChat.getHeight();
+            }
+        });
     }
 }

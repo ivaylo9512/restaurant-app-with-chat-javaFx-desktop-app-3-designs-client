@@ -1,17 +1,23 @@
-.login-pane{
+.background{
+    -fx-background-color: black;
+    -fx-opacity: 0.5;
+}
+.login-pane > Pane{
+    -fx-opacity: 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 15, 0.0 , 0 , 2 );
     -fx-background-color: #2A2E37;
 }
-TextField{
+TextField,
+PasswordField{
     -fx-background-color: #363b41;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
     -fx-text-fill: #bcbcbc;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
 }
 Label{
     -fx-background-color: #363b41;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
 }
 Button{
     -fx-background-color: #2A2E37;
@@ -34,8 +40,40 @@ ScrollPane{
 ScrollPane > .viewport{
     -fx-background-color: transparent;
 }
-.btn{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
-    -fx-border-radius: 2px;
-    -fx-background-radius: 2px;
+
+.alertBox{
+    -fx-background-color: #2A2E37;
+    -fx-border-width:1.5px;
+    -fx-border-color: black;
+}
+.alertBox > *.button-bar > *.container{
+    -fx-background-color: #2A2E37;
+    -fx-pref-height: 50
+}
+
+.alertBox:header *.header-panel{
+    -fx-background-color: #2A2E37;
+}
+.alertBox:header *.header-panel *.label{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 25;
+    -fx-text-fill: #2A2E37;
+    -fx-alignment: center;
+    -fx-background-color: #2A2E37;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
+}
+.alertBox > *.label.content{
+    -fx-font-size: 12px;
+    -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
+    -fx-pref-height: 50;
+    -fx-padding: 0,0,10,0;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
+    -fx-background-color: #363b41;
+    -fx-border-width: 1 0 1 0;
+    -fx-border-color: black;
+}
+.alertBox Button{
+    -fx-text-fill: #bcbcbc;
 }
