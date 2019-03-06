@@ -17,10 +17,10 @@ public class ResizeMainChat {
     private static double layoutY;
     private static double layoutX;
 
-    public static void resize(AnchorPane mainChat){
+    public static void addListeners(AnchorPane mainChat){
         height = mainChat.getPrefHeight();
 
-        mainChat.setOnMouseMoved(event -> {
+        mainChat.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
             if (event.getY() <= border){
                 mainChat.setCursor(Cursor.N_RESIZE);
             } else if (event.getY() >= height - border) {

@@ -2,15 +2,20 @@ package Models;
 
 import javafx.scene.image.Image;
 
+import java.time.LocalDate;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
 public class ChatSpec {
     private int userId;
     private int chatId;
+
     private boolean moreSessions = true;
+    private int displayedSessions;
+
     private Image secondUserPicture;
-    private List<Session> sessions;
+    private LinkedHashMap<LocalDate, Session> sessions = new LinkedHashMap<>();
 
     public ChatSpec(int chatId, int userId, Image profilePicture) {
         this.chatId = chatId;
@@ -54,11 +59,11 @@ public class ChatSpec {
         this.secondUserPicture = profilePicture;
     }
 
-    public List<Session> getSessions() {
+    public LinkedHashMap<LocalDate, Session> getSessions() {
         return sessions;
     }
 
-    public void setSessions(List<Session> sessions) {
+    public void setSessions(LinkedHashMap<LocalDate, Session> sessions) {
         this.sessions = sessions;
     }
 
@@ -68,5 +73,13 @@ public class ChatSpec {
 
     public void setMoreSessions(boolean moreSessions) {
         this.moreSessions = moreSessions;
+    }
+
+    public int getDisplayedSessions() {
+        return displayedSessions;
+    }
+
+    public void setDisplayedSessions(int displayedSessions) {
+        this.displayedSessions = displayedSessions;
     }
 }

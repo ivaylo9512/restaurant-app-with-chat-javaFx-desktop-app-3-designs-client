@@ -2,6 +2,7 @@ package sample;
 
 import Animations.ExpandOrderPane;
 import Animations.ResizeMainChat;
+import Helpers.Scrolls;
 import Models.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.skin.ListViewSkin;
 import javafx.scene.control.skin.ScrollPaneSkin;
 import javafx.scene.control.skin.TextAreaSkin;
 import javafx.scene.image.Image;
@@ -39,10 +41,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.prefs.Preferences;
 
 
@@ -55,6 +54,7 @@ public class ControllerLoggedFirstStyle {
     @FXML AnchorPane contentRoot, mainChat;
     @FXML ImageView roleImage;
     @FXML TextArea mainChatTextArea;
+
     private User loggedUser;
     private ObjectMapper mapper = new ObjectMapper();
     private HashMap<Integer, ChatSpec> chatsMap = new HashMap<>();
@@ -65,6 +65,7 @@ public class ControllerLoggedFirstStyle {
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
     private ChatSpec mainChatSpec;
     private int pageSize = 3;
+
     @FXML
     public void initialize() throws IOException {
         mapper.registerModule(new JavaTimeModule());
@@ -80,7 +81,7 @@ public class ControllerLoggedFirstStyle {
         appendOrders(orders);
         getChats();
 
-        manageSceneScrolls();
+        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll, ordersScroll, mainChatScroll,mainChatTextArea);
 
         ExpandOrderPane.scrollPane = ordersScroll;
         ExpandOrderPane.contentPane = contentPane;
@@ -95,69 +96,88 @@ public class ControllerLoggedFirstStyle {
             }
         });
 
-        ResizeMainChat.resize(mainChat);
+        mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
+            if (newValue1.equals("append")){
+                loadOlderHistory(mainChatSpec, mainChatBlock);
+            }
+        });
+
+        ResizeMainChat.addListeners(mainChat);
     }
 
-    private void fixBlurryContent(ScrollPane scrollPane){
-        scrollPane.skinProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                scrollPane.getChildrenUnmodifiable().get(0).setCache(false);
+    private void loadOlderHistory(ChatSpec chatSpec, VBox chatBlock) {
+        int displayedSessions = mainChatSpec.getDisplayedSessions();
+        int loadedSessions = mainChatSpec.getSessions().size();
+        int nextPage = loadedSessions / pageSize;
+
+        HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
+        Text info = (Text) sessionInfo.lookup("Text");
+
+        LinkedHashMap<LocalDate, Session> sessionsMap = chatSpec.getSessions();
+        List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
+        List<Session> nextSessions;
+        if(loadedSessions > displayedSessions){
+
+            nextSessions = chatSessions.subList(displayedSessions,
+                    Math.min(displayedSessions + pageSize, loadedSessions));
+
+            if(displayedSessions + nextSessions.size() == loadedSessions && !mainChatSpec.isMoreSessions()){
+                info.setText("Beginning of the chat");
             }
+            mainChatSpec.setDisplayedSessions(displayedSessions + nextSessions.size());
+
+            nextSessions.forEach(session -> {
+
+                Text date = new Text(dateFormatter.format(session.getDate()));
+                TextFlow dateFlow = new TextFlow(date);
+                dateFlow.setTextAlignment(TextAlignment.CENTER);
+
+                HBox sessionDate = new HBox(dateFlow);
+                HBox.setHgrow(dateFlow, Priority.ALWAYS);
+                sessionDate.getStyleClass().add("session-date");
+
+                VBox sessionBlock = new VBox(sessionDate);
+                sessionBlock.setId(session.getDate().toString());
+                session.getMessages()
+                        .forEach(message -> appendMessage(message, mainChatSpec, sessionBlock));
+                mainChatBlock.getChildren().add(1, sessionBlock);
+
         });
-    }
 
-    private void manageSceneScrolls() {
-        fixBlurryContent(menuScroll);
-        fixBlurryContent(userInfoScroll);
-        fixBlurryContent(chatUsersScroll);
-        fixBlurryContent(mainChatScroll);
-        fixBlurryContent(ordersScroll);
-        mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
-                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
-                fixBlurryContent(textAreaScroll);
-
+        }else if(mainChatSpec.isMoreSessions()){
+            nextSessions = getNextSessions(mainChatSpec.getChatId(), nextPage, pageSize);
+            if(nextSessions.size() < pageSize){
+                mainChatSpec.setMoreSessions(false);
+                info.setText("Beginning of the chat");
             }
-        });
-        ordersScroll.setOnScroll(event -> {
-            if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
-                FlowPane pane = (FlowPane) ordersScroll.getContent();
-                ordersScroll.setHvalue(ordersScroll.getHvalue() - event.getDeltaY() / pane.getWidth());
-            }
-        });
+            mainChatSpec.setDisplayedSessions(displayedSessions + nextSessions.size());
+            nextSessions.forEach(session -> {
 
-        AnchorPane anchorPane = (AnchorPane) menuScroll.getContent();
-        menuScroll.addEventFilter(ScrollEvent.SCROLL, event -> {
-            if (event.getDeltaY() != 0) {
+                if(!sessionsMap.containsKey(session.getDate())) {
+                    sessionsMap.put(session.getDate(), session);
 
-                if (menuScroll.getHeight() <= 211) {
-                    ScrollPane scrollPane;
-                    if (menuScroll.getVvalue() == 0) {
-                        scrollPane = userInfoScroll;
-                    }else {
-                        scrollPane = chatUsersScroll;
-                    }
+                    Text date = new Text(dateFormatter.format(session.getDate()));
+                    TextFlow dateFlow = new TextFlow(date);
+                    dateFlow.setTextAlignment(TextAlignment.CENTER);
 
-                    Pane content = (Pane) scrollPane.getContent();
-                    scrollPane.setVvalue(scrollPane.getVvalue() - event.getDeltaY() / content.getHeight());
-                    event.consume();
-                }else{
-                    chatUsersScroll.setDisable(true);
-                    userInfoScroll.setDisable(false);
+                    HBox sessionDate = new HBox(dateFlow);
+                    HBox.setHgrow(dateFlow, Priority.ALWAYS);
+                    sessionDate.getStyleClass().add("session-date");
 
-                    if(anchorPane.getHeight() <= menuScroll.getHeight()){
-                        chatUsersScroll.setDisable(false);
-                    }else if(menuScroll.getVvalue() == 1){
-                        chatUsersScroll.setDisable(false);
-                        userInfoScroll.setDisable(true);
-                    }
+                    VBox sessionBlock = new VBox(sessionDate);
+                    sessionBlock.setId(session.getDate().toString());
+                    session.getMessages()
+                            .forEach(message -> appendMessage(message, mainChatSpec, sessionBlock));
+                    mainChatBlock.getChildren().add(1, sessionBlock);
                 }
 
-            }
-
-        });
+            });
+            mainChatSpec.setSessions(sessionsMap);
+        }else{
+            info.setText("Beginning of the chat");
+        }
     }
+
 
     private void displayUserInfo(){
         firstName.setText(loggedUser.getFirstName());
@@ -224,11 +244,16 @@ public class ControllerLoggedFirstStyle {
             e.printStackTrace();
         }
     }
+
     private void setMainChat(MouseEvent event){
         ImageView imageView = (ImageView) event.getSource();
         int chatId = Integer.parseInt(imageView.getId());
+        int page = 0;
+
         ChatSpec chat = chatsMap.get(chatId);
-//        int page = chat.getSessions().size() / perPage;
+        HBox sessionInfo = (HBox) mainChatBlock.getChildren().get(0);
+        Text info = (Text) sessionInfo.lookup("Text");
+
         if(mainChatSpec != null && chatId == mainChatSpec.getChatId()){
             if(mainChat.isDisabled()){
                 mainChat.setDisable(false);
@@ -238,74 +263,79 @@ public class ControllerLoggedFirstStyle {
                 mainChat.setDisable(true);
             }
         }else{
-            mainChatBlock.getChildren().clear();
+            mainChatBlock.setId("beginning");
+            mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
             mainChat.setDisable(false);
             mainChat.setOpacity(1);
             mainChatSpec = chat;
 
-            List<Session> chatSessions = mainChatSpec.getSessions();
-            if(chatSessions == null) {
-                List<Session> sessions = getNextSessions(chatId, 0, pageSize);
-                mainChatSpec.setSessions(sessions);
+            LinkedHashMap<LocalDate, Session> sessionsMap = mainChatSpec.getSessions();
+            List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
 
+            if(chatSessions.size() == 0) {
+
+                List<Session> sessions = getNextSessions(chatId, page, pageSize);
                 if(sessions.size() < pageSize){
                     mainChatSpec.setMoreSessions(false);
+                    mainChatSpec.setDisplayedSessions(sessions.size());
+                    info.setText("Beginning of chat");
                 }else{
-                    Text info = new Text("Scroll for more history");
-                    TextFlow sessionInfo = new TextFlow(info);
-                    HBox hbox = new HBox(sessionInfo);
-                    hbox.getStyleClass().add("session-info");
-                    hbox.setAlignment(Pos.CENTER);
-                    sessionInfo.setTextAlignment(TextAlignment.CENTER);
-
-                    mainChatBlock.getChildren().add(hbox);
+                    mainChatSpec.setDisplayedSessions(pageSize);
+                    info.setText("Scroll for more history");
                 }
 
-                reversed(sessions).forEach(session -> {
+                sessions.forEach(session -> {
+                    sessionsMap.put(session.getDate(), session);
 
                     Text date = new Text(dateFormatter.format(session.getDate()));
                     TextFlow dateFlow = new TextFlow(date);
                     dateFlow.setTextAlignment(TextAlignment.CENTER);
+
                     HBox sessionDate = new HBox(dateFlow);
                     HBox.setHgrow(dateFlow, Priority.ALWAYS);
                     sessionDate.getStyleClass().add("session-date");
 
-                    mainChatBlock.getChildren().add(sessionDate);
+                    VBox sessionBlock = new VBox(sessionDate);
+                    sessionBlock.setId(session.getDate().toString());
                     session.getMessages()
-                            .forEach(message -> appendMessage(message, chat, mainChatBlock));
+                            .forEach(message -> appendMessage(message, mainChatSpec, sessionBlock));
+                    mainChatBlock.getChildren().add(1, sessionBlock);
+
                 });
+                mainChatSpec.setSessions(sessionsMap);
             }else{
-                List<Session> lastSessions = chatSessions.subList(
-                        Math.max(chatSessions.size() - pageSize, 0), chatSessions.size());
+                List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
 
-                if(mainChatSpec.isMoreSessions()){
-                    Text info = new Text("Scroll for more history");
-                    TextFlow sessionInfo = new TextFlow(info);
-                    HBox hbox = new HBox(sessionInfo);
-                    hbox.getStyleClass().add("session-info");
-                    hbox.setAlignment(Pos.CENTER);
-                    sessionInfo.setTextAlignment(TextAlignment.CENTER);
-
-                    mainChatBlock.getChildren().add(hbox);
+                if(lastSessions.size() == pageSize){
+                    info.setText("Scroll for more history");
+                    mainChatSpec.setDisplayedSessions(pageSize);
+                }else{
+                    info.setText("Beginning of the chat");
+                    mainChatSpec.setDisplayedSessions(lastSessions.size());
                 }
 
-                reversed(lastSessions).forEach(session -> {
+                lastSessions.forEach(session -> {
+
                     Text date = new Text(dateFormatter.format(session.getDate()));
                     TextFlow dateFlow = new TextFlow(date);
                     dateFlow.setTextAlignment(TextAlignment.CENTER);
+
                     HBox sessionDate = new HBox(dateFlow);
                     HBox.setHgrow(dateFlow, Priority.ALWAYS);
                     sessionDate.getStyleClass().add("session-date");
 
-                    mainChatBlock.getChildren().add(sessionDate);
+                    VBox sessionBlock = new VBox(sessionDate);
+                    sessionBlock.setId(session.getDate().toString());
                     session.getMessages()
-                            .forEach(message -> appendMessage(message, chat, mainChatBlock));
+                            .forEach(message -> appendMessage(message, mainChatSpec, sessionBlock));
+                    mainChatBlock.getChildren().add(1, sessionBlock);
+
                 });
             }
         }
-        mainChatBlock.heightProperty().addListener((observable, oldValue, newValue) -> {
-            mainChatScroll.setVvalue(1);
-        });
+//        mainChatBlock.heightProperty().addListener((observable, oldValue, newValue) -> {
+//            mainChatScroll.setVvalue(1);
+//        });
     }
 //    private void openChat(MouseEvent event){
 //        ImageView imageView = (ImageView) event.getSource();
@@ -354,6 +384,7 @@ public class ControllerLoggedFirstStyle {
         }
         return sessions;
     }
+
     private void appendMessage(Message message, ChatSpec chat, VBox chatBlock){
         HBox hBox = new HBox();
         VBox newBlock = new VBox();
