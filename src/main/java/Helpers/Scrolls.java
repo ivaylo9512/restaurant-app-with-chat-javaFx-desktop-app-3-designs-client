@@ -43,15 +43,7 @@ public class Scrolls {
         VBox content = (VBox) mainChatScroll.getContent();
         mainChatScroll.skinProperty().addListener((observable, oldValue, newValue) -> {
 
-            for (Node node : mainChatScroll.lookupAll(".scroll-bar")) {
-                if (node instanceof ScrollBar) {
-                    ScrollBar bar = (ScrollBar) node;
-                    if (bar.getOrientation().equals(Orientation.VERTICAL)) {
-                        mainChatScrollBar = bar;
-                    }
-                }
-            }
-
+            mainChatScrollBar = findVerticalScrollBar(mainChatScroll);
             mainChatScrollBar.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
                 offsetY = event.getScreenY();
             });
@@ -85,8 +77,6 @@ public class Scrolls {
             });
             mainChatScrollBar.valueProperty().addListener((observable1, oldValue1, newValue1) -> {
                 double newPosition = newValue1.doubleValue();
-                double oldPosition = oldValue1.doubleValue();
-                System.out.println(oldPosition);
                 if (newPosition <= mainChatScrollBar.getMin() && !content.getId().equals("beginning")) {
                     mainChatScrollBar.setValue(0);
                     content.setId("append");
@@ -95,6 +85,18 @@ public class Scrolls {
                 }
             });
         });
+    }
+
+    public static ScrollBar findVerticalScrollBar(ScrollPane scrollPane) {
+        for (Node node : scrollPane.lookupAll(".scroll-bar")) {
+            if (node instanceof ScrollBar) {
+                ScrollBar bar = (ScrollBar) node;
+                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
+                    return bar;
+                }
+            }
+        }
+        return null;
     }
 
     private void changeMenuScrollBehaviour() {

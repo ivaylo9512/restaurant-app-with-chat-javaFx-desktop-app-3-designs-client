@@ -13,6 +13,9 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 public class LoggedFirstStyle extends LoginFirstStyle {
+
+    public static Stage stage;
+
     public static void displayLoggedScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         Pane root = new FXMLLoader(LoggedFirstStyle.class.getResource("/logged-first.fxml")).load();
@@ -20,7 +23,7 @@ public class LoggedFirstStyle extends LoginFirstStyle {
         scene.getStylesheets().add(LoggedFirstStyle.class.getResource("/logged-first.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
-        Stage stage = new Stage();
+        stage = new Stage();
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         stage.show();

@@ -4,10 +4,9 @@ import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Objects;
 
-public class ChatSpec {
+public class ChatValue {
     private int userId;
     private int chatId;
 
@@ -17,22 +16,10 @@ public class ChatSpec {
     private Image secondUserPicture;
     private LinkedHashMap<LocalDate, Session> sessions = new LinkedHashMap<>();
 
-    public ChatSpec(int chatId, int userId, Image profilePicture) {
+    public ChatValue(int chatId, int userId, Image profilePicture) {
         this.chatId = chatId;
         this.userId = userId;
         this.secondUserPicture = profilePicture;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChatSpec)) return false;
-        ChatSpec that = (ChatSpec) o;
-        return Objects.equals(getUserId(), that.getUserId());
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(getUserId());
     }
 
     public int getUserId() {

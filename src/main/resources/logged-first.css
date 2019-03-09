@@ -1,11 +1,7 @@
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
-Label{
-    -fx-background-color: #363b41;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
-    -fx-opacity: 1.0;
-}
+
 
 Button:focused{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
@@ -28,6 +24,9 @@ ScrollPane ScrollBar{
 ScrollPane ScrollBar .thumb{
     -fx-background-color:  #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+ScrollPane > .corner {
+    -fx-background-color: transparent;
 }
 TextArea .scroll-pane {
     -fx-background-color: transparent;
@@ -76,10 +75,21 @@ TextArea .scroll-pane .content{
     -fx-pref-height: 86.5;
     -fx-pref-width: 86.5;
 }
+.order AnchorPane{
+    -fx-background-color: #2A2E37;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+
+.order ScrollPane ScrollBar{
+    -fx-background-color: transparent;
+}
+.order ScrollPane ScrollBar .thumb{
+    -fx-background-color: transparent;
+}
 .order > Label{
     -fx-background-color: #2A2E37;
-    -fx-border-radius: 2px;
-    -fx-background-radius: 2px;
+    -fx-border-radius: 2 0 0 2;
+    -fx-background-radius: 2 2 0 0;
     -fx-pref-height: 30.0;
     -fx-pref-width: 30.0;
     -fx-text-fill: #bcbcbc;
@@ -105,6 +115,38 @@ TextArea .scroll-pane .content{
 .order > Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
+.dish {
+    -fx-background-color: #2A2E37;
+}
+.dish .amount{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
+    -fx-background-color: #2A2E37;
+    -fx-pref-width: 46.0;
+    -fx-pref-height: 46.0;
+    -fx-alignment: center;
+    -fx-text-fill:  #bcbcbc;
+
+}
+.dish .ready{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
+    -fx-text-fill:  #bcbcbc;
+    -fx-background-color: #2A2E37;
+    -fx-pref-width: 46.0;
+    -fx-pref-height: 46.0;
+    -fx-alignment: center;
+
+}
+.dish .name{
+    -fx-text-fill:  #bcbcbc;
+    -fx-background-color: #2A2E37;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-pref-height: 46.0;
+    -fx-alignment: center;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
+
+}
+
 .program-bar{
     -fx-background-color: #2A2E37;
     -fx-border-width: 0 0 1 0;
@@ -119,6 +161,11 @@ TextFlow {
     -fx-background-insets: -2 -6 -2 -8;
     -fx-background-radius: 5;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+}
+.user-info Label{
+    -fx-background-color: #363b41;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-opacity: 1.0;
 }
 .chat-block{
     -fx-padding: 0 0 7 0;
@@ -162,7 +209,8 @@ TextFlow {
     -fx-padding: 0 0 0 15;
 }
 
-.session-info Pane{
+.session-info Pane,
+.chat-info Pane{
     -fx-background-color: #bcbcbc;
 }
 .session-info TextFlow{
@@ -175,6 +223,4 @@ TextFlow {
 .session-date Text{
     -fx-fill: #bcbcbc;
 }
-
-
 

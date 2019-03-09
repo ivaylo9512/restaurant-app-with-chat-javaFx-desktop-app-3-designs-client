@@ -37,7 +37,6 @@ public class RegisterService extends Service {
             @Override
             protected Boolean call() throws Exception {
                 Map<String, Object> jsonValues = new HashMap<>();
-                System.out.println(username.get());
                 jsonValues.put("username", username.get());
                 jsonValues.put("password", password.get());
                 jsonValues.put("repeatPassword", repeatPassword.get());

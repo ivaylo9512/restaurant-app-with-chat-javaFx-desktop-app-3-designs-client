@@ -7,6 +7,9 @@ import javafx.scene.layout.AnchorPane;
 
 import javax.xml.stream.EventFilter;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class ResizeMainChat {
     private static double mouseX;
@@ -31,14 +34,15 @@ public class ResizeMainChat {
         });
 
         mainChat.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            if (event.isPrimaryButtonDown()) {
+            if (event.getButton().name().equals("PRIMARY")) {
                 layoutY = mainChat.getLayoutY();
                 layoutX = mainChat.getLayoutX();
                 mouseX = event.getScreenX();
                 mouseY = event.getScreenY();
                 height = mainChat.getPrefHeight();
+
                 resize = !event.getPickResult().getIntersectedNode().getTypeSelector().equals("TextAreaSkin$ContentView") &&
-                        !event.getPickResult().getIntersectedNode().getTypeSelector().equals("Text") &&
+                        !event.getPickResult().getIntersectedNode().getStyleClass().equals(new ArrayList<>(Collections.singletonList("text"))) &&
                         !event.getPickResult().getIntersectedNode().getTypeSelector().equals("Button") &&
                         !event.getPickResult().getIntersectedNode().getTypeSelector().equals("ScrollBarSkin$1");
             }
@@ -47,7 +51,7 @@ public class ResizeMainChat {
         mainChat.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
             double moveY = mouseY - event.getScreenY();
             double moveX = mouseX - event.getScreenX();
-            if(resize) {
+            if(resize && event.getButton().name().equals("PRIMARY")) {
                 if (mainChat.getCursor().equals(Cursor.N_RESIZE)) {
 
                     if (height + moveY <= mainChat.getMinHeight()) {
@@ -79,7 +83,7 @@ public class ResizeMainChat {
         });
 
         mainChat.setOnMouseReleased(event ->{
-            if(event.isPrimaryButtonDown()){
+            if(event.getButton().name().equals("PRIMARY")){
                 height = mainChat.getHeight();
             }
         });

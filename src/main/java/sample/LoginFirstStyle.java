@@ -17,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 public class LoginFirstStyle extends Application {
     public static CloseableHttpClient httpClient = HttpClients.createDefault();
     static Alert alert;
+    public static Stage stage;
     @Override
     public void start(Stage primaryStage) throws Exception {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -34,6 +35,7 @@ public class LoginFirstStyle extends Application {
         primaryStage.setHeight(primaryScreenBounds.getHeight());
         primaryStage.setX(primaryScreenBounds.getMinX());
         primaryStage.setY(primaryScreenBounds.getMinY());
+        stage = primaryStage;
 
         Pane loginPane = (Pane) root.getChildren().get(1);
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
@@ -45,6 +47,5 @@ public class LoginFirstStyle extends Application {
         DialogPane dialog = alert.getDialogPane();
         dialog.setGraphic(null);
         dialog.getStyleClass().add("alertBox");
-
     }
 }

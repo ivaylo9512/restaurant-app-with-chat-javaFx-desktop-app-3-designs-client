@@ -24,7 +24,7 @@
                                     <children>
                                           <ScrollPane fx:id="userInfoScroll" layoutY="77.0" prefHeight="134.0" prefViewportHeight="154.0" prefViewportWidth="103.0" prefWidth="124.0">
                                              <content>
-                                                   <FlowPane layoutY="77.0" prefHeight="130.0" prefWidth="103.0" vgap="6.0">
+                                                   <FlowPane layoutY="77.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
                                                       <children>
                                                             <Label fx:id="firstName" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
                                                                <font>
@@ -121,13 +121,21 @@
             <Pane prefHeight="28.0" prefWidth="742.65" styleClass="program-bar" />
             <Pane fx:id="contentPane" layoutX="106.0" layoutY="28.0" prefHeight="400.0" prefWidth="637.0">
                <children>
-                  <Pane layoutY="188.0" prefHeight="213.0" prefWidth="637.0" style="-fx-background-color: #363b41;">
+                  <AnchorPane layoutY="188.0" prefHeight="213.0" prefWidth="637.0" style="-fx-background-color: #363b41;">
                      <children>
-                        <Line endX="130.0" layoutX="105.5" layoutY="107.0" stroke="#bcbcbc" />
-                        <Line endX="130.0" layoutX="401.5" layoutY="107.0" stroke="#bcbcbc" />
-                        <Text fill="#bcbcbc" layoutX="253.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No chat drag or click a chat" textAlignment="CENTER" wrappingWidth="131.0" />
+                        <HBox alignment="CENTER" layoutX="105.0" layoutY="83.0" styleClass="chat-info" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+                           <children>
+                              <Pane maxHeight="0.5" HBox.hgrow="ALWAYS" />
+                              <Text fill="#bcbcbc" layoutX="253.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chat is not choosen click a chat" textAlignment="CENTER" wrappingWidth="131.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Pane maxHeight="0.5" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
                      </children>
-                  </Pane>
+                  </AnchorPane>
                   <Pane prefHeight="189.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;">
                      <children>
                         <ScrollPane fx:id="ordersScroll" hbarPolicy="NEVER" layoutX="0.5" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="636.5" vbarPolicy="NEVER">
@@ -187,9 +195,88 @@
                         <DropShadow />
                      </effect>
                   </AnchorPane>
+                  <VBox layoutX="24.0" layoutY="198.0" prefHeight="200.0" prefWidth="142.0">
+                     <children>
+                        <HBox prefHeight="46.0" prefWidth="290.0" style="-fx-background-color: #2A2E37;">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #2A2E37;" text="3" textAlignment="CENTER" textFill="#bcbcbc">
+                                 <effect>
+                                    <DropShadow height="8.0" radius="3.5" width="8.0" />
+                                 </effect>
+                              </Label>
+                              <TextField prefHeight="46.0" prefWidth="78.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" HBox.hgrow="ALWAYS" />
+                              <Label alignment="CENTER" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #2A2E37;" text="X" textAlignment="CENTER" textFill="#bcbcbc">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="46.0" prefWidth="290.0" style="-fx-background-color: #2A2E37;">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #2A2E37;" text="3" textAlignment="CENTER" textFill="#bcbcbc">
+                                 <effect>
+                                    <DropShadow height="8.0" radius="3.5" width="8.0" />
+                                 </effect>
+                              </Label>
+                              <TextField prefHeight="46.0" prefWidth="78.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" HBox.hgrow="ALWAYS" />
+                              <Label alignment="CENTER" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #2A2E37;" text="X" textAlignment="CENTER" textFill="#bcbcbc">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="46.0" prefWidth="290.0" style="-fx-background-color: #2A2E37;">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #2A2E37;" text="3" textAlignment="CENTER" textFill="#bcbcbc">
+                                 <effect>
+                                    <DropShadow height="8.0" radius="3.5" width="8.0" />
+                                 </effect>
+                              </Label>
+                              <TextField prefHeight="46.0" prefWidth="78.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" HBox.hgrow="ALWAYS" />
+                              <Label alignment="CENTER" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #2A2E37;" text="X" textAlignment="CENTER" textFill="#bcbcbc">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="46.0" prefWidth="290.0" style="-fx-background-color: #2A2E37;">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #2A2E37;" text="3" textAlignment="CENTER" textFill="#bcbcbc">
+                                 <effect>
+                                    <DropShadow height="8.0" radius="3.5" width="8.0" />
+                                 </effect>
+                              </Label>
+                              <TextField prefHeight="46.0" prefWidth="78.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" HBox.hgrow="ALWAYS" />
+                              <Label alignment="CENTER" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #2A2E37;" text="X" textAlignment="CENTER" textFill="#bcbcbc">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </Pane>
          </children>
       </AnchorPane>
+      <HBox layoutX="-17.0" layoutY="-171.0" prefHeight="46.0" prefWidth="290.0" style="-fx-background-color: #2A2E37;">
+         <children>
+            <Label alignment="CENTER" prefHeight="46.0" prefWidth="43.0" style="-fx-background-color: #2A2E37;" text="X" textAlignment="CENTER" textFill="#bcbcbc">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+            <Label alignment="CENTER" prefHeight="46.0" prefWidth="43.0" style="-fx-background-color: #2A2E37;" text="3" textAlignment="CENTER" textFill="#bcbcbc">
+               <effect>
+                  <InnerShadow height="11.0" radius="5.0" width="11.0" />
+               </effect>
+            </Label>
+            <TextField prefHeight="67.0" prefWidth="218.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

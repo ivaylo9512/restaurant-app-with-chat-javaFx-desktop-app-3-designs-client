@@ -7,7 +7,6 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.concurrent.Service;
 import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
@@ -28,9 +27,9 @@ import java.io.IOException;
 import java.net.ConnectException;
 
 public class ControllerLoginFirstStyle {
-    @FXML public TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML public AnchorPane loginPane;
-    @FXML public Pane root, background, fieldsContainer;
+    @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
+    @FXML AnchorPane loginPane;
+    @FXML Pane root, background, fieldsContainer;
     @FXML Button loginButton, registerButton, actionButton;
     @FXML Pane loginFields, registerFields;
 
@@ -143,7 +142,6 @@ public class ControllerLoginFirstStyle {
             Stage stage = (Stage) loginPane.getScene().getWindow();
             stage.close();
             LoggedFirstStyle.displayLoggedScene();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
