@@ -11,12 +11,13 @@ public class User {
     private String country;
     private String role;
     private String profilePicture;
+    private Restaurant restaurant;
 
     public User(){
 
     }
 
-    public User(int id, String username, String password, String firstName, String lastName, int age, String country, String role, String profilePicture) {
+    public User(int id, String username, String password, String firstName, String lastName, int age, String country, String role, String profilePicture, Restaurant restaurant) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -26,6 +27,7 @@ public class User {
         this.country = country;
         this.role = role;
         this.profilePicture = profilePicture;
+        this.restaurant = restaurant;
     }
 
     public String getUsername() {
@@ -98,5 +100,13 @@ public class User {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }

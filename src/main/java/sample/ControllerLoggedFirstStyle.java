@@ -1,14 +1,20 @@
 package sample;
 
 import Animations.ExpandOrderPane;
+import Animations.MoveRoot;
+import Animations.ResizeHeight;
 import Animations.ResizeMainChat;
 import Helpers.OrderService;
 import Helpers.Scrolls;
+import Helpers.MenuListViewCell;
 import Models.*;
+import Models.Menu;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.animation.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,22 +27,26 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.skin.ScrollPaneSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
@@ -48,23 +58,26 @@ import java.util.*;
 import java.util.List;
 import java.util.prefs.Preferences;
 
-import static Helpers.Reversed.reversed;
 
 public class ControllerLoggedFirstStyle {
+    @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll,
+            ordersScroll, mainChatScroll, notificationsScroll;
+    @FXML VBox mainChatBlock, chatUsers, notificationBlock;
+    @FXML FlowPane ordersFlow, notificationInfo, chatInfo;
     @FXML Label firstName, lastName, country, age, role;
-    @FXML FlowPane ordersFlow;
-    @FXML Pane contentPane;
-    @FXML VBox mainChatBlock, chatUsers;
-    @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, ordersScroll, mainChatScroll;
-    @FXML AnchorPane contentRoot, mainChat;
-    @FXML ImageView roleImage;
+    @FXML AnchorPane contentRoot, mainChat, ordersPane;
+    @FXML Pane contentPane, moveBar, notificationIcon;
     @FXML TextArea mainChatTextArea;
+    @FXML ImageView roleImage;
+    @FXML TextField menuSearch;
+    @FXML ListView<Menu> menu, newOrderMenu;
 
     public static ObjectMapper mapper = new ObjectMapper();
     public static Preferences userPreference = Preferences.userRoot();
     public static LocalDateTime mostRecentOrderDate;
+    public static User loggedUser;
 
-    private User loggedUser;
+    private TreeMap<String, Menu> menuMap = new TreeMap<>();
     private HashMap<Integer, ChatValue> chatsMap = new HashMap<>();
     private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
     private Image userProfileImage;
@@ -72,74 +85,51 @@ public class ControllerLoggedFirstStyle {
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
     private ChatValue mainChatValue;
     private int pageSize = 3;
-
+    private MediaPlayer notificationSound;
     @FXML
     public void initialize() throws IOException {
         mapper.registerModule(new JavaTimeModule());
         String userJson = userPreference.get("user",null);
+
         loggedUser = mapper.readValue(userJson, User.class);
+        loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
+        loggedUser.getRestaurant().getOrders().forEach(this::appendOrder);
+
         InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
         userProfileImage = new Image(in);
         in.close();
 
-//        getChats();
+        newOrderMenu.setCellFactory(menuCell -> new MenuListViewCell());
+        menu.setCellFactory(menuCell -> new MenuListViewCell());
+        menu.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
+
+        menu.setOnMouseClicked(event -> {
+            ScrollBar scrollBar = Scrolls.findVerticalScrollBar(menu);
+            Menu menuItem = menu.getSelectionModel().getSelectedItem();
+            newOrderMenu.getItems().add(menuItem);
+        });
+        newOrderMenu.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            Menu menuItem = newOrderMenu.getSelectionModel().getSelectedItem();
+            newOrderMenu.getItems().remove(menuItem);
+        });
+
+        menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            SortedMap<String, Menu> currentSearch = searchMenu(newValue.toLowerCase());
+            ObservableList<Menu> observableList = FXCollections.observableArrayList();
+            currentSearch.forEach((s, menu) -> observableList.add(menu));
+            menu.setItems(observableList);
+        });
+
+        getChats();
         displayUserInfo();
+        mostRecentOrderDate = getMostRecentOrderDate();
 
-//        List<Order> orders = getOrders();
-//        reversed(orders).forEach(this::appendOrder);
-//        mostRecentOrderDate = getMostRecentOrderDate();
+        waitForNewOrders();
+        ExpandOrderListeners();
 
-        OrderService orderService = new OrderService();
-        orderService.start();
-        orderService.setOnSucceeded(event -> {
-            List<Order> newOrders = ((List<Order>) orderService.getValue());
-            if(newOrders.size() > 0){
+        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll, ordersScroll,
+                mainChatScroll, notificationsScroll, mainChatTextArea);
 
-                Order mostRecentNewOrder = newOrders.get(0);
-                if(mostRecentNewOrder.getCreated().isAfter(mostRecentNewOrder.getUpdated())){
-                    mostRecentOrderDate = mostRecentNewOrder.getCreated();
-                }else{
-                    mostRecentOrderDate = mostRecentNewOrder.getUpdated();
-                }
-
-            }
-            newOrders.forEach(order -> {
-                System.out.println(order.getId());
-
-                AnchorPane orderPane = (AnchorPane) contentPane.lookup("#" + order.getId());
-
-                if(orderPane != null){
-                    order.getDishes().forEach(dish -> {
-
-                        Label ready = (Label) contentPane.lookup("#dish" + dish.getId());
-                        if(dish.getReady()){
-                            ready.setText("O");
-                        }else{
-                            ready.setText("X");
-                        }
-
-                    });
-                }else{
-                    appendOrder(order);
-                }
-            });
-            orderService.restart();
-        });
-
-        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll, ordersScroll, mainChatScroll,mainChatTextArea);
-
-        ExpandOrderPane.scrollPane = ordersScroll;
-        ExpandOrderPane.contentPane = contentPane;
-        ExpandOrderPane.buttonExpandedProperty().addListener((observable, oldValue, newValue) -> {
-            Button currentButton = ExpandOrderPane.button;
-            if(newValue){
-                currentButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
-                currentButton.addEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
-            }else{
-                currentButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
-                currentButton.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
-            }
-        });
 
         mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
             if (newValue1.equals("append")){
@@ -147,11 +137,148 @@ public class ControllerLoggedFirstStyle {
             }
         });
 
+        Media sound = new Media(getClass()
+                .getResource("/notification.mp3")
+                .toExternalForm());
+        notificationSound = new MediaPlayer(sound);
+        notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
+
         ResizeMainChat.addListeners(mainChat);
+        MoveRoot.moveStage(moveBar, contentRoot);
+
+
+    }
+
+    private void waitForNewOrders() {
+        OrderService orderService = new OrderService();
+        orderService.start();
+        orderService.setOnSucceeded(event -> {
+            List<Order> newOrders = ((List<Order>) orderService.getValue());
+            if(newOrders.size() > 0){
+                Order mostRecentNewOrder = newOrders.get(0);
+                if(mostRecentNewOrder.getCreated().isAfter(mostRecentNewOrder.getUpdated())){
+                    mostRecentOrderDate = mostRecentNewOrder.getCreated();
+                }else{
+                    mostRecentOrderDate = mostRecentNewOrder.getUpdated();
+                }
+            }
+            updateNewOrders(newOrders);
+            orderService.restart();
+        });
+    }
+
+    private SortedMap<String, Menu> searchMenu(String prefix ) {
+        return menuMap.subMap( prefix, prefix + Character.MAX_VALUE );
+    }
+
+    private void updateNewOrders(List<Order> newOrders) {
+        newOrders.forEach(order -> {
+            AnchorPane orderPane = (AnchorPane) contentRoot.lookup("#" + order.getId());
+            if(orderPane != null){
+                order.getDishes().forEach(dish -> {
+                    Label ready = (Label) contentRoot.lookup("#dish" + dish.getId());
+                    if(ready.getText().equals("X") && dish.getReady()){
+                        addNotification(dish.getName() + " from order " + order.getId() + " is ready.");
+                    }
+                    if(dish.getReady()){
+                        ready.setText("O");
+                    }else{
+                        ready.setText("X");
+                    }
+
+                });
+                if(order.isReady()){
+                    addNotification("Order " + order.getId() + " is ready.");
+                }
+            }else{
+                appendOrder(order);
+                addNotification("New order created " + order.getId());
+            }
+        });
+    }
+    @FXML
+    public void clearNewOrderMenu(){
+        newOrderMenu.getItems().clear();
+    }
+    @FXML
+    public void createNewOrder() throws Exception{
+        List<Dish> dishes = new ArrayList<>();
+        newOrderMenu.getItems().forEach(menuItem -> dishes.add(new Dish(menuItem.getName())));
+        String orderJson = mapper.writeValueAsString(new Order(dishes));
+
+        StringEntity postEntity = new StringEntity(orderJson ,"UTF8");
+        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        HttpPost httpPost = new HttpPost("http://localhost:8080/api/auth/order/create");
+        httpPost.setHeader("Authorization", userPreference.get("token", null));
+        httpPost.setEntity(postEntity);
+
+        try(CloseableHttpResponse response = httpClient.execute(httpPost)) {
+
+            int responseStatus = response.getStatusLine().getStatusCode();
+            HttpEntity receivedEntity = response.getEntity();
+            String content = EntityUtils.toString(receivedEntity);
+
+            if (responseStatus != 200) {
+                EntityUtils.consume(receivedEntity);
+                throw new HttpException(content);
+            }
+            newOrderMenu.getItems().clear();
+
+            EntityUtils.consume(receivedEntity);
+        }
+    }
+
+    private void addNotification(String notification) {
+        Text text = new Text(notification);
+        HBox hBox = new HBox(text);
+
+        hBox.setOnMouseClicked(this::removeNotification);
+        hBox.setOnMouseEntered(event -> {
+            ResizeHeight resizeHeight = new ResizeHeight(Duration.millis(150), hBox, 46);
+            resizeHeight.play();
+        });
+        hBox.setOnMouseExited(event -> {
+            ResizeHeight resizeHeight = new ResizeHeight(Duration.millis(150), hBox, 38);
+            resizeHeight.play();
+        });
+        hBox.setMinHeight(0);
+
+        notificationBlock.getChildren().add(0, hBox);
+
+        if(!ordersPane.isDisabled()){
+            notificationIcon.setOpacity(1);
+        }
+        notificationInfo.setOpacity(0);
+        notificationSound.play();
+    }
+
+    private void removeNotification(MouseEvent event) {
+        HBox notification = (HBox) event.getSource();
+        Text text = (Text) notification.getChildren().get(0);
+
+        FadeTransition fade = new FadeTransition(Duration.millis(500), text);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        fade.play();
+
+        TranslateTransition translate = new TranslateTransition(Duration.millis(200), notification);
+        translate.setFromY(0);
+        translate.setToY(-5);
+        translate.play();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), timelineEvent -> {
+            notificationBlock.getChildren().remove(notification);
+            if(notificationBlock.getChildren().size() == 0){
+                notificationInfo.setOpacity(1);
+            }
+        }));
+        timeline.play();
     }
 
     private LocalDateTime getMostRecentOrderDate() {
-        HttpGet get = new HttpGet("http://localhost:8080/api/auth/order/getMostRecentDate");
+        int restaurantId = loggedUser.getRestaurant().getId();
+        HttpGet get = new HttpGet("http://localhost:8080/api/auth/order/getMostRecentDate/" + restaurantId);
         LocalDateTime localDateTime = LocalDateTime.now();
         get.setHeader("Authorization", userPreference.get("token", null));
 
@@ -236,6 +363,7 @@ public class ControllerLoggedFirstStyle {
             roleImage.setImage(new Image(getClass().getResourceAsStream("/waiter-second.png")));
         }
     }
+
     private void getChats(){
         HttpGet get = new HttpGet("http://localhost:8080/api/auth/chat/getChats");
         get.setHeader("Authorization", userPreference.get("token", null));
@@ -292,23 +420,33 @@ public class ControllerLoggedFirstStyle {
             e.printStackTrace();
         }
     }
-
     private void setMainChat(MouseEvent event){
         ImageView imageView = (ImageView) event.getSource();
+        imageView.getStyleClass().set(0, "imagePressed");
+        chatInfo.setOpacity(0);
+
         int chatId = Integer.parseInt(imageView.getId());
         int page = 0;
 
         ChatValue chat = chatsMap.get(chatId);
         HBox sessionInfo = (HBox) mainChatBlock.getChildren().get(0);
         Text info = (Text) sessionInfo.lookup("Text");
+        if(mainChatValue != null){
+            ImageView currentImageView = (ImageView) chatUsersScroll.lookup("#" + mainChatValue.getChatId());
+            currentImageView.getStyleClass().set(0, "imageReleased");
+
+        }
 
         if(mainChatValue != null && chatId == mainChatValue.getChatId()){
             if(mainChat.isDisabled()){
+                imageView.getStyleClass().set(0, "imagePressed");
                 mainChat.setDisable(false);
                 mainChat.setOpacity(1);
             }else{
+                chatInfo.setOpacity(1);
                 mainChat.setOpacity(0);
                 mainChat.setDisable(true);
+
             }
         }else{
             mainChatBlock.setId("beginning");
@@ -379,19 +517,6 @@ public class ControllerLoggedFirstStyle {
                 .forEach(message -> appendMessage(message, chatValue, sessionBlock));
         chatBlock.getChildren().add(1, sessionBlock);
     }
-//    private void openChat(MouseEvent event){
-//        ImageView imageView = (ImageView) event.getSource();
-//        int chatId = Integer.parseInt(imageView.getId());
-//        int pageSize = 3;
-//        ChatValue chat = chatsMap.get(chatId);
-////        int page = chat.getSessions().size() / perPage;
-//        System.out.println(imageView.getId());
-//
-//        List<Session> sessions = getNextSessions(chatId,0,pageSize);
-//        sessions.forEach(session -> {
-//            session.getMessages().forEach(this::appendMessage);
-//        });
-//    }
 
     private List<Session> getNextSessions(int id, int page, int pageSize){
         HttpGet get;
@@ -520,6 +645,18 @@ public class ControllerLoggedFirstStyle {
             chatBlock.getChildren().add(newBlock);
         }
     }
+
+    @FXML
+    private void showNotifications(){
+        notificationIcon.setOpacity(0);
+        ordersPane.setDisable(true);
+        ordersPane.setOpacity(0);
+    }
+    @FXML
+    private void showOrders(){
+        ordersPane.setDisable(false);
+        ordersPane.setOpacity(1);
+    }
     @FXML
     private void scrollToChats(){
         Animation animation = new Timeline(
@@ -534,31 +671,6 @@ public class ControllerLoggedFirstStyle {
                         menuScroll.vvalueProperty(), 0)));
         animation.play();
     }
-
-    private List<Order> getOrders(){
-        List<Order> orders = new ArrayList<>();
-        HttpGet httpGet = new HttpGet("http://localhost:8080/api/auth/order/findAllNotReady");
-        httpGet.setHeader("Authorization", userPreference.get("token", null));
-        try(CloseableHttpResponse response = httpClient.execute(httpGet)) {
-
-            int responseStatus = response.getStatusLine().getStatusCode();
-            HttpEntity receivedEntity = response.getEntity();
-            String content = EntityUtils.toString(receivedEntity);
-
-            if(responseStatus != 200){
-                EntityUtils.consume(receivedEntity);
-                throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
-            }
-
-            orders = mapper.readValue(content, new TypeReference<List<Order>>(){});
-
-            EntityUtils.consume(receivedEntity);
-        } catch (IOException | HttpException e) {
-            e.printStackTrace();
-        }
-        return orders;
-    }
-
     private void appendOrder(Order order) {
             Image clout = new Image(getClass().getResourceAsStream("/cloud-down.png"));
             ImageView imageView = new ImageView(clout);
@@ -633,9 +745,10 @@ public class ControllerLoggedFirstStyle {
             AnchorPane.setRightAnchor(dishesAnchor, 28.0);
             AnchorPane.setTopAnchor(dishesAnchor, 41.0);
 
-            dishesAnchor.prefHeightProperty().bind(orderPane.prefHeightProperty().subtract(105));
+            dishesAnchor.prefHeightProperty().bind(orderPane.prefHeightProperty().subtract(99));
             dishesBox.prefWidthProperty().bind(dishesScroll.widthProperty().subtract(15));
 
+            Scrolls.fixBlurriness(dishesScroll);
 
             dishesScroll.skinProperty().addListener((observable, oldValue, newValue) -> {
                 ScrollBar bar = Scrolls.findVerticalScrollBar(dishesScroll);
@@ -655,6 +768,22 @@ public class ControllerLoggedFirstStyle {
             dishesAnchor.setDisable(true);
             ordersFlow.getChildren().add(0, orderContainer);
         }
+
+    private void ExpandOrderListeners() {
+        ExpandOrderPane.contentRoot = contentRoot;
+        ExpandOrderPane.contentPane = contentPane;
+        ExpandOrderPane.scrollPane = ordersScroll;
+        ExpandOrderPane.buttonExpandedProperty().addListener((observable, oldValue, newValue) -> {
+            Button currentButton = ExpandOrderPane.button;
+            if(newValue){
+                currentButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
+                currentButton.addEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
+            }else{
+                currentButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
+                currentButton.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
+            }
+        });
+    }
 
     private EventHandler expandOrderHandler = (EventHandler<MouseEvent>) this::expandOrder;
     private EventHandler reverseOrderHandler = (EventHandler<MouseEvent>)e-> ExpandOrderPane.reverseOrder();

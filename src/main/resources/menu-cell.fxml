@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="grid" prefHeight="64.0" prefWidth="309.0" style="-fx-background-color: #363b41;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints halignment="CENTER" minWidth="10.0" />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+   </rowConstraints>
+   <children>
+      <Label fx:id="price" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="50.0" style="-fx-background-color: transparent;" text="Label" textAlignment="CENTER" textFill="#bcbcbc" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
+      <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" textFill="#bcbcbc" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+   </children>
+   <padding>
+      <Insets right="50.0" />
+   </padding>
+   <effect>
+      <DropShadow height="10.0" radius="4.5" width="10.0" />
+   </effect>
+</GridPane>

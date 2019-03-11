@@ -18,8 +18,11 @@ import javafx.util.Duration;
 public class ExpandOrderPane {
     private static Pane currentOrder;
     private static Pane orderContainer;
+
     private static double orderWidth;
     private static double orderHeight;
+    private static double orderX;
+
     private static double maxOrderWidth;
     private static double translatePaneX;
 
@@ -37,6 +40,7 @@ public class ExpandOrderPane {
 
     public static Button button;
     public static ScrollPane scrollPane;
+    public static Pane contentRoot;
     public static Pane contentPane;
     public static boolean action = false;
 
@@ -56,32 +60,38 @@ public class ExpandOrderPane {
 
         dishesAnchor = (AnchorPane) currentOrder.getChildren().get(0);
         orderContainer = (Pane) currentOrder.getParent();
-        currentOrder.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
-        contentPane.getChildren().add(currentOrder);
 
         FlowPane ordersFlow = (FlowPane) scrollPane.getContent();
         double scrolledAmount = (ordersFlow.getWidth() - scrollPane.getWidth()) * scrollPane.getHvalue();
 
-        translatePaneX = currentOrder.getLayoutX() + orderContainer.getLayoutX();
-        currentOrder.setLayoutX(translatePaneX - scrolledAmount);
-
         mouseX = event.getScreenX();
         mouseY = event.getScreenY();
+
         buttonX = button.getLayoutX();
         buttonY = button.getLayoutY();
+
         initialOffsetX = event.getX() - translatePaneX + scrolledAmount;
         initialMouseX = event.getScreenX();
 
+        orderX = currentOrder.getLayoutX();
         orderWidth = currentOrder.getWidth();
         orderHeight = currentOrder.getHeight();
-        maxOrderWidth = orderWidth * 4;
 
+        maxOrderWidth = orderWidth * 4;
         xButtonRation = currentOrder.getWidth() / (button.getLayoutX() + button.getWidth() / 2);
+        translatePaneX = currentOrder.getLayoutX() + orderContainer.getLayoutX();
+
+        dishesAnchor.setDisable(false);
+        scrollPane.setDisable(true);
+
+        currentOrder.setLayoutX(translatePaneX - scrolledAmount + contentPane.getLayoutX());
+        currentOrder.setLayoutY(currentOrder.getLayoutY() + contentPane.getLayoutY());
+        currentOrder.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
+        contentRoot.getChildren().add(currentOrder);
 
         if(intersectedNode.getTypeSelector().equals("Button")){
             expandOrderOnClick();
         }
-
         currentOrder.addEventFilter(MouseEvent.MOUSE_PRESSED, panePress);
         currentOrder.addEventFilter(MouseEvent.MOUSE_DRAGGED, paneDrag);
         currentOrder.addEventFilter(MouseEvent.MOUSE_RELEASED, paneReleased);
@@ -93,8 +103,6 @@ public class ExpandOrderPane {
     };
 
     private static EventHandler paneDrag = (EventHandler<MouseEvent>) eventDrag -> {
-        scrollPane.setDisable(true);
-        dishesAnchor.setDisable(false);
         if(!buttonExpanded.getValue()){
             expandOrderOnDrag(eventDrag);
         }else {
@@ -129,7 +137,7 @@ public class ExpandOrderPane {
         double expandButtonX = button.getPrefHeight() + (maxOrderWidth - orderWidth) / 15;
 
 
-        double translateButtonY = maxOrderWidth - expandButtonY - 14.5 - buttonY;
+        double translateButtonY = maxOrderWidth - expandButtonY - 10.5 - buttonY;
         double translateButtonX = (maxOrderWidth - expandButtonX) / xButtonRation - buttonX;
         TranslateTransition translateButton = new TranslateTransition(Duration.millis(750), button);
         translateButton.setToX(translateButtonX);
@@ -175,7 +183,7 @@ public class ExpandOrderPane {
                 mouseY = eventDrag.getScreenY();
             }
 
-            double translateButtonY = currentOrder.getPrefHeight() - button.getPrefHeight() - 14.5 - buttonY;
+            double translateButtonY = currentOrder.getPrefHeight() - button.getPrefHeight() - 10.5 - buttonY;
             double translateButtonX = (currentOrder.getPrefWidth() - button.getPrefWidth()) / xButtonRation - buttonX;
 
             button.setTranslateX(translateButtonX);
@@ -206,7 +214,8 @@ public class ExpandOrderPane {
             widthPane.play();
 
             Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(Duration.millis(750), actionEvent -> {
-                currentOrder.setLayoutX(translatePaneX - orderContainer.getLayoutX());
+                currentOrder.setLayoutX(orderX);
+                currentOrder.setLayoutY(currentOrder.getLayoutY() - contentPane.getLayoutY());
                 orderContainer.getChildren().add(currentOrder);
                 currentOrder.setStyle("");
                 scrollPane.setDisable(false);

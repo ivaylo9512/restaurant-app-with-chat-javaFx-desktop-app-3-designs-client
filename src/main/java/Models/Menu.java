@@ -1,16 +1,21 @@
 package Models;
 
-import java.io.Serializable;
-
-public class Dish{
+public class Menu {
     private int id;
-    private String name;
-    private Boolean ready = false;
 
-    public Dish() {
+    private String name;
+
+
+    public Menu() {
     }
 
-    public Dish(String name) {
+    public Menu(Menu menu){
+        this.id = menu.getId();
+        this.name = menu.getName();
+    }
+
+    public Menu(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -30,11 +35,4 @@ public class Dish{
         this.name = name;
     }
 
-    public Boolean getReady() {
-        return ready;
-    }
-
-    public void setReady(Boolean ready) {
-        this.ready = ready;
-    }
 }

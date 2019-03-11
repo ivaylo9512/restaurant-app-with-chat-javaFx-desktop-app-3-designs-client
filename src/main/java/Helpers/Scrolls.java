@@ -17,21 +17,22 @@ import javafx.scene.layout.VBox;
 
 public class Scrolls {
     private ScrollPane menuScroll, userInfoScroll, chatUsersScroll,
-            ordersScroll;
+            ordersScroll, notificationsScroll;
     private TextArea mainChatTextArea;
     private ScrollPane mainChatScroll;
     private ScrollBar mainChatScrollBar;
     private double offsetY;
     private double heightDiff;
 
-    public Scrolls(ScrollPane menuScroll,ScrollPane userInfoScroll,
-            ScrollPane chatUsersScroll, ScrollPane ordersScroll,ScrollPane mainChatScroll, TextArea mainChatTextArea) {
+    public Scrolls(ScrollPane menuScroll,ScrollPane userInfoScroll, ScrollPane chatUsersScroll,
+                   ScrollPane ordersScroll,ScrollPane mainChatScroll,ScrollPane notificationsScroll, TextArea mainChatTextArea) {
         this.menuScroll = menuScroll;
         this.userInfoScroll = userInfoScroll;
         this.chatUsersScroll = chatUsersScroll;
         this.ordersScroll = ordersScroll;
         this.mainChatScroll = mainChatScroll;
         this.mainChatTextArea = mainChatTextArea;
+        this.notificationsScroll = notificationsScroll;
 
         fixBlurryContent();
 
@@ -87,8 +88,8 @@ public class Scrolls {
         });
     }
 
-    public static ScrollBar findVerticalScrollBar(ScrollPane scrollPane) {
-        for (Node node : scrollPane.lookupAll(".scroll-bar")) {
+    public static ScrollBar findVerticalScrollBar(Node scroll) {
+        for (Node node : scroll.lookupAll(".scroll-bar")) {
             if (node instanceof ScrollBar) {
                 ScrollBar bar = (ScrollBar) node;
                 if (bar.getOrientation().equals(Orientation.VERTICAL)) {
@@ -133,10 +134,9 @@ public class Scrolls {
     }
 
     private void reverseOrderScroll() {
-
+        FlowPane pane = (FlowPane) ordersScroll.getContent();
         ordersScroll.setOnScroll(event -> {
             if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
-                FlowPane pane = (FlowPane) ordersScroll.getContent();
                 ordersScroll.setHvalue(ordersScroll.getHvalue() - event.getDeltaY() / pane.getWidth());
             }
         });
@@ -148,6 +148,9 @@ public class Scrolls {
         fixBlurriness(chatUsersScroll);
         fixBlurriness(ordersScroll);
         fixBlurriness(mainChatScroll);
+        fixBlurriness(mainChatScroll);
+        fixBlurriness(notificationsScroll);
+
         mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
@@ -158,7 +161,7 @@ public class Scrolls {
         });
     }
 
-    private void fixBlurriness(ScrollPane scrollPane){
+    public static void fixBlurriness(ScrollPane scrollPane){
         scrollPane.skinProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 scrollPane.getChildrenUnmodifiable().get(0).setCache(false);

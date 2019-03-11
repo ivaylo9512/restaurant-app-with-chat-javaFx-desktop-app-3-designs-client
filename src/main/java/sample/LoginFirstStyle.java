@@ -16,7 +16,7 @@ import org.apache.http.impl.client.HttpClients;
 
 public class LoginFirstStyle extends Application {
     public static CloseableHttpClient httpClient = HttpClients.createDefault();
-    static Alert alert;
+    public static Alert alert;
     public static Stage stage;
     @Override
     public void start(Stage primaryStage) throws Exception {

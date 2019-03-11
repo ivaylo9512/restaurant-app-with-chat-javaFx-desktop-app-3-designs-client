@@ -15,7 +15,7 @@ public class Order{
     public Order() {
     }
 
-    public Order(int id, List<Dish> dishes, LocalDateTime created, LocalDateTime updated) {
+    public Order(List<Dish> dishes) {
         this.id = id;
         this.dishes = dishes;
         this.created = created;

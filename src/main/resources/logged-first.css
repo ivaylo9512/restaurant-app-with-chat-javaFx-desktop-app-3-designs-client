@@ -1,8 +1,6 @@
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
-
-
 Button:focused{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
@@ -28,6 +26,7 @@ ScrollPane ScrollBar .thumb{
 ScrollPane > .corner {
     -fx-background-color: transparent;
 }
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 TextArea .scroll-pane {
     -fx-background-color: transparent;
 }
@@ -109,6 +108,9 @@ TextArea .scroll-pane .content{
 .chatUsers ImageView{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 6, 0.0 , 0 , 0 );
 }
+.chatUsers .imagePressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+}
 .chatUsers ImageView:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
 }
@@ -152,7 +154,7 @@ TextArea .scroll-pane .content{
     -fx-border-width: 0 0 1 0;
     -fx-border-color: #363b41;
 }
-.menu-bar{
+.menu{
     -fx-background-color: #2A2E37;
 }
 TextFlow {
@@ -180,7 +182,6 @@ TextFlow {
 }
 .main-chat Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 0, 0.0 , 0 , 0 );
-
 }
 .main-chat .time{
     -fx-fill: #2A2E37;
@@ -208,7 +209,9 @@ TextFlow {
     -fx-opacity: 0.7;
     -fx-padding: 0 0 0 15;
 }
-
+.chat-info{
+    -fx-opacity: 1;
+}
 .session-info Pane,
 .chat-info Pane{
     -fx-background-color: #bcbcbc;
@@ -223,4 +226,60 @@ TextFlow {
 .session-date Text{
     -fx-fill: #bcbcbc;
 }
+.notifications{
+    -fx-background-color: #2A2E37;
+}
+.notifications HBox{
+    -fx-pref-height: 38;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-background-color:  #2A2E37;
+    -fx-alignment: center;
+}
+.notifications HBox Text{
+    -fx-alignment: center;
+    -fx-fill: #bcbcbc;
+}
 
+.create-order ListView .list-cell:even {
+
+    -fx-background-color: transparent;
+}
+.create-order ListView  .list-cell:odd {
+    -fx-background-color: transparent;
+}
+.create-order ListView .scroll-bar{
+    -fx-background-color: transparent;
+}
+.create-order ListView .scroll-bar .thumb{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-background-color: #363b41;
+}
+
+.clear-button{
+    -fx-background-color: #363b41;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+}
+
+.create-button{
+    -fx-background-color: #363b41;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+}
+
+.create-button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+
+}
+.clear-button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+.create-button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+
+}
+.clear-button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+}
