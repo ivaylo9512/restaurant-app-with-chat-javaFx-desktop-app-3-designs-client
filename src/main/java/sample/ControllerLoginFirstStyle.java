@@ -3,12 +3,9 @@ package sample;
 import Helpers.LoginService;
 import Helpers.RegisterService;
 import Models.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -23,7 +20,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
@@ -37,7 +33,6 @@ public class ControllerLoginFirstStyle {
     @FXML Button loginButton, registerButton, actionButton;
     @FXML Pane loginFields, registerFields;
 
-    public static ObjectMapper mapper = new ObjectMapper();
     private LoginService loginService;
     private RegisterService registerService;
 
@@ -92,7 +87,6 @@ public class ControllerLoginFirstStyle {
             loginFields.setDisable(true);
             loginFields.setOpacity(0);
         });
-        mapper.registerModule(new JavaTimeModule());
     }
     @FXML
     public void login(Event event){

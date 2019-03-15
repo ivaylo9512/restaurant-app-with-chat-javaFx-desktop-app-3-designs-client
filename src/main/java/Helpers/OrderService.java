@@ -24,15 +24,17 @@ import org.json.JSONObject;
 import sample.LoggedFirstStyle;
 import sample.LoginFirstStyle;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static Helpers.ServerRequests.mapper;
 import static sample.ControllerLoggedFirstStyle.*;
+
 public class OrderService extends Service {
-    private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
+    private CloseableHttpClient httpClient = ServerRequests.httpClient;
+
     @Override
     protected Task createTask() {
         return new Task<List<Order>>() {
@@ -57,7 +59,7 @@ public class OrderService extends Service {
                 httpPatch.setHeader("Authorization", userPreference.get("Token", null));
                 httpPatch.setEntity(postEntity);
 
-                try(CloseableHttpResponse response = httpClient.execute(httpPatch)) {
+                try (CloseableHttpResponse response = httpClient.execute(httpPatch)) {
 
                     int responseStatus = response.getStatusLine().getStatusCode();
                     HttpEntity receivedEntity = response.getEntity();
@@ -68,8 +70,9 @@ public class OrderService extends Service {
                         throw new HttpException(content);
                     }
 
-                    if(!content.equals("Time out.")){
-                        orders = mapper.readValue(content, new TypeReference<List<Order>>(){});
+                    if (!content.equals("Time out.")) {
+                        orders = mapper.readValue(content, new TypeReference<List<Order>>() {
+                        });
                     }
 
                     EntityUtils.consume(receivedEntity);
@@ -80,7 +83,7 @@ public class OrderService extends Service {
 
             @Override
             protected void failed() {
-                if(getException().getMessage().equals("Jwt token has expired.")) {
+                if (getException().getMessage().equals("Jwt token has expired.")) {
                     if (LoggedFirstStyle.stage != null) {
                         LoggedFirstStyle.stage.close();
                         LoginFirstStyle.stage.show();
@@ -92,7 +95,7 @@ public class OrderService extends Service {
 
                         reset();
                     }
-                }else {
+                } else {
                     Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> {
                         restart();
                     }));

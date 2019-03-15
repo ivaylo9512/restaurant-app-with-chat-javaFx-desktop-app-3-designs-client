@@ -25,7 +25,7 @@ public class ResizeRoot {
 
     public static boolean resize = true;
 
-    public static void addListeners(AnchorPane root){
+    public static void addListeners(AnchorPane root) {
         root.setOnMouseEntered(event -> {
             height = root.getPrefHeight();
             width = root.getPrefWidth();
@@ -38,7 +38,7 @@ public class ResizeRoot {
 
         EventHandler<MouseEvent> mousePosition = event -> {
             EventType eventType = event.getEventType();
-            if(MouseEvent.MOUSE_MOVED.equals(eventType) || MouseButton.PRIMARY.equals(event.getButton())) {
+            if (MouseEvent.MOUSE_MOVED.equals(eventType) || MouseButton.PRIMARY.equals(event.getButton())) {
                 double mouseX = event.getX();
                 double mouseY = event.getY();
                 if (resize) {
@@ -56,8 +56,7 @@ public class ResizeRoot {
                 } else {
                     root.setCursor(Cursor.DEFAULT);
                 }
-                if(MouseEvent.MOUSE_RELEASED.equals(eventType)) {
-                    System.out.println(root.getPrefWidth());
+                if (MouseEvent.MOUSE_RELEASED.equals(eventType)) {
                     height = root.getPrefHeight();
                     width = root.getPrefWidth();
 
@@ -77,39 +76,39 @@ public class ResizeRoot {
             double mouseY = event.getScreenY();
             double newHeight;
             double newWidth;
-            if(Cursor.W_RESIZE.equals(cursor)) {
-                newWidth = root.getLayoutX() - event.getScreenX() + root.getPrefWidth();
+            if (Cursor.W_RESIZE.equals(cursor)) {
+                newWidth = root.getLayoutX() - mouseX + root.getPrefWidth();
 
                 if (newWidth >= minWidth && newWidth <= maxWidth) {
                     root.setPrefWidth(newWidth);
-                    root.setLayoutX(event.getScreenX());
+                    root.setLayoutX(mouseX);
                 } else {
                     newWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
                     root.setLayoutX(root.getLayoutX() + root.getPrefWidth() - newWidth);
                     root.setPrefWidth(newWidth);
                 }
-            }else if(Cursor.E_RESIZE.equals(cursor)){
-                newWidth = event.getScreenX() - offsetX;
+            } else if (Cursor.E_RESIZE.equals(cursor)) {
+                newWidth = mouseX - offsetX;
 
                 if (newWidth >= minWidth && newWidth <= maxWidth) {
                     root.setPrefWidth(newWidth);
                 } else {
                     root.setPrefWidth(Math.min(Math.max(newWidth, minWidth), maxWidth));
                 }
-            }else if(Cursor.S_RESIZE.equals(cursor)){
-                newHeight = event.getScreenY() - offsetY;
+            } else if (Cursor.S_RESIZE.equals(cursor)) {
+                newHeight = mouseY - offsetY;
 
                 if (newHeight >= minHeight && newHeight <= maxHeight) {
                     root.setPrefHeight(newHeight);
                 } else {
                     root.setPrefHeight(Math.min(Math.max(newHeight, minHeight), maxHeight));
                 }
-            }else if(Cursor.N_RESIZE.equals(cursor)){
-                newHeight = root.getLayoutY() - event.getScreenY() + root.getPrefHeight();
+            } else if (Cursor.N_RESIZE.equals(cursor)) {
+                newHeight = root.getLayoutY() - mouseY + root.getPrefHeight();
 
                 if (newHeight >= minHeight && newHeight <= maxHeight) {
                     root.setPrefHeight(newHeight);
-                    root.setLayoutY(event.getScreenY());
+                    root.setLayoutY(mouseY);
                 } else {
                     newHeight = Math.min(Math.max(newHeight, minHeight), maxHeight);
                     root.setLayoutY(root.getLayoutY() + root.getPrefHeight() - newHeight);
@@ -118,7 +117,6 @@ public class ResizeRoot {
             }
 
         });
-
 
 
     }

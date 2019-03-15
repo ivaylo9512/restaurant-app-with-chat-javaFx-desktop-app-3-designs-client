@@ -1,13 +1,10 @@
 package Helpers;
 
 import Models.User;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.stage.Stage;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -18,13 +15,10 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import static sample.ControllerLoginFirstStyle.mapper;
-import sample.LoginFirstStyle;
 
-import java.io.IOException;
+import static Helpers.ServerRequests.mapper;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.prefs.Preferences;
 
 public class LoginService extends Service {
     private final StringProperty username = new SimpleStringProperty(this, "username");
@@ -32,7 +26,7 @@ public class LoginService extends Service {
     public final StringProperty usernameProperty() { return username; }
     public final StringProperty passwordProperty() { return password; }
 
-    private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
+    private CloseableHttpClient httpClient = ServerRequests.httpClient;
     @Override
     protected Task createTask() {
         return new Task<User>() {
@@ -62,8 +56,7 @@ public class LoginService extends Service {
 
                     String jwtToken = response.getHeaders("Authorization")[0].getValue();
 
-                    Preferences userPreference = Preferences.userRoot();
-                    userPreference.put("Token", jwtToken);
+                    ServerRequests.userPreference.put("Token", jwtToken);
 
                     EntityUtils.consume(receivedEntity);
 

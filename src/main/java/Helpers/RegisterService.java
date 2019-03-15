@@ -14,7 +14,6 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import sample.LoginFirstStyle;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,12 +24,21 @@ public class RegisterService extends Service {
     private final StringProperty password = new SimpleStringProperty(this, "password");
     private final StringProperty repeatPassword = new SimpleStringProperty(this, "repeatPassword");
 
-    public final StringProperty usernameProperty() { return username; }
-    public final StringProperty passwordProperty() { return password; }
-    public final StringProperty repeatPasswordProperty() { return repeatPassword; }
+    public final StringProperty usernameProperty() {
+        return username;
+    }
+
+    public final StringProperty passwordProperty() {
+        return password;
+    }
+
+    public final StringProperty repeatPasswordProperty() {
+        return repeatPassword;
+    }
 
 
-    private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
+    private CloseableHttpClient httpClient = ServerRequests.httpClient;
+
     @Override
     protected Task createTask() {
         return new Task<Boolean>() {
