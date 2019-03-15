@@ -62,8 +62,8 @@ public class RegisterService extends Service {
                     String jwtToken = response.getHeaders("Authorization")[0].getValue();
 
                     Preferences userPreference = Preferences.userRoot();
-                    userPreference.put("user", content);
-                    userPreference.put("token", jwtToken);
+                    userPreference.put("User", content);
+                    userPreference.put("Token", jwtToken);
 
                     EntityUtils.consume(receivedEntity);
                     return true;

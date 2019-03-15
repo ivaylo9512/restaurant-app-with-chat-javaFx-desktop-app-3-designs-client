@@ -39,6 +39,7 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -48,6 +49,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -64,7 +66,8 @@ public class ControllerLoggedFirstStyle {
             ordersScroll, mainChatScroll, notificationsScroll;
     @FXML VBox mainChatBlock, chatUsers, notificationBlock;
     @FXML FlowPane ordersFlow, notificationInfo, chatInfo, userInfo, userInfoEditable;
-    @FXML Label firstName, lastName, country, age, role;
+    @FXML Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, roleField;
+    @FXML TextField firstNameField, lastNameField, countryField, ageField;
     @FXML AnchorPane contentRoot, contentPane, mainChat, ordersPane;
     @FXML Pane moveBar, notificationIcon;
     @FXML TextArea mainChatTextArea;
@@ -204,7 +207,7 @@ public class ControllerLoggedFirstStyle {
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         HttpPost httpPost = new HttpPost("http://localhost:8080/api/auth/order/create");
-        httpPost.setHeader("Authorization", userPreference.get("token", null));
+        httpPost.setHeader("Authorization", userPreference.get("Token", null));
         httpPost.setEntity(postEntity);
 
         try(CloseableHttpResponse response = httpClient.execute(httpPost)) {
@@ -274,7 +277,7 @@ public class ControllerLoggedFirstStyle {
         int restaurantId = loggedUser.getRestaurant().getId();
         HttpGet get = new HttpGet("http://localhost:8080/api/auth/order/getMostRecentDate/" + restaurantId);
         LocalDateTime localDateTime = LocalDateTime.now();
-        get.setHeader("Authorization", userPreference.get("token", null));
+        get.setHeader("Authorization", userPreference.get("Token", null));
 
         try(CloseableHttpResponse response = httpClient.execute(get)) {
 
@@ -345,13 +348,19 @@ public class ControllerLoggedFirstStyle {
 
 
     private void displayUserInfo(){
-        firstName.setText(loggedUser.getFirstName());
-        lastName.setText(loggedUser.getLastName());
-        country.setText(loggedUser.getCountry());
-        age.setText(String.valueOf(loggedUser.getAge()));
-        role.setText(loggedUser.getRole());
+        firstNameLabel.setText(loggedUser.getFirstName());
+        lastNameLabel.setText(loggedUser.getLastName());
+        countryLabel.setText(loggedUser.getCountry());
+        ageLabel.setText(String.valueOf(loggedUser.getAge()));
+        roleLabel.setText(loggedUser.getRole());
 
-        if (loggedUser.getRole().equals("chef")) {
+        firstNameField.setText(loggedUser.getFirstName());
+        lastNameField.setText(loggedUser.getLastName());
+        countryField.setText(loggedUser.getCountry());
+        ageField.setText(String.valueOf(loggedUser.getAge()));
+        roleField.setText(loggedUser.getRole());
+
+        if (loggedUser.getRole().equals("Chef")) {
             roleImage.setImage(new Image(getClass().getResourceAsStream("/images/chef-second.png")));
         }else{
             roleImage.setImage(new Image(getClass().getResourceAsStream("/images/waiter-second.png")));
@@ -360,7 +369,7 @@ public class ControllerLoggedFirstStyle {
 
     private void getChats(){
         HttpGet get = new HttpGet("http://localhost:8080/api/auth/chat/getChats");
-        get.setHeader("Authorization", userPreference.get("token", null));
+        get.setHeader("Authorization", userPreference.get("Token", null));
 
         try(CloseableHttpResponse response = httpClient.execute(get)) {
 
@@ -523,7 +532,7 @@ public class ControllerLoggedFirstStyle {
                     .setParameter("page", String.valueOf(page))
                     .setParameter("pageSize", String.valueOf(pageSize));
             get = new HttpGet(builder.build());
-            get.setHeader("Authorization", userPreference.get("token", null));
+            get.setHeader("Authorization", userPreference.get("Token", null));
 
             try(CloseableHttpResponse response = httpClient.execute(get)){
 
@@ -644,12 +653,52 @@ public class ControllerLoggedFirstStyle {
     public void editUserInfo(){
         userInfoScroll.setContent(userInfoEditable);
     }
-
     @FXML
-    public void cancelEdit(){
-        userInfoScroll.setContent(userInfo);
-    }
     public void saveUserInfo(){
+        boolean edited = !firstNameLabel.getText().equals(firstNameField.getText()) || !lastNameLabel.getText().equals(lastNameField.getText()) ||
+                !ageLabel.getText().equals(ageField.getText()) || !countryLabel.getText().equals(countryField.getText());
+        userInfoScroll.setContent(userInfo);
+
+        if(edited){
+            Map<String, Object> jsonValues = new HashMap<>();
+            jsonValues.put("firstName", firstNameField.getText());
+            jsonValues.put("lastName", lastNameField.getText());
+            jsonValues.put("age", ageField.getText());
+            jsonValues.put("country", countryField.getText());
+
+            JSONObject jsonObject = new JSONObject(jsonValues);
+
+            StringEntity postEntity = new StringEntity(jsonObject.toString(), "UTF8");
+            postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+            HttpPost post = new HttpPost("http://localhost:8080/api/auth/users/changeUserInfo");
+            post.setHeader("Authorization", userPreference.get("Token", null));
+            post.setEntity(postEntity);
+
+            try(CloseableHttpResponse response = httpClient.execute(post)){
+                int responseCode = response.getStatusLine().getStatusCode();
+                HttpEntity responseEntity = response.getEntity();
+                String content = EntityUtils.toString(responseEntity);
+
+                if(responseCode != 200){
+                    EntityUtils.consume(responseEntity);
+                    throw new HttpException(content);
+                }
+
+                User user = mapper.readValue(content, User.class);
+                loggedUser.setFirstName(user.getFirstName());
+                loggedUser.setLastName(user.getLastName());
+                loggedUser.setAge(user.getAge());
+                loggedUser.setCountry(user.getCountry());
+
+                firstNameLabel.setText(user.getFirstName());
+                lastNameLabel.setText(user.getLastName());
+                ageLabel.setText(String.valueOf(user.getAge()));
+                countryLabel.setText(user.getCountry());
+            } catch (IOException | HttpException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
     @FXML

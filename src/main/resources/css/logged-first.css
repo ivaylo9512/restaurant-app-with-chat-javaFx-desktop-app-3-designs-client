@@ -175,7 +175,15 @@ TextFlow {
 }
 .user-info TextField{
     -fx-background-color: #363b41;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: #bcbcbc;
+    -fx-opacity: 1.0;
+    -fx-padding: 0
+}
+.user-info Button{
+    -fx-background-color: #363b41;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
 }
 .chat-block{

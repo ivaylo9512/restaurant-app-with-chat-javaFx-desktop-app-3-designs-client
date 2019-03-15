@@ -54,7 +54,7 @@ public class OrderService extends Service {
                 builder.setParameter("restaurantId", restaurantId);
 
                 HttpPatch httpPatch = new HttpPatch(builder.build());
-                httpPatch.setHeader("Authorization", userPreference.get("token", null));
+                httpPatch.setHeader("Authorization", userPreference.get("Token", null));
                 httpPatch.setEntity(postEntity);
 
                 try(CloseableHttpResponse response = httpClient.execute(httpPatch)) {

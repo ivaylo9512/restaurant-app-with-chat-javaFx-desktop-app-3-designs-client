@@ -63,7 +63,7 @@ public class LoginService extends Service {
                     String jwtToken = response.getHeaders("Authorization")[0].getValue();
 
                     Preferences userPreference = Preferences.userRoot();
-                    userPreference.put("token", jwtToken);
+                    userPreference.put("Token", jwtToken);
 
                     EntityUtils.consume(receivedEntity);
 
