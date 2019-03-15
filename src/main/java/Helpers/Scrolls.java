@@ -18,11 +18,11 @@ import javafx.scene.layout.VBox;
 public class Scrolls {
     private ScrollPane menuScroll, userInfoScroll, chatUsersScroll,
             ordersScroll, notificationsScroll;
+    private ScrollBar mainChatScrollBar;
     private TextArea mainChatTextArea;
     private ScrollPane mainChatScroll;
-    private ScrollBar mainChatScrollBar;
-    private double offsetY;
     private double heightDiff;
+    private double offsetY;
 
     public Scrolls(ScrollPane menuScroll,ScrollPane userInfoScroll, ScrollPane chatUsersScroll,
                    ScrollPane ordersScroll,ScrollPane mainChatScroll,ScrollPane notificationsScroll, TextArea mainChatTextArea) {
@@ -105,18 +105,21 @@ public class Scrolls {
         menuScroll.addEventFilter(ScrollEvent.SCROLL, event -> {
             if (event.getDeltaY() != 0) {
 
-                if (menuScroll.getHeight() <= 211) {
+                if (menuScroll.getHeight() <= 212) {
+                    if(menuScroll.getVvalue() == 0 || menuScroll.getVvalue() == 1) {
+                        chatUsersScroll.setDisable(false);
+                        userInfoScroll.setDisable(false);
 
-                    ScrollPane scrollPane;
-                    if (menuScroll.getVvalue() == 0) {
-                        scrollPane = userInfoScroll;
-                    }else {
-                        scrollPane = chatUsersScroll;
+                        ScrollPane scrollPane;
+                        if (menuScroll.getVvalue() == 0) {
+                            scrollPane = userInfoScroll;
+                        } else {
+                            scrollPane = chatUsersScroll;
+                        }
+                        Pane content = (Pane) scrollPane.getContent();
+                        scrollPane.setVvalue(scrollPane.getVvalue() - event.getDeltaY() / content.getHeight());
+                        event.consume();
                     }
-                    Pane content = (Pane) scrollPane.getContent();
-                    scrollPane.setVvalue(scrollPane.getVvalue() - event.getDeltaY() / content.getHeight());
-                    event.consume();
-
                 }else{
                     chatUsersScroll.setDisable(true);
                     userInfoScroll.setDisable(false);
@@ -156,7 +159,6 @@ public class Scrolls {
                 TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
                 ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
                 fixBlurriness(textAreaScroll);
-
             }
         });
     }

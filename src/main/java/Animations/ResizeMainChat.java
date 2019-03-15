@@ -1,20 +1,19 @@
 package Animations;
 
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Cursor;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-import javax.xml.stream.EventFilter;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class ResizeMainChat {
     private static double mouseX;
     private static double mouseY;
-    private static boolean resize;
+    private static boolean move;
     private static double border = 3;
     private static double height;
     private static double layoutY;
@@ -23,16 +22,27 @@ public class ResizeMainChat {
     public static void addListeners(AnchorPane mainChat){
         height = mainChat.getPrefHeight();
 
-        mainChat.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
-            if (event.getY() <= border){
-                mainChat.setCursor(Cursor.N_RESIZE);
-            } else if (event.getY() >= height - border) {
-                mainChat.setCursor(Cursor.S_RESIZE);
-            } else{
-                mainChat.setCursor(Cursor.DEFAULT);
-            }
-        });
+        EventHandler<MouseEvent> mousePosition = event -> {
+            EventType eventType = event.getEventType();
+            if(MouseEvent.MOUSE_MOVED.equals(eventType) || MouseButton.PRIMARY.equals(event.getButton())) {
+                if (event.getY() <= border) {
+                    mainChat.setCursor(Cursor.N_RESIZE);
+                } else if (event.getY() >= height - border) {
+                    mainChat.setCursor(Cursor.S_RESIZE);
+                } else {
+                    mainChat.setCursor(Cursor.DEFAULT);
+                }
 
+                if(MouseEvent.MOUSE_RELEASED.equals(eventType)) {
+                    height = mainChat.getPrefHeight();
+                }
+            }
+        };
+
+        mainChat.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEntered -> ResizeRoot.resize = false);
+        mainChat.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExited -> ResizeRoot.resize = true);
+        mainChat.addEventFilter(MouseEvent.MOUSE_MOVED, mousePosition);
+        mainChat.addEventFilter(MouseEvent.MOUSE_RELEASED, mousePosition);
         mainChat.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             if (event.getButton().name().equals("PRIMARY")) {
                 layoutY = mainChat.getLayoutY();
@@ -41,7 +51,7 @@ public class ResizeMainChat {
                 mouseY = event.getScreenY();
                 height = mainChat.getPrefHeight();
 
-                resize = !event.getPickResult().getIntersectedNode().getTypeSelector().equals("TextAreaSkin$ContentView") &&
+                move = !event.getPickResult().getIntersectedNode().getTypeSelector().equals("TextAreaSkin$ContentView") &&
                         !event.getPickResult().getIntersectedNode().getStyleClass().equals(new ArrayList<>(Collections.singletonList("text"))) &&
                         !event.getPickResult().getIntersectedNode().getTypeSelector().equals("Button") &&
                         !event.getPickResult().getIntersectedNode().getTypeSelector().equals("ScrollBarSkin$1");
@@ -51,7 +61,7 @@ public class ResizeMainChat {
         mainChat.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
             double moveY = mouseY - event.getScreenY();
             double moveX = mouseX - event.getScreenX();
-            if(resize && event.getButton().name().equals("PRIMARY")) {
+            if(event.getButton().name().equals("PRIMARY")) {
                 if (mainChat.getCursor().equals(Cursor.N_RESIZE)) {
 
                     if (height + moveY <= mainChat.getMinHeight()) {
@@ -75,16 +85,10 @@ public class ResizeMainChat {
                         mainChat.setPrefHeight(height - moveY);
                     }
 
-                } else {
+                } else if (move){
                     mainChat.setLayoutY(layoutY - moveY);
                     mainChat.setLayoutX(layoutX - moveX);
                 }
-            }
-        });
-
-        mainChat.setOnMouseReleased(event ->{
-            if(event.getButton().name().equals("PRIMARY")){
-                height = mainChat.getHeight();
             }
         });
     }

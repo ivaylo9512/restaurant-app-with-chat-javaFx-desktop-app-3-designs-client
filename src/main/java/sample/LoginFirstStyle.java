@@ -21,10 +21,10 @@ public class LoginFirstStyle extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        Pane root = new FXMLLoader(getClass().getResource("/login.fxml")).load();
+        Pane root = new FXMLLoader(getClass().getResource("/FXML/login.fxml")).load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/login.css").toString());
+        scene.getStylesheets().add(getClass().getResource("/css/login.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         primaryStage.setScene(scene);

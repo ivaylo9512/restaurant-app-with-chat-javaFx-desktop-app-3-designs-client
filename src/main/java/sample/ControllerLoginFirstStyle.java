@@ -2,8 +2,12 @@ package sample;
 
 import Helpers.LoginService;
 import Helpers.RegisterService;
+import Models.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.concurrent.Service;
 import javafx.event.Event;
@@ -33,6 +37,7 @@ public class ControllerLoginFirstStyle {
     @FXML Button loginButton, registerButton, actionButton;
     @FXML Pane loginFields, registerFields;
 
+    public static ObjectMapper mapper = new ObjectMapper();
     private LoginService loginService;
     private RegisterService registerService;
 
@@ -54,12 +59,6 @@ public class ControllerLoginFirstStyle {
 
         background.getParent().layoutXProperty().addListener((observable, oldValue, newValue) -> background.setLayoutX(0 - background.getParent().getLayoutX()));
         background.getParent().layoutYProperty().addListener((observable, oldValue, newValue) -> background.setLayoutY(0 - background.getParent().getLayoutY()));
-
-        root.cursorProperty().bind(
-                Bindings.when(loginService.runningProperty())
-                        .then(Cursor.WAIT)
-                        .otherwise(Cursor.DEFAULT)
-        );
 
         actionButton.setOnMousePressed(this::login);
 
@@ -93,11 +92,16 @@ public class ControllerLoginFirstStyle {
             loginFields.setDisable(true);
             loginFields.setOpacity(0);
         });
+        mapper.registerModule(new JavaTimeModule());
     }
     @FXML
     public void login(Event event){
         if(!event.getEventType().getName().equals("KEY_PRESSED") || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             try {
+                username.setDisable(true);
+                password.setDisable(true);
+                root.setCursor(Cursor.WAIT);
+
                 loginService.start();
             } catch (IllegalStateException e) {
                 System.out.println("request is executing");
@@ -123,7 +127,9 @@ public class ControllerLoginFirstStyle {
     private void updateError(Service service) {
         Alert alert = LoginFirstStyle.alert;
         DialogPane dialog = alert.getDialogPane();
-
+        username.setDisable(false);
+        password.setDisable(false);
+        root.setCursor(Cursor.DEFAULT);
         try{
             dialog.setContentText(service.getException().getMessage());
             throw service.getException();
@@ -138,13 +144,16 @@ public class ControllerLoginFirstStyle {
     }
 
     private void changeScene(Service service) {
-        try {
-            Stage stage = (Stage) loginPane.getScene().getWindow();
-            stage.close();
-            LoggedFirstStyle.displayLoggedScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ControllerLoggedFirstStyle.loggedUser = (User)service.getValue();
+        Platform.runLater(() -> {
+            try {
+                LoggedFirstStyle.displayLoggedScene();
+                LoginFirstStyle.stage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         service.reset();
     }
 

@@ -4,6 +4,10 @@
 Button:focused{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
+ListView:focused{
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
 ScrollPane{
     -fx-background-color: transparent;
     -fx-padding: 0 1 0 0;
@@ -146,7 +150,7 @@ TextArea .scroll-pane .content{
     -fx-pref-height: 46.0;
     -fx-alignment: center;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
-
+    -fx-opacity: 1;
 }
 
 .program-bar{
@@ -165,6 +169,11 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
 }
 .user-info Label{
+    -fx-background-color: #363b41;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-opacity: 1.0;
+}
+.user-info TextField{
     -fx-background-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
@@ -239,43 +248,36 @@ TextFlow {
     -fx-alignment: center;
     -fx-fill: #bcbcbc;
 }
+.create-order .list-view .scroll-bar:vertical .increment-arrow,
+.create-order .list-view .scroll-bar:vertical .decrement-arrow,
+.create-order .list-view .scroll-bar:vertical .increment-button,
+.create-order .list-view .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0px;
+}
+
+.create-order .scroll-bar:vertical {
+    -fx-scale-x: 0;
+}
 
 .create-order ListView .list-cell:even {
-
-    -fx-background-color: transparent;
+    -fx-padding: 0;
+   -fx-background-color: transparent;
 }
 .create-order ListView  .list-cell:odd {
+    -fx-padding: 0;
     -fx-background-color: transparent;
-}
-.create-order ListView .scroll-bar{
-    -fx-background-color: transparent;
-}
-.create-order ListView .scroll-bar .thumb{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
-    -fx-background-color: #363b41;
 }
 
-.clear-button{
-    -fx-background-color: #363b41;
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
-}
 
 .create-button{
     -fx-background-color: #363b41;
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
 }
 
 .create-button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 
 }
-.clear-button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
-}
+
 .create-button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
 

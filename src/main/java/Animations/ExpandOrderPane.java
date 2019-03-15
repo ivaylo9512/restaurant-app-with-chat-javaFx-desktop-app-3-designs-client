@@ -41,7 +41,7 @@ public class ExpandOrderPane {
     public static Button button;
     public static ScrollPane scrollPane;
     public static Pane contentRoot;
-    public static Pane contentPane;
+    public static AnchorPane contentPane;
     public static boolean action = false;
 
     private static BooleanProperty buttonExpanded = new SimpleBooleanProperty(false,"buttonExpanded");
@@ -92,24 +92,27 @@ public class ExpandOrderPane {
         if(intersectedNode.getTypeSelector().equals("Button")){
             expandOrderOnClick();
         }
+
+        currentOrder.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEntered -> ResizeRoot.resize = false);
+        currentOrder.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExited -> ResizeRoot.resize = true);
         currentOrder.addEventFilter(MouseEvent.MOUSE_PRESSED, panePress);
         currentOrder.addEventFilter(MouseEvent.MOUSE_DRAGGED, paneDrag);
         currentOrder.addEventFilter(MouseEvent.MOUSE_RELEASED, paneReleased);
     }
 
-    private static EventHandler panePress = (EventHandler<MouseEvent>) eventPress -> {
+    private static EventHandler<MouseEvent> panePress = eventPress -> {
         mouseX = eventPress.getScreenX();
         mouseY = eventPress.getScreenY();
     };
 
-    private static EventHandler paneDrag = (EventHandler<MouseEvent>) eventDrag -> {
+    private static EventHandler<MouseEvent> paneDrag = eventDrag -> {
         if(!buttonExpanded.getValue()){
             expandOrderOnDrag(eventDrag);
         }else {
             moveOrder(eventDrag);
         }
     };
-    private static EventHandler paneReleased = (EventHandler<MouseEvent>) event1 -> {
+    private static EventHandler<MouseEvent> paneReleased = event1 -> {
         if(!buttonExpanded.getValue()) {
             reverseOrder();
         }
@@ -128,9 +131,9 @@ public class ExpandOrderPane {
         scrollPane.setDisable(true);
         dishesAnchor.setDisable(false);
 
-        ResizeHeight heightPane = new ResizeHeight(Duration.millis(750),currentOrder, maxOrderWidth);
+        TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750),currentOrder, maxOrderWidth);
         heightPane.play();
-        ResizeWidth widthPane = new ResizeWidth(Duration.millis(750),currentOrder, maxOrderWidth);
+        TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750),currentOrder, maxOrderWidth);
         widthPane.play();
 
         double expandButtonY = button.getPrefWidth() + (maxOrderWidth - orderWidth) / 30;
@@ -208,9 +211,9 @@ public class ExpandOrderPane {
             transitionButton.setToY(0);
             transitionButton.play();
 
-            ResizeHeight heightPane = new ResizeHeight(Duration.millis(750), currentOrder, orderHeight);
+            TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750), currentOrder, orderHeight);
             heightPane.play();
-            ResizeWidth widthPane = new ResizeWidth(Duration.millis(750), currentOrder, orderWidth);
+            TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750), currentOrder, orderWidth);
             widthPane.play();
 
             Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(Duration.millis(750), actionEvent -> {

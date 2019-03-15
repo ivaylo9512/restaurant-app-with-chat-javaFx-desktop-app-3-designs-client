@@ -1,5 +1,6 @@
 package Helpers;
 
+import Models.User;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,6 +18,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
+import static sample.ControllerLoginFirstStyle.mapper;
 import sample.LoginFirstStyle;
 
 import java.io.IOException;
@@ -33,9 +35,9 @@ public class LoginService extends Service {
     private CloseableHttpClient httpClient = LoginFirstStyle.httpClient;
     @Override
     protected Task createTask() {
-        return new Task<Boolean>() {
+        return new Task<User>() {
             @Override
-            protected Boolean call() throws Exception {
+            protected User call() throws Exception {
                 Map<String, Object> jsonValues = new HashMap<>();
                 jsonValues.put("username", username.get());
                 jsonValues.put("password", password.get());
@@ -59,14 +61,13 @@ public class LoginService extends Service {
                     }
 
                     String jwtToken = response.getHeaders("Authorization")[0].getValue();
-                    String userJson = response.getHeaders("user")[0].getValue();
 
                     Preferences userPreference = Preferences.userRoot();
-                    userPreference.put("user", userJson);
                     userPreference.put("token", jwtToken);
 
                     EntityUtils.consume(receivedEntity);
-                    return true;
+
+                    return mapper.readValue(content, User.class);
                 }
             }
         };

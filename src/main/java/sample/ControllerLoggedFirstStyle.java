@@ -2,7 +2,7 @@ package sample;
 
 import Animations.ExpandOrderPane;
 import Animations.MoveRoot;
-import Animations.ResizeHeight;
+import Animations.TransitionResizeHeight;
 import Animations.ResizeMainChat;
 import Helpers.OrderService;
 import Helpers.Scrolls;
@@ -63,10 +63,10 @@ public class ControllerLoggedFirstStyle {
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll,
             ordersScroll, mainChatScroll, notificationsScroll;
     @FXML VBox mainChatBlock, chatUsers, notificationBlock;
-    @FXML FlowPane ordersFlow, notificationInfo, chatInfo;
+    @FXML FlowPane ordersFlow, notificationInfo, chatInfo, userInfo, userInfoEditable;
     @FXML Label firstName, lastName, country, age, role;
-    @FXML AnchorPane contentRoot, mainChat, ordersPane;
-    @FXML Pane contentPane, moveBar, notificationIcon;
+    @FXML AnchorPane contentRoot, contentPane, mainChat, ordersPane;
+    @FXML Pane moveBar, notificationIcon;
     @FXML TextArea mainChatTextArea;
     @FXML ImageView roleImage;
     @FXML TextField menuSearch;
@@ -89,9 +89,7 @@ public class ControllerLoggedFirstStyle {
     @FXML
     public void initialize() throws IOException {
         mapper.registerModule(new JavaTimeModule());
-        String userJson = userPreference.get("user",null);
 
-        loggedUser = mapper.readValue(userJson, User.class);
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
         loggedUser.getRestaurant().getOrders().forEach(this::appendOrder);
 
@@ -106,13 +104,12 @@ public class ControllerLoggedFirstStyle {
         menu.setOnMouseClicked(event -> {
             ScrollBar scrollBar = Scrolls.findVerticalScrollBar(menu);
             Menu menuItem = menu.getSelectionModel().getSelectedItem();
-            newOrderMenu.getItems().add(menuItem);
+            newOrderMenu.getItems().add(0, menuItem);
         });
         newOrderMenu.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             Menu menuItem = newOrderMenu.getSelectionModel().getSelectedItem();
             newOrderMenu.getItems().remove(menuItem);
         });
-
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             SortedMap<String, Menu> currentSearch = searchMenu(newValue.toLowerCase());
             ObservableList<Menu> observableList = FXCollections.observableArrayList();
@@ -143,8 +140,9 @@ public class ControllerLoggedFirstStyle {
         notificationSound = new MediaPlayer(sound);
         notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
+        contentRoot.getChildren().remove(userInfoEditable);
         ResizeMainChat.addListeners(mainChat);
-        MoveRoot.moveStage(moveBar, contentRoot);
+        MoveRoot.move(moveBar, contentRoot);
 
 
     }
@@ -197,10 +195,6 @@ public class ControllerLoggedFirstStyle {
         });
     }
     @FXML
-    public void clearNewOrderMenu(){
-        newOrderMenu.getItems().clear();
-    }
-    @FXML
     public void createNewOrder() throws Exception{
         List<Dish> dishes = new ArrayList<>();
         newOrderMenu.getItems().forEach(menuItem -> dishes.add(new Dish(menuItem.getName())));
@@ -235,12 +229,12 @@ public class ControllerLoggedFirstStyle {
 
         hBox.setOnMouseClicked(this::removeNotification);
         hBox.setOnMouseEntered(event -> {
-            ResizeHeight resizeHeight = new ResizeHeight(Duration.millis(150), hBox, 46);
-            resizeHeight.play();
+            TransitionResizeHeight transitionResizeHeight = new TransitionResizeHeight(Duration.millis(150), hBox, 46);
+            transitionResizeHeight.play();
         });
         hBox.setOnMouseExited(event -> {
-            ResizeHeight resizeHeight = new ResizeHeight(Duration.millis(150), hBox, 38);
-            resizeHeight.play();
+            TransitionResizeHeight transitionResizeHeight = new TransitionResizeHeight(Duration.millis(150), hBox, 38);
+            transitionResizeHeight.play();
         });
         hBox.setMinHeight(0);
 
@@ -358,9 +352,9 @@ public class ControllerLoggedFirstStyle {
         role.setText(loggedUser.getRole());
 
         if (loggedUser.getRole().equals("chef")) {
-            roleImage.setImage(new Image(getClass().getResourceAsStream("/chef-second.png")));
+            roleImage.setImage(new Image(getClass().getResourceAsStream("/images/chef-second.png")));
         }else{
-            roleImage.setImage(new Image(getClass().getResourceAsStream("/waiter-second.png")));
+            roleImage.setImage(new Image(getClass().getResourceAsStream("/images/waiter-second.png")));
         }
     }
 
@@ -647,6 +641,18 @@ public class ControllerLoggedFirstStyle {
     }
 
     @FXML
+    public void editUserInfo(){
+        userInfoScroll.setContent(userInfoEditable);
+    }
+
+    @FXML
+    public void cancelEdit(){
+        userInfoScroll.setContent(userInfo);
+    }
+    public void saveUserInfo(){
+
+    }
+    @FXML
     private void showNotifications(){
         notificationIcon.setOpacity(0);
         ordersPane.setDisable(true);
@@ -672,7 +678,7 @@ public class ControllerLoggedFirstStyle {
         animation.play();
     }
     private void appendOrder(Order order) {
-            Image clout = new Image(getClass().getResourceAsStream("/cloud-down.png"));
+            Image clout = new Image(getClass().getResourceAsStream("/images/cloud-down.png"));
             ImageView imageView = new ImageView(clout);
             imageView.setFitWidth(15);
             imageView.setFitHeight(15);
@@ -699,17 +705,20 @@ public class ControllerLoggedFirstStyle {
             order.getDishes().forEach(dish -> {
                 Label amount = new Label("3");
                 amount.getStyleClass().add("amount");
+
                 Label ready;
                 if(dish.getReady()){
                     ready = new Label("O");
                 }else{
                     ready = new Label("X");
                 }
-
                 ready.setId("dish" + dish.getId());
                 ready.getStyleClass().add("ready");
+
                 TextField name = new TextField(dish.getName());
                 name.getStyleClass().add("name");
+                name.setDisable(true);
+
                 HBox dishBox = new HBox(amount, name, ready);
                 dishBox.getStyleClass().add("dish");
 
@@ -785,8 +794,8 @@ public class ControllerLoggedFirstStyle {
         });
     }
 
-    private EventHandler expandOrderHandler = (EventHandler<MouseEvent>) this::expandOrder;
-    private EventHandler reverseOrderHandler = (EventHandler<MouseEvent>)e-> ExpandOrderPane.reverseOrder();
+    private EventHandler<MouseEvent> expandOrderHandler = this::expandOrder;
+    private EventHandler<MouseEvent> reverseOrderHandler = e-> ExpandOrderPane.reverseOrder();
 
     @FXML
     public void expandOrder(MouseEvent event){

@@ -12,9 +12,9 @@
 
 <AnchorPane style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedFirstStyle">
    <children>
-      <AnchorPane fx:id="contentRoot" maxHeight="641.0" minHeight="428.0" prefHeight="428.0" style="-fx-background-color: transparent;">
+      <AnchorPane fx:id="contentRoot" maxHeight="641.0" maxWidth="1100.0" minHeight="428.0" minWidth="743.0" prefHeight="428.0" prefWidth="743.0" style="-fx-background-color: black;">
          <children>
-            <AnchorPane layoutY="218.0" maxWidth="103.0" minWidth="103.0" prefHeight="212.0" prefWidth="103.0" snapToPixel="false" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="-1.0" AnchorPane.topAnchor="217.0">
+            <AnchorPane layoutY="218.0" maxWidth="103.0" minWidth="103.0" prefHeight="212.0" prefWidth="103.0" snapToPixel="false" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="217.0">
                <children>
                   <ScrollPane fx:id="menuScroll" prefHeight="211.0" prefWidth="142.0" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
                      <content>
@@ -22,7 +22,7 @@
                               <children>
                                     <ScrollPane fx:id="userInfoScroll" layoutY="77.0" prefHeight="134.0" prefViewportHeight="154.0" prefViewportWidth="103.0" prefWidth="124.0">
                                        <content>
-                                             <FlowPane layoutY="77.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
+                                             <FlowPane fx:id="userInfo" layoutY="77.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
                                                 <children>
                                                       <Label fx:id="firstName" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
                                                          <font>
@@ -49,6 +49,11 @@
                                                             <Font size="10.0" />
                                                          </font>
                                                       </Label>
+                                          <Button mnemonicParsing="false" onMouseClicked="#editUserInfo" prefHeight="22.0" prefWidth="72.0" text="Button">
+                                             <font>
+                                                <Font size="10.0" />
+                                             </font>
+                                          </Button>
                                                 </children>
                                                 <padding>
                                                    <Insets bottom="10.0" left="15.5" top="9.5" />
@@ -85,7 +90,7 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <Pane layoutY="28.0" prefHeight="190.0" prefWidth="103.0" styleClass="menu">
+            <Pane layoutY="28.0" prefHeight="190.0" prefWidth="103.0" styleClass="menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
                <children>
                   <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToProfile" prefHeight="22.0" prefWidth="72.0" text="Profile" textFill="#bcbcbc">
                      <font>
@@ -124,10 +129,10 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="moveBar" prefHeight="28.0" prefWidth="743.0" styleClass="program-bar" />
-            <Pane fx:id="contentPane" layoutX="106.0" layoutY="28.0" prefHeight="400.0" prefWidth="637.0">
+            <Pane fx:id="moveBar" prefHeight="28.0" prefWidth="743.0" styleClass="program-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <AnchorPane fx:id="contentPane" layoutX="106.0" layoutY="28.0" prefHeight="400.0" prefWidth="637.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
                <children>
-                  <AnchorPane layoutY="189.0" prefHeight="212.0" prefWidth="637.0" style="-fx-background-color: #363b41;">
+                  <AnchorPane layoutY="189.0" prefHeight="212.0" prefWidth="637.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="189.0">
                      <children>
                         <FlowPane fx:id="chatInfo" alignment="CENTER" columnHalignment="CENTER" disable="true" orientation="VERTICAL" prefHeight="190.0" prefWidth="637.0" styleClass="chat-info" vgap="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -137,39 +142,66 @@
                         </FlowPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutY="189.0" prefHeight="212.0" prefWidth="637.0" style="-fx-background-color: #363b41;" styleClass="create-order">
+                  <AnchorPane layoutY="189.0" prefHeight="212.0" prefWidth="637.0" style="-fx-background-color: #363b41;" styleClass="create-order" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="189.0">
                      <children>
-                        <TextField fx:id="menuSearch" alignment="CENTER" layoutX="23.0" layoutY="18.0" prefHeight="39.0" prefWidth="339.0" promptText="Search" style="-fx-background-color: #363b41; -fx-text-fill: #bcbcbc;">
-                           <effect>
-                              <DropShadow height="10.0" radius="4.5" width="10.0" />
-                           </effect>
-                        </TextField>
-                        <ListView fx:id="menu" layoutX="14.0" layoutY="63.0" prefHeight="143.0" prefWidth="365.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="63.0" />
-                        <AnchorPane layoutX="403.0" layoutY="11.0" prefHeight="195.0" prefWidth="214.0" style="-fx-background-color: #363b41;">
+                        <HBox layoutX="13.0" layoutY="6.5" spacing="9.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="10.0">
                            <children>
-                              <ListView fx:id="newOrderMenu" layoutY="46.0" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="40.0" AnchorPane.topAnchor="0.0">
-                                 <padding>
-                                    <Insets bottom="5.0" />
-                                 </padding>
-                              </ListView>
-                              <HBox layoutX="1.0" layoutY="136.0" prefHeight="40.0" prefWidth="213.0" spacing="5.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" styleClass="new-order" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#createNewOrder" styleClass="create-button" text="Create" textFill="#bcbcbc" HBox.hgrow="ALWAYS">
+                                    <ListView fx:id="menu" layoutY="46.0" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </ListView>
+                                    <TextField fx:id="menuSearch" alignment="CENTER" layoutX="-287.0" layoutY="20.0" prefHeight="39.0" prefWidth="339.0" promptText="Search" style="-fx-background-color: #363b41; -fx-text-fill: #bcbcbc; -fx-background-radius: 2 2 0 0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect>
+                                    </TextField>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets top="1.0" />
+                                 </HBox.margin>
+                              </AnchorPane>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="303.0" layoutY="90.0" rotate="180.0">
+                                 <image>
+                                    <Image url="@../../../../../../../Downloads/left-arrow.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets top="90.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" styleClass="new-order" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="9.5" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ListView fx:id="newOrderMenu" layoutY="46.0" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </ListView>
+                                    <Button layoutY="154.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#createNewOrder" prefHeight="38.0" styleClass="create-button" text="Create" textFill="#bcbcbc" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect>
                                     </Button>
-                                    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#clearNewOrderMenu" styleClass="clear-button" text="Clear" textFill="#bcbcbc" HBox.hgrow="ALWAYS" />
                                  </children>
-                              </HBox>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </AnchorPane>
                            </children>
-                           <effect>
-                              <DropShadow height="10.0" radius="4.5" width="10.0" />
-                           </effect>
-                        </AnchorPane>
+                        </HBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="190.0" prefWidth="637.0" styleClass="notifications">
+                  <AnchorPane prefHeight="190.0" prefWidth="637.0" styleClass="notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <ScrollPane fx:id="notificationsScroll" layoutX="6.0" layoutY="-17.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
@@ -182,14 +214,14 @@
                         </ScrollPane>
                      </children>
                   </AnchorPane>
-                  <FlowPane fx:id="notificationInfo" alignment="CENTER" disable="true" prefHeight="190.0" prefWidth="637.0" style="-fx-opacity: 1;">
+                  <FlowPane fx:id="notificationInfo" alignment="CENTER" disable="true" prefHeight="190.0" prefWidth="637.0" style="-fx-opacity: 1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no new notifications." textAlignment="CENTER" />
                      </children>
                   </FlowPane>
-                  <AnchorPane fx:id="ordersPane" minHeight="-Infinity" prefHeight="190.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;">
+                  <AnchorPane fx:id="ordersPane" minHeight="-Infinity" prefHeight="190.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ScrollPane fx:id="ordersScroll" hbarPolicy="NEVER" layoutX="0.5" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="636.5" vbarPolicy="NEVER">
+                        <ScrollPane fx:id="ordersScroll" hbarPolicy="NEVER" layoutX="0.5" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="636.5" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
                               <FlowPane fx:id="ordersFlow" orientation="VERTICAL" prefHeight="189.0" prefWidth="506.0">
                         </FlowPane>
@@ -198,8 +230,8 @@
                      </children>
                   </AnchorPane>
                </children>
-            </Pane>
-            <AnchorPane fx:id="mainChat" disable="true" layoutX="217.0" layoutY="231.0" maxHeight="421.0" minHeight="189.0" minWidth="423.0" opacity="0.0" prefHeight="189.0" prefWidth="423.0" style="-fx-background-color: #363b41;" styleClass="main-chat">
+            </AnchorPane>
+            <AnchorPane fx:id="mainChat" disable="true" layoutX="217.0" layoutY="231.0" maxHeight="428.0" minHeight="189.0" minWidth="423.0" opacity="0.0" prefHeight="189.0" prefWidth="423.0" style="-fx-background-color: #363b41;" styleClass="main-chat">
                <children>
                   <ScrollPane fx:id="mainChatScroll" layoutX="3.0" layoutY="1.0" prefHeight="143.0" prefWidth="418.0" AnchorPane.bottomAnchor="45.0" AnchorPane.topAnchor="1.0">
                      <content>
@@ -235,7 +267,7 @@
                            <graphic>
                               <ImageView fitHeight="22.0" fitWidth="22.0">
                                  <image>
-                                    <Image url="@../../../../../../Downloads/enter-arrow%20(1).png" />
+                                    <Image url="/images/enter-arrow.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -265,5 +297,43 @@
             <TextField prefHeight="67.0" prefWidth="218.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" />
          </children>
       </HBox>
+      <Button layoutX="351.0" layoutY="-230.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#createNewOrder" styleClass="create-button" text="Search" textFill="#bcbcbc" />
+      <FlowPane fx:id="userInfoEditable" layoutX="517.0" layoutY="-219.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
+         <children>
+            <TextField fx:id="firstNameField" focusTraversable="false" prefHeight="22.0" prefWidth="72.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="lastNameField" focusTraversable="false" prefHeight="22.0" prefWidth="72.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="countryField" focusTraversable="false" prefHeight="22.0" prefWidth="72.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="ageField" focusTraversable="false" prefHeight="22.0" prefWidth="72.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="roleField" focusTraversable="false" prefHeight="22.0" prefWidth="72.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextField>
+            <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#cancelEdit" prefHeight="22.0" prefWidth="72.0" text="Button">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="15.5" top="9.5" />
+         </padding>
+      </FlowPane>
    </children>
 </AnchorPane>

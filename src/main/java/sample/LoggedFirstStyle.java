@@ -1,9 +1,12 @@
 package sample;
 
-import javafx.fxml.FXML;
+import Animations.ResizeRoot;
+import Models.User;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,10 +20,11 @@ public class LoggedFirstStyle extends LoginFirstStyle {
     public static Stage stage;
 
     public static void displayLoggedScene() throws IOException {
+
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        Pane root = new FXMLLoader(LoggedFirstStyle.class.getResource("/logged-first.fxml")).load();
+        Pane root = new FXMLLoader(LoggedFirstStyle.class.getResource("/FXML/logged-first.fxml")).load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(LoggedFirstStyle.class.getResource("/logged-first.css").toString());
+        scene.getStylesheets().add(LoggedFirstStyle.class.getResource("/css/logged-first.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         stage = new Stage();
@@ -35,5 +39,7 @@ public class LoggedFirstStyle extends LoginFirstStyle {
         AnchorPane contentRoot = (AnchorPane) root.getChildren().get(0);
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
         contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
+
+        ResizeRoot.addListeners(contentRoot);
     }
 }
