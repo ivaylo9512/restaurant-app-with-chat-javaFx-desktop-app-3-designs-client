@@ -1,5 +1,6 @@
-package Helpers;
+package Helpers.Services;
 
+import Models.Message;
 import Models.Order;
 import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.animation.KeyFrame;
@@ -14,52 +15,39 @@ import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPatch;
-import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 import sample.LoggedFirstStyle;
 import sample.LoginFirstStyle;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static Helpers.ServerRequests.mapper;
-import static sample.ControllerLoggedFirstStyle.*;
+import static Helpers.ServerRequests.*;
 
-public class OrderService extends Service {
-    private CloseableHttpClient httpClient = ServerRequests.httpClient;
 
+public class MessageService extends Service {
+
+    public static LocalDateTime lastMessageCheck;
     @Override
     protected Task createTask() {
-        return new Task<List<Order>>() {
+        return new Task<List<Message>>() {
             @Override
-            protected List<Order> call() throws Exception {
-                List<Order> orders = new ArrayList<>();
+            protected List<Message> call() throws Exception {
+                List<Message> messages = new ArrayList<>();
 
-                String mostRecentDate = mapper.writeValueAsString(mostRecentOrderDate);
-                String restaurantId = String.valueOf(loggedUser.getRestaurant().getId());
+                String mostRecentDate = mapper.writeValueAsString(lastMessageCheck);
 
-                Map<String, Object> jsonValues = new HashMap<>();
-                jsonValues.put("lastUpdate", mostRecentDate);
-                JSONObject json = new JSONObject(jsonValues);
+                StringEntity patchEntity = new StringEntity(mostRecentDate, "UTF8");
+                patchEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-                StringEntity postEntity = new StringEntity(mostRecentDate, "UTF8");
-                postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-
-                URIBuilder builder = new URIBuilder("http://localhost:8080/api/auth/order/getUpdates");
-                builder.setParameter("restaurantId", restaurantId);
-
-                HttpPatch httpPatch = new HttpPatch(builder.build());
+                HttpPatch httpPatch = new HttpPatch("http://localhost:8080/api/auth/chat/getChatUpdates");
                 httpPatch.setHeader("Authorization", userPreference.get("Token", null));
-                httpPatch.setEntity(postEntity);
-
-                try (CloseableHttpResponse response = httpClient.execute(httpPatch)) {
+                httpPatch.setEntity(patchEntity);
+                try (CloseableHttpResponse response = httpClientLongPolling.execute(httpPatch)) {
 
                     int responseStatus = response.getStatusLine().getStatusCode();
                     HttpEntity receivedEntity = response.getEntity();
@@ -71,13 +59,13 @@ public class OrderService extends Service {
                     }
 
                     if (!content.equals("Time out.")) {
-                        orders = mapper.readValue(content, new TypeReference<List<Order>>() {
+                        messages = mapper.readValue(content, new TypeReference<List<Message>>() {
                         });
                     }
 
                     EntityUtils.consume(receivedEntity);
                 }
-                return orders;
+                return messages;
 
             }
 
@@ -96,9 +84,7 @@ public class OrderService extends Service {
                         reset();
                     }
                 } else {
-                    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> {
-                        restart();
-                    }));
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> restart()));
                     timeline.play();
                 }
             }

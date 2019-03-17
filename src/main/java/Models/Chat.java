@@ -1,6 +1,8 @@
 package Models;
 
 
+import java.util.List;
+
 public class Chat {
 
     private int id;
@@ -9,12 +11,15 @@ public class Chat {
 
     private User secondUser;
 
+    private List<Session> sessions;
+
     public Chat() {
     }
 
-    public Chat(User firstUser, User secondUser) {
+    public Chat(User firstUser, User secondUser, List<Session> sessions) {
         this.firstUser = firstUser;
         this.secondUser = secondUser;
+        this.sessions = sessions;
     }
 
     public User getFirstUser() {
@@ -39,5 +44,13 @@ public class Chat {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
     }
 }

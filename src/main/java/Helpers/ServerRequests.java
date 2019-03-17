@@ -5,9 +5,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -19,6 +25,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
+import sample.LoginFirstStyle;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -26,10 +33,14 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.prefs.Preferences;
 
+import static Helpers.Services.MessageService.lastMessageCheck;
+
 public class ServerRequests {
-    static CloseableHttpClient httpClient = HttpClients.createDefault();
-    static Preferences userPreference = Preferences.userRoot();
+    public static CloseableHttpClient httpClient = HttpClients.createDefault();
+    public static CloseableHttpClient httpClientLongPolling = HttpClients.createDefault();
+    public static Preferences userPreference = Preferences.userRoot();
     public static ObjectMapper mapper = new ObjectMapper();
+    public static int pageSize = 3;
 
     static {
         mapper.registerModule(new JavaTimeModule());
@@ -39,7 +50,6 @@ public class ServerRequests {
         HttpGet get;
         List<Session> sessions = new LinkedList<>();
         try {
-
             URIBuilder builder = new URIBuilder("http://localhost:8080/api/auth/chat/nextSessions");
             builder
                     .setParameter("chatId", String.valueOf(id))
@@ -107,9 +117,9 @@ public class ServerRequests {
         return true;
     }
 
-    public static LocalDateTime getMostRecentOrderDate(int restaurantId) {
+    public static LocalDateTime getMostRecentOrderDate(int restaurantId) throws Exception{
         HttpGet get = new HttpGet("http://localhost:8080/api/auth/order/getMostRecentDate/" + restaurantId);
-        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime;
         get.setHeader("Authorization", userPreference.get("Token", null));
 
         try (CloseableHttpResponse response = httpClient.execute(get)) {
@@ -126,16 +136,17 @@ public class ServerRequests {
             localDateTime = mapper.readValue(content, LocalDateTime.class);
             EntityUtils.consume(entity);
 
-        } catch (HttpException | IOException e) {
-            e.printStackTrace();
         }
         return localDateTime;
 
     }
 
-    public static List<Chat> getChats() {
+    public static List<Chat> getChats() throws Exception{
         List<Chat> chats = new ArrayList<>();
-        HttpGet get = new HttpGet("http://localhost:8080/api/auth/chat/getChats");
+        URIBuilder builder = new URIBuilder("http://localhost:8080/api/auth/chat/getChats");
+        builder.setParameter("pageSize", String.valueOf(pageSize));
+
+        HttpGet get = new HttpGet(builder.build());
         get.setHeader("Authorization", userPreference.get("Token", null));
 
         try (CloseableHttpResponse response = httpClient.execute(get)) {
@@ -146,17 +157,14 @@ public class ServerRequests {
 
             if (responseStatus != 200) {
                 EntityUtils.consume(entity);
-                throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
+                throw new HttpException(content);
             }
 
-            chats = mapper.readValue(content, new TypeReference<List<Chat>>() {
-            });
+            chats = mapper.readValue(content, new TypeReference<List<Chat>>(){});
+            lastMessageCheck = LocalDateTime.now();
+
             EntityUtils.consume(entity);
-
-        } catch (IOException | HttpException e) {
-            e.printStackTrace();
         }
-
         return chats;
     }
 

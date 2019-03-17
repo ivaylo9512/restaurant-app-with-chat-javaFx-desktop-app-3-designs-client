@@ -4,13 +4,12 @@ import Animations.ExpandOrderPane;
 import Animations.MoveRoot;
 import Animations.TransitionResizeHeight;
 import Animations.ResizeMainChat;
-import Helpers.OrderService;
+import Helpers.Services.MessageService;
+import Helpers.Services.OrderService;
 import Helpers.Scrolls;
 import Helpers.MenuListViewCell;
 import Models.*;
 import Models.Menu;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
@@ -40,19 +39,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 
 import java.io.*;
 import java.net.URL;
@@ -60,7 +46,6 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 import static Helpers.ServerRequests.*;
 
@@ -79,7 +64,6 @@ public class ControllerLoggedFirstStyle {
     @FXML TextField menuSearch;
     @FXML ListView<Menu> menu, newOrderMenu;
 
-    public static Preferences userPreference = Preferences.userRoot();
     public static LocalDateTime mostRecentOrderDate;
     public static User loggedUser;
 
@@ -89,11 +73,11 @@ public class ControllerLoggedFirstStyle {
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
     private ChatValue mainChatValue;
-    private int pageSize = 3;
     private MediaPlayer notificationSound;
+    private MessageService messageService;
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() throws Exception {
         mapper.registerModule(new JavaTimeModule());
 
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
@@ -102,6 +86,8 @@ public class ControllerLoggedFirstStyle {
         InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
         userProfileImage = new Image(in);
         in.close();
+
+        displayUserInfo();
 
         newOrderMenu.setCellFactory(menuCell -> new MenuListViewCell());
         menu.setCellFactory(menuCell -> new MenuListViewCell());
@@ -122,13 +108,24 @@ public class ControllerLoggedFirstStyle {
             menu.setItems(observableList);
         });
 
-        List<Chat> chats = getChats();
-        appendChats(chats);
 
-        displayUserInfo();
-        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+        try {
+            List<Chat> chats = getChats();
+            appendChats(chats);
+            mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+        }catch (Exception e){
+            Alert alert = LoginFirstStyle.alert;
+            DialogPane dialog = alert.getDialogPane();
+            dialog.setContentText(e.getMessage());
+            alert.showAndWait();
+
+            throw new RuntimeException("Stopping logged scene initialization with exception: " + e.getMessage());
+        }
+
 
         waitForNewOrders();
+        waitForNewMessages();
+
         ExpandOrderListeners();
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll, ordersScroll,
@@ -160,11 +157,46 @@ public class ControllerLoggedFirstStyle {
 
     }
 
+    private void waitForNewMessages(){
+        messageService = new MessageService();
+        messageService.start();
+        messageService.setOnSucceeded(event -> {
+            MessageService.lastMessageCheck = LocalDateTime.now();
+            List<Message> newMessages = (List<Message>) messageService.getValue();
+            newMessages.forEach(message -> {
+                int index = mainChatBlock.getChildren().size();
+                ChatValue chat = chatsMap.get(message.getChatId());
+                ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+
+                mainChatBlock.setId("new-message");
+                Session session = sessions.get(LocalDate.now());
+                if (session == null) {
+                    LocalDate sessionDate = LocalDate.now();
+
+                    session = new Session();
+                    session.setDate(sessionDate);
+                    sessions.put(0, sessionDate, session);
+                    session.getMessages().add(message);
+
+                    if (mainChatValue.getChatId() == message.getChatId()) {
+                        mainChatValue.setDisplayedSessions(mainChatValue.getDisplayedSessions() + 1);
+                        appendSession(session, mainChatBlock, mainChatValue, index);
+                    }
+                } else {
+                    session.getMessages().add(message);
+                    if (mainChatValue.getChatId() == message.getChatId()) {
+                        appendMessage(message, mainChatValue, (VBox) mainChatBlock.getChildren().get(index - 1));
+                    }
+                }
+            });
+            messageService.restart();
+        });
+    }
     private void waitForNewOrders() {
         OrderService orderService = new OrderService();
         orderService.start();
         orderService.setOnSucceeded(event -> {
-            List<Order> newOrders = ((List<Order>) orderService.getValue());
+            List<Order> newOrders = (List<Order>) orderService.getValue();
             if (newOrders.size() > 0) {
                 Order mostRecentNewOrder = newOrders.get(0);
                 if (mostRecentNewOrder.getCreated().isAfter(mostRecentNewOrder.getUpdated())) {
@@ -212,6 +244,7 @@ public class ControllerLoggedFirstStyle {
     public void createNewOrder() {
         List<Dish> dishes = new ArrayList<>();
         newOrderMenu.getItems().forEach(menuItem -> dishes.add(new Dish(menuItem.getName())));
+
         if (sendOrder(new Order(dishes))) {
             newOrderMenu.getItems().clear();
         }
@@ -342,12 +375,14 @@ public class ControllerLoggedFirstStyle {
 
                     profilePicture = new Image(in);
                     chatValue = new ChatValue(chat.getId(), chat.getSecondUser().getId(), profilePicture);
+                    chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
                 } else {
                     in = new BufferedInputStream(
                             new URL(chat.getFirstUser().getProfilePicture()).openStream());
                     profilePicture = new Image(in);
 
                     chatValue = new ChatValue(chat.getId(), chat.getFirstUser().getId(), profilePicture);
+                    chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
                 }
                 in.close();
 
@@ -372,7 +407,6 @@ public class ControllerLoggedFirstStyle {
         chatInfo.setOpacity(0);
 
         int chatId = Integer.parseInt(imageView.getId());
-        int page = 0;
 
         ChatValue chat = chatsMap.get(chatId);
         HBox sessionInfo = (HBox) mainChatBlock.getChildren().get(0);
@@ -407,39 +441,18 @@ public class ControllerLoggedFirstStyle {
 
             ListOrderedMap<LocalDate, Session> sessionsMap = mainChatValue.getSessions();
             List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
+            List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
 
-            if (chatSessions.size() == 0) {
-
-                List<Session> sessions = getNextSessions(chatId, page, pageSize);
-                if (sessions.size() < pageSize) {
-                    mainChatValue.setMoreSessions(false);
-                    mainChatValue.setDisplayedSessions(sessions.size());
-                    info.setText("Beginning of chat");
-                } else {
-                    mainChatValue.setDisplayedSessions(pageSize);
-                    info.setText("Scroll for more history");
-                }
-
-                sessions.forEach(session -> {
-                    sessionsMap.put(session.getDate(), session);
-                    appendSession(session, mainChatBlock, mainChatValue, 1);
-
-                });
+            if (lastSessions.size() == pageSize) {
+                info.setText("Scroll for more history");
+                mainChatValue.setDisplayedSessions(pageSize);
             } else {
-                List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
-
-                if (lastSessions.size() == pageSize) {
-                    info.setText("Scroll for more history");
-                    mainChatValue.setDisplayedSessions(pageSize);
-                } else {
-                    info.setText("Beginning of the chat");
-                    mainChatValue.setDisplayedSessions(lastSessions.size());
-                }
-
-                lastSessions.forEach(session -> {
-                    appendSession(session, mainChatBlock, mainChatValue, 1);
-                });
+                info.setText("Beginning of the chat");
+                mainChatValue.setMoreSessions(false);
+                mainChatValue.setDisplayedSessions(lastSessions.size());
             }
+
+            lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
         }
     }
 
@@ -460,7 +473,6 @@ public class ControllerLoggedFirstStyle {
             Session session = sessions.get(LocalDate.now());
             if (session == null) {
                 LocalDate sessionDate = LocalDate.now();
-                LocalTime messageTime = LocalTime.now();
 
                 session = new Session();
                 session.setDate(sessionDate);
@@ -472,9 +484,8 @@ public class ControllerLoggedFirstStyle {
                     appendSession(session, mainChatBlock, mainChatValue, index);
                 }
             } else {
-
+                session.getMessages().add(message);
                 if (mainChatValue.getChatId() == message.getChatId()) {
-                    session.getMessages().add(message);
                     appendMessage(message, mainChatValue, (VBox) mainChatBlock.getChildren().get(index - 1));
                 }
             }

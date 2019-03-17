@@ -1,7 +1,7 @@
 package sample;
 
-import Helpers.LoginService;
-import Helpers.RegisterService;
+import Helpers.Services.LoginService;
+import Helpers.Services.RegisterService;
 import Models.User;
 import javafx.animation.*;
 import javafx.application.Platform;
@@ -161,11 +161,12 @@ public class ControllerLoginFirstStyle {
         registerService.setOnFailed(eventFail -> updateError(registerService));
     }
     private void updateError(Service service) {
-        Alert alert = LoginFirstStyle.alert;
-        DialogPane dialog = alert.getDialogPane();
         username.setDisable(false);
         password.setDisable(false);
         root.setCursor(Cursor.DEFAULT);
+
+        Alert alert = LoginFirstStyle.alert;
+        DialogPane dialog = alert.getDialogPane();
         try{
             dialog.setContentText(service.getException().getMessage());
             throw service.getException();
@@ -174,8 +175,8 @@ public class ControllerLoginFirstStyle {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-
         alert.showAndWait();
+
         service.reset();
     }
 
@@ -185,8 +186,10 @@ public class ControllerLoginFirstStyle {
             try {
                 LoggedFirstStyle.displayLoggedScene();
                 LoginFirstStyle.stage.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                username.setDisable(false);
+                password.setDisable(false);
+                root.setCursor(Cursor.DEFAULT);
             }
         });
 

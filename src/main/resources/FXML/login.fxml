@@ -60,7 +60,7 @@
                   </Pane>
                   <Pane fx:id="loginFields" disable="true" layoutX="7.0" layoutY="22.0" prefHeight="33.0" prefWidth="345.0">
                      <children>
-                            <TextField fx:id="username" alignment="CENTER" layoutX="6.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="162.0" promptText="username" style="-fx-background-radius: 0 0 0 0;">
+                            <TextField fx:id="username" alignment="CENTER" layoutX="8.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="162.0" promptText="username" style="-fx-background-radius: 0 0 0 0;">
                                 <font>
                                     <Font size="11.0" />
                                 </font>

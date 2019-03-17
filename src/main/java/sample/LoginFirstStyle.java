@@ -1,5 +1,6 @@
 package sample;
 
+import Helpers.ServerRequests;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
