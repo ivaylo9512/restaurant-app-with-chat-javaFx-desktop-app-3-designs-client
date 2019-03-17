@@ -1,38 +1,45 @@
 package Models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Message {
-    private int receiver;
+    private int receiverId;
 
-    private LocalTime date;
+    private int senderId;
+
+    private LocalTime time;
 
     private String message;
+
+    private int chatId;
+
+    private LocalDate session;
 
     public Message() {
     }
 
-    public Message(int receiver, LocalTime date, String message) {
-        this.receiver = receiver;
-        this.date = date;
+    public Message(int receiver, LocalTime time, String message) {
+        this.receiverId = receiver;
+        this.time = time;
         this.message = message;
     }
 
-    public int getReceiver() {
-        return receiver;
+    public int getReceiverId() {
+        return receiverId;
     }
 
-    public void setReceiver(int receiver) {
-        this.receiver = receiver;
+    public void setReceiverId(int receiverId) {
+        this.receiverId = receiverId;
     }
 
-    public LocalTime getDate() {
-        return date;
+    public LocalTime getTime() {
+        return time;
     }
 
-    public void setDate(LocalTime date) {
-        this.date = date;
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public String getMessage() {
@@ -41,5 +48,29 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(int chatId) {
+        this.chatId = chatId;
+    }
+
+    public LocalDate getSession() {
+        return session;
+    }
+
+    public void setSession(LocalDate session) {
+        this.session = session;
+    }
+
+    public int getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(int senderId) {
+        this.senderId = senderId;
     }
 }

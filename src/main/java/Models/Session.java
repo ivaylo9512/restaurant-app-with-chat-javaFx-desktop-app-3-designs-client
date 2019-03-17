@@ -1,12 +1,14 @@
 package Models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Session{
 
     private LocalDate date;
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
+
     public Session() {
     }
 

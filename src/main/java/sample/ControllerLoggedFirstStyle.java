@@ -29,6 +29,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -37,6 +39,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
+import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
@@ -133,11 +136,17 @@ public class ControllerLoggedFirstStyle {
 
 
         mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
-            if (newValue1.equals("append")) {
+            if (newValue1.equals("append") || newValue1.equals("beginning-append")) {
                 loadOlderHistory(mainChatValue, mainChatBlock);
             }
         });
 
+        mainChatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+                newMessage();
+                event.consume();
+            }
+        });
         Media sound = new Media(getClass()
                 .getResource("/notification.mp3")
                 .toExternalForm());
@@ -264,7 +273,7 @@ public class ControllerLoggedFirstStyle {
         HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
         Text info = (Text) sessionInfo.lookup("Text");
 
-        LinkedHashMap<LocalDate, Session> sessionsMap = chatValue.getSessions();
+        ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.getSessions();
         List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
         List<Session> nextSessions;
         if (loadedSessions > displayedSessions) {
@@ -277,9 +286,7 @@ public class ControllerLoggedFirstStyle {
             }
             mainChatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
 
-            nextSessions.forEach(session -> {
-                appendSession(session, mainChatBlock, mainChatValue);
-            });
+            nextSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
 
         } else if (mainChatValue.isMoreSessions()) {
             nextSessions = getNextSessions(mainChatValue.getChatId(), nextPage, pageSize);
@@ -293,11 +300,10 @@ public class ControllerLoggedFirstStyle {
                 if (!sessionsMap.containsKey(session.getDate())) {
                     sessionsMap.put(session.getDate(), session);
 
-                    appendSession(session, mainChatBlock, mainChatValue);
+                    appendSession(session, mainChatBlock, mainChatValue, 1);
                 }
 
             });
-            mainChatValue.setSessions(sessionsMap);
         } else {
             info.setText("Beginning of the chat");
         }
@@ -399,7 +405,7 @@ public class ControllerLoggedFirstStyle {
 
             mainChatValue = chat;
 
-            LinkedHashMap<LocalDate, Session> sessionsMap = mainChatValue.getSessions();
+            ListOrderedMap<LocalDate, Session> sessionsMap = mainChatValue.getSessions();
             List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
 
             if (chatSessions.size() == 0) {
@@ -416,10 +422,9 @@ public class ControllerLoggedFirstStyle {
 
                 sessions.forEach(session -> {
                     sessionsMap.put(session.getDate(), session);
-                    appendSession(session, mainChatBlock, mainChatValue);
+                    appendSession(session, mainChatBlock, mainChatValue, 1);
 
                 });
-                mainChatValue.setSessions(sessionsMap);
             } else {
                 List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
 
@@ -432,16 +437,51 @@ public class ControllerLoggedFirstStyle {
                 }
 
                 lastSessions.forEach(session -> {
-                    appendSession(session, mainChatBlock, mainChatValue);
+                    appendSession(session, mainChatBlock, mainChatValue, 1);
                 });
             }
         }
-//        mainChatBlock.heightProperty().addListener((observable, oldValue, newValue) -> {
-//            mainChatScroll.setVvalue(1);
-//        });
     }
 
-    private void appendSession(Session session, VBox chatBlock, ChatValue chatValue) {
+    @FXML
+    public void newMessage(){
+        String messageText = mainChatTextArea.getText();
+        int chatId = mainChatValue.getChatId();
+        int receiverId = mainChatValue.getUserId();
+        int index = mainChatBlock.getChildren().size();
+        mainChatTextArea.clear();
+
+        if (messageText.length() > 0){
+            Message message = sendMessage(messageText, chatId, receiverId);
+            ChatValue chat = chatsMap.get(chatId);
+            ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+
+            mainChatBlock.setId("new-message");
+            Session session = sessions.get(LocalDate.now());
+            if (session == null) {
+                LocalDate sessionDate = LocalDate.now();
+                LocalTime messageTime = LocalTime.now();
+
+                session = new Session();
+                session.setDate(sessionDate);
+                sessions.put(0, sessionDate, session);
+                session.getMessages().add(message);
+
+                if (mainChatValue.getChatId() == message.getChatId()) {
+                    mainChatValue.setDisplayedSessions(mainChatValue.getDisplayedSessions() + 1);
+                    appendSession(session, mainChatBlock, mainChatValue, index);
+                }
+            } else {
+
+                if (mainChatValue.getChatId() == message.getChatId()) {
+                    session.getMessages().add(message);
+                    appendMessage(message, mainChatValue, (VBox) mainChatBlock.getChildren().get(index - 1));
+                }
+            }
+        }
+
+    }
+    private void appendSession(Session session, VBox chatBlock, ChatValue chatValue, int index) {
 
         Text date = new Text(dateFormatter.format(session.getDate()));
         TextFlow dateFlow = new TextFlow(date);
@@ -455,7 +495,7 @@ public class ControllerLoggedFirstStyle {
         sessionBlock.setId(session.getDate().toString());
         session.getMessages()
                 .forEach(message -> appendMessage(message, chatValue, sessionBlock));
-        chatBlock.getChildren().add(1, sessionBlock);
+        chatBlock.getChildren().add(index, sessionBlock);
     }
 
     private void appendMessage(Message message, ChatValue chat, VBox chatBlock) {
@@ -474,17 +514,17 @@ public class ControllerLoggedFirstStyle {
         imageView.setFitHeight(40);
         HBox.setMargin(imageView, new Insets(-20, 0, 0, 0));
 
-        if (message.getReceiver() == loggedUser.getId()) {
+        if (message.getReceiverId() == loggedUser.getId()) {
             imageView.setImage(chat.getSecondUserPicture());
             text.setText(message.getMessage());
-            time.setText("  " + timeFormatter.format(message.getDate()));
+            time.setText("  " + timeFormatter.format(message.getTime()));
             textFlow.getChildren().addAll(text, time);
             hBox.setAlignment(Pos.TOP_LEFT);
 
         } else {
             imageView.setImage(userProfileImage);
             text.setText(message.getMessage());
-            time.setText(timeFormatter.format(message.getDate()) + "  ");
+            time.setText(timeFormatter.format(message.getTime()) + "  ");
             textFlow.getChildren().addAll(time, text);
             hBox.setAlignment(Pos.TOP_RIGHT);
 
@@ -502,9 +542,9 @@ public class ControllerLoggedFirstStyle {
             Text lastBlockStartedText = (Text) firstTextFlow.lookup(".time");
             lastBlockStartedDate = LocalTime.parse(lastBlockStartedText.getText().replaceAll("\\s+", ""));
 
-            timeElapsed = java.time.Duration.between(lastBlockStartedDate, message.getDate()).toMinutes() > timeToElapse;
+            timeElapsed = java.time.Duration.between(lastBlockStartedDate, message.getTime()).toMinutes() > timeToElapse;
 
-            if (message.getReceiver() == loggedUser.getId()) {
+            if (message.getReceiverId() == loggedUser.getId()) {
                 if (!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("second-user-message")) {
 
                     hBox.getStyleClass().add("second-user-message");
@@ -537,7 +577,7 @@ public class ControllerLoggedFirstStyle {
             }
         } else {
 
-            if (message.getReceiver() == loggedUser.getId()) {
+            if (message.getReceiverId() == loggedUser.getId()) {
                 hBox.getStyleClass().add("second-user-message-first");
                 hBox.getChildren().addAll(imageView, textFlow);
                 newBlock.getChildren().add(hBox);

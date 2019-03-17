@@ -3,8 +3,7 @@ package sample;
 import Helpers.LoginService;
 import Helpers.RegisterService;
 import Models.User;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.event.Event;
@@ -28,13 +27,16 @@ import java.net.ConnectException;
 
 public class ControllerLoginFirstStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML AnchorPane loginPane;
-    @FXML Pane root, background, fieldsContainer;
+    @FXML AnchorPane loginPane, contentRoot;
+    @FXML Pane root, background, menu;
     @FXML Button loginButton, registerButton, actionButton;
     @FXML Pane loginFields, registerFields;
 
     private LoginService loginService;
     private RegisterService registerService;
+
+    private ParallelTransition expand, reverse;
+    private SequentialTransition changeTransition;
 
     @FXML
     public void initialize(){
@@ -55,42 +57,82 @@ public class ControllerLoginFirstStyle {
         background.getParent().layoutXProperty().addListener((observable, oldValue, newValue) -> background.setLayoutX(0 - background.getParent().getLayoutX()));
         background.getParent().layoutYProperty().addListener((observable, oldValue, newValue) -> background.setLayoutY(0 - background.getParent().getLayoutY()));
 
-        actionButton.setOnMousePressed(this::login);
+        TranslateTransition translateMenu = new TranslateTransition(Duration.millis(1300), menu);
+        translateMenu.setToX(-417);
+        TranslateTransition translateRoot = new TranslateTransition(Duration.millis(1300), contentRoot);
+        translateRoot.setToX(209);
 
-        loginButton.setOnAction(event -> {
-            fieldsContainer.setOpacity(0);
-            Timeline opacity = new Timeline(new KeyFrame(Duration.millis(100), event1 -> {
-                fieldsContainer.setOpacity(1);
-            }));
-            opacity.play();
+        TranslateTransition reverseMenu = new TranslateTransition(Duration.millis(800), menu);
+        reverseMenu.setFromX(-417);
+        reverseMenu.setToX(0);
+        TranslateTransition reverseRoot = new TranslateTransition(Duration.millis(800), contentRoot);
+        reverseRoot.setFromX(209);
+        reverseRoot.setToX(0);
 
-            actionButton.setText("LOGIN");
+        reverse = new ParallelTransition(reverseMenu, reverseRoot);
+        expand = new ParallelTransition(translateMenu, translateRoot);
+        changeTransition = new SequentialTransition(
+                new ParallelTransition(reverseMenu, reverseRoot),
+                new ParallelTransition(translateMenu, translateRoot));
+
+    }
+    @FXML
+    public void animateLoginFields(){
+        if(expand.getCurrentRate() == 0 && reverse.getCurrentRate() == 0 && changeTransition.getCurrentRate() == 0) {
+            if (!loginFields.isDisable()) {
+                reverse.play();
+                loginFields.setDisable(true);
+
+            } else if (contentRoot.getTranslateX() > 0) {
+                registerFields.setDisable(true);
+
+                Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
+                    registerFields.setOpacity(0);
+                    loginFields.setDisable(false);
+                    loginFields.setOpacity(1);
+                }));
+                changeFields.play();
+                changeTransition.play();
+
+            } else {
+                expand.play();
+                loginFields.setDisable(false);
+                loginFields.setOpacity(1);
+                registerFields.setDisable(true);
+                registerFields.setOpacity(0);
+            }
             actionButton.setOnMousePressed(this::login);
+        }
+    }
+    @FXML
+    public void animateRegisterFields(){
+        if(expand.getCurrentRate() == 0 && reverse.getCurrentRate() == 0 && changeTransition.getCurrentRate() == 0) {
+            if (!registerFields.isDisable()) {
+                reverse.play();
+                registerFields.setDisable(true);
+            } else if (contentRoot.getTranslateX() > 0) {
+                loginFields.setDisable(true);
+                Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
+                    loginFields.setOpacity(0);
+                    registerFields.setDisable(false);
+                    registerFields.setOpacity(1);
+                }));
+                changeFields.play();
+                changeTransition.play();
+            } else {
+                expand.play();
 
-            loginFields.setDisable(false);
-            loginFields.setOpacity(1);
-            registerFields.setDisable(true);
-            registerFields.setOpacity(0);
-        });
-        registerButton.setOnAction(event -> {
-            fieldsContainer.setOpacity(0);
-            Timeline opacity = new Timeline(new KeyFrame(Duration.millis(100), event1 -> {
-                fieldsContainer.setOpacity(1);
-            }));
-            opacity.play();
-
-            actionButton.setText("REGISTER");
+                registerFields.setDisable(false);
+                registerFields.setOpacity(1);
+                loginFields.setDisable(true);
+                loginFields.setOpacity(0);
+            }
             actionButton.setOnMousePressed(this::register);
-
-            registerFields.setDisable(false);
-            registerFields.setOpacity(1);
-            loginFields.setDisable(true);
-            loginFields.setOpacity(0);
-        });
+        }
     }
     @FXML
     public void login(Event event){
-        if(!event.getEventType().getName().equals("KEY_PRESSED") || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             try {
                 username.setDisable(true);
                 password.setDisable(true);
@@ -107,7 +149,7 @@ public class ControllerLoginFirstStyle {
     }
     @FXML
     public void register(Event event){
-        if(!event.getEventType().getName().equals("KEY_PRESSED") || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             try {
                 registerService.start();
             } catch (IllegalStateException e) {

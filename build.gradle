@@ -20,6 +20,7 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'org.kohsuke', name: 'github-api', version: '1.93'
     compile group: 'com.1stleg', name: 'jnativehook', version: '2.1.0'
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
     testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.8'
 

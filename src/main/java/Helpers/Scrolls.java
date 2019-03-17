@@ -1,5 +1,7 @@
 package Helpers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollBar;
@@ -12,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
+import javafx.util.Duration;
 
 
 public class Scrolls {
@@ -59,12 +61,17 @@ public class Scrolls {
 
             mainChatScrollBar.visibleAmountProperty().addListener((observable1, oldValue1, newValue1) -> {
                 if(newValue1.doubleValue() > 1 && !mainChatScrollBar.isDisabled()){
-                    content.setId("append");
+                    content.setId("beginning-append");
+                }else{
+                    Timeline timeline = new Timeline(
+                            new KeyFrame(Duration.millis(50), event -> content.setId("listen")));
+                    timeline.play();
                 }
             });
 
             content.heightProperty().addListener((observable1, oldValue1, newValue1) -> {
-                if(!content.getId().equals("beginning")) {
+                if(!content.getId().equals("beginning") && !content.getId().equals("new-message") &&
+                        !content.getId().equals("beginning-append")) {
                     double oldHeight = oldValue1.doubleValue();
                     double newHeight = newValue1.doubleValue();
                     heightDiff = oldHeight / newHeight;
@@ -73,12 +80,12 @@ public class Scrolls {
                     content.setId("listen");
                 }else{
                     mainChatScrollBar.setValue(1);
-                    content.setId("listen");
                 }
             });
             mainChatScrollBar.valueProperty().addListener((observable1, oldValue1, newValue1) -> {
                 double newPosition = newValue1.doubleValue();
-                if (newPosition <= mainChatScrollBar.getMin() && !content.getId().equals("beginning")) {
+                if (newPosition <= mainChatScrollBar.getMin() && !content.getId().equals("beginning") &&
+                        !content.getId().equals("beginning-append")) {
                     mainChatScrollBar.setValue(0);
                     content.setId("append");
                 }else if(newPosition > 1){

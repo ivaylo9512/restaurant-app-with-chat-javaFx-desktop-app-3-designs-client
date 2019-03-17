@@ -1,6 +1,7 @@
 package Models;
 
 import javafx.scene.image.Image;
+import org.apache.commons.collections4.map.ListOrderedMap;
 
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
@@ -14,7 +15,7 @@ public class ChatValue {
     private int displayedSessions;
 
     private Image secondUserPicture;
-    private LinkedHashMap<LocalDate, Session> sessions = new LinkedHashMap<>();
+    private ListOrderedMap<LocalDate, Session> sessions = new ListOrderedMap<>();
 
     public ChatValue(int chatId, int userId, Image profilePicture) {
         this.chatId = chatId;
@@ -46,11 +47,11 @@ public class ChatValue {
         this.secondUserPicture = profilePicture;
     }
 
-    public LinkedHashMap<LocalDate, Session> getSessions() {
+    public ListOrderedMap<LocalDate, Session> getSessions() {
         return sessions;
     }
 
-    public void setSessions(LinkedHashMap<LocalDate, Session> sessions) {
+    public void setSessions(ListOrderedMap<LocalDate, Session> sessions) {
         this.sessions = sessions;
     }
 

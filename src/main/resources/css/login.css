@@ -6,13 +6,13 @@
     -fx-opacity: 1;
     -fx-background-color: #2A2E37;
 }
+.fields-container{
+    -fx-background-color:  #2A2E37;
+}
 TextField,
 PasswordField{
-    -fx-background-color: transparent;
+    -fx-background-color: #363b41;
     -fx-text-fill: #bcbcbc;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
-    -fx-border-width: 0 0 10 0;
-    -fx-border-color: #2A2E37;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
 }
@@ -77,4 +77,9 @@ ScrollPane > .viewport{
 }
 .alertBox Button{
     -fx-text-fill: #bcbcbc;
+}
+.btn{
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-background-color: #2A2E37;
 }

@@ -1,15 +1,13 @@
 package Helpers;
 
-import Models.Chat;
-import Models.Order;
-import Models.Session;
-import Models.User;
+import Models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -195,6 +193,38 @@ public class ServerRequests {
         }
         return user;
     }
+
+    public static Message sendMessage(String messageText, int chatId, int receiverId){
+        Message message = null;
+        Map<String, Object> jsonValues = new HashMap<>();
+        jsonValues.put("message", messageText);
+        jsonValues.put("chatId", chatId);
+        jsonValues.put("receiverId", receiverId);
+
+        JSONObject jsonObject = new JSONObject(jsonValues);
+        StringEntity postEntity = new StringEntity(jsonObject.toString(), "UTF8");
+        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        HttpPost post = new HttpPost("http://localhost:8080/api/auth/chat/newMessage");
+        post.setHeader("Authorization", userPreference.get("Token", null));
+        post.setEntity(postEntity);
+
+        try(CloseableHttpResponse response = httpClient.execute(post)){
+            int statusCode = response.getStatusLine().getStatusCode();
+            HttpEntity responseEntity = response.getEntity();
+            String content = EntityUtils.toString(responseEntity);
+
+            if(statusCode != 200){
+                throw new HttpException(content);
+            }
+
+            message = mapper.readValue(content, Message.class);
+        } catch (IOException | HttpException e) {
+            e.printStackTrace();
+        }
+        return message;
+    }
+
 
 
 }

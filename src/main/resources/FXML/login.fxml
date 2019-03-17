@@ -7,93 +7,95 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="root" maxWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
+<Pane fx:id="root" maxWidth="-Infinity" prefHeight="84.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
    <children>
        <Pane fx:id="background" styleClass="background">
 
     </Pane>
    </children>
     <children>
-      <AnchorPane>
+      <AnchorPane fx:id="contentRoot" layoutX="71.0" maxHeight="79.0" maxWidth="835.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="419.0" style="-fx-background-color: #2A2E37;">
          <children>
-            <Pane layoutY="9.0" prefHeight="163.0" prefWidth="342.0" style="-fx-background-color: #2A2E37; -fx-border-radius: 10 5 1 0; -fx-background-radius: 0 0 0 0;">
+            <Pane layoutX="342.0" layoutY="2.0" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="77.0" prefWidth="417.0" styleClass="fields-container" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0">
                <children>
-                  <AnchorPane fx:id="loginPane" layoutY="22.0" styleClass="login-pane">
+                       <Button fx:id="actionButton" contentDisplay="CENTER" layoutX="363.0" layoutY="23.5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="29.0" prefWidth="40.0" styleClass="btn" textFill="#bfbfbf">
+                           <font>
+                               <Font size="10.0" />
+                           </font>
+                     <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="17.0">
+                           <image>
+                              <Image url="@../../../../../../../Downloads/login-square-arrow-button-outline.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                       </Button>
+                  <Pane fx:id="registerFields" disable="true" layoutX="7.0" layoutY="22.0" prefHeight="33.0" prefWidth="345.0">
                      <children>
-                          <Pane fx:id="fieldsContainer" layoutX="52.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="221.0" style="-fx-background-color: #2A2E37;">
-                              <children>
-                                   <Button fx:id="actionButton" layoutX="-11.0" layoutY="94.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="260.0" styleClass="btn" text="LOGIN" textFill="#bfbfbf">
-                                       <font>
-                                           <Font size="10.0" />
-                                       </font>
-                                   </Button>
-                              <Pane fx:id="loginFields" layoutX="28.0">
-                                 <children>
-                                        <TextField fx:id="username" alignment="CENTER" layoutX="-39.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#login" prefHeight="32.0" prefWidth="260.0" promptText="username" style="-fx-background-radius: 0 0 0 0;">
-                                            <font>
-                                                <Font size="11.0" />
-                                            </font>
-                                    </TextField>
-                                    <PasswordField fx:id="password" alignment="CENTER" layoutX="-39.0" layoutY="46.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#login" prefHeight="32.0" prefWidth="260.0" promptText="password">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </PasswordField>
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="registerFields" disable="true" layoutX="48.0" layoutY="13.0" opacity="0.0">
-                                 <children>
-                                    <TextField fx:id="regUsername" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#register" prefHeight="32.0" prefWidth="155.0" promptText="username">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </TextField>
-                                    <PasswordField fx:id="regPassword" layoutY="46.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#register" prefHeight="32.0" prefWidth="76.0" promptText="password">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </PasswordField>
-                                    <PasswordField fx:id="regRepeatPassword" layoutX="79.0" layoutY="46.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#register" prefHeight="32.0" prefWidth="76.0" promptText="password">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </PasswordField>
-                                 </children>
-                              </Pane>
-                              </children>
-                          </Pane>
-                            <Button layoutX="-25.0" layoutY="101.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="61.0" style="-fx-opacity: 0;" text="Style" textFill="#bfbfbf">
-                                <font>
-                                    <Font size="9.0" />
-                                </font>
-                            </Button>
-                            <Button fx:id="loginButton" layoutX="-25.0" layoutY="-9.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="61.0" style="-fx-opacity: 0;" text="Login" textFill="#bfbfbf">
-                                <font>
-                                    <Font size="9.0" />
-                                </font>
-                            </Button>
-                            <Button fx:id="registerButton" layoutX="-25.0" layoutY="46.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="61.0" style="-fx-opacity: 0;" text="Sign" textFill="#bfbfbf">
-                                <font>
-                                    <Font size="9.0" />
-                                </font>
-                            </Button>
+                        <TextField fx:id="regUsername" alignment="CENTER" layoutX="6.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="162.0" promptText="username" style="-fx-background-radius: 0 0 0 0;">
+                           <effect>
+                              <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                           </effect>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </TextField>
+                        <PasswordField fx:id="regPassword" alignment="CENTER" layoutX="181.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="81.0" promptText="password">
+                           <effect>
+                              <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                           </effect>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </PasswordField>
+                        <PasswordField fx:id="regRepeatPassword" alignment="CENTER" layoutX="268.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="81.0" promptText="password">
+                           <effect>
+                              <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                           </effect>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </PasswordField>
                      </children>
-                  </AnchorPane>
+                  </Pane>
+                  <Pane fx:id="loginFields" disable="true" layoutX="7.0" layoutY="22.0" prefHeight="33.0" prefWidth="345.0">
+                     <children>
+                            <TextField fx:id="username" alignment="CENTER" layoutX="6.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="162.0" promptText="username" style="-fx-background-radius: 0 0 0 0;">
+                                <font>
+                                    <Font size="11.0" />
+                                </font>
+                           <effect>
+                              <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                           </effect>
+                        </TextField>
+                        <PasswordField fx:id="password" alignment="CENTER" layoutX="181.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="162.0" promptText="password">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                           <effect>
+                              <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                           </effect>
+                        </PasswordField>
+                     </children>
+                  </Pane>
                </children>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Pane>
-            <Pane layoutY="-74.0" prefHeight="78.0" prefWidth="342.0" style="-fx-background-color: #2A2E37;">
+            <Pane fx:id="menu" prefHeight="78.0" prefWidth="417.0" style="-fx-background-color: #2A2E37;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="loginButton" mnemonicParsing="false" prefHeight="78.0" prefWidth="114.0" text="Login" textFill="#bfbfbf">
+                  <Button fx:id="registerButton" layoutX="280.0" mnemonicParsing="false" onMouseClicked="#animateRegisterFields" prefHeight="78.0" prefWidth="140.0" text="Sign" textFill="#bfbfbf">
                      <font>
                         <Font size="9.0" />
                      </font>
                   </Button>
-                  <Button layoutX="114.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="114.0" text="Style" textFill="#bfbfbf">
+                  <Button layoutX="140.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="140.0" text="Style" textFill="#bfbfbf">
                      <font>
                         <Font size="9.0" />
                      </font>
                   </Button>
-                  <Button fx:id="registerButton" layoutX="228.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="114.0" text="Sign" textFill="#bfbfbf">
+                  <Button fx:id="loginButton" mnemonicParsing="false" onMouseClicked="#animateLoginFields" prefHeight="78.0" prefWidth="140.0" text="Login" textFill="#bfbfbf">
                      <font>
                         <Font size="9.0" />
                      </font>
