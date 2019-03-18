@@ -14,6 +14,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -65,7 +66,6 @@ public class ControllerLoggedFirstStyle {
     @FXML ListView<Menu> menu, newOrderMenu;
 
     public static LocalDateTime mostRecentOrderDate;
-    public static User loggedUser;
 
     private TreeMap<String, Menu> menuMap = new TreeMap<>();
     private HashMap<Integer, ChatValue> chatsMap = new HashMap<>();
@@ -161,13 +161,14 @@ public class ControllerLoggedFirstStyle {
         messageService = new MessageService();
         messageService.start();
         messageService.setOnSucceeded(event -> {
+            System.out.println("succceeed");
             MessageService.lastMessageCheck = LocalDateTime.now();
             List<Message> newMessages = (List<Message>) messageService.getValue();
             newMessages.forEach(message -> {
                 int index = mainChatBlock.getChildren().size();
                 ChatValue chat = chatsMap.get(message.getChatId());
                 ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
-
+                System.out.println(message.getMessage());
                 mainChatBlock.setId("new-message");
                 Session session = sessions.get(LocalDate.now());
                 if (session == null) {
@@ -178,19 +179,22 @@ public class ControllerLoggedFirstStyle {
                     sessions.put(0, sessionDate, session);
                     session.getMessages().add(message);
 
-                    if (mainChatValue.getChatId() == message.getChatId()) {
+                    if (mainChatValue != null && mainChatValue.getChatId() == message.getChatId()) {
                         mainChatValue.setDisplayedSessions(mainChatValue.getDisplayedSessions() + 1);
                         appendSession(session, mainChatBlock, mainChatValue, index);
                     }
                 } else {
                     session.getMessages().add(message);
-                    if (mainChatValue.getChatId() == message.getChatId()) {
+                    if (mainChatValue != null && mainChatValue.getChatId() == message.getChatId()) {
                         appendMessage(message, mainChatValue, (VBox) mainChatBlock.getChildren().get(index - 1));
                     }
                 }
             });
             messageService.restart();
         });
+
+        messageService.setOnFailed(event -> serviceFail(messageService));
+
     }
     private void waitForNewOrders() {
         OrderService orderService = new OrderService();
@@ -208,6 +212,28 @@ public class ControllerLoggedFirstStyle {
             updateNewOrders(newOrders);
             orderService.restart();
         });
+
+        orderService.setOnFailed(event -> serviceFail(orderService));
+    }
+
+    private void serviceFail(Service service){
+        if (service.getException().getMessage().equals("Jwt token has expired.")
+                && LoggedFirstStyle.stage != null && !LoginFirstStyle.stage.isShowing()) {
+            LoggedFirstStyle.stage.close();
+            LoginFirstStyle.stage.show();
+
+            Alert alert = LoginFirstStyle.alert;
+            DialogPane dialog = alert.getDialogPane();
+            dialog.setContentText("Session has expired.");
+            alert.showAndWait();
+
+            service.reset();
+        } else if(LoginFirstStyle.stage.isShowing()) {
+            service.reset();
+        }else{
+            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> service.restart()));
+            timeline.play();
+        }
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
@@ -404,7 +430,7 @@ public class ControllerLoggedFirstStyle {
     private void setMainChat(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
         imageView.getStyleClass().set(0, "imagePressed");
-        chatInfo.setOpacity(0);
+          chatInfo.setOpacity(0);
 
         int chatId = Integer.parseInt(imageView.getId());
 

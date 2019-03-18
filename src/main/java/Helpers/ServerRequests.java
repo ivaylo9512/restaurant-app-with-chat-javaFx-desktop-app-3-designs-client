@@ -41,6 +41,7 @@ public class ServerRequests {
     public static Preferences userPreference = Preferences.userRoot();
     public static ObjectMapper mapper = new ObjectMapper();
     public static int pageSize = 3;
+    public static User loggedUser;
 
     static {
         mapper.registerModule(new JavaTimeModule());

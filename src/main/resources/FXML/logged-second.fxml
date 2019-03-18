@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="683.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedSecondStyle">
+   <children>
+      <AnchorPane layoutX="-6.0" layoutY="25.0" prefHeight="381.0" prefWidth="213.0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <AnchorPane layoutX="38.0" minWidth="-Infinity" prefHeight="666.0" prefWidth="212.0" style="-fx-background-color: #1a1a1a; -fx-border-width: 0 0.3 0 0; -fx-border-color: white;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane layoutX="114.0" layoutY="68.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #FC3903; -fx-border-color: #FC3903; -fx-border-width: 2px;">
+                     <effect>
+                        <InnerShadow>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </InnerShadow>
+                     </effect>
+                  </Pane>
+                  <Pane layoutX="80.0" layoutY="138.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #FC3903; -fx-border-color: #FC3903; -fx-border-width: 2px;">
+                     <effect>
+                        <InnerShadow>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </InnerShadow>
+                     </effect>
+                  </Pane>
+                  <Pane layoutX="117.0" layoutY="206.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #FC3903; -fx-border-color: #FC3903; -fx-border-width: 2px;">
+                     <effect>
+                        <InnerShadow>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </InnerShadow>
+                     </effect>
+                  </Pane>
+                  <Pane layoutX="85.0" layoutY="281.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #FC3903; -fx-border-color: #FC3903; -fx-border-width: 2px;">
+                     <effect>
+                        <InnerShadow>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </InnerShadow>
+                     </effect>
+                  </Pane>
+                  <ScrollPane hbarPolicy="NEVER" layoutX="-1.0" layoutY="57.0" prefHeight="592.0" prefWidth="214.0" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="57.0">
+                     <content>
+                        <VBox fx:id="orderContainer" prefHeight="200.0" prefWidth="223.0" styleClass="order-container">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="225.0" text="Order 1" textFill="#bcbcbc">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="225.0" text="Order 1" textFill="#bcbcbc">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="225.0" text="Order 1" textFill="#bcbcbc">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <Pane prefHeight="666.0" prefWidth="38.0" style="-fx-background-color: #FC3903;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <effect>
+                        <DropShadow offsetX="0.7" spread="0.42" />
+                     </effect>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="244.0" layoutY="25.0" prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="212.0" AnchorPane.topAnchor="25.0">
+         <effect>
+            <InnerShadow />
+         </effect>
+         <children>
+            <AnchorPane layoutX="31.0" layoutY="61.0" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="69.0" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: #1a1a1a;" text="4:06" textAlignment="CENTER" textFill="#bcbcbc">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="23.0" layoutY="35.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: #1a1a1a;" text="18/29/2019" textFill="#bcbcbc">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="7.0" text="created" textAlignment="CENTER" textFill="#bcbcbc">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="179.0" layoutY="61.0" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="69.0" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: #1a1a1a;" text="4:06" textAlignment="CENTER" textFill="#bcbcbc">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="23.0" layoutY="35.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: #1a1a1a;" text="18/29/2019" textFill="#bcbcbc">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="39.0" layoutY="7.0" text="updated" textAlignment="CENTER" textFill="#bcbcbc">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="327.0" layoutY="61.0" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="69.0" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: #1a1a1a;" text="9 dishes" textAlignment="CENTER" textFill="#bcbcbc">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="23.0" layoutY="35.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: #1a1a1a;" text="7" textFill="#bcbcbc">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="48.0" layoutY="7.0" text="order" textAlignment="CENTER" textFill="#bcbcbc">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="31.0" layoutY="243.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="398.0" style="-fx-background-color: #1a1a1a;" styleClass="dishes-container" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="243.0">
+               <children>
+                  <ScrollPane prefHeight="163.0" prefWidth="427.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-29.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <VBox prefHeight="163.0" prefWidth="392.0">
+                           <children>
+                              <HBox prefHeight="52.0" prefWidth="392.0" style="-fx-background-color: #1a1a1a;">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="27.0" text="6.99" textAlignment="CENTER" textFill="#bcbcbc" />
+                                    <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="251.0" text="Spaggettti Baronara" textAlignment="CENTER" textFill="#bcbcbc" HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" prefHeight="27.0" prefWidth="32.0" text="X" textFill="#bcbcbc" />
+                                 </children>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+               <effect>
+                  <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
+               </effect>
+            </AnchorPane>
+            <Pane layoutX="205.0" layoutY="175.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: transparent; -fx-border-color: #bcbcbc; -fx-border-width: 2px;">
+               <effect>
+                  <InnerShadow>
+                     <input>
+                        <DropShadow />
+                     </input>
+                  </InnerShadow>
+               </effect>
+               <children>
+                  <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="11.0" layoutY="12.0">
+                     <image>
+                        <Image url="@../../../../../../../Downloads/list%20(3).png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <VBox layoutX="78.0" layoutY="-189.0" prefHeight="144.0" prefWidth="100.0" />
+   </children>
+</AnchorPane>

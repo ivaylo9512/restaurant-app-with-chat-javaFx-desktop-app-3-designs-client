@@ -71,28 +71,6 @@ public class OrderService extends Service {
                 return orders;
 
             }
-
-            @Override
-            protected void failed() {
-                if (getException().getMessage().equals("Jwt token has expired.")) {
-                    if (LoggedFirstStyle.stage != null) {
-                        LoggedFirstStyle.stage.close();
-                        LoginFirstStyle.stage.show();
-
-                        Alert alert = LoginFirstStyle.alert;
-                        DialogPane dialog = alert.getDialogPane();
-                        dialog.setContentText("Session has expired.");
-                        alert.showAndWait();
-
-                        reset();
-                    }
-                } else {
-                    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> {
-                        restart();
-                    }));
-                    timeline.play();
-                }
-            }
         };
     }
 }

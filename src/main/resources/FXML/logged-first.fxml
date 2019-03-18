@@ -270,7 +270,7 @@
                   </ScrollPane>
                   <AnchorPane layoutX="-44.0" layoutY="139.0" prefHeight="39.0" prefWidth="416.0" style="-fx-background-color: #363b41;" styleClass="shadow" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0">
                      <children>
-                        <Button layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#newMessage" prefHeight="38.0" prefWidth="52.0" style="-fx-background-color: #363b41; -fx-border-width: 0; -fx-border-radius: 0; -fx-background-radius: 0;" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
+                        <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#newMessage" prefHeight="38.0" prefWidth="52.0" style="-fx-background-color: #363b41; -fx-border-width: 0; -fx-border-radius: 0; -fx-background-radius: 0;" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
                            <graphic>
                               <ImageView fitHeight="22.0" fitWidth="22.0">
                                  <image>

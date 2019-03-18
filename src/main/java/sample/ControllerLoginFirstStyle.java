@@ -1,5 +1,6 @@
 package sample;
 
+import Helpers.ServerRequests;
 import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
@@ -20,9 +21,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
-
-
-import java.io.IOException;
 import java.net.ConnectException;
 
 public class ControllerLoginFirstStyle {
@@ -134,6 +132,9 @@ public class ControllerLoginFirstStyle {
     public void login(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             try {
+                reverse.play();
+
+                loginFields.setDisable(true);
                 username.setDisable(true);
                 password.setDisable(true);
                 root.setCursor(Cursor.WAIT);
@@ -181,12 +182,14 @@ public class ControllerLoginFirstStyle {
     }
 
     private void changeScene(Service service) {
-        ControllerLoggedFirstStyle.loggedUser = (User)service.getValue();
+        ServerRequests.loggedUser = (User)service.getValue();
         Platform.runLater(() -> {
             try {
-                LoggedFirstStyle.displayLoggedScene();
+                LoggedSecondStyle.displayLoggedScene();
                 LoginFirstStyle.stage.close();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
+                //user can try to log again
+            }finally {
                 username.setDisable(false);
                 password.setDisable(false);
                 root.setCursor(Cursor.DEFAULT);

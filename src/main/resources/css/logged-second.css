@@ -1,0 +1,51 @@
+.shadow{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 15, 0.0 , 0 , 2 );
+}
+.shadow2{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
+}
+.order-container Button{
+    -fx-pref-width: 225px;
+    -fx-pref-height: 24px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #bcbcbc;
+}
+.order-container Button:hover{
+    -fx-background-color: rgb(252,57,3,0.1);
+}
+.order-container Button:focused{
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-color: rgb(252,57,3,1);
+}
+ScrollPane{
+    -fx-background-color: transparent;
+}
+ScrollPane > .viewport{
+    -fx-background-color: transparent;
+}
+.dishes-container ScrollBar{
+    -fx-background-color: transparent;
+}
+.dishes-container ScrollBar .thumb{
+    -fx-background-color:  transparent;
+}
+.dishes-container .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+.dishes-container .scroll-bar > .increment-button,
+.dishes-container .scroll-bar > .decrement-button{
+    -fx-background-color:  #1a1a1a;
+}
+.dishes-container .scroll-bar > .increment-button > .increment-arrow,
+.dishes-container .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color:  #1a1a1a;
+}
+ScrollPane > .corner {
+    -fx-background-color: transparent;
+}
+/*.create:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 8, 0.0 , 0 , 2 );
+}*/
+
