@@ -25,7 +25,7 @@ import java.net.ConnectException;
 
 public class ControllerLoginFirstStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML AnchorPane loginPane, contentRoot;
+    @FXML AnchorPane contentRoot;
     @FXML Pane root, background, menu;
     @FXML Button loginButton, registerButton, actionButton;
     @FXML Pane loginFields, registerFields;
@@ -177,7 +177,13 @@ public class ControllerLoginFirstStyle {
             throwable.printStackTrace();
         }
         alert.showAndWait();
+        expand.play();
 
+        if(service == loginService){
+            loginFields.setDisable(false);
+        }else{
+            registerFields.setDisable(false);
+        }
         service.reset();
     }
 

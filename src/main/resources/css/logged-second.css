@@ -1,3 +1,7 @@
+Button:focused{
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+}
+
 ScrollPane > .corner {
     -fx-background-color: transparent;
 }
@@ -79,4 +83,3 @@ ScrollPane > .viewport{
     -fx-alignment: center;
     -fx-text-fill: #bcbcbc;
 }
-

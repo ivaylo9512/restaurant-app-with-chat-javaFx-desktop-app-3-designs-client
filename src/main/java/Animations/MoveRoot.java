@@ -1,21 +1,27 @@
 package Animations;
 
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 public class MoveRoot {
     private static Double offsetX;
     private static Double offsetY;
 
-    public static void move(Pane moveBar, AnchorPane root) {
-        root.setOnMousePressed(event -> {
-            offsetX = event.getX();
-            offsetY = event.getY();
+    public static void move(Node moveNode, AnchorPane root) {
+        root.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            if(moveNode.getTypeSelector().equals("Button")){
+                AnchorPane parent = (AnchorPane) root.getParent();
+                offsetX = parent.getLayoutX() + event.getX();
+                offsetY = parent.getLayoutY() + event.getY();
+            }else{
+                offsetX = event.getX();
+                offsetY = event.getY();
+            }
         });
 
-        moveBar.setOnMouseDragged(event -> {
+        moveNode.setOnMouseDragged(event -> {
             if(Cursor.DEFAULT.equals(root.getCursor())) {
                 root.setLayoutX(event.getScreenX() - offsetX);
                 root.setLayoutY(event.getScreenY() - offsetY);

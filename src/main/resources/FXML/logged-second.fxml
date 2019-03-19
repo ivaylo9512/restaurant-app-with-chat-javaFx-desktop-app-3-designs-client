@@ -12,11 +12,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="683.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedSecondStyle">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="order-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="683.0" styleClass="order-view">
          <children>
-            <AnchorPane prefHeight="381.0" prefWidth="213.0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="25.0">
+            <AnchorPane prefHeight="381.0" prefWidth="213.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="25.0">
                <children>
-                  <AnchorPane layoutX="38.0" minWidth="-Infinity" prefHeight="666.0" prefWidth="212.0" style="-fx-background-color: #1a1a1a; -fx-border-width: 0 0.3 0 0; -fx-border-color: white;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane layoutX="38.0" minWidth="-Infinity" prefHeight="666.0" prefWidth="212.0" style="-fx-background-color: #1a1a1a; -fx-border-width: 0 0.3 0 0; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Pane layoutX="114.0" layoutY="68.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #FC3903; -fx-border-color: #FC3903; -fx-border-width: 2px;">
                            <effect>
@@ -68,7 +68,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="212.0" AnchorPane.topAnchor="25.0">
+            <AnchorPane prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.topAnchor="25.0">
                <effect>
                   <InnerShadow />
                </effect>
@@ -89,23 +89,17 @@
                      <children>
                         <AnchorPane layoutX="294.0" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
                            <children>
-                              <Label fx:id="orderId" alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="69.0" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: #1a1a1a;" text="9 dishes" textAlignment="CENTER" textFill="#bcbcbc">
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
+                              <Label fx:id="orderId" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" text="9 dishes" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="dishesCount" alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="35.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: #1a1a1a;" text="7" textAlignment="CENTER" textFill="#bcbcbc">
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
+                              <Label fx:id="dishesCount" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" text="7" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="10.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="48.0" layoutY="7.0" text="order" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label layoutX="44.0" layoutY="7.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #bcbcbc;" text="order" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
@@ -114,23 +108,23 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
                            <children>
-                              <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: transparent; -fx-border-color: #bcbcbc; -fx-border-width: 0 0 0 0;" text="4:06" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" text="4:06" textAlignment="CENTER" textFill="#bcbcbc">
                                  <effect>
                                     <DropShadow />
                                  </effect>
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font name="System Bold" size="10.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="createdDate" alignment="CENTER" layoutX="23.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: transparent; -fx-border-color: #bcbcbc; -fx-border-width: 0 0 0 0;" text="18/29/2019" textFill="#bcbcbc">
+                              <Label fx:id="createdDate" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" text="18/29/2019" textFill="#bcbcbc">
                                  <effect>
                                     <DropShadow />
                                  </effect>
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="10.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="40.0" layoutY="11.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #bcbcbc;" text="Created" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label layoutX="37.5" layoutY="11.0" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: #bcbcbc;" text="Created" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -139,25 +133,25 @@
                         </AnchorPane>
                         <AnchorPane layoutX="147.0" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
                            <children>
-                              <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="69.0" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: transparent; -fx-border-color: #bcbcbc; -fx-border-width: 0 0 1 0;" text="4:06" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" text="4:06" textAlignment="CENTER" textFill="#bcbcbc">
                                  <effect>
                                     <DropShadow />
                                  </effect>
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font name="System Bold" size="10.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="updatedDate" alignment="CENTER" layoutX="23.0" layoutY="35.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" style="-fx-background-color: transparent; -fx-border-color: #bcbcbc; -fx-border-width: 0 0 1 0;" text="18/29/2019" textFill="#bcbcbc">
+                              <Label fx:id="updatedDate" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" text="18/29/2019" textFill="#bcbcbc">
                                  <effect>
                                     <DropShadow />
                                  </effect>
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font name="System Bold" size="10.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="39.0" layoutY="7.0" text="updated" textAlignment="CENTER" textFill="#bcbcbc">
+                              <Label layoutX="35.5" layoutY="7.0" style="-fx-border-color: #bcbcbc; -fx-border-width: 0 0 1 0;" text="updated" textAlignment="CENTER" textFill="#bcbcbc">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
                            </children>
@@ -179,42 +173,165 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="menu" layoutX="299.0" layoutY="-13.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="402.0" style="-fx-border-color: #1a1a1a; -fx-border-radius: 180; -fx-border-width: 1;" styleClass="shadow">
+            <AnchorPane fx:id="menuRoot" layoutX="299.0" layoutY="-13.0" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" prefHeight="21.0" prefWidth="518.0">
                <children>
-                  <AnchorPane layoutX="1.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="400.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="profileView" disable="true" layoutY="44.0" maxHeight="170.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="518.0" style="-fx-border-color: #1a1a1a; -fx-border-radius: 15; -fx-border-width: 1;" styleClass="shadow">
                      <children>
-                        <Button layoutX="2.5" layoutY="3.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow">
-                           <graphic>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" styleClass="shadow">
-                                 <image>
-                                    <Image url="@../../../../../../../Downloads/menu%20(4).png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="3.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="264.0" AnchorPane.topAnchor="-1.0">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="3.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="173.0">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="3.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Create" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="82.0">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Button>
+                        <AnchorPane layoutX="3.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="398.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #1a1a1a;" styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <effect>
+                              <InnerShadow />
+                           </effect>
+                           <children>
+                              <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="114.0" layoutY="19.0" prefHeight="51.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Merian" textFill="#bcbcbc" AnchorPane.bottomAnchor="99.0" AnchorPane.topAnchor="13.0">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                              <Label fx:id="lastNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="244.0" layoutY="13.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Dimitrova" textFill="#bcbcbc" AnchorPane.bottomAnchor="99.0" AnchorPane.topAnchor="13.0">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                              <Label fx:id="ageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="374.0" layoutY="57.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="27" textFill="#bcbcbc" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="66.0">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                              <Label fx:id="countryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="114.0" layoutY="55.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Bulgaria" textFill="#bcbcbc" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="66.0">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                              <Label fx:id="roleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="244.0" layoutY="55.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Server" textFill="#bcbcbc" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="66.0">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                              <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="374.0" layoutY="13.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="meri93" textFill="#bcbcbc" AnchorPane.bottomAnchor="99.0" AnchorPane.topAnchor="13.0">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
+                              <Pane fx:id="profileImageContainer" layoutX="26.0" layoutY="12.0" opacity="0.0" prefHeight="61.0" prefWidth="61.0" style="-fx-background-color: white; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
+                                 <children>
+                                    <Pane fx:id="profileImageClip" prefHeight="61.0" prefWidth="61.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
+                                       <children>
+                                          <ImageView fx:id="profileImage" fitHeight="51.0" fitWidth="51.0" layoutX="5.0" layoutY="10.3">
+                                             <image>
+                                                <Image url="@../../../../../../../Downloads/woman%20(3).png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Pane>
+                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Edit" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="125.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Button>
+                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Style 2" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="125.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Button>
+                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Style 3" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="125.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Button>
+                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Log out" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="125.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Button>
+                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="83.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Change" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="54.0" AnchorPane.topAnchor="81.0">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
                      </children>
-                     <effect>
-                        <InnerShadow />
-                     </effect>
+                  </AnchorPane>
+                  <AnchorPane fx:id="menu" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="518.0" style="-fx-border-color: #1a1a1a; -fx-border-radius: 180; -fx-border-width: 1;" styleClass="shadow" AnchorPane.leftAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="menuButtonsContainer" layoutX="1.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="400.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane fx:id="menuButtons" layoutX="50.0" layoutY="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="182.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Create" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="-1.0">
+                                       <font>
+                                          <Font size="12.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="276.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Chats" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="-1.0">
+                                       <font>
+                                          <Font size="12.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="-1.0">
+                                       <font>
+                                          <Font size="12.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="370.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Chats" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="-1.0">
+                                       <font>
+                                          <Font size="12.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" onMouseEntered="#focus" onMouseExited="#unFocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
+                                       <font>
+                                          <Font size="12.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <Button fx:id="menuButton" focusTraversable="false" layoutX="2.5" layoutY="3.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow">
+                                 <graphic>
+                                    <ImageView fitHeight="16.0" fitWidth="16.0" styleClass="shadow">
+                                       <image>
+                                          <Image url="@../../../../../../../Downloads/menu%20(4).png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <effect>
+                              <InnerShadow />
+                           </effect>
+                        </AnchorPane>
+                     </children>
                   </AnchorPane>
                </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
             </AnchorPane>
          </children>
       </AnchorPane>
+      <HBox layoutX="14.0" layoutY="-76.0" prefHeight="40.0" prefWidth="309.0" style="-fx-background-color: #1a1a1a;">
+         <children>
+            <Pane fx:id="profileImageContainer1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
+               <children>
+                  <Pane fx:id="profileImageClip1" prefHeight="61.0" prefWidth="61.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
+                     <children>
+                        <ImageView fx:id="profileImage1" fitHeight="38.5" fitWidth="38.5" layoutX="5.0" layoutY="10.3">
+                           <image>
+                              <Image url="@../../../../../../../Downloads/woman%20(3).png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <VBox prefHeight="61.0" prefWidth="245.0">
+               <children>
+                  <Label text="Ivaylo Aleksandrov" textFill="#bcbcbc" />
+                  <Label text="Hello my name is meri" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

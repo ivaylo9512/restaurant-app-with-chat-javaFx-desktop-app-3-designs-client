@@ -1,15 +1,27 @@
 package sample;
 
+import Animations.MoveRoot;
+import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
 import Models.Order;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
@@ -18,26 +30,88 @@ import static Helpers.ServerRequests.*;
 public class ControllerLoggedSecondStyle {
     @FXML VBox orderContainer, dishesContainer;
     @FXML Label dishesCount, orderId, updatedDate, updatedTime, createdDate, createdTime;
-    @FXML AnchorPane orderInfo, menu;
+    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, profileView, orderInfo;
+    @FXML Button menuButton;
+    @FXML Pane profileImageContainer, profileImageClip;
+    @FXML Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
+    @FXML ImageView profileImage;
 
     private Button displayedOrder;
+    private Image userProfileImage;
+
     private HashMap<Integer, Order> ordersMap = new HashMap<>();
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     @FXML
-    public void initialize() {
-        loggedUser.getRestaurant().getOrders().forEach(this::appendOrder);
-        menu.addEventFilter(MouseEvent.MOUSE_ENTERED, event -> {
-            TransitionResizeWidth expand = new TransitionResizeWidth(Duration.millis(700), menu, 400);
-            expand.play();
-        });
-        menu.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
-            TransitionResizeWidth reverse = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
-            reverse.play();
-        });
-    }
+    public void initialize() throws Exception{
+//        loggedUser.getRestaurant().getOrders().forEach(this::appendOrder);
 
+        InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
+        userProfileImage = new Image(in);
+        in.close();
+
+        displayUserInfo();
+
+        MoveRoot.move(menuButton, menuRoot);
+        menuRoot.getChildren().remove(profileView);
+
+        Circle clip = new Circle(0, 0, 30.8);
+        clip.setLayoutX(30.8);
+        clip.setLayoutY(30.8);
+        profileImageClip.setClip(clip);
+    }
+    @FXML public void expandMenu(){
+        if(menuButtonsContainer.getChildren().size() == 1){
+            menuButtonsContainer.getChildren().add(0, menuButtons);
+        }
+        TransitionResizeWidth expand = new TransitionResizeWidth(Duration.millis(700), menu, 518);
+        expand.play();
+    }
+    @FXML public void reverseMenu(){
+        TransitionResizeWidth reverse = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
+        reverse.play();
+        menuButtonsContainer.getChildren().remove(menuButtons);
+    }
+        @FXML public void showProfile(){
+        if(profileView.isDisabled()) {
+            menuRoot.getChildren().add(profileView);
+            profileView.setDisable(false);
+
+            TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), profileView, profileView.getMaxHeight());
+            expand.play();
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(600), profileImageContainer);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.setDelay(Duration.millis(300));
+            fadeIn.play();
+        }else if(profileView.getHeight() == profileView.getMaxHeight()){
+            TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), profileView, 0);
+            reverse.play();
+            profileImageContainer.setOpacity(0);
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(600), profileImageContainer);
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.play();
+            Timeline removeView = new Timeline(new KeyFrame(Duration.millis(800), event -> {
+                profileView.setDisable(true);
+                menuRoot.getChildren().remove(profileView);
+            }));
+            removeView.play();
+
+        }
+    }
+    private void displayUserInfo() {
+        usernameLabel.setText(loggedUser.getUsername());
+        firstNameLabel.setText(loggedUser.getFirstName());
+        lastNameLabel.setText(loggedUser.getLastName());
+        countryLabel.setText(loggedUser.getCountry());
+        ageLabel.setText(String.valueOf(loggedUser.getAge()));
+        roleLabel.setText(loggedUser.getRole());
+
+        profileImage.setImage(userProfileImage);
+    }
     @FXML
     public void focus(MouseEvent event){
         Button button = (Button) event.getSource();
@@ -48,7 +122,7 @@ public class ControllerLoggedSecondStyle {
     public void unFocus(MouseEvent event){
         Button button = (Button) event.getSource();
         AnchorPane.setTopAnchor(button, -1.0);
-        AnchorPane.setBottomAnchor(button, -1.0);
+        AnchorPane.setBottomAnchor(button, 0.0);
     }
     private void appendOrder(Order order){
         int orderId = order.getId();

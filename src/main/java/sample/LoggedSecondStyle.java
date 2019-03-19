@@ -3,6 +3,7 @@ package sample;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -29,7 +30,10 @@ public class LoggedSecondStyle extends LoginFirstStyle{
         stage.setHeight(primaryScreenBounds.getHeight());
         stage.setX(primaryScreenBounds.getMinX());
         stage.setY(primaryScreenBounds.getMinY());
-        root.setLayoutX((primaryScreenBounds.getMaxX() - root.getWidth()) /2);
-        root.setLayoutY((primaryScreenBounds.getMaxY() - root.getHeight())/2);
+
+        AnchorPane contentRoot = (AnchorPane) root.getChildren().get(0);
+        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
+        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
+
     }
 }
