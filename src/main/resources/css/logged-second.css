@@ -1,8 +1,46 @@
+ScrollPane > .corner {
+    -fx-background-color: transparent;
+}
+ScrollPane .scroll-bar > .increment-button,
+ScrollPane .scroll-bar > .decrement-button{
+    -fx-pref-height:0;
+    -fx-background-color:  transparent;
+}
+ScrollPane .scroll-bar > .increment-button > .increment-arrow,
+ScrollPane .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-pref-height:0;
+    -fx-background-color: transparent;
+}
+ScrollPane ScrollBar{
+    -fx-background-color: transparent;
+}
+ScrollPane{
+    -fx-background-color: transparent;
+}
+ScrollPane > .viewport{
+    -fx-background-color: transparent;
+}
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 15, 0.0 , 0 , 2 );
 }
 .shadow2{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
+}
+
+.orders-scroll .scroll-bar > .increment-button > .increment-arrow,
+.orders-scroll .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-pref-height:0;
+    -fx-background-color: transparent;
+}
+.dishes-container ScrollBar .thumb{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 2 );
+    -fx-background-color:  #1a1a1a;
+}
+.orders-scroll ScrollBar .thumb{
+    -fx-background-color:  transparent;
+}
+.orders-scroll .scroll-pane .content{
+    -fx-background-color: transparent;
 }
 .order-container Button{
     -fx-pref-width: 225px;
@@ -15,37 +53,30 @@
 .order-container Button:hover{
     -fx-background-color: rgb(252,57,3,0.1);
 }
-.order-container Button:focused{
+.order-container .focused{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-color: rgb(252,57,3,1);
 }
-ScrollPane{
-    -fx-background-color: transparent;
-}
-ScrollPane > .viewport{
-    -fx-background-color: transparent;
-}
-.dishes-container ScrollBar{
-    -fx-background-color: transparent;
-}
-.dishes-container ScrollBar .thumb{
-    -fx-background-color:  transparent;
-}
-.dishes-container .scroll-pane .content{
-    -fx-background-color: transparent;
-}
-.dishes-container .scroll-bar > .increment-button,
-.dishes-container .scroll-bar > .decrement-button{
+.dishes-container HBox{
     -fx-background-color:  #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1 );
 }
-.dishes-container .scroll-bar > .increment-button > .increment-arrow,
-.dishes-container .scroll-bar > .decrement-button > .decrement-arrow {
-    -fx-background-color:  #1a1a1a;
+.dishes-container .price{
+    -fx-pref-height: 52px;
+    -fx-pref-width: 34px;
+    -fx-alignment: center;
+    -fx-text-fill: #bcbcbc;
 }
-ScrollPane > .corner {
-    -fx-background-color: transparent;
+.dishes-container .name{
+    -fx-pref-height: 52px;
+    -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
+    -fx-max-width: Infinity;
 }
-/*.create:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 8, 0.0 , 0 , 2 );
-}*/
+.dishes-container .ready{
+    -fx-pref-height: 52px;
+    -fx-pref-width: 34px;
+    -fx-alignment: center;
+    -fx-text-fill: #bcbcbc;
+}
 
