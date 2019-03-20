@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class LoggedFirstStyle extends LoginFirstStyle {
 
-    public static Stage stage;
+    static Stage stage;
 
     public static void displayLoggedScene() throws IOException {
 

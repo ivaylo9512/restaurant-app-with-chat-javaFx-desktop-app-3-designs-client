@@ -4,12 +4,14 @@ import Animations.MoveRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
 import Models.Order;
+import Models.User;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -28,12 +31,15 @@ import java.util.HashMap;
 import static Helpers.ServerRequests.*;
 
 public class ControllerLoggedSecondStyle {
-    @FXML VBox orderContainer, dishesContainer;
-    @FXML Label dishesCount, orderId, updatedDate, updatedTime, createdDate, createdTime;
-    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, profileView, orderInfo;
-    @FXML Button menuButton;
-    @FXML Pane profileImageContainer, profileImageClip;
+    @FXML Label dishesCount, orderId, updatedDate, updatedTime, createdDate, createdTime, roleField, usernameField;
     @FXML Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
+    @FXML TextField firstNameField, lastNameField, countryField, ageField;
+    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot,
+    profileView, orderInfo, userInfoLabels, userInfoFields;
+    @FXML VBox orderContainer, dishesContainer;
+    @FXML Button menuButton, editButton;
+    @FXML Pane profileImageContainer, profileImageClip,profileImageClip1, contentBar;
+
     @FXML ImageView profileImage;
 
     private Button displayedOrder;
@@ -45,7 +51,7 @@ public class ControllerLoggedSecondStyle {
 
     @FXML
     public void initialize() throws Exception{
-//        loggedUser.getRestaurant().getOrders().forEach(this::appendOrder);
+        loggedUser.getRestaurant().getOrders().forEach(this::appendOrder);
 
         InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
         userProfileImage = new Image(in);
@@ -54,12 +60,18 @@ public class ControllerLoggedSecondStyle {
         displayUserInfo();
 
         MoveRoot.move(menuButton, menuRoot);
+        MoveRoot.move(contentBar, contentRoot);
+
         menuRoot.getChildren().remove(profileView);
 
         Circle clip = new Circle(0, 0, 30.8);
         clip.setLayoutX(30.8);
         clip.setLayoutY(30.8);
         profileImageClip.setClip(clip);
+        Circle clip1 = new Circle(0, 0, 23);
+        clip1.setLayoutX(23);
+        clip1.setLayoutY(23);
+        profileImageClip1.setClip(clip1);
     }
     @FXML public void expandMenu(){
         if(menuButtonsContainer.getChildren().size() == 1){
@@ -68,12 +80,68 @@ public class ControllerLoggedSecondStyle {
         TransitionResizeWidth expand = new TransitionResizeWidth(Duration.millis(700), menu, 518);
         expand.play();
     }
-    @FXML public void reverseMenu(){
+    @FXML
+    public void reverseMenu(){
         TransitionResizeWidth reverse = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
         reverse.play();
         menuButtonsContainer.getChildren().remove(menuButtons);
     }
-        @FXML public void showProfile(){
+    @FXML
+    public void logOut(){
+        LoggedSecondStyle.stage.close();
+        LoginFirstStyle.stage.show();
+    }
+    @FXML
+    public void showLoggedFirstStyle(){
+        LoggedSecondStyle.stage.close();
+        try {
+            LoggedFirstStyle.displayLoggedScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void editUserInfo(){
+        userInfoLabels.setDisable(true);
+        userInfoLabels.setOpacity(0);
+        userInfoFields.setDisable(false);
+        userInfoFields.setOpacity(1);
+
+        editButton.setText("Save");
+        editButton.setOnMouseClicked(event -> saveUserInfo());
+    }
+
+    private void saveUserInfo() {
+        userInfoLabels.setDisable(false);
+        userInfoLabels.setOpacity(1);
+        userInfoFields.setDisable(true);
+        userInfoFields.setOpacity(0);
+
+        boolean edited = !firstNameLabel.getText().equals(firstNameField.getText()) || !lastNameLabel.getText().equals(lastNameField.getText()) ||
+                !ageLabel.getText().equals(ageField.getText()) || !countryLabel.getText().equals(countryField.getText());
+
+        if (edited) {
+            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
+                    ageField.getText(), countryField.getText());
+
+            if (user != null) {
+                loggedUser.setFirstName(user.getFirstName());
+                loggedUser.setLastName(user.getLastName());
+                loggedUser.setAge(user.getAge());
+                loggedUser.setCountry(user.getCountry());
+
+                firstNameLabel.setText(user.getFirstName());
+                lastNameLabel.setText(user.getLastName());
+                ageLabel.setText(String.valueOf(user.getAge()));
+                countryLabel.setText(user.getCountry());
+            }
+        }
+        editButton.setText("Edit");
+        editButton.setOnMouseClicked(event -> editUserInfo());
+    }
+
+    @FXML
+    public void showProfile(){
         if(profileView.isDisabled()) {
             menuRoot.getChildren().add(profileView);
             profileView.setDisable(false);
@@ -109,6 +177,13 @@ public class ControllerLoggedSecondStyle {
         countryLabel.setText(loggedUser.getCountry());
         ageLabel.setText(String.valueOf(loggedUser.getAge()));
         roleLabel.setText(loggedUser.getRole());
+
+        usernameField.setText(loggedUser.getUsername());
+        firstNameField.setText(loggedUser.getFirstName());
+        lastNameField.setText(loggedUser.getLastName());
+        countryField.setText(loggedUser.getCountry());
+        ageField.setText(String.valueOf(loggedUser.getAge()));
+        roleField.setText(loggedUser.getRole());
 
         profileImage.setImage(userProfileImage);
     }

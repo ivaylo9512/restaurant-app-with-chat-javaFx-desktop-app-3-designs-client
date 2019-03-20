@@ -150,6 +150,7 @@ public class ControllerLoggedFirstStyle {
         notificationSound = new MediaPlayer(sound);
         notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
+        notificationBlock.prefWidthProperty().bind(notificationsScroll.widthProperty().subtract(20));
         contentRoot.getChildren().remove(userInfoEditable);
         ResizeMainChat.addListeners(mainChat);
         MoveRoot.move(moveBar, contentRoot);
@@ -161,15 +162,15 @@ public class ControllerLoggedFirstStyle {
         messageService = new MessageService();
         messageService.start();
         messageService.setOnSucceeded(event -> {
-            System.out.println("succceeed");
             MessageService.lastMessageCheck = LocalDateTime.now();
             List<Message> newMessages = (List<Message>) messageService.getValue();
             newMessages.forEach(message -> {
                 int index = mainChatBlock.getChildren().size();
+                mainChatBlock.setId("new-message");
+
                 ChatValue chat = chatsMap.get(message.getChatId());
                 ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
-                System.out.println(message.getMessage());
-                mainChatBlock.setId("new-message");
+
                 Session session = sessions.get(LocalDate.now());
                 if (session == null) {
                     LocalDate sessionDate = LocalDate.now();

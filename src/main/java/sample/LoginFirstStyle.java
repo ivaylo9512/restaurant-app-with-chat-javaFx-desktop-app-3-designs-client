@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginFirstStyle extends Application {
-    public static Alert alert;
-    public static Stage stage;
+    static Alert alert;
+    static Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
