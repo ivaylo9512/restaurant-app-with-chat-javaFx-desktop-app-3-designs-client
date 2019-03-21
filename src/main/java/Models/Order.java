@@ -10,6 +10,7 @@ public class Order{
     private List<Dish> dishes;
     private LocalDateTime created;
     private LocalDateTime updated;
+    private int userId;
 
     private boolean ready = false;
     public Order() {
@@ -61,5 +62,13 @@ public class Order{
 
     public void setReady(boolean ready) {
         this.ready = ready;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

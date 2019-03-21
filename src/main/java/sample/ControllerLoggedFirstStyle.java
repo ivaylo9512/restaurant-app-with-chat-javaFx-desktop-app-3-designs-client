@@ -202,6 +202,7 @@ public class ControllerLoggedFirstStyle {
         orderService.start();
         orderService.setOnSucceeded(event -> {
             List<Order> newOrders = (List<Order>) orderService.getValue();
+
             if (newOrders.size() > 0) {
                 Order mostRecentNewOrder = newOrders.get(0);
                 if (mostRecentNewOrder.getCreated().isAfter(mostRecentNewOrder.getUpdated())) {
@@ -210,6 +211,7 @@ public class ControllerLoggedFirstStyle {
                     mostRecentOrderDate = mostRecentNewOrder.getUpdated();
                 }
             }
+
             updateNewOrders(newOrders);
             orderService.restart();
         });
@@ -249,20 +251,18 @@ public class ControllerLoggedFirstStyle {
                     Label ready = (Label) contentRoot.lookup("#dish" + dish.getId());
                     if (ready.getText().equals("X") && dish.getReady()) {
                         addNotification(dish.getName() + " from order " + order.getId() + " is ready.");
-                    }
-                    if (dish.getReady()) {
                         ready.setText("O");
-                    } else {
-                        ready.setText("X");
                     }
-
                 });
+
                 if (order.isReady()) {
                     addNotification("Order " + order.getId() + " is ready.");
                 }
             } else {
                 appendOrder(order);
-                addNotification("New order created " + order.getId());
+                if(order.getUserId() != loggedUser.getId()){
+                    addNotification("New order created " + order.getId());
+                }
             }
         });
     }
@@ -272,9 +272,30 @@ public class ControllerLoggedFirstStyle {
         List<Dish> dishes = new ArrayList<>();
         newOrderMenu.getItems().forEach(menuItem -> dishes.add(new Dish(menuItem.getName())));
 
-        if (sendOrder(new Order(dishes))) {
-            newOrderMenu.getItems().clear();
+        if (loggedUser.getRole().equals("Server")) {
+            if(dishes.size() > 0) {
+                try{
+                    sendOrder(new Order(dishes));
+                    newOrderMenu.getItems().clear();
+                }catch (Exception e){
+                    Alert alert = LoggedFirstStyle.alert;
+                    DialogPane dialog = alert.getDialogPane();
+                    dialog.setContentText(e.getMessage());
+                    alert.showAndWait();
+                }
+            }else{
+                Alert alert = LoggedFirstStyle.alert;
+                DialogPane dialog = alert.getDialogPane();
+                dialog.setContentText("Order must have at least one dish.");
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = LoggedFirstStyle.alert;
+            DialogPane dialog = alert.getDialogPane();
+            dialog.setContentText("You must be a server to create orders.");
+            alert.showAndWait();
         }
+
     }
 
     private void addNotification(String notification) {
@@ -366,27 +387,6 @@ public class ControllerLoggedFirstStyle {
             });
         } else {
             info.setText("Beginning of the chat");
-        }
-    }
-
-
-    private void displayUserInfo() {
-        firstNameLabel.setText(loggedUser.getFirstName());
-        lastNameLabel.setText(loggedUser.getLastName());
-        countryLabel.setText(loggedUser.getCountry());
-        ageLabel.setText(String.valueOf(loggedUser.getAge()));
-        roleLabel.setText(loggedUser.getRole());
-
-        firstNameField.setText(loggedUser.getFirstName());
-        lastNameField.setText(loggedUser.getLastName());
-        countryField.setText(loggedUser.getCountry());
-        ageField.setText(String.valueOf(loggedUser.getAge()));
-        roleField.setText(loggedUser.getRole());
-
-        if (loggedUser.getRole().equals("Chef")) {
-            roleImage.setImage(new Image(getClass().getResourceAsStream("/images/chef-second.png")));
-        } else {
-            roleImage.setImage(new Image(getClass().getResourceAsStream("/images/waiter-second.png")));
         }
     }
 
@@ -628,6 +628,26 @@ public class ControllerLoggedFirstStyle {
         }
     }
 
+
+    private void displayUserInfo() {
+        firstNameLabel.setText(loggedUser.getFirstName());
+        lastNameLabel.setText(loggedUser.getLastName());
+        countryLabel.setText(loggedUser.getCountry());
+        ageLabel.setText(String.valueOf(loggedUser.getAge()));
+        roleLabel.setText(loggedUser.getRole());
+
+        firstNameField.setText(loggedUser.getFirstName());
+        lastNameField.setText(loggedUser.getLastName());
+        countryField.setText(loggedUser.getCountry());
+        ageField.setText(String.valueOf(loggedUser.getAge()));
+        roleField.setText(loggedUser.getRole());
+
+        if (loggedUser.getRole().equals("Chef")) {
+            roleImage.setImage(new Image(getClass().getResourceAsStream("/images/chef-second.png")));
+        } else {
+            roleImage.setImage(new Image(getClass().getResourceAsStream("/images/waiter-second.png")));
+        }
+    }
     @FXML
     public void editUserInfo() {
         userInfoScroll.setContent(userInfoEditable);
@@ -724,6 +744,7 @@ public class ControllerLoggedFirstStyle {
             }
             ready.setId("dish" + dish.getId());
             ready.getStyleClass().add("ready");
+            ready.setOnMouseClicked(event -> updateDishStatus(order.getId(), dish.getId()));
 
             TextField name = new TextField(dish.getName());
             name.getStyleClass().add("name");
@@ -786,6 +807,27 @@ public class ControllerLoggedFirstStyle {
 
         dishesAnchor.setDisable(true);
         ordersFlow.getChildren().add(0, orderContainer);
+    }
+
+    private void updateDishStatus(int orderId, int dishId) {
+        if(loggedUser.getRole().equals("Chef")){
+            try {
+                updateDishState(orderId, dishId);
+                Label ready = (Label) contentRoot.lookup("#dish" + dishId);
+                ready.setText("O");
+
+            } catch (Exception e) {
+                Alert alert = LoggedFirstStyle.alert;
+                DialogPane dialog = alert.getDialogPane();
+                dialog.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+        }else{
+            Alert alert = LoggedFirstStyle.alert;
+            DialogPane dialog = alert.getDialogPane();
+            dialog.setContentText("You must be a chef to update the dish status.");
+            alert.showAndWait();
+        }
     }
 
     private void ExpandOrderListeners() {

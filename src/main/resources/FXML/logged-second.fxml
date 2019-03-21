@@ -185,11 +185,11 @@
                            <children>
                               <AnchorPane layoutX="38.0" minWidth="-Infinity" prefHeight="666.0" prefWidth="212.0" style="-fx-background-color: #1a1a1a; -fx-border-width: 0 0.3 0 0; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <ScrollPane focusTraversable="false" hbarPolicy="NEVER" layoutX="-1.0" layoutY="57.0" prefHeight="592.0" prefWidth="214.0" styleClass="orders-scroll" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="57.0">
+                                    <ScrollPane focusTraversable="false" hbarPolicy="NEVER" layoutX="-1.0" layoutY="57.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="228.0" styleClass="orders-scroll" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-13.0" AnchorPane.topAnchor="57.0">
                                        <content>
-                                          <VBox prefHeight="200.0" prefWidth="211.0" spacing="5.0" styleClass="order-container">
+                                          <VBox prefHeight="200.0" prefWidth="211.0" spacing="5.0" styleClass="chats-container">
                                              <children>
-                                                <HBox prefHeight="40.0" prefWidth="309.0" style="-fx-background-color: #1a1a1a;" styleClass="shadow">
+                                                <HBox prefHeight="40.0" prefWidth="309.0">
                                                    <children>
                                                       <Pane fx:id="profileImageContainer1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
                                                          <children>
@@ -210,7 +210,7 @@
                                                       <VBox prefHeight="61.0" prefWidth="245.0">
                                                          <children>
                                                             <Label text="Ivaylo Aleksandrov" textFill="#bcbcbc" />
-                                                            <Label text="Hello my name is meri" />
+                                                            <Label text="Hello my name is meri" textFill="#8a8888" />
                                                          </children>
                                                          <padding>
                                                             <Insets left="8.0" />
@@ -218,7 +218,7 @@
                                                       </VBox>
                                                    </children>
                                                 </HBox>
-                                                <HBox prefHeight="40.0" prefWidth="309.0" style="-fx-background-color: #1a1a1a;" styleClass="shadow">
+                                                <HBox prefHeight="40.0" prefWidth="309.0">
                                                    <children>
                                                       <Pane fx:id="profileImageContainer11" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
                                                          <children>
@@ -247,7 +247,7 @@
                                                       </VBox>
                                                    </children>
                                                 </HBox>
-                                                <HBox prefHeight="40.0" prefWidth="309.0" style="-fx-background-color: #1a1a1a;" styleClass="shadow">
+                                                <HBox prefHeight="40.0" prefWidth="309.0">
                                                    <children>
                                                       <Pane fx:id="profileImageContainer12" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
                                                          <children>
@@ -276,7 +276,7 @@
                                                       </VBox>
                                                    </children>
                                                 </HBox>
-                                                <HBox prefHeight="40.0" prefWidth="309.0" style="-fx-background-color: #1a1a1a;" styleClass="shadow">
+                                                <HBox prefHeight="40.0" prefWidth="309.0">
                                                    <children>
                                                       <Pane fx:id="profileImageContainer13" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
                                                          <children>
@@ -305,13 +305,129 @@
                                                       </VBox>
                                                    </children>
                                                 </HBox>
-                                                <HBox prefHeight="40.0" prefWidth="309.0" style="-fx-background-color: #1a1a1a;" styleClass="shadow">
+                                                <HBox prefHeight="40.0" prefWidth="309.0">
                                                    <children>
                                                       <Pane fx:id="profileImageContainer14" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
                                                          <children>
                                                             <Pane fx:id="profileImageClip14" prefHeight="46.0" prefWidth="46.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
                                                                <children>
                                                                   <ImageView fx:id="profileImage14" fitHeight="38.5" fitWidth="38.5" layoutX="5.0" layoutY="7.3">
+                                                                     <image>
+                                                                        <Image url="@../../../../../../../Downloads/woman%20(3).png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </Pane>
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="5.0" />
+                                                         </HBox.margin>
+                                                      </Pane>
+                                                      <VBox prefHeight="61.0" prefWidth="245.0">
+                                                         <children>
+                                                            <Label text="Ivaylo Aleksandrov" textFill="#bcbcbc" />
+                                                            <Label text="Hello my name is meri" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="8.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="40.0" prefWidth="309.0">
+                                                   <children>
+                                                      <Pane fx:id="profileImageContainer111" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
+                                                         <children>
+                                                            <Pane fx:id="profileImageClip111" prefHeight="46.0" prefWidth="46.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
+                                                               <children>
+                                                                  <ImageView fx:id="profileImage111" fitHeight="38.5" fitWidth="38.5" layoutX="5.0" layoutY="7.3">
+                                                                     <image>
+                                                                        <Image url="@../../../../../../../Downloads/woman%20(3).png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </Pane>
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="5.0" />
+                                                         </HBox.margin>
+                                                      </Pane>
+                                                      <VBox prefHeight="61.0" prefWidth="245.0">
+                                                         <children>
+                                                            <Label text="Ivaylo Aleksandrov" textFill="#bcbcbc" />
+                                                            <Label text="Hello my name is meri" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="8.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="40.0" prefWidth="309.0">
+                                                   <children>
+                                                      <Pane fx:id="profileImageContainer112" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
+                                                         <children>
+                                                            <Pane fx:id="profileImageClip112" prefHeight="46.0" prefWidth="46.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
+                                                               <children>
+                                                                  <ImageView fx:id="profileImage112" fitHeight="38.5" fitWidth="38.5" layoutX="5.0" layoutY="7.3">
+                                                                     <image>
+                                                                        <Image url="@../../../../../../../Downloads/woman%20(3).png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </Pane>
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="5.0" />
+                                                         </HBox.margin>
+                                                      </Pane>
+                                                      <VBox prefHeight="61.0" prefWidth="245.0">
+                                                         <children>
+                                                            <Label text="Ivaylo Aleksandrov" textFill="#bcbcbc" />
+                                                            <Label text="Hello my name is meri" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="8.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="40.0" prefWidth="309.0">
+                                                   <children>
+                                                      <Pane fx:id="profileImageContainer113" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
+                                                         <children>
+                                                            <Pane fx:id="profileImageClip113" prefHeight="46.0" prefWidth="46.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
+                                                               <children>
+                                                                  <ImageView fx:id="profileImage113" fitHeight="38.5" fitWidth="38.5" layoutX="5.0" layoutY="7.3">
+                                                                     <image>
+                                                                        <Image url="@../../../../../../../Downloads/woman%20(3).png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </Pane>
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="5.0" />
+                                                         </HBox.margin>
+                                                      </Pane>
+                                                      <VBox prefHeight="61.0" prefWidth="245.0">
+                                                         <children>
+                                                            <Label text="Ivaylo Aleksandrov" textFill="#bcbcbc" />
+                                                            <Label text="Hello my name is meri" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="8.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox prefHeight="40.0" prefWidth="309.0">
+                                                   <children>
+                                                      <Pane fx:id="profileImageContainer114" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
+                                                         <children>
+                                                            <Pane fx:id="profileImageClip114" prefHeight="46.0" prefWidth="46.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
+                                                               <children>
+                                                                  <ImageView fx:id="profileImage114" fitHeight="38.5" fitWidth="38.5" layoutX="5.0" layoutY="7.3">
                                                                      <image>
                                                                         <Image url="@../../../../../../../Downloads/woman%20(3).png" />
                                                                      </image>
@@ -359,7 +475,7 @@
             </AnchorPane>
             <AnchorPane fx:id="menuRoot" layoutX="90.0" layoutY="-13.0" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" prefHeight="21.0" prefWidth="518.0">
                <children>
-                  <AnchorPane fx:id="profileView" disable="true" layoutY="44.0" maxHeight="170.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="518.0" style="-fx-border-color: #1a1a1a; -fx-border-radius: 15; -fx-border-width: 1;" styleClass="shadow">
+                  <AnchorPane fx:id="profileView" disable="true" layoutY="44.0" maxHeight="210.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="518.0" style="-fx-border-color: #1a1a1a; -fx-border-radius: 15; -fx-border-width: 1;" styleClass="shadow">
                      <children>
                         <AnchorPane layoutX="3.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="398.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #1a1a1a;" styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <effect>
@@ -368,32 +484,32 @@
                            <children>
                               <AnchorPane fx:id="userInfoLabels" layoutX="105.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label fx:id="roleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Server" textFill="#bcbcbc" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="66.0">
+                                    <Label fx:id="roleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Server" textFill="#bcbcbc" AnchorPane.bottomAnchor="86.0" AnchorPane.topAnchor="66.0">
                                        <effect>
                                           <DropShadow />
                                        </effect>
                                     </Label>
-                                    <Label fx:id="ageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="27" textFill="#bcbcbc" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="66.0">
+                                    <Label fx:id="ageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="27" textFill="#bcbcbc" AnchorPane.bottomAnchor="86.0" AnchorPane.topAnchor="66.0">
                                        <effect>
                                           <DropShadow />
                                        </effect>
                                     </Label>
-                                    <Label fx:id="countryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Bulgaria" textFill="#bcbcbc" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="66.0">
+                                    <Label fx:id="countryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Bulgaria" textFill="#bcbcbc" AnchorPane.bottomAnchor="86.0" AnchorPane.topAnchor="66.0">
                                        <effect>
                                           <DropShadow />
                                        </effect>
                                     </Label>
-                                    <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" prefHeight="51.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Merian" textFill="#bcbcbc" AnchorPane.bottomAnchor="99.0" AnchorPane.topAnchor="13.0">
+                                    <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" prefHeight="51.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Merian" textFill="#bcbcbc" AnchorPane.bottomAnchor="139.0" AnchorPane.topAnchor="13.0">
                                        <effect>
                                           <DropShadow />
                                        </effect>
                                     </Label>
-                                    <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="meri93" textFill="#bcbcbc" AnchorPane.bottomAnchor="99.0" AnchorPane.topAnchor="13.0">
+                                    <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="meri93" textFill="#bcbcbc" AnchorPane.bottomAnchor="139.0" AnchorPane.topAnchor="13.0">
                                        <effect>
                                           <DropShadow />
                                        </effect>
                                     </Label>
-                                    <Label fx:id="lastNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Dimitrova" textFill="#bcbcbc" AnchorPane.bottomAnchor="99.0" AnchorPane.topAnchor="13.0">
+                                    <Label fx:id="lastNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Dimitrova" textFill="#bcbcbc" AnchorPane.bottomAnchor="139.0" AnchorPane.topAnchor="13.0">
                                        <effect>
                                           <DropShadow />
                                        </effect>
@@ -413,12 +529,12 @@
                                     </Pane>
                                  </children>
                               </Pane>
-                              <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editUserInfo" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Edit" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="125.0">
+                              <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editUserInfo" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Edit" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="115.0">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Style 2" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="125.0">
+                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Style 2" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="30.0" AnchorPane.topAnchor="145.0">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -428,12 +544,12 @@
                                     <Font size="10.0" />
                                  </font>
                               </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Log out" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="125.0">
+                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Log out" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="171.0">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="83.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Change" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="54.0" AnchorPane.topAnchor="81.0">
+                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="83.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Change" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="94.0" AnchorPane.topAnchor="81.0">
                                  <font>
                                     <Font size="10.0" />
                                  </font>

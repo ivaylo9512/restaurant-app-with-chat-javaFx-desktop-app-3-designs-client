@@ -191,7 +191,7 @@ public class ControllerLoginFirstStyle {
         ServerRequests.loggedUser = (User)service.getValue();
         Platform.runLater(() -> {
             try {
-                LoggedSecondStyle.displayLoggedScene();
+                LoggedFirstStyle.displayLoggedScene();
                 LoginFirstStyle.stage.close();
             } catch (Exception ignored) {
                 //user can try to log again

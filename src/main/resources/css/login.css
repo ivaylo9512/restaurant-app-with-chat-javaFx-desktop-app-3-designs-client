@@ -41,7 +41,6 @@ ScrollPane{
 ScrollPane > .viewport{
     -fx-background-color: transparent;
 }
-
 .alertBox{
     -fx-background-color: #2A2E37;
     -fx-border-width:1.5px;

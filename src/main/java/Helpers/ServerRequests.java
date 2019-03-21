@@ -5,17 +5,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
@@ -25,7 +19,6 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import sample.LoginFirstStyle;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -64,16 +57,13 @@ public class ServerRequests {
                 int responseStatus = response.getStatusLine().getStatusCode();
                 HttpEntity entity = response.getEntity();
                 String content = EntityUtils.toString(entity);
+                EntityUtils.consume(entity);
 
                 if (responseStatus != 200) {
-                    EntityUtils.consume(entity);
                     throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
                 }
 
-                sessions = mapper.readValue(content, new TypeReference<List<Session>>() {
-                });
-                EntityUtils.consume(entity);
-
+                sessions = mapper.readValue(content, new TypeReference<List<Session>>() {});
             } catch (IOException | HttpException e) {
                 e.printStackTrace();
             }
@@ -83,14 +73,9 @@ public class ServerRequests {
         return sessions;
     }
 
-    public static Boolean sendOrder(Order order) {
+    public static void sendOrder(Order order) throws Exception {
         String orderJson;
-        try {
-            orderJson = mapper.writeValueAsString(order);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return false;
-        }
+        orderJson = mapper.writeValueAsString(order);
 
         StringEntity postEntity = new StringEntity(orderJson, "UTF8");
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
@@ -102,20 +87,15 @@ public class ServerRequests {
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
 
             int responseStatus = response.getStatusLine().getStatusCode();
+
             HttpEntity receivedEntity = response.getEntity();
             String content = EntityUtils.toString(receivedEntity);
-
-            if (responseStatus != 200) {
-                EntityUtils.consume(receivedEntity);
-                throw new HttpException(content);
-            }
             EntityUtils.consume(receivedEntity);
 
-        } catch (HttpException | IOException e) {
-            e.printStackTrace();
-            return false;
+            if (responseStatus != 200) {
+                throw new HttpException(content);
+            }
         }
-        return true;
     }
 
     public static LocalDateTime getMostRecentOrderDate(int restaurantId) throws Exception{
@@ -126,17 +106,16 @@ public class ServerRequests {
         try (CloseableHttpResponse response = httpClient.execute(get)) {
 
             int responseStatus = response.getStatusLine().getStatusCode();
+
             HttpEntity entity = response.getEntity();
             String content = EntityUtils.toString(entity);
+            EntityUtils.consume(entity);
 
             if (responseStatus != 200) {
-                EntityUtils.consume(entity);
                 throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
             }
 
             localDateTime = mapper.readValue(content, LocalDateTime.class);
-            EntityUtils.consume(entity);
-
         }
         return localDateTime;
 
@@ -153,18 +132,17 @@ public class ServerRequests {
         try (CloseableHttpResponse response = httpClient.execute(get)) {
 
             int responseStatus = response.getStatusLine().getStatusCode();
+
             HttpEntity entity = response.getEntity();
             String content = EntityUtils.toString(entity);
+            EntityUtils.consume(entity);
 
             if (responseStatus != 200) {
-                EntityUtils.consume(entity);
                 throw new HttpException(content);
             }
 
             chats = mapper.readValue(content, new TypeReference<List<Chat>>(){});
             lastMessageCheck = LocalDateTime.now();
-
-            EntityUtils.consume(entity);
         }
         return chats;
     }
@@ -188,11 +166,12 @@ public class ServerRequests {
 
         try (CloseableHttpResponse response = httpClient.execute(post)) {
             int responseCode = response.getStatusLine().getStatusCode();
+
             HttpEntity responseEntity = response.getEntity();
             String content = EntityUtils.toString(responseEntity);
+            EntityUtils.consume(responseEntity);
 
             if (responseCode != 200) {
-                EntityUtils.consume(responseEntity);
                 throw new HttpException(content);
             }
 
@@ -220,8 +199,10 @@ public class ServerRequests {
 
         try(CloseableHttpResponse response = httpClient.execute(post)){
             int statusCode = response.getStatusLine().getStatusCode();
+
             HttpEntity responseEntity = response.getEntity();
             String content = EntityUtils.toString(responseEntity);
+            EntityUtils.consume(responseEntity);
 
             if(statusCode != 200){
                 throw new HttpException(content);
@@ -232,6 +213,23 @@ public class ServerRequests {
             e.printStackTrace();
         }
         return message;
+    }
+    public static void updateDishState(int orderId, int dishId) throws Exception{
+        HttpPatch httpPatch = new HttpPatch(String.format("http://localhost:8080/api/auth/order/update/%d/%d", orderId, dishId));
+        httpPatch.setHeader("Authorization", userPreference.get("Token", null));
+
+        try(CloseableHttpResponse response = httpClient.execute(httpPatch)){
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            HttpEntity responseEntity = response.getEntity();
+            String content = EntityUtils.toString(responseEntity);
+            EntityUtils.consume(responseEntity);
+
+            if(statusCode != 200){
+                throw new HttpException(content);
+            }
+
+        }
     }
 
 

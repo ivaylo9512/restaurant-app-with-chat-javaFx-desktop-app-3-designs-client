@@ -136,7 +136,11 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="moveBar" prefHeight="28.0" prefWidth="743.0" styleClass="program-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <AnchorPane fx:id="moveBar" prefHeight="28.0" prefWidth="743.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane fx:id="moveBar1" prefHeight="28.0" prefWidth="103.6" styleClass="program-bar" AnchorPane.leftAnchor="0.0" />
+                  <Pane fx:id="moveBar11" layoutX="106.0" prefHeight="28.0" prefWidth="637.0" styleClass="program-bar" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0" />
+               </children></AnchorPane>
             <AnchorPane fx:id="contentPane" layoutX="106.0" layoutY="28.0" prefHeight="400.0" prefWidth="637.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
                <children>
                   <AnchorPane layoutY="189.0" prefHeight="212.0" prefWidth="637.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="189.0">
