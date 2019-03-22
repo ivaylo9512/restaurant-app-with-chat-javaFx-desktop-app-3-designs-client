@@ -14,7 +14,7 @@
    <children>
       <AnchorPane fx:id="contentRoot" maxHeight="641.0" maxWidth="1100.0" minHeight="428.0" minWidth="743.0" prefHeight="428.0" prefWidth="743.0" style="-fx-background-color: transparent;">
          <children>
-            <AnchorPane layoutY="218.0" maxWidth="103.0" minWidth="103.0" prefHeight="212.0" prefWidth="103.0" snapToPixel="false" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="217.0">
+            <AnchorPane layoutY="218.0" maxWidth="103.0" minHeight="0.0" minWidth="103.0" prefHeight="0.0" prefWidth="103.0" snapToPixel="false" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="217.0">
                <children>
                   <ScrollPane fx:id="menuScroll" prefHeight="211.0" prefWidth="142.0" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
                      <content>
@@ -97,7 +97,7 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <Pane layoutY="28.0" prefHeight="190.0" prefWidth="103.0" styleClass="menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
+            <Pane layoutY="28.0" minHeight="190.0" prefHeight="190.0" prefWidth="103.0" styleClass="menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
                <children>
                   <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToProfile" prefHeight="22.0" prefWidth="72.0" text="Profile" textFill="#bcbcbc">
                      <font>
@@ -136,10 +136,69 @@
                   </Pane>
                </children>
             </Pane>
+            <Pane fx:id="profileRoot" disable="true" layoutY="38.0" minHeight="190.0" opacity="0.0" prefHeight="190.0" prefWidth="103.0" style="-fx-background-color: #2A2E37;" styleClass="menu" AnchorPane.topAnchor="28.0">
+               <children>
+                  <Button layoutX="16.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Style 3" textFill="#bcbcbc">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="16.0" layoutY="130.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedSecondStyle" prefHeight="22.0" prefWidth="72.0" text="Style 2" textFill="#bcbcbc">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="16.0" layoutY="160.0" maxHeight="22.0" maxWidth="72.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="22.0" prefWidth="72.0" text="Log out" textFill="#bcbcbc">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Pane fx:id="notificationIcon1" disable="true" layoutX="81.0" layoutY="110.0" opacity="0.0">
+                     <children>
+                        <Circle fill="#d62127" layoutX="8.0" layoutY="8.0" radius="8.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" styleClass="shadow" />
+                        <Text fill="#2a2e37" layoutX="5.5" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="shadow" text="!">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <AnchorPane layoutX="22.0" layoutY="5.0" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture-shadow">
+                     <children>
+                        <AnchorPane fx:id="profilePicture" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="4.0" layoutY="10.0">
+                                 <image>
+                                    <Image url="@../../../../../Vision-Project-Extended-server-master1/Vision-Project-Extended-server-master/uploads/user_1.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <Button layoutX="16.0" layoutY="71.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showMenu" prefHeight="22.0" prefWidth="72.0" text="Menu" textFill="#bcbcbc">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
             <AnchorPane fx:id="moveBar" prefHeight="28.0" prefWidth="743.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Pane fx:id="moveBar1" prefHeight="28.0" prefWidth="103.6" styleClass="program-bar" AnchorPane.leftAnchor="0.0" />
-                  <Pane fx:id="moveBar11" layoutX="106.0" prefHeight="28.0" prefWidth="637.0" styleClass="program-bar" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0" />
+                  <Pane prefHeight="28.0" prefWidth="103.5" styleClass="program-bar" AnchorPane.leftAnchor="0.0" />
+                  <Pane layoutX="106.0" prefHeight="28.0" prefWidth="637.0" styleClass="program-bar" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Button layoutX="611.0" layoutY="6.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="X" textFill="#bcbcbc">
+                           <font>
+                              <Font name="System Bold" size="8.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="586.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="-" textFill="#bcbcbc">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                     </children></Pane>
                </children></AnchorPane>
             <AnchorPane fx:id="contentPane" layoutX="106.0" layoutY="28.0" prefHeight="400.0" prefWidth="637.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
                <children>
@@ -159,7 +218,7 @@
                            <children>
                               <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" styleClass="new-order" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="menu" layoutY="46.0" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                                    <ListView fx:id="menu" layoutY="46.0" onMouseClicked="#addMenuItems" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                        <effect>
                                           <DropShadow height="10.0" radius="4.5" width="10.0" />
                                        </effect>

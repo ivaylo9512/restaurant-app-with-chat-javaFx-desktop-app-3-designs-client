@@ -1,10 +1,15 @@
 package Helpers;
 
+import Helpers.Services.MessageService;
+import Helpers.Services.OrderService;
 import Models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -34,10 +39,17 @@ public class ServerRequests {
     public static Preferences userPreference = Preferences.userRoot();
     public static ObjectMapper mapper = new ObjectMapper();
     public static int pageSize = 3;
+    public static ObjectProperty<User> loggedUserProperty = new SimpleObjectProperty<>();
     public static User loggedUser;
 
     static {
         mapper.registerModule(new JavaTimeModule());
+
+        loggedUserProperty.addListener((observable, oldValue, newValue) ->{
+            User user = newValue;
+            user.getRestaurant().getOrders()
+                    .forEach(order -> user.getOrders().put(order.getId(), order));
+        });
     }
 
     public static List<Session> getNextSessions(int id, int page, int pageSize) {
@@ -228,7 +240,22 @@ public class ServerRequests {
             if(statusCode != 200){
                 throw new HttpException(content);
             }
+        }
+    }
+    public static void stopRequest() throws Exception{
+        HttpPatch httpPatch = new HttpPatch("http://localhost:8080/api/auth/order/removeRequest");
+        httpPatch.setHeader("Authorization", userPreference.get("Token", null));
 
+        try(CloseableHttpResponse response = httpClient.execute(httpPatch)){
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            HttpEntity responseEntity = response.getEntity();
+            String content = EntityUtils.toString(responseEntity);
+            EntityUtils.consume(responseEntity);
+
+            if(statusCode != 200){
+                throw new HttpException(content);
+            }
         }
     }
 

@@ -1,6 +1,9 @@
 package Models;
 
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class User {
     private int id;
     private String username;
@@ -11,6 +14,8 @@ public class User {
     private String role;
     private String profilePicture;
     private Restaurant restaurant;
+
+    private Map<Integer, Order> orders = new LinkedHashMap<>();
 
     public User(){
 
@@ -98,5 +103,13 @@ public class User {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public Map<Integer, Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Map<Integer, Order> orders) {
+        this.orders = orders;
     }
 }

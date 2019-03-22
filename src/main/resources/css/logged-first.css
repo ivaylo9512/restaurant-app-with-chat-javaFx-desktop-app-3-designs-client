@@ -63,6 +63,16 @@ TextArea .scroll-pane .content{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
     -fx-border-width: 0;
 }
+.profile-picture{
+    -fx-background-radius: 180;
+    -fx-border-radius: 180;
+}
+.profile-picture-shadow{
+    -fx-background-color: #2A2E37;
+    -fx-background-radius: 180;
+    -fx-border-radius: 180;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 3, 0.0 , 0 , 0 );
+}
 .order-container{
     -fx-pref-height: 189.0px;
     -fx-pref-width: 127.35px;
@@ -288,12 +298,12 @@ TextFlow {
 }
 
 .create-button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 0 );
 
 }
 
 .create-button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 
 }
 .clear-button:pressed{
@@ -307,18 +317,18 @@ TextFlow {
 
 }
 .alertBox > *.button-bar > *.container{
-    -fx-background-color: transparent;
+    -fx-background-color: #2A2E37;
     -fx-pref-height: 50
 }
 
 .alertBox:header *.header-panel{
-    -fx-background-color: transparent;
+    -fx-background-color: #2A2E37;
 }
 .alertBox:header *.header-panel *.label{
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-pref-height: 25;
-    -fx-text-fill: #363b41;
+    -fx-text-fill: transparent;
     -fx-alignment: center;
     -fx-background-color: transparent;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );

@@ -62,7 +62,7 @@ public class Scrolls {
             mainChatScrollBar.visibleAmountProperty().addListener((observable1, oldValue1, newValue1) -> {
                 if(newValue1.doubleValue() > 1 && !mainChatScrollBar.isDisabled()){
                     content.setId("beginning-append");
-                }else{
+                }else if(!content.getId().equals("new-message")){
                     Timeline timeline = new Timeline(
                             new KeyFrame(Duration.millis(50), event -> content.setId("listen")));
                     timeline.play();

@@ -136,12 +136,12 @@ public class ExpandOrderPane {
         TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750),currentOrder, maxOrderWidth);
         widthPane.play();
 
-        double expandButtonY = button.getPrefWidth() + (maxOrderWidth - orderWidth) / 30;
         double expandButtonX = button.getPrefHeight() + (maxOrderWidth - orderWidth) / 15;
+        double expandButtonY = button.getPrefWidth() + (maxOrderWidth - orderWidth) / 30;
 
-
-        double translateButtonY = maxOrderWidth - expandButtonY - 10.5 - buttonY;
         double translateButtonX = (maxOrderWidth - expandButtonX) / xButtonRation - buttonX;
+        double translateButtonY = maxOrderWidth - expandButtonY - 10.5 - buttonY;
+
         TranslateTransition translateButton = new TranslateTransition(Duration.millis(750), button);
         translateButton.setToX(translateButtonX);
         translateButton.setToY(translateButtonY);

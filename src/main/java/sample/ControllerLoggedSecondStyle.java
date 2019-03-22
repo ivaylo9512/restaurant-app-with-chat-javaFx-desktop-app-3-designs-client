@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import org.apache.http.impl.client.HttpClients;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class ControllerLoggedSecondStyle {
     @FXML Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
     @FXML TextField firstNameField, lastNameField, countryField, ageField;
     @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot,
-    profileView, orderInfo, userInfoLabels, userInfoFields;
+    profileView, orderInfo, userInfoLabels, userInfoFields, orderView, chatView;
     @FXML VBox orderContainer, dishesContainer;
     @FXML Button menuButton, editButton;
     @FXML Pane profileImageContainer, profileImageClip,profileImageClip1, contentBar;
@@ -44,14 +45,18 @@ public class ControllerLoggedSecondStyle {
 
     private Button displayedOrder;
     private Image userProfileImage;
+    private AnchorPane currentView;
 
-    private HashMap<Integer, Order> ordersMap = new HashMap<>();
+    private User loggedUser;
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
+
     @FXML
     public void initialize() throws Exception{
-        loggedUser.getRestaurant().getOrders().forEach(this::appendOrder);
+        loggedUser = loggedUserProperty.getValue();
+
+        loggedUser.getOrders().forEach((integer, order) -> appendOrder(order));
 
         InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
         userProfileImage = new Image(in);
@@ -67,11 +72,38 @@ public class ControllerLoggedSecondStyle {
         Circle clip = new Circle(0, 0, 30.8);
         clip.setLayoutX(30.8);
         clip.setLayoutY(30.8);
-        profileImageClip.setClip(clip);
-        Circle clip1 = new Circle(0, 0, 23);
-        clip1.setLayoutX(23);
-        clip1.setLayoutY(23);
-        profileImageClip1.setClip(clip1);
+    }
+    @FXML
+    public void showChatView(){
+        displayView(chatView);
+    }
+    @FXML
+    public void showOrderView(){
+        displayView(orderView);
+    }
+    private void displayView(AnchorPane requestedView){
+        if(requestedView.equals(currentView)){
+            contentRoot.setOpacity(0);
+            contentRoot.setDisable(true);
+            requestedView.setOpacity(0);
+            requestedView.setDisable(true);
+
+            currentView = null;
+        }else if(currentView == null) {
+            requestedView.setDisable(false);
+            requestedView.setOpacity(1);
+
+            contentRoot.setOpacity(1);
+            contentRoot.setDisable(false);
+            currentView = requestedView;
+        }else{
+            requestedView.setDisable(false);
+            requestedView.setOpacity(1);
+
+            currentView.setDisable(true);
+            currentView.setOpacity(0);
+            currentView = requestedView;
+        }
     }
     @FXML public void expandMenu(){
         if(menuButtonsContainer.getChildren().size() == 1){
@@ -88,16 +120,36 @@ public class ControllerLoggedSecondStyle {
     }
     @FXML
     public void logOut(){
-        LoggedSecondStyle.stage.close();
+        try {
+            httpClientLongPolling.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        httpClientLongPolling = HttpClients.createDefault();
+
+        LoggedFirstStyle.stage.close();
         LoginFirstStyle.stage.show();
     }
     @FXML
     public void showLoggedFirstStyle(){
-        LoggedSecondStyle.stage.close();
         try {
-            LoggedFirstStyle.displayLoggedScene();
+            httpClientLongPolling.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        httpClientLongPolling = HttpClients.createDefault();
+
+        LoggedSecondStyle.stage.close();
+        if(LoggedFirstStyle.stage != null){
+            ControllerLoggedFirstStyle.orderService.start();
+            ControllerLoggedFirstStyle.messageService.start();
+            LoggedFirstStyle.stage.show();
+
+        }else {
+            try {
+                LoggedFirstStyle.displayLoggedScene();
+            } catch (Exception e) {
+            }
         }
     }
     @FXML
@@ -201,7 +253,6 @@ public class ControllerLoggedSecondStyle {
     }
     private void appendOrder(Order order){
         int orderId = order.getId();
-        ordersMap.put(orderId, order);
 
         Button orderButton = new Button("Order " + orderId);
         orderButton.setId(String.valueOf(orderId));
@@ -242,7 +293,7 @@ public class ControllerLoggedSecondStyle {
             if (dish.getReady()) {
                 ready.setText("O");
             } else {
-                ready.setText("O");
+                ready.setText("X");
             }
             ready.setId("dish" + dish.getId());
 
