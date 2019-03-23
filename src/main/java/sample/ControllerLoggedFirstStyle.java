@@ -10,7 +10,6 @@ import Helpers.Scrolls;
 import Helpers.MenuListViewCell;
 import Models.*;
 import Models.Menu;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -39,13 +39,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.*;
 import java.net.URL;
-import java.sql.Time;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -61,10 +61,10 @@ public class ControllerLoggedFirstStyle {
     @FXML FlowPane ordersFlow, notificationInfo, chatInfo, userInfo, userInfoEditable;
     @FXML Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, roleField;
     @FXML TextField firstNameField, lastNameField, countryField, ageField;
-    @FXML AnchorPane contentRoot, contentPane, mainChat, ordersPane;
-    @FXML Pane moveBar, profilePicture, notificationIcon, profileRoot;
+    @FXML AnchorPane contentRoot, contentPane, mainChat, ordersPane, profileImageContainer;
+    @FXML Pane moveBar, notificationIcon, profileRoot;
     @FXML TextArea mainChatTextArea;
-    @FXML ImageView roleImage;
+    @FXML ImageView roleImage, profileImage;
     @FXML TextField menuSearch;
     @FXML ListView<Menu> menu, newOrderMenu;
 
@@ -73,7 +73,7 @@ public class ControllerLoggedFirstStyle {
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
 
     private TreeMap<String, Menu> menuMap = new TreeMap<>();
-    private HashMap<Integer, ChatValue> chatsMap = new HashMap<>();
+    private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private Image userProfileImage;
     private ChatValue mainChatValue;
@@ -84,22 +84,11 @@ public class ControllerLoggedFirstStyle {
     private User loggedUser;
 
     @FXML
-    public void initialize() throws Exception {
-        mapper.registerModule(new JavaTimeModule());
+    public void initialize() {
 
-        loggedUser = loggedUserProperty.getValue();
-        loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
-        loggedUser.getOrders().forEach((integer, order) -> appendOrder(order));
-
-        InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
-        userProfileImage = new Image(in);
-        in.close();
-
-        displayUserInfo();
 
         newOrderMenu.setCellFactory(menuCell -> new MenuListViewCell());
         menu.setCellFactory(menuCell -> new MenuListViewCell());
-        menu.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
         newOrderMenu.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             Menu menuItem = newOrderMenu.getSelectionModel().getSelectedItem();
@@ -112,17 +101,6 @@ public class ControllerLoggedFirstStyle {
             menu.setItems(observableList);
         });
 
-        try {
-            List<Chat> chats = getChats();
-            appendChats(chats);
-            mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
-
-        }catch (Exception e){
-            showLoginStageAlert(e.getMessage());
-            throw new RuntimeException("Stopping logged scene initialization with exception: " + e.getMessage());
-        }
-
-
         waitForNewOrders();
         waitForNewMessages();
 
@@ -133,7 +111,7 @@ public class ControllerLoggedFirstStyle {
 
 
         mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
-            if (newValue1.equals("append") || newValue1.equals("beginning-append")) {
+            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && mainChatValue != null) {
                 loadOlderHistory(mainChatValue, mainChatBlock);
             }
         });
@@ -158,13 +136,12 @@ public class ControllerLoggedFirstStyle {
         Circle clip = new Circle(0, 0, 30);
         clip.setLayoutX(30);
         clip.setLayoutY(30);
-        profilePicture.setClip(clip);
+        profileImageContainer.setClip(clip);
 
         MoveRoot.move(moveBar, contentRoot);
     }
     private void waitForNewMessages(){
         messageService = new MessageService();
-        messageService.start();
         messageService.setOnSucceeded(event -> {
             MessageService.lastMessageCheck = LocalDateTime.now();
             List<Message> newMessages = (List<Message>) messageService.getValue();
@@ -198,12 +175,11 @@ public class ControllerLoggedFirstStyle {
             messageService.restart();
         });
 
-        messageService.setOnFailed(event -> serviceFail(messageService));
+        messageService.setOnFailed(event -> serviceFailed(messageService));
 
     }
     private void waitForNewOrders() {
         orderService = new OrderService();
-        orderService.start();
         orderService.setOnSucceeded(event -> {
             List<Order> newOrders = (List<Order>) orderService.getValue();
 
@@ -220,17 +196,20 @@ public class ControllerLoggedFirstStyle {
             orderService.restart();
         });
 
-        orderService.setOnFailed(event -> serviceFail(orderService));
+        orderService.setOnFailed(event -> serviceFailed(orderService));
     }
 
-    private void serviceFail(Service service){
+    private void serviceFailed(Service service){
+        System.out.println(service.getException().getMessage());
         if(service.getException() != null) {
             if (service.getException().getMessage().equals("Jwt token has expired.")) {
                 logOut();
                 showLoginStageAlert("Session has expired.");
+                System.out.println("hey");
 
             } else if(service.getException().getMessage().equals("Socket closed")) {
                 service.reset();
+                System.out.println("hey1");
 
             }else{
                 Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> service.restart()));
@@ -436,7 +415,7 @@ public class ControllerLoggedFirstStyle {
     private void setMainChat(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
         imageView.getStyleClass().set(0, "imagePressed");
-          chatInfo.setOpacity(0);
+        chatInfo.setOpacity(0);
 
         int chatId = Integer.parseInt(imageView.getId());
 
@@ -638,7 +617,7 @@ public class ControllerLoggedFirstStyle {
         newOrderMenu.getItems().add(0, menuItem);
     }
 
-    private void displayUserInfo() {
+    private void displayUserFields() {
         firstNameLabel.setText(loggedUser.getFirstName());
         lastNameLabel.setText(loggedUser.getLastName());
         countryLabel.setText(loggedUser.getCountry());
@@ -651,11 +630,28 @@ public class ControllerLoggedFirstStyle {
         ageField.setText(String.valueOf(loggedUser.getAge()));
         roleField.setText(loggedUser.getRole());
 
+        profileImage.setImage(userProfileImage);
+
         if (loggedUser.getRole().equals("Chef")) {
             roleImage.setImage(new Image(getClass().getResourceAsStream("/images/chef-second.png")));
         } else {
             roleImage.setImage(new Image(getClass().getResourceAsStream("/images/waiter-second.png")));
         }
+    }
+    private void resetUserFields() {
+        firstNameLabel.setText(null);
+        lastNameLabel.setText(null);
+        countryLabel.setText(null);
+        ageLabel.setText(null);
+        roleLabel.setText(null);
+
+        firstNameField.setText(null);
+        lastNameField.setText(null);
+        countryField.setText(null);
+        ageField.setText(null);
+        roleField.setText(null);
+
+        profileImage.setImage(null);
     }
     @FXML
     public void editUserInfo() {
@@ -706,21 +702,100 @@ public class ControllerLoggedFirstStyle {
                 new KeyFrame(Duration.millis(1000), new KeyValue(
                         menuScroll.vvalueProperty(), 1)));
         animation.play();
+        chatUsersScroll.setDisable(false);
+        userInfoScroll.setDisable(true);
     }
 
     @FXML
-    private void scrollToProfile() {
+    private void showProfile() {
         Animation animation = new Timeline(
                 new KeyFrame(Duration.millis(1000), new KeyValue(
                         menuScroll.vvalueProperty(), 0)));
         animation.play();
         profileRoot.setOpacity(1);
         profileRoot.setDisable(false);
+        userInfoScroll.setDisable(false);
+        chatUsersScroll.setDisable(true);
     }
     @FXML
     public void showMenu(){
         profileRoot.setOpacity(0);
         profileRoot.setDisable(true);
+    }
+
+    public void displayUserInfo() throws Exception{
+        loggedUser = loggedUserProperty.getValue();
+        loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
+        loggedUser.getOrders().forEach((integer, order) -> appendOrder(order));
+
+        List<Chat> chats = getChats();
+        appendChats(chats);
+        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+
+        orderService.start();
+        messageService.start();
+
+        InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
+        userProfileImage = new Image(in);
+        in.close();
+
+        displayUserFields();
+        menu.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
+    }
+    public void resetStage(){
+        notificationBlock.getChildren().clear();
+        ordersFlow.getChildren().clear();
+        chatUsers.getChildren().clear();
+        newOrderMenu.getItems().clear();
+        menu.getItems().clear();
+
+        mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
+
+        mainChat.setDisable(true);
+        mainChat.setOpacity(0);
+        mainChat.setLayoutX(217);
+        mainChat.setLayoutY(231);
+        mainChat.setPrefHeight(189);
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
+        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
+        contentRoot.setPrefHeight(428);
+        contentRoot.setPrefWidth(743);
+
+        menuSearch.setText("");
+        mainChatTextArea.setText(null);
+        profileImage.setImage(null);
+        userProfileImage = null;
+        mainChatValue = null;
+        loggedUser = null;
+
+        userInfoScroll.setVvalue(0);
+        menuScroll.setVvalue(0);
+        chatUsersScroll.setVvalue(0);
+
+        userInfoScroll.setDisable(false);
+        ordersScroll.setDisable(false);
+
+        profileRoot.setOpacity(0);
+        profileRoot.setDisable(true);
+
+        notificationIcon.setOpacity(0);
+        ordersPane.setDisable(false);
+        ordersPane.setOpacity(1);
+
+        userInfoScroll.setContent(userInfo);
+        resetUserFields();
+
+        if(ExpandOrderPane.buttonExpandedProperty().getValue()){
+            contentRoot.getChildren().remove(ExpandOrderPane.currentOrder);
+            ExpandOrderPane.buttonExpandedProperty().setValue(false);
+            ExpandOrderPane.action = false;
+            ExpandOrderPane.dishesAnchor.setDisable(true);
+        }
+
+        chatsMap = new HashMap<>();
+        menuMap = new TreeMap<>();
     }
     @FXML
     public void logOut(){
@@ -733,6 +808,7 @@ public class ControllerLoggedFirstStyle {
 
         LoggedFirstStyle.stage.close();
         LoginFirstStyle.stage.show();
+
     }
     @FXML
     public void showLoggedSecondStyle(){
@@ -745,8 +821,6 @@ public class ControllerLoggedFirstStyle {
 
         LoggedFirstStyle.stage.close();
         if(LoggedSecondStyle.stage != null){
-//            ControllerLoginFirstStyle.orderService.start();
-//            ControllerLoginFirstStyle.messageService.start();
             LoggedSecondStyle.stage.show();
         }else {
             try {

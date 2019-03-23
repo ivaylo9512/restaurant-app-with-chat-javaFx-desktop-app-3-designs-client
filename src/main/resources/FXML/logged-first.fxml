@@ -99,7 +99,7 @@
             </AnchorPane>
             <Pane layoutY="28.0" minHeight="190.0" prefHeight="190.0" prefWidth="103.0" styleClass="menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
                <children>
-                  <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToProfile" prefHeight="22.0" prefWidth="72.0" text="Profile" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" prefHeight="22.0" prefWidth="72.0" text="Profile" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -165,9 +165,9 @@
                   </Pane>
                   <AnchorPane layoutX="22.0" layoutY="5.0" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture-shadow">
                      <children>
-                        <AnchorPane fx:id="profilePicture" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture">
+                        <AnchorPane fx:id="profileImageContainer" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture">
                            <children>
-                              <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="4.0" layoutY="10.0">
+                              <ImageView fx:id="profileImage" fitHeight="50.0" fitWidth="50.0" layoutX="4.0" layoutY="10.0">
                                  <image>
                                     <Image url="@../../../../../Vision-Project-Extended-server-master1/Vision-Project-Extended-server-master/uploads/user_1.png" />
                                  </image>

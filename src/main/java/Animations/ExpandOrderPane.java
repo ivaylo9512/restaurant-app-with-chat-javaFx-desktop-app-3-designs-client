@@ -16,8 +16,6 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class ExpandOrderPane {
-    private static Pane currentOrder;
-    private static Pane orderContainer;
 
     private static double orderWidth;
     private static double orderHeight;
@@ -36,8 +34,10 @@ public class ExpandOrderPane {
     private static double initialOffsetX;
     private static double initialMouseX;
 
-    private static AnchorPane dishesAnchor;
+    private static Pane orderContainer;
 
+    public static Pane currentOrder;
+    public static AnchorPane dishesAnchor;
     public static Button button;
     public static ScrollPane scrollPane;
     public static Pane contentRoot;
@@ -45,7 +45,9 @@ public class ExpandOrderPane {
     public static boolean action = false;
 
     private static BooleanProperty buttonExpanded = new SimpleBooleanProperty(false,"buttonExpanded");
-    public static BooleanProperty buttonExpandedProperty(){return buttonExpanded;}
+    public static BooleanProperty buttonExpandedProperty(){
+        return buttonExpanded;
+    }
 
     public static void setCurrentOrder(MouseEvent event){
         Node intersectedNode = event.getPickResult().getIntersectedNode();

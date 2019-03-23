@@ -19,21 +19,22 @@ public class LoginFirstStyle extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        Pane root = new FXMLLoader(getClass().getResource("/FXML/login.fxml")).load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login.fxml"));
+        Pane root = loader.load();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/login.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
-        primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.show();
-
-        primaryStage.setWidth(primaryScreenBounds.getWidth());
-        primaryStage.setHeight(primaryScreenBounds.getHeight());
-        primaryStage.setX(primaryScreenBounds.getMinX());
-        primaryStage.setY(primaryScreenBounds.getMinY());
         stage = primaryStage;
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+
+        stage.setWidth(primaryScreenBounds.getWidth());
+        stage.setHeight(primaryScreenBounds.getHeight());
+        stage.setX(primaryScreenBounds.getMinX());
+        stage.setY(primaryScreenBounds.getMinY());
 
         Pane loginPane = (Pane) root.getChildren().get(1);
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);

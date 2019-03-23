@@ -18,13 +18,27 @@ public class LoggedSecondStyle extends LoginFirstStyle{
 
     static void displayLoggedScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        Pane root = new FXMLLoader(LoggedSecondStyle.class.getResource("/FXML/logged-second.fxml")).load();
+        FXMLLoader loader = new FXMLLoader(LoggedSecondStyle.class.getResource("/FXML/logged-second.fxml"));
+        Pane root = loader.load();
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(LoggedSecondStyle.class.getResource("/css/logged-second.css").toString());
 
         stage = new Stage();
+        ControllerLoggedSecondStyle controller = loader.getController();
+        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
+            if(isShowing) {
+                try {
+                    controller.displayUserInfo();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else{
+                controller.resetStage();
+            }
+        });
+
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
@@ -36,6 +50,5 @@ public class LoggedSecondStyle extends LoginFirstStyle{
         AnchorPane contentRoot = (AnchorPane) root.getChildren().get(0);
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
         contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
-
     }
 }

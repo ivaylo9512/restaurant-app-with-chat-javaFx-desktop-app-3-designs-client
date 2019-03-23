@@ -16,9 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
 
@@ -27,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 
 import static Helpers.ServerRequests.*;
 
@@ -54,15 +51,6 @@ public class ControllerLoggedSecondStyle {
 
     @FXML
     public void initialize() throws Exception{
-        loggedUser = loggedUserProperty.getValue();
-
-        loggedUser.getOrders().forEach((integer, order) -> appendOrder(order));
-
-        InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
-        userProfileImage = new Image(in);
-        in.close();
-
-        displayUserInfo();
 
         MoveRoot.move(menuButton, menuRoot);
         MoveRoot.move(contentBar, contentRoot);
@@ -73,6 +61,8 @@ public class ControllerLoggedSecondStyle {
         clip.setLayoutX(30.8);
         clip.setLayoutY(30.8);
     }
+
+
     @FXML
     public void showChatView(){
         displayView(chatView);
@@ -118,6 +108,25 @@ public class ControllerLoggedSecondStyle {
         reverse.play();
         menuButtonsContainer.getChildren().remove(menuButtons);
     }
+    public void displayUserInfo() throws Exception{
+        loggedUser = loggedUserProperty.getValue();
+
+        loggedUser.getOrders().forEach((integer, order) -> appendOrder(order));
+
+        InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
+        userProfileImage = new Image(in);
+        in.close();
+
+        displayUserFields();
+    }
+    public void resetStage(){
+        orderContainer.getChildren().clear();
+        userProfileImage = null;
+        resetUserFields();
+
+        loggedUser = null;
+
+    }
     @FXML
     public void logOut(){
         try {
@@ -141,8 +150,6 @@ public class ControllerLoggedSecondStyle {
 
         LoggedSecondStyle.stage.close();
         if(LoggedFirstStyle.stage != null){
-            ControllerLoggedFirstStyle.orderService.start();
-            ControllerLoggedFirstStyle.messageService.start();
             LoggedFirstStyle.stage.show();
 
         }else {
@@ -222,7 +229,7 @@ public class ControllerLoggedSecondStyle {
 
         }
     }
-    private void displayUserInfo() {
+    private void displayUserFields() {
         usernameLabel.setText(loggedUser.getUsername());
         firstNameLabel.setText(loggedUser.getFirstName());
         lastNameLabel.setText(loggedUser.getLastName());
@@ -238,6 +245,23 @@ public class ControllerLoggedSecondStyle {
         roleField.setText(loggedUser.getRole());
 
         profileImage.setImage(userProfileImage);
+    }
+    private void resetUserFields() {
+        usernameLabel.setText(null);
+        firstNameLabel.setText(null);
+        lastNameLabel.setText(null);
+        countryLabel.setText(null);
+        ageLabel.setText(null);
+        roleLabel.setText(null);
+
+        usernameField.setText(null);
+        firstNameField.setText(null);
+        lastNameField.setText(null);
+        countryField.setText(null);
+        ageField.setText(null);
+        roleField.setText(null);
+
+        profileImage.setImage(null);
     }
     @FXML
     public void focus(MouseEvent event){
@@ -270,7 +294,7 @@ public class ControllerLoggedSecondStyle {
 
         orderId.setText(String.valueOf(order.getId()));
         dishesCount.setText(null);
-        dishesCount.setText(String.valueOf(order.getDishes().size()));
+        dishesCount.setText("Dishes " + order.getDishes().size());
 
         createdDate.setText(dateFormatter.format(order.getCreated()));
         createdTime.setText(timeFormatter.format(order.getCreated()));

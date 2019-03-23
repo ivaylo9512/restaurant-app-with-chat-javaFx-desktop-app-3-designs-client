@@ -23,8 +23,6 @@ import javafx.stage.Screen;
 import javafx.util.Duration;
 import java.net.ConnectException;
 
-import static sample.ControllerLoggedFirstStyle.*;
-
 public class ControllerLoginFirstStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane contentRoot;
@@ -196,14 +194,13 @@ public class ControllerLoginFirstStyle {
         if(LoggedFirstStyle.stage != null){
             LoggedFirstStyle.stage.show();
             LoginFirstStyle.stage.close();
-            orderService.start();
-            messageService.start();
         }else {
             Platform.runLater(() -> {
                 try {
                     LoggedFirstStyle.displayLoggedScene();
                     LoginFirstStyle.stage.close();
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                     //user can try to log again
                 }
             });
@@ -211,6 +208,11 @@ public class ControllerLoginFirstStyle {
 
         username.setDisable(false);
         password.setDisable(false);
+        username.setText(null);
+        password.setText(null);
+        regUsername.setText(null);
+        regPassword.setText(null);
+        regRepeatPassword.setText(null);
         root.setCursor(Cursor.DEFAULT);
 
         service.reset();

@@ -1,7 +1,6 @@
 package sample;
 
 import Animations.ResizeRoot;
-import Helpers.ServerRequests;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -21,14 +20,27 @@ public class LoggedFirstStyle extends LoginFirstStyle {
     static Stage stage;
 
     public static void displayLoggedScene() throws IOException {
-
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        Pane root = new FXMLLoader(LoggedFirstStyle.class.getResource("/FXML/logged-first.fxml")).load();
+
+        FXMLLoader loader = new FXMLLoader(LoggedFirstStyle.class.getResource("/FXML/logged-first.fxml"));
+        Pane root = loader.load();
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add(LoggedFirstStyle.class.getResource("/css/logged-first.css").toString());
         scene.setFill(Color.TRANSPARENT);
-
+        ControllerLoggedFirstStyle controller = loader.getController();
         stage = new Stage();
+        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
+            if(isShowing) {
+                try {
+                    controller.displayUserInfo();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else{
+                controller.resetStage();
+            }
+        });
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
