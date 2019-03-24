@@ -3,8 +3,11 @@ package sample;
 import Animations.MoveRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
+import Helpers.ChatsListViewCell;
+import Helpers.MenuListViewCell;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
+import Models.Chat;
 import Models.Order;
 import Models.User;
 import javafx.animation.FadeTransition;
@@ -20,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
 
@@ -39,16 +43,17 @@ public class ControllerLoggedSecondStyle {
             lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
 
     @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot,
-            menuContent, orderInfo, userInfoLabels, userInfoFields, orderView, chatView;
+            menuContent, orderInfo, userInfoLabels, userInfoFields, orderView, chatView, userChatsClip;
 
     @FXML TextField firstNameField, lastNameField, countryField, ageField;
     @FXML VBox dishesContainer;
     @FXML Button menuButton, editButton;
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
     @FXML ListView<String> ordersList;
+    @FXML ListView<Chat> userChats;
     @FXML ImageView profileImage;
 
-    private Image userProfileImage;
+    public static Image userProfileImage;
     private AnchorPane currentView;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -62,6 +67,8 @@ public class ControllerLoggedSecondStyle {
 
     @FXML
     public void initialize() {
+
+        userChats.setCellFactory(menuCell -> new ChatsListViewCell());
 
         ordersList.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             String menuItem = ordersList.getSelectionModel().getSelectedItem();
@@ -78,19 +85,16 @@ public class ControllerLoggedSecondStyle {
 
         menuRoot.getChildren().remove(menuContent);
 
-        Circle clip = new Circle(0, 0, 30.8);
-        clip.setLayoutX(30.8);
-        clip.setLayoutY(30.8);
+        Circle clip = new Circle(30.8, 30.8, 30.8);
         profileImageClip.setClip(clip);
+
+        Rectangle rectangle = new Rectangle(211, 421);
+        userChatsClip.setClip(rectangle);
     }
 
 
     @FXML
     public void showChatView(){
-        DialogPane dialog = LoggedSecondStyle.alert.getDialogPane();
-        dialog.setHeaderText("HEY");
-        dialog.setContentText(" ");
-        LoggedSecondStyle.alert.showAndWait();
         displayView(chatView);
     }
     @FXML
@@ -213,6 +217,9 @@ public class ControllerLoggedSecondStyle {
     }
     public void displayUserInfo() throws Exception{
         loggedUser = loggedUserProperty.getValue();
+
+        ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
+        userChats.setItems(chats);
 
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
 
