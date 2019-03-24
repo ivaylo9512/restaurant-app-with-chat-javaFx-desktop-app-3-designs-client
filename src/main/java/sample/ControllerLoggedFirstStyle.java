@@ -1,9 +1,6 @@
 package sample;
 
-import Animations.ExpandOrderPane;
-import Animations.MoveRoot;
-import Animations.TransitionResizeHeight;
-import Animations.ResizeMainChat;
+import Animations.*;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
 import Helpers.Scrolls;
@@ -558,7 +555,7 @@ public class ControllerLoggedFirstStyle {
         int timeToElapse = 10;
 
         List<Node> messageBlocks = chatBlock.getChildren();
-        if (messageBlocks.size() > 0 && messageBlocks.get(messageBlocks.size() - 1).getTypeSelector().equals("VBox")) {
+        if (messageBlocks.size() > 0 && messageBlocks.get(messageBlocks.size() - 1) instanceof VBox) {
             VBox lastBlock = (VBox) messageBlocks.get(messageBlocks.size() - 1);
             HBox lastMessage = (HBox) lastBlock.getChildren().get(lastBlock.getChildren().size() - 1);
             LocalTime lastBlockStartedDate;
@@ -787,6 +784,7 @@ public class ControllerLoggedFirstStyle {
         ordersPane.setDisable(false);
         ordersPane.setOpacity(1);
 
+        ResizeRoot.resize = true;
         userInfoScroll.setContent(userInfo);
         resetUserFields();
 
@@ -972,7 +970,7 @@ public class ControllerLoggedFirstStyle {
     @FXML
     public void expandOrder(MouseEvent event) {
         Node intersectedNode = event.getPickResult().getIntersectedNode();
-        if (!ExpandOrderPane.action && (intersectedNode.getTypeSelector().equals("Button")
+        if (!ExpandOrderPane.action && (intersectedNode instanceof Button
                 || (!intersectedNode.getTypeSelector().equals("ScrollPaneSkin$6") && intersectedNode.getStyleClass().get(0).equals("order")))) {
 
             ExpandOrderPane.setCurrentOrder(event);

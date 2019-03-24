@@ -24,12 +24,25 @@ ScrollPane{
 ScrollPane > .viewport{
     -fx-background-color: transparent;
 }
+.list-view .scroll-bar:vertical .increment-arrow,
+.list-view .scroll-bar:vertical .decrement-arrow,
+.list-view .scroll-bar:vertical .increment-button,
+.list-view .scroll-bar:vertical .decrement-button{
+    -fx-padding: 0px;
+}
+.list-view{
+    -fx-background-color: transparent;
+}
+.list-view .scroll-bar:vertical{
+    -fx-scale-x: 0;
+}
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 15, 0.0 , 0 , 2 );
 }
 .shadow2{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
 }
+
 .dishes-container ScrollBar .thumb{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 2 );
     -fx-background-color:  #1a1a1a;
@@ -56,24 +69,6 @@ ScrollPane > .viewport{
     -fx-pref-width: 34px;
     -fx-alignment: center;
     -fx-text-fill: #bcbcbc;
-}
-.order-list .scroll-bar:vertical .increment-arrow,
-.order-list .scroll-bar:vertical .decrement-arrow,
-.order-list .scroll-bar:vertical .increment-button,
-.order-list .scroll-bar:vertical .decrement-button,
-.chats-list .scroll-bar:vertical .increment-arrow,
-.chats-list .scroll-bar:vertical .decrement-arrow,
-.chats-list .scroll-bar:vertical .increment-button,
-.chats-list .scroll-bar:vertical .decrement-button{
-    -fx-padding: 0px;
-}
-.order-list,
-.chats-list{
-    -fx-background-color: transparent;
-}
-.order-list .scroll-bar:vertical,
-.chats-list .scroll-bar:vertical{
-    -fx-scale-x: 0;
 }
 .order-list .list-cell{
     -fx-pref-height: 24px;
@@ -104,7 +99,7 @@ ScrollPane > .viewport{
 
 }
 .chats-list GridPane:hover{
-    -fx-background-color: rgb(255, 255, 255, 0.3);
+    -fx-background-color: rgb(252,57,3,0.1);
 }
 .chats-list GridPane > Pane{
     -fx-background-color: #FC3903;
@@ -121,17 +116,13 @@ ScrollPane > .viewport{
 .chats-list .list-cell:selected GridPane > Pane{
     -fx-background-color: white;
 }
-.chats-list .list-cell .name{
-    -fx-text-fill: white;
-}
-.chats-list .list-cell .lastMessage{
-    -fx-text-fill: #9d9a9a;
-}
+
 .chats-list .list-cell:selected .name{
     -fx-text-fill: white;
 }
 .chats-list .list-cell:selected .lastMessage{
-    -fx-text-fill: #5d5d5d;
+    -fx-pref-height: 0;
+    -fx-text-fill: white;
 }
 /*.orders-scroll ScrollBar .thumb{
     -fx-background-color:  transparent;
@@ -174,6 +165,29 @@ ScrollPane > .viewport{
 .profile-view Label{
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
+}
+.notifications-view{
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-background-color: #1a1a1a;
+}
+.notifications-view-clip{
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+.notifications-list .list-view{
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+.notifications-list .list-cell{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
+    -fx-background-color: #1a1a1a;
+    -fx-pref-height: 50px;
+    -fx-alignment: center;
+    -fx-text-fill: #bcbcbc;
+}
+.notifications-list .list-cell:hover{
+    -fx-background-color:  #FC3903;
 }
 .alert-box{
     -fx-background-color: #1a1a1a;

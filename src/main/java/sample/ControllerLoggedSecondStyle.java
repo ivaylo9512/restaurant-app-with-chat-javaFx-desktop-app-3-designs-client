@@ -1,27 +1,29 @@
 package sample;
 
 import Animations.MoveRoot;
+import Animations.ResizeRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
 import Helpers.ChatsListViewCell;
-import Helpers.MenuListViewCell;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
 import Models.Chat;
 import Models.Order;
 import Models.User;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -42,28 +44,27 @@ public class ControllerLoggedSecondStyle {
             createdDateLabel, createdTimeLabel, roleField, usernameField, firstNameLabel,
             lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
 
-    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot,
+    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot, profileView,notificationsView,
             menuContent, orderInfo, userInfoLabels, userInfoFields, orderView, chatView, userChatsClip;
 
     @FXML TextField firstNameField, lastNameField, countryField, ageField;
     @FXML VBox dishesContainer;
     @FXML Button menuButton, editButton;
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
-    @FXML ListView<String> ordersList;
+    @FXML ListView<String> ordersList, notificationsList;
     @FXML ListView<Chat> userChats;
     @FXML ImageView profileImage;
 
     public static Image userProfileImage;
-    private AnchorPane currentView;
+    private AnchorPane currentView, currentMenuView;
 
+    private MediaPlayer notificationSound;
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     private User loggedUser;
     public static MessageService messageService;
     public static OrderService orderService;
-
-
 
     @FXML
     public void initialize() {
@@ -82,14 +83,31 @@ public class ControllerLoggedSecondStyle {
 
         MoveRoot.move(menuButton, menuRoot);
         MoveRoot.move(contentBar, contentRoot);
+        ResizeRoot.addListeners(contentRoot);
 
-        menuRoot.getChildren().remove(menuContent);
+        menuContent.getChildren().remove(profileView);
+
+        Media sound = new Media(getClass()
+                .getResource("/notification.mp3")
+                .toExternalForm());
+        notificationSound = new MediaPlayer(sound);
+        notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
         Circle clip = new Circle(30.8, 30.8, 30.8);
         profileImageClip.setClip(clip);
 
-        Rectangle rectangle = new Rectangle(211, 421);
-        userChatsClip.setClip(rectangle);
+        Rectangle chatsClip = new Rectangle(211, 421);
+        userChatsClip.setClip(chatsClip);
+
+        Rectangle notificationClip = new Rectangle();
+        notificationClip.setArcHeight(25);
+        notificationClip.setArcWidth(25);
+        notificationClip.heightProperty().bind(notificationsView.heightProperty());
+        notificationClip.widthProperty().bind(notificationsView.widthProperty());
+
+        notificationClip.getStyleClass().add("notifications-view-clip");
+        notificationsView.setClip(notificationClip);
+
     }
 
 
@@ -158,24 +176,32 @@ public class ControllerLoggedSecondStyle {
                         Label ready = (Label) dishesContainer.lookup("#dish" + dish.getId());
 
                         if (ready.getText().equals("X") && dish.getReady()) {
-//                        addNotification(dish.getName() + " from order " + orderId + " is ready.");
+                        addNotification(dish.getName() + " from order " + orderId + " is ready.");
                             ready.setText("O");
                         }
                     }
                 });
 
                 if (order.isReady()) {
-//                    addNotification("Order " + orderId + " is ready.");
+                    addNotification("Order " + orderId + " is ready.");
                 }
 
             } else {
                 ordersList.getItems().add(0, "Order " + orderId);
                 if(order.getUserId() != loggedUser.getId()){
-//                    addNotification("New order created " + orderId);
+                    addNotification("New order created " + orderId);
                 }
             }
             loggedUser.getOrders().put(orderId, order);
         });
+    }
+
+    private void addNotification(String notification) {
+        notificationsList.getItems().add(0, notification);
+    }
+    @FXML
+    public void removeNotification(){
+        notificationsList.getItems().remove(notificationsList.getFocusModel().getFocusedItem());
     }
     private void serviceFailed(Service service){
 
@@ -201,7 +227,6 @@ public class ControllerLoggedSecondStyle {
         dialog.setContentText(message);
         LoginFirstStyle.alert.showAndWait();
     }
-
     @FXML public void expandMenu(){
         if(menuButtonsContainer.getChildren().size() == 1){
             menuButtonsContainer.getChildren().add(0, menuButtons);
@@ -214,6 +239,14 @@ public class ControllerLoggedSecondStyle {
         TransitionResizeWidth reverse = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
         reverse.play();
         menuButtonsContainer.getChildren().remove(menuButtons);
+    }
+    public void expandMenuContent(){
+        TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
+        expand.play();
+    }
+    public void reverseMenuContent(){
+        TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
+        reverse.play();
     }
     public void displayUserInfo() throws Exception{
         loggedUser = loggedUserProperty.getValue();
@@ -242,9 +275,10 @@ public class ControllerLoggedSecondStyle {
         userProfileImage = null;
         loggedUser = null;
 
+        notificationsList.getItems().clear();
+        userChats.getItems().clear();
+
         resetUserFields();
-
-
     }
     @FXML
     public void logOut(){
@@ -321,11 +355,11 @@ public class ControllerLoggedSecondStyle {
     @FXML
     public void showProfile(){
         if(menuContent.isDisabled()) {
-            menuRoot.getChildren().add(menuContent);
-            menuContent.setDisable(false);
+            expandMenuContent();
+            currentMenuView = profileView;
 
-            TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
-            expand.play();
+            menuContent.getChildren().add(profileView);
+            menuContent.setDisable(false);
 
             FadeTransition fadeIn = new FadeTransition(Duration.millis(600), profileImageContainer);
             fadeIn.setFromValue(0);
@@ -333,20 +367,57 @@ public class ControllerLoggedSecondStyle {
             fadeIn.setDelay(Duration.millis(300));
             fadeIn.play();
 
+        }else if(!currentMenuView.equals(profileView) && menuContent.getPrefHeight() == menuContent.getMaxHeight()){
+            currentMenuView.setOpacity(0);
+            currentMenuView.setDisable(true);
+            currentMenuView = profileView;
+
+            profileImageContainer.setOpacity(1);
+            menuContent.getChildren().add(profileView);
+
         }else if(menuContent.getPrefHeight() == menuContent.getMaxHeight()){
-            TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
-            reverse.play();
-            profileImageContainer.setOpacity(0);
+            reverseMenuContent();
+
             FadeTransition fadeOut = new FadeTransition(Duration.millis(600), profileImageContainer);
             fadeOut.setFromValue(1);
             fadeOut.setToValue(0);
             fadeOut.play();
             Timeline removeView = new Timeline(new KeyFrame(Duration.millis(800), event -> {
                 menuContent.setDisable(true);
-                menuRoot.getChildren().remove(menuContent);
+                menuContent.getChildren().remove(profileView);
+                currentMenuView = null;
             }));
             removeView.play();
         }
+    }
+    @FXML
+    public void showNotification(){
+        if(menuContent.isDisabled()) {
+            expandMenuContent();
+
+            currentMenuView = notificationsView;
+            currentMenuView.setOpacity(1);
+            currentMenuView.setDisable(false);
+            menuContent.setDisable(false);
+        }else if(!currentMenuView.equals(notificationsView) && menuContent.getPrefHeight() == menuContent.getMaxHeight()){
+            menuContent.getChildren().remove(currentMenuView);
+            profileImageContainer.setOpacity(0);
+
+            currentMenuView = notificationsView;
+            currentMenuView.setDisable(false);
+            currentMenuView.setOpacity(1);
+        }else if(menuContent.getPrefHeight() == menuContent.getMaxHeight()){
+            reverseMenuContent();
+
+            Timeline removeView = new Timeline(new KeyFrame(Duration.millis(800), event -> {
+                menuContent.setDisable(true);
+                currentMenuView.setDisable(true);
+                currentMenuView.setOpacity(0);
+                currentMenuView = null;
+            }));
+            removeView.play();
+        }
+
     }
     private void displayUserFields() {
         usernameLabel.setText(loggedUser.getUsername());
@@ -407,6 +478,11 @@ public class ControllerLoggedSecondStyle {
 
     private void showOrder(Order order){
 
+        if(!currentView.equals(orderView)){
+            currentView.setOpacity(0);
+            currentView.setDisable(true);
+            currentView = orderView;
+        }
         orderIdLabel.setText(String.valueOf(order.getId()));
         dishesCountLabel.setText("Dishes " + order.getDishes().size());
 
