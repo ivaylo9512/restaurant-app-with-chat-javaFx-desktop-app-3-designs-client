@@ -216,7 +216,7 @@
                      <children>
                         <HBox layoutX="13.0" layoutY="6.5" spacing="9.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="10.0">
                            <children>
-                              <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" styleClass="new-order" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS">
+                              <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ListView fx:id="menu" layoutY="46.0" onMouseClicked="#addMenuItems" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                        <effect>
@@ -244,7 +244,7 @@
                                     <Insets top="90.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" styleClass="new-order" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="9.5" HBox.hgrow="ALWAYS">
+                              <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="9.5" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ListView fx:id="newOrderMenu" layoutY="46.0" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <effect>

@@ -41,20 +41,20 @@ ScrollPane{
 ScrollPane > .viewport{
     -fx-background-color: transparent;
 }
-.alertBox{
+.alert-box{
     -fx-background-color: #2A2E37;
     -fx-border-width:1.5px;
     -fx-border-color: black;
 }
-.alertBox > *.button-bar > *.container{
+.alert-box > *.button-bar > *.container{
     -fx-background-color: #2A2E37;
     -fx-pref-height: 50
 }
 
-.alertBox:header *.header-panel{
+.alert-box:header *.header-panel{
     -fx-background-color: #2A2E37;
 }
-.alertBox:header *.header-panel *.label{
+.alert-box:header *.header-panel *.label{
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-pref-height: 25;
@@ -63,7 +63,7 @@ ScrollPane > .viewport{
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
 }
-.alertBox > *.label.content{
+.alert-box > *.label.content{
     -fx-font-size: 12px;
     -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
@@ -74,7 +74,7 @@ ScrollPane > .viewport{
     -fx-border-width: 1 0 1 0;
     -fx-border-color: black;
 }
-.alertBox Button{
+.alert-box Button{
     -fx-text-fill: #bcbcbc;
 }
 .btn{

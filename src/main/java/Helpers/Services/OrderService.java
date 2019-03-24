@@ -14,15 +14,16 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static Helpers.ServerRequests.*;
-import static sample.ControllerLoggedFirstStyle.*;
 import static Helpers.ServerRequests.userPreference;
 
 public class OrderService extends Service {
 
+    public static LocalDateTime mostRecentOrderDate;
     @Override
     protected Task createTask() {
         return new Task<List<Order>>() {

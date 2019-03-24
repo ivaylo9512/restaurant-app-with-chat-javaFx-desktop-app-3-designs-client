@@ -14,9 +14,9 @@
    <children>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="683.0" styleClass="order-view">
          <children>
-            <AnchorPane fx:id="contentRoot" disable="true" opacity="0.0" layoutY="25.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="683.0">
+            <AnchorPane fx:id="contentRoot" disable="true" layoutY="25.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="478.0" prefWidth="683.0">
                <children>
-                  <AnchorPane fx:id="orderView" disable="true" opacity="0.0" layoutY="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="orderView" disable="true" layoutY="25.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="221.0" layoutY="9.0" prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.topAnchor="0.0">
                            <effect>
@@ -39,12 +39,12 @@
                                  <children>
                                     <AnchorPane layoutX="294.0" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
                                        <children>
-                                          <Label fx:id="orderId" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" text="9 dishes" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label fx:id="orderIdLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <font>
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="dishesCount" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" text="7" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label fx:id="dishesCountLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <font>
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
@@ -58,7 +58,7 @@
                                     </AnchorPane>
                                     <AnchorPane prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
                                        <children>
-                                          <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" text="4:06" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label fx:id="createdTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <effect>
                                                 <DropShadow />
                                              </effect>
@@ -66,7 +66,7 @@
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="createdDate" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" text="18/29/2019" textFill="#bcbcbc">
+                                          <Label fx:id="createdDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
                                              <effect>
                                                 <DropShadow />
                                              </effect>
@@ -83,7 +83,7 @@
                                     </AnchorPane>
                                     <AnchorPane layoutX="147.0" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
                                        <children>
-                                          <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" text="4:06" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label fx:id="updatedTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <effect>
                                                 <DropShadow />
                                              </effect>
@@ -91,7 +91,7 @@
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="updatedDate" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" text="18/29/2019" textFill="#bcbcbc">
+                                          <Label fx:id="updatedDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
                                              <effect>
                                                 <DropShadow />
                                              </effect>
@@ -127,54 +127,14 @@
                            <children>
                               <AnchorPane layoutX="38.0" minWidth="-Infinity" prefHeight="666.0" prefWidth="212.0" style="-fx-background-color: #1a1a1a; -fx-border-width: 0 0.3 0 0; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Pane layoutX="114.0" layoutY="68.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #FC3903; -fx-border-color: #FC3903; -fx-border-width: 2px;">
-                                       <effect>
-                                          <InnerShadow>
-                                             <input>
-                                                <DropShadow />
-                                             </input>
-                                          </InnerShadow>
-                                       </effect>
-                                    </Pane>
-                                    <Pane layoutX="80.0" layoutY="138.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #FC3903; -fx-border-color: #FC3903; -fx-border-width: 2px;">
-                                       <effect>
-                                          <InnerShadow>
-                                             <input>
-                                                <DropShadow />
-                                             </input>
-                                          </InnerShadow>
-                                       </effect>
-                                    </Pane>
-                                    <Pane layoutX="117.0" layoutY="206.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #FC3903; -fx-border-color: #FC3903; -fx-border-width: 2px;">
-                                       <effect>
-                                          <InnerShadow>
-                                             <input>
-                                                <DropShadow />
-                                             </input>
-                                          </InnerShadow>
-                                       </effect>
-                                    </Pane>
-                                    <Pane layoutX="85.0" layoutY="281.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #FC3903; -fx-border-color: #FC3903; -fx-border-width: 2px;">
-                                       <effect>
-                                          <InnerShadow>
-                                             <input>
-                                                <DropShadow />
-                                             </input>
-                                          </InnerShadow>
-                                       </effect>
-                                    </Pane>
-                                    <ScrollPane focusTraversable="false" hbarPolicy="NEVER" layoutX="-1.0" layoutY="57.0" prefHeight="592.0" prefWidth="214.0" styleClass="orders-scroll" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="57.0">
-                                       <content>
-                                          <VBox fx:id="orderContainer" prefHeight="200.0" prefWidth="223.0" styleClass="order-container" />
-                                       </content>
-                                    </ScrollPane>
+                                    <ListView fx:id="ordersList" layoutY="57.0" prefHeight="404.0" prefWidth="212.0" styleClass="order-list" />
                                  </children>
                               </AnchorPane>
                            </children>
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="chatView" disable="true" opacity="0.0" layoutX="1.0" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="chatView" disable="true" layoutX="1.0" layoutY="1.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="221.0" layoutY="9.0" prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.topAnchor="0.0">
                            <effect>
@@ -191,9 +151,9 @@
                                              <children>
                                                 <HBox prefHeight="40.0" prefWidth="309.0">
                                                    <children>
-                                                      <Pane fx:id="profileImageContainer1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
+                                                      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #FC3903; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
                                                          <children>
-                                                            <Pane fx:id="profileImageClip1" prefHeight="46.0" prefWidth="46.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
+                                                            <Pane prefHeight="46.0" prefWidth="46.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
                                                                <children>
                                                                   <ImageView fx:id="profileImage1" fitHeight="38.5" fitWidth="38.5" layoutX="5.0" layoutY="7.3">
                                                                      <image>
@@ -475,48 +435,14 @@
             </AnchorPane>
             <AnchorPane fx:id="menuRoot" layoutX="90.0" layoutY="-13.0" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" prefHeight="21.0" prefWidth="518.0">
                <children>
-                  <AnchorPane fx:id="profileView" disable="true" layoutY="44.0" maxHeight="210.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="518.0" style="-fx-border-color: #1a1a1a; -fx-border-radius: 15; -fx-border-width: 1;" styleClass="shadow">
+                  <AnchorPane fx:id="menuContent" disable="true" layoutY="44.0" maxHeight="255.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="518.0" style="-fx-border-color: #1a1a1a; -fx-border-radius: 15; -fx-border-width: 1;" styleClass="shadow">
                      <children>
-                        <AnchorPane layoutX="3.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="398.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #1a1a1a;" styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="profileView" layoutX="3.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="398.0" styleClass="profile-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <effect>
                               <InnerShadow />
                            </effect>
                            <children>
-                              <AnchorPane fx:id="userInfoLabels" layoutX="105.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <Label fx:id="roleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Server" textFill="#bcbcbc" AnchorPane.bottomAnchor="86.0" AnchorPane.topAnchor="66.0">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                    </Label>
-                                    <Label fx:id="ageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="27" textFill="#bcbcbc" AnchorPane.bottomAnchor="86.0" AnchorPane.topAnchor="66.0">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                    </Label>
-                                    <Label fx:id="countryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Bulgaria" textFill="#bcbcbc" AnchorPane.bottomAnchor="86.0" AnchorPane.topAnchor="66.0">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                    </Label>
-                                    <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" prefHeight="51.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Merian" textFill="#bcbcbc" AnchorPane.bottomAnchor="139.0" AnchorPane.topAnchor="13.0">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                    </Label>
-                                    <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="meri93" textFill="#bcbcbc" AnchorPane.bottomAnchor="139.0" AnchorPane.topAnchor="13.0">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                    </Label>
-                                    <Label fx:id="lastNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Dimitrova" textFill="#bcbcbc" AnchorPane.bottomAnchor="139.0" AnchorPane.topAnchor="13.0">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                              <Pane fx:id="profileImageContainer" layoutX="26.0" layoutY="12.0" opacity="0.0" prefHeight="61.0" prefWidth="61.0" style="-fx-background-color: white; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
+                              <Pane fx:id="profileImageContainer" layoutX="24.0" layoutY="14.0" opacity="0.0" prefHeight="61.0" prefWidth="61.0" style="-fx-background-color: white; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
                                  <children>
                                     <Pane fx:id="profileImageClip" prefHeight="61.0" prefWidth="61.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
                                        <children>
@@ -529,63 +455,85 @@
                                     </Pane>
                                  </children>
                               </Pane>
-                              <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editUserInfo" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Edit" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="115.0">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Style 2" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="30.0" AnchorPane.topAnchor="145.0">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Style 3" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="125.0">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="97.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Log out" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="171.0">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="83.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Change" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="94.0" AnchorPane.topAnchor="81.0">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </Button>
-                              <AnchorPane fx:id="userInfoFields" disable="true" layoutX="105.0" layoutY="20.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane fx:id="userInfoLabels" layoutX="103.0" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <TextField fx:id="firstNameField" alignment="CENTER" layoutX="7.0" prefHeight="39.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.bottomAnchor="99.0" AnchorPane.topAnchor="13.0">
+                                    <Label fx:id="roleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
+                                    <Label fx:id="ageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" prefHeight="27.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
+                                    <Label fx:id="countryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" prefHeight="27.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
+                                    <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" prefHeight="51.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
+                                    <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
+                                    <Label fx:id="lastNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" prefHeight="27.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="userInfoFields" disable="true" layoutX="103.0" layoutY="6.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <TextField fx:id="firstNameField" alignment="CENTER" layoutX="7.0" prefHeight="56.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0">
                                        <effect>
                                           <InnerShadow />
                                        </effect>
                                     </TextField>
-                                    <TextField fx:id="lastNameField" alignment="CENTER" layoutX="137.0" prefHeight="39.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.bottomAnchor="99.0" AnchorPane.topAnchor="13.0">
+                                    <TextField fx:id="lastNameField" alignment="CENTER" layoutX="137.0" prefHeight="56.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0">
                                        <effect>
                                           <InnerShadow />
                                        </effect>
                                     </TextField>
-                                    <Label fx:id="roleField" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="Server" textFill="#bcbcbc" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="66.0">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                    </Label>
-                                    <Label fx:id="usernameField" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="27.0" prefWidth="115.0" style="-fx-background-color: #1a1a1a;" text="meri93" textFill="#bcbcbc" AnchorPane.bottomAnchor="99.0" AnchorPane.topAnchor="13.0">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                    </Label>
-                                    <TextField fx:id="ageField" alignment="CENTER" layoutX="137.0" prefHeight="39.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="66.0">
+                                    <Label fx:id="roleField" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="56.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
+                                    <Label fx:id="usernameField" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" prefHeight="56.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
+                                    <TextField fx:id="ageField" alignment="CENTER" layoutX="137.0" prefHeight="56.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0">
                                        <effect>
                                           <InnerShadow />
                                        </effect>
                                     </TextField>
-                                    <TextField fx:id="countryField" alignment="CENTER" layoutX="7.0" prefHeight="39.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.bottomAnchor="46.0" AnchorPane.topAnchor="66.0">
+                                    <TextField fx:id="countryField" alignment="CENTER" layoutX="7.0" prefHeight="56.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0">
                                        <effect>
                                           <InnerShadow />
                                        </effect>
                                     </TextField>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="12.0" layoutY="115.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="104.0" AnchorPane.topAnchor="114.0">
+                                 <children>
+                                    <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editUserInfo" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Edit" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="12.0" layoutY="145.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="71.0" AnchorPane.topAnchor="147.0">
+                                 <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Style 1" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="12.0" layoutY="125.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="38.0" AnchorPane.topAnchor="180.0">
+                                 <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Style 3" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="12.0" layoutY="81.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="137.0" AnchorPane.topAnchor="81.0">
+                                 <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Change" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="12.0" layoutY="171.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="213.0">
+                                 <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logOut" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Log out" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -608,12 +556,12 @@
                                           <Font size="12.0" />
                                        </font>
                                     </Button>
-                                    <Button onMouseClicked="#showOrderView" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="-1.0">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrderView" onMouseEntered="#focus" onMouseExited="#unFocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="-1.0">
                                        <font>
                                           <Font size="12.0" />
                                        </font>
                                     </Button>
-                                    <Button onMouseClicked="#showChatView" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="370.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Chats" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="-1.0">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="370.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showChatView" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Chats" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="-1.0">
                                        <font>
                                           <Font size="12.0" />
                                        </font>

@@ -45,10 +45,9 @@ public class ServerRequests {
     static {
         mapper.registerModule(new JavaTimeModule());
 
-        loggedUserProperty.addListener((observable, oldValue, newValue) ->{
-            User user = newValue;
-            user.getRestaurant().getOrders()
-                    .forEach(order -> user.getOrders().put(order.getId(), order));
+        loggedUserProperty.addListener((observable, oldUser, newUser) ->{
+            newUser.getRestaurant().getOrders()
+                    .forEach(order -> newUser.getOrders().put(order.getId(), order));
         });
     }
 

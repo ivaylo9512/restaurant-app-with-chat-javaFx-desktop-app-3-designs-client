@@ -45,7 +45,7 @@ public class LoginFirstStyle extends Application {
         alert.initStyle(StageStyle.TRANSPARENT);
         DialogPane dialog = alert.getDialogPane();
         dialog.setGraphic(null);
-        dialog.getStyleClass().add("alertBox");
+        dialog.getStyleClass().add("alert-box");
     }
 
 }

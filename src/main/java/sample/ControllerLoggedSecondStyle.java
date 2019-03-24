@@ -3,15 +3,18 @@ package sample;
 import Animations.MoveRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
+import Helpers.Services.MessageService;
+import Helpers.Services.OrderService;
 import Models.Order;
 import Models.User;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -25,46 +28,69 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static Helpers.ServerRequests.*;
+import static Helpers.Services.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedSecondStyle {
-    @FXML Label dishesCount, orderId, updatedDate, updatedTime, createdDate, createdTime, roleField, usernameField;
-    @FXML Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
-    @FXML TextField firstNameField, lastNameField, countryField, ageField;
-    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot,
-    profileView, orderInfo, userInfoLabels, userInfoFields, orderView, chatView;
-    @FXML VBox orderContainer, dishesContainer;
-    @FXML Button menuButton, editButton;
-    @FXML Pane profileImageContainer, profileImageClip,profileImageClip1, contentBar;
+    @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,
+            createdDateLabel, createdTimeLabel, roleField, usernameField, firstNameLabel,
+            lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
 
+    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot,
+            menuContent, orderInfo, userInfoLabels, userInfoFields, orderView, chatView;
+
+    @FXML TextField firstNameField, lastNameField, countryField, ageField;
+    @FXML VBox dishesContainer;
+    @FXML Button menuButton, editButton;
+    @FXML Pane profileImageContainer, profileImageClip, contentBar;
+    @FXML ListView<String> ordersList;
     @FXML ImageView profileImage;
 
-    private Button displayedOrder;
     private Image userProfileImage;
     private AnchorPane currentView;
 
-    private User loggedUser;
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
+    private User loggedUser;
+    public static MessageService messageService;
+    public static OrderService orderService;
+
+
 
     @FXML
-    public void initialize() throws Exception{
+    public void initialize() {
+
+        ordersList.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            String menuItem = ordersList.getSelectionModel().getSelectedItem();
+            int orderId = Integer.valueOf(menuItem.substring(6));
+            Order selectedOrder = loggedUser.getOrders().get(orderId);
+
+            showOrder(selectedOrder);
+        });
+
+        waitForNewOrders();
 
         MoveRoot.move(menuButton, menuRoot);
         MoveRoot.move(contentBar, contentRoot);
 
-        menuRoot.getChildren().remove(profileView);
+        menuRoot.getChildren().remove(menuContent);
 
         Circle clip = new Circle(0, 0, 30.8);
         clip.setLayoutX(30.8);
         clip.setLayoutY(30.8);
+        profileImageClip.setClip(clip);
     }
 
 
     @FXML
     public void showChatView(){
+        DialogPane dialog = LoggedSecondStyle.alert.getDialogPane();
+        dialog.setHeaderText("HEY");
+        dialog.setContentText(" ");
+        LoggedSecondStyle.alert.showAndWait();
         displayView(chatView);
     }
     @FXML
@@ -95,6 +121,83 @@ public class ControllerLoggedSecondStyle {
             currentView = requestedView;
         }
     }
+    private void waitForNewOrders() {
+        orderService = new OrderService();
+        orderService.setOnSucceeded(event -> {
+            List<Order> newOrders = (List<Order>) orderService.getValue();
+
+            if (newOrders.size() > 0) {
+                Order mostRecentNewOrder = newOrders.get(0);
+                if (mostRecentNewOrder.getCreated().isAfter(mostRecentNewOrder.getUpdated())) {
+                    mostRecentOrderDate = mostRecentNewOrder.getCreated();
+                } else {
+                    mostRecentOrderDate = mostRecentNewOrder.getUpdated();
+                }
+            }
+
+            updateNewOrders(newOrders);
+            orderService.restart();
+        });
+
+        orderService.setOnFailed(event -> serviceFailed(orderService));
+    }
+
+    private void updateNewOrders(List<Order> newOrders) {
+        newOrders.forEach(order -> {
+            int orderId = order.getId();
+            Order orderValue = loggedUser.getOrders().get(orderId);
+
+            if (orderValue != null) {
+                order.getDishes().forEach(dish -> {
+
+                    if(orderIdLabel.getText().equals(String.valueOf(orderId))) {
+                        Label ready = (Label) dishesContainer.lookup("#dish" + dish.getId());
+
+                        if (ready.getText().equals("X") && dish.getReady()) {
+//                        addNotification(dish.getName() + " from order " + orderId + " is ready.");
+                            ready.setText("O");
+                        }
+                    }
+                });
+
+                if (order.isReady()) {
+//                    addNotification("Order " + orderId + " is ready.");
+                }
+
+            } else {
+                ordersList.getItems().add(0, "Order " + orderId);
+                if(order.getUserId() != loggedUser.getId()){
+//                    addNotification("New order created " + orderId);
+                }
+            }
+            loggedUser.getOrders().put(orderId, order);
+        });
+    }
+    private void serviceFailed(Service service){
+
+        if(service.getException() != null) {
+            if (service.getException().getMessage().equals("Jwt token has expired.")) {
+                logOut();
+                messageService.reset();
+                orderService.reset();
+                showLoginStageAlert("Session has expired.");
+
+            } else if(service.getException().getMessage().equals("Socket closed")) {
+                service.reset();
+
+            }else{
+                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> service.restart()));
+                timeline.play();
+            }
+        }
+    }
+
+    private void showLoginStageAlert(String message) {
+        DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
+        dialog.setContentText(message);
+        LoginFirstStyle.alert.showAndWait();
+    }
+
     @FXML public void expandMenu(){
         if(menuButtonsContainer.getChildren().size() == 1){
             menuButtonsContainer.getChildren().add(0, menuButtons);
@@ -111,7 +214,14 @@ public class ControllerLoggedSecondStyle {
     public void displayUserInfo() throws Exception{
         loggedUser = loggedUserProperty.getValue();
 
-        loggedUser.getOrders().forEach((integer, order) -> appendOrder(order));
+        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+
+        ObservableList<String> orders = FXCollections.observableArrayList();
+        loggedUser.getOrders().forEach((integer, order) -> orders.add("Order " + order.getId()));
+        FXCollections.reverse(orders);
+        ordersList.setItems(orders);
+
+        orderService.start();
 
         InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
         userProfileImage = new Image(in);
@@ -120,11 +230,13 @@ public class ControllerLoggedSecondStyle {
         displayUserFields();
     }
     public void resetStage(){
-        orderContainer.getChildren().clear();
+        ordersList.getItems().clear();
+        mostRecentOrderDate = null;
         userProfileImage = null;
+        loggedUser = null;
+
         resetUserFields();
 
-        loggedUser = null;
 
     }
     @FXML
@@ -201,11 +313,11 @@ public class ControllerLoggedSecondStyle {
 
     @FXML
     public void showProfile(){
-        if(profileView.isDisabled()) {
-            menuRoot.getChildren().add(profileView);
-            profileView.setDisable(false);
+        if(menuContent.isDisabled()) {
+            menuRoot.getChildren().add(menuContent);
+            menuContent.setDisable(false);
 
-            TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), profileView, profileView.getMaxHeight());
+            TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
             expand.play();
 
             FadeTransition fadeIn = new FadeTransition(Duration.millis(600), profileImageContainer);
@@ -213,8 +325,9 @@ public class ControllerLoggedSecondStyle {
             fadeIn.setToValue(1);
             fadeIn.setDelay(Duration.millis(300));
             fadeIn.play();
-        }else if(profileView.getHeight() == profileView.getMaxHeight()){
-            TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), profileView, 0);
+
+        }else if(menuContent.getPrefHeight() == menuContent.getMaxHeight()){
+            TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
             reverse.play();
             profileImageContainer.setOpacity(0);
             FadeTransition fadeOut = new FadeTransition(Duration.millis(600), profileImageContainer);
@@ -222,11 +335,10 @@ public class ControllerLoggedSecondStyle {
             fadeOut.setToValue(0);
             fadeOut.play();
             Timeline removeView = new Timeline(new KeyFrame(Duration.millis(800), event -> {
-                profileView.setDisable(true);
-                menuRoot.getChildren().remove(profileView);
+                menuContent.setDisable(true);
+                menuRoot.getChildren().remove(menuContent);
             }));
             removeView.play();
-
         }
     }
     private void displayUserFields() {
@@ -264,6 +376,16 @@ public class ControllerLoggedSecondStyle {
         profileImage.setImage(null);
     }
     @FXML
+    public void profileButtonHoverOver(MouseEvent event){
+        AnchorPane shadowContainer = (AnchorPane) ((Button)event.getSource()).getParent();
+        shadowContainer.getStyleClass().add("profile-button-hovered");
+    }
+    @FXML
+    public void profileButtonHoverOut(MouseEvent event){
+        AnchorPane shadowContainer = (AnchorPane) ((Button)event.getSource()).getParent();
+        shadowContainer.getStyleClass().remove("profile-button-hovered");
+    }
+    @FXML
     public void focus(MouseEvent event){
         Button button = (Button) event.getSource();
         AnchorPane.setTopAnchor(button, -5.5);
@@ -275,31 +397,16 @@ public class ControllerLoggedSecondStyle {
         AnchorPane.setTopAnchor(button, -1.0);
         AnchorPane.setBottomAnchor(button, 0.0);
     }
-    private void appendOrder(Order order){
-        int orderId = order.getId();
 
-        Button orderButton = new Button("Order " + orderId);
-        orderButton.setId(String.valueOf(orderId));
-        orderButton.setOnMouseClicked(e -> showOrder(order, orderButton));
+    private void showOrder(Order order){
 
-        orderContainer.getChildren().add(0, orderButton);
+        orderIdLabel.setText(String.valueOf(order.getId()));
+        dishesCountLabel.setText("Dishes " + order.getDishes().size());
 
-    }
-    private void showOrder(Order order, Button orderButton){
-        if(displayedOrder != null){
-            displayedOrder.getStyleClass().remove("focused");
-        }
-        displayedOrder = orderButton;
-        displayedOrder.getStyleClass().add("focused");
-
-        orderId.setText(String.valueOf(order.getId()));
-        dishesCount.setText(null);
-        dishesCount.setText("Dishes " + order.getDishes().size());
-
-        createdDate.setText(dateFormatter.format(order.getCreated()));
-        createdTime.setText(timeFormatter.format(order.getCreated()));
-        updatedDate.setText(dateFormatter.format(order.getUpdated()));
-        updatedTime.setText(timeFormatter.format(order.getUpdated()));
+        createdDateLabel.setText(dateFormatter.format(order.getCreated()));
+        createdTimeLabel.setText(timeFormatter.format(order.getCreated()));
+        updatedDateLabel.setText(dateFormatter.format(order.getUpdated()));
+        updatedTimeLabel.setText(timeFormatter.format(order.getUpdated()));
 
 
         FadeTransition fadeIn = new FadeTransition(Duration.millis(450), orderInfo);

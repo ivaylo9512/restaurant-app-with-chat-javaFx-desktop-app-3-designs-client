@@ -272,6 +272,13 @@ TextFlow {
     -fx-alignment: center;
     -fx-fill: #bcbcbc;
 }
+.menu-cell{
+
+}
+.price{
+    -fx-pref-Height: 64px;
+    -fx-background-color: transparent;
+}
 .create-order .list-view .scroll-bar:vertical .increment-arrow,
 .create-order .list-view .scroll-bar:vertical .decrement-arrow,
 .create-order .list-view .scroll-bar:vertical .increment-button,
@@ -310,21 +317,21 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
 }
 
-.dialog-pane{
+.alert-box{
     -fx-background-color: #2A2E37;
     -fx-border-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
 
 }
-.alertBox > *.button-bar > *.container{
+.alert-box > *.button-bar > *.container{
     -fx-background-color: #2A2E37;
     -fx-pref-height: 50
 }
 
-.alertBox:header *.header-panel{
+.alert-box:header *.header-panel{
     -fx-background-color: #2A2E37;
 }
-.alertBox:header *.header-panel *.label{
+.alert-box:header *.header-panel *.label{
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-pref-height: 25;
@@ -333,7 +340,7 @@ TextFlow {
     -fx-background-color: transparent;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
 }
-.alertBox > *.label.content{
+.alert-box > *.label.content{
     -fx-font-size: 12px;
     -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
@@ -342,14 +349,14 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
     -fx-background-color: transparent;
 }
-.alertBox Button{
+.alert-box Button{
     -fx-text-fill: #bcbcbc;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 0);
     -fx-background-color: #2A2E37;
 }
-.alertBox Button:hover{
+.alert-box Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0);
 }
-.alertBox Button:pressed{
+.alert-box Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0);
 }

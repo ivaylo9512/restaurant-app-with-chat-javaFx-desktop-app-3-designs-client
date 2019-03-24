@@ -30,37 +30,11 @@ ScrollPane > .viewport{
 .shadow2{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
 }
-
-.orders-scroll .scroll-bar > .increment-button > .increment-arrow,
-.orders-scroll .scroll-bar > .decrement-button > .decrement-arrow {
-    -fx-pref-height:0;
-    -fx-background-color: transparent;
-}
 .dishes-container ScrollBar .thumb{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 2 );
     -fx-background-color:  #1a1a1a;
 }
-.orders-scroll ScrollBar .thumb{
-    -fx-background-color:  transparent;
-}
-.orders-scroll .scroll-pane .content{
-    -fx-background-color: transparent;
-}
-.order-container Button{
-    -fx-pref-width: 225px;
-    -fx-pref-height: 24px;
-    -fx-background-radius: 0px;
-    -fx-border-radius: 0px;
-    -fx-background-color: #1a1a1a;
-    -fx-text-fill: #bcbcbc;
-}
-.order-container Button:hover{
-    -fx-background-color: rgb(252,57,3,0.1);
-}
-.order-container .focused{
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-background-color: rgb(252,57,3,1);
-}
+
 .dishes-container HBox{
     -fx-background-color:  #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1 );
@@ -90,5 +64,112 @@ ScrollPane > .viewport{
 .chats-container HBox:hover{
     -fx-background-color: rgb(255, 255, 255, 0.3);
 }
+.order-list .scroll-bar:vertical .increment-arrow,
+.order-list .scroll-bar:vertical .decrement-arrow,
+.order-list .scroll-bar:vertical .increment-button,
+.order-list .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0px;
+}
+.order-list{
+    -fx-background-color: transparent;
+}
+.order-list .scroll-bar:vertical {
+    -fx-scale-x: 0;
+}
+.order-list .list-cell{
+    -fx-pref-height: 24px;
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #bcbcbc;
+    -fx-alignment: center
+}
+.order-list .list-cell:hover{
+    -fx-background-color: rgb(252,57,3,0.1);
+}
+.order-list .list-cell:selected{
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-color: rgb(252,57,3,1);
+}
+.order-list .list-cell:even {
+    -fx-padding: 0;
+}
+.order-list .list-cell:odd {
+    -fx-padding: 0;
+}
+.orders-scroll ScrollBar .thumb{
+    -fx-background-color:  transparent;
+}
+.orders-scroll .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+.profile-view{
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-background-color: #1a1a1a;
+}
+.profile-view Button {
+    -fx-background-radius: 180px;
+    -fx-border-radius: 180px;
+    -fx-background-color: transparent;
+}
+.profile-button-shadow {
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1 );
+    -fx-background-radius: 180px;
+    -fx-border-radius: 180px;
+    -fx-background-color: #1a1a1a;
 
+}
+.profile-button-hovered{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+.profile-view Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 
+}
+.profile-view Label{
+    -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
+}
+.alert-box{
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
+
+}
+.alert-box > *.button-bar > *.container{
+    -fx-background-color: transparent;
+    -fx-pref-height: 50
+}
+
+.alert-box:header *.header-panel{
+    -fx-background-color: transparent;
+}
+.alert-box:header *.header-panel *.label{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 25;
+    -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
+}
+.alert-box > *.label.content{
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-pref-height: 50;
+    -fx-padding: 0,0,10,0;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
+    -fx-background-color: #FC3903;
+}
+.alert-box Button{
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 0);
+    -fx-background-color: #FC3903;
+}
+.alert-box Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0);
+}
+.alert-box Button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0);
+}

@@ -3,6 +3,8 @@ package sample;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -15,6 +17,7 @@ import java.io.IOException;
 public class LoggedSecondStyle extends LoginFirstStyle{
 
     static Stage stage;
+    static Alert alert;
 
     static void displayLoggedScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -50,5 +53,12 @@ public class LoggedSecondStyle extends LoginFirstStyle{
         AnchorPane contentRoot = (AnchorPane) root.getChildren().get(0);
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
         contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
+
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(stage);
+        alert.initStyle(StageStyle.TRANSPARENT);
+        DialogPane dialog = alert.getDialogPane();
+        dialog.setGraphic(null);
+        dialog.getStyleClass().add("alert-box");
     }
 }

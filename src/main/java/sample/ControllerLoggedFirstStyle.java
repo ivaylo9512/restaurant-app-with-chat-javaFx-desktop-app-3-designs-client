@@ -52,6 +52,7 @@ import java.util.*;
 import java.util.List;
 
 import static Helpers.ServerRequests.*;
+import static Helpers.Services.OrderService.mostRecentOrderDate;
 
 
 public class ControllerLoggedFirstStyle {
@@ -68,7 +69,6 @@ public class ControllerLoggedFirstStyle {
     @FXML TextField menuSearch;
     @FXML ListView<Menu> menu, newOrderMenu;
 
-    public static LocalDateTime mostRecentOrderDate;
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
 
@@ -200,16 +200,15 @@ public class ControllerLoggedFirstStyle {
     }
 
     private void serviceFailed(Service service){
-        System.out.println(service.getException().getMessage());
         if(service.getException() != null) {
             if (service.getException().getMessage().equals("Jwt token has expired.")) {
                 logOut();
+                messageService.reset();
+                orderService.reset();
                 showLoginStageAlert("Session has expired.");
-                System.out.println("hey");
 
             } else if(service.getException().getMessage().equals("Socket closed")) {
                 service.reset();
-                System.out.println("hey1");
 
             }else{
                 Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> service.restart()));
@@ -235,28 +234,31 @@ public class ControllerLoggedFirstStyle {
 
     private void updateNewOrders(List<Order> newOrders) {
         newOrders.forEach(order -> {
-            loggedUser.getOrders().put(order.getId(), order);
+            int orderId = order.getId();
 
-            AnchorPane orderPane = (AnchorPane) contentRoot.lookup("#" + order.getId());
-            if (orderPane != null) {
+            Order orderValue = loggedUser.getOrders().get(orderId);
+            if (orderValue != null) {
                 order.getDishes().forEach(dish -> {
                     Label ready = (Label) contentRoot.lookup("#dish" + dish.getId());
+
                     if (ready.getText().equals("X") && dish.getReady()) {
-                        addNotification(dish.getName() + " from order " + order.getId() + " is ready.");
+                        addNotification(dish.getName() + " from order " + orderId + " is ready.");
                         ready.setText("O");
                     }
                 });
 
                 if (order.isReady()) {
-                    addNotification("Order " + order.getId() + " is ready.");
+                    addNotification("Order " + orderId + " is ready.");
                 }
 
             } else {
                 appendOrder(order);
+
                 if(order.getUserId() != loggedUser.getId()){
-                    addNotification("New order created " + order.getId());
+                    addNotification("New order created " + orderId);
                 }
             }
+            loggedUser.getOrders().put(orderId, order);
         });
     }
 
@@ -766,6 +768,7 @@ public class ControllerLoggedFirstStyle {
         menuSearch.setText("");
         mainChatTextArea.setText(null);
         profileImage.setImage(null);
+        mostRecentOrderDate = null;
         userProfileImage = null;
         mainChatValue = null;
         loggedUser = null;
@@ -793,7 +796,6 @@ public class ControllerLoggedFirstStyle {
             ExpandOrderPane.action = false;
             ExpandOrderPane.dishesAnchor.setDisable(true);
         }
-
         chatsMap = new HashMap<>();
         menuMap = new TreeMap<>();
     }
@@ -826,6 +828,7 @@ public class ControllerLoggedFirstStyle {
             try {
                 LoggedSecondStyle.displayLoggedScene();
             } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
 
