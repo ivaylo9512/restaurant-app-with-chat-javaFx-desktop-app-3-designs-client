@@ -290,15 +290,14 @@ TextFlow {
     -fx-scale-x: 0;
 }
 
-.create-order ListView .list-cell:even {
+.create-order ListView .list-cell{
     -fx-padding: 0;
    -fx-background-color: transparent;
 }
-.create-order ListView  .list-cell:odd {
-    -fx-padding: 0;
-    -fx-background-color: transparent;
-}
 
+.menu-cell{
+    -fx-background-color: #363b41;
+}
 
 .create-button{
     -fx-background-color: #363b41;

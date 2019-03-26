@@ -5,18 +5,16 @@ import Animations.ResizeRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
 import Helpers.ChatsListViewCell;
+import Helpers.MenuListViewCell;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
-import Models.Chat;
-import Models.Order;
-import Models.User;
+import Models.*;
+import Models.Menu;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,7 +32,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static Helpers.ServerRequests.*;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
@@ -44,15 +45,18 @@ public class ControllerLoggedSecondStyle {
             createdDateLabel, createdTimeLabel, roleField, usernameField, firstNameLabel,
             lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
 
-    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot, profileView,notificationsView,
-            menuContent, orderInfo, userInfoLabels, userInfoFields, orderView, chatView, userChatsClip;
+    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot, profileView,
+            notificationsView, menuContent, orderInfo, userInfoLabels, userInfoFields, orderView,
+            chatView, userChatsClip, createView;
 
     @FXML TextField firstNameField, lastNameField, countryField, ageField;
-    @FXML VBox dishesContainer;
     @FXML Button menuButton, editButton;
+    @FXML HBox notificationsInfo;
+    @FXML VBox dishesContainer;
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
     @FXML ListView<String> ordersList, notificationsList;
     @FXML ListView<Chat> userChats;
+    @FXML ListView<Menu> menuList, newOrderList;
     @FXML ImageView profileImage;
 
     public static Image userProfileImage;
@@ -62,12 +66,17 @@ public class ControllerLoggedSecondStyle {
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
+    private TreeMap<String, Menu> menuMap = new TreeMap<>();
+    private Map<Integer, ChatValue> chatsMap = new HashMap<>();
+
     private User loggedUser;
     public static MessageService messageService;
     public static OrderService orderService;
 
     @FXML
     public void initialize() {
+        menuList.setCellFactory(menuCell -> new MenuListViewCell());
+        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
 
         userChats.setCellFactory(menuCell -> new ChatsListViewCell());
 
@@ -100,13 +109,12 @@ public class ControllerLoggedSecondStyle {
         userChatsClip.setClip(chatsClip);
 
         Rectangle notificationClip = new Rectangle();
-        notificationClip.setArcHeight(25);
-        notificationClip.setArcWidth(25);
-        notificationClip.heightProperty().bind(notificationsView.heightProperty());
-        notificationClip.widthProperty().bind(notificationsView.widthProperty());
+        notificationClip.setArcHeight(33);
+        notificationClip.setArcWidth(33);
+        notificationClip.heightProperty().bind(notificationsList.heightProperty());
+        notificationClip.widthProperty().bind(notificationsList.widthProperty());
 
-        notificationClip.getStyleClass().add("notifications-view-clip");
-        notificationsView.setClip(notificationClip);
+        notificationsList.setClip(notificationClip);
 
     }
 
@@ -118,6 +126,10 @@ public class ControllerLoggedSecondStyle {
     @FXML
     public void showOrderView(){
         displayView(orderView);
+    }
+    @FXML
+    public void showCreateView(){
+        displayView(createView);
     }
     private void displayView(AnchorPane requestedView){
         if(requestedView.equals(currentView)){
@@ -197,11 +209,29 @@ public class ControllerLoggedSecondStyle {
     }
 
     private void addNotification(String notification) {
+        notificationsInfo.setOpacity(0);
+        notificationsInfo.setDisable(true);
+
         notificationsList.getItems().add(0, notification);
+        notificationSound.play();
     }
     @FXML
     public void removeNotification(){
         notificationsList.getItems().remove(notificationsList.getFocusModel().getFocusedItem());
+        if(notificationsList.getItems().size() == 0){
+            notificationsInfo.setOpacity(1);
+            notificationsInfo.setDisable(false);
+        }
+    }
+    @FXML
+    public void addMenuItem(){
+        Menu menuItem = menuList.getSelectionModel().getSelectedItem();
+        newOrderList.getItems().add(0, menuItem);
+    }
+    @FXML
+    public void removeMenuItem(){
+        Menu menuItem = newOrderList.getSelectionModel().getSelectedItem();
+        newOrderList.getItems().remove(menuItem);
     }
     private void serviceFailed(Service service){
 
@@ -250,14 +280,18 @@ public class ControllerLoggedSecondStyle {
     }
     public void displayUserInfo() throws Exception{
         loggedUser = loggedUserProperty.getValue();
+        loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
+
+        menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
         ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
         userChats.setItems(chats);
 
-        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
-
         ObservableList<String> orders = FXCollections.observableArrayList();
         loggedUser.getOrders().forEach((integer, order) -> orders.add("Order " + order.getId()));
+
+        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+
         FXCollections.reverse(orders);
         ordersList.setItems(orders);
 
@@ -269,14 +303,15 @@ public class ControllerLoggedSecondStyle {
 
         displayUserFields();
     }
+
     public void resetStage(){
-        ordersList.getItems().clear();
         mostRecentOrderDate = null;
         userProfileImage = null;
         loggedUser = null;
 
-        notificationsList.getItems().clear();
         userChats.getItems().clear();
+        ordersList.getItems().clear();
+        notificationsList.getItems().clear();
 
         resetUserFields();
     }
@@ -481,6 +516,9 @@ public class ControllerLoggedSecondStyle {
         if(!currentView.equals(orderView)){
             currentView.setOpacity(0);
             currentView.setDisable(true);
+
+            orderView.setOpacity(1);
+            orderView.setDisable(false);
             currentView = orderView;
         }
         orderIdLabel.setText(String.valueOf(order.getId()));

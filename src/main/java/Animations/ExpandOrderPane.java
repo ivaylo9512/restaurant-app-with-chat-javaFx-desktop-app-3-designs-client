@@ -51,7 +51,7 @@ public class ExpandOrderPane {
 
     public static void setCurrentOrder(MouseEvent event){
         Node intersectedNode = event.getPickResult().getIntersectedNode();
-        if(intersectedNode.getTypeSelector().equals("Button")){
+        if(intersectedNode instanceof  Button){
             button = (Button) intersectedNode;
             currentOrder = (Pane) button.getParent();
         }else{
@@ -91,7 +91,7 @@ public class ExpandOrderPane {
         currentOrder.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
         contentRoot.getChildren().add(currentOrder);
 
-        if(intersectedNode.getTypeSelector().equals("Button")){
+        if(intersectedNode instanceof  Button){
             expandOrderOnClick();
         }
 

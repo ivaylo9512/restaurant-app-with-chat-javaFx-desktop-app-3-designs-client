@@ -82,15 +82,9 @@ public class ControllerLoggedFirstStyle {
 
     @FXML
     public void initialize() {
-
-
         newOrderMenu.setCellFactory(menuCell -> new MenuListViewCell());
         menu.setCellFactory(menuCell -> new MenuListViewCell());
 
-        newOrderMenu.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-            Menu menuItem = newOrderMenu.getSelectionModel().getSelectedItem();
-            newOrderMenu.getItems().remove(menuItem);
-        });
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             SortedMap<String, Menu> currentSearch = searchMenu(newValue.toLowerCase());
             ObservableList<Menu> observableList = FXCollections.observableArrayList();
@@ -611,9 +605,14 @@ public class ControllerLoggedFirstStyle {
         }
     }
     @FXML
-    public void addMenuItems(){
+    public void addMenuItem(){
         Menu menuItem = menu.getSelectionModel().getSelectedItem();
         newOrderMenu.getItems().add(0, menuItem);
+    }
+    @FXML
+    public void removeMenuItem(){
+        Menu menuItem = newOrderMenu.getSelectionModel().getSelectedItem();
+        newOrderMenu.getItems().remove(menuItem);
     }
 
     private void displayUserFields() {
@@ -868,7 +867,11 @@ public class ControllerLoggedFirstStyle {
             }
             ready.setId("dish" + dish.getId());
             ready.getStyleClass().add("ready");
-            ready.setOnMouseClicked(event -> updateDishStatus(order.getId(), dish.getId()));
+            ready.setOnMouseClicked(event -> {
+                if(ready.getText().equals("X")) {
+                    updateDishStatus(order.getId(), dish.getId());
+                }
+            });
 
             TextField name = new TextField(dish.getName());
             name.getStyleClass().add("name");
@@ -934,15 +937,16 @@ public class ControllerLoggedFirstStyle {
     }
 
     private void updateDishStatus(int orderId, int dishId) {
-        if(loggedUser.getRole().equals("Chef")){
-            try {
-                updateDishState(orderId, dishId);
-                Label ready = (Label) contentRoot.lookup("#dish" + dishId);
-                ready.setText("O");
 
-            } catch (Exception e) {
-                showLoggedStageAlert(e.getMessage());
-            }
+        if(loggedUser.getRole().equals("Chef")){
+                try {
+                    updateDishState(orderId, dishId);
+                    Label ready = (Label) contentRoot.lookup("#dish" + dishId);
+                    ready.setText("O");
+
+                } catch (Exception e) {
+                    showLoggedStageAlert(e.getMessage());
+                }
         }else{
             showLoggedStageAlert("You must be a chef to update the dish status.");
         }

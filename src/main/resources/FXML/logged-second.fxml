@@ -25,7 +25,7 @@
                            <children>
                               <ScrollPane prefHeight="61.0" prefWidth="421.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-23.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <VBox fx:id="dishesContainer" prefWidth="398.0" />
+                                    <VBox fx:id="dishesContainer" prefWidth="400.0" />
                                  </content>
                               </ScrollPane>
                            </children>
@@ -33,121 +33,158 @@
                               <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
                            </effect>
                         </AnchorPane>
-                        <AnchorPane fx:id="orderInfo" layoutX="28.0" layoutY="39.0">
+                        <AnchorPane fx:id="orderInfo" layoutX="28.0" layoutY="39.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <children>
-                              <AnchorPane layoutX="294.0" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
+                              <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="orderIdLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="dishesCountLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="44.0" layoutY="7.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #bcbcbc;" text="order" textAlignment="CENTER" textFill="#bcbcbc">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
+                                    <AnchorPane layoutX="147.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label fx:id="updatedTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="updatedDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="35.5" layoutY="7.0" style="-fx-border-color: #bcbcbc; -fx-border-width: 0 0 1 0;" text="updated" textAlignment="CENTER" textFill="#bcbcbc">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
+                                       <children>
+                                          <Label fx:id="createdTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="createdDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="37.5" layoutY="11.0" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: #bcbcbc;" text="Created" textAlignment="CENTER" textFill="#bcbcbc">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane layoutX="294.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow" GridPane.columnIndex="2">
+                                       <children>
+                                          <Label fx:id="orderIdLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="dishesCountLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
+                                             <font>
+                                                <Font name="System Bold" size="10.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="44.0" layoutY="7.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #bcbcbc;" text="order" textAlignment="CENTER" textFill="#bcbcbc">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
                                  </children>
-                              </AnchorPane>
-                              <AnchorPane prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
-                                 <children>
-                                    <Label fx:id="createdTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="createdDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="37.5" layoutY="11.0" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: #bcbcbc;" text="Created" textAlignment="CENTER" textFill="#bcbcbc">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane layoutX="147.0" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
-                                 <children>
-                                    <Label fx:id="updatedTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="updatedDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="35.5" layoutY="7.0" style="-fx-border-color: #bcbcbc; -fx-border-width: 0 0 1 0;" text="updated" textAlignment="CENTER" textFill="#bcbcbc">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
+                              </GridPane>
                            </children>
                         </AnchorPane>
-                        <Pane layoutX="203.0" layoutY="191.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #1a1a1a; -fx-border-width: 2px;">
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </Pane>
-                        <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="217.0" layoutY="205.0">
-                           <image>
-                              <Image url="@../../../../../../../Downloads/list%20(3).png" />
-                           </image>
-                           <effect>
-                              <DropShadow height="45.0" radius="22.0" width="45.0" />
-                           </effect>
-                        </ImageView>
+                        <HBox alignment="CENTER" layoutX="196.0" layoutY="182.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Pane layoutX="205.0" layoutY="182.0" maxWidth="61.0" prefHeight="61.0" prefWidth="61.0">
+                                 <children>
+                                    <Pane layoutY="9.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #1a1a1a; -fx-border-width: 2px;">
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </Pane>
+                                    <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="14.0" layoutY="23.0">
+                                       <image>
+                                          <Image url="@../../../../../../../Downloads/list%20(3).png" />
+                                       </image>
+                                       <effect>
+                                          <DropShadow height="45.0" radius="22.0" width="45.0" />
+                                       </effect>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane disable="true" layoutX="231.0" layoutY="19.0" opacity="0.0" prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="createView" disable="true" layoutX="231.0" layoutY="19.0" opacity="0.0" prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane layoutX="35.0" layoutY="290.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="398.0" style="-fx-background-color: #1a1a1a;" styleClass="dishes-container" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="290.0">
+                        <VBox alignment="CENTER" layoutX="17.0" layoutY="48.0" prefHeight="427.0" prefWidth="423.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
                            <children>
-                              <ScrollPane prefHeight="61.0" prefWidth="421.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-23.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <VBox fx:id="dishesContainer1" prefWidth="398.0" />
-                                 </content>
-                              </ScrollPane>
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="399.0" style="-fx-background-color: #1a1a1a;" styleClass="dishes-container" VBox.vgrow="ALWAYS">
+                                 <effect>
+                                    <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
+                                 </effect>
+                                 <VBox.margin>
+                                    <Insets right="1.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane maxHeight="61.0" maxWidth="61.0" prefHeight="61.0">
+                                 <children>
+                                    <Pane layoutX="9.0" layoutY="9.0" prefHeight="61.0" prefWidth="61.0" styleClass="add-button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ImageView disable="true" fitHeight="34.0" fitWidth="34.0" layoutX="23.0" layoutY="23.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+                                       <image>
+                                          <Image url="@../../../../../../../Downloads/add%20(3).png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="18.0" top="18.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                              <AnchorPane layoutX="35.0" layoutY="290.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="399.0" style="-fx-background-color: #1a1a1a;" styleClass="dishes-container" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="290.0" VBox.vgrow="ALWAYS">
+                                 <effect>
+                                    <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
+                                 </effect>
+                                 <VBox.margin>
+                                    <Insets right="1.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <ListView fx:id="menuList" onMouseClicked="#addMenuItem" prefHeight="189.0" styleClass="menu-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
                            </children>
-                           <effect>
-                              <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
-                           </effect>
-                        </AnchorPane>
-                        <Pane layoutX="203.0" layoutY="191.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #1a1a1a; -fx-border-width: 2px;">
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </Pane>
-                        <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="217.0" layoutY="205.0">
-                           <effect>
-                              <DropShadow height="45.0" radius="22.0" width="45.0" />
-                           </effect>
-                           <image>
-                              <Image url="@../../../../../../../Downloads/list%20(3).png" />
-                           </image>
-                        </ImageView>
+                           <padding>
+                              <Insets left="35.5" right="35.5" />
+                           </padding>
+                        </VBox>
                      </children>
                      <effect>
                         <InnerShadow />
@@ -166,7 +203,7 @@
             </AnchorPane>
             <AnchorPane fx:id="chatView" disable="true" layoutX="1.0" layoutY="1.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutX="221.0" layoutY="9.0" prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="orderView1" layoutX="231.0" layoutY="19.0" prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -200,7 +237,7 @@
                      <children>
                         <AnchorPane fx:id="menuButtons" layoutX="50.0" layoutY="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="182.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Create" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="-1.0">
+                              <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="182.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showCreateView" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Create" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="-1.0">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
@@ -352,6 +389,11 @@
                      </effect>
                      <children>
                         <ListView fx:id="notificationsList" onMouseClicked="#removeNotification" prefHeight="200.0" prefWidth="200.0" styleClass="notifications-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0" />
+                        <HBox fx:id="notificationsInfo" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="notifications-info" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no notifications to show" />
+                           </children>
+                        </HBox>
                      </children>
                   </AnchorPane>
                </children>

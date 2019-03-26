@@ -74,8 +74,10 @@ ScrollPane > .viewport{
     -fx-pref-height: 24px;
     -fx-background-color: #1a1a1a;
     -fx-text-fill: #bcbcbc;
-    -fx-alignment: center
+    -fx-alignment: center;
+    -fx-padding: 0;
 }
+
 .order-list .list-cell:hover{
     -fx-background-color: rgb(252,57,3,0.1);
 }
@@ -83,11 +85,35 @@ ScrollPane > .viewport{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-color: rgb(252,57,3,1);
 }
-.order-list .list-cell:even{
+.new-order-list .list-cell,
+.menu-list .list-cell{
     -fx-padding: 0;
+    -fx-background-color: transparent;
 }
-.order-list .list-cell:odd{
-    -fx-padding: 0;
+.new-order-list .list-cell GridPane,
+.menu-list .list-cell GridPane{
+    -fx-background-color: #1a1a1a;
+}
+.new-order-list .price,
+.menu-list .price{
+    -fx-pref-Height: 64px;
+    -fx-background-color: transparent;
+}
+
+.add-button{
+    -fx-border-radius: 180px;
+    -fx-background-radius: 180px;
+    -fx-background-color: #1a1a1a;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1 );
+}
+.add-button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+
+}
+.add-button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+
 }
 .chats-list .list-cell{
     -fx-background-color: transparent;
@@ -102,7 +128,7 @@ ScrollPane > .viewport{
     -fx-background-color: rgb(252,57,3,0.1);
 }
 .chats-list GridPane > Pane{
-    -fx-background-color: #FC3903;
+    -fx-background-color: white;
     -fx-background-radius: 180;
     -fx-border-radius: 180;
 }
@@ -112,9 +138,6 @@ ScrollPane > .viewport{
 .chats-list .list-cell:selected GridPane{
     -fx-background-color: transparent;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
-}
-.chats-list .list-cell:selected GridPane > Pane{
-    -fx-background-color: white;
 }
 
 .chats-list .list-cell:selected .name{
@@ -188,6 +211,11 @@ ScrollPane > .viewport{
 }
 .notifications-list .list-cell:hover{
     -fx-background-color:  #FC3903;
+}
+.notifications-info{
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-background-color: #1a1a1a;
 }
 .alert-box{
     -fx-background-color: #1a1a1a;

@@ -218,7 +218,7 @@
                            <children>
                               <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="menu" layoutY="46.0" onMouseClicked="#addMenuItems" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                                    <ListView fx:id="menu" layoutY="46.0" onMouseClicked="#addMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                        <effect>
                                           <DropShadow height="10.0" radius="4.5" width="10.0" />
                                        </effect>
@@ -246,7 +246,7 @@
                               </ImageView>
                               <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="9.5" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="newOrderMenu" layoutY="46.0" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <ListView fx:id="newOrderMenu" layoutY="46.0" onMouseClicked="#removeMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <effect>
                                           <DropShadow height="10.0" radius="4.5" width="10.0" />
                                        </effect>
@@ -286,7 +286,7 @@
                   </AnchorPane>
                   <FlowPane fx:id="notificationInfo" alignment="CENTER" disable="true" prefHeight="190.0" prefWidth="637.0" style="-fx-opacity: 1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no new notifications." textAlignment="CENTER" />
+                        <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no notifications to show." textAlignment="CENTER" />
                      </children>
                   </FlowPane>
                   <AnchorPane fx:id="ordersPane" minHeight="-Infinity" prefHeight="190.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
