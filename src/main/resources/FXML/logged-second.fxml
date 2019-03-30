@@ -122,12 +122,12 @@
                            <children>
                               <Pane layoutX="205.0" layoutY="182.0" maxWidth="61.0" prefHeight="61.0" prefWidth="61.0">
                                  <children>
-                                    <Pane layoutY="9.0" prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #1a1a1a; -fx-border-width: 2px;">
+                                    <Pane prefHeight="61.0" prefWidth="61.0" style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #1a1a1a; -fx-border-width: 2px;">
                                        <effect>
                                           <DropShadow />
                                        </effect>
                                     </Pane>
-                                    <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="14.0" layoutY="23.0">
+                                    <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="14.0" layoutY="14.0">
                                        <image>
                                           <Image url="@../../../../../../../Downloads/list%20(3).png" />
                                        </image>
@@ -138,6 +138,9 @@
                                  </children>
                               </Pane>
                            </children>
+                           <padding>
+                              <Insets top="9.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </AnchorPane>
@@ -156,9 +159,9 @@
                                     <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane maxHeight="61.0" maxWidth="61.0" prefHeight="61.0">
+                              <AnchorPane maxHeight="61.0" maxWidth="61.0" minHeight="61.0" minWidth="61.0" prefHeight="61.0" prefWidth="61.0" styleClass="add-button-container">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="9.0" prefHeight="61.0" prefWidth="61.0" styleClass="add-button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Pane layoutX="9.0" layoutY="9.0" onMouseClicked="#createNewOrder" prefHeight="61.0" prefWidth="61.0" styleClass="add-button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     <ImageView disable="true" fitHeight="34.0" fitWidth="34.0" layoutX="23.0" layoutY="23.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
                                        <image>
                                           <Image url="@../../../../../../../Downloads/add%20(3).png" />

@@ -32,10 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static Helpers.ServerRequests.*;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
@@ -155,6 +152,27 @@ public class ControllerLoggedSecondStyle {
             currentView = requestedView;
         }
     }
+    @FXML
+    public void createNewOrder() {
+        List<Dish> dishes = new ArrayList<>();
+        newOrderList.getItems().forEach(menuItem -> dishes.add(new Dish(menuItem.getName())));
+
+        if (loggedUser.getRole().equals("Server")) {
+            if (dishes.size() > 0) {
+                try {
+                    sendOrder(new Order(dishes));
+                    newOrderList.getItems().clear();
+                } catch (Exception e) {
+                    showLoggedStageAlert(e.getMessage());
+                }
+            } else {
+                showLoggedStageAlert("Order must have at least one dish.");
+            }
+        } else {
+            showLoggedStageAlert("You must be a server to create orders.");
+        }
+    }
+
     private void waitForNewOrders() {
         orderService = new OrderService();
         orderService.setOnSucceeded(event -> {
@@ -176,6 +194,7 @@ public class ControllerLoggedSecondStyle {
         orderService.setOnFailed(event -> serviceFailed(orderService));
     }
 
+
     private void updateNewOrders(List<Order> newOrders) {
         newOrders.forEach(order -> {
             int orderId = order.getId();
@@ -190,6 +209,7 @@ public class ControllerLoggedSecondStyle {
                         if (ready.getText().equals("X") && dish.getReady()) {
                         addNotification(dish.getName() + " from order " + orderId + " is ready.");
                             ready.setText("O");
+                            ready.setUserData("ready");
                         }
                     }
                 });
@@ -251,7 +271,11 @@ public class ControllerLoggedSecondStyle {
             }
         }
     }
-
+    private void showLoggedStageAlert(String message) {
+        DialogPane dialog = LoggedSecondStyle.alert.getDialogPane();
+        dialog.setContentText(message);
+        LoggedSecondStyle.alert.showAndWait();
+    }
     private void showLoginStageAlert(String message) {
         DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
         dialog.setContentText(message);
@@ -544,8 +568,10 @@ public class ControllerLoggedSecondStyle {
 
             if (dish.getReady()) {
                 ready.setText("O");
+                ready.setUserData("ready");
             } else {
                 ready.setText("X");
+                ready.setUserData("not ready");
             }
             ready.setId("dish" + dish.getId());
 
@@ -554,8 +580,29 @@ public class ControllerLoggedSecondStyle {
             name.getStyleClass().add("name");
             HBox.setHgrow(name, Priority.ALWAYS);
             HBox dishContainer = new HBox(price, name, ready);
+            dishContainer.setOnMouseClicked(event -> {
+                if(ready.getText().equals("X")) {
+                    updateDishStatus(order.getId(), dish.getId());
+                }
+            });
 
             dishesContainer.getChildren().add(dishContainer);
         });
+    }
+
+    private void updateDishStatus(int orderId, int dishId) {
+
+        if(loggedUser.getRole().equals("Chef")){
+            try {
+                updateDishState(orderId, dishId);
+                Label ready = (Label) dishesContainer.lookup("#dish" + dishId);
+                ready.setText("O");
+
+            } catch (Exception e) {
+                showLoggedStageAlert(e.getMessage());
+            }
+        }else{
+            showLoggedStageAlert("You must be a chef to update the dish status.");
+        }
     }
 }
