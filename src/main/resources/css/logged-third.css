@@ -1,0 +1,43 @@
+.orders{
+    -fx-background-color: #EEEEEE;
+}
+.orders > Pane{
+    -fx-background-color: black;
+    -fx-background-radius: 25px;
+    -fx-border-width: 0px;
+    -fx-pref-height: 39.0;
+    -fx-pref-width: 200.0;
+}
+.orders ScrollPane{
+    -fx-background-color: transparent;
+}
+.orders ScrollPane > .viewport{
+    -fx-background-color: transparent;
+}
+.orders ScrollPane FlowPane> Pane{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 2 );
+    -fx-background-color: #E6353A;
+    -fx-background-radius: 25px;
+    -fx-border-width: 0px;
+    -fx-pref-height: 39.0;
+    -fx-pref-width: 200.0;
+}
+.chat-container{
+    -fx-background-color: #F3680C;
+}
+.chat-container ScrollPane{
+    -fx-background-color: transparent;
+}
+.chat-container ScrollPane > .viewport{
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+    -fx-border-color: #89936e;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb{
+    -fx-background-color: #b2b2b2;
+}
