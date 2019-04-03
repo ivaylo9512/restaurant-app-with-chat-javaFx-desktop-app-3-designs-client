@@ -368,6 +368,7 @@ public class ControllerLoggedSecondStyle {
             try {
                 LoggedFirstStyle.displayLoggedScene();
             } catch (Exception e) {
+                LoginFirstStyle.stage.show();
             }
         }
     }

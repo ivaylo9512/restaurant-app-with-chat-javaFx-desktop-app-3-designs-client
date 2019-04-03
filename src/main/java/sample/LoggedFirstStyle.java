@@ -35,7 +35,13 @@ public class LoggedFirstStyle extends LoginFirstStyle {
                 try {
                     controller.displayUserInfo();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    controller.resetStage();
+                    stage.close();
+                    LoggedFirstStyle.stage.show();
+
+                    DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
+                    dialog.setContentText(e.getMessage());
+                    LoginFirstStyle.alert.showAndWait();
                 }
             }else{
                 controller.resetStage();

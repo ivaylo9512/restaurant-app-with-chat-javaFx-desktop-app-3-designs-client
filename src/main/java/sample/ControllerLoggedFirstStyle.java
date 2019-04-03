@@ -806,7 +806,12 @@ public class ControllerLoggedFirstStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedFirstStyle.stage.close();
-        LoginFirstStyle.stage.show();
+        if(LoginFirstStyle.stage != null){
+            LoginFirstStyle.stage.show();
+
+        }else{
+            //TODO:when second stage login is created add here
+        }
 
     }
     @FXML
@@ -825,7 +830,7 @@ public class ControllerLoggedFirstStyle {
             try {
                 LoggedSecondStyle.displayLoggedScene();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                LoggedFirstStyle.stage.show();
             }
         }
 

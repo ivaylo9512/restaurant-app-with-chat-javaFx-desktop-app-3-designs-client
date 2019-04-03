@@ -156,7 +156,7 @@
                                     <Insets right="1.0" />
                                  </VBox.margin>
                                  <children>
-                                    <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" styleClass="new-order-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane maxHeight="61.0" maxWidth="61.0" minHeight="61.0" minWidth="61.0" prefHeight="61.0" prefWidth="61.0" styleClass="add-button-container">
@@ -180,7 +180,7 @@
                                     <Insets right="1.0" />
                                  </VBox.margin>
                                  <children>
-                                    <ListView fx:id="menuList" onMouseClicked="#addMenuItem" prefHeight="189.0" styleClass="menu-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="menuList" onMouseClicked="#addMenuItem" prefHeight="189.0" styleClass="menu-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0" />
                                  </children>
                               </AnchorPane>
                            </children>
