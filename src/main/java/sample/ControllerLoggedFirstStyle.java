@@ -806,11 +806,19 @@ public class ControllerLoggedFirstStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedFirstStyle.stage.close();
+
         if(LoginFirstStyle.stage != null){
             LoginFirstStyle.stage.show();
-
         }else{
-            //TODO:when second stage login is created add here
+            try {
+                LoginSecondStyle.displayLoggedScene();
+            } catch (IOException e) {
+                LoginFirstStyle.stage.show();
+
+                DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
+                dialog.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+            }
         }
 
     }

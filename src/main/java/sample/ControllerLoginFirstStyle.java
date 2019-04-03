@@ -200,8 +200,9 @@ public class ControllerLoginFirstStyle {
                     LoggedFirstStyle.displayLoggedScene();
                     LoginFirstStyle.stage.close();
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    //user can try to log again
+                    DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
+                    dialog.setContentText(e.getMessage());
+                    LoginFirstStyle.alert.showAndWait();
                 }
             });
         }
