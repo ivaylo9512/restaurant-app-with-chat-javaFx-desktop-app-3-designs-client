@@ -21,11 +21,11 @@ public class LoginSecondStyle extends LoginFirstStyle {
     public static void displayLoggedScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-        FXMLLoader loader = new FXMLLoader(LoggedFirstStyle.class.getResource("/FXML/logged-second.fxml"));
+        FXMLLoader loader = new FXMLLoader(LoggedSecondStyle.class.getResource("/FXML/logged-second.fxml"));
         Pane root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(LoggedFirstStyle.class.getResource("/css/logged-second.css").toString());
+        scene.getStylesheets().add(LoggedSecondStyle.class.getResource("/css/logged-second.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         stage = new Stage();
