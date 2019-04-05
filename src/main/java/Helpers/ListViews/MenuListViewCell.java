@@ -31,7 +31,7 @@ public class MenuListViewCell extends ListCell<Menu> {
 
         } else {
             if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/menu-cell.fxml"));
+                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/menu-cell.fxml"));
                 mLLoader.setController(this);
                 try {
                     mLLoader.load();

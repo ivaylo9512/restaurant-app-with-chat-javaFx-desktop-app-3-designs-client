@@ -49,7 +49,7 @@ public class OrderListViewCell extends ListCell<Order> {
 
         } else {
             if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/order-cell.fxml"));
+                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell.fxml"));
                 mLLoader.setController(this);
                 try {
                     mLLoader.load();

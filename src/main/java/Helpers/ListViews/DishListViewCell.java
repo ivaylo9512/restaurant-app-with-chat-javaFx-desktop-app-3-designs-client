@@ -1,8 +1,6 @@
 package Helpers.ListViews;
 
 import Models.Dish;
-import Models.Menu;
-import Models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -11,8 +9,6 @@ import javafx.scene.layout.GridPane;
 import sample.LoggedSecondStyle;
 
 import java.io.IOException;
-
-import static Helpers.ServerRequests.loggedUserProperty;
 
 public class DishListViewCell extends ListCell<Dish> {
     @FXML
@@ -38,7 +34,7 @@ public class DishListViewCell extends ListCell<Dish> {
 
         } else {
             if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/dish-cell.fxml"));
+                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/dish-cell.fxml"));
                 mLLoader.setController(this);
                 try {
                     mLLoader.load();

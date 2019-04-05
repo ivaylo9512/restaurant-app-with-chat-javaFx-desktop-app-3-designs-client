@@ -19,7 +19,7 @@ public class LoginFirstStyle extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-first.fxml"));
         Pane root = loader.load();
 
         Scene scene = new Scene(root);

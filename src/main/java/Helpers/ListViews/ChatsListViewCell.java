@@ -1,7 +1,6 @@
 package Helpers.ListViews;
 
 import Models.Chat;
-import Models.Menu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -39,7 +38,7 @@ public class ChatsListViewCell extends ListCell<Chat> {
 
         } else {
             if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/chat-cell.fxml"));
+                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-cell.fxml"));
                 mLLoader.setController(this);
                 try {
                     mLLoader.load();
