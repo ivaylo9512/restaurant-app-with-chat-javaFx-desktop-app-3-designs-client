@@ -54,10 +54,9 @@ import static Helpers.Services.OrderService.mostRecentOrderDate;
 
 
 public class ControllerLoggedFirstStyle {
-    @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll,
-            ordersScroll, mainChatScroll, notificationsScroll;
+    @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
     @FXML VBox mainChatBlock, chatUsers, notificationBlock;
-    @FXML FlowPane ordersFlow, notificationInfo, chatInfo, userInfo, userInfoEditable;
+    @FXML FlowPane notificationInfo, chatInfo, userInfo, userInfoEditable;
     @FXML Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, roleField;
     @FXML TextField firstNameField, lastNameField, countryField, ageField;
     @FXML AnchorPane contentRoot, contentPane, mainChat, ordersPane, profileImageContainer;
@@ -96,10 +95,7 @@ public class ControllerLoggedFirstStyle {
             menu.setItems(observableList);
         });
 
-        waitForNewOrders();
-        waitForNewMessages();
-
-        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll, ordersScroll,
+        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
                 mainChatScroll, notificationsScroll, mainChatTextArea);
 
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
@@ -241,11 +237,12 @@ public class ControllerLoggedFirstStyle {
             int orderId = order.getId();
 
             Order orderValue = loggedUser.getOrders().get(orderId);
+            loggedUser.getOrders().put(orderId, order);
             if (orderValue != null) {
                 order.getDishes().forEach(dish -> {
                     Label ready = (Label) contentRoot.lookup("#dish" + dish.getId());
 
-                    if (ready.getText().equals("X") && dish.getReady()) {
+                    if (ready != null && ready.getText().equals("X") && dish.getReady()) {
                         addNotification(dish.getName() + " from order " + orderId + " is ready.");
                         ready.setText("O");
                     }
@@ -262,7 +259,6 @@ public class ControllerLoggedFirstStyle {
                     addNotification("New order created " + orderId);
                 }
             }
-            loggedUser.getOrders().put(orderId, order);
         });
     }
 
@@ -746,6 +742,9 @@ public class ControllerLoggedFirstStyle {
         appendChats(chats);
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
 
+        waitForNewOrders();
+        waitForNewMessages();
+
         orderService.start();
         messageService.start();
 
@@ -758,7 +757,6 @@ public class ControllerLoggedFirstStyle {
     }
     public void resetStage(){
         notificationBlock.getChildren().clear();
-        ordersFlow.getChildren().clear();
         chatUsers.getChildren().clear();
         newOrderMenu.getItems().clear();
         menu.getItems().clear();
@@ -790,7 +788,7 @@ public class ControllerLoggedFirstStyle {
         chatUsersScroll.setVvalue(0);
 
         userInfoScroll.setDisable(false);
-        ordersScroll.setDisable(false);
+        ordersList.setDisable(false);
 
         profileRoot.setOpacity(0);
         profileRoot.setDisable(true);
@@ -804,10 +802,7 @@ public class ControllerLoggedFirstStyle {
         resetUserFields();
 
         if(ExpandOrderPane.buttonExpandedProperty().getValue()){
-            contentRoot.getChildren().remove(ExpandOrderPane.currentOrder);
-            ExpandOrderPane.buttonExpandedProperty().setValue(false);
-            ExpandOrderPane.action = false;
-//            ExpandOrderPane.dishesAnchor.setDisable(true);
+            ExpandOrderPane.reverseOrder();
         }
         chatsMap = new HashMap<>();
         menuMap = new TreeMap<>();
@@ -839,7 +834,6 @@ public class ControllerLoggedFirstStyle {
                 LoginFirstStyle.alert.showAndWait();
             }
         }
-
     }
     @FXML
     public void showLoggedSecondStyle(){
@@ -862,9 +856,17 @@ public class ControllerLoggedFirstStyle {
         }
 
     }
+    @FXML
+    public void minimize(){
+        LoggedFirstStyle.stage.setIconified(true);
+    }
+
+    @FXML
+    public void close(){
+        LoggedFirstStyle.stage.close();
+    }
 
     public void updateDishStatus(int orderId, int dishId) {
-
         if(loggedUser.getRole().equals("Chef")){
                 try {
                     updateDishState(orderId, dishId);

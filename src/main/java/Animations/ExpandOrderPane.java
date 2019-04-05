@@ -33,12 +33,12 @@ public class ExpandOrderPane {
     private static double initialOffsetX;
     private static double initialMouseX;
 
-    private static Pane orderContainer;
-    private static AnchorPane dishesAnchor;
 
+    public static Pane orderContainer;
     public static Pane currentOrder;
     public static Button button;
     public static ListView orderList;
+    public static AnchorPane dishesAnchor;
     public static ScrollBar scrollBar;
     public static Pane contentRoot;
     public static AnchorPane contentPane;

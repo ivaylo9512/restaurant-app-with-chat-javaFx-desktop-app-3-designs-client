@@ -12,6 +12,8 @@ import sample.LoggedFirstStyle;
 import java.io.IOException;
 import java.util.Objects;
 
+import static Helpers.ServerRequests.loggedUserProperty;
+
 public class OrderListViewCell extends ListCell<Order> {
     @FXML
     private Label orderId;
@@ -85,7 +87,8 @@ public class OrderListViewCell extends ListCell<Order> {
 
             dishesBox.prefWidthProperty().bind(dishesScroll.widthProperty().subtract(14.65));
             dishesBox.getChildren().clear();
-            order.getDishes().forEach(dish -> {
+            Order orderValue = loggedUserProperty.getValue().getOrders().get(order.getId());
+            orderValue.getDishes().forEach(dish -> {
                 Label amount = new Label("3");
                 amount.getStyleClass().add("amount");
 

@@ -85,8 +85,6 @@ public class ControllerLoggedSecondStyle {
             showOrder(selectedOrder);
         });
 
-        waitForNewOrders();
-
         MoveRoot.move(menuButton, menuRoot);
         MoveRoot.move(contentBar, contentRoot);
         ResizeRoot.addListeners(contentRoot);
@@ -319,6 +317,8 @@ public class ControllerLoggedSecondStyle {
         FXCollections.reverse(orders);
         ordersList.setItems(orders);
 
+        waitForNewOrders();
+
         orderService.start();
 
         InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
@@ -336,6 +336,8 @@ public class ControllerLoggedSecondStyle {
         userChats.getItems().clear();
         ordersList.getItems().clear();
         notificationsList.getItems().clear();
+
+        orderService = new OrderService();
 
         resetUserFields();
     }

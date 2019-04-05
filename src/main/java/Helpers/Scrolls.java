@@ -18,27 +18,23 @@ import javafx.util.Duration;
 
 
 public class Scrolls {
-    private ScrollPane menuScroll, userInfoScroll, chatUsersScroll,
-            ordersScroll, notificationsScroll;
+    private ScrollPane menuScroll, userInfoScroll, chatUsersScroll, notificationsScroll;
     private ScrollBar mainChatScrollBar;
     private TextArea mainChatTextArea;
     private ScrollPane mainChatScroll;
     private double heightDiff;
     private double offsetY;
 
-    public Scrolls(ScrollPane menuScroll,ScrollPane userInfoScroll, ScrollPane chatUsersScroll,
-                   ScrollPane ordersScroll,ScrollPane mainChatScroll,ScrollPane notificationsScroll, TextArea mainChatTextArea) {
+    public Scrolls(ScrollPane menuScroll,ScrollPane userInfoScroll, ScrollPane chatUsersScroll,ScrollPane mainChatScroll,ScrollPane notificationsScroll, TextArea mainChatTextArea) {
         this.menuScroll = menuScroll;
         this.userInfoScroll = userInfoScroll;
         this.chatUsersScroll = chatUsersScroll;
-        this.ordersScroll = ordersScroll;
         this.mainChatScroll = mainChatScroll;
         this.mainChatTextArea = mainChatTextArea;
         this.notificationsScroll = notificationsScroll;
 
         fixBlurryContent();
 
-        reverseOrderScroll();
         changeMenuScrollBehaviour();
         listenForHistoryRequest();
     }
@@ -143,20 +139,11 @@ public class Scrolls {
         });
     }
 
-    private void reverseOrderScroll() {
-        FlowPane pane = (FlowPane) ordersScroll.getContent();
-        ordersScroll.setOnScroll(event -> {
-            if(event.getDeltaX() == 0 && event.getDeltaY() != 0) {
-                ordersScroll.setHvalue(ordersScroll.getHvalue() - event.getDeltaY() / pane.getWidth());
-            }
-        });
-    }
 
     private void fixBlurryContent(){
         fixBlurriness(menuScroll);
         fixBlurriness(userInfoScroll);
         fixBlurriness(chatUsersScroll);
-        fixBlurriness(ordersScroll);
         fixBlurriness(mainChatScroll);
         fixBlurriness(mainChatScroll);
         fixBlurriness(notificationsScroll);
