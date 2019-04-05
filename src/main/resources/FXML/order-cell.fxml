@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="189.0" prefWidth="127.35" styleClass="order-container" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="orderPane" layoutX="20.6" layoutY="51.0" prefHeight="86.5" prefWidth="86.5" styleClass="order">
+         <children>
+            <AnchorPane fx:id="dishesAnchor" prefHeight="35.0" prefWidth="31.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="41.0">
+               <children>
+                  <ScrollPane fx:id="dishesScroll" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <VBox fx:id="dishesBox" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+            <Button fx:id="button" layoutX="29.0" layoutY="48.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/cloud-down.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="orderId" disable="true" layoutX="22.0" layoutY="14.0" text="Label" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>

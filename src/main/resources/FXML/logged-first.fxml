@@ -291,12 +291,13 @@
                   </FlowPane>
                   <AnchorPane fx:id="ordersPane" minHeight="-Infinity" prefHeight="190.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ScrollPane fx:id="ordersScroll" hbarPolicy="NEVER" layoutX="0.5" onMousePressed="#expandOrder" prefHeight="195.0" prefWidth="636.5" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="ordersScroll" hbarPolicy="NEVER" layoutX="0.5" onMousePressed="#expandOrder" opacity="0.0" prefHeight="195.0" prefWidth="636.5" vbarPolicy="NEVER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <FlowPane fx:id="ordersFlow" orientation="VERTICAL" prefHeight="189.0" prefWidth="506.0">
+                              <FlowPane fx:id="ordersFlow" opacity="0.0" orientation="VERTICAL" prefHeight="189.0" prefWidth="506.0">
                         </FlowPane>
                            </content>
                         </ScrollPane>
+                        <ListView fx:id="ordersList" onMousePressed="#expandOrder" orientation="HORIZONTAL" prefHeight="200.0" prefWidth="200.0" styleClass="order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>

@@ -18,6 +18,7 @@ import java.io.IOException;
 public class LoggedFirstStyle extends LoginFirstStyle {
     static Alert alert;
     static Stage stage;
+    public static ControllerLoggedFirstStyle controller;
 
     public static void displayLoggedScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -28,7 +29,7 @@ public class LoggedFirstStyle extends LoginFirstStyle {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(LoggedFirstStyle.class.getResource("/css/logged-first.css").toString());
         scene.setFill(Color.TRANSPARENT);
-        ControllerLoggedFirstStyle controller = loader.getController();
+        controller = loader.getController();
         stage = new Stage();
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(isShowing) {

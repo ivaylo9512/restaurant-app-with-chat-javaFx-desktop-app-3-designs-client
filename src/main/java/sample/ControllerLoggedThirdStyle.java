@@ -22,4 +22,10 @@ public class ControllerLoggedThirdStyle {
 
     }
 
+    public void displayUserInfo(){
+
+    }
+    public void resetStage(){
+
+    }
 }

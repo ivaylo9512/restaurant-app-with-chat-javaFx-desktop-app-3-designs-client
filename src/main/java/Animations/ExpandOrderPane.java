@@ -8,10 +8,10 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -22,7 +22,6 @@ public class ExpandOrderPane {
     private static double orderX;
 
     private static double maxOrderWidth;
-    private static double translatePaneX;
 
     private static double buttonX;
     private static double buttonY;
@@ -35,11 +34,12 @@ public class ExpandOrderPane {
     private static double initialMouseX;
 
     private static Pane orderContainer;
+    private static AnchorPane dishesAnchor;
 
     public static Pane currentOrder;
-    public static AnchorPane dishesAnchor;
     public static Button button;
-    public static ScrollPane scrollPane;
+    public static ListView orderList;
+    public static ScrollBar scrollBar;
     public static Pane contentRoot;
     public static AnchorPane contentPane;
     public static boolean action = false;
@@ -63,35 +63,35 @@ public class ExpandOrderPane {
         dishesAnchor = (AnchorPane) currentOrder.getChildren().get(0);
         orderContainer = (Pane) currentOrder.getParent();
 
-        FlowPane ordersFlow = (FlowPane) scrollPane.getContent();
-        double scrolledAmount = (ordersFlow.getWidth() - scrollPane.getWidth()) * scrollPane.getHvalue();
-
         mouseX = event.getScreenX();
         mouseY = event.getScreenY();
 
         buttonX = button.getLayoutX();
         buttonY = button.getLayoutY();
 
-        initialOffsetX = event.getX() - translatePaneX + scrolledAmount;
-        initialMouseX = event.getScreenX();
 
         orderX = currentOrder.getLayoutX();
         orderWidth = currentOrder.getWidth();
         orderHeight = currentOrder.getHeight();
 
+        Node cell = orderContainer.getParent();
+        double cellLayoutX = cell.getLayoutX();
+        double translatePaneX = cellLayoutX + currentOrder.getLayoutX() + orderContainer.getLayoutX() + 1;
+
         maxOrderWidth = orderWidth * 4;
         xButtonRation = currentOrder.getWidth() / (button.getLayoutX() + button.getWidth() / 2);
-        translatePaneX = currentOrder.getLayoutX() + orderContainer.getLayoutX();
 
-        dishesAnchor.setDisable(false);
-        scrollPane.setDisable(true);
+        initialOffsetX = event.getX() - translatePaneX;
+        initialMouseX = event.getScreenX();
 
-        currentOrder.setLayoutX(translatePaneX - scrolledAmount + contentPane.getLayoutX());
-        currentOrder.setLayoutY(currentOrder.getLayoutY() + contentPane.getLayoutY());
+        orderList.setDisable(true);
+
+        currentOrder.setLayoutX(translatePaneX + contentPane.getLayoutX());
+        currentOrder.setLayoutY(currentOrder.getLayoutY() + contentPane.getLayoutY() + 1);
         currentOrder.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
         contentRoot.getChildren().add(currentOrder);
 
-        if(intersectedNode instanceof  Button){
+        if(intersectedNode instanceof Button){
             expandOrderOnClick();
         }
 
@@ -130,8 +130,9 @@ public class ExpandOrderPane {
     private static void expandOrderOnClick(){
         buttonExpanded.setValue(true);
         action = true;
-        scrollPane.setDisable(true);
+        orderList.setDisable(true);
         dishesAnchor.setDisable(false);
+        dishesAnchor.setOpacity(1);
 
         TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750),currentOrder, maxOrderWidth);
         heightPane.play();
@@ -156,6 +157,9 @@ public class ExpandOrderPane {
     }
 
     private static void expandOrderOnDrag(MouseEvent eventDrag){
+        dishesAnchor.setDisable(false);
+        dishesAnchor.setOpacity(1);
+
         double fasterExpand = 1.8;
         double expand = (initialMouseX - eventDrag.getScreenX()) * fasterExpand;
         if(initialOffsetX < orderWidth / 2){
@@ -220,11 +224,12 @@ public class ExpandOrderPane {
 
             Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(Duration.millis(750), actionEvent -> {
                 currentOrder.setLayoutX(orderX);
-                currentOrder.setLayoutY(currentOrder.getLayoutY() - contentPane.getLayoutY());
+                currentOrder.setLayoutY(currentOrder.getLayoutY() - contentPane.getLayoutY() - 1);
                 orderContainer.getChildren().add(currentOrder);
                 currentOrder.setStyle("");
-                scrollPane.setDisable(false);
+                orderList.setDisable(false);
                 dishesAnchor.setDisable(true);
+                dishesAnchor.setOpacity(0);
                 action = false;
             }));
             reAppendOrderInFlow.play();

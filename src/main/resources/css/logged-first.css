@@ -4,9 +4,19 @@
 Button:focused{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
-ListView:focused{
+.list-view:focused{
     -fx-background-insets: 0;
     -fx-background-radius: 0;
+}
+.list-view .scroll-bar:vertical .increment-arrow,
+.list-view .scroll-bar:vertical .decrement-arrow,
+.list-view .scroll-bar:vertical .increment-button,
+.list-view .scroll-bar:vertical .decrement-button{
+    -fx-padding: 0px;
+}
+
+.list-view .scroll-bar:vertical{
+    -fx-scale-x: 0;
 }
 ScrollPane{
     -fx-background-color: transparent;
@@ -73,8 +83,16 @@ TextArea .scroll-pane .content{
     -fx-border-radius: 180;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 3, 0.0 , 0 , 0 );
 }
+
+.order-list{
+    -fx-background-color: transparent;
+}
+.order-list .list-cell{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
 .order-container{
-    -fx-pref-height: 189.0px;
+    -fx-pref-height: 188.0px;
     -fx-pref-width: 127.35px;
     -fx-border-width: 0 1 0 0;
     -fx-border-color: #363b41;
@@ -279,19 +297,8 @@ TextFlow {
     -fx-pref-Height: 64px;
     -fx-background-color: transparent;
 }
-.create-order .list-view .scroll-bar:vertical .increment-arrow,
-.create-order .list-view .scroll-bar:vertical .decrement-arrow,
-.create-order .list-view .scroll-bar:vertical .increment-button,
-.create-order .list-view .scroll-bar:vertical .decrement-button {
-    -fx-padding: 0px;
-}
-
-.create-order .scroll-bar:vertical {
-    -fx-scale-x: 0;
-}
-
 .create-order ListView .list-cell{
-    -fx-padding: 0;
+   -fx-padding: 0;
    -fx-background-color: transparent;
 }
 

@@ -1,6 +1,7 @@
 package sample;
 
 import Animations.*;
+import Helpers.OrderListViewCell;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
 import Helpers.Scrolls;
@@ -11,10 +12,10 @@ import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -65,6 +66,7 @@ public class ControllerLoggedFirstStyle {
     @FXML ImageView roleImage, profileImage;
     @FXML TextField menuSearch;
     @FXML ListView<Menu> menu, newOrderMenu;
+    @FXML ListView<Order> ordersList;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
@@ -72,6 +74,7 @@ public class ControllerLoggedFirstStyle {
     private TreeMap<String, Menu> menuMap = new TreeMap<>();
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
+    private ScrollBar ordersScrollBar;
     private Image userProfileImage;
     private ChatValue mainChatValue;
     private MediaPlayer notificationSound;
@@ -84,6 +87,7 @@ public class ControllerLoggedFirstStyle {
     public void initialize() {
         newOrderMenu.setCellFactory(menuCell -> new MenuListViewCell());
         menu.setCellFactory(menuCell -> new MenuListViewCell());
+        ordersList.setCellFactory(orderCell -> new OrderListViewCell());
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             SortedMap<String, Menu> currentSearch = searchMenu(newValue.toLowerCase());
@@ -95,11 +99,20 @@ public class ControllerLoggedFirstStyle {
         waitForNewOrders();
         waitForNewMessages();
 
-        ExpandOrderListeners();
-
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll, ordersScroll,
                 mainChatScroll, notificationsScroll, mainChatTextArea);
 
+        ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
+            for (Node node: ordersList.lookupAll(".scroll-bar")) {
+                if (node instanceof ScrollBar) {
+                    ScrollBar bar = (ScrollBar) node;
+                    if(bar.getOrientation().equals(Orientation.HORIZONTAL)) {
+                        ordersScrollBar = (ScrollBar) node;
+                        ExpandOrderListeners();
+                    }
+                }
+            }
+        });
 
         mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
             if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && mainChatValue != null) {
@@ -243,7 +256,7 @@ public class ControllerLoggedFirstStyle {
                 }
 
             } else {
-                appendOrder(order);
+                ordersList.getItems().add(0, order);
 
                 if(order.getUserId() != loggedUser.getId()){
                     addNotification("New order created " + orderId);
@@ -724,7 +737,10 @@ public class ControllerLoggedFirstStyle {
     public void displayUserInfo() throws Exception{
         loggedUser = loggedUserProperty.getValue();
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
-        loggedUser.getOrders().forEach((integer, order) -> appendOrder(order));
+
+        ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
+        FXCollections.reverse(orders);
+        ordersList.setItems(orders);
 
         List<Chat> chats = getChats();
         appendChats(chats);
@@ -791,10 +807,13 @@ public class ControllerLoggedFirstStyle {
             contentRoot.getChildren().remove(ExpandOrderPane.currentOrder);
             ExpandOrderPane.buttonExpandedProperty().setValue(false);
             ExpandOrderPane.action = false;
-            ExpandOrderPane.dishesAnchor.setDisable(true);
+//            ExpandOrderPane.dishesAnchor.setDisable(true);
         }
         chatsMap = new HashMap<>();
         menuMap = new TreeMap<>();
+
+        orderService = new OrderService();
+        messageService = new MessageService();
     }
     @FXML
     public void logOut(){
@@ -843,113 +862,8 @@ public class ControllerLoggedFirstStyle {
         }
 
     }
-    private void appendOrder(Order order) {
-        Image clout = new Image(getClass().getResourceAsStream("/images/cloud-down.png"));
-        ImageView imageView = new ImageView(clout);
-        imageView.setFitWidth(15);
-        imageView.setFitHeight(15);
-        imageView.fitWidthProperty().setValue(15);
-        imageView.fitHeightProperty().setValue(15);
 
-        Button button = new Button("", imageView);
-        button.setLayoutX(29);
-        button.setLayoutY(48);
-        button.setTranslateX(0);
-        button.setTranslateY(0);
-        button.setPrefWidth(28);
-        button.setPrefHeight(28);
-        button.setMinWidth(28);
-        button.setMinHeight(28);
-        button.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
-
-        Label label = new Label(String.valueOf(order.getId()));
-        label.setLayoutX(28);
-        label.setLayoutY(11);
-        label.setDisable(true);
-
-        VBox dishesBox = new VBox();
-        order.getDishes().forEach(dish -> {
-            Label amount = new Label("3");
-            amount.getStyleClass().add("amount");
-
-            Label ready;
-            if (dish.getReady()) {
-                ready = new Label("O");
-            } else {
-                ready = new Label("X");
-            }
-            ready.setId("dish" + dish.getId());
-            ready.getStyleClass().add("ready");
-            ready.setOnMouseClicked(event -> {
-                if(ready.getText().equals("X")) {
-                    updateDishStatus(order.getId(), dish.getId());
-                }
-            });
-
-            TextField name = new TextField(dish.getName());
-            name.getStyleClass().add("name");
-            name.setDisable(true);
-
-            HBox dishBox = new HBox(amount, name, ready);
-            dishBox.getStyleClass().add("dish");
-
-            amount.setViewOrder(1);
-            name.setViewOrder(3);
-            HBox.setHgrow(name, Priority.ALWAYS);
-            dishesBox.getChildren().add(dishBox);
-        });
-
-        ScrollPane dishesScroll = new ScrollPane(dishesBox);
-        dishesScroll.setMinHeight(0);
-        dishesScroll.setMinWidth(0);
-        dishesScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        AnchorPane dishesAnchor = new AnchorPane(dishesScroll);
-
-        AnchorPane orderPane = new AnchorPane(dishesAnchor, button, label);
-        orderPane.setId(String.valueOf(order.getId()));
-        orderPane.setLayoutX(20.6);
-        orderPane.setLayoutY(51.0);
-        orderPane.getStyleClass().add("order");
-
-        Pane orderContainer = new Pane(orderPane);
-        orderContainer.getStyleClass().add("order-container");
-
-        AnchorPane.setLeftAnchor(dishesScroll, 0.0);
-        AnchorPane.setRightAnchor(dishesScroll, -14.4);
-        AnchorPane.setBottomAnchor(dishesScroll, 0.0);
-        AnchorPane.setTopAnchor(dishesScroll, 0.0);
-
-        AnchorPane.setLeftAnchor(label, 28.0);
-        AnchorPane.setRightAnchor(label, 28.0);
-        AnchorPane.setLeftAnchor(dishesAnchor, 28.0);
-        AnchorPane.setRightAnchor(dishesAnchor, 28.0);
-        AnchorPane.setTopAnchor(dishesAnchor, 41.0);
-
-        dishesAnchor.prefHeightProperty().bind(orderPane.prefHeightProperty().subtract(99));
-        dishesBox.prefWidthProperty().bind(dishesScroll.widthProperty().subtract(15));
-
-        Scrolls.fixBlurriness(dishesScroll);
-
-        dishesScroll.skinProperty().addListener((observable, oldValue, newValue) -> {
-            ScrollBar bar = Scrolls.findVerticalScrollBar(dishesScroll);
-            Objects.requireNonNull(bar).addEventFilter(MouseEvent.MOUSE_DRAGGED, Event::consume);
-            Objects.requireNonNull(bar).addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
-        });
-
-        button.prefWidthProperty().bind(((orderPane.prefWidthProperty()
-                .subtract(81.6))
-                .divide(15))
-                .add(28));
-        button.prefHeightProperty().bind(((orderPane.prefHeightProperty()
-                .subtract(81.6))
-                .divide(30))
-                .add(28));
-
-        dishesAnchor.setDisable(true);
-        ordersFlow.getChildren().add(0, orderContainer);
-    }
-
-    private void updateDishStatus(int orderId, int dishId) {
+    public void updateDishStatus(int orderId, int dishId) {
 
         if(loggedUser.getRole().equals("Chef")){
                 try {
@@ -968,7 +882,8 @@ public class ControllerLoggedFirstStyle {
     private void ExpandOrderListeners() {
         ExpandOrderPane.contentRoot = contentRoot;
         ExpandOrderPane.contentPane = contentPane;
-        ExpandOrderPane.scrollPane = ordersScroll;
+        ExpandOrderPane.scrollBar = ordersScrollBar;
+        ExpandOrderPane.orderList = ordersList;
         ExpandOrderPane.buttonExpandedProperty().addListener((observable, oldValue, newValue) -> {
             Button currentButton = ExpandOrderPane.button;
             if (newValue) {
@@ -981,7 +896,7 @@ public class ControllerLoggedFirstStyle {
         });
     }
 
-    private EventHandler<MouseEvent> expandOrderHandler = this::expandOrder;
+    public EventHandler<MouseEvent> expandOrderHandler = this::expandOrder;
     private EventHandler<MouseEvent> reverseOrderHandler = e -> ExpandOrderPane.reverseOrder();
 
     @FXML
