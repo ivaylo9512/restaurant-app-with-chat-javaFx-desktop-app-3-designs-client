@@ -1,4 +1,4 @@
-package Helpers;
+package Helpers.ListViews;
 
 import Models.Menu;
 import javafx.fxml.FXML;

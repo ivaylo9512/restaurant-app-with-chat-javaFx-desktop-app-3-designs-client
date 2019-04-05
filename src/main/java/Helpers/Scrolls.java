@@ -146,7 +146,7 @@ public class Scrolls {
         });
     }
 
-    static ScrollBar findVerticalScrollBar(Node scroll) {
+    public static ScrollBar findVerticalScrollBar(Node scroll) {
         for (Node node : scroll.lookupAll(".scroll-bar")) {
             if (node instanceof ScrollBar) {
                 ScrollBar bar = (ScrollBar) node;
@@ -158,7 +158,7 @@ public class Scrolls {
         return null;
     }
 
-    static void fixBlurriness(ScrollPane scrollPane){
+    public static void fixBlurriness(ScrollPane scrollPane){
         scrollPane.skinProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 scrollPane.getChildrenUnmodifiable().get(0).setCache(false);

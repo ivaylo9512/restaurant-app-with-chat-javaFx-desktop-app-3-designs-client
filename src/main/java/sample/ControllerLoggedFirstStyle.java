@@ -1,11 +1,11 @@
 package sample;
 
 import Animations.*;
-import Helpers.OrderListViewCell;
+import Helpers.ListViews.OrderListViewCell;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
 import Helpers.Scrolls;
-import Helpers.MenuListViewCell;
+import Helpers.ListViews.MenuListViewCell;
 import Models.*;
 import Models.Menu;
 import javafx.animation.*;
@@ -89,9 +89,8 @@ public class ControllerLoggedFirstStyle {
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            SortedMap<String, Menu> currentSearch = searchMenu(newValue.toLowerCase());
             ObservableList<Menu> observableList = FXCollections.observableArrayList();
-            currentSearch.forEach((s, menu) -> observableList.add(menu));
+            searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
             menu.setItems(observableList);
         });
 
@@ -399,7 +398,7 @@ public class ControllerLoggedFirstStyle {
                     chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
                 }
                 in.close();
-
+                
                 ImageView imageView = new ImageView(profilePicture);
                 imageView.setId(String.valueOf(chat.getId()));
                 imageView.setFitHeight(50);

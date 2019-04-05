@@ -1,9 +1,7 @@
-package sample;
-
-
 import javafx.application.Application;
+import sample.LoginFirstStyle;
 
-public class Main{
+public class RestaurantApplication {
 
     public static void main(String[] args) {
         Application.launch(LoginFirstStyle.class, args);

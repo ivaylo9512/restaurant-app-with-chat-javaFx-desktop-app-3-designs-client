@@ -1,4 +1,4 @@
-package Helpers;
+package Helpers.ListViews;
 
 import Models.Dish;
 import Models.Menu;

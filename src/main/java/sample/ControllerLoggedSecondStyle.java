@@ -4,9 +4,9 @@ import Animations.MoveRoot;
 import Animations.ResizeRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
-import Helpers.ChatsListViewCell;
-import Helpers.DishListViewCell;
-import Helpers.MenuListViewCell;
+import Helpers.ListViews.ChatsListViewCell;
+import Helpers.ListViews.DishListViewCell;
+import Helpers.ListViews.MenuListViewCell;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
 import Models.*;
@@ -47,7 +47,7 @@ public class ControllerLoggedSecondStyle {
             notificationsView, menuContent, orderInfo, userInfoLabels, userInfoFields, orderView,
             chatView, userChatsClip, createView, dishesContainer;
 
-    @FXML TextField firstNameField, lastNameField, countryField, ageField;
+    @FXML TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML Button menuButton, editButton;
     @FXML HBox notificationsInfo;
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
@@ -68,8 +68,8 @@ public class ControllerLoggedSecondStyle {
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private User loggedUser;
-    public static MessageService messageService;
-    public static OrderService orderService;
+    private static MessageService messageService;
+    private static OrderService orderService;
 
     @FXML
     public void initialize() {
@@ -78,12 +78,10 @@ public class ControllerLoggedSecondStyle {
         userChats.setCellFactory(menuCell -> new ChatsListViewCell());
         dishesList.setCellFactory(dishCell -> new DishListViewCell());
 
-        ordersList.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-            String menuItem = ordersList.getSelectionModel().getSelectedItem();
-            int orderId = Integer.valueOf(menuItem.substring(6));
-            Order selectedOrder = loggedUser.getOrders().get(orderId);
-
-            showOrder(selectedOrder);
+        menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<Menu> observableList = FXCollections.observableArrayList();
+            searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
+            menuList.setItems(observableList);
         });
 
         MoveRoot.move(menuButton, menuRoot);
@@ -113,20 +111,10 @@ public class ControllerLoggedSecondStyle {
         notificationsList.setClip(notificationClip);
 
     }
+    private SortedMap<String, Menu> searchMenu(String prefix) {
+        return menuMap.subMap(prefix, prefix + Character.MAX_VALUE);
+    }
 
-
-    @FXML
-    public void showChatView(){
-        displayView(chatView);
-    }
-    @FXML
-    public void showOrderView(){
-        displayView(orderView);
-    }
-    @FXML
-    public void showCreateView(){
-        displayView(createView);
-    }
     private void displayView(AnchorPane requestedView){
         if(requestedView.equals(currentView)){
             contentRoot.setOpacity(0);
@@ -151,6 +139,20 @@ public class ControllerLoggedSecondStyle {
             currentView = requestedView;
         }
     }
+
+    @FXML
+    public void showChatView(){
+        displayView(chatView);
+    }
+    @FXML
+    public void showOrderView(){
+        displayView(orderView);
+    }
+    @FXML
+    public void showCreateView(){
+        displayView(createView);
+    }
+
     @FXML
     public void createNewOrder() {
         List<Dish> dishes = new ArrayList<>();
@@ -539,7 +541,11 @@ public class ControllerLoggedSecondStyle {
         AnchorPane.setBottomAnchor(button, 0.0);
     }
 
-    private void showOrder(Order order){
+    @FXML
+    private void showOrder(){
+        String selectedItem = ordersList.getSelectionModel().getSelectedItem();
+        int orderId = Integer.valueOf(selectedItem.substring(6));
+        Order order = loggedUser.getOrders().get(orderId);
 
         if(!currentView.equals(orderView)){
             currentView.setOpacity(0);
