@@ -398,14 +398,34 @@ public class ControllerLoggedFirstStyle {
                     chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
                 }
                 in.close();
-                
-                ImageView imageView = new ImageView(profilePicture);
-                imageView.setId(String.valueOf(chat.getId()));
-                imageView.setFitHeight(50);
-                imageView.setFitWidth(50);
-                imageView.setOnMouseClicked(this::setMainChat);
 
-                chatUsers.getChildren().add(imageView);
+
+                ImageView imageView = new ImageView(profilePicture);
+                imageView.setFitHeight(44);
+                imageView.setFitWidth(44);
+                imageView.setLayoutX(3);
+                imageView.setLayoutY(7);
+
+                Pane imageContainer = new Pane(imageView);
+                Circle clip = new Circle(25, 25, 25);
+                imageContainer.setClip(clip);
+                imageContainer.setMinHeight(50);
+                imageContainer.setMinWidth(50);
+                imageContainer.setMaxHeight(50);
+                imageContainer.setMaxWidth(50);
+
+
+                Pane shadow = new Pane(imageContainer);
+                shadow.setMinHeight(50);
+                shadow.setMinWidth(50);
+                shadow.setMaxHeight(50);
+                shadow.setMaxWidth(50);
+                shadow.getStyleClass().add("imageShadow");
+                shadow.setOnMouseClicked(this::setMainChat);
+                shadow.setId(String.valueOf(chat.getId()));
+
+
+                chatUsers.getChildren().add(shadow);
                 chatsMap.put(chat.getId(), chatValue);
 
             } catch (IOException e) {
@@ -415,24 +435,24 @@ public class ControllerLoggedFirstStyle {
     }
 
     private void setMainChat(MouseEvent event) {
-        ImageView imageView = (ImageView) event.getSource();
-        imageView.getStyleClass().set(0, "imagePressed");
+        Pane container = (Pane) event.getSource();
+        container.getStyleClass().set(0, "imageShadowPressed");
         chatInfo.setOpacity(0);
 
-        int chatId = Integer.parseInt(imageView.getId());
+        int chatId = Integer.parseInt(container.getId());
 
         ChatValue chat = chatsMap.get(chatId);
         HBox sessionInfo = (HBox) mainChatBlock.getChildren().get(0);
         Text info = (Text) sessionInfo.lookup("Text");
         if (mainChatValue != null) {
-            ImageView currentImageView = (ImageView) chatUsersScroll.lookup("#" + mainChatValue.getChatId());
-            currentImageView.getStyleClass().set(0, "imageReleased");
+            Pane currentImageView = (Pane) chatUsersScroll.lookup("#" + mainChatValue.getChatId());
+            currentImageView.getStyleClass().set(0, "imageShadow");
 
         }
 
         if (mainChatValue != null && chatId == mainChatValue.getChatId()) {
             if (mainChat.isDisabled()) {
-                imageView.getStyleClass().set(0, "imagePressed");
+                container.getStyleClass().set(0, "imageShadowPressed");
                 mainChat.setDisable(false);
                 mainChat.setOpacity(1);
             } else {
@@ -532,11 +552,26 @@ public class ControllerLoggedFirstStyle {
 
         time.getStyleClass().add("time");
         text.getStyleClass().add("message");
-        imageView.getStyleClass().add("shadow");
         newBlock.getStyleClass().add("chat-block");
-        imageView.setFitWidth(40);
-        imageView.setFitHeight(40);
-        HBox.setMargin(imageView, new Insets(-20, 0, 0, 0));
+
+        imageView.setFitHeight(34);
+        imageView.setFitWidth(34);
+        imageView.setLayoutX(3);
+        imageView.setLayoutY(7);
+
+        Circle clip = new Circle(20, 20, 20);
+
+        Pane imageContainer = new Pane(imageView);
+        imageContainer.setClip(clip);
+        imageContainer.setMaxHeight(40);
+        imageContainer.setMaxWidth(40);
+
+        Pane imageShadow = new Pane(imageContainer);
+        imageShadow.setMaxHeight(40);
+        imageShadow.setMaxWidth(40);
+        imageShadow.getStyleClass().add("imageShadow");
+
+        HBox.setMargin(imageShadow, new Insets(-20, 0, 0, 0));
 
         if (message.getReceiverId() == loggedUser.getId()) {
             imageView.setImage(chat.getSecondUserPicture());
@@ -578,7 +613,7 @@ public class ControllerLoggedFirstStyle {
                 } else {
 
                     hBox.getStyleClass().add("second-user-message-first");
-                    hBox.getChildren().addAll(imageView, textFlow);
+                    hBox.getChildren().addAll(imageShadow, textFlow);
                     newBlock.getChildren().add(hBox);
                     chatBlock.getChildren().add(newBlock);
 
@@ -593,7 +628,7 @@ public class ControllerLoggedFirstStyle {
                 } else {
 
                     hBox.getStyleClass().add("user-message-first");
-                    hBox.getChildren().addAll(textFlow, imageView);
+                    hBox.getChildren().addAll(textFlow, imageShadow);
                     newBlock.getChildren().add(hBox);
                     chatBlock.getChildren().add(newBlock);
 
@@ -603,11 +638,11 @@ public class ControllerLoggedFirstStyle {
 
             if (message.getReceiverId() == loggedUser.getId()) {
                 hBox.getStyleClass().add("second-user-message-first");
-                hBox.getChildren().addAll(imageView, textFlow);
+                hBox.getChildren().addAll(imageShadow, textFlow);
                 newBlock.getChildren().add(hBox);
             } else {
                 hBox.getStyleClass().add("user-message-first");
-                hBox.getChildren().addAll(textFlow, imageView);
+                hBox.getChildren().addAll(textFlow, imageShadow);
                 newBlock.getChildren().add(hBox);
             }
             chatBlock.getChildren().add(newBlock);
