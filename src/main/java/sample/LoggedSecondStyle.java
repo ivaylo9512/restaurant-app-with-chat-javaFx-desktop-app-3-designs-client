@@ -18,6 +18,7 @@ public class LoggedSecondStyle extends LoginFirstStyle{
 
     static Stage stage;
     static Alert alert;
+    public static ControllerLoggedSecondStyle controller;
 
     static void displayLoggedScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -29,7 +30,7 @@ public class LoggedSecondStyle extends LoginFirstStyle{
         scene.getStylesheets().add(LoggedSecondStyle.class.getResource("/css/logged-second.css").toString());
 
         stage = new Stage();
-        ControllerLoggedSecondStyle controller = loader.getController();
+        controller = loader.getController();
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(isShowing) {
                 try {

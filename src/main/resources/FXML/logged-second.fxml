@@ -21,13 +21,9 @@
                         <InnerShadow />
                      </effect>
                      <children>
-                        <AnchorPane layoutX="35.0" layoutY="290.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="398.0" style="-fx-background-color: #1a1a1a;" styleClass="dishes-container" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="290.0">
+                        <AnchorPane fx:id="dishesContainer" layoutX="35.0" layoutY="290.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="398.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="290.0">
                            <children>
-                              <ScrollPane prefHeight="61.0" prefWidth="421.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-23.0" AnchorPane.topAnchor="0.0">
-                                 <content>
-                                    <VBox fx:id="dishesContainer" prefWidth="400.0" />
-                                 </content>
-                              </ScrollPane>
+                              <ListView fx:id="dishesList" prefHeight="200.0" prefWidth="200.0" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
                            </children>
                            <effect>
                               <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />

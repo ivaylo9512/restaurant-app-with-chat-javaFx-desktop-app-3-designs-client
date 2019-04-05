@@ -97,6 +97,7 @@ public class ControllerLoggedFirstStyle {
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
                 mainChatScroll, notificationsScroll, mainChatTextArea);
+        scrolls.manageScrolls();
 
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node: ordersList.lookupAll(".scroll-bar")) {
@@ -851,7 +852,8 @@ public class ControllerLoggedFirstStyle {
             try {
                 LoggedSecondStyle.displayLoggedScene();
             } catch (Exception e) {
-                LoggedFirstStyle.stage.show();
+                LoginFirstStyle.stage.show();
+                showLoginStageAlert(e.getMessage());
             }
         }
 

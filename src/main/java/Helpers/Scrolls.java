@@ -11,7 +11,6 @@ import javafx.scene.control.skin.TextAreaSkin;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -33,10 +32,12 @@ public class Scrolls {
         this.mainChatTextArea = mainChatTextArea;
         this.notificationsScroll = notificationsScroll;
 
+    }
+    public void manageScrolls(){
         fixBlurryContent();
-
         changeMenuScrollBehaviour();
         listenForHistoryRequest();
+
     }
     private void listenForHistoryRequest(){
         VBox content = (VBox) mainChatScroll.getContent();
@@ -89,18 +90,6 @@ public class Scrolls {
                 }
             });
         });
-    }
-
-    public static ScrollBar findVerticalScrollBar(Node scroll) {
-        for (Node node : scroll.lookupAll(".scroll-bar")) {
-            if (node instanceof ScrollBar) {
-                ScrollBar bar = (ScrollBar) node;
-                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
-                    return bar;
-                }
-            }
-        }
-        return null;
     }
 
     private void changeMenuScrollBehaviour() {
@@ -157,7 +146,19 @@ public class Scrolls {
         });
     }
 
-    public static void fixBlurriness(ScrollPane scrollPane){
+    static ScrollBar findVerticalScrollBar(Node scroll) {
+        for (Node node : scroll.lookupAll(".scroll-bar")) {
+            if (node instanceof ScrollBar) {
+                ScrollBar bar = (ScrollBar) node;
+                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
+                    return bar;
+                }
+            }
+        }
+        return null;
+    }
+
+    static void fixBlurriness(ScrollPane scrollPane){
         scrollPane.skinProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 scrollPane.getChildrenUnmodifiable().get(0).setCache(false);

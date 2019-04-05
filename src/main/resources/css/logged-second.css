@@ -43,28 +43,27 @@ ScrollPane > .viewport{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
 }
 
-.dishes-container ScrollBar .thumb{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 2 );
+.dishes-list .list-cell{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.dishes-list GridPane{
     -fx-background-color:  #1a1a1a;
 }
 
-.dishes-container HBox{
-    -fx-background-color:  #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1 );
-}
-.dishes-container .price{
+.dishes-list .price{
     -fx-pref-height: 52px;
     -fx-pref-width: 34px;
     -fx-alignment: center;
     -fx-text-fill: #bcbcbc;
 }
-.dishes-container .name{
+.dishes-list .name{
     -fx-pref-height: 52px;
     -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
     -fx-max-width: Infinity;
 }
-.dishes-container .ready{
+.dishes-list .ready{
     -fx-pref-height: 52px;
     -fx-pref-width: 34px;
     -fx-alignment: center;
@@ -147,19 +146,6 @@ ScrollPane > .viewport{
     -fx-pref-height: 0;
     -fx-text-fill: white;
 }
-/*.orders-scroll ScrollBar .thumb{
-    -fx-background-color:  transparent;
-}
-.orders-scroll .scroll-pane .content{
-    -fx-background-color: transparent;
-}
-.chats-container HBox{
-    -fx-background-color: #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 1 );
-}
-.chats-container HBox:hover{
-    -fx-background-color: rgb(255, 255, 255, 0.3);
-}*/
 .profile-view{
     -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
     -fx-background-radius: 15px;

@@ -1,11 +1,10 @@
 package Models;
 
-import java.io.Serializable;
-
 public class Dish{
     private int id;
     private String name;
     private Boolean ready = false;
+    private int orderId;
 
     public Dish() {
     }
@@ -36,5 +35,13 @@ public class Dish{
 
     public void setReady(Boolean ready) {
         this.ready = ready;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 }

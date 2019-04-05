@@ -17,10 +17,7 @@ public class Order{
     }
 
     public Order(List<Dish> dishes) {
-        this.id = id;
         this.dishes = dishes;
-        this.created = created;
-        this.updated = updated;
     }
 
     public int getId() {

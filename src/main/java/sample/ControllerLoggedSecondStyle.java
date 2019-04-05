@@ -5,6 +5,7 @@ import Animations.ResizeRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
 import Helpers.ChatsListViewCell;
+import Helpers.DishListViewCell;
 import Helpers.MenuListViewCell;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
@@ -44,16 +45,16 @@ public class ControllerLoggedSecondStyle {
 
     @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot, profileView,
             notificationsView, menuContent, orderInfo, userInfoLabels, userInfoFields, orderView,
-            chatView, userChatsClip, createView;
+            chatView, userChatsClip, createView, dishesContainer;
 
     @FXML TextField firstNameField, lastNameField, countryField, ageField;
     @FXML Button menuButton, editButton;
     @FXML HBox notificationsInfo;
-    @FXML VBox dishesContainer;
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
     @FXML ListView<String> ordersList, notificationsList;
     @FXML ListView<Chat> userChats;
     @FXML ListView<Menu> menuList, newOrderList;
+    @FXML ListView<Dish> dishesList;
     @FXML ImageView profileImage;
 
     public static Image userProfileImage;
@@ -74,8 +75,8 @@ public class ControllerLoggedSecondStyle {
     public void initialize() {
         menuList.setCellFactory(menuCell -> new MenuListViewCell());
         newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
-
         userChats.setCellFactory(menuCell -> new ChatsListViewCell());
+        dishesList.setCellFactory(dishCell -> new DishListViewCell());
 
         ordersList.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             String menuItem = ordersList.getSelectionModel().getSelectedItem();
@@ -202,9 +203,9 @@ public class ControllerLoggedSecondStyle {
                 order.getDishes().forEach(dish -> {
 
                     if(orderIdLabel.getText().equals(String.valueOf(orderId))) {
-                        Label ready = (Label) dishesContainer.lookup("#dish" + dish.getId());
+                        Label ready = (Label) dishesList.lookup("#dish" + dish.getId());
 
-                        if (ready.getText().equals("X") && dish.getReady()) {
+                        if (ready != null && ready.getText().equals("X") && dish.getReady()) {
                         addNotification(dish.getName() + " from order " + orderId + " is ready.");
                             ready.setText("O");
                             ready.setUserData("ready");
@@ -562,43 +563,16 @@ public class ControllerLoggedSecondStyle {
         fadeIn.setToValue(1);
         fadeIn.play();
 
-
-        dishesContainer.getChildren().clear();
-        order.getDishes().forEach(dish -> {
-            Label price = new Label(String.valueOf(dish.getId()));
-            Label name = new Label(dish.getName());
-            Label ready = new Label();
-
-            if (dish.getReady()) {
-                ready.setText("O");
-                ready.setUserData("ready");
-            } else {
-                ready.setText("X");
-                ready.setUserData("not ready");
-            }
-            ready.setId("dish" + dish.getId());
-
-            price.getStyleClass().add("price");
-            ready.getStyleClass().add("ready");
-            name.getStyleClass().add("name");
-            HBox.setHgrow(name, Priority.ALWAYS);
-            HBox dishContainer = new HBox(price, name, ready);
-            dishContainer.setOnMouseClicked(event -> {
-                if(ready.getText().equals("X")) {
-                    updateDishStatus(order.getId(), dish.getId());
-                }
-            });
-
-            dishesContainer.getChildren().add(dishContainer);
-        });
+        order.getDishes().forEach(dish -> dish.setOrderId(order.getId()));
+        dishesList.setItems(FXCollections.observableArrayList(order.getDishes()));
     }
 
-    private void updateDishStatus(int orderId, int dishId) {
+    public void updateDishStatus(Dish dish, Label ready) {
 
         if(loggedUser.getRole().equals("Chef")){
             try {
-                updateDishState(orderId, dishId);
-                Label ready = (Label) dishesContainer.lookup("#dish" + dishId);
+                updateDishState(dish.getOrderId(), dish.getId());
+                dish.setReady(true);
                 ready.setText("O");
 
             } catch (Exception e) {
