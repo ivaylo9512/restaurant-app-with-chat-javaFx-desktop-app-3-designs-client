@@ -1,0 +1,17 @@
+Button{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 )
+
+}
+Button:focused{
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+}
+Button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 1)
+}
+TextField{
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #bcbcbc;
+}
+.action-btn{
+    -fx-background-color: #FC3903;
+}

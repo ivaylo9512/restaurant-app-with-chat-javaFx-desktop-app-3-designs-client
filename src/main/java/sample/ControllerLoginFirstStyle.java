@@ -52,9 +52,6 @@ public class ControllerLoginFirstStyle {
         background.setPrefHeight(primaryScreenBounds.getHeight());
         background.setPrefWidth(primaryScreenBounds.getWidth());
 
-        background.getParent().layoutXProperty().addListener((observable, oldValue, newValue) -> background.setLayoutX(0 - background.getParent().getLayoutX()));
-        background.getParent().layoutYProperty().addListener((observable, oldValue, newValue) -> background.setLayoutY(0 - background.getParent().getLayoutY()));
-
         TranslateTransition translateMenu = new TranslateTransition(Duration.millis(1300), menu);
         translateMenu.setToX(-417);
         TranslateTransition translateRoot = new TranslateTransition(Duration.millis(1300), contentRoot);

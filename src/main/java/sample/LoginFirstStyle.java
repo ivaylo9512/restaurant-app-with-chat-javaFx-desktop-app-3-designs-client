@@ -23,7 +23,7 @@ public class LoginFirstStyle extends Application {
         Pane root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/login.css").toString());
+        scene.getStylesheets().add(getClass().getResource("/css/login-first.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         stage = primaryStage;

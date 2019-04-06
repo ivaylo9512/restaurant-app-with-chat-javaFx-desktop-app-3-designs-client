@@ -404,7 +404,7 @@ public class ControllerLoggedFirstStyle {
                 imageView.setFitHeight(44);
                 imageView.setFitWidth(44);
                 imageView.setLayoutX(3);
-                imageView.setLayoutY(7);
+                imageView.setLayoutY(6);
 
                 Pane imageContainer = new Pane(imageView);
                 Circle clip = new Circle(25, 25, 25);
@@ -860,7 +860,7 @@ public class ControllerLoggedFirstStyle {
             LoginFirstStyle.stage.show();
         }else{
             try {
-                LoginSecondStyle.displayLoggedScene();
+                LoginSecondStyle.displayLoginScene();
             } catch (IOException e) {
                 LoginFirstStyle.stage.show();
 

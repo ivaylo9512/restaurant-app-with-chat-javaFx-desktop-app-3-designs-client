@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -18,14 +17,15 @@ public class LoginSecondStyle extends LoginFirstStyle {
     static Alert alert;
     static Stage stage;
 
-    public static void displayLoggedScene() throws IOException {
+
+    public static void displayLoginScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-        FXMLLoader loader = new FXMLLoader(LoggedSecondStyle.class.getResource("/FXML/logged-second.fxml"));
+        FXMLLoader loader = new FXMLLoader(LoggedSecondStyle.class.getResource("/FXML/login-second.fxml"));
         Pane root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(LoggedSecondStyle.class.getResource("/css/logged-second.css").toString());
+        scene.getStylesheets().add(LoggedSecondStyle.class.getResource("/css/login-second.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         stage = new Stage();
@@ -38,7 +38,7 @@ public class LoginSecondStyle extends LoginFirstStyle {
         stage.setX(primaryScreenBounds.getMinX());
         stage.setY(primaryScreenBounds.getMinY());
 
-        Pane loginPane = (Pane) root.getChildren().get(1);
+        Pane loginPane = (Pane) root.getChildren().get(0);
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
         loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
 
