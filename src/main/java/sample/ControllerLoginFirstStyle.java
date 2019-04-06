@@ -28,7 +28,7 @@ public class ControllerLoginFirstStyle {
     @FXML AnchorPane contentRoot;
     @FXML Pane root, background, menu;
     @FXML Button loginButton, registerButton, actionButton;
-    @FXML Pane loginFields, registerFields;
+    @FXML Pane loginFields, registerFields, nextRegisterFields;
 
     private LoginService loginService;
     private RegisterService registerService;
@@ -80,12 +80,15 @@ public class ControllerLoginFirstStyle {
 
             } else if (contentRoot.getTranslateX() > 0) {
                 registerFields.setDisable(true);
+                nextRegisterFields.setDisable(true);
 
                 Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
                     registerFields.setOpacity(0);
-                    loginFields.setDisable(false);
+                    nextRegisterFields.setOpacity(0);
                     loginFields.setOpacity(1);
+                    loginFields.setDisable(false);
                 }));
+
                 changeFields.play();
                 changeTransition.play();
 
@@ -107,12 +110,16 @@ public class ControllerLoginFirstStyle {
                 registerFields.setDisable(true);
             } else if (contentRoot.getTranslateX() > 0) {
                 loginFields.setDisable(true);
+                nextRegisterFields.setDisable(true);
+
                 Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
                     loginFields.setOpacity(0);
-                    registerFields.setDisable(false);
+                    nextRegisterFields.setOpacity(0);
                     registerFields.setOpacity(1);
+                    registerFields.setDisable(false);
                 }));
                 changeFields.play();
+
                 changeTransition.play();
             } else {
                 expand.play();
@@ -122,6 +129,18 @@ public class ControllerLoginFirstStyle {
                 loginFields.setDisable(true);
                 loginFields.setOpacity(0);
             }
+            actionButton.setOnMousePressed(this::showNextRegisterFields);
+        }
+    }
+    @FXML
+    public void showNextRegisterFields(Event event){
+        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+            registerFields.setOpacity(0);
+            registerFields.setDisable(true);
+
+            nextRegisterFields.setOpacity(1);
+            nextRegisterFields.setDisable(false);
+
             actionButton.setOnMousePressed(this::register);
         }
     }

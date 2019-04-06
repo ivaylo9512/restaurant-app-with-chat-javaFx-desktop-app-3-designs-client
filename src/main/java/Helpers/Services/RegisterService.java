@@ -50,7 +50,7 @@ public class RegisterService extends Service {
                 StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
                 postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-                HttpPost httpPost = new HttpPost("http://localhost:8080/users/register");
+                HttpPost httpPost = new HttpPost("http://localhost:8080/api/users/register");
                 httpPost.setEntity(postEntity);
 
                 try (CloseableHttpResponse response = httpClient.execute(httpPost)) {

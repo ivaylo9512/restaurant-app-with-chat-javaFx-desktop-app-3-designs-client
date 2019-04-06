@@ -30,9 +30,9 @@
                         </ImageView>
                      </graphic>
                        </Button>
-                  <Pane fx:id="registerFields" disable="true" layoutX="7.0" layoutY="22.0" prefHeight="33.0" prefWidth="345.0">
+                  <Pane fx:id="registerFields" disable="true" layoutX="7.0" layoutY="22.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
                      <children>
-                        <TextField fx:id="regUsername" alignment="CENTER" layoutX="6.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="162.0" promptText="username" style="-fx-background-radius: 0 0 0 0;">
+                        <TextField fx:id="regUsername" alignment="CENTER" layoutX="98.5" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#showNextRegisterFields" prefHeight="32.0" prefWidth="162.0" promptText="username" style="-fx-background-radius: 0 0 0 0;">
                            <effect>
                               <InnerShadow height="10.0" radius="4.5" width="10.0" />
                            </effect>
@@ -40,22 +40,6 @@
                               <Font size="11.0" />
                            </font>
                         </TextField>
-                        <PasswordField fx:id="regPassword" alignment="CENTER" layoutX="181.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="81.0" promptText="password">
-                           <effect>
-                              <InnerShadow height="10.0" radius="4.5" width="10.0" />
-                           </effect>
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </PasswordField>
-                        <PasswordField fx:id="regRepeatPassword" alignment="CENTER" layoutX="268.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="81.0" promptText="password">
-                           <effect>
-                              <InnerShadow height="10.0" radius="4.5" width="10.0" />
-                           </effect>
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </PasswordField>
                      </children>
                   </Pane>
                   <Pane fx:id="loginFields" disable="true" layoutX="7.0" layoutY="22.0" prefHeight="33.0" prefWidth="345.0">
@@ -75,6 +59,26 @@
                            <effect>
                               <InnerShadow height="10.0" radius="4.5" width="10.0" />
                            </effect>
+                        </PasswordField>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="nextRegisterFields" disable="true" layoutX="7.0" layoutY="22.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
+                     <children>
+                        <PasswordField fx:id="regPassword" alignment="CENTER" layoutX="8.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#register" prefHeight="32.0" prefWidth="162.0" promptText="password">
+                           <effect>
+                              <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                           </effect>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </PasswordField>
+                        <PasswordField fx:id="regRepeatPassword" alignment="CENTER" layoutX="181.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#register" prefHeight="32.0" prefWidth="162.0" promptText="password">
+                           <effect>
+                              <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                           </effect>
+                           <font>
+                              <Font size="11.0" />
+                           </font>
                         </PasswordField>
                      </children>
                   </Pane>

@@ -10,6 +10,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -20,8 +21,8 @@ import java.net.ConnectException;
 
 public class ControllerLoginSecondStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML AnchorPane root, loginFields, registerFields;
-
+    @FXML AnchorPane root, loginFields, registerFields, nextRegisterFields;
+    @FXML Button actionBtn;
     private LoginService loginService;
     private RegisterService registerService;
 
@@ -101,8 +102,8 @@ public class ControllerLoginSecondStyle {
         ServerRequests.loggedUser = (User)service.getValue();
 
         if(LoggedFirstStyle.stage != null){
-            LoggedFirstStyle.stage.show();
-            LoginFirstStyle.stage.close();
+            LoggedSecondStyle.stage.show();
+            LoginSecondStyle.stage.close();
         }else {
             Platform.runLater(() -> {
                 try {
@@ -135,15 +136,37 @@ public class ControllerLoginSecondStyle {
         registerFields.setOpacity(0);
         registerFields.setDisable(true);
 
+        nextRegisterFields.setOpacity(0);
+        nextRegisterFields.setDisable(true);
+
         loginFields.setDisable(false);
         loginFields.setOpacity(1);
-    }
 
-    @FXML void showRegisterFields(){
+        actionBtn.setOnMouseClicked(this::login);
+    }
+    @FXML
+    public void showRegisterFields(){
         loginFields.setOpacity(0);
         loginFields.setDisable(true);
 
+        nextRegisterFields.setOpacity(0);
+        nextRegisterFields.setDisable(true);
+
         registerFields.setDisable(false);
         registerFields.setOpacity(1);
+        actionBtn.setOnMouseClicked(this::showNextRegisterFields);
+
+    }
+    @FXML
+    public void showNextRegisterFields(Event event){
+        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+            registerFields.setOpacity(0);
+            registerFields.setDisable(true);
+
+            nextRegisterFields.setOpacity(1);
+            nextRegisterFields.setDisable(false);
+
+            actionBtn.setOnMouseClicked(this::register);
+        }
     }
 }
