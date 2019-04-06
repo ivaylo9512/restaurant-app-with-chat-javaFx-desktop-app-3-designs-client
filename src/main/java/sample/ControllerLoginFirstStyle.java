@@ -188,6 +188,7 @@ public class ControllerLoginFirstStyle {
         User loggedUser = (User) service.getValue();
         ServerRequests.loggedUserProperty.set(loggedUser);
         ServerRequests.loggedUser = (User)service.getValue();
+
         if(LoggedFirstStyle.stage != null){
             LoggedFirstStyle.stage.show();
             LoginFirstStyle.stage.close();

@@ -5,7 +5,7 @@ import sample.LoginSecondStyle;
 public class RestaurantApplication {
 
     public static void main(String[] args) {
-        Application.launch(LoginSecondStyle.class, args);
+        Application.launch(LoginFirstStyle.class, args);
     }
 
 }

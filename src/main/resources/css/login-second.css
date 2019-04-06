@@ -8,7 +8,8 @@ Button:focused{
 Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 1)
 }
-TextField{
+TextField,
+PasswordField{
     -fx-background-color: #1a1a1a;
     -fx-text-fill: #bcbcbc;
 }

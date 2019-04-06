@@ -278,9 +278,9 @@ public class ControllerLoggedSecondStyle {
         LoggedSecondStyle.alert.showAndWait();
     }
     private void showLoginStageAlert(String message) {
-        DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
+        DialogPane dialog = LoginSecondStyle.alert.getDialogPane();
         dialog.setContentText(message);
-        LoginFirstStyle.alert.showAndWait();
+        LoginSecondStyle.alert.showAndWait();
     }
     @FXML public void expandMenu(){
         if(menuButtonsContainer.getChildren().size() == 1){
@@ -353,8 +353,20 @@ public class ControllerLoggedSecondStyle {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        LoggedFirstStyle.stage.close();
-        LoginFirstStyle.stage.show();
+        LoggedSecondStyle.stage.close();
+        if(LoginSecondStyle.stage != null) {
+            LoginSecondStyle.stage.show();
+        }else{
+            try{
+                LoginSecondStyle.displayLoginScene();
+            } catch (Exception e) {
+                LoginFirstStyle.stage.show();
+                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+
+            }
+        }
     }
     @FXML
     public void showLoggedFirstStyle(){
@@ -374,6 +386,10 @@ public class ControllerLoggedSecondStyle {
                 LoggedFirstStyle.displayLoggedScene();
             } catch (Exception e) {
                 LoginFirstStyle.stage.show();
+                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+
             }
         }
     }
