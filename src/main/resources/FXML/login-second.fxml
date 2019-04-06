@@ -11,17 +11,17 @@
       <AnchorPane layoutX="49.0" layoutY="12.0" prefHeight="55.0" prefWidth="528.0" style="-fx-background-color: transparent; -fx-border-color: #1a1a1a; -fx-border-width: 2;">
          <children>
             <Pane layoutX="-86.0" layoutY="-74.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1a1a1a; -fx-effect: dropshadow( three-pass-box , rgba(252,57,3,1.6) , 45, 0.0 , 0 , 6 );" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
-            <Button layoutX="18.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showLoginFields" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: #1a1a1a;" text="login" textFill="#bcbcbc" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="10.0">
+            <Button layoutX="18.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showLoginFields" prefHeight="35.0" prefWidth="70.0" text="login" textFill="#bcbcbc" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font size="12.0" />
                </font>
             </Button>
-            <Button layoutX="94.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: #1a1a1a;" text="styles" textFill="#bcbcbc" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="10.0">
+            <Button layoutX="94.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="70.0" text="styles" textFill="#bcbcbc" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font size="12.0" />
                </font>
             </Button>
-            <Button layoutX="173.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showRegisterFields" prefHeight="35.0" prefWidth="70.0" style="-fx-background-color: #1a1a1a;" text="register" textFill="#bcbcbc" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="10.0">
+            <Button layoutX="173.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showRegisterFields" prefHeight="35.0" prefWidth="70.0" text="register" textFill="#bcbcbc" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font size="12.0" />
                </font>
