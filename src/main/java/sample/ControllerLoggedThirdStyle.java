@@ -4,11 +4,15 @@ import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.OrderListViewCellSecond;
 import Helpers.ServerRequests;
 import Helpers.Services.LoginService;
+import Helpers.Services.MessageService;
+import Helpers.Services.OrderService;
 import Helpers.Services.RegisterService;
 import Models.Dish;
 import Models.Order;
 import Models.User;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,9 +27,11 @@ import javafx.util.Duration;
 
 import java.net.ConnectException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static Helpers.ServerRequests.loggedUserProperty;
+import static Helpers.Services.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedThirdStyle {
     @FXML public ListView<Integer> ordersList;
@@ -38,6 +44,10 @@ public class ControllerLoggedThirdStyle {
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     private User loggedUser;
+
+    private MessageService messageService;
+    private OrderService orderService;
+
     @FXML
     public void initialize(){
         ordersList.setCellFactory(orders -> new OrderListViewCellSecond());
@@ -48,6 +58,8 @@ public class ControllerLoggedThirdStyle {
         loggedUser = loggedUserProperty.getValue();
         ObservableList<Integer> ordersId = FXCollections.observableArrayList(loggedUser.getOrders().values().stream().map(Order::getId).collect(Collectors.toList()));
         ordersList.setItems(ordersId);
+
+        waitForNewOrders();
     }
     public void resetStage(){
 
@@ -72,5 +84,42 @@ public class ControllerLoggedThirdStyle {
 
         order.getDishes().forEach(dish -> dish.setOrderId(order.getId()));
         dishesList.setItems(FXCollections.observableArrayList(order.getDishes()));
+    }
+
+    private void waitForNewOrders() {
+        orderService = new OrderService();
+        orderService.setOnSucceeded(event -> {
+            List<Order> newOrders = (List<Order>) orderService.getValue();
+
+            if (newOrders.size() > 0) {
+                Order mostRecentNewOrder = newOrders.get(0);
+                if (mostRecentNewOrder.getCreated().isAfter(mostRecentNewOrder.getUpdated())) {
+                    mostRecentOrderDate = mostRecentNewOrder.getCreated();
+                } else {
+                    mostRecentOrderDate = mostRecentNewOrder.getUpdated();
+                }
+            }
+
+            orderService.restart();
+        });
+
+        orderService.setOnFailed(event -> serviceFailed(orderService));
+    }
+
+    private void serviceFailed(Service service){
+
+        if(service.getException() != null) {
+            if (service.getException().getMessage().equals("Jwt token has expired.")) {
+                messageService.reset();
+                orderService.reset();
+
+            } else if(service.getException().getMessage().equals("Socket closed")) {
+                service.reset();
+
+            }else{
+                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> service.restart()));
+                timeline.play();
+            }
+        }
     }
 }
