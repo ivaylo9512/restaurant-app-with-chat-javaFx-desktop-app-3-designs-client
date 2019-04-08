@@ -40,6 +40,9 @@ Button:focused{
     -fx-padding: 0;
     -fx-alignment: center;
 }
+.dishes-list {
+    -fx-background-color: #E6353A;
+}
 .dishes-list .list-cell{
     -fx-background-color: transparent;
     -fx-padding: 0;

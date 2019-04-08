@@ -41,7 +41,7 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<Dish> dishesList;
     @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,
             createdDateLabel, createdTimeLabel;
-    @FXML AnchorPane orderInfo;
+    @FXML AnchorPane orderInfo, profileView, ordersView, chatsView, ordersMenu, chatsMenu;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -50,6 +50,7 @@ public class ControllerLoggedThirdStyle {
 
     private MessageService messageService;
     private OrderService orderService;
+    private AnchorPane currentView, currentMenu;
 
     @FXML
     public void initialize(){
@@ -59,7 +60,10 @@ public class ControllerLoggedThirdStyle {
 
     public void displayUserInfo(){
         loggedUser = loggedUserProperty.getValue();
+
         ObservableList<Integer> ordersId = FXCollections.observableArrayList(loggedUser.getOrders().values().stream().map(Order::getId).collect(Collectors.toList()));
+        FXCollections.reverse(ordersId);
+
         ordersList.setItems(ordersId);
 
         waitForNewOrders();
@@ -67,7 +71,39 @@ public class ControllerLoggedThirdStyle {
     public void resetStage(){
 
     }
+    @FXML
+    public void displayOrdersView(){
+        displayView(ordersView, ordersMenu);
+    }
+    @FXML
+    public void displayProfileView(){
+        displayView(profileView, null);
+    }
+    @FXML
+    public void displayChatsView(){
+        displayView(chatsView, chatsMenu);
+    }
 
+    private void displayView(AnchorPane requestedView, AnchorPane requestedMenu){
+        if(currentView != null){
+            currentView.setOpacity(1);
+            currentView.setDisable(true);
+        }
+
+        if(requestedMenu != null) {
+            if (currentMenu != null) {
+                currentMenu.setOpacity(1);
+                currentMenu.setDisable(true);
+            }
+            requestedMenu.setOpacity(1);
+            requestedMenu.setDisable(false);
+            currentMenu = requestedMenu;
+        }
+
+        requestedView.setOpacity(1);
+        requestedView.setDisable(false);
+        currentView = requestedView;
+    }
     public void showOrder(int orderId){
         Order order = loggedUser.getOrders().get(orderId);
 

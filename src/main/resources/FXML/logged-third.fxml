@@ -30,11 +30,11 @@
                                     <Insets bottom="-6.0" left="2.0" />
                                  </VBox.margin>
                               </Line>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Updates" />
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Create" />
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Chats" />
+                              <Text fill="WHITE" onMouseClicked="#displayProfileView" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+                              <Text fill="WHITE" onMouseClicked="#displayProfileView" strokeType="OUTSIDE" strokeWidth="0.0" text="Updates" />
+                              <Text fill="WHITE" onMouseClicked="#displayOrdersView" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
+                              <Text fill="WHITE" onMouseClicked="#displayOrdersView" strokeType="OUTSIDE" strokeWidth="0.0" text="Create" />
+                              <Text fill="WHITE" onMouseClicked="#displayChatsView" strokeType="OUTSIDE" strokeWidth="0.0" text="Chats" />
                               <Line endX="33.0" stroke="WHITE">
                                  <VBox.margin>
                                     <Insets left="2.0" top="-6.0" />
@@ -46,7 +46,7 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="orders" layoutX="166.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="chatsMenu" disable="true" layoutX="166.0" opacity="0.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane layoutX="67.0" layoutY="251.0" prefHeight="126.0" prefWidth="85.0" />
                   <Button layoutX="43.0" layoutY="35.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order47" />
@@ -54,13 +54,13 @@
                   <Button layoutX="43.0" layoutY="142.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order 34" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="orders1" layoutX="166.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="ordersMenu" disable="true" layoutX="166.0" opacity="0.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane layoutX="67.0" layoutY="251.0" prefHeight="126.0" prefWidth="85.0" />
                   <ListView fx:id="ordersList" layoutX="10.0" layoutY="14.0" prefHeight="602.0" prefWidth="200.0" styleClass="orders-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="389.0" styleClass="chat-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="chatsView" disable="true" layoutX="389.0" opacity="0.0" styleClass="chats-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -146,14 +146,14 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="389.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="profileView" disable="true" layoutX="389.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
                   <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="389.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="ordersView" disable="true" layoutX="389.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -161,6 +161,9 @@
                            <children>
                               <ListView fx:id="dishesList" layoutX="9.0" layoutY="9.0" prefHeight="126.0" prefWidth="410.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0" />
                            </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </AnchorPane>
                      </children>
                   </AnchorPane>
@@ -173,17 +176,11 @@
                               <AnchorPane layoutX="147.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" GridPane.columnIndex="1">
                                  <children>
                                     <Label fx:id="updatedTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="WHITE">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
                                        <font>
                                           <Font name="System Bold" size="10.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="updatedDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="WHITE">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
                                        <font>
                                           <Font name="System Bold" size="10.0" />
                                        </font>
@@ -198,17 +195,11 @@
                               <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0">
                                  <children>
                                     <Label fx:id="createdTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="WHITE">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
                                        <font>
                                           <Font name="System Bold" size="10.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="createdDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="WHITE">
-                                       <effect>
-                                          <DropShadow />
-                                       </effect>
                                        <font>
                                           <Font name="System Bold" size="10.0" />
                                        </font>
