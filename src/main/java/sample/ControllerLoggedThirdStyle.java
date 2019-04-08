@@ -103,10 +103,37 @@ public class ControllerLoggedThirdStyle {
                 }
             }
 
+            updateNewOrders(newOrders);
             orderService.restart();
         });
 
         orderService.setOnFailed(event -> serviceFailed(orderService));
+    }
+
+    private void updateNewOrders(List<Order> newOrders) {
+        newOrders.forEach(order -> {
+            int orderId = order.getId();
+            Order orderValue = loggedUser.getOrders().get(orderId);
+
+            if (orderValue != null) {
+                order.getDishes().forEach(dish -> {
+
+                    if(orderIdLabel.getText().equals(String.valueOf(orderId))) {
+                        Label ready = (Label) dishesList.lookup("#dish" + dish.getId());
+
+                        if (ready != null && ready.getText().equals("X") && dish.getReady()) {
+                            ready.setText("O");
+                            ready.setUserData("ready");
+                        }
+                    }
+                });
+            } else {
+                ordersList.getItems().add(0, orderId);
+                if(order.getUserId() != loggedUser.getId()){
+                }
+            }
+            loggedUser.getOrders().put(orderId, order);
+        });
     }
 
     private void serviceFailed(Service service){
