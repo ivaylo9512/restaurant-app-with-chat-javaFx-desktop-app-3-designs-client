@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import sample.LoggedThirdStyle;
 
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class OrderListViewCellSecond extends ListCell<Integer> {
         } else {
             Button button = new Button();
             button.setText(String.valueOf(orderId));
+            button.setOnMouseClicked(event -> LoggedThirdStyle.controller.showOrder(orderId));
             HBox container = new HBox(button);
             container.setAlignment(Pos.CENTER);
             setText(null);

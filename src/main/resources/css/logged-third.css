@@ -13,6 +13,10 @@ Button:focused{
 .list-view .scroll-bar:vertical{
     -fx-scale-x: 0;
 }
+.list-view:focused{
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
 .orders{
     -fx-background-color: #EEEEEE;
 }
@@ -35,6 +39,25 @@ Button:focused{
     -fx-background-color: transparent;
     -fx-padding: 0;
     -fx-alignment: center;
+}
+.dishes-list {
+    -fx-background-color: #E6353A;
+}
+.dishes-list .list-cell{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.dishes-list GridPane{
+    -fx-background-color: #E6353A;
+}
+.dishes-list .price{
+    -fx-text-fill: white;
+}
+.dishes-list .name{
+    -fx-text-fill: white;
+}
+.dishes-list .ready{
+    -fx-text-fill: white;
 }
 .chat-second{
     -fx-background-color: #F3680C;
