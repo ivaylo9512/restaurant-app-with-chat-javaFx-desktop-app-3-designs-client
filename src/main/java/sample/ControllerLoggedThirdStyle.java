@@ -24,12 +24,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import org.apache.http.impl.client.HttpClients;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static Helpers.ServerRequests.httpClientLongPolling;
 import static Helpers.ServerRequests.loggedUserProperty;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
 
@@ -110,8 +113,10 @@ public class ControllerLoggedThirdStyle {
 
         if(service.getException() != null) {
             if (service.getException().getMessage().equals("Jwt token has expired.")) {
+                logOut();
                 messageService.reset();
                 orderService.reset();
+                showLoginStageAlert("Session has expired.");
 
             } else if(service.getException().getMessage().equals("Socket closed")) {
                 service.reset();
@@ -121,5 +126,40 @@ public class ControllerLoggedThirdStyle {
                 timeline.play();
             }
         }
+    }
+
+    @FXML
+    public void logOut(){
+        try {
+            httpClientLongPolling.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        httpClientLongPolling = HttpClients.createDefault();
+
+        LoggedSecondStyle.stage.close();
+        if(LoginSecondStyle.stage != null) {
+            LoginSecondStyle.stage.show();
+        }else{
+            try{
+                LoginSecondStyle.displayLoginScene();
+            } catch (Exception e) {
+                LoginFirstStyle.stage.show();
+                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+
+            }
+        }
+    }
+    private void showLoggedStageAlert(String message) {
+        DialogPane dialog = LoggedThirdStyle.alert.getDialogPane();
+        dialog.setContentText(message);
+        LoggedSecondStyle.alert.showAndWait();
+    }
+    private void showLoginStageAlert(String message) {
+        DialogPane dialog = LoginThirdStyle.alert.getDialogPane();
+        dialog.setContentText(message);
+        LoginSecondStyle.alert.showAndWait();
     }
 }
