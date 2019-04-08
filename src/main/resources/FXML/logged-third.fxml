@@ -157,11 +157,12 @@
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane layoutX="179.0" layoutY="121.0" prefHeight="72.0" prefWidth="85.0" style="-fx-background-color: #E6353A;">
+                        <AnchorPane layoutX="179.0" layoutY="84.0" prefHeight="72.0" prefWidth="85.0" style="-fx-background-color: #E6353A;">
                            <effect>
                               <DropShadow />
                            </effect>
                         </AnchorPane>
+                        <ListView fx:id="dishesList" layoutX="17.0" layoutY="177.0" prefHeight="126.0" prefWidth="410.0" styleClass="dishes-list" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="177.0" />
                      </children>
                   </AnchorPane>
                   <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
