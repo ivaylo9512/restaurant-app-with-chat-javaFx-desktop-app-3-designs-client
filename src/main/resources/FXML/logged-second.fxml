@@ -84,7 +84,7 @@
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="37.5" layoutY="11.0" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: #bcbcbc;" text="Created" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label layoutX="37.5" layoutY="7.0" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: #bcbcbc;" text="Created" textAlignment="CENTER" textFill="#bcbcbc">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>

@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static Helpers.ServerRequests.*;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
@@ -307,15 +308,17 @@ public class ControllerLoggedSecondStyle {
         loggedUser = loggedUserProperty.getValue();
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
+        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+
         menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
         ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
         userChats.setItems(chats);
 
-        ObservableList<String> orders = FXCollections.observableArrayList();
-        loggedUser.getOrders().forEach((integer, order) -> orders.add("Order " + order.getId()));
-
-        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+        ObservableList<String> orders = FXCollections.observableArrayList(loggedUser.getOrders().values()
+                .stream()
+                .map(order -> "Order " + order.getId())
+                .collect(Collectors.toList()));
 
         FXCollections.reverse(orders);
         ordersList.setItems(orders);

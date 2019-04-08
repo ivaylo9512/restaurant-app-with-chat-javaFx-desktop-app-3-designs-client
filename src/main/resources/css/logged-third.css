@@ -1,7 +1,23 @@
+Button:focused{
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+.list-view .scroll-bar:vertical .increment-arrow,
+.list-view .scroll-bar:vertical .decrement-arrow,
+.list-view .scroll-bar:vertical .increment-button,
+.list-view .scroll-bar:vertical .decrement-button{
+    -fx-padding: 0px;
+}
+.list-view{
+    -fx-background-color: transparent;
+}
+.list-view .scroll-bar:vertical{
+    -fx-scale-x: 0;
+}
 .orders{
     -fx-background-color: #EEEEEE;
 }
-.orders > Button{
+
+.orders Button{
     -fx-background-radius: 5px;
     -fx-text-fill: white;
     -fx-border-width: 0px;
@@ -11,22 +27,14 @@
     -fx-background-color: #E6353A;
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
-Button:focused{
-    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+.orders .list-view{
+    -fx-background-color: #EEEEEE;
 }
-.orders ScrollPane{
+.orders .list-view .list-cell{
+    -fx-pref-height: 44px;
     -fx-background-color: transparent;
-}
-.orders ScrollPane > .viewport{
-    -fx-background-color: transparent;
-}
-.orders ScrollPane FlowPane> Pane{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 2 );
-    -fx-background-color: #E6353A;
-    -fx-background-radius: 25px;
-    -fx-border-width: 0px;
-    -fx-pref-height: 39.0;
-    -fx-pref-width: 200.0;
+    -fx-padding: 0;
+    -fx-alignment: center;
 }
 .chat-second{
     -fx-background-color: #F3680C;

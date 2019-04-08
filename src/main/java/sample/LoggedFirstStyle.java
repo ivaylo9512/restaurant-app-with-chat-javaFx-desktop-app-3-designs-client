@@ -38,7 +38,7 @@ public class LoggedFirstStyle extends LoginFirstStyle {
                 } catch (Exception e) {
                     controller.resetStage();
                     stage.close();
-                    LoggedFirstStyle.stage.show();
+                    LoginFirstStyle.stage.show();
 
                     DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
                     dialog.setContentText(e.getMessage());

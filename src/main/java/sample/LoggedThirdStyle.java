@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -19,7 +18,7 @@ public class LoggedThirdStyle extends LoginFirstStyle{
 
     static Stage stage;
     static Alert alert;
-    public static ControllerLoggedSecondStyle controller;
+    public static ControllerLoggedThirdStyle controller;
 
     static void displayLoggedScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -32,23 +31,17 @@ public class LoggedThirdStyle extends LoginFirstStyle{
 
         stage = new Stage();
         controller = loader.getController();
-//        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
-//            if(isShowing) {
-//                try {
-//                    controller.displayUserInfo();
-//                } catch (Exception e) {
-//                    controller.resetStage();
-//                    stage.close();
-//                    LoggedFirstStyle.stage.show();
-//
-//                    DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
-//                    dialog.setContentText(e.getMessage());
-//                    LoginFirstStyle.alert.showAndWait();
-//                }
-//            }else{
-//                controller.resetStage();
-//            }
-//        });
+        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
+            if(isShowing) {
+                try {
+                    controller.displayUserInfo();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }else{
+                controller.resetStage();
+            }
+        });
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
