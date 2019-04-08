@@ -1,12 +1,18 @@
 .orders{
     -fx-background-color: #EEEEEE;
 }
-.orders > Pane{
-    -fx-background-color: black;
-    -fx-background-radius: 25px;
+.orders > Button{
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
     -fx-border-width: 0px;
-    -fx-pref-height: 39.0;
-    -fx-pref-width: 200.0;
+    -fx-pref-height: 29.0;
+    -fx-pref-width: 139.0;
+    -fx-border-radius: 180px;
+    -fx-background-color: #E6353A;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+Button:focused{
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
 .orders ScrollPane{
     -fx-background-color: transparent;
@@ -22,16 +28,21 @@
     -fx-pref-height: 39.0;
     -fx-pref-width: 200.0;
 }
-.chat-container{
+.chat-second{
     -fx-background-color: #F3680C;
 }
-.chat-container ScrollPane{
+.chat-second ScrollPane{
     -fx-background-color: transparent;
 }
-.chat-container ScrollPane > .viewport{
+.chat-second ScrollPane > .viewport{
     -fx-background-color: transparent;
 }
-
+.create-order{
+    -fx-background-color: #F3680C;
+}
+.updates{
+    -fx-background-color: #F3680C;
+}
 .scroll-bar:horizontal, .scroll-bar:vertical{
     -fx-background-color:transparent;
     -fx-border-color: #89936e;

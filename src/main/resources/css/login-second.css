@@ -1,13 +1,13 @@
 Button{
     -fx-background-color:  #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 )
-
+    -fx-border-color: black;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
 Button:focused{
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
 Button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 1)
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 1);
 }
 TextField,
 PasswordField{
@@ -16,4 +16,5 @@ PasswordField{
 }
 .action-btn{
     -fx-background-color: #FC3903;
+    -fx-border-color: transparent;
 }

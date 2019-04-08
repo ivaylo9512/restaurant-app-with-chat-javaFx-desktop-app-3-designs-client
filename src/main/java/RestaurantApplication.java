@@ -1,6 +1,5 @@
 import javafx.application.Application;
 import sample.LoginFirstStyle;
-import sample.LoginSecondStyle;
 
 public class RestaurantApplication {
 

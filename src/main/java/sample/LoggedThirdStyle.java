@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ public class LoggedThirdStyle extends LoginFirstStyle{
 
     static Stage stage;
     static Alert alert;
+    public static ControllerLoggedSecondStyle controller;
 
     static void displayLoggedScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -29,24 +31,24 @@ public class LoggedThirdStyle extends LoginFirstStyle{
         scene.getStylesheets().add(LoggedThirdStyle.class.getResource("/css/logged-third.css").toString());
 
         stage = new Stage();
-        ControllerLoggedThirdStyle controller = loader.getController();
-        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
-            if(isShowing) {
-                try {
-                    controller.displayUserInfo();
-                } catch (Exception e) {
-                    controller.resetStage();
-                    stage.close();
-                    LoggedFirstStyle.stage.show();
-
-                    DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
-                    dialog.setContentText(e.getMessage());
-                    LoginFirstStyle.alert.showAndWait();
-                }
-            }else{
-                controller.resetStage();
-            }
-        });
+        controller = loader.getController();
+//        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
+//            if(isShowing) {
+//                try {
+//                    controller.displayUserInfo();
+//                } catch (Exception e) {
+//                    controller.resetStage();
+//                    stage.close();
+//                    LoggedFirstStyle.stage.show();
+//
+//                    DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
+//                    dialog.setContentText(e.getMessage());
+//                    LoginFirstStyle.alert.showAndWait();
+//                }
+//            }else{
+//                controller.resetStage();
+//            }
+//        });
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);

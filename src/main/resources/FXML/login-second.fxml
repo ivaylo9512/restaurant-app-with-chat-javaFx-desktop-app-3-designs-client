@@ -26,11 +26,11 @@
                   <Font size="12.0" />
                </font>
             </Button>
-            <AnchorPane fx:id="loginFields" layoutX="237.0" layoutY="6.0" prefHeight="39.0" prefWidth="206.0" AnchorPane.bottomAnchor="6.0" AnchorPane.topAnchor="6.0">
+            <AnchorPane fx:id="loginFields" layoutX="237.0" layoutY="6.0" prefHeight="39.0" prefWidth="206.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="7.0">
                <children>
                   <TextField fx:id="username" alignment="CENTER" layoutX="21.0" layoutY="5.0" onKeyReleased="#login" prefHeight="30.0" prefWidth="100.0" promptText="username" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
-                        <Font size="12.0" />
+                        <Font size="10.0" />
                      </font>
                      <effect>
                         <InnerShadow />
@@ -38,7 +38,7 @@
                   </TextField>
                   <PasswordField fx:id="password" alignment="CENTER" layoutX="126.0" layoutY="5.0" onKeyReleased="#login" prefHeight="30.0" prefWidth="100.0" promptText="password" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
-                        <Font size="12.0" />
+                        <Font size="10.0" />
                      </font>
                      <effect>
                         <InnerShadow />
@@ -46,12 +46,12 @@
                   </PasswordField>
                </children>
             </AnchorPane>
-            <Button fx:id="actionBtn" layoutX="485.0" layoutY="14.0" minHeight="25.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="25.0" prefWidth="30.0" styleClass="action-btn" text="login" textFill="WHITE">
+            <Button fx:id="actionBtn" layoutX="485.0" layoutY="14.0" minHeight="25.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="25.0" prefWidth="30.0" styleClass="action-btn" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <AnchorPane fx:id="registerFields" disable="true" layoutX="237.0" layoutY="8.0" opacity="0.0" prefHeight="39.0" prefWidth="206.0">
+            <AnchorPane fx:id="registerFields" disable="true" layoutX="237.0" layoutY="8.0" opacity="0.0" prefHeight="39.0" prefWidth="206.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="7.0">
                <children>
                   <TextField fx:id="regUsername" alignment="CENTER" layoutX="73.5" layoutY="5.0" onKeyReleased="#showNextRegisterFields" prefHeight="30.0" prefWidth="100.0" promptText="username" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <effect>
@@ -63,7 +63,7 @@
                   </TextField>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="nextRegisterFields" disable="true" layoutX="237.0" layoutY="8.0" opacity="0.0" prefHeight="39.0" prefWidth="206.0">
+            <AnchorPane fx:id="nextRegisterFields" disable="true" layoutX="237.0" layoutY="8.0" opacity="0.0" prefHeight="39.0" prefWidth="206.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="7.0">
                <children>
                   <PasswordField fx:id="regPassword" alignment="CENTER" layoutX="21.0" layoutY="5.0" onKeyReleased="#register" prefHeight="30.0" prefWidth="100.0" promptText="password" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <effect>
@@ -73,7 +73,7 @@
                         <Font size="10.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="regRepeatPassword" alignment="CENTER" layoutX="126.0" layoutY="5.0" onKeyReleased="#register" prefHeight="30.0" prefWidth="100.0" promptText="password">
+                  <PasswordField fx:id="regRepeatPassword" alignment="CENTER" layoutX="126.0" layoutY="5.0" onKeyReleased="#register" prefHeight="30.0" prefWidth="100.0" promptText="password" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <effect>
                         <InnerShadow />
                      </effect>

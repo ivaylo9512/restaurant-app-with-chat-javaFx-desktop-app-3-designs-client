@@ -1,118 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="627.0" prefWidth="825.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="627.0" prefWidth="825.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane id="move" fx:id="menuBar" prefHeight="627.0" prefWidth="161.0" style="-fx-background-color: #E6353A;">
+      <AnchorPane layoutX="-5.0">
          <children>
-            <ImageView fitHeight="73.0" fitWidth="73.0" layoutX="24.0" layoutY="302.0">
-               <image>
-                  <Image url="@../../../../../OneDrive/Работен%20плот/profile-picture-in-circle-8.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-      <Pane layoutX="384.0" prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;">
-         <children>
-            <Pane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;">
+            <AnchorPane id="move" fx:id="menuBar" layoutX="5.0" prefHeight="627.0" prefWidth="161.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Pane layoutX="58.0" layoutY="237.0" prefHeight="48.0" prefWidth="327.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 20PX;" />
-                  <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="58.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello I am fine what aboutyou? Are you ok? Yes I am perfect at about youaaaaaaaaa" wrappingWidth="259.0" />
-                  <Text fill="#eeeeee" layoutX="58.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hey how are you today?" wrappingWidth="259.0" />
-                  <Text fill="#eeeeee" layoutX="122.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good you? I am talking to a new friendI think he Knows you" textAlignment="RIGHT" wrappingWidth="281.205078125" />
-                  <Pane layoutX="13.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" />
-                  <Pane layoutX="421.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" />
+                  <Text fill="WHITE" layoutX="55.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+                  <Text fill="WHITE" layoutX="54.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
+                  <Text fill="WHITE" layoutX="55.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create" />
+                  <Text fill="WHITE" layoutX="58.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chats" />
+                  <Text fill="WHITE" layoutX="50.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Updates" />
                </children>
-            </Pane>
-         </children>
-      </Pane>
-      <Pane layoutX="384.0" layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="chat-container">
-         <children>
-            <Pane layoutX="58.0" layoutY="237.0" prefHeight="48.0" prefWidth="327.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 20PX;" />
-            <Text layoutX="81.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="281.205078125" />
-            <ScrollPane layoutX="14.0" layoutY="22.0" prefHeight="200.0" prefWidth="390.0" style="-fx-background-color: transparent;">
-               <content>
-                  <FlowPane prefHeight="185.0" prefWidth="349.0" style="-fx-background-color: transparent;" vgap="15.0">
+            </AnchorPane>
+            <AnchorPane fx:id="orders" layoutX="166.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="166.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="67.0" layoutY="251.0" prefHeight="126.0" prefWidth="85.0" />
+                  <Button layoutX="43.0" layoutY="35.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order47" />
+                  <Button layoutX="43.0" layoutY="90.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order 56" />
+                  <Button layoutX="43.0" layoutY="142.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order 34" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="orders1" layoutX="166.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="166.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="67.0" layoutY="251.0" prefHeight="126.0" prefWidth="85.0" />
+                  <Button layoutX="43.0" layoutY="35.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order47" />
+                  <Button layoutX="43.0" layoutY="90.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order 56" />
+                  <Button layoutX="43.0" layoutY="142.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order 34" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="389.0" styleClass="chat-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="389.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Pane style="-fx-background-color: transparent;">
+                        <Pane prefHeight="314.0" prefWidth="442.0">
                            <children>
-                              <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="40.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hey how are you today?" wrappingWidth="250.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.5" />
-                                 </font>
-                              </Text>
-                              <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="2.0" layoutY="1.0">
-                                 <image>
-                                    <Image url="@../../../../../OneDrive/Работен%20плот/profile-picture-in-circle-8.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </Pane>
-                        <Pane style="-fx-background-color: transparent;">
-                           <children>
-                              <Text fill="WHITE" fontSmoothingType="LCD" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello I am fine what aboutyou? Are you ok? Yes I am" textAlignment="RIGHT" wrappingWidth="250.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.5" />
-                                 </font>
-                              </Text>
-                              <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="260.0" layoutY="1.0">
-                                 <image>
-                                    <Image url="@../../../../../OneDrive/Работен%20плот/profile-circle-picture-8.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                           <FlowPane.margin>
-                              <Insets left="95.0" />
-                           </FlowPane.margin>
-                        </Pane>
-                        <Pane style="-fx-background-color: transparent;">
-                           <children>
-                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="40.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello I am fine what aboutyou? Are you ok? Yes I am perfect at about youaaaaaaaaa" wrappingWidth="250.0">
-                                 <font>
-                                    <Font name="System Bold Italic" size="12.5" />
-                                 </font>
-                              </Text>
-                              <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="2.0" layoutY="1.0">
-                                 <image>
-                                    <Image url="@../../../../../OneDrive/Работен%20плот/profile-picture-in-circle-8.png" />
-                                 </image>
-                              </ImageView>
-                              <Text fill="WHITE" layoutX="289.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4:12 AM">
-                                 <font>
-                                    <Font size="9.0" />
-                                 </font>
-                              </Text>
+                              <Pane layoutX="58.0" layoutY="237.0" prefHeight="48.0" prefWidth="327.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 20PX;" />
+                              <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="58.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello I am fine what aboutyou? Are you ok? Yes I am perfect at about youaaaaaaaaa" wrappingWidth="259.0" />
+                              <Text fill="#eeeeee" layoutX="58.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hey how are you today?" wrappingWidth="259.0" />
+                              <Text fill="#eeeeee" layoutX="122.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good you? I am talking to a new friendI think he Knows you" textAlignment="RIGHT" wrappingWidth="281.205078125" />
+                              <Pane layoutX="13.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" />
+                              <Pane layoutX="421.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" />
                            </children>
                         </Pane>
                      </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </FlowPane>
-               </content>
-            </ScrollPane>
-         </children>
-      </Pane>
-      <Pane layoutX="384.0" layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
-      <Pane fx:id="orders" layoutX="161.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders">
-         <children>
-            <ScrollPane layoutX="12.0" layoutY="14.0" prefHeight="200.0" prefWidth="202.0">
-               <content>
-                  <FlowPane fx:id="ordersPane" prefHeight="174.0" prefWidth="200.0" vgap="15.0">
+                  </AnchorPane>
+                  <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
+                  <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="chat-second" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
                      <children>
-                        <Pane styleClass="order">
-                           <children>
-                              <TextField text="dsa" />
-                           </children></Pane>
-                        <Pane styleClass="order" />
+                        <Pane layoutX="58.0" layoutY="237.0" prefHeight="48.0" prefWidth="327.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 20PX;" />
+                        <Text layoutX="81.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="281.205078125" />
+                        <ScrollPane layoutX="14.0" layoutY="22.0" prefHeight="200.0" prefWidth="390.0" style="-fx-background-color: transparent;">
+                           <content>
+                              <FlowPane prefHeight="185.0" prefWidth="349.0" style="-fx-background-color: transparent;" vgap="15.0">
+                                 <children>
+                                    <Pane style="-fx-background-color: transparent;">
+                                       <children>
+                                          <Text fill="#eeeeee" fontSmoothingType="LCD" layoutX="40.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hey how are you today?" wrappingWidth="250.0">
+                                             <font>
+                                                <Font name="System Bold Italic" size="12.5" />
+                                             </font>
+                                          </Text>
+                                          <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="2.0" layoutY="1.0">
+                                             <image>
+                                                <Image url="@../../../../../OneDrive/Работен%20плот/profile-picture-in-circle-8.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                    <Pane style="-fx-background-color: transparent;">
+                                       <children>
+                                          <Text fill="WHITE" fontSmoothingType="LCD" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello I am fine what aboutyou? Are you ok? Yes I am" textAlignment="RIGHT" wrappingWidth="250.0">
+                                             <font>
+                                                <Font name="System Bold Italic" size="12.5" />
+                                             </font>
+                                          </Text>
+                                          <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="260.0" layoutY="1.0">
+                                             <image>
+                                                <Image url="@../../../../../OneDrive/Работен%20плот/profile-circle-picture-8.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <FlowPane.margin>
+                                          <Insets left="95.0" />
+                                       </FlowPane.margin>
+                                    </Pane>
+                                    <Pane style="-fx-background-color: transparent;">
+                                       <children>
+                                          <Text fill="WHITE" fontSmoothingType="LCD" layoutX="40.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello I am fine what aboutyou? Are you ok? Yes I am perfect at about youaaaaaaaaa" wrappingWidth="250.0">
+                                             <font>
+                                                <Font name="System Bold Italic" size="12.5" />
+                                             </font>
+                                          </Text>
+                                          <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="2.0" layoutY="1.0">
+                                             <image>
+                                                <Image url="@../../../../../OneDrive/Работен%20плот/profile-picture-in-circle-8.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="WHITE" layoutX="289.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4:12 AM">
+                                             <font>
+                                                <Font size="9.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </FlowPane>
+                           </content>
+                        </ScrollPane>
                      </children>
-                  </FlowPane>
-               </content>
-            </ScrollPane>
-         </children></Pane>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="389.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="389.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
+                  <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="create-order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="389.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="389.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
+                  <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
+               </children>
+            </AnchorPane>
+            <Line endX="30.0" layoutX="62.5" layoutY="231.5" stroke="WHITE" />
+            <Line endX="30.0" layoutX="62.5" layoutY="400.0" stroke="WHITE" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
