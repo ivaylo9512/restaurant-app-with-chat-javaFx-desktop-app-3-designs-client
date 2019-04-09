@@ -37,7 +37,7 @@ import static Helpers.ServerRequests.loggedUserProperty;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedThirdStyle {
-    @FXML public ListView<Integer> ordersList;
+    @FXML public ListView<Order> ordersList;
     @FXML public ListView<Dish> dishesList;
     @FXML AnchorPane orderInfo, profileView, ordersView, chatsView, ordersMenu, chatsMenu;
 
@@ -59,10 +59,10 @@ public class ControllerLoggedThirdStyle {
     public void displayUserInfo(){
         loggedUser = loggedUserProperty.getValue();
 
-        ObservableList<Integer> ordersId = FXCollections.observableArrayList(loggedUser.getOrders().values().stream().map(Order::getId).collect(Collectors.toList()));
-        FXCollections.reverse(ordersId);
+        ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
+        FXCollections.reverse(orders);
 
-        ordersList.setItems(ordersId);
+        ordersList.setItems(orders);
 
         waitForNewOrders();
     }
@@ -149,7 +149,7 @@ public class ControllerLoggedThirdStyle {
 //                    }
                 });
             } else {
-                ordersList.getItems().add(0, orderId);
+                ordersList.getItems().add(0, order);
                 if(order.getUserId() != loggedUser.getId()){
                 }
             }

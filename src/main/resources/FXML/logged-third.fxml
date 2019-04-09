@@ -46,17 +46,9 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="chatsMenu" disable="true" layoutX="166.0" opacity="0.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <AnchorPane layoutX="67.0" layoutY="251.0" prefHeight="126.0" prefWidth="85.0" />
-                  <Button layoutX="43.0" layoutY="35.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order47" />
-                  <Button layoutX="43.0" layoutY="90.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order 56" />
-                  <Button layoutX="43.0" layoutY="142.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="109.0" text="Order 34" />
-               </children>
-            </AnchorPane>
+            <AnchorPane fx:id="chatsMenu" disable="true" layoutX="166.0" opacity="0.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0" />
             <AnchorPane fx:id="ordersMenu" disable="true" layoutX="166.0" opacity="0.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutX="67.0" layoutY="251.0" prefHeight="126.0" prefWidth="85.0" />
                   <ListView fx:id="ordersList" layoutX="10.0" layoutY="14.0" prefHeight="602.0" prefWidth="200.0" styleClass="orders-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>

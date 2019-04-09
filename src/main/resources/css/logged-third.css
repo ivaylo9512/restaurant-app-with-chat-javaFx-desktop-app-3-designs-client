@@ -20,18 +20,19 @@ Button:focused{
 .orders{
     -fx-background-color: #EEEEEE;
 }
-.orders Pane{
-
-}
-.orders AnchorPane > Label{
+.orders AnchorPane > * {
     -fx-background-radius: 5px;
-    -fx-text-fill: white;
     -fx-border-width: 0px;
     -fx-border-radius: 180px;
     -fx-background-color: #E6353A;
-    -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
-.orders Button:hover {
+.orders AnchorPane > AnchorPane {
+    -fx-background-color: #FC3903;
+}
+.orders AnchorPane > AnchorPane Label {
+    -fx-background-color: #FC3903;
+}
+.orders AnchorPane Pane:hover {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
 
 }
@@ -70,7 +71,7 @@ Button:focused{
     -fx-text-fill: white;
 }
 .chat-second{
-    -fx-background-color: #F3680C;
+    -fx-background-color: #FC3903;;
 }
 .chat-second ScrollPane{
     -fx-background-color: transparent;
@@ -79,10 +80,10 @@ Button:focused{
     -fx-background-color: transparent;
 }
 .create-order{
-    -fx-background-color: #F3680C;
+    -fx-background-color: #FC3903;;
 }
 .updates{
-    -fx-background-color: #F3680C;
+    -fx-background-color: #FC3903;;
 }
 .scroll-bar:horizontal, .scroll-bar:vertical{
     -fx-background-color:transparent;
