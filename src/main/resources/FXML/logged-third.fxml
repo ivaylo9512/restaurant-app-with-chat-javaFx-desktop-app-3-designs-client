@@ -149,17 +149,15 @@
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane layoutX="8.0" layoutY="168.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="120.0">
+                        <AnchorPane layoutX="8.0" layoutY="168.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <ListView fx:id="dishesList" layoutX="9.0" layoutY="9.0" prefHeight="126.0" prefWidth="410.0" styleClass="dishes-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0" />
+                              <ListView fx:id="dishesList" layoutX="9.0" layoutY="9.0" prefHeight="126.0" prefWidth="410.0" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
-                        <Text fill="WHITE" layoutX="194.0" layoutY="43.0" onMouseClicked="#displayOrdersView" strokeType="OUTSIDE" strokeWidth="0.0" text="Dishes" underline="true" />
                      </children>
                   </AnchorPane>
                   <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
                   <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="create-order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
-                  <AnchorPane fx:id="orderInfo" layoutY="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0" />
                </children>
             </AnchorPane>
          </children>

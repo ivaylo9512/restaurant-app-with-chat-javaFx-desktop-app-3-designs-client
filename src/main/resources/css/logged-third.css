@@ -30,10 +30,10 @@ Button:focused{
     -fx-background-radius: 5px;
     -fx-border-width: 0px;
     -fx-border-radius: 180px;
-    -fx-background-color: #FC3903;
+    -fx-background-color: #E6353A
 }
 .orders AnchorPane > AnchorPane Label {
-    -fx-background-color: #FC3903;
+    -fx-background-color: #E6353A;
 }
 .orders AnchorPane AnchorPane:hover {
     -fx-opacity: 1;
@@ -54,16 +54,15 @@ Button:focused{
     -fx-border-width: 1 0 0 0;
     -fx-border-color: white;
 }
-.dishes-list GridPane{
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: white;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0);
-}
+
 .dishes-list .list-cell{
     -fx-background-color: transparent;
     -fx-padding: 0;
 }
 .dishes-list GridPane{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0);
     -fx-background-color: #E6353A;
 }
 .dishes-list .price{
@@ -85,7 +84,7 @@ Button:focused{
     -fx-background-color: transparent;
 }
 .create-order{
-    -fx-background-color: #FC3903;;
+    -fx-background-color: #FC3903;
 }
 .updates{
     -fx-background-color: #FC3903;;
