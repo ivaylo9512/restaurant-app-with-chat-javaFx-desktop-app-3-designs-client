@@ -20,21 +20,23 @@ Button:focused{
 .orders{
     -fx-background-color: #EEEEEE;
 }
-.orders AnchorPane > * {
+.orders AnchorPane > Label {
     -fx-background-radius: 5px;
     -fx-border-width: 0px;
     -fx-border-radius: 180px;
     -fx-background-color: #E6353A;
 }
 .orders AnchorPane > AnchorPane {
+    -fx-background-radius: 5px;
+    -fx-border-width: 0px;
+    -fx-border-radius: 180px;
     -fx-background-color: #FC3903;
 }
 .orders AnchorPane > AnchorPane Label {
     -fx-background-color: #FC3903;
 }
-.orders AnchorPane Pane:hover {
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
-
+.orders AnchorPane AnchorPane:hover {
+    -fx-opacity: 1;
 }
 .orders .list-view{
     -fx-background-color: #EEEEEE;
@@ -44,6 +46,9 @@ Button:focused{
     -fx-background-color: transparent;
     -fx-padding: 0;
     -fx-alignment: center;
+}
+.orders .list-view .list-cell:selected AnchorPane AnchorPane{
+    -fx-opacity: 1;
 }
 .dishes-list{
     -fx-border-width: 1 0 0 0;
