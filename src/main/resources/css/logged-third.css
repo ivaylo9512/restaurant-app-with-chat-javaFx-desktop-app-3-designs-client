@@ -20,28 +20,38 @@ Button:focused{
 .orders{
     -fx-background-color: #EEEEEE;
 }
+.orders Pane{
 
-.orders Button{
+}
+.orders AnchorPane > Label{
     -fx-background-radius: 5px;
     -fx-text-fill: white;
     -fx-border-width: 0px;
-    -fx-pref-height: 29.0;
-    -fx-pref-width: 139.0;
     -fx-border-radius: 180px;
     -fx-background-color: #E6353A;
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+.orders Button:hover {
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
+
 }
 .orders .list-view{
     -fx-background-color: #EEEEEE;
 }
 .orders .list-view .list-cell{
-    -fx-pref-height: 44px;
+    -fx-pref-height: 107px;
     -fx-background-color: transparent;
     -fx-padding: 0;
     -fx-alignment: center;
 }
-.dishes-list {
-    -fx-background-color: #E6353A;
+.dishes-list{
+    -fx-border-width: 1 0 0 0;
+    -fx-border-color: white;
+}
+.dishes-list GridPane{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0);
 }
 .dishes-list .list-cell{
     -fx-background-color: transparent;

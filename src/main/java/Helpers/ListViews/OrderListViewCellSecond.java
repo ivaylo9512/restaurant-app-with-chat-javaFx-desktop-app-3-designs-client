@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import sample.LoggedThirdStyle;
@@ -13,21 +14,34 @@ import java.io.IOException;
 
 public class OrderListViewCellSecond extends ListCell<Integer> {
 
-    @Override
-    protected void updateItem(Integer orderId, boolean empty) {
-        super.updateItem(orderId, empty);
+    @FXML
+    private AnchorPane container;
 
-        if(empty || orderId == null) {
+    @FXML
+    private Label orderId;
+
+    private FXMLLoader mLLoader;
+
+    @Override
+    protected void updateItem(Integer id, boolean empty) {
+        super.updateItem(id, empty);
+
+        if(empty || id == null) {
 
             setText(null);
             setGraphic(null);
 
         } else {
-            Button button = new Button();
-            button.setText(String.valueOf(orderId));
-            button.setOnMouseClicked(event -> LoggedThirdStyle.controller.showOrder(orderId));
-            HBox container = new HBox(button);
-            container.setAlignment(Pos.CENTER);
+            if (mLLoader == null) {
+                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell-second.fxml"));
+                mLLoader.setController(this);
+                try {
+                    mLLoader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            orderId.setText(String.valueOf(id));
             setText(null);
             setGraphic(container);
         }

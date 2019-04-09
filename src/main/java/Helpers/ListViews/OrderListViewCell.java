@@ -56,71 +56,71 @@ public class OrderListViewCell extends ListCell<Order> {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Scrolls.fixBlurriness(dishesScroll);
-
-                orderPane.setId(String.valueOf(order.getId()));
-
-                orderId.setText(String.valueOf(order.getId()));
-
-                button.prefWidthProperty().bind(((orderPane.prefWidthProperty()
-                        .subtract(81.6))
-                        .divide(15))
-                        .add(28));
-                button.prefHeightProperty().bind(((orderPane.prefHeightProperty()
-                        .subtract(81.6))
-                        .divide(30))
-                        .add(28));
-
-                button.setOnMouseClicked(event -> LoggedFirstStyle.controller.expandOrder(event));
-
-                dishesScroll.skinProperty().addListener((observable, oldValue, newValue) -> {
-                    ScrollBar bar = Scrolls.findVerticalScrollBar(dishesScroll);
-                    Objects.requireNonNull(bar).addEventFilter(MouseEvent.MOUSE_DRAGGED, Event::consume);
-                    Objects.requireNonNull(bar).addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
-                });
-
-                dishesAnchor.prefHeightProperty().bind(orderPane.prefHeightProperty().subtract(99));
-                dishesAnchor.setDisable(true);
-                dishesAnchor.setOpacity(0);
-
-
-                dishesBox.prefWidthProperty().bind(dishesScroll.widthProperty().subtract(14.65));
-                dishesBox.getChildren().clear();
-                Order orderValue = loggedUserProperty.getValue().getOrders().get(order.getId());
-                orderValue.getDishes().forEach(dish -> {
-                    Label amount = new Label("3");
-                    amount.getStyleClass().add("amount");
-
-                    Label ready;
-                    if (dish.getReady()) {
-                        ready = new Label("O");
-                    } else {
-                        ready = new Label("X");
-                    }
-                    ready.setId("dish" + dish.getId());
-                    ready.getStyleClass().add("ready");
-                    ready.setOnMouseClicked(event -> {
-                        if (ready.getText().equals("X")) {
-                            LoggedFirstStyle.controller.updateDishStatus(order.getId(), dish.getId());
-                        }
-                    });
-
-                    TextField name = new TextField(dish.getName());
-                    name.getStyleClass().add("name");
-                    name.setDisable(true);
-
-                    HBox dishBox = new HBox(amount, name, ready);
-                    dishBox.getStyleClass().add("dish");
-
-                    amount.setViewOrder(1);
-                    name.setViewOrder(3);
-                    HBox.setHgrow(name, Priority.ALWAYS);
-                    dishesBox.getChildren().add(dishBox);
-                });
-
-                setText(null);
-                setGraphic(container);
             }
+            Scrolls.fixBlurriness(dishesScroll);
+
+            orderPane.setId(String.valueOf(order.getId()));
+
+            orderId.setText(String.valueOf(order.getId()));
+
+            button.prefWidthProperty().bind(((orderPane.prefWidthProperty()
+                    .subtract(81.6))
+                    .divide(15))
+                    .add(28));
+            button.prefHeightProperty().bind(((orderPane.prefHeightProperty()
+                    .subtract(81.6))
+                    .divide(30))
+                    .add(28));
+
+            button.setOnMouseClicked(event -> LoggedFirstStyle.controller.expandOrder(event));
+
+            dishesScroll.skinProperty().addListener((observable, oldValue, newValue) -> {
+                ScrollBar bar = Scrolls.findVerticalScrollBar(dishesScroll);
+                Objects.requireNonNull(bar).addEventFilter(MouseEvent.MOUSE_DRAGGED, Event::consume);
+                Objects.requireNonNull(bar).addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
+            });
+
+            dishesAnchor.prefHeightProperty().bind(orderPane.prefHeightProperty().subtract(99));
+            dishesAnchor.setDisable(true);
+            dishesAnchor.setOpacity(0);
+
+
+            dishesBox.prefWidthProperty().bind(dishesScroll.widthProperty().subtract(14.65));
+            dishesBox.getChildren().clear();
+            Order orderValue = loggedUserProperty.getValue().getOrders().get(order.getId());
+            orderValue.getDishes().forEach(dish -> {
+                Label amount = new Label("3");
+                amount.getStyleClass().add("amount");
+
+                Label ready;
+                if (dish.getReady()) {
+                    ready = new Label("O");
+                } else {
+                    ready = new Label("X");
+                }
+                ready.setId("dish" + dish.getId());
+                ready.getStyleClass().add("ready");
+                ready.setOnMouseClicked(event -> {
+                    if (ready.getText().equals("X")) {
+                        LoggedFirstStyle.controller.updateDishStatus(order.getId(), dish.getId());
+                    }
+                });
+
+                TextField name = new TextField(dish.getName());
+                name.getStyleClass().add("name");
+                name.setDisable(true);
+
+                HBox dishBox = new HBox(amount, name, ready);
+                dishBox.getStyleClass().add("dish");
+
+                amount.setViewOrder(1);
+                name.setViewOrder(3);
+                HBox.setHgrow(name, Priority.ALWAYS);
+                dishesBox.getChildren().add(dishBox);
+            });
+
+            setText(null);
+            setGraphic(container);
         }
 
     }

@@ -39,8 +39,6 @@ import static Helpers.Services.OrderService.mostRecentOrderDate;
 public class ControllerLoggedThirdStyle {
     @FXML public ListView<Integer> ordersList;
     @FXML public ListView<Dish> dishesList;
-    @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,
-            createdDateLabel, createdTimeLabel;
     @FXML AnchorPane orderInfo, profileView, ordersView, chatsView, ordersMenu, chatsMenu;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -86,13 +84,13 @@ public class ControllerLoggedThirdStyle {
 
     private void displayView(AnchorPane requestedView, AnchorPane requestedMenu){
         if(currentView != null){
-            currentView.setOpacity(1);
+            currentView.setOpacity(0);
             currentView.setDisable(true);
         }
 
         if(requestedMenu != null) {
             if (currentMenu != null) {
-                currentMenu.setOpacity(1);
+                currentMenu.setOpacity(0);
                 currentMenu.setDisable(true);
             }
             requestedMenu.setOpacity(1);
@@ -107,19 +105,6 @@ public class ControllerLoggedThirdStyle {
     public void showOrder(int orderId){
         Order order = loggedUser.getOrders().get(orderId);
 
-        orderIdLabel.setText(String.valueOf(order.getId()));
-        dishesCountLabel.setText("Dishes " + order.getDishes().size());
-
-        createdDateLabel.setText(dateFormatter.format(order.getCreated()));
-        createdTimeLabel.setText(timeFormatter.format(order.getCreated()));
-        updatedDateLabel.setText(dateFormatter.format(order.getUpdated()));
-        updatedTimeLabel.setText(timeFormatter.format(order.getUpdated()));
-
-
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(450), orderInfo);
-        fadeIn.setFromValue(0.36);
-        fadeIn.setToValue(1);
-        fadeIn.play();
 
         order.getDishes().forEach(dish -> dish.setOrderId(order.getId()));
         dishesList.setItems(FXCollections.observableArrayList(order.getDishes()));
@@ -153,15 +138,15 @@ public class ControllerLoggedThirdStyle {
 
             if (orderValue != null) {
                 order.getDishes().forEach(dish -> {
-
-                    if(orderIdLabel.getText().equals(String.valueOf(orderId))) {
-                        Label ready = (Label) dishesList.lookup("#dish" + dish.getId());
-
-                        if (ready != null && ready.getText().equals("X") && dish.getReady()) {
-                            ready.setText("O");
-                            ready.setUserData("ready");
-                        }
-                    }
+//
+//                    if(orderIdLabel.getText().equals(String.valueOf(orderId))) {
+//                        Label ready = (Label) dishesList.lookup("#dish" + dish.getId());
+//
+//                        if (ready != null && ready.getText().equals("X") && dish.getReady()) {
+//                            ready.setText("O");
+//                            ready.setUserData("ready");
+//                        }
+//                    }
                 });
             } else {
                 ordersList.getItems().add(0, orderId);
