@@ -23,9 +23,6 @@ Button{
 .profile-view {
     -fx-background-color: #E6353A;
 }
-.profile-view Label{
-
-}
 .profile-picture-shadow{
     -fx-background-radius: 180px;
     -fx-border-radius: 180px;
@@ -33,7 +30,26 @@ Button{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1);
 
 }
+.user-labels Label{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+}
+.user-fields Label,
+.user-fields TextField{
+    -fx-background-color: #E6353A;
+    -fx-text-fill: white;
+}
 .profile-menu{
+    -fx-background-radius: 20px;
+
+    -fx-border-radius: 20px;
+    -fx-background-color: #E6353A;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
+}
+.profile-menu Button{
+    -fx-background-color: transparent;
+}
+.profile-menu Button{
     -fx-background-color: #E6353A;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
 }

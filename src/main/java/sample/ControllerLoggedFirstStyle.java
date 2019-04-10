@@ -890,7 +890,6 @@ public class ControllerLoggedFirstStyle {
                 showLoginStageAlert(e.getMessage());
             }
         }
-
     }
     @FXML
     public void minimize(){

@@ -49,6 +49,7 @@ public class ControllerLoggedThirdStyle {
     @FXML public Label roleField, usernameField, firstNameLabel, lastNameLabel, countryLabel,
             ageLabel, roleLabel, usernameLabel;
     @FXML ImageView profileImage;
+    @FXML Button editButton;
 
     private Image userProfileImage;
 
@@ -152,6 +153,8 @@ public class ControllerLoggedThirdStyle {
         userInfoFields.setDisable(false);
         userInfoFields.setOpacity(1);
 
+        editButton.setText("Save");
+        editButton.setOnMouseClicked(event -> saveUserInfo());
     }
 
     private void saveUserInfo() {
@@ -179,6 +182,8 @@ public class ControllerLoggedThirdStyle {
                 countryLabel.setText(user.getCountry());
             }
         }
+        editButton.setText("Edit");
+        editButton.setOnMouseClicked(event -> editUserInfo());
     }
     @FXML
     public void displayOrdersView(){
@@ -327,7 +332,7 @@ public class ControllerLoggedThirdStyle {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        LoggedSecondStyle.stage.close();
+        LoggedThirdStyle.stage.close();
         if(LoginSecondStyle.stage != null) {
             LoginSecondStyle.stage.show();
         }else{
@@ -339,6 +344,52 @@ public class ControllerLoggedThirdStyle {
                 dialogPane.setContentText(e.getMessage());
                 LoginFirstStyle.alert.showAndWait();
 
+            }
+        }
+    }
+    @FXML
+    public void showLoggedFirstStyle(){
+        try {
+            httpClientLongPolling.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        httpClientLongPolling = HttpClients.createDefault();
+
+        LoggedThirdStyle.stage.close();
+        if(LoggedFirstStyle.stage != null){
+            LoggedFirstStyle.stage.show();
+
+        }else {
+            try {
+                LoggedFirstStyle.displayLoggedScene();
+            } catch (Exception e) {
+                LoginFirstStyle.stage.show();
+                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+
+            }
+        }
+    }
+    @FXML
+    public void showLoggedSecondStyle(){
+        try {
+            httpClientLongPolling.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        httpClientLongPolling = HttpClients.createDefault();
+
+        LoggedThirdStyle.stage.close();
+        if(LoggedSecondStyle.stage != null){
+            LoggedSecondStyle.stage.show();
+        }else {
+            try {
+                LoggedSecondStyle.displayLoggedScene();
+            } catch (Exception e) {
+                LoginFirstStyle.stage.show();
+                showLoginStageAlert(e.getMessage());
             }
         }
     }
