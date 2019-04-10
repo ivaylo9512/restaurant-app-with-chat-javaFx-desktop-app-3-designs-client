@@ -109,7 +109,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Create" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showCreated" prefHeight="22.0" prefWidth="72.0" text="Create" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
