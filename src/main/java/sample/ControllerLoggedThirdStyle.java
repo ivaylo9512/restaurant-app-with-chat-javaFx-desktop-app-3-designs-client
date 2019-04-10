@@ -16,6 +16,8 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -23,7 +25,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +42,15 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<Order> ordersList;
     @FXML public ListView<Dish> dishesList;
     @FXML public ListView<Menu> menuList,newOrderList;
-    @FXML public TextField menuSearch;
-    @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot;
+    @FXML public TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
+    @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot,
+            userInfoFields, userInfoLabels;
     @FXML public Pane profileImageClip;
+    @FXML public Label roleField, usernameField, firstNameLabel, lastNameLabel, countryLabel,
+            ageLabel, roleLabel, usernameLabel;
+    @FXML ImageView profileImage;
+
+    private Image userProfileImage;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -69,25 +80,105 @@ public class ControllerLoggedThirdStyle {
         clip.widthProperty().bind(createRoot.prefWidthProperty());
         createRoot.setClip(clip);
 
-        Circle profileClip = new Circle(30.8, 30.8, 30.8);
+        Circle profileClip = new Circle(40.5, 40.5, 40.5);
         profileImageClip.setClip(profileClip);
     }
 
-    public void displayUserInfo(){
+    public void displayUserInfo() throws Exception {
         loggedUser = loggedUserProperty.getValue();
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
         ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
         FXCollections.reverse(orders);
 
+        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+
         menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
         ordersList.setItems(orders);
 
+        InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
+        userProfileImage = new Image(in);
+        in.close();
+
         waitForNewOrders();
+        orderService.start();
+
+        displayUserFields();
     }
     public void resetStage(){
         menuMap.clear();
+
+        resetUserFields();
+    }
+    private void displayUserFields() {
+        usernameLabel.setText(loggedUser.getUsername());
+        firstNameLabel.setText(loggedUser.getFirstName());
+        lastNameLabel.setText(loggedUser.getLastName());
+        countryLabel.setText(loggedUser.getCountry());
+        ageLabel.setText(String.valueOf(loggedUser.getAge()));
+        roleLabel.setText(loggedUser.getRole());
+
+        usernameField.setText(loggedUser.getUsername());
+        firstNameField.setText(loggedUser.getFirstName());
+        lastNameField.setText(loggedUser.getLastName());
+        countryField.setText(loggedUser.getCountry());
+        ageField.setText(String.valueOf(loggedUser.getAge()));
+        roleField.setText(loggedUser.getRole());
+
+        profileImage.setImage(userProfileImage);
+    }
+    private void resetUserFields() {
+        usernameLabel.setText(null);
+        firstNameLabel.setText(null);
+        lastNameLabel.setText(null);
+        countryLabel.setText(null);
+        ageLabel.setText(null);
+        roleLabel.setText(null);
+
+        usernameField.setText(null);
+        firstNameField.setText(null);
+        lastNameField.setText(null);
+        countryField.setText(null);
+        ageField.setText(null);
+        roleField.setText(null);
+
+        profileImage.setImage(null);
+    }
+    @FXML
+    public void editUserInfo(){
+        userInfoLabels.setDisable(true);
+        userInfoLabels.setOpacity(0);
+        userInfoFields.setDisable(false);
+        userInfoFields.setOpacity(1);
+
+    }
+
+    private void saveUserInfo() {
+        userInfoLabels.setDisable(false);
+        userInfoLabels.setOpacity(1);
+        userInfoFields.setDisable(true);
+        userInfoFields.setOpacity(0);
+
+        boolean edited = !firstNameLabel.getText().equals(firstNameField.getText()) || !lastNameLabel.getText().equals(lastNameField.getText()) ||
+                !ageLabel.getText().equals(ageField.getText()) || !countryLabel.getText().equals(countryField.getText());
+
+        if (edited) {
+            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
+                    ageField.getText(), countryField.getText());
+
+            if (user != null) {
+                loggedUser.setFirstName(user.getFirstName());
+                loggedUser.setLastName(user.getLastName());
+                loggedUser.setAge(user.getAge());
+                loggedUser.setCountry(user.getCountry());
+
+                firstNameLabel.setText(user.getFirstName());
+                lastNameLabel.setText(user.getLastName());
+                ageLabel.setText(String.valueOf(user.getAge()));
+                countryLabel.setText(user.getCountry());
+            }
+        }
     }
     @FXML
     public void displayOrdersView(){

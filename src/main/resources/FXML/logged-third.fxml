@@ -227,12 +227,20 @@
                         </AnchorPane>
                         <AnchorPane fx:id="userInfoLabels" layoutX="32.0" layoutY="115.0" prefHeight="118.0" prefWidth="384.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
                            <children>
-                              <Label fx:id="roleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" prefHeight="27.0" prefWidth="115.0" text="admin" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0" />
-                              <Label fx:id="ageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" prefHeight="27.0" prefWidth="115.0" text="Bulgaria" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0" />
-                              <Label fx:id="countryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" prefHeight="27.0" prefWidth="115.0" text="Aleksnadrov" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0" />
-                              <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" prefHeight="51.0" prefWidth="115.0" text="Ivaylo" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0" />
-                              <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" prefHeight="27.0" prefWidth="115.0" text="admin11" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0" />
-                              <Label fx:id="lastNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" prefHeight="27.0" prefWidth="115.0" text="23" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0" />
+                              <Label fx:id="roleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" prefHeight="27.0" prefWidth="115.0" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0" />
+                              <Label fx:id="ageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" prefHeight="27.0" prefWidth="115.0" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0" />
+                              <Label fx:id="countryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" prefHeight="27.0" prefWidth="115.0" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0" />
+                              <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" prefHeight="51.0" prefWidth="115.0" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0" />
+                              <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" prefHeight="27.0" prefWidth="115.0" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0" />
+                              <Label fx:id="lastNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" prefHeight="27.0" prefWidth="115.0" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="51.0" layoutY="269.0" prefHeight="33.0" prefWidth="345.0" styleClass="profile-menu">
+                           <children>
+                              <Text fill="WHITE" layoutX="20.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" />
+                              <Text fill="WHITE" layoutX="63.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Style 2" />
+                              <Text fill="WHITE" layoutX="187.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="logout" />
+                              <Text fill="WHITE" layoutX="126.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Style3" />
                            </children>
                         </AnchorPane>
                      </children></AnchorPane>
