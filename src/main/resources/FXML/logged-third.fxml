@@ -247,6 +247,11 @@
                   <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
                      <children>
                         <ListView fx:id="notificationsList" layoutX="89.0" layoutY="14.0" onMouseClicked="#removeNotification" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <HBox fx:id="notificationsInfo" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="notifications-info" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no notifications to show" />
+                           </children>
+                        </HBox>
                      </children></AnchorPane>
                </children>
             </AnchorPane>

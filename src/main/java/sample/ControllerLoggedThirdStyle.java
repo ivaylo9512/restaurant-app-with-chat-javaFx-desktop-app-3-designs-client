@@ -20,7 +20,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -53,9 +56,10 @@ public class ControllerLoggedThirdStyle {
             ageLabel, roleLabel, usernameLabel;
     @FXML ImageView profileImage;
     @FXML Button editButton;
-
+    @FXML HBox notificationsInfo;
     private Image userProfileImage;
 
+    private MediaPlayer notificationSound;
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
@@ -81,6 +85,13 @@ public class ControllerLoggedThirdStyle {
             searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
             menuList.setItems(observableList);
         });
+
+        Media sound = new Media(getClass()
+                .getResource("/notification.mp3")
+                .toExternalForm());
+        notificationSound = new MediaPlayer(sound);
+        notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
+
         Rectangle clip = new Rectangle();
         clip.heightProperty().bind(createRoot.prefHeightProperty());
         clip.widthProperty().bind(createRoot.prefWidthProperty());
@@ -344,11 +355,19 @@ public class ControllerLoggedThirdStyle {
     }
 
     private void addNotification(String notification) {
+        notificationsInfo.setOpacity(0);
+        notificationsInfo.setDisable(true);
+
         notificationsList.getItems().add(0, notification);
+        notificationSound.play();
     }
     @FXML
     public void removeNotification(){
         notificationsList.getItems().remove(notificationsList.getFocusModel().getFocusedItem());
+        if(notificationsList.getItems().size() == 0){
+            notificationsInfo.setOpacity(1);
+            notificationsInfo.setDisable(false);
+        }
     }
 
     @FXML
