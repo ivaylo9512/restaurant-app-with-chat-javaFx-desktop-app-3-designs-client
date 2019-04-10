@@ -44,6 +44,7 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<Order> ordersList;
     @FXML public ListView<Dish> dishesList;
     @FXML public ListView<Menu> menuList,newOrderList;
+    @FXML public ListView<String> notificationsList;
     @FXML public TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot,
             userInfoFields, userInfoLabels;
@@ -66,6 +67,7 @@ public class ControllerLoggedThirdStyle {
     private OrderService orderService;
     private AnchorPane currentView, currentMenu;
     private Text currentText;
+    private Order currentOrder;
 
     @FXML
     public void initialize(){
@@ -234,11 +236,10 @@ public class ControllerLoggedThirdStyle {
         currentView = requestedView;
     }
     public void showOrder(int orderId){
-        Order order = loggedUser.getOrders().get(orderId);
+        currentOrder = loggedUser.getOrders().get(orderId);
+        currentOrder.getDishes().forEach(dish -> dish.setOrderId(currentOrder.getId()));
 
-
-        order.getDishes().forEach(dish -> dish.setOrderId(order.getId()));
-        dishesList.setItems(FXCollections.observableArrayList(order.getDishes()));
+        dishesList.setItems(FXCollections.observableArrayList(currentOrder.getDishes()));
     }
 
     private void waitForNewOrders() {
@@ -269,19 +270,21 @@ public class ControllerLoggedThirdStyle {
 
             if (orderValue != null) {
                 order.getDishes().forEach(dish -> {
-//
-//                    if(orderIdLabel.getText().equals(String.valueOf(orderId))) {
-//                        Label ready = (Label) dishesList.lookup("#dish" + dish.getId());
-//
-//                        if (ready != null && ready.getText().equals("X") && dish.getReady()) {
-//                            ready.setText("O");
-//                            ready.setUserData("ready");
-//                        }
-//                    }
+
+                    if(currentOrder != null && currentOrder.getId() == orderId) {
+                        Label ready = (Label) dishesList.lookup("#dish" + dish.getId());
+
+                        if (ready != null && ready.getText().equals("X") && dish.getReady()) {
+                            addNotification(dish.getName() + " from order " + orderId + " is ready.");
+                            ready.setText("O");
+                            ready.setUserData("ready");
+                        }
+                    }
                 });
             } else {
                 ordersList.getItems().add(0, order);
                 if(order.getUserId() != loggedUser.getId()){
+                    addNotification("New order created " + orderId);
                 }
             }
             loggedUser.getOrders().put(orderId, order);
@@ -338,6 +341,14 @@ public class ControllerLoggedThirdStyle {
     public void removeMenuItem(){
         Menu menuItem = newOrderList.getSelectionModel().getSelectedItem();
         newOrderList.getItems().remove(menuItem);
+    }
+
+    private void addNotification(String notification) {
+        notificationsList.getItems().add(0, notification);
+    }
+    @FXML
+    public void removeNotification(){
+        notificationsList.getItems().remove(notificationsList.getFocusModel().getFocusedItem());
     }
 
     @FXML

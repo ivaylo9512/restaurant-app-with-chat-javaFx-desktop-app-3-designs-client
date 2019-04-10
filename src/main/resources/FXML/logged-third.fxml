@@ -244,7 +244,10 @@
                         </HBox>
                      </children></AnchorPane>
                   <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
-                  <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
+                  <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
+                     <children>
+                        <ListView fx:id="notificationsList" layoutX="89.0" layoutY="14.0" onMouseClicked="#removeNotification" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
                </children>
             </AnchorPane>
          </children>
