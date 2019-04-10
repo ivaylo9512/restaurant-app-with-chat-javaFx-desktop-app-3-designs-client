@@ -20,6 +20,12 @@ Button{
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
+.menu Text:hover{
+    -fx-strikethrough: true;
+}
+.strikethrough{
+    -fx-strikethrough: true;
+}
 .profile-view {
     -fx-background-color: #E6353A;
 }
@@ -49,7 +55,7 @@ Button{
 .profile-menu Button{
     -fx-background-color: transparent;
 }
-.profile-menu Button{
+.profile-menu Button:hover{
     -fx-background-color: #E6353A;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
 }

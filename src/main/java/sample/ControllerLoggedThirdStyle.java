@@ -18,10 +18,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
 
@@ -63,6 +65,7 @@ public class ControllerLoggedThirdStyle {
     private MessageService messageService;
     private OrderService orderService;
     private AnchorPane currentView, currentMenu;
+    private Text currentText;
 
     @FXML
     public void initialize(){
@@ -186,16 +189,30 @@ public class ControllerLoggedThirdStyle {
         editButton.setOnMouseClicked(event -> editUserInfo());
     }
     @FXML
-    public void displayOrdersView(){
+    public void displayOrdersView(MouseEvent event){
+        Text clickedText = (Text)event.getSource();
+        setStrikeThrough(clickedText);
         displayView(ordersView, ordersMenu);
     }
     @FXML
-    public void displayProfileView(){
+    public void displayProfileView(MouseEvent event){
+        Text clickedText = (Text)event.getSource();
+        setStrikeThrough(clickedText);
         displayView(profileView, chatsMenu);
     }
     @FXML
-    public void displayChatsView(){
+    public void displayChatsView(MouseEvent event){
+        Text clickedText = (Text)event.getSource();
+        setStrikeThrough(clickedText);
         displayView(chatsView, chatsMenu);
+    }
+
+    private void setStrikeThrough(Text clickedText) {
+        clickedText.getStyleClass().add("strikethrough");
+        if(currentText != null) {
+            currentText.getStyleClass().remove("strikethrough");
+        }
+        currentText = clickedText;
     }
 
     private void displayView(AnchorPane requestedView, AnchorPane requestedMenu){
