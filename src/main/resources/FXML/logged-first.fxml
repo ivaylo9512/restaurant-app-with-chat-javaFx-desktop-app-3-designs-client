@@ -56,7 +56,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="15.0" fitWidth="15.0">
                                                    <image>
-                                                      <Image url="@../../../../../../../Downloads/edit.png" />
+                                                      <Image url="/images/edit.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -109,7 +109,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showCreated" prefHeight="22.0" prefWidth="72.0" text="Create" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Create" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -168,9 +168,6 @@
                         <AnchorPane fx:id="profileImageContainer" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture">
                            <children>
                               <ImageView fx:id="profileImage" fitHeight="50.0" fitWidth="50.0" layoutX="4.0" layoutY="10.0">
-                                 <image>
-                                    <Image url="@../../../../../Vision-Project-Extended-server-master1/Vision-Project-Extended-server-master/uploads/user_1.png" />
-                                 </image>
                               </ImageView>
                            </children>
                         </AnchorPane>
@@ -238,7 +235,7 @@
                               </AnchorPane>
                               <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="303.0" layoutY="90.0" rotate="180.0">
                                  <image>
-                                    <Image url="@../../../../../../../Downloads/left-arrow.png" />
+                                    <Image url="@/images/left-arrow.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets top="90.0" />
@@ -409,7 +406,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0">
                      <image>
-                        <Image url="@../../../../../../../Downloads/edit.png" />
+                        <Image url="/images/edit.png" />
                      </image>
                   </ImageView>
                </graphic>
