@@ -20,7 +20,7 @@
                         <InnerShadow height="10.0" radius="4.5" width="10.0" />
                      </effect>
                      <font>
-                        <Font size="9.0" />
+                        <Font size="10.5" />
                      </font>
                   </Label>
                   <Label fx:id="createdDate" alignment="CENTER" layoutX="3.0" layoutY="3.0" maxHeight="24.0" maxWidth="61.0" minHeight="24.0" minWidth="61.0" prefHeight="24.0" prefWidth="61.0" text="23/19/2019" textFill="WHITE">
@@ -28,7 +28,7 @@
                         <DropShadow height="10.0" radius="4.5" width="10.0" />
                      </effect>
                      <font>
-                        <Font size="9.0" />
+                        <Font size="10.5" />
                      </font>
                   </Label>
                </children>
@@ -40,7 +40,7 @@
                         <InnerShadow height="10.0" radius="4.5" width="10.0" />
                      </effect>
                      <font>
-                        <Font size="9.0" />
+                        <Font size="10.5" />
                      </font>
                   </Label>
                   <Label fx:id="updatedDate" alignment="CENTER" layoutX="3.0" layoutY="3.0" maxHeight="24.0" maxWidth="61.0" minHeight="24.0" minWidth="61.0" prefHeight="24.0" prefWidth="61.0" text="23/19/2019" textFill="WHITE">
@@ -48,7 +48,7 @@
                         <DropShadow height="10.0" radius="4.5" width="10.0" />
                      </effect>
                      <font>
-                        <Font size="9.0" />
+                        <Font size="10.5" />
                      </font>
                   </Label>
                </children>

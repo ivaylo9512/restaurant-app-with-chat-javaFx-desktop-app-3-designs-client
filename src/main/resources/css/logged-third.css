@@ -33,6 +33,7 @@ Button:focused{
     -fx-background-color: #E6353A
 }
 .orders AnchorPane > AnchorPane Label {
+    -fx-background-radius: 3px;
     -fx-background-color: #E6353A;
 }
 .orders AnchorPane AnchorPane:hover {
@@ -50,32 +51,43 @@ Button:focused{
 .orders .list-view .list-cell:selected AnchorPane AnchorPane{
     -fx-opacity: 1;
 }
-.dishes-list{
-    -fx-border-width: 1 0 0 0;
-    -fx-border-color: white;
-}
-
-.dishes-list .list-cell{
-    -fx-background-color: transparent;
-    -fx-padding: 0;
-}
-.dishes-list GridPane{
+.orders-view .list-view GridPane{
     -fx-border-width: 0 0 1 0;
     -fx-border-color: white;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0);
-    -fx-background-color: #E6353A;
+    -fx-background-color: transparent;
 }
-.dishes-list .price{
+.orders-view .list-view GridPane:hover{
+    -fx-background-color: white;
+}
+.orders-view .list-view .list-cell{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.dishes-list Label{
     -fx-text-fill: white;
 }
-.dishes-list .name{
+.dishes-list{
+    -fx-border-width: 1 0 0 0;
+    -fx-border-color: #E6353A;
+}
+.dishes-list GridPane:hover Label {
+    -fx-text-fill: #E6353A;
+}
+.new-order-list GridPane Label,
+.menu-list GridPane Label{
     -fx-text-fill: white;
 }
-.dishes-list .ready{
-    -fx-text-fill: white;
+.new-order-list GridPane:hover Label,
+.menu-list GridPane:hover Label{
+    -fx-text-fill: #FC3903;
+}
+.new-order-list .price,
+.menu-list .price{
+    -fx-pref-Height: 64px;
 }
 .chat-second{
-    -fx-background-color: #FC3903;;
+    -fx-background-color: #FC3903;
 }
 .chat-second ScrollPane{
     -fx-background-color: transparent;

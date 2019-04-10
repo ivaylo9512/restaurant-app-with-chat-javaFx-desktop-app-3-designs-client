@@ -1,36 +1,28 @@
 package sample;
 
 import Helpers.ListViews.DishListViewCell;
+import Helpers.ListViews.MenuListViewCell;
 import Helpers.ListViews.OrderListViewCellSecond;
-import Helpers.ServerRequests;
-import Helpers.Services.LoginService;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
-import Helpers.Services.RegisterService;
 import Models.Dish;
+import Models.Menu;
 import Models.Order;
 import Models.User;
-import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static Helpers.ServerRequests.httpClientLongPolling;
 import static Helpers.ServerRequests.loggedUserProperty;
@@ -39,6 +31,8 @@ import static Helpers.Services.OrderService.mostRecentOrderDate;
 public class ControllerLoggedThirdStyle {
     @FXML public ListView<Order> ordersList;
     @FXML public ListView<Dish> dishesList;
+    @FXML public ListView<Menu> menuList,newOrderList;
+
     @FXML AnchorPane orderInfo, profileView, ordersView, chatsView, ordersMenu, chatsMenu;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -54,6 +48,8 @@ public class ControllerLoggedThirdStyle {
     public void initialize(){
         ordersList.setCellFactory(orders -> new OrderListViewCellSecond());
         dishesList.setCellFactory(dish -> new DishListViewCell());
+        menuList.setCellFactory(menu -> new MenuListViewCell());
+        newOrderList.setCellFactory(menu -> new MenuListViewCell());
     }
 
     public void displayUserInfo(){
@@ -61,6 +57,8 @@ public class ControllerLoggedThirdStyle {
 
         ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
         FXCollections.reverse(orders);
+
+        menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
         ordersList.setItems(orders);
 

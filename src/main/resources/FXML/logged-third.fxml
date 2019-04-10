@@ -145,7 +145,7 @@
                   <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="ordersView" disable="true" layoutX="389.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="ordersView" disable="true" layoutX="389.0" styleClass="orders-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -157,7 +157,40 @@
                      </children>
                   </AnchorPane>
                   <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
-                  <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="create-order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
+                  <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="create-order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
+                     <children>
+                        <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane maxHeight="43.0" maxWidth="527.0" minHeight="9.0" minWidth="61.0" prefHeight="38.0" prefWidth="430.0" styleClass="add-button-container" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <children>
+                                    <TextField fx:id="menuSearch" alignment="CENTER" prefHeight="38.0" prefWidth="187.0" promptText="Search" style="-fx-background-color: #FC3903; -fx-text-fill: white; -fx-border-width: 0 1 0 0; -fx-border-color: white; -fx-prompt-text-fill: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="220.5" />
+                                    <TextField fx:id="menuSearch1" alignment="CENTER" layoutX="10.0" prefHeight="38.0" prefWidth="187.0" promptText="Search" style="-fx-background-color: #FC3903; -fx-text-fill: white; -fx-prompt-text-fill: white;" AnchorPane.leftAnchor="221.5" AnchorPane.rightAnchor="0.0" />
+                                 </children>
+                                 <effect>
+                                    <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                 </effect>
+                              </AnchorPane>
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="370.0" style="-fx-background-color: transparent;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                 <children>
+                                    <ListView fx:id="newOrderList" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 1 0;" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="370.0" style="-fx-background-color: #FC3903;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                                 <children>
+                                    <ListView fx:id="menuList" layoutY="33.0" prefHeight="157.0" prefWidth="401.0" styleClass="menu-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="179.0" vgrow="ALWAYS" />
+                              <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="83.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="179.0" vgrow="ALWAYS" />
+                           </rowConstraints>
+                        </GridPane>
+                     </children></AnchorPane>
                </children>
             </AnchorPane>
          </children>
