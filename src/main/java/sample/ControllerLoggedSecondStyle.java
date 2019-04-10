@@ -489,7 +489,31 @@ public class ControllerLoggedSecondStyle {
             }
         }
     }
+    @FXML
+    public void showLoggedThirdStyle(){
+        try {
+            httpClientLongPolling.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        httpClientLongPolling = HttpClients.createDefault();
 
+        LoggedSecondStyle.stage.close();
+        if(LoggedThirdStyle.stage != null){
+            LoggedThirdStyle.stage.show();
+        }else {
+
+            try {
+                LoggedThirdStyle.displayLoggedScene();
+            } catch (Exception e) {
+                LoginFirstStyle.stage.show();
+                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+
+            }
+        }
+    }
     @FXML
     public void showProfile(){
         if(menuContent.isDisabled()) {

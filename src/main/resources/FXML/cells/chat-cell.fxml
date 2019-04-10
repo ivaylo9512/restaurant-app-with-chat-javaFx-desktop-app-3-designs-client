@@ -20,9 +20,6 @@
             <Pane fx:id="profileImageClip" prefHeight="46.0" prefWidth="46.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
                <children>
                   <ImageView fx:id="profileImage" fitHeight="38.5" fitWidth="38.5" layoutX="3.75" layoutY="8.3">
-                     <image>
-                        <Image url="@../../../../../../../Downloads/woman%20(3).png" />
-                     </image>
                   </ImageView>
                </children>
             </Pane>

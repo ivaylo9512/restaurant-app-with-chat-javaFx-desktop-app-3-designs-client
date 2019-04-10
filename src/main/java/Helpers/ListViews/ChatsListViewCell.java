@@ -26,7 +26,7 @@ public class ChatsListViewCell extends ListCell<Chat> {
     @FXML
     private Pane profileImageClip;
     @FXML
-    ImageView profileImage;
+    private ImageView profileImage;
     @FXML
     private GridPane grid;
 

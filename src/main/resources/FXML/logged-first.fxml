@@ -138,7 +138,7 @@
             </Pane>
             <Pane fx:id="profileRoot" disable="true" layoutY="38.0" minHeight="190.0" opacity="0.0" prefHeight="190.0" prefWidth="103.0" style="-fx-background-color: #2A2E37;" styleClass="menu" AnchorPane.topAnchor="28.0">
                <children>
-                  <Button layoutX="16.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Style 3" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" prefHeight="22.0" prefWidth="72.0" text="Style 3" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>
