@@ -36,13 +36,18 @@ ScrollPane > .viewport{
 .list-view .scroll-bar:vertical{
     -fx-scale-x: 0;
 }
+.root{
+    -fx-background-color: transparent;
+}
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 15, 0.0 , 0 , 2 );
 }
 .shadow2{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
 }
-
+.content-bar{
+    -fx-background-color: #FC3903;
+}
 .dishes-list .list-cell{
     -fx-background-color: transparent;
     -fx-padding: 0;
@@ -76,7 +81,6 @@ ScrollPane > .viewport{
     -fx-alignment: center;
     -fx-padding: 0;
 }
-
 .order-list .list-cell:hover{
     -fx-background-color: rgb(252,57,3,0.1);
 }
@@ -84,17 +88,21 @@ ScrollPane > .viewport{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-color: rgb(252,57,3,1);
 }
-.new-order-list .list-cell,
-.menu-list .list-cell{
+.menu-container{
+    -fx-background-color: #1a1a1a;
+}
+.menu-container TextField{
+    -fx-text-fill: #bcbcbc;
+    -fx-background-color: #1a1a1a;
+}
+.menu-container .list-view .list-cell{
     -fx-padding: 0;
     -fx-background-color: transparent;
 }
-.new-order-list .list-cell GridPane,
-.menu-list .list-cell GridPane{
+.menu-container .list-view .list-cell GridPane{
     -fx-background-color: #1a1a1a;
 }
-.new-order-list .price,
-.menu-list .price{
+.menu-container .list-view .price{
     -fx-pref-Height: 64px;
     -fx-background-color: transparent;
 }
@@ -113,6 +121,14 @@ ScrollPane > .viewport{
 .add-button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
 
+}
+.order-info AnchorPane{
+    -fx-background-color: #1a1a1a;
+    -fx-background-radius: 15;
+}
+.info-label{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #bcbcbc;
 }
 .chats-list .list-cell{
     -fx-background-color: transparent;

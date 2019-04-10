@@ -201,6 +201,9 @@ TextArea .scroll-pane .content{
     -fx-border-width: 0 0 1 0;
     -fx-border-color: #363b41;
 }
+.program-bar Button{
+    -fx-background-color: transparent;
+}
 .menu{
     -fx-background-color: #2A2E37;
 }
@@ -231,7 +234,9 @@ TextFlow {
 }
 .chat-block{
     -fx-padding: 0 0 7 0;
-
+}
+.main-chat {
+    -fx-background-color: #363b41;
 }
 .main-chat Pane{
     -fx-pref-width: 40.0;
@@ -258,6 +263,18 @@ TextFlow {
 }
 .main-chat TextFlow{
     -fx-padding: 5 0 5 0;
+}
+.main-chat Button{
+    -fx-background-color: #363b41;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+.main-chat TextArea{
+    -fx-background-color: #363b41;
+    -fx-text-fill: #bcbcbc;
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #bcbcbc;
 }
 .user-message-first{
     -fx-padding: 15 0 0 65;
@@ -309,18 +326,25 @@ TextFlow {
     -fx-alignment: center;
     -fx-fill: #bcbcbc;
 }
-.menu-cell{
-
-}
 .price{
     -fx-pref-Height: 64px;
     -fx-background-color: transparent;
+}
+.create-order{
+    -fx-background-color: #363b41;
 }
 .create-order ListView .list-cell{
    -fx-padding: 0;
    -fx-background-color: transparent;
 }
-
+.create-order AnchorPane{
+    -fx-background-color: #363b41;
+}
+.menu-search{
+    -fx-background-color: #363b41;
+    -fx-text-fill: #bcbcbc;
+    -fx-background-radius: 2 2 0 0;
+}
 .menu-cell{
     -fx-background-color: #363b41;
 }

@@ -136,7 +136,7 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="profileRoot" disable="true" layoutY="38.0" minHeight="190.0" opacity="0.0" prefHeight="190.0" prefWidth="103.0" style="-fx-background-color: #2A2E37;" styleClass="menu" AnchorPane.topAnchor="28.0">
+            <Pane fx:id="profileRoot" disable="true" layoutY="38.0" minHeight="190.0" opacity="0.0" prefHeight="190.0" prefWidth="103.0" styleClass="menu" AnchorPane.topAnchor="28.0">
                <children>
                   <Button layoutX="16.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" prefHeight="22.0" prefWidth="72.0" text="Style 3" textFill="#bcbcbc">
                      <font>
@@ -185,12 +185,12 @@
                   <Pane prefHeight="28.0" prefWidth="103.0" styleClass="program-bar" AnchorPane.leftAnchor="0.0" />
                   <AnchorPane layoutX="106.0" minHeight="28.0" prefHeight="28.0" prefWidth="637.0" styleClass="program-bar" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button layoutX="611.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#close" style="-fx-background-color: transparent;" text="X" textFill="#bcbcbc" AnchorPane.rightAnchor="8.0">
+                        <Button layoutX="611.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#close" text="X" textFill="#bcbcbc" AnchorPane.rightAnchor="8.0">
                            <font>
                               <Font name="System Bold" size="8.0" />
                            </font>
                         </Button>
-                        <Button layoutX="586.0" mnemonicParsing="false" onMouseClicked="#minimize" style="-fx-background-color: transparent;" text="-" textFill="#bcbcbc" AnchorPane.rightAnchor="27.0">
+                        <Button layoutX="586.0" mnemonicParsing="false" onMouseClicked="#minimize" text="-" textFill="#bcbcbc" AnchorPane.rightAnchor="27.0">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
@@ -209,7 +209,7 @@
                         </FlowPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutY="189.0" prefHeight="212.0" prefWidth="637.0" style="-fx-background-color: #363b41;" styleClass="create-order" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="189.0">
+                  <AnchorPane layoutY="189.0" prefHeight="212.0" prefWidth="637.0" styleClass="create-order" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="189.0">
                      <children>
                         <HBox layoutX="13.0" layoutY="6.5" spacing="9.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="10.0">
                            <children>
@@ -223,7 +223,7 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </ListView>
-                                    <TextField fx:id="menuSearch" alignment="CENTER" layoutX="-287.0" layoutY="20.0" prefHeight="39.0" prefWidth="339.0" promptText="Search" style="-fx-background-color: #363b41; -fx-text-fill: #bcbcbc; -fx-background-radius: 2 2 0 0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TextField fx:id="menuSearch" alignment="CENTER" layoutX="-287.0" layoutY="20.0" prefHeight="39.0" prefWidth="339.0" promptText="Search" styleClass="menu-search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <effect>
                                           <DropShadow height="10.0" radius="4.5" width="10.0" />
                                        </effect>
@@ -235,7 +235,7 @@
                               </AnchorPane>
                               <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="303.0" layoutY="90.0" rotate="180.0">
                                  <image>
-                                    <Image url="@/images/left-arrow.png" />
+                                    <Image url="/images/left-arrow.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets top="90.0" />
@@ -293,7 +293,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="mainChat" disable="true" layoutX="217.0" layoutY="231.0" maxHeight="428.0" minHeight="189.0" minWidth="423.0" opacity="0.0" prefHeight="189.0" prefWidth="423.0" style="-fx-background-color: #363b41;" styleClass="main-chat">
+            <AnchorPane fx:id="mainChat" disable="true" layoutX="217.0" layoutY="231.0" maxHeight="428.0" minHeight="189.0" minWidth="423.0" opacity="0.0" prefHeight="189.0" prefWidth="423.0" styleClass="main-chat">
                <children>
                   <ScrollPane fx:id="mainChatScroll" layoutX="3.0" layoutY="1.0" prefHeight="143.0" prefWidth="418.0" AnchorPane.bottomAnchor="45.0" AnchorPane.topAnchor="1.0">
                      <content>
@@ -325,7 +325,7 @@
                   </ScrollPane>
                   <AnchorPane layoutX="-44.0" layoutY="139.0" prefHeight="39.0" prefWidth="416.0" style="-fx-background-color: #363b41;" styleClass="shadow" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0">
                      <children>
-                        <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#newMessage" prefHeight="38.0" prefWidth="52.0" style="-fx-background-color: #363b41; -fx-border-width: 0; -fx-border-radius: 0; -fx-background-radius: 0;" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
+                        <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#newMessage" prefHeight="38.0" prefWidth="52.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
                            <graphic>
                               <ImageView fitHeight="22.0" fitWidth="22.0">
                                  <image>
@@ -334,7 +334,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <TextArea fx:id="mainChatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" style="-fx-background-color: #363b41; -fx-text-fill: #bcbcbc; -fx-border-width: 0 1 0 0; -fx-border-color: #bcbcbc;" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea fx:id="mainChatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -359,7 +359,6 @@
             <TextField prefHeight="67.0" prefWidth="218.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" />
          </children>
       </HBox>
-      <Button layoutX="351.0" layoutY="-230.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#createNewOrder" styleClass="create-button" text="Search" textFill="#bcbcbc" />
       <FlowPane fx:id="userInfoEditable" layoutX="517.0" layoutY="-219.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
          <children>
             <TextField fx:id="firstNameField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">

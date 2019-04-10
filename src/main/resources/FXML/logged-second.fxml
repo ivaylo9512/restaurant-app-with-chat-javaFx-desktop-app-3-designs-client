@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="683.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedSecondStyle">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="683.0" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedSecondStyle">
    <children>
       <AnchorPane fx:id="contentRoot" disable="true" layoutY="25.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="478.0" minWidth="683.0" opacity="0.0" prefHeight="478.0" prefWidth="683.0">
          <children>
@@ -29,7 +29,7 @@
                               <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
                            </effect>
                         </AnchorPane>
-                        <AnchorPane fx:id="orderInfo" layoutX="28.0" layoutY="39.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <AnchorPane fx:id="orderInfo" layoutX="28.0" layoutY="39.0" styleClass="order-info" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <children>
                               <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <columnConstraints>
@@ -41,7 +41,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <AnchorPane layoutX="147.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow" GridPane.columnIndex="1">
+                                    <AnchorPane layoutX="147.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" styleClass="shadow" GridPane.columnIndex="1">
                                        <children>
                                           <Label fx:id="updatedTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <effect>
@@ -59,14 +59,14 @@
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="35.5" layoutY="7.0" style="-fx-border-color: #bcbcbc; -fx-border-width: 0 0 1 0;" text="updated" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label layoutX="35.5" layoutY="7.0" styleClass="info-label" text="updated" textAlignment="CENTER" textFill="#bcbcbc">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow">
+                                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" styleClass="shadow">
                                        <children>
                                           <Label fx:id="createdTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <effect>
@@ -84,14 +84,14 @@
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="37.5" layoutY="7.0" style="-fx-border-width: 0 0 1 0; -fx-background-color: transparent; -fx-border-color: #bcbcbc;" text="Created" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label layoutX="37.5" layoutY="7.0" styleClass="info-label" text="Created" textAlignment="CENTER" textFill="#bcbcbc">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane layoutX="294.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" style="-fx-background-color: #1a1a1a; -fx-background-radius: 15;" styleClass="shadow" GridPane.columnIndex="2">
+                                    <AnchorPane layoutX="294.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" styleClass="shadow" GridPane.columnIndex="2">
                                        <children>
                                           <Label fx:id="orderIdLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <font>
@@ -103,7 +103,7 @@
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="44.0" layoutY="7.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #bcbcbc;" text="order" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label layoutX="44.0" layoutY="7.0" styleClass="info-label" text="order" textAlignment="CENTER" textFill="#bcbcbc">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -165,7 +165,7 @@
                                     </ImageView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="399.0" style="-fx-background-color: #1a1a1a;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="399.0" styleClass="menu-container" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                  <children>
                                     <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" styleClass="new-order-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0" />
                                  </children>
@@ -173,7 +173,7 @@
                                     <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
                                  </effect>
                               </AnchorPane>
-                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="189.0" prefWidth="399.0" style="-fx-background-color: #1a1a1a;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="189.0" prefWidth="399.0" styleClass="menu-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                                  <children>
                                     <ListView fx:id="menuList" layoutY="33.0" onMouseClicked="#addMenuItem" prefHeight="157.0" prefWidth="401.0" styleClass="menu-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="43.0" />
                                     <TextField fx:id="menuSearch" alignment="CENTER" prefHeight="43.0" prefWidth="399.0" promptText="Search" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -222,7 +222,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <Pane fx:id="contentBar" prefHeight="666.0" prefWidth="38.0" style="-fx-background-color: #FC3903;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Pane fx:id="contentBar" prefHeight="666.0" prefWidth="38.0" styleClass="content-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <effect>
                   <DropShadow offsetX="0.7" spread="0.42" />
                </effect>
