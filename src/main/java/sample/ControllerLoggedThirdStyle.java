@@ -17,6 +17,8 @@ import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
@@ -37,6 +39,7 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<Menu> menuList,newOrderList;
     @FXML public TextField menuSearch;
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot;
+    @FXML public Pane profileImageClip;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -65,6 +68,9 @@ public class ControllerLoggedThirdStyle {
         clip.heightProperty().bind(createRoot.prefHeightProperty());
         clip.widthProperty().bind(createRoot.prefWidthProperty());
         createRoot.setClip(clip);
+
+        Circle profileClip = new Circle(30.8, 30.8, 30.8);
+        profileImageClip.setClip(profileClip);
     }
 
     public void displayUserInfo(){
@@ -89,7 +95,7 @@ public class ControllerLoggedThirdStyle {
     }
     @FXML
     public void displayProfileView(){
-        displayView(profileView, null);
+        displayView(profileView, chatsMenu);
     }
     @FXML
     public void displayChatsView(){
@@ -102,18 +108,16 @@ public class ControllerLoggedThirdStyle {
             currentView.setDisable(true);
         }
 
-        if(requestedMenu != null) {
-            if (currentMenu != null) {
-                currentMenu.setOpacity(0);
-                currentMenu.setDisable(true);
-            }
-            requestedMenu.setOpacity(1);
-            requestedMenu.setDisable(false);
-            currentMenu = requestedMenu;
+        if (currentMenu != null) {
+            currentMenu.setOpacity(0);
+            currentMenu.setDisable(true);
         }
-
+        requestedMenu.setOpacity(1);
+        requestedMenu.setDisable(false);
         requestedView.setOpacity(1);
         requestedView.setDisable(false);
+
+        currentMenu = requestedMenu;
         currentView = requestedView;
     }
     public void showOrder(int orderId){

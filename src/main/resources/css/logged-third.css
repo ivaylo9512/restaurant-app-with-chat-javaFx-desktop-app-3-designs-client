@@ -20,6 +20,27 @@ Button{
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
+.profile-view {
+    -fx-background-color: #E6353A;
+}
+.profile-view Label{
+
+}
+.profile-picture-shadow{
+    -fx-background-radius: 180px;
+    -fx-border-radius: 180px;
+    -fx-background-color: #E6353A;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1);
+
+}
+.profile-menu{
+    -fx-background-color: #E6353A;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
+}
+.profile-picture-container{
+    -fx-background-radius: 180px;
+    -fx-border-radius: 180px;
+}
 .orders{
     -fx-background-color: #EEEEEE;
 }
