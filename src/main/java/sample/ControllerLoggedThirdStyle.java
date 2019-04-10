@@ -17,6 +17,7 @@ import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
 
@@ -35,8 +36,7 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<Dish> dishesList;
     @FXML public ListView<Menu> menuList,newOrderList;
     @FXML public TextField menuSearch;
-
-    @FXML AnchorPane orderInfo, profileView, ordersView, chatsView, ordersMenu, chatsMenu;
+    @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -61,6 +61,10 @@ public class ControllerLoggedThirdStyle {
             searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
             menuList.setItems(observableList);
         });
+        Rectangle clip = new Rectangle();
+        clip.heightProperty().bind(createRoot.prefHeightProperty());
+        clip.widthProperty().bind(createRoot.prefWidthProperty());
+        createRoot.setClip(clip);
     }
 
     public void displayUserInfo(){

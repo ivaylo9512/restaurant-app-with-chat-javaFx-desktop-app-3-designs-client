@@ -52,7 +52,7 @@
                   <ListView fx:id="ordersList" layoutX="10.0" layoutY="14.0" prefHeight="602.0" prefWidth="200.0" styleClass="orders-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="chatsView" disable="true" layoutX="389.0" opacity="0.0" styleClass="chats-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="chatsView" disable="true" layoutX="389.0" opacity="0.0" styleClass="chats-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -138,26 +138,26 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="profileView" disable="true" layoutX="389.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="profileView" disable="true" layoutX="389.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
                   <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="ordersView" disable="true" layoutX="389.0" styleClass="orders-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="ordersView" disable="true" layoutX="389.0" opacity="0.0" styleClass="orders-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="8.0" layoutY="168.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <ListView fx:id="dishesList" layoutX="9.0" layoutY="9.0" prefHeight="126.0" prefWidth="410.0" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ListView fx:id="dishesList" layoutX="9.0" layoutY="9.0" prefHeight="126.0" prefWidth="410.0" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>
                   </AnchorPane>
                   <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
-                  <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="create-order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
+                  <AnchorPane fx:id="createRoot" layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="create-order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
                      <children>
                         <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -172,12 +172,12 @@
                               </AnchorPane>
                               <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="370.0" style="-fx-background-color: transparent;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 1 0;" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 1 0;" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="370.0" style="-fx-background-color: #FC3903;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="370.0" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="menuList" layoutY="33.0" onMouseClicked="#addMenuItem" prefHeight="157.0" prefWidth="401.0" styleClass="menu-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="menuList" layoutY="33.0" onMouseClicked="#addMenuItem" prefHeight="157.0" prefWidth="401.0" styleClass="menu-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

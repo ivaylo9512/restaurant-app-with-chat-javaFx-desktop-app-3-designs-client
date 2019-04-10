@@ -78,7 +78,6 @@ Button{
 }
 .dishes-list{
     -fx-border-width: 1 0 0 0;
-    -fx-border-color: #E6353A;
 }
 .dishes-list GridPane:hover Label {
     -fx-text-fill: #E6353A;
