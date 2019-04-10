@@ -61,6 +61,10 @@ public class LoggedSecondStyle extends LoginFirstStyle{
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
         contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
 
+        AnchorPane menuRoot = (AnchorPane) root.getChildren().get(1);
+        menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getWidth()) / 2);
+        menuRoot.setLayoutY(contentRoot.getLayoutY() - 60);
+
         alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(stage);
         alert.initStyle(StageStyle.TRANSPARENT);

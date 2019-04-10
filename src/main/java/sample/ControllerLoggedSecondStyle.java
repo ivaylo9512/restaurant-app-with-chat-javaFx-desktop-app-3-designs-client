@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +26,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
 
@@ -343,6 +345,8 @@ public class ControllerLoggedSecondStyle {
 
         menuMap.clear();
 
+        newOrderList.getItems().clear();
+        menuList.getItems().clear();
         userChats.getItems().clear();
         ordersList.getItems().clear();
         notificationsList.getItems().clear();
@@ -350,6 +354,28 @@ public class ControllerLoggedSecondStyle {
         orderService = new OrderService();
 
         resetUserFields();
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
+        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
+
+        menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getWidth()) / 2);
+        menuRoot.setLayoutY(contentRoot.getLayoutY() - 60);
+
+        expandMenu();
+        menuContent.getChildren().remove(profileView);
+        notificationsView.setOpacity(0);
+        notificationsView.setDisable(true);
+        currentMenuView = null;
+        currentView = null;
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(600), profileImageContainer);
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+        fadeOut.play();
+
+        reverseMenuContent();
     }
     private void displayUserFields() {
         usernameLabel.setText(loggedUser.getUsername());
