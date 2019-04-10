@@ -292,9 +292,9 @@ public class ControllerLoggedThirdStyle {
 
         if(service.getException() != null) {
             if (service.getException().getMessage().equals("Jwt token has expired.")) {
-                logOut();
                 messageService.reset();
                 orderService.reset();
+                logOut();
                 showLoginStageAlert("Session has expired.");
 
             } else if(service.getException().getMessage().equals("Socket closed")) {

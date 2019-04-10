@@ -259,9 +259,9 @@ public class ControllerLoggedSecondStyle {
 
         if(service.getException() != null) {
             if (service.getException().getMessage().equals("Jwt token has expired.")) {
-                logOut();
                 messageService.reset();
                 orderService.reset();
+                logOut();
                 showLoginStageAlert("Session has expired.");
 
             } else if(service.getException().getMessage().equals("Socket closed")) {
@@ -292,9 +292,11 @@ public class ControllerLoggedSecondStyle {
     }
     @FXML
     public void reverseMenu(){
-        TransitionResizeWidth reverse = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
-        reverse.play();
-        menuButtonsContainer.getChildren().remove(menuButtons);
+        if(currentMenuView == null) {
+            TransitionResizeWidth reverse = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
+            reverse.play();
+            menuButtonsContainer.getChildren().remove(menuButtons);
+        }
     }
     public void expandMenuContent(){
         TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
@@ -548,6 +550,7 @@ public class ControllerLoggedSecondStyle {
                 menuContent.setDisable(true);
                 menuContent.getChildren().remove(profileView);
                 currentMenuView = null;
+                reverseMenu();
             }));
             removeView.play();
         }
@@ -576,6 +579,7 @@ public class ControllerLoggedSecondStyle {
                 currentMenuView.setDisable(true);
                 currentMenuView.setOpacity(0);
                 currentMenuView = null;
+                reverseMenu();
             }));
             removeView.play();
         }
