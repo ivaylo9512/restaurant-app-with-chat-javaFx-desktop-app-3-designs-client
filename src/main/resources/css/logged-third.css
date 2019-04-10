@@ -1,6 +1,9 @@
 Button:focused{
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
+Button{
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
 .list-view .scroll-bar:vertical .increment-arrow,
 .list-view .scroll-bar:vertical .decrement-arrow,
 .list-view .scroll-bar:vertical .increment-button,
@@ -60,9 +63,15 @@ Button:focused{
 .orders-view .list-view GridPane:hover{
     -fx-background-color: white;
 }
+.orders-view Button,
+.orders-view TextField{
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+
+}
 .orders-view .list-view .list-cell{
     -fx-background-color: transparent;
-    -fx-padding: 0;
+    -fx-padding: 0px;
 }
 .dishes-list Label{
     -fx-text-fill: white;

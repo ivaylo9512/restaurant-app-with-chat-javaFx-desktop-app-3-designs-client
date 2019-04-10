@@ -164,7 +164,7 @@
                               <AnchorPane maxHeight="43.0" maxWidth="527.0" minHeight="9.0" minWidth="61.0" prefHeight="38.0" prefWidth="430.0" styleClass="add-button-container" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <children>
                                     <TextField fx:id="menuSearch" alignment="CENTER" prefHeight="38.0" prefWidth="187.0" promptText="Search" style="-fx-background-color: #FC3903; -fx-text-fill: white; -fx-border-width: 0 1 0 0; -fx-border-color: white; -fx-prompt-text-fill: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="220.5" />
-                                    <TextField fx:id="menuSearch1" alignment="CENTER" layoutX="10.0" prefHeight="38.0" prefWidth="187.0" promptText="Search" style="-fx-background-color: #FC3903; -fx-text-fill: white; -fx-prompt-text-fill: white;" AnchorPane.leftAnchor="221.5" AnchorPane.rightAnchor="0.0" />
+                                    <Button alignment="CENTER" layoutX="10.0" onMouseClicked="#createNewOrder" prefHeight="38.0" prefWidth="187.0" style="-fx-background-color: #FC3903; -fx-text-fill: white; -fx-prompt-text-fill: white;" text="Create" textFill="WHITE" AnchorPane.leftAnchor="221.5" AnchorPane.rightAnchor="0.0" />
                                  </children>
                                  <effect>
                                     <DropShadow height="10.0" radius="4.5" width="10.0" />
@@ -172,12 +172,12 @@
                               </AnchorPane>
                               <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="370.0" style="-fx-background-color: transparent;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="newOrderList" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 1 0;" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 1 0;" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="370.0" style="-fx-background-color: #FC3903;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="menuList" layoutY="33.0" prefHeight="157.0" prefWidth="401.0" styleClass="menu-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="menuList" layoutY="33.0" onMouseClicked="#addMenuItem" prefHeight="157.0" prefWidth="401.0" styleClass="menu-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

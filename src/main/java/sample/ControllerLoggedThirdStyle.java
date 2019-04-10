@@ -22,10 +22,10 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
-import static Helpers.ServerRequests.httpClientLongPolling;
-import static Helpers.ServerRequests.loggedUserProperty;
+import static Helpers.ServerRequests.*;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedThirdStyle {
@@ -173,6 +173,36 @@ public class ControllerLoggedThirdStyle {
             }
         }
     }
+    @FXML
+    public void createNewOrder() {
+        List<Dish> dishes = new ArrayList<>();
+        newOrderList.getItems().forEach(menuItem -> dishes.add(new Dish(menuItem.getName())));
+
+        if (loggedUser.getRole().equals("Server")) {
+            if (dishes.size() > 0) {
+                try {
+                    sendOrder(new Order(dishes));
+                    newOrderList.getItems().clear();
+                } catch (Exception e) {
+                    showLoggedStageAlert(e.getMessage());
+                }
+            } else {
+                showLoggedStageAlert("Order must have at least one dish.");
+            }
+        } else {
+            showLoggedStageAlert("You must be a server to create orders.");
+        }
+    }
+    @FXML
+    public void addMenuItem(){
+        Menu menuItem = menuList.getSelectionModel().getSelectedItem();
+        newOrderList.getItems().add(0, menuItem);
+    }
+    @FXML
+    public void removeMenuItem(){
+        Menu menuItem = newOrderList.getSelectionModel().getSelectedItem();
+        newOrderList.getItems().remove(menuItem);
+    }
 
     @FXML
     public void logOut(){
@@ -201,7 +231,7 @@ public class ControllerLoggedThirdStyle {
     private void showLoggedStageAlert(String message) {
         DialogPane dialog = LoggedThirdStyle.alert.getDialogPane();
         dialog.setContentText(message);
-        LoggedSecondStyle.alert.showAndWait();
+        LoggedThirdStyle.alert.showAndWait();
     }
     private void showLoginStageAlert(String message) {
         DialogPane dialog = LoginThirdStyle.alert.getDialogPane();
