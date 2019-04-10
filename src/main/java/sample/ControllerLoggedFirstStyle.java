@@ -839,8 +839,8 @@ public class ControllerLoggedFirstStyle {
         if(ExpandOrderPane.buttonExpandedProperty().getValue()){
             ExpandOrderPane.reverseOrder();
         }
-        chatsMap = new HashMap<>();
-        menuMap = new TreeMap<>();
+        chatsMap.clear();
+        menuMap.clear();
 
         orderService = new OrderService();
         messageService = new MessageService();

@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static Helpers.ServerRequests.*;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
@@ -32,11 +34,14 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<Order> ordersList;
     @FXML public ListView<Dish> dishesList;
     @FXML public ListView<Menu> menuList,newOrderList;
+    @FXML public TextField menuSearch;
 
     @FXML AnchorPane orderInfo, profileView, ordersView, chatsView, ordersMenu, chatsMenu;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+    private TreeMap<String, Menu> menuMap = new TreeMap<>();
 
     private User loggedUser;
 
@@ -50,10 +55,17 @@ public class ControllerLoggedThirdStyle {
         dishesList.setCellFactory(dish -> new DishListViewCell());
         menuList.setCellFactory(menu -> new MenuListViewCell());
         newOrderList.setCellFactory(menu -> new MenuListViewCell());
+
+        menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<Menu> observableList = FXCollections.observableArrayList();
+            searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
+            menuList.setItems(observableList);
+        });
     }
 
     public void displayUserInfo(){
         loggedUser = loggedUserProperty.getValue();
+        loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
         ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
         FXCollections.reverse(orders);
@@ -65,7 +77,7 @@ public class ControllerLoggedThirdStyle {
         waitForNewOrders();
     }
     public void resetStage(){
-
+        menuMap.clear();
     }
     @FXML
     public void displayOrdersView(){
@@ -192,6 +204,9 @@ public class ControllerLoggedThirdStyle {
         } else {
             showLoggedStageAlert("You must be a server to create orders.");
         }
+    }
+    private SortedMap<String, Menu> searchMenu(String prefix) {
+        return menuMap.subMap(prefix, prefix + Character.MAX_VALUE);
     }
     @FXML
     public void addMenuItem(){

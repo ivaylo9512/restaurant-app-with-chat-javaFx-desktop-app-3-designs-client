@@ -339,6 +339,8 @@ public class ControllerLoggedSecondStyle {
         userProfileImage = null;
         loggedUser = null;
 
+        menuMap.clear();
+
         userChats.getItems().clear();
         ordersList.getItems().clear();
         notificationsList.getItems().clear();
