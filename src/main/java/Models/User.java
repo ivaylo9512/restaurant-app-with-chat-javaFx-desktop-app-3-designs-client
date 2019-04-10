@@ -1,6 +1,8 @@
 package Models;
 
 
+import javafx.scene.image.Image;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -14,6 +16,8 @@ public class User {
     private String role;
     private String profilePicture;
     private Restaurant restaurant;
+
+    private Image image;
 
     private Map<Integer, Order> orders = new LinkedHashMap<>();
 
@@ -111,5 +115,13 @@ public class User {
 
     public void setOrders(Map<Integer, Order> orders) {
         this.orders = orders;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

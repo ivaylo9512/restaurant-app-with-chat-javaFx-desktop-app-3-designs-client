@@ -313,6 +313,7 @@ public class ControllerLoggedSecondStyle {
         menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
         ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
+        setImages(chats);
         userChats.setItems(chats);
 
         ObservableList<String> orders = FXCollections.observableArrayList(loggedUser.getOrders().values()
@@ -420,6 +421,24 @@ public class ControllerLoggedSecondStyle {
         }
         editButton.setText("Edit");
         editButton.setOnMouseClicked(event -> editUserInfo());
+    }
+    private void setImages(ObservableList<Chat> chats) {
+        chats.forEach(chat -> {
+            User user;
+            if(chat.getFirstUser().getId() == loggedUser.getId()){
+                user = chat.getSecondUser();
+            }else{
+                user = chat.getFirstUser();
+            }
+
+            try {
+                InputStream in = new BufferedInputStream(new URL(user.getProfilePicture()).openStream());
+                user.setImage(new Image(in));
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
     @FXML
     public void logOut(){
