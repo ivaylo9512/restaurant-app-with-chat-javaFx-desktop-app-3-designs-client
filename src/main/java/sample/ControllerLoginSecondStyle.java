@@ -169,4 +169,27 @@ public class ControllerLoginSecondStyle {
         requestedMenu.setDisable(false);
         currentMenu = requestedMenu;
     }
+
+    @FXML
+    public void showLoginThirdStyle(){
+
+        LoginSecondStyle.stage.close();
+        if(LoginThirdStyle.stage != null){
+            LoginThirdStyle.stage.show();
+        }else {
+            try {
+                LoginThirdStyle.displayLoginScene();
+            } catch (Exception e) {
+                LoginSecondStyle.stage.show();
+                DialogPane dialogPane = LoginSecondStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginSecondStyle.alert.showAndWait();
+            }
+        }
+    }
+    @FXML
+    public void showLoginFirstStyle(){
+        LoginSecondStyle.stage.close();
+        LoginFirstStyle.stage.show();
+    }
 }

@@ -84,12 +84,12 @@
                   </Pane>
                   <Pane fx:id="styleButtons" disable="true" layoutX="7.0" layoutY="18.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
                      <children>
-                        <Button fx:id="actionButton1" contentDisplay="CENTER" layoutX="117.5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoginSecondStyle" prefHeight="39.0" prefWidth="70.0" styleClass="btn" text="Style 2" textFill="#bfbfbf">
+                        <Button contentDisplay="CENTER" layoutX="117.5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoginSecondStyle" prefHeight="39.0" prefWidth="70.0" styleClass="btn" text="Style 2" textFill="#bfbfbf">
                            <font>
                               <Font size="10.0" />
                            </font>
                         </Button>
-                        <Button fx:id="actionButton11" contentDisplay="CENTER" layoutX="202.5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoginThirdStyle" prefHeight="39.0" prefWidth="70.0" styleClass="btn" text="Style 3" textFill="#bfbfbf">
+                        <Button contentDisplay="CENTER" layoutX="202.5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoginThirdStyle" prefHeight="39.0" prefWidth="70.0" styleClass="btn" text="Style 3" textFill="#bfbfbf">
                            <font>
                               <Font size="10.0" />
                            </font>
