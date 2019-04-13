@@ -118,6 +118,19 @@ public class ControllerLoggedSecondStyle {
         return menuMap.subMap(prefix, prefix + Character.MAX_VALUE);
     }
 
+    @FXML
+    public void showChatView(){
+        displayView(chatView);
+    }
+    @FXML
+    public void showOrderView(){
+        displayView(orderView);
+    }
+    @FXML
+    public void showCreateView(){
+        displayView(createView);
+    }
+
     private void displayView(AnchorPane requestedView){
         if(requestedView.equals(currentView)){
             contentRoot.setOpacity(0);
@@ -141,19 +154,6 @@ public class ControllerLoggedSecondStyle {
             currentView.setOpacity(0);
             currentView = requestedView;
         }
-    }
-
-    @FXML
-    public void showChatView(){
-        displayView(chatView);
-    }
-    @FXML
-    public void showOrderView(){
-        displayView(orderView);
-    }
-    @FXML
-    public void showCreateView(){
-        displayView(createView);
     }
 
     @FXML
@@ -363,19 +363,29 @@ public class ControllerLoggedSecondStyle {
         menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getWidth()) / 2);
         menuRoot.setLayoutY(contentRoot.getLayoutY() - 60);
 
-        expandMenu();
+        menuContent.setDisable(true);
         menuContent.getChildren().remove(profileView);
         notificationsView.setOpacity(0);
         notificationsView.setDisable(true);
+
+        contentRoot.setOpacity(0);
+        contentRoot.setDisable(true);
+
+        if(currentView != null){
+            currentView.setOpacity(0);
+            currentView.setDisable(true);
+        }
+
         currentMenuView = null;
         currentView = null;
+
+        expandMenu();
+        reverseMenuContent();
 
         FadeTransition fadeOut = new FadeTransition(Duration.millis(600), profileImageContainer);
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
         fadeOut.play();
-
-        reverseMenuContent();
     }
     private void displayUserFields() {
         usernameLabel.setText(loggedUser.getUsername());
