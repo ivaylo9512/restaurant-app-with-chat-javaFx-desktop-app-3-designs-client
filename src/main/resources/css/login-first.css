@@ -1,14 +1,3 @@
-.background{
-    -fx-background-color: black;
-    -fx-opacity: 0.5;
-}
-.login-pane > Pane{
-    -fx-opacity: 1;
-    -fx-background-color: #2A2E37;
-}
-.fields-container{
-    -fx-background-color:  #2A2E37;
-}
 TextField,
 PasswordField{
     -fx-background-color: #363b41;
@@ -35,11 +24,16 @@ Button:hover{
 ImageView{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
 }
-ScrollPane{
-    -fx-background-color: transparent;
+.background{
+    -fx-background-color: black;
+    -fx-opacity: 0.5;
 }
-ScrollPane > .viewport{
-    -fx-background-color: transparent;
+.login-pane > Pane{
+    -fx-opacity: 1;
+    -fx-background-color: #2A2E37;
+}
+.fields-container{
+    -fx-background-color:  #2A2E37;
 }
 .alert-box{
     -fx-background-color: #2A2E37;
@@ -76,9 +70,4 @@ ScrollPane > .viewport{
 }
 .alert-box Button{
     -fx-text-fill: #bcbcbc;
-}
-.btn{
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
-    -fx-background-color: #2A2E37;
 }

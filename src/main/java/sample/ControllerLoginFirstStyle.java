@@ -26,10 +26,10 @@ import java.net.ConnectException;
 public class ControllerLoginFirstStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane contentRoot;
-    @FXML Pane root, background, menu, loginFields, registerFields, nextRegisterFields;
+    @FXML Pane root, background, menu, loginFields, registerFields, nextRegisterFields, styleButtons;
     @FXML Button loginButton, registerButton, actionButton;
 
-    private Pane currentFields;
+    private Pane currentMenu;
     private LoginService loginService;
     private RegisterService registerService;
 
@@ -73,33 +73,44 @@ public class ControllerLoginFirstStyle {
     }
     @FXML
     public void animateLoginFields(){
-        animateFields(loginFields);
+        animateMenu(loginFields);
         actionButton.setOnMousePressed(this::login);
     }
     @FXML
     public void animateRegisterFields(){
-        animateFields(registerFields);
+        animateMenu(registerFields);
         actionButton.setOnMousePressed(this::showNextRegisterFields);
     }
-    private void animateFields(Pane requestedFields){
+    @FXML
+    public void animateStyleButtons(){
+        animateMenu(styleButtons);
+        actionButton.setOpacity(0);
+        actionButton.setDisable(true);
+    }
+    private void animateMenu(Pane requestedMenu){
         if(expand.getCurrentRate() == 0 && reverse.getCurrentRate() == 0 && changeTransition.getCurrentRate() == 0) {
-            if (requestedFields.equals(currentFields)) {
+            if (requestedMenu.equals(currentMenu)) {
                 reverse.play();
-                currentFields.setDisable(true);
+                currentMenu.setDisable(true);
 
-                Timeline fade = new Timeline(new KeyFrame(Duration.millis(800),
-                        event1 -> currentFields.setOpacity(0)));
+                Timeline fade = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
+                    currentMenu.setOpacity(0);
+                    currentMenu = null;
+                }));
                 fade.play();
 
-                currentFields = null;
             } else if (contentRoot.getTranslateX() > 0) {
-                currentFields.setDisable(true);
+                currentMenu.setDisable(true);
 
                 Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
-                    currentFields.setOpacity(0);
-                    requestedFields.setOpacity(1);
-                    requestedFields.setDisable(false);
-                    currentFields = requestedFields;
+                    if(!requestedMenu.equals(styleButtons)){
+                        actionButton.setOpacity(1);
+                        actionButton.setDisable(false);
+                    }
+                    currentMenu.setOpacity(0);
+                    requestedMenu.setOpacity(1);
+                    requestedMenu.setDisable(false);
+                    currentMenu = requestedMenu;
                 }));
                 changeFields.play();
 
@@ -107,9 +118,11 @@ public class ControllerLoginFirstStyle {
             } else {
                 expand.play();
 
-                currentFields = requestedFields;
-                currentFields.setDisable(false);
-                currentFields.setOpacity(1);
+                actionButton.setOpacity(1);
+                actionButton.setDisable(false);
+                currentMenu = requestedMenu;
+                currentMenu.setOpacity(1);
+                currentMenu.setDisable(false);
             }
         }
 
@@ -123,9 +136,43 @@ public class ControllerLoginFirstStyle {
             nextRegisterFields.setOpacity(1);
             nextRegisterFields.setDisable(false);
 
-            currentFields = nextRegisterFields;
+            currentMenu = nextRegisterFields;
 
             actionButton.setOnMousePressed(this::register);
+        }
+    }
+    @FXML
+    public void showLoginThirdStyle(){
+
+        LoginFirstStyle.stage.close();
+        if(LoginThirdStyle.stage != null){
+            LoginThirdStyle.stage.show();
+        }else {
+            try {
+                LoginThirdStyle.displayLoginScene();
+            } catch (Exception e) {
+                LoginFirstStyle.stage.show();
+                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+            }
+        }
+    }
+    @FXML
+    public void showLoginSecondStyle(){
+
+        LoginFirstStyle.stage.close();
+        if(LoginSecondStyle.stage != null){
+            LoginSecondStyle.stage.show();
+        }else {
+            try {
+                LoginSecondStyle.displayLoginScene();
+            } catch (Exception e) {
+                LoginFirstStyle.stage.show();
+                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+            }
         }
     }
     @FXML
