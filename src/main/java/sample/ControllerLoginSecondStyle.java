@@ -16,15 +16,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.net.ConnectException;
 
 public class ControllerLoginSecondStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML AnchorPane root, loginFields, registerFields, nextRegisterFields;
+    @FXML AnchorPane root, loginFields, registerFields, nextRegisterFields, styleButtons;
     @FXML Button actionBtn;
     private LoginService loginService;
     private RegisterService registerService;
+
+    private Pane currentMenu = loginFields;
 
     @FXML
     public void initialize(){
@@ -136,43 +139,34 @@ public class ControllerLoginSecondStyle {
     @FXML
     public void showLoginFields(){
         resetFields();
-
-        registerFields.setOpacity(0);
-        registerFields.setDisable(true);
-
-        nextRegisterFields.setOpacity(0);
-        nextRegisterFields.setDisable(true);
-
-        loginFields.setDisable(false);
-        loginFields.setOpacity(1);
-
+        showMenu(loginFields);
         actionBtn.setOnMouseClicked(this::login);
     }
     @FXML
     public void showRegisterFields(){
         resetFields();
-
-        loginFields.setOpacity(0);
-        loginFields.setDisable(true);
-
-        nextRegisterFields.setOpacity(0);
-        nextRegisterFields.setDisable(true);
-
-        registerFields.setDisable(false);
-        registerFields.setOpacity(1);
+        showMenu(registerFields);
         actionBtn.setOnMouseClicked(this::showNextRegisterFields);
 
     }
     @FXML
     public void showNextRegisterFields(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            registerFields.setOpacity(0);
-            registerFields.setDisable(true);
-
-            nextRegisterFields.setOpacity(1);
-            nextRegisterFields.setDisable(false);
-
+            showMenu(nextRegisterFields);
             actionBtn.setOnMouseClicked(this::register);
         }
+    }
+    @FXML void showStyleButtons(){
+        showMenu(styleButtons);
+    }
+
+    private void showMenu(Pane requestedMenu){
+        if(currentMenu != null){
+            currentMenu.setOpacity(0);
+            currentMenu.setDisable(true);
+        }
+        requestedMenu.setOpacity(1);
+        requestedMenu.setDisable(false);
+        currentMenu = requestedMenu;
     }
 }

@@ -16,7 +16,7 @@
                   <Font size="12.0" />
                </font>
             </Button>
-            <Button layoutX="94.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="70.0" text="styles" textFill="#bcbcbc" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="10.0">
+            <Button layoutX="94.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showStyleButtons" prefHeight="35.0" prefWidth="70.0" text="styles" textFill="#bcbcbc" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font size="12.0" />
                </font>
@@ -81,6 +81,26 @@
                         <Font size="10.0" />
                      </font>
                   </PasswordField>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="styleButtons" disable="true" layoutX="237.0" layoutY="6.0" opacity="0.0" prefHeight="39.0" prefWidth="206.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="7.0">
+               <children>
+                  <Button alignment="CENTER" layoutX="21.0" layoutY="5.0" onKeyReleased="#login" prefHeight="30.0" prefWidth="100.0" text="Style 1" textFill="#bcbcbc" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <effect>
+                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                     </effect>
+                  </Button>
+                  <Button alignment="CENTER" layoutX="126.0" layoutY="5.0" onKeyReleased="#login" prefHeight="30.0" prefWidth="100.0" text="Style 3" textFill="#bcbcbc" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <effect>
+                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                     </effect>
+                  </Button>
                </children>
             </AnchorPane>
          </children>
