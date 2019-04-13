@@ -16,14 +16,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.net.ConnectException;
 
 public class ControllerLoginThirdStyle {
     @FXML public TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML public AnchorPane root;
+    @FXML AnchorPane root, loginFields, registerFields, nextRegisterFields, styleButtons;
+    @FXML Button actionBtn;
     private LoginService loginService;
     private RegisterService registerService;
+
+    private Pane currentMenu = loginFields;
 
     @FXML
     public void initialize(){
@@ -118,6 +122,13 @@ public class ControllerLoginThirdStyle {
         }
         username.setDisable(false);
         password.setDisable(false);
+        resetFields();
+        root.setCursor(Cursor.DEFAULT);
+
+        service.reset();
+    }
+
+    private void resetFields() {
         username.setText(null);
         password.setText(null);
         regUsername.setDisable(false);
@@ -126,9 +137,38 @@ public class ControllerLoginThirdStyle {
         regUsername.setText(null);
         regPassword.setText(null);
         regRepeatPassword.setText(null);
-        root.setCursor(Cursor.DEFAULT);
+    }
+    @FXML
+    public void showLoginFields(){
+        resetFields();
+        showMenu(loginFields);
+        actionBtn.setOnMouseClicked(this::login);
+    }
+    @FXML
+    public void showRegisterFields(){
+        resetFields();
+        showMenu(registerFields);
+        actionBtn.setOnMouseClicked(this::showNextRegisterFields);
 
-        service.reset();
+    }
+    @FXML
+    public void showNextRegisterFields(Event event){
+        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+            showMenu(nextRegisterFields);
+            actionBtn.setOnMouseClicked(this::register);
+        }
+    }
+    @FXML void showStyleButtons(){
+        showMenu(styleButtons);
     }
 
+    private void showMenu(Pane requestedMenu){
+        if(currentMenu != null){
+            currentMenu.setOpacity(0);
+            currentMenu.setDisable(true);
+        }
+        requestedMenu.setOpacity(1);
+        requestedMenu.setDisable(false);
+        currentMenu = requestedMenu;
+    }
 }
