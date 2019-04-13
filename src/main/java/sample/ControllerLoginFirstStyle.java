@@ -26,10 +26,10 @@ import java.net.ConnectException;
 public class ControllerLoginFirstStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane contentRoot;
-    @FXML Pane root, background, menu;
+    @FXML Pane root, background, menu, loginFields, registerFields, nextRegisterFields;
     @FXML Button loginButton, registerButton, actionButton;
-    @FXML Pane loginFields, registerFields, nextRegisterFields;
 
+    private Pane currentFields;
     private LoginService loginService;
     private RegisterService registerService;
 
@@ -73,50 +73,33 @@ public class ControllerLoginFirstStyle {
     }
     @FXML
     public void animateLoginFields(){
-        if(expand.getCurrentRate() == 0 && reverse.getCurrentRate() == 0 && changeTransition.getCurrentRate() == 0) {
-            if (!loginFields.isDisable()) {
-                reverse.play();
-                loginFields.setDisable(true);
-
-            } else if (contentRoot.getTranslateX() > 0) {
-                registerFields.setDisable(true);
-                nextRegisterFields.setDisable(true);
-
-                Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
-                    registerFields.setOpacity(0);
-                    nextRegisterFields.setOpacity(0);
-                    loginFields.setOpacity(1);
-                    loginFields.setDisable(false);
-                }));
-
-                changeFields.play();
-                changeTransition.play();
-
-            } else {
-                expand.play();
-                loginFields.setDisable(false);
-                loginFields.setOpacity(1);
-                registerFields.setDisable(true);
-                registerFields.setOpacity(0);
-            }
-            actionButton.setOnMousePressed(this::login);
-        }
+        animateFields(loginFields);
+        actionButton.setOnMousePressed(this::login);
     }
     @FXML
     public void animateRegisterFields(){
+        animateFields(registerFields);
+        actionButton.setOnMousePressed(this::showNextRegisterFields);
+    }
+    private void animateFields(Pane requestedFields){
         if(expand.getCurrentRate() == 0 && reverse.getCurrentRate() == 0 && changeTransition.getCurrentRate() == 0) {
-            if (!registerFields.isDisable()) {
+            if (requestedFields.equals(currentFields)) {
                 reverse.play();
-                registerFields.setDisable(true);
+                currentFields.setDisable(true);
+
+                Timeline fade = new Timeline(new KeyFrame(Duration.millis(800),
+                        event1 -> currentFields.setOpacity(0)));
+                fade.play();
+
+                currentFields = null;
             } else if (contentRoot.getTranslateX() > 0) {
-                loginFields.setDisable(true);
-                nextRegisterFields.setDisable(true);
+                currentFields.setDisable(true);
 
                 Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
-                    loginFields.setOpacity(0);
-                    nextRegisterFields.setOpacity(0);
-                    registerFields.setOpacity(1);
-                    registerFields.setDisable(false);
+                    currentFields.setOpacity(0);
+                    requestedFields.setOpacity(1);
+                    requestedFields.setDisable(false);
+                    currentFields = requestedFields;
                 }));
                 changeFields.play();
 
@@ -124,13 +107,12 @@ public class ControllerLoginFirstStyle {
             } else {
                 expand.play();
 
-                registerFields.setDisable(false);
-                registerFields.setOpacity(1);
-                loginFields.setDisable(true);
-                loginFields.setOpacity(0);
+                currentFields = requestedFields;
+                currentFields.setDisable(false);
+                currentFields.setOpacity(1);
             }
-            actionButton.setOnMousePressed(this::showNextRegisterFields);
         }
+
     }
     @FXML
     public void showNextRegisterFields(Event event){
@@ -140,6 +122,8 @@ public class ControllerLoginFirstStyle {
 
             nextRegisterFields.setOpacity(1);
             nextRegisterFields.setDisable(false);
+
+            currentFields = nextRegisterFields;
 
             actionButton.setOnMousePressed(this::register);
         }
