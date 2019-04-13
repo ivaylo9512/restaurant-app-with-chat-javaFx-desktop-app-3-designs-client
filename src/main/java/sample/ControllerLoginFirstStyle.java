@@ -158,6 +158,16 @@ public class ControllerLoginFirstStyle {
         service.reset();
     }
 
+    public void resetStage(){
+        menu.setTranslateX(0);
+        contentRoot.setTranslateX(0);
+        if(currentMenu != null) {
+            currentMenu.setOpacity(0);
+            currentMenu.setDisable(true);
+            currentMenu = null;
+        }
+        resetFields();
+    }
     private void resetFields() {
         username.setText(null);
         password.setText(null);

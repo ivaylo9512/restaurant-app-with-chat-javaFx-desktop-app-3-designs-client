@@ -16,7 +16,7 @@ import java.io.IOException;
 public class LoginSecondStyle extends LoginFirstStyle {
     static Alert alert;
     static Stage stage;
-
+    private static ControllerLoginSecondStyle controller;
 
     public static void displayLoginScene() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -29,6 +29,12 @@ public class LoginSecondStyle extends LoginFirstStyle {
         scene.setFill(Color.TRANSPARENT);
 
         stage = new Stage();
+        controller = loader.getController();
+        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
+            if(!isShowing) {
+                controller.resetStage();
+            }
+        });
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();

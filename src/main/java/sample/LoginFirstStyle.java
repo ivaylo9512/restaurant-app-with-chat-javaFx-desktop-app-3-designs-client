@@ -15,6 +15,7 @@ import javafx.stage.StageStyle;
 public class LoginFirstStyle extends Application {
     static Alert alert;
     static Stage stage;
+    private ControllerLoginFirstStyle controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -27,6 +28,13 @@ public class LoginFirstStyle extends Application {
         scene.setFill(Color.TRANSPARENT);
 
         stage = primaryStage;
+        controller = loader.getController();
+        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
+            if(!isShowing) {
+                controller.resetStage();
+            }
+        });
+
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
