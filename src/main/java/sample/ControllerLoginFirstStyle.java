@@ -72,118 +72,12 @@ public class ControllerLoginFirstStyle {
 
     }
     @FXML
-    public void animateLoginFields(){
-        animateMenu(loginFields);
-        actionButton.setOnMousePressed(this::login);
-    }
-    @FXML
-    public void animateRegisterFields(){
-        animateMenu(registerFields);
-        actionButton.setOnMousePressed(this::showNextRegisterFields);
-    }
-    @FXML
-    public void animateStyleButtons(){
-        animateMenu(styleButtons);
-        actionButton.setOpacity(0);
-        actionButton.setDisable(true);
-    }
-    private void animateMenu(Pane requestedMenu){
-        if(expand.getCurrentRate() == 0 && reverse.getCurrentRate() == 0 && changeTransition.getCurrentRate() == 0) {
-            if (requestedMenu.equals(currentMenu)) {
-                reverse.play();
-                currentMenu.setDisable(true);
-
-                Timeline fade = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
-                    currentMenu.setOpacity(0);
-                    currentMenu = null;
-                }));
-                fade.play();
-
-            } else if (contentRoot.getTranslateX() > 0) {
-                currentMenu.setDisable(true);
-
-                Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
-                    if(!requestedMenu.equals(styleButtons)){
-                        actionButton.setOpacity(1);
-                        actionButton.setDisable(false);
-                    }
-                    currentMenu.setOpacity(0);
-                    requestedMenu.setOpacity(1);
-                    requestedMenu.setDisable(false);
-                    currentMenu = requestedMenu;
-                }));
-                changeFields.play();
-
-                changeTransition.play();
-            } else {
-                expand.play();
-
-                actionButton.setOpacity(1);
-                actionButton.setDisable(false);
-                currentMenu = requestedMenu;
-                currentMenu.setOpacity(1);
-                currentMenu.setDisable(false);
-            }
-        }
-
-    }
-    @FXML
-    public void showNextRegisterFields(Event event){
-        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            registerFields.setOpacity(0);
-            registerFields.setDisable(true);
-
-            nextRegisterFields.setOpacity(1);
-            nextRegisterFields.setDisable(false);
-
-            currentMenu = nextRegisterFields;
-
-            actionButton.setOnMousePressed(this::register);
-        }
-    }
-    @FXML
-    public void showLoginThirdStyle(){
-
-        LoginFirstStyle.stage.close();
-        if(LoginThirdStyle.stage != null){
-            LoginThirdStyle.stage.show();
-        }else {
-            try {
-                LoginThirdStyle.displayLoginScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-            }
-        }
-    }
-    @FXML
-    public void showLoginSecondStyle(){
-
-        LoginFirstStyle.stage.close();
-        if(LoginSecondStyle.stage != null){
-            LoginSecondStyle.stage.show();
-        }else {
-            try {
-                LoginSecondStyle.displayLoginScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-            }
-        }
-    }
-    @FXML
     public void login(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             try {
                 reverse.play();
 
                 loginFields.setDisable(true);
-                username.setDisable(true);
-                password.setDisable(true);
                 root.setCursor(Cursor.WAIT);
 
                 loginService.start();
@@ -255,16 +149,135 @@ public class ControllerLoginFirstStyle {
             });
         }
 
-        username.setDisable(false);
-        password.setDisable(false);
+        loginFields.setOpacity(0);
+        loginFields.setDisable(true);
+        root.setCursor(Cursor.DEFAULT);
+        currentMenu = null;
+
+        resetFields();
+        service.reset();
+    }
+
+    private void resetFields() {
         username.setText(null);
         password.setText(null);
         regUsername.setText(null);
         regPassword.setText(null);
         regRepeatPassword.setText(null);
-        root.setCursor(Cursor.DEFAULT);
+    }
 
-        service.reset();
+    @FXML
+    public void animateLoginFields(){
+        resetFields();
+        animateMenu(loginFields);
+        actionButton.setOnMousePressed(this::login);
+    }
+    @FXML
+    public void animateRegisterFields(){
+        resetFields();
+        animateMenu(registerFields);
+        actionButton.setOnMousePressed(this::showNextRegisterFields);
+    }
+    @FXML
+    public void animateStyleButtons(){
+        resetFields();
+        animateMenu(styleButtons);
+    }
+    private void animateMenu(Pane requestedMenu){
+        if(expand.getCurrentRate() == 0 && reverse.getCurrentRate() == 0 && changeTransition.getCurrentRate() == 0) {
+            if (requestedMenu.equals(currentMenu)) {
+                reverse.play();
+                currentMenu.setDisable(true);
+
+                Timeline fade = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
+                    currentMenu.setOpacity(0);
+                    currentMenu = null;
+                }));
+                fade.play();
+
+            } else if (contentRoot.getTranslateX() > 0) {
+                currentMenu.setDisable(true);
+
+                Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {
+                    if(!requestedMenu.equals(styleButtons)){
+                        actionButton.setOpacity(1);
+                        actionButton.setDisable(false);
+                    }else{
+                        actionButton.setOpacity(0);
+                        actionButton.setDisable(true);
+                    }
+                    currentMenu.setOpacity(0);
+                    requestedMenu.setOpacity(1);
+                    requestedMenu.setDisable(false);
+                    currentMenu = requestedMenu;
+                }));
+                changeFields.play();
+
+                changeTransition.play();
+            } else {
+                expand.play();
+                if(requestedMenu.equals(styleButtons)){
+                    actionButton.setOpacity(0);
+                    actionButton.setDisable(true);
+                }else {
+                    actionButton.setOpacity(1);
+                    actionButton.setDisable(false);
+                }
+
+                currentMenu = requestedMenu;
+                currentMenu.setOpacity(1);
+                currentMenu.setDisable(false);
+            }
+        }
+
+    }
+    @FXML
+    public void showNextRegisterFields(Event event){
+        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
+            registerFields.setOpacity(0);
+            registerFields.setDisable(true);
+
+            nextRegisterFields.setOpacity(1);
+            nextRegisterFields.setDisable(false);
+
+            currentMenu = nextRegisterFields;
+
+            actionButton.setOnMousePressed(this::register);
+        }
+    }
+    @FXML
+    public void showLoginThirdStyle(){
+
+        LoginFirstStyle.stage.close();
+        if(LoginThirdStyle.stage != null){
+            LoginThirdStyle.stage.show();
+        }else {
+            try {
+                LoginThirdStyle.displayLoginScene();
+            } catch (Exception e) {
+                LoginFirstStyle.stage.show();
+                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+            }
+        }
+    }
+    @FXML
+    public void showLoginSecondStyle(){
+
+        LoginFirstStyle.stage.close();
+        if(LoginSecondStyle.stage != null){
+            LoginSecondStyle.stage.show();
+        }else {
+            try {
+                LoginSecondStyle.displayLoginScene();
+            } catch (Exception e) {
+                LoginFirstStyle.stage.show();
+                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginFirstStyle.alert.showAndWait();
+            }
+        }
     }
 
 }

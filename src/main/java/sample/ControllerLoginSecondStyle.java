@@ -42,8 +42,7 @@ public class ControllerLoginSecondStyle {
     public void login(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             try {
-                username.setDisable(true);
-                password.setDisable(true);
+                loginFields.setDisable(true);
                 root.setCursor(Cursor.WAIT);
 
                 loginService.start();
@@ -101,7 +100,7 @@ public class ControllerLoginSecondStyle {
         ServerRequests.loggedUserProperty.set(loggedUser);
         ServerRequests.loggedUser = (User)service.getValue();
 
-        if(LoggedFirstStyle.stage != null){
+        if(LoggedSecondStyle.stage != null){
             LoggedSecondStyle.stage.show();
             LoginSecondStyle.stage.close();
         }else {
@@ -116,8 +115,14 @@ public class ControllerLoginSecondStyle {
                 }
             });
         }
-        username.setDisable(false);
-        password.setDisable(false);
+        loginFields.setDisable(false);
+        resetFields();
+        root.setCursor(Cursor.DEFAULT);
+
+        service.reset();
+    }
+
+    private void resetFields() {
         username.setText(null);
         password.setText(null);
         regUsername.setDisable(false);
@@ -126,13 +131,12 @@ public class ControllerLoginSecondStyle {
         regUsername.setText(null);
         regPassword.setText(null);
         regRepeatPassword.setText(null);
-        root.setCursor(Cursor.DEFAULT);
-
-        service.reset();
     }
 
     @FXML
     public void showLoginFields(){
+        resetFields();
+
         registerFields.setOpacity(0);
         registerFields.setDisable(true);
 
@@ -146,6 +150,8 @@ public class ControllerLoginSecondStyle {
     }
     @FXML
     public void showRegisterFields(){
+        resetFields();
+
         loginFields.setOpacity(0);
         loginFields.setDisable(true);
 
