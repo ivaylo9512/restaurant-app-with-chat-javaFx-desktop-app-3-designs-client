@@ -290,4 +290,14 @@ public class ControllerLoginFirstStyle {
         }
     }
 
+    @FXML
+    public void minimize(){
+        LoginFirstStyle.stage.setIconified(true);
+    }
+
+    @FXML
+    public void close(){
+        LoginFirstStyle.stage.close();
+    }
+
 }

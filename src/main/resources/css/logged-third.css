@@ -69,6 +69,9 @@ Button{
     -fx-background-color: transparent;
     -fx-pref-height: 55;
 }
+.notification-list .list-cell:hover TextField{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
 .notification-list TextField{
     -fx-background-color: #FC3903;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
