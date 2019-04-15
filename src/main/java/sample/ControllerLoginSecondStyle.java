@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -24,6 +26,8 @@ public class ControllerLoginSecondStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane root, loginFields, registerFields, nextRegisterFields, styleButtons;
     @FXML Button actionBtn;
+    @FXML ImageView actionBtnImage;
+    @FXML Image loginImage;
     private LoginService loginService;
     private RegisterService registerService;
 
@@ -176,12 +180,21 @@ public class ControllerLoginSecondStyle {
     }
     @FXML void showStyleButtons(){
         showMenu(styleButtons);
+        actionBtn.setOnMouseClicked(event -> close());
+
     }
 
     private void showMenu(Pane requestedMenu){
         if(currentMenu != null){
             currentMenu.setOpacity(0);
             currentMenu.setDisable(true);
+        }
+        if(requestedMenu.equals(styleButtons)){
+            actionBtnImage.setImage(null);
+            actionBtn.setText("X");
+        }else{
+            actionBtnImage.setImage(loginImage);
+            actionBtn.setText(null);
         }
         requestedMenu.setOpacity(1);
         requestedMenu.setDisable(false);
@@ -209,5 +222,10 @@ public class ControllerLoginSecondStyle {
     public void showLoginFirstStyle(){
         LoginSecondStyle.stage.close();
         LoginFirstStyle.stage.show();
+    }
+
+    @FXML
+    public void close(){
+        LoginFirstStyle.stage.close();
     }
 }
