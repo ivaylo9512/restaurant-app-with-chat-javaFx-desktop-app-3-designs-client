@@ -45,7 +45,8 @@ public class ControllerLoginSecondStyle {
     public void login(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             try {
-                loginFields.setDisable(true);
+                username.setDisable(true);
+                password.setDisable(true);
                 root.setCursor(Cursor.WAIT);
 
                 loginService.start();
@@ -129,8 +130,17 @@ public class ControllerLoginSecondStyle {
         if(currentMenu != null){
             currentMenu.setOpacity(0);
             currentMenu.setDisable(true);
-            currentMenu = null;
         }
+        loginFields.setOpacity(1);
+        loginFields.setDisable(false);
+        currentMenu = loginFields;
+
+        username.setDisable(false);
+        password.setDisable(false);
+        regUsername.setDisable(false);
+        regPassword.setDisable(false);
+        regRepeatPassword.setDisable(false);
+
         resetFields();
     }
     private void resetFields() {

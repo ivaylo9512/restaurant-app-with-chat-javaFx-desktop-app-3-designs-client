@@ -12,6 +12,7 @@ import Helpers.Services.OrderService;
 import Models.*;
 import Models.Menu;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -80,6 +81,8 @@ public class ControllerLoggedSecondStyle {
         newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
         userChats.setCellFactory(menuCell -> new ChatsListViewCell());
         dishesList.setCellFactory(dishCell -> new DishListViewCell());
+
+        waitForNewOrders();
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Menu> observableList = FXCollections.observableArrayList();
@@ -261,8 +264,6 @@ public class ControllerLoggedSecondStyle {
 
         if(service.getException() != null) {
             if (service.getException().getMessage().equals("Jwt token has expired.")) {
-                messageService.reset();
-                orderService.reset();
                 logOut();
                 showLoginStageAlert("Session has expired.");
 
@@ -276,14 +277,18 @@ public class ControllerLoggedSecondStyle {
         }
     }
     private void showLoggedStageAlert(String message) {
-        DialogPane dialog = LoggedSecondStyle.alert.getDialogPane();
-        dialog.setContentText(message);
-        LoggedSecondStyle.alert.showAndWait();
+        if(!LoggedSecondStyle.alert.isShowing()) {
+            DialogPane dialog = LoggedSecondStyle.alert.getDialogPane();
+            dialog.setContentText(message);
+            LoggedSecondStyle.alert.showAndWait();
+        }
     }
     private void showLoginStageAlert(String message) {
-        DialogPane dialog = LoginSecondStyle.alert.getDialogPane();
-        dialog.setContentText(message);
-        LoginSecondStyle.alert.showAndWait();
+        if(!LoginSecondStyle.alert.isShowing()) {
+            DialogPane dialog = LoginSecondStyle.alert.getDialogPane();
+            dialog.setContentText(message);
+            LoginSecondStyle.alert.showAndWait();
+        }
     }
     @FXML public void expandMenu(){
         if(menuButtonsContainer.getChildren().size() == 1){
@@ -313,6 +318,7 @@ public class ControllerLoggedSecondStyle {
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+        orderService.start();
 
         menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
@@ -327,9 +333,6 @@ public class ControllerLoggedSecondStyle {
 
         FXCollections.reverse(orders);
         ordersList.setItems(orders);
-
-        waitForNewOrders();
-        orderService.start();
 
         InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
         userProfileImage = new Image(in);
@@ -350,8 +353,6 @@ public class ControllerLoggedSecondStyle {
         userChats.getItems().clear();
         ordersList.getItems().clear();
         notificationsList.getItems().clear();
-
-        orderService = new OrderService();
 
         resetUserFields();
 
@@ -386,6 +387,10 @@ public class ControllerLoggedSecondStyle {
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
         fadeOut.play();
+
+        Platform.runLater(() -> {
+            orderService.reset();
+        });
     }
     private void displayUserFields() {
         usernameLabel.setText(loggedUser.getUsername());

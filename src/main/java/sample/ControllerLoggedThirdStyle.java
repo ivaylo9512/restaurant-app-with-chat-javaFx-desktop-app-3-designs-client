@@ -80,6 +80,8 @@ public class ControllerLoggedThirdStyle {
         menuList.setCellFactory(menu -> new MenuListViewCell());
         newOrderList.setCellFactory(menu -> new MenuListViewCell());
 
+        waitForNewOrders();
+
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Menu> observableList = FXCollections.observableArrayList();
             searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
@@ -109,6 +111,7 @@ public class ControllerLoggedThirdStyle {
         FXCollections.reverse(orders);
 
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+        orderService.start();
 
         menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
@@ -118,8 +121,6 @@ public class ControllerLoggedThirdStyle {
         userProfileImage = new Image(in);
         in.close();
 
-        waitForNewOrders();
-        orderService.start();
 
         displayUserFields();
     }
@@ -304,10 +305,8 @@ public class ControllerLoggedThirdStyle {
 
     private void serviceFailed(Service service){
 
-        if(service.getException() != null) {
+        if(service.getException() != null && service.isRunning()) {
             if (service.getException().getMessage().equals("Jwt token has expired.")) {
-                messageService.reset();
-                orderService.reset();
                 logOut();
                 showLoginStageAlert("Session has expired.");
 
@@ -441,13 +440,17 @@ public class ControllerLoggedThirdStyle {
         }
     }
     private void showLoggedStageAlert(String message) {
-        DialogPane dialog = LoggedThirdStyle.alert.getDialogPane();
-        dialog.setContentText(message);
-        LoggedThirdStyle.alert.showAndWait();
+        if(!LoggedThirdStyle.alert.isShowing()) {
+            DialogPane dialog = LoggedThirdStyle.alert.getDialogPane();
+            dialog.setContentText(message);
+            LoggedThirdStyle.alert.showAndWait();
+        }
     }
     private void showLoginStageAlert(String message) {
-        DialogPane dialog = LoginThirdStyle.alert.getDialogPane();
-        dialog.setContentText(message);
-        LoginSecondStyle.alert.showAndWait();
+        if(!LoginThirdStyle.alert.isShowing()) {
+            DialogPane dialog = LoginThirdStyle.alert.getDialogPane();
+            dialog.setContentText(message);
+            LoginSecondStyle.alert.showAndWait();
+        }
     }
 }

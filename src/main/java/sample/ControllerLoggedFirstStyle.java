@@ -9,6 +9,7 @@ import Helpers.ListViews.MenuListViewCell;
 import Models.*;
 import Models.Menu;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -78,8 +79,8 @@ public class ControllerLoggedFirstStyle {
     private ChatValue mainChatValue;
     private MediaPlayer notificationSound;
 
-    public static MessageService messageService;
-    public static OrderService orderService;
+    private static MessageService messageService;
+    private static OrderService orderService;
     private User loggedUser;
 
     @FXML
@@ -87,6 +88,9 @@ public class ControllerLoggedFirstStyle {
         newOrderMenu.setCellFactory(menuCell -> new MenuListViewCell());
         menu.setCellFactory(menuCell -> new MenuListViewCell());
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
+
+        waitForNewOrders();
+        waitForNewMessages();
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Menu> observableList = FXCollections.observableArrayList();
@@ -200,10 +204,8 @@ public class ControllerLoggedFirstStyle {
     }
 
     private void serviceFailed(Service service){
-        if(service.getException() != null) {
+        if(service.getException() != null && service.isRunning()) {
             if (service.getException().getMessage().equals("Jwt token has expired.")) {
-                messageService.reset();
-                orderService.reset();
                 logOut();
                 showLoginStageAlert("Session has expired.");
 
@@ -218,14 +220,18 @@ public class ControllerLoggedFirstStyle {
     }
 
     private void showLoginStageAlert(String message) {
-        DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
-        dialog.setContentText(message);
-        LoginFirstStyle.alert.showAndWait();
+        if(!LoginFirstStyle.alert.isShowing()) {
+            DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
+            dialog.setContentText(message);
+            LoginFirstStyle.alert.showAndWait();
+        }
     }
     private void showLoggedStageAlert(String message) {
-        DialogPane dialog = LoggedFirstStyle.alert.getDialogPane();
-        dialog.setContentText(message);
-        LoggedFirstStyle.alert.showAndWait();
+        if(!LoggedFirstStyle.alert.isShowing()) {
+            DialogPane dialog = LoggedFirstStyle.alert.getDialogPane();
+            dialog.setContentText(message);
+            LoggedFirstStyle.alert.showAndWait();
+        }
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
@@ -724,7 +730,6 @@ public class ControllerLoggedFirstStyle {
         }
 
     }
-
     @FXML
     private void showNotifications() {
         notificationIcon.setOpacity(0);
@@ -776,9 +781,6 @@ public class ControllerLoggedFirstStyle {
         List<Chat> chats = getChats();
         appendChats(chats);
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
-
-        waitForNewOrders();
-        waitForNewMessages();
 
         orderService.start();
         messageService.start();
@@ -842,8 +844,10 @@ public class ControllerLoggedFirstStyle {
         chatsMap.clear();
         menuMap.clear();
 
-        orderService = new OrderService();
-        messageService = new MessageService();
+        Platform.runLater(() -> {
+            orderService.reset();
+            messageService.reset();
+        });
     }
     @FXML
     public void logOut(){
