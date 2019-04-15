@@ -47,7 +47,7 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<Order> ordersList;
     @FXML public ListView<Dish> dishesList;
     @FXML public ListView<Menu> menuList,newOrderList;
-    @FXML public ListView<String> notificationsList;
+    @FXML public ListView<TextField> notificationsList;
     @FXML public TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot,
             userInfoFields, userInfoLabels;
@@ -357,7 +357,11 @@ public class ControllerLoggedThirdStyle {
         notificationsInfo.setOpacity(0);
         notificationsInfo.setDisable(true);
 
-        notificationsList.getItems().add(0, notification);
+        TextField textField = new TextField(notification);
+        textField.setEditable(false);
+        textField.setDisable(true);
+
+        notificationsList.getItems().add(0, textField);
         notificationSound.play();
     }
     @FXML

@@ -47,7 +47,6 @@ Button{
 }
 .profile-menu{
     -fx-background-radius: 20px;
-
     -fx-border-radius: 20px;
     -fx-background-color: #E6353A;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
@@ -62,6 +61,23 @@ Button{
 .profile-picture-container{
     -fx-background-radius: 180px;
     -fx-border-radius: 180px;
+}
+.notification-list{
+    -fx-background-color: transparent;
+}
+.notification-list .list-cell{
+    -fx-background-color: transparent;
+    -fx-pref-height: 55;
+}
+.notification-list TextField{
+    -fx-background-color: #FC3903;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
+    -fx-pref-height: 45;
+    -fx-alignment: center;
+    -fx-text-fill: white;
+}
+.notification-list TextField:disabled{
+    -fx-opacity: 1;
 }
 .orders{
     -fx-background-color: #EEEEEE;

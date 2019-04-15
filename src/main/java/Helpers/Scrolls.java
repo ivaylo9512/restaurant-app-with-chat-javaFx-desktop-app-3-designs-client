@@ -128,7 +128,6 @@ public class Scrolls {
         });
     }
 
-
     private void fixBlurryContent(){
         fixBlurriness(menuScroll);
         fixBlurriness(userInfoScroll);
