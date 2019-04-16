@@ -271,6 +271,7 @@ public class ControllerLoggedFirstStyle {
                 }
 
             } else {
+                loggedUser.getOrders().put(order.getId(), order);
                 ordersList.getItems().add(0, order);
 
                 if(order.getUserId() != loggedUser.getId()){

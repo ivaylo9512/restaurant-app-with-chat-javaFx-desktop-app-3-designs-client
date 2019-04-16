@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import sample.LoggedFirstStyle;
 
@@ -80,6 +81,12 @@ public class OrderListViewCell extends ListCell<Order> {
 
             button.setOnMouseClicked(event -> LoggedFirstStyle.controller.expandOrder(event));
 
+            Rectangle dishesClip = new Rectangle();
+            dishesClip.widthProperty().bind(dishesAnchor.widthProperty());
+            dishesClip.heightProperty().bind(dishesAnchor.heightProperty());
+
+            dishesScroll.setClip(dishesClip);
+
             dishesScroll.skinProperty().addListener((observable, oldValue, newValue) -> {
                 ScrollBar bar = Scrolls.findVerticalScrollBar(dishesScroll);
                 Objects.requireNonNull(bar).addEventFilter(MouseEvent.MOUSE_DRAGGED, Event::consume);
@@ -89,7 +96,6 @@ public class OrderListViewCell extends ListCell<Order> {
             dishesAnchor.prefHeightProperty().bind(orderPane.prefHeightProperty().subtract(99));
             dishesAnchor.setDisable(true);
             dishesAnchor.setOpacity(0);
-
 
             dishesBox.prefWidthProperty().bind(dishesScroll.widthProperty().subtract(14.65));
             dishesBox.getChildren().clear();
@@ -153,6 +159,9 @@ public class OrderListViewCell extends ListCell<Order> {
                 translate.setToX(0);
                 translate.play();
             });
+
+            container.setClip(new Rectangle(container.getPrefWidth(), container.getPrefHeight()));
+
             setText(null);
             setGraphic(container);
         }
