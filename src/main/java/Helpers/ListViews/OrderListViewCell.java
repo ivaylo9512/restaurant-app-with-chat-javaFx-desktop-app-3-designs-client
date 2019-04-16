@@ -2,31 +2,37 @@ package Helpers.ListViews;
 
 import Helpers.Scrolls;
 import Models.Order;
+import javafx.animation.TranslateTransition;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 import sample.LoggedFirstStyle;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import static Helpers.ServerRequests.loggedUserProperty;
 
 public class OrderListViewCell extends ListCell<Order> {
+    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
     @FXML
-    private Label orderId;
+    private Label orderId, updatedDate, createdDate, createdTime, updatedTime;
 
     @FXML
     private AnchorPane orderPane;
 
     @FXML
-    private Pane container;
+    private Pane container, updatedContainer;
 
     @FXML
-    private AnchorPane dishesAnchor;
+    private AnchorPane dishesAnchor, createdContainer;
 
     @FXML
     private ScrollPane dishesScroll;
@@ -118,7 +124,35 @@ public class OrderListViewCell extends ListCell<Order> {
                 HBox.setHgrow(name, Priority.ALWAYS);
                 dishesBox.getChildren().add(dishBox);
             });
-
+            updatedContainer.setId("update" + order.getId());
+            createdDate.setText(dateFormatter.format(order.getCreated()));
+            createdTime.setText(timeFormatter.format(order.getCreated()));
+            updatedDate.setText(dateFormatter.format(order.getUpdated()));
+            updatedTime.setText(timeFormatter.format(order.getUpdated()));
+            createdContainer.setOnMouseEntered(event -> {
+                createdDate.setText("created");
+                TranslateTransition translate = new TranslateTransition(Duration.millis(400), createdDate);
+                translate.setToX(30);
+                translate.play();
+            });
+            createdContainer.setOnMouseExited(event -> {
+                createdDate.setText(dateFormatter.format(order.getCreated()));
+                TranslateTransition translate = new TranslateTransition(Duration.millis(400), createdDate);
+                translate.setToX(0);
+                translate.play();
+            });
+            updatedContainer.setOnMouseEntered(event -> {
+                updatedDate.setText("updated");
+                TranslateTransition translate = new TranslateTransition(Duration.millis(400), updatedDate);
+                translate.setToX(-30);
+                translate.play();
+            });
+            updatedContainer.setOnMouseExited(event -> {
+                updatedDate.setText(dateFormatter.format(order.getUpdated()));
+                TranslateTransition translate = new TranslateTransition(Duration.millis(400), updatedDate);
+                translate.setToX(0);
+                translate.play();
+            });
             setText(null);
             setGraphic(container);
         }

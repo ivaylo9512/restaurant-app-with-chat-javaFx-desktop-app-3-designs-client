@@ -1,5 +1,6 @@
 package Animations;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -12,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -34,11 +36,13 @@ public class ExpandOrderPane {
     private static double initialMouseX;
 
 
-    public static Pane orderContainer;
-    public static Pane currentOrder;
+    private static Pane orderContainer;
+    private static Pane currentOrder;
+    private static AnchorPane dishesAnchor;
+    private static GridPane dates;
+
     public static Button button;
     public static ListView orderList;
-    public static AnchorPane dishesAnchor;
     public static ScrollBar scrollBar;
     public static Pane contentRoot;
     public static AnchorPane contentPane;
@@ -56,12 +60,14 @@ public class ExpandOrderPane {
             currentOrder = (Pane) button.getParent();
         }else{
             currentOrder = (Pane) intersectedNode;
-            button = (Button) currentOrder.getChildren().get(1);
+            button = (Button) currentOrder.getChildren().get(2);
         }
         action = true;
 
         dishesAnchor = (AnchorPane) currentOrder.getChildren().get(0);
+        dates = (GridPane) currentOrder.getChildren().get(1);
         orderContainer = (Pane) currentOrder.getParent();
+
 
         mouseX = event.getScreenX();
         mouseY = event.getScreenY();
@@ -154,6 +160,15 @@ public class ExpandOrderPane {
         translatePane.setToX(-(maxOrderWidth - currentOrder.getWidth()) / 2);
         translatePane.setToY(0);
         translatePane.play();
+
+        FadeTransition showDates = new FadeTransition(Duration.millis(500), dates);
+        showDates.setFromValue(0);
+        showDates.setToValue(1);
+        showDates.setDelay(Duration.millis(750));
+        showDates.play();
+
+        dates.setDisable(false);
+
     }
 
     private static void expandOrderOnDrag(MouseEvent eventDrag){
@@ -190,6 +205,14 @@ public class ExpandOrderPane {
                 buttonExpanded.setValue(true);
                 mouseX = eventDrag.getScreenX();
                 mouseY = eventDrag.getScreenY();
+
+                FadeTransition showDates = new FadeTransition(Duration.millis(500), dates);
+                showDates.setFromValue(0);
+                showDates.setToValue(1);
+                showDates.setDelay(Duration.millis(750));
+                showDates.play();
+
+                dates.setDisable(false);
             }
 
             double translateButtonY = currentOrder.getPrefHeight() - button.getPrefHeight() - 10.5 - buttonY;
@@ -203,10 +226,15 @@ public class ExpandOrderPane {
     }
     public static void reverseOrder() {
         Timeline delay = new Timeline(new KeyFrame(Duration.millis(20), actionEvent1 -> {
+            dates.setDisable(true);
+            dates.setOpacity(0);
+
             buttonExpanded.setValue(false);
+
             currentOrder.removeEventFilter(MouseEvent.MOUSE_CLICKED, panePress);
             currentOrder.removeEventFilter(MouseEvent.MOUSE_DRAGGED, paneDrag);
             currentOrder.removeEventFilter(MouseEvent.MOUSE_RELEASED, paneReleased);
+
             TranslateTransition transitionPane = new TranslateTransition(Duration.millis(750), currentOrder);
             transitionPane.setToX(0);
             transitionPane.setToY(0);

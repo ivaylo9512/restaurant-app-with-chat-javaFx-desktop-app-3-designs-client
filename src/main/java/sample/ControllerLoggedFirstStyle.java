@@ -70,6 +70,8 @@ public class ControllerLoggedFirstStyle {
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
+    private DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
 
     private TreeMap<String, Menu> menuMap = new TreeMap<>();
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
@@ -243,8 +245,10 @@ public class ControllerLoggedFirstStyle {
             int orderId = order.getId();
 
             Order orderValue = loggedUser.getOrders().get(orderId);
-            loggedUser.getOrders().put(orderId, order);
             if (orderValue != null) {
+                orderValue.setDishes(order.getDishes());
+                orderValue.setUpdated(order.getUpdated());
+
                 order.getDishes().forEach(dish -> {
                     Label ready = (Label) contentRoot.lookup("#dish" + dish.getId());
 
@@ -254,6 +258,14 @@ public class ControllerLoggedFirstStyle {
                     }
                 });
 
+                AnchorPane updateContainer = (AnchorPane) contentRoot.lookup("#update" + order.getId());
+                if(updateContainer != null){
+                    Label updatedTime = (Label) updateContainer.getChildren().get(0);
+                    Label updatedDate = (Label) updateContainer.getChildren().get(1);
+
+                    updatedTime.setText(timeFormatter.format(order.getUpdated()));
+                    updatedDate.setText(dateFormatterSimple.format(order.getUpdated()));
+                }
                 if (order.isReady()) {
                     addNotification("Order " + orderId + " is ready.");
                 }

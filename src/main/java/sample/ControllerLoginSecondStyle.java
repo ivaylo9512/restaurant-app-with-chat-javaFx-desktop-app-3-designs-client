@@ -226,6 +226,6 @@ public class ControllerLoginSecondStyle {
 
     @FXML
     public void close(){
-        LoginFirstStyle.stage.close();
+        LoginSecondStyle.stage.close();
     }
 }

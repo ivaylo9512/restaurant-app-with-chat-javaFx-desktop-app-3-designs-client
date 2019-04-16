@@ -106,20 +106,16 @@ TextArea .scroll-pane .content{
     -fx-pref-height: 86.5;
     -fx-pref-width: 86.5;
 }
-.order AnchorPane{
-    -fx-background-color: #2A2E37;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
-}
-
 .order ScrollPane ScrollBar{
     -fx-background-color: transparent;
 }
 .order ScrollPane ScrollBar .thumb{
     -fx-background-color: transparent;
 }
-.order > Label{
+.order > Label,
+.order > GridPane Label{
     -fx-background-color: #2A2E37;
-    -fx-border-radius: 2 0 0 2;
+    -fx-border-radius: 2 2 0 0;
     -fx-background-radius: 2 2 0 0;
     -fx-pref-height: 30.0;
     -fx-pref-width: 30.0;
@@ -136,6 +132,15 @@ TextArea .scroll-pane .content{
 }
 .order > Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+}
+.dishes-container {
+    -fx-background-color: #2A2E37;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+.dish-time{
+    -fx-border-radius: 0 0 0 0;
+    -fx-background-radius: 0 0 0 0;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
 .chat-users Pane{
     -fx-pref-width: 50.0;
