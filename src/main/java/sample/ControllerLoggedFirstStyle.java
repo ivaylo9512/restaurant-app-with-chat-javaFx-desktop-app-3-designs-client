@@ -124,7 +124,7 @@ public class ControllerLoggedFirstStyle {
 
         mainChatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if(event.getCode().equals(KeyCode.ENTER)) {
-                newMessage();
+                addNewMessage();
                 event.consume();
             }
         });
@@ -512,7 +512,7 @@ public class ControllerLoggedFirstStyle {
     }
 
     @FXML
-    public void newMessage(){
+    public void addNewMessage(){
         String messageText = mainChatTextArea.getText();
         int chatId = mainChatValue.getChatId();
         int receiverId = mainChatValue.getUserId();

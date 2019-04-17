@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -31,7 +32,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Label fx:id="lastMessage" minHeight="-Infinity" styleClass="lastMessage" />
+            <Label fx:id="lastMessage" minHeight="-Infinity" styleClass="lastMessage" textFill="#545454" />
          </children>
          <padding>
             <Insets left="8.0" />

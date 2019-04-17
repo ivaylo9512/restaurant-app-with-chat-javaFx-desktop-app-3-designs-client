@@ -210,7 +210,7 @@
                         <InnerShadow />
                      </effect>
                      <children>
-                        <AnchorPane fx:id="chatContainer" layoutY="1.0" styleClass="main-chat" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="chatContainer" disable="true" layoutY="1.0" opacity="0.0" styleClass="main-chat" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <ScrollPane fx:id="chatScroll" prefHeight="143.0" prefWidth="418.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                                  <content>
@@ -251,7 +251,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <TextArea fx:id="mainChatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
+                                    <TextArea fx:id="chatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

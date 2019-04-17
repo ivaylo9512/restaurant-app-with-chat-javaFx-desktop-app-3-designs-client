@@ -25,6 +25,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -71,7 +73,7 @@ public class ControllerLoggedSecondStyle {
     @FXML ListView<Menu> menuList, newOrderList;
     @FXML ListView<Dish> dishesList;
     @FXML ImageView profileImage;
-    @FXML TextArea mainChatTextArea;
+    @FXML TextArea chatTextArea;
     @FXML ScrollPane chatScroll;
     @FXML VBox chatBlock;
 
@@ -109,7 +111,14 @@ public class ControllerLoggedSecondStyle {
             menuList.setItems(observableList);
         });
 
-        Scrolls scrolls = new Scrolls(chatScroll, mainChatTextArea);
+        chatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+                addNewMessage();
+                event.consume();
+            }
+        });
+
+        Scrolls scrolls = new Scrolls(chatScroll, chatTextArea);
         scrolls.manageScrollsSecondStyle();
 
         MoveRoot.move(menuButton, menuRoot);
@@ -410,7 +419,7 @@ public class ControllerLoggedSecondStyle {
         userProfileImage = null;
         loggedUser = null;
         chatValue = null;
-        mainChatTextArea.setText(null);
+        chatTextArea.setText(null);
         menuSearch.setText("");
 
         chatBlock.getChildren().remove(1,chatBlock.getChildren().size());
@@ -888,6 +897,9 @@ public class ControllerLoggedSecondStyle {
         imageShadow.setMinWidth(40);
         imageShadow.getStyleClass().add("imageShadow");
 
+        imageShadow.setViewOrder(1);
+        textFlow.setViewOrder(5);
+
         HBox.setMargin(imageShadow, new Insets(-20, 0, 0, 0));
 
         if (message.getReceiverId() == loggedUser.getId()) {
@@ -964,5 +976,42 @@ public class ControllerLoggedSecondStyle {
             }
             chatBlock.getChildren().add(newBlock);
         }
+    }
+
+    @FXML
+    public void addNewMessage(){
+        String messageText = chatTextArea.getText();
+        int chatId = chatValue.getChatId();
+        int receiverId = chatValue.getUserId();
+        int index = chatBlock.getChildren().size();
+        chatTextArea.clear();
+
+        if (messageText.length() > 0){
+            Message message = sendMessage(messageText, chatId, receiverId);
+            ChatValue chat = chatsMap.get(chatId);
+            ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+
+            chatBlock.setId("new-message");
+            Session session = sessions.get(LocalDate.now());
+            if (session == null) {
+                LocalDate sessionDate = LocalDate.now();
+
+                session = new Session();
+                session.setDate(sessionDate);
+                sessions.put(0, sessionDate, session);
+                session.getMessages().add(message);
+
+                if (chatValue.getChatId() == message.getChatId()) {
+                    chatValue.setDisplayedSessions(chatValue.getDisplayedSessions() + 1);
+                    appendSession(session, chatBlock, chatValue, index);
+                }
+            } else {
+                session.getMessages().add(message);
+                if (chatValue.getChatId() == message.getChatId()) {
+                    appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
+                }
+            }
+        }
+
     }
 }
