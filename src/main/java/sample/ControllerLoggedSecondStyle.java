@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -100,6 +101,7 @@ public class ControllerLoggedSecondStyle {
         dishesList.setCellFactory(dishCell -> new DishListViewCell());
 
         waitForNewOrders();
+        waitForNewMessages();
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Menu> observableList = FXCollections.observableArrayList();
@@ -201,7 +203,44 @@ public class ControllerLoggedSecondStyle {
             showLoggedStageAlert("You must be a server to create orders.");
         }
     }
+    private void waitForNewMessages(){
+        messageService = new MessageService();
+        messageService.setOnSucceeded(event -> {
+            MessageService.lastMessageCheck = LocalDateTime.now();
+            List<Message> newMessages = (List<Message>) messageService.getValue();
+            newMessages.forEach(message -> {
+                int index = chatBlock.getChildren().size();
+                chatBlock.setId("new-message");
 
+                ChatValue chat = chatsMap.get(message.getChatId());
+                ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+
+                Session session = sessions.get(LocalDate.now());
+                if (session == null) {
+                    LocalDate sessionDate = LocalDate.now();
+
+                    session = new Session();
+                    session.setDate(sessionDate);
+                    sessions.put(0, sessionDate, session);
+                    session.getMessages().add(message);
+
+                    if (chatValue != null && chatValue.getChatId() == message.getChatId()) {
+                        chatValue.setDisplayedSessions(chatValue.getDisplayedSessions() + 1);
+                        appendSession(session, chatBlock, chatValue, index);
+                    }
+                } else {
+                    session.getMessages().add(message);
+                    if (chatValue != null && chatValue.getChatId() == message.getChatId()) {
+                        appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
+                    }
+                }
+            });
+            messageService.restart();
+        });
+
+        messageService.setOnFailed(event -> serviceFailed(messageService));
+
+    }
     private void waitForNewOrders() {
         orderService = new OrderService();
         orderService.setOnSucceeded(event -> {
@@ -340,7 +379,9 @@ public class ControllerLoggedSecondStyle {
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+
         orderService.start();
+        messageService.start();
 
         menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
@@ -368,6 +409,14 @@ public class ControllerLoggedSecondStyle {
         mostRecentOrderDate = null;
         userProfileImage = null;
         loggedUser = null;
+        chatValue = null;
+        mainChatTextArea.setText(null);
+        menuSearch.setText("");
+
+        chatBlock.getChildren().remove(1,chatBlock.getChildren().size());
+
+        chatContainer.setDisable(true);
+        chatContainer.setOpacity(0);
 
         menuMap.clear();
 
@@ -381,8 +430,11 @@ public class ControllerLoggedSecondStyle {
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
-        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
+        contentRoot.setPrefWidth(contentRoot.getMinWidth());
+        contentRoot.setPrefHeight(contentRoot.getMinHeight());
+
+        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
+        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
 
         menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getWidth()) / 2);
         menuRoot.setLayoutY(contentRoot.getLayoutY() - 60);
@@ -413,6 +465,7 @@ public class ControllerLoggedSecondStyle {
 
         Platform.runLater(() -> {
             orderService.reset();
+            messageService.reset();
         });
     }
     private void displayUserFields() {
@@ -751,34 +804,39 @@ public class ControllerLoggedSecondStyle {
     @FXML
     private void setChat() {
         Chat selectedChat = userChats.getSelectionModel().getSelectedItem();
-        chatContainer.setOpacity(1);
-        chatContainer.setDisable(false);
 
-        int chatId = selectedChat.getId();
-        ChatValue chat = chatsMap.get(chatId);
-        HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
-        Text info = (Text) sessionInfo.lookup("Text");
+        if(selectedChat != null) {
+            chatContainer.setOpacity(1);
+            chatContainer.setDisable(false);
 
-        if (chatValue == null || chatId != chatValue.getChatId()) {
-            chatBlock.setId("beginning");
-            chatBlock.getChildren().remove(1, chatBlock.getChildren().size());
+            int chatId = selectedChat.getId();
+            ChatValue chat = chatsMap.get(chatId);
 
-            chatValue = chat;
+            HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
+            Text info = (Text) sessionInfo.lookup("Text");
 
-            ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.getSessions();
-            List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
-            List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
+            if (chatValue == null || chatId != chatValue.getChatId()) {
+                chatBlock.setId("beginning");
+                chatBlock.getChildren().remove(1, chatBlock.getChildren().size());
 
-            if (lastSessions.size() == pageSize) {
-                info.setText("Scroll for more history");
-                chatValue.setDisplayedSessions(pageSize);
-            } else {
-                info.setText("Beginning of the chat");
-                chatValue.setMoreSessions(false);
-                chatValue.setDisplayedSessions(lastSessions.size());
+                chatValue = chat;
+
+                ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.getSessions();
+                List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
+                List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
+
+                if (lastSessions.size() == pageSize) {
+                    info.setText("Scroll for more history");
+                    chatValue.setDisplayedSessions(pageSize);
+                } else {
+                    info.setText("Beginning of the chat");
+                    chatValue.setMoreSessions(false);
+                    chatValue.setDisplayedSessions(lastSessions.size());
+                }
+
+                lastSessions.forEach(session -> appendSession(session, chatBlock, chatValue, 1));
+
             }
-
-            lastSessions.forEach(session -> appendSession(session, chatBlock, chatValue, 1));
         }
     }
     private void appendSession(Session session, VBox chatBlock, ChatValue chatValue, int index) {
