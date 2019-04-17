@@ -7,6 +7,7 @@ import Animations.TransitionResizeWidth;
 import Helpers.ListViews.ChatsListViewCell;
 import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
+import Helpers.Scrolls;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
 import Models.*;
@@ -17,7 +18,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,14 +31,20 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 import javafx.util.Duration;
+import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -49,7 +59,7 @@ public class ControllerLoggedSecondStyle {
 
     @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot, profileView,
             notificationsView, menuContent, orderInfo, userInfoLabels, userInfoFields, orderView,
-            chatView, userChatsClip, createView, dishesContainer;
+            chatView, userChatsClip, createView, dishesContainer, chatContainer;
 
     @FXML TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML Button menuButton, editButton;
@@ -60,13 +70,18 @@ public class ControllerLoggedSecondStyle {
     @FXML ListView<Menu> menuList, newOrderList;
     @FXML ListView<Dish> dishesList;
     @FXML ImageView profileImage;
+    @FXML TextArea mainChatTextArea;
+    @FXML ScrollPane chatScroll;
+    @FXML VBox chatBlock;
 
     public static Image userProfileImage;
     private AnchorPane currentView, currentMenuView;
 
     private MediaPlayer notificationSound;
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
+
+    private DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     private TreeMap<String, Menu> menuMap = new TreeMap<>();
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
@@ -74,6 +89,8 @@ public class ControllerLoggedSecondStyle {
     private User loggedUser;
     private static MessageService messageService;
     private static OrderService orderService;
+
+    private ChatValue chatValue;
 
     @FXML
     public void initialize() {
@@ -89,6 +106,9 @@ public class ControllerLoggedSecondStyle {
             searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
             menuList.setItems(observableList);
         });
+
+        Scrolls scrolls = new Scrolls(chatScroll, mainChatTextArea);
+        scrolls.manageScrollsSecondStyle();
 
         MoveRoot.move(menuButton, menuRoot);
         MoveRoot.move(contentBar, contentRoot);
@@ -115,6 +135,8 @@ public class ControllerLoggedSecondStyle {
         notificationClip.widthProperty().bind(notificationsList.widthProperty());
 
         notificationsList.setClip(notificationClip);
+
+        chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
 
     }
     private SortedMap<String, Menu> searchMenu(String prefix) {
@@ -305,11 +327,11 @@ public class ControllerLoggedSecondStyle {
             menuButtonsContainer.getChildren().remove(menuButtons);
         }
     }
-    public void expandMenuContent(){
+    private void expandMenuContent(){
         TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
         expand.play();
     }
-    public void reverseMenuContent(){
+    private void reverseMenuContent(){
         TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
         reverse.play();
     }
@@ -666,9 +688,9 @@ public class ControllerLoggedSecondStyle {
         orderIdLabel.setText(String.valueOf(order.getId()));
         dishesCountLabel.setText("Dishes " + order.getDishes().size());
 
-        createdDateLabel.setText(dateFormatter.format(order.getCreated()));
+        createdDateLabel.setText(dateFormatterSimple.format(order.getCreated()));
         createdTimeLabel.setText(timeFormatter.format(order.getCreated()));
-        updatedDateLabel.setText(dateFormatter.format(order.getUpdated()));
+        updatedDateLabel.setText(dateFormatterSimple.format(order.getUpdated()));
         updatedTimeLabel.setText(timeFormatter.format(order.getUpdated()));
 
 

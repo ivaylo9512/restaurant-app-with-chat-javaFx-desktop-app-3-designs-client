@@ -102,7 +102,7 @@ public class ControllerLoggedFirstStyle {
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
                 mainChatScroll, notificationsScroll, mainChatTextArea);
-        scrolls.manageScrolls();
+        scrolls.manageScrollsFirstStyle();
 
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node: ordersList.lookupAll(".scroll-bar")) {
@@ -799,6 +799,7 @@ public class ControllerLoggedFirstStyle {
 
         List<Chat> chats = getChats();
         appendChats(chats);
+
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
 
         orderService.start();

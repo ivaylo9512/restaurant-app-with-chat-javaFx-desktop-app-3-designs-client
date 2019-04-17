@@ -33,9 +33,25 @@ public class Scrolls {
         this.notificationsScroll = notificationsScroll;
 
     }
-    public void manageScrolls(){
+    public Scrolls(ScrollPane mainChatScroll, TextArea mainChatTextArea) {
+        this.mainChatScroll = mainChatScroll;
+        this.mainChatTextArea = mainChatTextArea;
+    }
+    public void manageScrollsFirstStyle(){
         fixBlurryContent();
         changeMenuScrollBehaviour();
+        listenForHistoryRequest();
+
+    }
+    public void manageScrollsSecondStyle(){
+        mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
+                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
+                fixBlurriness(textAreaScroll);
+            }
+        });
+        fixBlurriness(mainChatScroll);
         listenForHistoryRequest();
 
     }
