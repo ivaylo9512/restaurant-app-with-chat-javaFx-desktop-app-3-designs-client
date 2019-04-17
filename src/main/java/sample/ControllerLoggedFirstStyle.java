@@ -584,10 +584,13 @@ public class ControllerLoggedFirstStyle {
         imageContainer.setClip(clip);
         imageContainer.setMaxHeight(40);
         imageContainer.setMaxWidth(40);
+        imageContainer.setMinWidth(40);
+
 
         Pane imageShadow = new Pane(imageContainer);
         imageShadow.setMaxHeight(40);
         imageShadow.setMaxWidth(40);
+        imageShadow.setMinWidth(40);
         imageShadow.getStyleClass().add("imageShadow");
 
         HBox.setMargin(imageShadow, new Insets(-20, 0, 0, 0));

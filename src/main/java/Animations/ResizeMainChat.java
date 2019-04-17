@@ -3,14 +3,11 @@ package Animations;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.skin.ScrollBarSkin;
-import javafx.scene.control.skin.TextAreaSkin;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,10 +53,12 @@ public class ResizeMainChat {
                 mouseY = event.getScreenY();
                 height = mainChat.getPrefHeight();
 
-                move = !event.getPickResult().getIntersectedNode().getTypeSelector().equals("TextAreaSkin$ContentView") &&
-                        !event.getPickResult().getIntersectedNode().getStyleClass().equals(new ArrayList<>(Collections.singletonList("text"))) &&
-                        !(event.getPickResult().getIntersectedNode() instanceof Button) &&
-                        !(event.getPickResult().getIntersectedNode() instanceof StackPane);
+                Node intersectedNode = event.getPickResult().getIntersectedNode();
+                move = !intersectedNode.getTypeSelector().equals("TextAreaSkin$ContentView") &&
+                        !intersectedNode.getStyleClass().equals(new ArrayList<>(Collections.singletonList("text"))) &&
+                        !(intersectedNode instanceof Button) &&
+                        !intersectedNode.getTypeSelector().equals("StackPane") &&
+                        !intersectedNode.getTypeSelector().equals("ScrollBarSkin$1");
             }
         });
 

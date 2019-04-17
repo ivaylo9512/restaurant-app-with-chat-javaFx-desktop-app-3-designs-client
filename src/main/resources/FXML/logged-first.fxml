@@ -233,14 +233,18 @@
                                     <Insets top="1.0" />
                                  </HBox.margin>
                               </AnchorPane>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="303.0" layoutY="90.0" rotate="180.0">
-                                 <image>
-                                    <Image url="/images/left-arrow.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets top="90.0" />
-                                 </HBox.margin>
-                              </ImageView>
+                              <VBox alignment="CENTER" HBox.hgrow="NEVER">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="303.0" layoutY="90.0" rotate="180.0">
+                                       <image>
+                                          <Image url="/images/left-arrow.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets top="90.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
                               <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="9.5" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ListView fx:id="newOrderMenu" layoutY="46.0" onMouseClicked="#removeMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

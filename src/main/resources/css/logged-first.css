@@ -282,16 +282,16 @@ TextFlow {
     -fx-border-color: #bcbcbc;
 }
 .user-message-first{
-    -fx-padding: 15 0 0 65;
+    -fx-padding: 15 0 0 165;
 }
 .user-message{
-    -fx-padding: 8 40 0 65;
+    -fx-padding: 8 40 0 165;
 }
 .second-user-message-first{
-    -fx-padding: 17 65 0 0;
+    -fx-padding: 17 165 0 0;
 }
 .second-user-message{
-    -fx-padding: 8 65 0 40;
+    -fx-padding: 8 165 0 40;
 }
 .session-date{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
