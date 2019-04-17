@@ -45,7 +45,7 @@ public class MessageService extends Service {
                 patchEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
                 HttpPatch httpPatch = new HttpPatch("http://localhost:8080/api/auth/chat/getChatUpdates");
-                httpPatch.setHeader("Authorization", userPreference.get("Token", null));
+                httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
                 httpPatch.setEntity(patchEntity);
                 try (CloseableHttpResponse response = httpClientLongPolling.execute(httpPatch)) {
 

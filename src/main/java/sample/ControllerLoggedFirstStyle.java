@@ -271,6 +271,9 @@ public class ControllerLoggedFirstStyle {
                 }
 
             } else {
+                if(ExpandOrderPane.buttonExpandedProperty().getValue()){
+                    ExpandOrderPane.reverseOrder();
+                }
                 loggedUser.getOrders().put(order.getId(), order);
                 ordersList.getItems().add(0, order);
 
@@ -977,7 +980,7 @@ public class ControllerLoggedFirstStyle {
         });
     }
 
-    public EventHandler<MouseEvent> expandOrderHandler = this::expandOrder;
+    private EventHandler<MouseEvent> expandOrderHandler = this::expandOrder;
     private EventHandler<MouseEvent> reverseOrderHandler = e -> ExpandOrderPane.reverseOrder();
 
     @FXML

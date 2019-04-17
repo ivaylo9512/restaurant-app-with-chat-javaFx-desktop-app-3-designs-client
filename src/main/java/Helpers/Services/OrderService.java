@@ -40,7 +40,7 @@ public class OrderService extends Service {
                 builder.setParameter("restaurantId", restaurantId);
 
                 HttpPatch httpPatch = new HttpPatch(builder.build());
-                httpPatch.setHeader("Authorization", userPreference.get("Token", null));
+                httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
                 httpPatch.setEntity(postEntity);
 
                 try (CloseableHttpResponse response = httpClientLongPolling.execute(httpPatch)) {

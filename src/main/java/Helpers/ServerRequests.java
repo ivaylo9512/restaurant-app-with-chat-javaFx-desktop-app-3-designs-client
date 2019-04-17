@@ -61,7 +61,7 @@ public class ServerRequests {
                     .setParameter("page", String.valueOf(page))
                     .setParameter("pageSize", String.valueOf(pageSize));
             get = new HttpGet(builder.build());
-            get.setHeader("Authorization", userPreference.get("Token", null));
+            get.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
 
             try (CloseableHttpResponse response = httpClient.execute(get)) {
 
@@ -92,7 +92,7 @@ public class ServerRequests {
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         HttpPost httpPost = new HttpPost("http://localhost:8080/api/auth/order/create");
-        httpPost.setHeader("Authorization", userPreference.get("Token", null));
+        httpPost.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
         httpPost.setEntity(postEntity);
 
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
@@ -112,7 +112,7 @@ public class ServerRequests {
     public static LocalDateTime getMostRecentOrderDate(int restaurantId) throws Exception{
         HttpGet get = new HttpGet("http://localhost:8080/api/auth/order/getMostRecentDate/" + restaurantId);
         LocalDateTime localDateTime;
-        get.setHeader("Authorization", userPreference.get("Token", null));
+        get.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
 
         try (CloseableHttpResponse response = httpClient.execute(get)) {
 
@@ -138,7 +138,7 @@ public class ServerRequests {
         builder.setParameter("pageSize", String.valueOf(pageSize));
 
         HttpGet get = new HttpGet(builder.build());
-        get.setHeader("Authorization", userPreference.get("Token", null));
+        get.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
 
         try (CloseableHttpResponse response = httpClient.execute(get)) {
 
@@ -172,7 +172,7 @@ public class ServerRequests {
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         HttpPost post = new HttpPost("http://localhost:8080/api/auth/users/changeUserInfo");
-        post.setHeader("Authorization", userPreference.get("Token", null));
+        post.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
         post.setEntity(postEntity);
 
         try (CloseableHttpResponse response = httpClient.execute(post)) {
@@ -205,7 +205,7 @@ public class ServerRequests {
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         HttpPost post = new HttpPost("http://localhost:8080/api/auth/chat/newMessage");
-        post.setHeader("Authorization", userPreference.get("Token", null));
+        post.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
         post.setEntity(postEntity);
 
         try(CloseableHttpResponse response = httpClient.execute(post)){
@@ -227,7 +227,7 @@ public class ServerRequests {
     }
     public static void updateDishState(int orderId, int dishId) throws Exception{
         HttpPatch httpPatch = new HttpPatch(String.format("http://localhost:8080/api/auth/order/update/%d/%d", orderId, dishId));
-        httpPatch.setHeader("Authorization", userPreference.get("Token", null));
+        httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
 
         try(CloseableHttpResponse response = httpClient.execute(httpPatch)){
             int statusCode = response.getStatusLine().getStatusCode();
@@ -243,7 +243,7 @@ public class ServerRequests {
     }
     public static void stopRequest() throws Exception{
         HttpPatch httpPatch = new HttpPatch("http://localhost:8080/api/auth/order/removeRequest");
-        httpPatch.setHeader("Authorization", userPreference.get("Token", null));
+        httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
 
         try(CloseableHttpResponse response = httpClient.execute(httpPatch)){
             int statusCode = response.getStatusLine().getStatusCode();
