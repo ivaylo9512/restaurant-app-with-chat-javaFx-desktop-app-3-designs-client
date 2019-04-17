@@ -243,6 +243,7 @@ public class ControllerLoggedSecondStyle {
                         appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
                     }
                 }
+                updateLastMessage(message.getChatId(), message.getMessage());
             });
             messageService.restart();
         });
@@ -250,6 +251,7 @@ public class ControllerLoggedSecondStyle {
         messageService.setOnFailed(event -> serviceFailed(messageService));
 
     }
+
     private void waitForNewOrders() {
         orderService = new OrderService();
         orderService.setOnSucceeded(event -> {
@@ -988,6 +990,8 @@ public class ControllerLoggedSecondStyle {
 
         if (messageText.length() > 0){
             Message message = sendMessage(messageText, chatId, receiverId);
+            updateLastMessage(chatId, messageText);
+
             ChatValue chat = chatsMap.get(chatId);
             ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
 
@@ -1012,6 +1016,9 @@ public class ControllerLoggedSecondStyle {
                 }
             }
         }
-
+    }
+    private void updateLastMessage(int chatId, String message) {
+        Label lastMessage = (Label) contentRoot.lookup("#lastMessage" + chatId);
+        lastMessage.setText(message);
     }
 }
