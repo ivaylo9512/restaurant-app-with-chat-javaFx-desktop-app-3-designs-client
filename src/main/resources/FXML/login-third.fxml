@@ -13,9 +13,15 @@
    <children>
       <AnchorPane layoutX="134.6999969482422">
          <children>
-            <AnchorPane fx:id="menu" layoutY="26.0" minWidth="37.3" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" prefWidth="37.3" style="-fx-background-color: #E6353A;">
+            <AnchorPane fx:id="menu" layoutY="26.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="37.3" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" prefWidth="37.3" style="-fx-background-color: #E6353A;">
                <children>
-                  <AnchorPane layoutX="38.0" prefHeight="43.0" prefWidth="0.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2 0 2 0;" AnchorPane.leftAnchor="37.3" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS" />
+                  <AnchorPane layoutX="38.0" prefHeight="43.0" prefWidth="0.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2 0 2 0;" AnchorPane.leftAnchor="37.3" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text fx:id="loginBtn" fill="WHITE" layoutY="7.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" y="18.0" AnchorPane.leftAnchor="0.0" />
+                        <Text fill="WHITE" layoutY="7.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign" y="18.0" AnchorPane.leftAnchor="45.0" />
+                        <Text fill="WHITE" layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Styles" y="18.0" AnchorPane.leftAnchor="80.0" />
+                     </children>
+                  </AnchorPane>
                   <Button maxHeight="43.0" maxWidth="37.33" minHeight="43.0" minWidth="37.33" mnemonicParsing="false" prefHeight="43.0" prefWidth="37.33" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2 0 2 2;" AnchorPane.leftAnchor="0.0">
                      <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0">
@@ -94,7 +100,7 @@
                         </PasswordField>
                      </children>
                   </AnchorPane>
-                  <StackPane layoutX="97.0" layoutY="62.0">
+                  <StackPane layoutX="96.0" layoutY="62.0">
                      <children>
                         <Circle radius="55.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" style="-fx-fill: #E6353A;" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="R" wrappingWidth="51.4404296875">
@@ -110,7 +116,7 @@
                         <DropShadow height="10.0" radius="4.5" width="10.0" />
                      </effect>
                   </StackPane>
-                  <Button fx:id="actionBtn" layoutX="101.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-radius: 5px;" styleClass="action-btn" text="login" textFill="WHITE" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0">
+                  <Button fx:id="actionBtn" layoutX="101.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" styleClass="action-btn" text="login" textFill="WHITE" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0">
                      <font>
                         <Font size="12.0" />
                      </font>

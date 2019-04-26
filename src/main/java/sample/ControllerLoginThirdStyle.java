@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.net.ConnectException;
@@ -30,10 +31,12 @@ public class ControllerLoginThirdStyle {
     @FXML public TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane root, loginFields, registerFields, nextRegisterFields, styleButtons;
     @FXML Button actionBtn;
+    @FXML Text loginBtn;
     private LoginService loginService;
     private RegisterService registerService;
 
     private Pane currentMenu = loginFields;
+    private Text currentText = loginBtn;
 
     @FXML
     public void initialize(){
@@ -180,10 +183,10 @@ public class ControllerLoginThirdStyle {
     @FXML
     public void expandMenu(MouseEvent event){
         AnchorPane menu = (AnchorPane) event.getSource();
-        TransitionResizeWidth resize = new TransitionResizeWidth(Duration.millis(500), menu, 150);
+        TransitionResizeWidth resize = new TransitionResizeWidth(Duration.millis(500), menu, 165);
         resize.play();
         TranslateTransition translate = new TranslateTransition(Duration.millis(500), menu);
-        translate.setToX(-112.7);
+        translate.setToX(-120);
         translate.play();
     }
     @FXML
@@ -194,5 +197,13 @@ public class ControllerLoginThirdStyle {
         TranslateTransition translate = new TranslateTransition(Duration.millis(500), menu);
         translate.setToX(0);
         translate.play();
+    }
+
+    private void setStrikeThrough(Text clickedText) {
+        clickedText.getStyleClass().add("strikethrough");
+        if(currentText != null) {
+            currentText.getStyleClass().remove("strikethrough");
+        }
+        currentText = clickedText;
     }
 }
