@@ -36,7 +36,7 @@ public class ControllerLoginThirdStyle {
     private RegisterService registerService;
 
     private Pane currentMenu;
-    private Text currentText = loginBtn;
+    private Text currentText;
 
     @FXML
     public void initialize(){
@@ -50,6 +50,7 @@ public class ControllerLoginThirdStyle {
         registerService.repeatPasswordProperty().bind(regRepeatPassword.textProperty());
 
         currentMenu = loginFields;
+        currentText = loginBtn;
     }
 
     @FXML
@@ -152,6 +153,8 @@ public class ControllerLoginThirdStyle {
     @FXML
     public void showLoginFields(MouseEvent event){
         Text clicked = (Text) event.getSource();
+        setStrikeThrough(clicked);
+
         resetFields();
         showMenu(loginFields);
         actionBtn.setText("login");
@@ -160,6 +163,8 @@ public class ControllerLoginThirdStyle {
     @FXML
     public void showRegisterFields(MouseEvent event){
         Text clicked = (Text) event.getSource();
+        setStrikeThrough(clicked);
+
         resetFields();
         showMenu(registerFields);
         actionBtn.setText("next");
@@ -176,6 +181,8 @@ public class ControllerLoginThirdStyle {
     }
     @FXML void showStyleButtons(MouseEvent event){
         Text clicked = (Text) event.getSource();
+        setStrikeThrough(clicked);
+
         resetFields();
         showMenu(styleButtons);
     }

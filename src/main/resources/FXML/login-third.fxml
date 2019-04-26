@@ -17,7 +17,7 @@
                <children>
                   <AnchorPane layoutX="38.0" prefHeight="43.0" prefWidth="0.0" styleClass="menu" AnchorPane.leftAnchor="37.3" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text fx:id="loginBtn" fill="WHITE" layoutY="7.5" onMouseClicked="#showLoginFields" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" y="18.0" AnchorPane.leftAnchor="0.0" />
+                        <Text fx:id="loginBtn" fill="WHITE" layoutY="7.5" onMouseClicked="#showLoginFields" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="strikethrough" text="Login" y="18.0" AnchorPane.leftAnchor="0.0" />
                         <Text fill="WHITE" layoutY="7.5" onMouseClicked="#showRegisterFields" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign" y="18.0" AnchorPane.leftAnchor="45.0" />
                         <Text fill="WHITE" layoutY="8.0" onMouseClicked="#showStyleButtons" strokeType="OUTSIDE" strokeWidth="0.0" text="Styles" y="18.0" AnchorPane.leftAnchor="80.0" />
                      </children>
@@ -72,7 +72,27 @@
                         </PasswordField>
                      </children>
                   </AnchorPane>
-                  <StackPane layoutX="96.0" layoutY="62.0">
+                  <AnchorPane fx:id="styleButtons" disable="true" layoutY="226.0" opacity="0.0" prefHeight="169.0" prefWidth="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
+                     <children>
+                        <Button layoutX="63.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="100.0" styleClass="action-btn" text="Style 1" textFill="WHITE" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
+                           <effect>
+                              <DropShadow height="8.0" radius="3.5" width="8.0" />
+                           </effect>
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="63.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="100.0" styleClass="action-btn" text="Style 2" textFill="WHITE" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
+                           <effect>
+                              <DropShadow height="8.0" radius="3.5" width="8.0" />
+                           </effect>
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <StackPane layoutX="93.0" layoutY="62.0">
                      <children>
                         <Circle radius="55.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" style="-fx-fill: #E6353A;" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="R" wrappingWidth="51.4404296875">

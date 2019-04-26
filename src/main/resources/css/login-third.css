@@ -31,3 +31,6 @@ PasswordField{
     -fx-border-color: white;
     -fx-border-width: 2 0 2 2;
 }
+.strikethrough{
+    -fx-strikethrough: true;
+}
