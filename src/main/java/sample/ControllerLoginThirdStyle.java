@@ -212,6 +212,7 @@ public class ControllerLoginThirdStyle {
         translate.setToX(-120);
         translate.play();
     }
+
     @FXML
     public void reverseMenu(MouseEvent event){
         AnchorPane menu = (AnchorPane) event.getSource();
@@ -228,5 +229,29 @@ public class ControllerLoginThirdStyle {
             currentText.getStyleClass().remove("strikethrough");
         }
         currentText = clickedText;
+    }
+
+    @FXML
+    public void showLoginSecondStyle(){
+
+        LoginThirdStyle.stage.close();
+        if(LoginSecondStyle.stage != null){
+            LoginSecondStyle.stage.show();
+        }else {
+            try {
+                LoginSecondStyle.displayLoginScene();
+            } catch (Exception e) {
+                LoginThirdStyle.stage.show();
+                DialogPane dialogPane = LoginThirdStyle.alert.getDialogPane();
+                dialogPane.setContentText(e.getMessage());
+                LoginThirdStyle.alert.showAndWait();
+            }
+        }
+    }
+
+    @FXML
+    public void showLoginFirstStyle(){
+        LoginThirdStyle.stage.close();
+        LoginFirstStyle.stage.show();
     }
 }
