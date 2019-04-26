@@ -42,7 +42,7 @@ ImageView{
 }
 .alert-box > *.button-bar > *.container{
     -fx-background-color: #2A2E37;
-    -fx-pref-height: 50
+    -fx-pref-height: 50px;
 }
 
 .alert-box:header *.header-panel{
