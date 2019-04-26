@@ -82,7 +82,7 @@
                                        <content>
                                              <VBox fx:id="chatUsers" prefWidth="103.0" spacing="20.0" styleClass="chat-users">
                                                 <padding>
-                                                   <Insets left="26.5" top="10.0" />
+                                                   <Insets bottom="5.0" left="26.5" top="10.0" />
                                                 </padding>
                                              </VBox>
                                        </content>

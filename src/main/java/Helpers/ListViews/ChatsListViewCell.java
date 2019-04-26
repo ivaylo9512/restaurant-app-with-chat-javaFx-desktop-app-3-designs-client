@@ -60,10 +60,12 @@ public class ChatsListViewCell extends ListCell<Chat> {
             }
 
 
-            List<Message> lastSessionMessages = chat.getSessions().get(0).getMessages();
-            if(lastSessionMessages.size() > 0){
-                Message last = lastSessionMessages.get(lastSessionMessages.size() - 1);
-                lastMessage.setText(last.getMessage());
+            if(chat.getSessions().size() > 0) {
+                List<Message> lastSessionMessages = chat.getSessions().get(0).getMessages();
+                if (lastSessionMessages.size() > 0) {
+                    Message last = lastSessionMessages.get(lastSessionMessages.size() - 1);
+                    lastMessage.setText(last.getMessage());
+                }
             }
             lastMessage.setId("lastMessage"+ chat.getId());
             name.setText(user.getFirstName() + " " + user.getLastName());
