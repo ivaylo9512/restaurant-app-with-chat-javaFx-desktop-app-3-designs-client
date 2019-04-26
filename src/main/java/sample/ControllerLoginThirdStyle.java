@@ -35,7 +35,7 @@ public class ControllerLoginThirdStyle {
     private LoginService loginService;
     private RegisterService registerService;
 
-    private Pane currentMenu = loginFields;
+    private Pane currentMenu;
     private Text currentText = loginBtn;
 
     @FXML
@@ -48,6 +48,8 @@ public class ControllerLoginThirdStyle {
         registerService.usernameProperty().bind(regUsername.textProperty());
         registerService.passwordProperty().bind(regPassword.textProperty());
         registerService.repeatPasswordProperty().bind(regRepeatPassword.textProperty());
+
+        currentMenu = loginFields;
     }
 
     @FXML
@@ -94,7 +96,7 @@ public class ControllerLoginThirdStyle {
         regRepeatPassword.setDisable(false);
         root.setCursor(Cursor.DEFAULT);
 
-        Alert alert = LoginSecondStyle.alert;
+        Alert alert = LoginThirdStyle.alert;
         DialogPane dialog = alert.getDialogPane();
         try{
             dialog.setContentText(service.getException().getMessage());
@@ -114,18 +116,18 @@ public class ControllerLoginThirdStyle {
         ServerRequests.loggedUserProperty.set(loggedUser);
         ServerRequests.loggedUser = (User)service.getValue();
 
-        if(LoggedFirstStyle.stage != null){
-            LoggedSecondStyle.stage.show();
-            LoginSecondStyle.stage.close();
+        if(LoggedThirdStyle.stage != null){
+            LoggedThirdStyle.stage.show();
+            LoginThirdStyle.stage.close();
         }else {
             Platform.runLater(() -> {
                 try {
-                    LoggedSecondStyle.displayLoggedScene();
-                    LoginSecondStyle.stage.close();
+                    LoggedThirdStyle.displayLoggedScene();
+                    LoginThirdStyle.stage.close();
                 } catch (Exception e) {
-                    DialogPane dialog = LoginSecondStyle.alert.getDialogPane();
+                    DialogPane dialog = LoginThirdStyle.alert.getDialogPane();
                     dialog.setContentText(e.getMessage());
-                    LoginSecondStyle.alert.showAndWait();
+                    LoginThirdStyle.alert.showAndWait();
                 }
             });
         }
@@ -148,15 +150,19 @@ public class ControllerLoginThirdStyle {
         regRepeatPassword.setText(null);
     }
     @FXML
-    public void showLoginFields(){
+    public void showLoginFields(MouseEvent event){
+        Text clicked = (Text) event.getSource();
         resetFields();
         showMenu(loginFields);
+        actionBtn.setText("login");
         actionBtn.setOnMouseClicked(this::login);
     }
     @FXML
-    public void showRegisterFields(){
+    public void showRegisterFields(MouseEvent event){
+        Text clicked = (Text) event.getSource();
         resetFields();
         showMenu(registerFields);
+        actionBtn.setText("next");
         actionBtn.setOnMouseClicked(this::showNextRegisterFields);
 
     }
@@ -164,18 +170,28 @@ public class ControllerLoginThirdStyle {
     public void showNextRegisterFields(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             showMenu(nextRegisterFields);
+            actionBtn.setText("register");
             actionBtn.setOnMouseClicked(this::register);
         }
     }
-    @FXML void showStyleButtons(){
+    @FXML void showStyleButtons(MouseEvent event){
+        Text clicked = (Text) event.getSource();
+        resetFields();
         showMenu(styleButtons);
     }
 
     private void showMenu(Pane requestedMenu){
-        if(currentMenu != null){
-            currentMenu.setOpacity(0);
-            currentMenu.setDisable(true);
+        if(requestedMenu == styleButtons){
+            actionBtn.setOpacity(0);
+            actionBtn.setDisable(true);
+        }else{
+            actionBtn.setOpacity(1);
+            actionBtn.setDisable(false);
+
         }
+        currentMenu.setOpacity(0);
+        currentMenu.setDisable(true);
+
         requestedMenu.setOpacity(1);
         requestedMenu.setDisable(false);
         currentMenu = requestedMenu;

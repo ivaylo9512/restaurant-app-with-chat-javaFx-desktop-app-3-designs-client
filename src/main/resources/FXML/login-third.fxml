@@ -17,9 +17,9 @@
                <children>
                   <AnchorPane layoutX="38.0" prefHeight="43.0" prefWidth="0.0" styleClass="menu" AnchorPane.leftAnchor="37.3" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text fx:id="loginBtn" fill="WHITE" layoutY="7.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" y="18.0" AnchorPane.leftAnchor="0.0" />
-                        <Text fill="WHITE" layoutY="7.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign" y="18.0" AnchorPane.leftAnchor="45.0" />
-                        <Text fill="WHITE" layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Styles" y="18.0" AnchorPane.leftAnchor="80.0" />
+                        <Text fx:id="loginBtn" fill="WHITE" layoutY="7.5" onMouseClicked="#showLoginFields" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" y="18.0" AnchorPane.leftAnchor="0.0" />
+                        <Text fill="WHITE" layoutY="7.5" onMouseClicked="#showRegisterFields" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign" y="18.0" AnchorPane.leftAnchor="45.0" />
+                        <Text fill="WHITE" layoutY="8.0" onMouseClicked="#showStyleButtons" strokeType="OUTSIDE" strokeWidth="0.0" text="Styles" y="18.0" AnchorPane.leftAnchor="80.0" />
                      </children>
                   </AnchorPane>
                   <Button maxHeight="43.0" maxWidth="37.33" minHeight="43.0" minWidth="37.33" mnemonicParsing="false" prefHeight="43.0" prefWidth="37.33" styleClass="menu-btn" AnchorPane.leftAnchor="0.0">
@@ -35,7 +35,7 @@
             </AnchorPane>
             <AnchorPane layoutX="35.30000305175781" prefHeight="452.0" prefWidth="296.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2px;">
                <children>
-                  <AnchorPane fx:id="loginFields" layoutX="38.0" layoutY="226.0" prefHeight="169.0" prefWidth="226.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
+                  <AnchorPane fx:id="loginFields" layoutX="38.0" layoutY="226.0" prefHeight="169.0" prefWidth="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                      <children>
                         <TextField fx:id="username" alignment="CENTER" layoutX="63.0" layoutY="14.0" onKeyReleased="#login" prefHeight="45.0" prefWidth="100.0" promptText="username" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
                            <font>
@@ -49,32 +49,23 @@
                         </PasswordField>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="registerFields" disable="true" layoutX="38.0" layoutY="226.0" opacity="0.0" prefHeight="169.0" prefWidth="226.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
+                  <AnchorPane fx:id="registerFields" disable="true" layoutX="38.0" layoutY="226.0" opacity="0.0" prefHeight="169.0" prefWidth="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                      <children>
-                        <TextField fx:id="regUsername" alignment="CENTER" layoutX="73.5" layoutY="5.0" onKeyReleased="#showNextRegisterFields" prefHeight="30.0" prefWidth="100.0" promptText="username" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
-                           <effect>
-                              <InnerShadow />
-                           </effect>
+                        <TextField fx:id="regUsername" alignment="CENTER" layoutY="38.5" onKeyReleased="#showNextRegisterFields" prefHeight="45.0" prefWidth="100.0" promptText="username" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
                            <font>
                               <Font size="10.0" />
                            </font>
                         </TextField>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="nextRegisterFields" disable="true" layoutX="38.0" layoutY="226.0" opacity="0.0" prefHeight="169.0" prefWidth="226.0">
+                  <AnchorPane fx:id="nextRegisterFields" disable="true" layoutX="38.0" layoutY="226.0" opacity="0.0" prefHeight="169.0" prefWidth="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                      <children>
-                        <PasswordField fx:id="regPassword" alignment="CENTER" layoutX="21.0" layoutY="5.0" onKeyReleased="#register" prefHeight="30.0" prefWidth="100.0" promptText="password" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
-                           <effect>
-                              <InnerShadow />
-                           </effect>
+                        <PasswordField fx:id="regPassword" alignment="CENTER" layoutX="63.0" layoutY="14.0" onKeyReleased="#register" prefHeight="45.0" prefWidth="100.0" promptText="password" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
                            <font>
                               <Font size="10.0" />
                            </font>
                         </PasswordField>
-                        <PasswordField fx:id="regRepeatPassword" alignment="CENTER" layoutX="126.0" layoutY="5.0" onKeyReleased="#register" prefHeight="30.0" prefWidth="100.0" promptText="password">
-                           <effect>
-                              <InnerShadow />
-                           </effect>
+                        <PasswordField fx:id="regRepeatPassword" alignment="CENTER" layoutX="63.0" layoutY="63.0" onKeyReleased="#register" prefHeight="45.0" prefWidth="100.0" promptText="password" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
                            <font>
                               <Font size="10.0" />
                            </font>
