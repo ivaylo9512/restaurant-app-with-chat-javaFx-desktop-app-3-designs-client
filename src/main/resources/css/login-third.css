@@ -1,0 +1,33 @@
+Button{
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+Button:focused{
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+TextField,
+PasswordField{
+    -fx-background-color: #E6353A;
+    -fx-text-fill: #bcbcbc;
+    -fx-prompt-text-fill: white;
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+}
+.action-btn{
+    -fx-background-color: #E6353A;
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.menu{
+    -fx-background-color: #E6353A;
+    -fx-border-color: white;
+    -fx-border-width: 2 0 2 0;
+}
+.menu Text:hover{
+    -fx-strikethrough: true;
+}
+.menu-btn{
+    -fx-background-color: #E6353A;
+    -fx-border-color: white;
+    -fx-border-width: 2 0 2 2;
+}

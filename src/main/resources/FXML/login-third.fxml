@@ -15,14 +15,14 @@
          <children>
             <AnchorPane fx:id="menu" layoutY="26.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="37.3" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" prefWidth="37.3" style="-fx-background-color: #E6353A;">
                <children>
-                  <AnchorPane layoutX="38.0" prefHeight="43.0" prefWidth="0.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2 0 2 0;" AnchorPane.leftAnchor="37.3" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
+                  <AnchorPane layoutX="38.0" prefHeight="43.0" prefWidth="0.0" styleClass="menu" AnchorPane.leftAnchor="37.3" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Text fx:id="loginBtn" fill="WHITE" layoutY="7.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" y="18.0" AnchorPane.leftAnchor="0.0" />
                         <Text fill="WHITE" layoutY="7.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign" y="18.0" AnchorPane.leftAnchor="45.0" />
                         <Text fill="WHITE" layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Styles" y="18.0" AnchorPane.leftAnchor="80.0" />
                      </children>
                   </AnchorPane>
-                  <Button maxHeight="43.0" maxWidth="37.33" minHeight="43.0" minWidth="37.33" mnemonicParsing="false" prefHeight="43.0" prefWidth="37.33" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2 0 2 2;" AnchorPane.leftAnchor="0.0">
+                  <Button maxHeight="43.0" maxWidth="37.33" minHeight="43.0" minWidth="37.33" mnemonicParsing="false" prefHeight="43.0" prefWidth="37.33" styleClass="menu-btn" AnchorPane.leftAnchor="0.0">
                      <graphic>
                         <ImageView fitHeight="16.0" fitWidth="16.0">
                            <image>
@@ -35,33 +35,14 @@
             </AnchorPane>
             <AnchorPane layoutX="35.30000305175781" prefHeight="452.0" prefWidth="296.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2px;">
                <children>
-                  <Pane layoutX="30.0" layoutY="199.0" opacity="0.0" prefHeight="142.0" prefWidth="256.0" AnchorPane.bottomAnchor="55.0" AnchorPane.topAnchor="199.0">
-                     <children>
-                        <Button layoutX="83.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#showLoginFields" prefHeight="39.0" prefWidth="70.0" style="-fx-background-color: #1a1a1a;" text="login" textFill="#bcbcbc">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="193.0" layoutY="10.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="70.0" style="-fx-background-color: #1a1a1a;" text="styles" textFill="#bcbcbc">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="177.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showRegisterFields" prefHeight="49.0" prefWidth="70.0" style="-fx-background-color: #1a1a1a;" text="register" textFill="#bcbcbc">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </Pane>
                   <AnchorPane fx:id="loginFields" layoutX="38.0" layoutY="226.0" prefHeight="169.0" prefWidth="226.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                      <children>
-                        <TextField fx:id="username" alignment="CENTER" layoutX="63.0" layoutY="14.0" onKeyReleased="#login" prefHeight="45.0" prefWidth="100.0" promptText="username" style="-fx-background-color: #E6353A; -fx-text-fill: white; -fx-prompt-text-fill: white; -fx-border-color: white; -fx-border-radius: 5px;" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
+                        <TextField fx:id="username" alignment="CENTER" layoutX="63.0" layoutY="14.0" onKeyReleased="#login" prefHeight="45.0" prefWidth="100.0" promptText="username" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
                            <font>
                               <Font size="12.0" />
                            </font>
                         </TextField>
-                        <PasswordField fx:id="password" alignment="CENTER" layoutX="63.0" layoutY="63.0" onKeyReleased="#login" prefHeight="45.0" prefWidth="100.0" promptText="password" style="-fx-background-color: #E6353A; -fx-text-fill: white; -fx-prompt-text-fill: white; -fx-border-color: white; -fx-border-radius: 5px;" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
+                        <PasswordField fx:id="password" alignment="CENTER" layoutX="63.0" layoutY="63.0" onKeyReleased="#login" prefHeight="45.0" prefWidth="100.0" promptText="password" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
                            <font>
                               <Font size="12.0" />
                            </font>
@@ -116,7 +97,7 @@
                         <DropShadow height="10.0" radius="4.5" width="10.0" />
                      </effect>
                   </StackPane>
-                  <Button fx:id="actionBtn" layoutX="101.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" styleClass="action-btn" text="login" textFill="WHITE" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0">
+                  <Button fx:id="actionBtn" layoutX="101.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="100.0" styleClass="action-btn" text="login" textFill="WHITE" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0">
                      <font>
                         <Font size="12.0" />
                      </font>
