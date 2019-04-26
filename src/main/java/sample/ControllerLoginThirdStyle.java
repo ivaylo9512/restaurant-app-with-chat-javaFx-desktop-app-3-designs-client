@@ -1,9 +1,11 @@
 package sample;
 
+import Animations.TransitionResizeWidth;
 import Helpers.ServerRequests;
 import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.event.Event;
@@ -15,8 +17,12 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.net.ConnectException;
 
@@ -170,5 +176,23 @@ public class ControllerLoginThirdStyle {
         requestedMenu.setOpacity(1);
         requestedMenu.setDisable(false);
         currentMenu = requestedMenu;
+    }
+    @FXML
+    public void expandMenu(MouseEvent event){
+        AnchorPane menu = (AnchorPane) event.getSource();
+        TransitionResizeWidth resize = new TransitionResizeWidth(Duration.millis(500), menu, 150);
+        resize.play();
+        TranslateTransition translate = new TranslateTransition(Duration.millis(500), menu);
+        translate.setToX(-112.7);
+        translate.play();
+    }
+    @FXML
+    public void reverseMenu(MouseEvent event){
+        AnchorPane menu = (AnchorPane) event.getSource();
+        TransitionResizeWidth resize = new TransitionResizeWidth(Duration.millis(500), menu, 37.3);
+        resize.play();
+        TranslateTransition translate = new TranslateTransition(Duration.millis(500), menu);
+        translate.setToX(0);
+        translate.play();
     }
 }
