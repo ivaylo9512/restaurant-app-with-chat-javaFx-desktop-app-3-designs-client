@@ -1,4 +1,6 @@
 Button{
+    -fx-background-color: #E6353A;
+    -fx-border-color: white;
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
 Button:focused{
@@ -11,12 +13,6 @@ PasswordField{
     -fx-prompt-text-fill: white;
     -fx-border-color: white;
     -fx-border-radius: 5px;
-}
-.action-btn{
-    -fx-background-color: #E6353A;
-    -fx-border-color: white;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
 }
 .menu{
     -fx-background-color: #E6353A;
@@ -33,4 +29,11 @@ PasswordField{
 }
 .strikethrough{
     -fx-strikethrough: true;
+}
+.action-btn{
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.action-btn:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0);
 }

@@ -72,7 +72,7 @@
                         </PasswordField>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="styleButtons" disable="true" layoutY="226.0" opacity="0.0" prefHeight="169.0" prefWidth="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
+                  <AnchorPane fx:id="styleButtons" disable="true" layoutX="39.0" layoutY="208.0" opacity="0.0" prefHeight="169.0" prefWidth="0.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="39.0">
                      <children>
                         <Button layoutX="63.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#showLoginFirstStyle" prefHeight="45.0" prefWidth="100.0" styleClass="action-btn" text="Style 1" textFill="WHITE" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
                            <effect>
@@ -83,6 +83,22 @@
                            </font>
                         </Button>
                         <Button layoutX="63.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#showLoginSecondStyle" prefHeight="45.0" prefWidth="100.0" styleClass="action-btn" text="Style 2" textFill="WHITE" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
+                           <effect>
+                              <DropShadow height="8.0" radius="3.5" width="8.0" />
+                           </effect>
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="73.0" layoutY="124.0" mnemonicParsing="false" onMouseClicked="#minimize" prefHeight="45.0" prefWidth="100.0" styleClass="action-btn" text="Hide" textFill="WHITE" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
+                           <effect>
+                              <DropShadow height="8.0" radius="3.5" width="8.0" />
+                           </effect>
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="93.0" layoutY="179.0" mnemonicParsing="false" onMouseClicked="#close" prefHeight="45.0" prefWidth="100.0" styleClass="action-btn" text="Close" textFill="WHITE" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
                            <effect>
                               <DropShadow height="8.0" radius="3.5" width="8.0" />
                            </effect>

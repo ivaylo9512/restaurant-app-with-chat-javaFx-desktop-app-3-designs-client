@@ -254,4 +254,14 @@ public class ControllerLoginThirdStyle {
         LoginThirdStyle.stage.close();
         LoginFirstStyle.stage.show();
     }
+
+    @FXML
+    public void minimize(){
+        LoginThirdStyle.stage.setIconified(true);
+    }
+
+    @FXML
+    public void close(){
+        LoginThirdStyle.stage.close();
+    }
 }
