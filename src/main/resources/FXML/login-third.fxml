@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="root" maxWidth="-Infinity" prefHeight="431.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginThirdStyle">
    <children>
-      <AnchorPane layoutX="134.6999969482422">
+      <AnchorPane layoutX="134.6999969482422" minWidth="-Infinity">
          <children>
             <AnchorPane fx:id="menu" layoutY="26.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="37.3" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" prefWidth="37.3" style="-fx-background-color: #E6353A;">
                <children>
@@ -33,7 +33,7 @@
                   </Button>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="35.30000305175781" prefHeight="452.0" prefWidth="296.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2px;">
+            <AnchorPane fx:id="contentRoot" layoutX="35.30000305175781" maxHeight="1.7976931348623157E308" minWidth="161.0" prefHeight="452.0" prefWidth="296.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2px;">
                <children>
                   <AnchorPane fx:id="loginFields" layoutX="38.0" layoutY="226.0" prefHeight="169.0" prefWidth="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                      <children>
@@ -108,7 +108,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <StackPane layoutX="93.0" layoutY="62.0">
+                  <StackPane fx:id="logo" layoutX="93.0" layoutY="62.0">
                      <children>
                         <Circle radius="55.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" style="-fx-fill: #E6353A;" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="R" wrappingWidth="51.4404296875">
@@ -132,7 +132,7 @@
                         <DropShadow height="8.0" radius="3.5" width="8.0" />
                      </effect>
                   </Button>
-                  <Line endY="36.2" layoutX="1.0" layoutY="29.5" stroke="#e6353a" strokeWidth="3.0" />
+                  <Line fx:id="menuLine" endY="36.2" layoutX="1.0" layoutY="29.5" stroke="#e6353a" strokeWidth="3.0" />
                </children>
             </AnchorPane>
          </children>

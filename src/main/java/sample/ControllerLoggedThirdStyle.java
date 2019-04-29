@@ -9,6 +9,7 @@ import Models.Dish;
 import Models.Menu;
 import Models.Order;
 import Models.User;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -50,7 +51,7 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<TextField> notificationsList;
     @FXML public TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot,
-            userInfoFields, userInfoLabels;
+            userInfoFields, userInfoLabels, contentRoot, menuBar;
     @FXML public Pane profileImageClip;
     @FXML public Label roleField, usernameField, firstNameLabel, lastNameLabel, countryLabel,
             ageLabel, roleLabel, usernameLabel;
@@ -103,7 +104,9 @@ public class ControllerLoggedThirdStyle {
         profileImageClip.setClip(profileClip);
     }
 
-    public void displayUserInfo() throws Exception {
+    public void setStage() throws Exception {
+        loginAnimation();
+
         loggedUser = loggedUserProperty.getValue();
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
@@ -124,6 +127,16 @@ public class ControllerLoggedThirdStyle {
 
         displayUserFields();
     }
+
+    private void loginAnimation() {
+        menuBar.setTranslateX(contentRoot.getPrefWidth() / 2 - menuBar.getPrefWidth() / 2);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(700), menuBar);
+        fadeIn.setDelay(Duration.millis(1200));
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+    }
+
     public void resetStage(){
         menuMap.clear();
 
@@ -383,11 +396,11 @@ public class ControllerLoggedThirdStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedThirdStyle.stage.close();
-        if(LoginSecondStyle.stage != null) {
-            LoginSecondStyle.stage.show();
+        if(LoginThirdStyle.stage != null) {
+            LoginThirdStyle.stage.show();
         }else{
             try{
-                LoginSecondStyle.displayLoginScene();
+                LoginThirdStyle.displayLoginScene();
             } catch (Exception e) {
                 LoginFirstStyle.stage.show();
                 DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();

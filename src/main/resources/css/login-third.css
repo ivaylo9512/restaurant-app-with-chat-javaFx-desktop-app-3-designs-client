@@ -9,7 +9,7 @@ Button:focused{
 TextField,
 PasswordField{
     -fx-background-color: #E6353A;
-    -fx-text-fill: #bcbcbc;
+    -fx-text-fill: white;
     -fx-prompt-text-fill: white;
     -fx-border-color: white;
     -fx-border-radius: 5px;

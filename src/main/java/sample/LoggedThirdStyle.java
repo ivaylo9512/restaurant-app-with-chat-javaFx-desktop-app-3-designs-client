@@ -34,7 +34,7 @@ public class LoggedThirdStyle extends LoginFirstStyle{
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(isShowing) {
                 try {
-                    controller.displayUserInfo();
+                    controller.setStage();
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }

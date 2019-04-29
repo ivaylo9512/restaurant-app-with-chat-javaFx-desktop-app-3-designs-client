@@ -40,7 +40,7 @@ public class LoginThirdStyle extends LoginFirstStyle {
 
         Pane loginPane = (Pane) root.getChildren().get(0);
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
-        loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
+        loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2 - 17.2);
 
         alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(stage);

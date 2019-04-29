@@ -1,10 +1,14 @@
 package sample;
 
+import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
 import Helpers.ServerRequests;
 import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
@@ -18,10 +22,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -29,9 +31,11 @@ import java.net.ConnectException;
 
 public class ControllerLoginThirdStyle {
     @FXML public TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML AnchorPane root, loginFields, registerFields, nextRegisterFields, styleButtons;
+    @FXML AnchorPane root, loginFields, registerFields, nextRegisterFields, styleButtons, contentRoot, menu;
     @FXML Button actionBtn;
     @FXML Text loginBtn;
+    @FXML Line menuLine;
+    @FXML StackPane logo;
     private LoginService loginService;
     private RegisterService registerService;
 
@@ -124,12 +128,13 @@ public class ControllerLoginThirdStyle {
             Platform.runLater(() -> {
                 try {
                     LoggedThirdStyle.displayLoggedScene();
-                    LoginThirdStyle.stage.close();
+                    loginAnimation();
                 } catch (Exception e) {
                     DialogPane dialog = LoginThirdStyle.alert.getDialogPane();
                     dialog.setContentText(e.getMessage());
                     LoginThirdStyle.alert.showAndWait();
                 }
+
             });
         }
         username.setDisable(false);
@@ -138,6 +143,25 @@ public class ControllerLoginThirdStyle {
         root.setCursor(Cursor.DEFAULT);
 
         service.reset();
+    }
+
+    private void loginAnimation() {
+        menu.setOpacity(0);
+        menuLine.setOpacity(0);
+        logo.setOpacity(0);
+        TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(1200), contentRoot, 161);
+        TranslateTransition translate = new TranslateTransition(Duration.millis(1200), contentRoot);
+        TransitionResizeHeight resizeHeight = new TransitionResizeHeight(Duration.millis(1200), contentRoot, 627);
+        translate.setToX(67.5);
+        translate.setToY(-87.5);
+        ParallelTransition parallelTransition = new ParallelTransition(resizeHeight,resizeWidth, translate);
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(700), contentRoot);
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+
+        SequentialTransition sequentialTransition = new SequentialTransition(parallelTransition, fadeOut);
+        sequentialTransition.play();
     }
 
     private void resetFields() {

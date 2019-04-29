@@ -11,9 +11,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedThirdStyle">
    <children>
-      <AnchorPane layoutX="-5.0">
+      <AnchorPane fx:id="contentRoot" layoutX="-5.0" minHeight="629.0" minWidth="825.0" prefHeight="629.0" prefWidth="825.0">
          <children>
-            <AnchorPane id="move" fx:id="menuBar" layoutX="5.0" prefHeight="627.0" prefWidth="161.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane id="move" fx:id="menuBar" layoutX="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="452.0" opacity="0.0" prefHeight="627.0" prefWidth="161.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
