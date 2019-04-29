@@ -54,13 +54,14 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<Chat> chatsList;
     @FXML public TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot,
-            userInfoFields, userInfoLabels, contentRoot, menuBar;
+            userInfoFields, userInfoLabels, contentRoot, menuBar, mainChatContainer, secondChatContainer;
     @FXML public Pane profileImageClip;
     @FXML public Label roleField, usernameField, firstNameLabel, lastNameLabel, countryLabel,
             ageLabel, roleLabel, usernameLabel;
     @FXML ImageView profileImage;
     @FXML Button editButton;
     @FXML HBox notificationsInfo;
+    @FXML VBox chatsContainer;
     private Image userProfileImage;
 
     private MediaPlayer notificationSound;
@@ -110,6 +111,9 @@ public class ControllerLoggedThirdStyle {
 
         Circle profileClip = new Circle(40.5, 40.5, 40.5);
         profileImageClip.setClip(profileClip);
+
+        chatsContainer.getChildren().remove(mainChatContainer);
+        chatsContainer.getChildren().remove(secondChatContainer);
     }
 
     public void setStage() throws Exception {
@@ -295,31 +299,36 @@ public class ControllerLoggedThirdStyle {
         Chat selectedChat = chatsList.getSelectionModel().getSelectedItem();
 
         GridPane container = (GridPane) event.getSource();
-        System.out.println(selectedChat);
         VBox name = (VBox) container.getChildren().get(1);
         if(selectedChat != null) {
 
             int chatId = selectedChat.getId();
-            System.out.println(chatId);
             ChatValue chat = chatsMap.get(chatId);
 
             if (mainChat != null && mainChat.getChatId() == chatId){
                 mainChat = null;
+
+                chatsContainer.getChildren().remove(mainChatContainer);
 
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
                 resizeWidth.play();
             } else if (secondChat != null && secondChat.getChatId() == chatId){
                 secondChat = null;
 
+                chatsContainer.getChildren().remove(secondChatContainer);
+
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
                 resizeWidth.play();
             }else if(mainChat == null){
                 mainChat = chat;
 
+                chatsContainer.getChildren().add(0, mainChatContainer);
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
                 resizeWidth.play();
             }else if (secondChat == null){
                 secondChat = chat;
+
+                chatsContainer.getChildren().add(2, secondChatContainer);
 
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
                 resizeWidth.play();
@@ -337,7 +346,7 @@ public class ControllerLoggedThirdStyle {
             }
         }
     }
-    
+
     private void appendSession(Session session, VBox chatBlock, ChatValue chatValue, int index) {
 
         Text date = new Text(dateFormatter.format(session.getDate()));

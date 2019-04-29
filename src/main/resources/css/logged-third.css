@@ -4,6 +4,15 @@ Button:focused{
 Button{
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
+TextArea{
+    -fx-background-color: transparent;
+}
+TextArea .content {
+    -fx-background-color: transparent;
+}
+TextArea .viewport{
+    -fx-background-color: transparent;
+}
 .list-view .scroll-bar:vertical .increment-arrow,
 .list-view .scroll-bar:vertical .decrement-arrow,
 .list-view .scroll-bar:vertical .increment-button,
@@ -156,15 +165,6 @@ Button{
 .menu-list .price{
     -fx-pref-Height: 64px;
 }
-.chat-second{
-    -fx-background-color: #FC3903;
-}
-.chat-second ScrollPane{
-    -fx-background-color: transparent;
-}
-.chat-second ScrollPane > .viewport{
-    -fx-background-color: transparent;
-}
 .create-order{
     -fx-background-color: #FC3903;
 }
@@ -193,4 +193,20 @@ Button{
 }
 .chats-list Label{
     -fx-text-fill: white;
+}
+.chats-view ScrollPane{
+    -fx-background-color: transparent;
+}
+.chats-view ScrollPane > .viewport{
+    -fx-background-color: transparent;
+}
+.chats-view{
+    -fx-background-color: linear-gradient(#E6353A 50%, #FC3903 50%, #FC3903 100%);
+}
+.chat-second{
+    -fx-background-color: #FC3903;
+}
+.text-area-container{
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
 }
