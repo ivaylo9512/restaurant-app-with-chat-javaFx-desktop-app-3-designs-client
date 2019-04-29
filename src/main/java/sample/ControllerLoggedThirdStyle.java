@@ -27,6 +27,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
@@ -287,47 +288,71 @@ public class ControllerLoggedThirdStyle {
     }
 
     public void setChat(MouseEvent event) {
+        if(chatsView.getOpacity() == 0) {
+            displayView(chatsView, chatsMenu);
+        }
+
         Chat selectedChat = chatsList.getSelectionModel().getSelectedItem();
 
         GridPane container = (GridPane) event.getSource();
+        System.out.println(selectedChat);
         VBox name = (VBox) container.getChildren().get(1);
         if(selectedChat != null) {
 
             int chatId = selectedChat.getId();
+            System.out.println(chatId);
             ChatValue chat = chatsMap.get(chatId);
 
-            if(mainChat == null){
-                mainChat = chat;
-
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
-                resizeWidth.play();
-            }else if (mainChat.getChatId() == chatId){
+            if (mainChat != null && mainChat.getChatId() == chatId){
                 mainChat = null;
 
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
                 resizeWidth.play();
-            } else if (secondChat == null){
-                secondChat = chat;
-
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
-                resizeWidth.play();
-            }else if(secondChat.getChatId() == chatId){
+            } else if (secondChat != null && secondChat.getChatId() == chatId){
                 secondChat = null;
 
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
                 resizeWidth.play();
-            } else{
+            }else if(mainChat == null){
+                mainChat = chat;
+
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
+                resizeWidth.play();
+            }else if (secondChat == null){
                 secondChat = chat;
 
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
+                resizeWidth.play();
+            } else{
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
                 resizeWidth.play();
 
-                GridPane currentName = (GridPane) contentRoot.lookup("#" + chatId);
+                GridPane currentContainer = (GridPane) contentRoot.lookup("#" + secondChat.getChatId());
+                VBox currentName = (VBox) currentContainer.getChildren().get(1);
 
-                TransitionResizeWidth reverseWidth = new TransitionResizeWidth(Duration.millis(500), currentName, 0);
+                TransitionResizeWidth reverseWidth = new TransitionResizeWidth(Duration.millis(500), currentName, 133);
                 reverseWidth.play();
+
+                secondChat = chat;
             }
         }
+    }
+    
+    private void appendSession(Session session, VBox chatBlock, ChatValue chatValue, int index) {
+
+        Text date = new Text(dateFormatter.format(session.getDate()));
+        TextFlow dateFlow = new TextFlow(date);
+        dateFlow.setTextAlignment(TextAlignment.CENTER);
+
+        HBox sessionDate = new HBox(dateFlow);
+        HBox.setHgrow(dateFlow, Priority.ALWAYS);
+        sessionDate.getStyleClass().add("session-date");
+
+        VBox sessionBlock = new VBox(sessionDate);
+        sessionBlock.setId(session.getDate().toString());
+        session.getMessages()
+                .forEach(message -> appendMessage(message, chatValue, sessionBlock));
+        chatBlock.getChildren().add(index, sessionBlock);
     }
     private void appendMessage(Message message, ChatValue chat, VBox chatBlock) {
         HBox hBox = new HBox();
