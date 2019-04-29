@@ -58,9 +58,9 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
             }
 
             grid.setOnMouseClicked(event -> LoggedThirdStyle.controller.setChat(event));
+            grid.setId(String.valueOf(chat.getId()));
 
             name.setText(user.getFirstName() + " " + user.getLastName());
-            name.setId(String.valueOf(chat.getId()));
 
             profileImage.setImage(user.getImage());
             Circle clip = new Circle(23.5, 23.5, 23.5);

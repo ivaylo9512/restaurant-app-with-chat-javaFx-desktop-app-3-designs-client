@@ -14,6 +14,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +27,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
@@ -34,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -314,16 +319,129 @@ public class ControllerLoggedThirdStyle {
             } else{
                 secondChat = chat;
 
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
                 resizeWidth.play();
 
-                VBox currentName = (VBox) contentRoot.lookup("#" + chatId);
+                GridPane currentName = (GridPane) contentRoot.lookup("#" + chatId);
 
                 TransitionResizeWidth reverseWidth = new TransitionResizeWidth(Duration.millis(500), currentName, 0);
-                resizeWidth.play();
+                reverseWidth.play();
             }
         }
     }
+    private void appendMessage(Message message, ChatValue chat, VBox chatBlock) {
+        HBox hBox = new HBox();
+        VBox newBlock = new VBox();
+        Text text = new Text();
+        Text time = new Text();
+        ImageView imageView = new ImageView();
+        TextFlow textFlow = new TextFlow();
+
+        time.getStyleClass().add("time");
+        text.getStyleClass().add("message");
+        newBlock.getStyleClass().add("chat-block");
+
+        imageView.setFitHeight(34);
+        imageView.setFitWidth(34);
+        imageView.setLayoutX(3);
+        imageView.setLayoutY(7);
+
+        Circle clip = new Circle(20.5, 20.5, 20.5);
+
+        Pane imageContainer = new Pane(imageView);
+        imageContainer.setClip(clip);
+        imageContainer.setMaxHeight(40);
+        imageContainer.setMaxWidth(40);
+        imageContainer.setMinWidth(40);
+
+
+        Pane imageShadow = new Pane(imageContainer);
+        imageShadow.setMaxHeight(40);
+        imageShadow.setMaxWidth(40);
+        imageShadow.setMinWidth(40);
+        imageShadow.getStyleClass().add("imageShadow");
+
+        imageShadow.setViewOrder(1);
+        textFlow.setViewOrder(5);
+
+        HBox.setMargin(imageShadow, new Insets(-20, 0, 0, 0));
+
+        if (message.getReceiverId() == loggedUser.getId()) {
+            imageView.setImage(chat.getSecondUserPicture());
+            text.setText(message.getMessage());
+            time.setText("  " + timeFormatter.format(message.getTime()));
+            textFlow.getChildren().addAll(text, time);
+            hBox.setAlignment(Pos.TOP_LEFT);
+
+        } else {
+            imageView.setImage(userProfileImage);
+            text.setText(message.getMessage());
+            time.setText(timeFormatter.format(message.getTime()) + "  ");
+            textFlow.getChildren().addAll(time, text);
+            hBox.setAlignment(Pos.TOP_RIGHT);
+
+        }
+
+        boolean timeElapsed;
+        int timeToElapse = 10;
+
+        List<Node> messageBlocks = chatBlock.getChildren();
+        if (messageBlocks.size() > 0 && messageBlocks.get(messageBlocks.size() - 1) instanceof VBox) {
+            VBox lastBlock = (VBox) messageBlocks.get(messageBlocks.size() - 1);
+            HBox lastMessage = (HBox) lastBlock.getChildren().get(lastBlock.getChildren().size() - 1);
+            LocalTime lastBlockStartedDate;
+            TextFlow firstTextFlow = (TextFlow) lastMessage.lookup("TextFlow");
+            Text lastBlockStartedText = (Text) firstTextFlow.lookup(".time");
+            lastBlockStartedDate = LocalTime.parse(lastBlockStartedText.getText().replaceAll("\\s+", ""));
+
+            timeElapsed = java.time.Duration.between(lastBlockStartedDate, message.getTime()).toMinutes() > timeToElapse;
+
+            if (message.getReceiverId() == loggedUser.getId()) {
+                if (!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("second-user-message")) {
+
+                    hBox.getStyleClass().add("second-user-message");
+                    hBox.getChildren().addAll(textFlow);
+                    lastBlock.getChildren().add(hBox);
+
+                } else {
+
+                    hBox.getStyleClass().add("second-user-message-first");
+                    hBox.getChildren().addAll(imageShadow, textFlow);
+                    newBlock.getChildren().add(hBox);
+                    chatBlock.getChildren().add(newBlock);
+
+                }
+            } else {
+                if (!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("user-message")) {
+
+                    hBox.getStyleClass().add("user-message");
+                    hBox.getChildren().addAll(textFlow);
+                    lastBlock.getChildren().add(hBox);
+
+                } else {
+
+                    hBox.getStyleClass().add("user-message-first");
+                    hBox.getChildren().addAll(textFlow, imageShadow);
+                    newBlock.getChildren().add(hBox);
+                    chatBlock.getChildren().add(newBlock);
+
+                }
+            }
+        } else {
+
+            if (message.getReceiverId() == loggedUser.getId()) {
+                hBox.getStyleClass().add("second-user-message-first");
+                hBox.getChildren().addAll(imageShadow, textFlow);
+                newBlock.getChildren().add(hBox);
+            } else {
+                hBox.getStyleClass().add("user-message-first");
+                hBox.getChildren().addAll(textFlow, imageShadow);
+                newBlock.getChildren().add(hBox);
+            }
+            chatBlock.getChildren().add(newBlock);
+        }
+    }
+
     private void displayView(AnchorPane requestedView, AnchorPane requestedMenu){
         Timeline delayView = new Timeline(new KeyFrame(Duration.millis(1), event -> {
             if (currentMenu != null) {
