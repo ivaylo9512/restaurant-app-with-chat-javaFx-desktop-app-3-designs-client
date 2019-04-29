@@ -44,7 +44,7 @@ public class MessageService extends Service {
                 StringEntity patchEntity = new StringEntity(mostRecentDate, "UTF8");
                 patchEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-                HttpPatch httpPatch = new HttpPatch("http://localhost:8080/api/auth/chat/getChatUpdates");
+                HttpPatch httpPatch = new HttpPatch(base + "/api/auth/chat/getChatUpdates");
                 httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
                 httpPatch.setEntity(patchEntity);
                 try (CloseableHttpResponse response = httpClientLongPolling.execute(httpPatch)) {

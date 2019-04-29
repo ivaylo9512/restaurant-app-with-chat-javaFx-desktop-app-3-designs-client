@@ -776,7 +776,7 @@ public class ControllerLoggedSecondStyle {
                             new URL(chat.getSecondUser().getProfilePicture()).openStream());
                     profilePicture = new Image(in);
 
-                    chat.getFirstUser().setImage(profilePicture);
+                    chat.getSecondUser().setImage(profilePicture);
 
                     chatValue = new ChatValue(chat.getId(), chat.getSecondUser().getId(), profilePicture);
                     chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
@@ -785,7 +785,7 @@ public class ControllerLoggedSecondStyle {
                             new URL(chat.getFirstUser().getProfilePicture()).openStream());
                     profilePicture = new Image(in);
 
-                    chat.getSecondUser().setImage(profilePicture);
+                    chat.getFirstUser().setImage(profilePicture);
 
                     chatValue = new ChatValue(chat.getId(), chat.getFirstUser().getId(), profilePicture);
                     chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));

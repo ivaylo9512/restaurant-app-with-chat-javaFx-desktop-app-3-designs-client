@@ -40,7 +40,7 @@ public class LoginService extends Service {
                 StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
                 postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-                HttpPost httpPost = new HttpPost("http://localhost:8080/login");
+                HttpPost httpPost = new HttpPost( base + "/login");
                 httpPost.setEntity(postEntity);
 
                 try (CloseableHttpResponse response = httpClient.execute(httpPost)) {

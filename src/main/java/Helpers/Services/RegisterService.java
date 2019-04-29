@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.prefs.Preferences;
+
+import static Helpers.ServerRequests.base;
 import static Helpers.ServerRequests.httpClient;
 
 public class RegisterService extends Service {
@@ -50,7 +52,7 @@ public class RegisterService extends Service {
                 StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
                 postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-                HttpPost httpPost = new HttpPost("http://localhost:8080/api/users/register");
+                HttpPost httpPost = new HttpPost(base + "/api/users/register");
                 httpPost.setEntity(postEntity);
 
                 try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
