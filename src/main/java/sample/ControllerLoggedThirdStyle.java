@@ -12,6 +12,7 @@ import Models.User;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -28,6 +29,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
 
@@ -243,23 +245,39 @@ public class ControllerLoggedThirdStyle {
     }
 
     private void displayView(AnchorPane requestedView, AnchorPane requestedMenu){
+        Timeline delayView = new Timeline(new KeyFrame(Duration.millis(1), event -> {
+            if (currentMenu != null) {
+                currentMenu.setOpacity(0);
+                currentMenu.setDisable(true);
+            }
+
+            requestedMenu.setOpacity(1);
+            requestedMenu.setDisable(false);
+            requestedView.setOpacity(1);
+            requestedView.setDisable(false);
+
+            currentMenu = requestedMenu;
+            currentView = requestedView;
+        }));
         if(currentView != null){
             currentView.setOpacity(0);
             currentView.setDisable(true);
-        }
 
-        if (currentMenu != null) {
-            currentMenu.setOpacity(0);
-            currentMenu.setDisable(true);
-        }
-        requestedMenu.setOpacity(1);
-        requestedMenu.setDisable(false);
-        requestedView.setOpacity(1);
-        requestedView.setDisable(false);
+            delayView.play();
+        }else{
+            animateMenuBar();
 
-        currentMenu = requestedMenu;
-        currentView = requestedView;
+            delayView.setDelay(Duration.millis(1000));
+            delayView.play();
+        }
     }
+
+    private void animateMenuBar() {
+        TranslateTransition animateBar = new TranslateTransition(Duration.millis(1000), menuBar);
+        animateBar.setToX(0);
+        animateBar.play();
+    }
+
     public void showOrder(int orderId){
         currentOrder = loggedUser.getOrders().get(orderId);
         currentOrder.getDishes().forEach(dish -> dish.setOrderId(currentOrder.getId()));
