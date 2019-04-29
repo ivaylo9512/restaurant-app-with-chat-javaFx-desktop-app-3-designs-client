@@ -131,7 +131,7 @@ public class ControllerLoggedThirdStyle {
     private void loginAnimation() {
         menuBar.setTranslateX(contentRoot.getPrefWidth() / 2 - menuBar.getPrefWidth() / 2);
         FadeTransition fadeIn = new FadeTransition(Duration.millis(700), menuBar);
-        fadeIn.setDelay(Duration.millis(1200));
+        fadeIn.setDelay(Duration.millis(1000));
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();

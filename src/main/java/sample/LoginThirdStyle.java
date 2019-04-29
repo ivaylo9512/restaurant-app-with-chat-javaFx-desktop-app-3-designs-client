@@ -29,6 +29,12 @@ public class LoginThirdStyle extends LoginFirstStyle {
         scene.setFill(Color.TRANSPARENT);
 
         stage = new Stage();
+        ControllerLoginThirdStyle controller = loader.getController();
+        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
+            if(!isShowing) {
+                controller.resetStage();
+            }
+        });
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();

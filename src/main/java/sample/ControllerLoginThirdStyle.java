@@ -6,10 +6,7 @@ import Helpers.ServerRequests;
 import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.event.Event;
@@ -123,7 +120,7 @@ public class ControllerLoginThirdStyle {
 
         if(LoggedThirdStyle.stage != null){
             LoggedThirdStyle.stage.show();
-            LoginThirdStyle.stage.close();
+            loginAnimation();
         }else {
             Platform.runLater(() -> {
                 try {
@@ -150,17 +147,23 @@ public class ControllerLoginThirdStyle {
         menuLine.setOpacity(0);
         logo.setOpacity(0);
         TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(1200), contentRoot, 161);
-        TranslateTransition translate = new TranslateTransition(Duration.millis(1200), contentRoot);
         TransitionResizeHeight resizeHeight = new TransitionResizeHeight(Duration.millis(1200), contentRoot, 627);
+
+        TranslateTransition translate = new TranslateTransition(Duration.millis(1200), contentRoot);
         translate.setToX(67.5);
         translate.setToY(-87.5);
+
         ParallelTransition parallelTransition = new ParallelTransition(resizeHeight,resizeWidth, translate);
 
         FadeTransition fadeOut = new FadeTransition(Duration.millis(700), contentRoot);
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
 
-        SequentialTransition sequentialTransition = new SequentialTransition(parallelTransition, fadeOut);
+        Timeline closeStage = new Timeline(new KeyFrame(Duration.millis(500), event -> {
+            LoginThirdStyle.stage.close();
+        }));
+
+        SequentialTransition sequentialTransition = new SequentialTransition(parallelTransition, fadeOut,closeStage);
         sequentialTransition.play();
     }
 
@@ -279,6 +282,18 @@ public class ControllerLoginThirdStyle {
         LoginFirstStyle.stage.show();
     }
 
+    @FXML
+    public void resetStage(){
+        menu.setOpacity(1);
+        menuLine.setOpacity(1);
+        logo.setOpacity(1);
+
+        contentRoot.setOpacity(1);
+        contentRoot.setTranslateX(0);
+        contentRoot.setTranslateY(0);
+        contentRoot.setPrefWidth(296);
+        contentRoot.setPrefHeight(452);
+    }
     @FXML
     public void minimize(){
         LoginThirdStyle.stage.setIconified(true);
