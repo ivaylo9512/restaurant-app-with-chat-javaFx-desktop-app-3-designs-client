@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,8 +18,6 @@ import java.util.List;
 import static Helpers.ServerRequests.loggedUser;
 
 public class ChatsListViewCellSecond extends ListCell<Chat> {
-    @FXML
-    private Label lastMessage;
     @FXML
     private Label name;
     @FXML
@@ -64,14 +61,12 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
                 List<Message> lastSessionMessages = chat.getSessions().get(0).getMessages();
                 if (lastSessionMessages.size() > 0) {
                     Message last = lastSessionMessages.get(lastSessionMessages.size() - 1);
-                    lastMessage.setText(last.getMessage());
                 }
             }
-            lastMessage.setId("lastMessage"+ chat.getId());
             name.setText(user.getFirstName() + " " + user.getLastName());
 
             profileImage.setImage(user.getImage());
-            Rectangle clip = new Rectangle(23.5, 23.5);
+            Circle clip = new Circle(23.5, 23.5, 23.5);
             profileImageClip.setClip(clip);
 
             setText(null);

@@ -99,7 +99,7 @@ public class ControllerLoggedSecondStyle {
     public void initialize() {
         menuList.setCellFactory(menuCell -> new MenuListViewCell());
         newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
-        userChats.setCellFactory(menuCell -> new ChatsListViewCell());
+        userChats.setCellFactory(chatCell -> new ChatsListViewCell());
         dishesList.setCellFactory(dishCell -> new DishListViewCell());
 
         waitForNewOrders();
@@ -765,6 +765,7 @@ public class ControllerLoggedSecondStyle {
             showLoggedStageAlert("You must be a chef to update the dish status.");
         }
     }
+
     private void setChatValues(List<Chat> chats) {
         chats.forEach(chat -> {
             try {
@@ -798,6 +799,7 @@ public class ControllerLoggedSecondStyle {
             }
         });
     }
+
     @FXML
     private void setChat() {
         Chat selectedChat = userChats.getSelectionModel().getSelectedItem();

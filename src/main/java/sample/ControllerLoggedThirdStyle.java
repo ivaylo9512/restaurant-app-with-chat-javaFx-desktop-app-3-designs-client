@@ -1,9 +1,6 @@
 package sample;
 
-import Helpers.ListViews.ChatsListViewCell;
-import Helpers.ListViews.DishListViewCell;
-import Helpers.ListViews.MenuListViewCell;
-import Helpers.ListViews.OrderListViewCellSecond;
+import Helpers.ListViews.*;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
 import Models.*;
@@ -37,10 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 import static Helpers.ServerRequests.*;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
@@ -66,6 +60,7 @@ public class ControllerLoggedThirdStyle {
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
+    private Map<Integer, ChatValue> chatsMap = new HashMap<>();
     private TreeMap<String, Menu> menuMap = new TreeMap<>();
 
     private User loggedUser;
@@ -78,11 +73,11 @@ public class ControllerLoggedThirdStyle {
 
     @FXML
     public void initialize(){
-        ordersList.setCellFactory(orders -> new OrderListViewCellSecond());
-        dishesList.setCellFactory(dish -> new DishListViewCell());
-        menuList.setCellFactory(menu -> new MenuListViewCell());
-        newOrderList.setCellFactory(menu -> new MenuListViewCell());
-        chatsList.setCellFactory(menuCell -> new ChatsListViewCell());
+        ordersList.setCellFactory(ordersCell -> new OrderListViewCellSecond());
+        dishesList.setCellFactory(dishCell -> new DishListViewCell());
+        menuList.setCellFactory(menuCell -> new MenuListViewCell());
+        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
+        chatsList.setCellFactory(chatCell -> new ChatsListViewCellSecond());
 
         waitForNewOrders();
 
@@ -108,13 +103,15 @@ public class ControllerLoggedThirdStyle {
     }
 
     public void setStage() throws Exception {
-        loginAnimation();
-
         loggedUser = loggedUserProperty.getValue();
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
         ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
         FXCollections.reverse(orders);
+
+        ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
+        setChatValues(chats);
+        chatsList.setItems(chats);
 
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
         orderService.start();
@@ -128,6 +125,8 @@ public class ControllerLoggedThirdStyle {
         in.close();
 
         displayUserFields();
+
+        loginAnimation();
     }
 
     private void loginAnimation() {
@@ -242,6 +241,40 @@ public class ControllerLoggedThirdStyle {
             currentText.getStyleClass().remove("strikethrough");
         }
         currentText = clickedText;
+    }
+
+    private void setChatValues(List<Chat> chats) {
+        chats.forEach(chat -> {
+            try {
+                InputStream in;
+                ChatValue chatValue;
+                Image profilePicture;
+                if (chat.getFirstUser().getId() == loggedUser.getId()) {
+                    in = new BufferedInputStream(
+                            new URL(chat.getSecondUser().getProfilePicture()).openStream());
+                    profilePicture = new Image(in);
+
+                    chat.getSecondUser().setImage(profilePicture);
+
+                    chatValue = new ChatValue(chat.getId(), chat.getSecondUser().getId(), profilePicture);
+                    chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
+                } else {
+                    in = new BufferedInputStream(
+                            new URL(chat.getFirstUser().getProfilePicture()).openStream());
+                    profilePicture = new Image(in);
+
+                    chat.getFirstUser().setImage(profilePicture);
+
+                    chatValue = new ChatValue(chat.getId(), chat.getFirstUser().getId(), profilePicture);
+                    chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
+                }
+                in.close();
+                chatsMap.put(chat.getId(), chatValue);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void displayView(AnchorPane requestedView, AnchorPane requestedMenu){

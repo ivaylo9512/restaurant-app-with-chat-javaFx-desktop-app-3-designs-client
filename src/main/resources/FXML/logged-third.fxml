@@ -48,7 +48,7 @@
             </AnchorPane>
             <AnchorPane fx:id="chatsMenu" disable="true" layoutX="166.0" opacity="0.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ListView fx:id="chatsList" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+                  <ListView fx:id="chatsList" prefHeight="200.0" prefWidth="200.0" styleClass="chats-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
                </children></AnchorPane>
             <AnchorPane fx:id="ordersMenu" disable="true" layoutX="166.0" opacity="0.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0">
                <children>
