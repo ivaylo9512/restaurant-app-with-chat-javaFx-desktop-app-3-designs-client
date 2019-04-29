@@ -385,7 +385,7 @@ public class ControllerLoggedSecondStyle {
         TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
         reverse.play();
     }
-    public void displayUserInfo() throws Exception{
+    public void setStage() throws Exception{
         loggedUser = loggedUserProperty.getValue();
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
@@ -397,9 +397,8 @@ public class ControllerLoggedSecondStyle {
         menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
         ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
-        setImages(chats);
-        userChats.setItems(chats);
         setChatValues(chats);
+        userChats.setItems(chats);
 
         ObservableList<String> orders = FXCollections.observableArrayList(loggedUser.getOrders().values()
                 .stream()
@@ -552,24 +551,7 @@ public class ControllerLoggedSecondStyle {
         editButton.setText("Edit");
         editButton.setOnMouseClicked(event -> editUserInfo());
     }
-    private void setImages(ObservableList<Chat> chats) {
-        chats.forEach(chat -> {
-            User user;
-            if(chat.getFirstUser().getId() == loggedUser.getId()){
-                user = chat.getSecondUser();
-            }else{
-                user = chat.getFirstUser();
-            }
 
-            try {
-                InputStream in = new BufferedInputStream(new URL(user.getProfilePicture()).openStream());
-                user.setImage(new Image(in));
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
     @FXML
     public void logOut(){
         try {
@@ -792,14 +774,18 @@ public class ControllerLoggedSecondStyle {
                 if (chat.getFirstUser().getId() == loggedUser.getId()) {
                     in = new BufferedInputStream(
                             new URL(chat.getSecondUser().getProfilePicture()).openStream());
-
                     profilePicture = new Image(in);
+
+                    chat.getFirstUser().setImage(profilePicture);
+
                     chatValue = new ChatValue(chat.getId(), chat.getSecondUser().getId(), profilePicture);
                     chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
                 } else {
                     in = new BufferedInputStream(
                             new URL(chat.getFirstUser().getProfilePicture()).openStream());
                     profilePicture = new Image(in);
+
+                    chat.getSecondUser().setImage(profilePicture);
 
                     chatValue = new ChatValue(chat.getId(), chat.getFirstUser().getId(), profilePicture);
                     chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));

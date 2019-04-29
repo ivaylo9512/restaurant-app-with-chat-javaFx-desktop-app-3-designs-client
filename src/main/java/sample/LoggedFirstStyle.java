@@ -34,7 +34,7 @@ public class LoggedFirstStyle extends LoginFirstStyle {
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(isShowing) {
                 try {
-                    controller.displayUserInfo();
+                    controller.setStage();
                 } catch (Exception e) {
                     controller.resetStage();
                     stage.close();

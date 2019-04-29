@@ -789,7 +789,7 @@ public class ControllerLoggedFirstStyle {
         profileRoot.setDisable(true);
     }
 
-    public void displayUserInfo() throws Exception{
+    public void setStage() throws Exception{
         loggedUser = loggedUserProperty.getValue();
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 

@@ -1,14 +1,13 @@
 package sample;
 
+import Helpers.ListViews.ChatsListViewCell;
 import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
 import Helpers.ListViews.OrderListViewCellSecond;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
-import Models.Dish;
+import Models.*;
 import Models.Menu;
-import Models.Order;
-import Models.User;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -51,6 +50,7 @@ public class ControllerLoggedThirdStyle {
     @FXML public ListView<Dish> dishesList;
     @FXML public ListView<Menu> menuList,newOrderList;
     @FXML public ListView<TextField> notificationsList;
+    @FXML public ListView<Chat> chatsList;
     @FXML public TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot,
             userInfoFields, userInfoLabels, contentRoot, menuBar;
@@ -82,6 +82,7 @@ public class ControllerLoggedThirdStyle {
         dishesList.setCellFactory(dish -> new DishListViewCell());
         menuList.setCellFactory(menu -> new MenuListViewCell());
         newOrderList.setCellFactory(menu -> new MenuListViewCell());
+        chatsList.setCellFactory(menuCell -> new ChatsListViewCell());
 
         waitForNewOrders();
 
@@ -125,7 +126,6 @@ public class ControllerLoggedThirdStyle {
         InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
         userProfileImage = new Image(in);
         in.close();
-
 
         displayUserFields();
     }
