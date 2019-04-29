@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import sample.LoggedThirdStyle;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,14 +57,10 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
                 user = chat.getFirstUser();
             }
 
+            grid.setOnMouseClicked(event -> LoggedThirdStyle.controller.setChat(event));
 
-            if(chat.getSessions().size() > 0) {
-                List<Message> lastSessionMessages = chat.getSessions().get(0).getMessages();
-                if (lastSessionMessages.size() > 0) {
-                    Message last = lastSessionMessages.get(lastSessionMessages.size() - 1);
-                }
-            }
             name.setText(user.getFirstName() + " " + user.getLastName());
+            name.setId(String.valueOf(chat.getId()));
 
             profileImage.setImage(user.getImage());
             Circle clip = new Circle(23.5, 23.5, 23.5);

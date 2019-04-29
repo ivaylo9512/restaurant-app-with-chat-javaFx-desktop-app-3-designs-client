@@ -1,5 +1,6 @@
 package sample;
 
+import Animations.TransitionResizeWidth;
 import Helpers.ListViews.*;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
@@ -17,9 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
@@ -27,12 +26,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
+import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -70,6 +71,9 @@ public class ControllerLoggedThirdStyle {
     private AnchorPane currentView, currentMenu;
     private Text currentText;
     private Order currentOrder;
+
+    private ChatValue mainChat;
+    private ChatValue secondChat;
 
     @FXML
     public void initialize(){
@@ -277,6 +281,49 @@ public class ControllerLoggedThirdStyle {
         });
     }
 
+    public void setChat(MouseEvent event) {
+        Chat selectedChat = chatsList.getSelectionModel().getSelectedItem();
+
+        GridPane container = (GridPane) event.getSource();
+        VBox name = (VBox) container.getChildren().get(1);
+        if(selectedChat != null) {
+
+            int chatId = selectedChat.getId();
+            ChatValue chat = chatsMap.get(chatId);
+
+            if(mainChat == null){
+                mainChat = chat;
+
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
+                resizeWidth.play();
+            }else if (mainChat.getChatId() == chatId){
+                mainChat = null;
+
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
+                resizeWidth.play();
+            } else if (secondChat == null){
+                secondChat = chat;
+
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
+                resizeWidth.play();
+            }else if(secondChat.getChatId() == chatId){
+                secondChat = null;
+
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
+                resizeWidth.play();
+            } else{
+                secondChat = chat;
+
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
+                resizeWidth.play();
+
+                VBox currentName = (VBox) contentRoot.lookup("#" + chatId);
+
+                TransitionResizeWidth reverseWidth = new TransitionResizeWidth(Duration.millis(500), currentName, 0);
+                resizeWidth.play();
+            }
+        }
+    }
     private void displayView(AnchorPane requestedView, AnchorPane requestedMenu){
         Timeline delayView = new Timeline(new KeyFrame(Duration.millis(1), event -> {
             if (currentMenu != null) {
