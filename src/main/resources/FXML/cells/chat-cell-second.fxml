@@ -30,7 +30,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <VBox alignment="CENTER" maxHeight="46.0" minHeight="46.0" minWidth="0.0" prefHeight="46.0" prefWidth="133.0" styleClass="chat-name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.vgrow="NEVER">
+      <VBox fx:id="nameContainer" alignment="CENTER" maxHeight="46.0" minHeight="46.0" minWidth="0.0" prefHeight="46.0" prefWidth="133.0" styleClass="chat-name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.vgrow="NEVER">
          <children>
             <Label fx:id="name" minWidth="0.0" styleClass="name" text="Ivaylo Aleksandrov" textFill="#bcbcbc">
                <font>

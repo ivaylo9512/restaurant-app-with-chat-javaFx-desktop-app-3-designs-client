@@ -146,6 +146,9 @@ public class ControllerLoginThirdStyle {
         menu.setOpacity(0);
         menuLine.setOpacity(0);
         logo.setOpacity(0);
+        loginFields.setOpacity(0);
+        actionBtn.setOpacity(0);
+
         TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(1200), contentRoot, 161);
         TransitionResizeHeight resizeHeight = new TransitionResizeHeight(Duration.millis(1200), contentRoot, 627);
 
@@ -158,6 +161,7 @@ public class ControllerLoginThirdStyle {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(700), contentRoot);
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
+        fadeOut.setDelay(Duration.millis(200));
 
         Timeline closeStage = new Timeline(new KeyFrame(Duration.millis(500), event -> {
             LoginThirdStyle.stage.close();
@@ -287,6 +291,8 @@ public class ControllerLoginThirdStyle {
         menu.setOpacity(1);
         menuLine.setOpacity(1);
         logo.setOpacity(1);
+        loginFields.setOpacity(1);
+        actionBtn.setOpacity(1);
 
         contentRoot.setOpacity(1);
         contentRoot.setTranslateX(0);

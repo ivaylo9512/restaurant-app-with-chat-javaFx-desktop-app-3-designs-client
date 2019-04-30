@@ -1,5 +1,6 @@
 package Helpers.ListViews;
 
+import Animations.TransitionResizeWidth;
 import Models.Chat;
 import Models.Message;
 import Models.User;
@@ -10,7 +11,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 import sample.LoggedThirdStyle;
 
 import java.io.IOException;
@@ -27,6 +30,8 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
     private ImageView profileImage;
     @FXML
     private GridPane grid;
+    @FXML
+    private VBox nameContainer;
 
     private FXMLLoader mLLoader;
 
@@ -57,6 +62,8 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
                 user = chat.getFirstUser();
             }
 
+            widthAnimation();
+
             grid.setOnMouseClicked(event -> LoggedThirdStyle.controller.setChat(event));
             grid.setId(String.valueOf(chat.getId()));
 
@@ -70,5 +77,20 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
             setGraphic(grid);
         }
 
+    }
+
+    private void widthAnimation() {
+        grid.setOnMouseEntered(event -> {
+            if(nameContainer.getPrefWidth() >= 100) {
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(250), nameContainer, 100);
+                resizeWidth.play();
+            }
+        });
+        grid.setOnMouseExited(event -> {
+            if(nameContainer.getPrefWidth() >= 100) {
+                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(250), nameContainer, 133);
+                resizeWidth.play();
+            }
+        });
     }
 }
