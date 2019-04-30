@@ -4,6 +4,7 @@ import Animations.MoveRoot;
 import Animations.ResizeRoot;
 import Animations.TransitionResizeWidth;
 import Helpers.ListViews.*;
+import Helpers.Scrolls;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
 import Models.*;
@@ -42,6 +43,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -104,6 +106,17 @@ public class ControllerLoggedThirdStyle {
             menuList.setItems(observableList);
         });
 
+        mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
+            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && mainChat != null) {
+                loadOlderHistory(mainChat, mainChatBlock);
+            }
+        });
+
+        secondChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
+            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && secondChat != null) {
+                loadOlderHistory(secondChat, secondChatBlock);
+            }
+        });
         secondChatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if(event.getCode().equals(KeyCode.ENTER)) {
                 addNewMessage(secondChatTextArea, secondChat, secondChatBlock);
@@ -117,6 +130,10 @@ public class ControllerLoggedThirdStyle {
                 event.consume();
             }
         });
+
+        Scrolls scrolls = new Scrolls(mainChatScroll, secondChatScroll, mainChatTextArea, secondChatTextArea);
+        scrolls.manageScrollsThirdStyle();
+
         Media sound = new Media(getClass()
                 .getResource("/notification.mp3")
                 .toExternalForm());
@@ -321,7 +338,6 @@ public class ControllerLoggedThirdStyle {
             displayView(chatsView, chatsMenu);
         }
 
-
         Chat selectedChat = chatsList.getSelectionModel().getSelectedItem();
 
         GridPane container = (GridPane) event.getSource();
@@ -335,14 +351,22 @@ public class ControllerLoggedThirdStyle {
             if (mainChat != null && mainChat.getChatId() == chatId){
                 mainChat = null;
 
-                chatsContainer.getChildren().remove(mainChatContainer);
+                mainChatBlock.getChildren().remove(1, mainChatBlock.getChildren().size());
+
+                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), event1 ->
+                        chatsContainer.getChildren().remove(mainChatContainer)));
+                timeline.play();
 
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
                 resizeWidth.play();
             } else if (secondChat != null && secondChat.getChatId() == chatId){
                 secondChat = null;
 
-                chatsContainer.getChildren().remove(secondChatContainer);
+                secondChatBlock.getChildren().remove(1, secondChatBlock.getChildren().size());
+
+                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), event1 ->
+                        chatsContainer.getChildren().remove(secondChatContainer)));
+                timeline.play();
 
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
                 resizeWidth.play();
@@ -403,6 +427,49 @@ public class ControllerLoggedThirdStyle {
         }
     }
 
+    private void loadOlderHistory(ChatValue chatValue, VBox chatBlock) {
+        int displayedSessions = chatValue.getDisplayedSessions();
+        int loadedSessions = chatValue.getSessions().size();
+        int nextPage = loadedSessions / pageSize;
+
+        HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
+        Text info = (Text) sessionInfo.lookup("Text");
+
+        ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.getSessions();
+        List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
+        List<Session> nextSessions;
+        if (loadedSessions > displayedSessions) {
+
+            nextSessions = chatSessions.subList(displayedSessions,
+                    Math.min(displayedSessions + pageSize, loadedSessions));
+
+            if (displayedSessions + nextSessions.size() == loadedSessions && !chatValue.isMoreSessions()) {
+                info.setText("Beginning of the chat");
+            }
+            chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
+
+            nextSessions.forEach(session -> appendSession(session, chatBlock, chatValue, 1));
+
+        } else if (chatValue.isMoreSessions()) {
+            nextSessions = getNextSessions(chatValue.getChatId(), nextPage, pageSize);
+            if (nextSessions.size() < pageSize) {
+                chatValue.setMoreSessions(false);
+                info.setText("Beginning of the chat");
+            }
+            chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
+            nextSessions.forEach(session -> {
+
+                if (!sessionsMap.containsKey(session.getDate())) {
+                    sessionsMap.put(session.getDate(), session);
+
+                    appendSession(session, chatBlock, chatValue, 1);
+                }
+
+            });
+        } else {
+            info.setText("Beginning of the chat");
+        }
+    }
     private void appendSession(Session session, VBox chatBlock, ChatValue chatValue, int index) {
 
         Text date = new Text(dateFormatter.format(session.getDate()));

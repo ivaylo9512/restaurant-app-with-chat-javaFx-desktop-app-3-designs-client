@@ -18,9 +18,10 @@ import javafx.util.Duration;
 
 public class Scrolls {
     private ScrollPane menuScroll, userInfoScroll, chatUsersScroll, notificationsScroll;
-    private ScrollBar mainChatScrollBar;
     private TextArea mainChatTextArea;
+    private TextArea secondChatTextArea;
     private ScrollPane mainChatScroll;
+    private ScrollPane secondChatScroll;
     private double heightDiff;
     private double offsetY;
 
@@ -37,10 +38,16 @@ public class Scrolls {
         this.mainChatScroll = mainChatScroll;
         this.mainChatTextArea = mainChatTextArea;
     }
+    public Scrolls(ScrollPane mainChatScroll, ScrollPane secondChatScroll, TextArea mainChatTextArea, TextArea secondChatTextArea) {
+        this.mainChatScroll = mainChatScroll;
+        this.secondChatScroll = secondChatScroll;
+        this.mainChatTextArea = mainChatTextArea;
+        this.secondChatTextArea = secondChatTextArea;
+    }
     public void manageScrollsFirstStyle(){
         fixBlurryContent();
         changeMenuScrollBehaviour();
-        listenForHistoryRequest();
+        listenForHistoryRequest(mainChatScroll);
 
     }
     public void manageScrollsSecondStyle(){
@@ -52,28 +59,49 @@ public class Scrolls {
             }
         });
         fixBlurriness(mainChatScroll);
-        listenForHistoryRequest();
+        listenForHistoryRequest(mainChatScroll);
 
     }
-    private void listenForHistoryRequest(){
-        VBox content = (VBox) mainChatScroll.getContent();
-        mainChatScroll.skinProperty().addListener((observable, oldValue, newValue) -> {
+    public void manageScrollsThirdStyle(){
+        mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
+                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
+                fixBlurriness(textAreaScroll);
+            }
+        });
+        secondChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
+                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
+                fixBlurriness(textAreaScroll);
+            }
+        });
 
-            mainChatScrollBar = findVerticalScrollBar(mainChatScroll);
-            mainChatScrollBar.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-                offsetY = event.getScreenY();
-            });
+        fixBlurriness(mainChatScroll);
+        fixBlurriness(secondChatScroll);
 
-            mainChatScrollBar.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
+        listenForHistoryRequest(mainChatScroll);
+        listenForHistoryRequest(secondChatScroll);
+
+    }
+    private void listenForHistoryRequest(ScrollPane chatScroll){
+        VBox content = (VBox) chatScroll.getContent();
+        chatScroll.skinProperty().addListener((observable, oldValue, newValue) -> {
+
+            ScrollBar chatScrollBar = findVerticalScrollBar(chatScroll);
+            chatScrollBar.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> offsetY = event.getScreenY());
+
+            chatScrollBar.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
                 double move = offsetY - event.getScreenY();
-                double value = move / mainChatScrollBar.getHeight();
-                mainChatScrollBar.setValue(mainChatScrollBar.getValue() - value);
+                double value = move / chatScrollBar.getHeight();
+                chatScrollBar.setValue(chatScrollBar.getValue() - value);
                 offsetY = event.getScreenY();
                 event.consume();
             });
 
-            mainChatScrollBar.visibleAmountProperty().addListener((observable1, oldValue1, newValue1) -> {
-                if(newValue1.doubleValue() > 1 && !mainChatScrollBar.isDisabled()){
+            chatScrollBar.visibleAmountProperty().addListener((observable1, oldValue1, newValue1) -> {
+                if(newValue1.doubleValue() > 1 && !chatScrollBar.isDisabled()){
                     content.setId("beginning-append");
                 }else if(!content.getId().equals("new-message")){
                     Timeline timeline = new Timeline(
@@ -89,20 +117,20 @@ public class Scrolls {
                     double newHeight = newValue1.doubleValue();
                     heightDiff = oldHeight / newHeight;
                     double nextValue = 1 - heightDiff;
-                    mainChatScrollBar.setValue(nextValue);
+                    chatScrollBar.setValue(nextValue);
                     content.setId("listen");
                 }else{
-                    mainChatScrollBar.setValue(1);
+                    chatScrollBar.setValue(1);
                 }
             });
-            mainChatScrollBar.valueProperty().addListener((observable1, oldValue1, newValue1) -> {
+            chatScrollBar.valueProperty().addListener((observable1, oldValue1, newValue1) -> {
                 double newPosition = newValue1.doubleValue();
-                if (newPosition <= mainChatScrollBar.getMin() && !content.getId().equals("beginning") &&
+                if (newPosition <= chatScrollBar.getMin() && !content.getId().equals("beginning") &&
                         !content.getId().equals("beginning-append")) {
-                    mainChatScrollBar.setValue(0);
+                    chatScrollBar.setValue(0);
                     content.setId("append");
                 }else if(newPosition > 1){
-                    mainChatScrollBar.setValue(1);
+                    chatScrollBar.setValue(1);
                 }
             });
         });

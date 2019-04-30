@@ -111,6 +111,12 @@ public class ControllerLoggedSecondStyle {
             menuList.setItems(observableList);
         });
 
+        chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
+            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue != null) {
+                loadOlderHistory(chatValue, chatBlock);
+            }
+        });
+
         chatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if(event.getCode().equals(KeyCode.ENTER)) {
                 addNewMessage();
@@ -835,6 +841,49 @@ public class ControllerLoggedSecondStyle {
                 lastSessions.forEach(session -> appendSession(session, chatBlock, chatValue, 1));
 
             }
+        }
+    }
+    private void loadOlderHistory(ChatValue chatValue, VBox chatBlock) {
+        int displayedSessions = chatValue.getDisplayedSessions();
+        int loadedSessions = chatValue.getSessions().size();
+        int nextPage = loadedSessions / pageSize;
+
+        HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
+        Text info = (Text) sessionInfo.lookup("Text");
+
+        ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.getSessions();
+        List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
+        List<Session> nextSessions;
+        if (loadedSessions > displayedSessions) {
+
+            nextSessions = chatSessions.subList(displayedSessions,
+                    Math.min(displayedSessions + pageSize, loadedSessions));
+
+            if (displayedSessions + nextSessions.size() == loadedSessions && !chatValue.isMoreSessions()) {
+                info.setText("Beginning of the chat");
+            }
+            chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
+
+            nextSessions.forEach(session -> appendSession(session, chatBlock, chatValue, 1));
+
+        } else if (chatValue.isMoreSessions()) {
+            nextSessions = getNextSessions(chatValue.getChatId(), nextPage, pageSize);
+            if (nextSessions.size() < pageSize) {
+                chatValue.setMoreSessions(false);
+                info.setText("Beginning of the chat");
+            }
+            chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
+            nextSessions.forEach(session -> {
+
+                if (!sessionsMap.containsKey(session.getDate())) {
+                    sessionsMap.put(session.getDate(), session);
+
+                    appendSession(session, chatBlock, chatValue, 1);
+                }
+
+            });
+        } else {
+            info.setText("Beginning of the chat");
         }
     }
     private void appendSession(Session session, VBox chatBlock, ChatValue chatValue, int index) {
