@@ -45,6 +45,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -99,6 +100,8 @@ public class ControllerLoggedThirdStyle {
         chatsList.setCellFactory(chatCell -> new ChatsListViewCellSecond());
 
         waitForNewOrders();
+        waitForNewMessages();
+
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Menu> observableList = FXCollections.observableArrayList();
@@ -170,7 +173,9 @@ public class ControllerLoggedThirdStyle {
         chatsList.setItems(chats);
 
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+
         orderService.start();
+        messageService.start();
 
         menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
 
@@ -709,6 +714,58 @@ public class ControllerLoggedThirdStyle {
         });
 
         orderService.setOnFailed(event -> serviceFailed(orderService));
+    }
+
+    private void waitForNewMessages(){
+        messageService = new MessageService();
+        messageService.setOnSucceeded(event -> {
+            MessageService.lastMessageCheck = LocalDateTime.now();
+            List<Message> newMessages = (List<Message>) messageService.getValue();
+            newMessages.forEach(message -> {
+
+                ChatValue chat = chatsMap.get(message.getChatId());
+                ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+                ChatValue chatValue = null;
+                VBox chatBlock = null;
+                int index = 0;
+                if (mainChat != null && mainChat.getChatId() == message.getChatId()) {
+                    chatBlock = mainChatBlock;
+                    chatValue = mainChat;
+
+                    index = mainChatBlock.getChildren().size();
+                    mainChatBlock.setId("new-message");
+                }else if(secondChat != null && secondChat.getChatId() == message.getChatId()) {
+                    chatBlock = secondChatBlock;
+                    chatValue = secondChat;
+
+                    index = secondChatBlock.getChildren().size();
+                    secondChatBlock.setId("new-message");
+                }
+
+                Session session = sessions.get(LocalDate.now());
+                if (session == null) {
+                    LocalDate sessionDate = LocalDate.now();
+
+                    session = new Session();
+                    session.setDate(sessionDate);
+                    sessions.put(0, sessionDate, session);
+                    session.getMessages().add(message);
+
+                    if (chatValue != null) {
+                        chatValue.setDisplayedSessions(chatValue.getDisplayedSessions() + 1);
+                        appendSession(session, chatBlock, chatValue, index);
+                    }
+                } else {
+                    session.getMessages().add(message);
+                    if (chatValue != null) {
+                        appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
+                    }
+                }
+            });
+            messageService.restart();
+        });
+
+        messageService.setOnFailed(event -> serviceFailed(messageService));
     }
 
     private void updateNewOrders(List<Order> newOrders) {
