@@ -283,6 +283,9 @@ TextArea .viewport{
     -fx-border-radius: 180px;
     -fx-background-radius: 180px;
 }
+.chats-view Button{
+    -fx-background-color: transparent;
+}
 .chats-view .imageShadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 6, 0.0 , 0 , 0 );
 }
@@ -311,7 +314,6 @@ TextArea .viewport{
 .second-chat .session-date TextFlow{
     -fx-background-color: #FC3903;
 }
-
 .alert-box{
     -fx-background-color: white;
     -fx-border-color: #E6353A;

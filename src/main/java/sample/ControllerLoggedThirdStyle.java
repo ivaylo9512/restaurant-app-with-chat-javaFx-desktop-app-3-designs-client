@@ -22,6 +22,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -61,6 +63,7 @@ public class ControllerLoggedThirdStyle {
     @FXML public Label roleField, usernameField, firstNameLabel, lastNameLabel, countryLabel,
             ageLabel, roleLabel, usernameLabel;
     @FXML ScrollPane mainChatScroll, secondChatScroll;
+    @FXML TextArea mainChatTextArea, secondChatTextArea;
     @FXML ImageView profileImage;
     @FXML Button editButton;
     @FXML HBox notificationsInfo;
@@ -101,6 +104,19 @@ public class ControllerLoggedThirdStyle {
             menuList.setItems(observableList);
         });
 
+        secondChatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+                addNewMessage(secondChatTextArea, secondChat, secondChatBlock);
+                event.consume();
+            }
+        });
+
+        mainChatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+                addNewMessage(mainChatTextArea, mainChat, mainChatBlock);
+                event.consume();
+            }
+        });
         Media sound = new Media(getClass()
                 .getResource("/notification.mp3")
                 .toExternalForm());
@@ -513,6 +529,52 @@ public class ControllerLoggedThirdStyle {
                 newBlock.getChildren().add(hBox);
             }
             chatBlock.getChildren().add(newBlock);
+        }
+    }
+
+    @FXML
+    public void sendMessageMainChat(){
+        addNewMessage(mainChatTextArea, mainChat, mainChatBlock);
+    }
+
+    @FXML
+    public void sendMessageSecondChat(){
+        addNewMessage(secondChatTextArea, secondChat, secondChatBlock);
+    }
+
+    public void addNewMessage(TextArea textArea, ChatValue chatValue, VBox chatBlock){
+        String messageText = textArea.getText();
+        int chatId = chatValue.getChatId();
+        int receiverId = chatValue.getUserId();
+        int index = chatBlock.getChildren().size();
+        textArea.clear();
+
+        if (messageText.length() > 0){
+            Message message = sendMessage(messageText, chatId, receiverId);
+
+            ChatValue chat = chatsMap.get(chatId);
+            ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+
+            chatBlock.setId("new-message");
+            Session session = sessions.get(LocalDate.now());
+            if (session == null) {
+                LocalDate sessionDate = LocalDate.now();
+
+                session = new Session();
+                session.setDate(sessionDate);
+                sessions.put(0, sessionDate, session);
+                session.getMessages().add(message);
+
+                if (chatValue.getChatId() == message.getChatId()) {
+                    chatValue.setDisplayedSessions(chatValue.getDisplayedSessions() + 1);
+                    appendSession(session, chatBlock, chatValue, index);
+                }
+            } else {
+                session.getMessages().add(message);
+                if (chatValue.getChatId() == message.getChatId()) {
+                    appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
+                }
+            }
         }
     }
 

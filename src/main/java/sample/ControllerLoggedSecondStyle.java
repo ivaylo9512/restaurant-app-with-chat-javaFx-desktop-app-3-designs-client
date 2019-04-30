@@ -249,7 +249,6 @@ public class ControllerLoggedSecondStyle {
         });
 
         messageService.setOnFailed(event -> serviceFailed(messageService));
-
     }
 
     private void waitForNewOrders() {

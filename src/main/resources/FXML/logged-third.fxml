@@ -82,16 +82,16 @@
                               </AnchorPane>
                               <AnchorPane layoutX="52.0" prefHeight="48.0" prefWidth="328.0" styleClass="text-area-container" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="58.0">
                                  <children>
-                                    <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="52.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
+                                    <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sendMessageMainChat" prefHeight="38.0" prefWidth="52.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <graphic>
                                           <ImageView fitHeight="22.0" fitWidth="22.0">
                                              <image>
-                                                <Image url="/images/enter-arrow.png" />
+                                                <Image url="/images/enter-arrow-third.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <TextArea fx:id="chatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
+                                    <TextArea fx:id="mainChatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <ScrollPane fx:id="mainChatScroll" layoutX="14.0" prefHeight="269.0" prefWidth="412.0" styleClass="main-chat-scroll" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
@@ -135,16 +135,16 @@
                               </AnchorPane>
                               <AnchorPane prefHeight="48.0" prefWidth="416.0" styleClass="text-area-container" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="58.0">
                                  <children>
-                                    <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="52.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
+                                    <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sendMessageSecondChat" prefHeight="38.0" prefWidth="52.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <graphic>
                                           <ImageView fitHeight="22.0" fitWidth="22.0">
                                              <image>
-                                                <Image url="/images/enter-arrow.png" />
+                                                <Image url="/images/enter-arrow-second.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <TextArea fx:id="chatTextArea1" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
+                                    <TextArea fx:id="secondChatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <ScrollPane fx:id="secondChatScroll" prefHeight="143.0" prefWidth="418.0" styleClass="second-chat-scroll" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
