@@ -1,5 +1,7 @@
 package sample;
 
+import Animations.MoveRoot;
+import Animations.ResizeRoot;
 import Animations.TransitionResizeWidth;
 import Helpers.ListViews.*;
 import Helpers.Services.MessageService;
@@ -106,8 +108,8 @@ public class ControllerLoggedThirdStyle {
         notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
         Rectangle clip = new Rectangle();
-        clip.heightProperty().bind(createRoot.prefHeightProperty());
-        clip.widthProperty().bind(createRoot.prefWidthProperty());
+        clip.heightProperty().bind(createRoot.heightProperty());
+        clip.widthProperty().bind(createRoot.widthProperty());
         createRoot.setClip(clip);
 
         Circle profileClip = new Circle(40.5, 40.5, 40.5);
@@ -119,6 +121,8 @@ public class ControllerLoggedThirdStyle {
         mainChatBlock.prefWidthProperty().bind(mainChatScroll.widthProperty().subtract(16));
         secondChatBlock.prefWidthProperty().bind(secondChatScroll.widthProperty().subtract(16));
 
+        MoveRoot.move(menuBar, contentRoot);
+        ResizeRoot.addListeners(contentRoot);
     }
 
     public void setStage() throws Exception {
@@ -546,11 +550,15 @@ public class ControllerLoggedThirdStyle {
         animateBar.play();
     }
 
-    public void showOrder(int orderId){
-        currentOrder = loggedUser.getOrders().get(orderId);
-        currentOrder.getDishes().forEach(dish -> dish.setOrderId(currentOrder.getId()));
+    public void showOrder(){
+        Order selectedOrder = ordersList.getSelectionModel().getSelectedItem();
+        if(selectedOrder != null){
+            currentOrder = loggedUser.getOrders().get(selectedOrder.getId());
+            currentOrder.getDishes().forEach(dish -> dish.setOrderId(currentOrder.getId()));
 
-        dishesList.setItems(FXCollections.observableArrayList(currentOrder.getDishes()));
+            dishesList.setItems(FXCollections.observableArrayList(currentOrder.getDishes()));
+
+        }
     }
 
     private void waitForNewOrders() {

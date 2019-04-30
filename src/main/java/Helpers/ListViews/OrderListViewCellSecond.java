@@ -48,7 +48,6 @@ public class OrderListViewCellSecond extends ListCell<Order> {
                     e.printStackTrace();
                 }
             }
-            container.setOnMouseClicked(event -> LoggedThirdStyle.controller.showOrder(order.getId()));
             createdDate.setText(dateFormatter.format(order.getCreated()));
             createdTime.setText(timeFormatter.format(order.getCreated()));
             updatedDate.setText(dateFormatter.format(order.getUpdated()));

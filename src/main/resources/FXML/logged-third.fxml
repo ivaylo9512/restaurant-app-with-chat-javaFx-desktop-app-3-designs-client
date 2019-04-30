@@ -11,9 +11,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedThirdStyle">
    <children>
-      <AnchorPane fx:id="contentRoot" layoutX="-5.0" minHeight="629.0" minWidth="825.0" prefHeight="629.0" prefWidth="825.0">
+      <AnchorPane fx:id="contentRoot" layoutX="-5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="629.0" minWidth="825.0" prefHeight="629.0" prefWidth="825.0">
          <children>
-            <AnchorPane id="move" fx:id="menuBar" layoutX="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="452.0" opacity="0.0" prefHeight="627.0" prefWidth="161.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane id="moveBar" fx:id="menuBar" layoutX="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="452.0" opacity="0.0" prefHeight="627.0" prefWidth="161.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -52,10 +52,10 @@
                </children></AnchorPane>
             <AnchorPane fx:id="ordersMenu" disable="true" layoutX="166.0" opacity="0.0" prefHeight="627.0" prefWidth="223.0" styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="161.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ListView fx:id="ordersList" layoutX="10.0" layoutY="14.0" prefHeight="602.0" prefWidth="200.0" styleClass="orders-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+                  <ListView fx:id="ordersList" layoutX="10.0" layoutY="14.0" onMouseClicked="#showOrder" prefHeight="602.0" prefWidth="200.0" styleClass="orders-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="chatsView" disable="true" layoutX="389.0" opacity="0.0" styleClass="chats-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="chatsView" disable="true" layoutX="389.0" opacity="0.0" styleClass="chats-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -70,11 +70,11 @@
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="No chat selected." GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
-                  <VBox fx:id="chatsContainer" alignment="CENTER" minHeight="629.0" minWidth="442.0" prefHeight="629.0" prefWidth="442.0">
+                  <VBox fx:id="chatsContainer" alignment="CENTER" minHeight="629.0" minWidth="442.0" prefHeight="629.0" prefWidth="442.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane fx:id="mainChatContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="314.0" prefWidth="442.0" styleClass="main-chat" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <AnchorPane prefHeight="314.0" prefWidth="442.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane prefHeight="314.0" prefWidth="442.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Pane layoutX="14.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
                                     <Pane layoutX="428.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0" />
@@ -127,7 +127,7 @@
                         <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
                         <AnchorPane fx:id="secondChatContainer" layoutY="315.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="314.0" prefWidth="442.0" styleClass="second-chat" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <AnchorPane prefHeight="314.0" prefWidth="442.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane prefHeight="314.0" prefWidth="442.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Pane layoutX="14.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
                                     <Pane layoutX="428.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0" />
@@ -181,55 +181,60 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="ordersView" disable="true" layoutX="389.0" opacity="0.0" styleClass="orders-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="ordersView" disable="true" layoutX="389.0" opacity="0.0" styleClass="orders-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="-3.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane layoutX="8.0" layoutY="168.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <ListView fx:id="dishesList" layoutX="9.0" layoutY="9.0" prefHeight="126.0" prefWidth="410.0" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
+                              <AnchorPane layoutX="8.0" layoutY="168.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <ListView fx:id="dishesList" layoutX="9.0" layoutY="9.0" prefHeight="126.0" prefWidth="410.0" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <AnchorPane fx:id="createRoot" layoutY="315.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="314.0" prefWidth="442.0" styleClass="create-order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane maxHeight="43.0" maxWidth="527.0" minHeight="9.0" minWidth="61.0" prefHeight="38.0" prefWidth="430.0" styleClass="add-button-container" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <children>
+                                          <TextField fx:id="menuSearch" alignment="CENTER" prefHeight="38.0" prefWidth="187.0" promptText="Search" style="-fx-background-color: #FC3903; -fx-text-fill: white; -fx-border-width: 0 1 0 0; -fx-border-color: white; -fx-prompt-text-fill: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="220.5" />
+                                          <Button alignment="CENTER" layoutX="10.0" onMouseClicked="#createNewOrder" prefHeight="38.0" prefWidth="187.0" style="-fx-background-color: #FC3903; -fx-text-fill: white; -fx-prompt-text-fill: white;" text="Create" textFill="WHITE" AnchorPane.leftAnchor="221.5" AnchorPane.rightAnchor="0.0" />
+                                       </children>
+                                       <effect>
+                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                       </effect>
+                                    </AnchorPane>
+                                    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="370.0" style="-fx-background-color: transparent;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                       <children>
+                                          <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 1 0;" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="370.0" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                                       <children>
+                                          <ListView fx:id="menuList" layoutY="33.0" onMouseClicked="#addMenuItem" prefHeight="157.0" prefWidth="401.0" styleClass="menu-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="179.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="83.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="179.0" vgrow="ALWAYS" />
+                                 </rowConstraints>
+                              </GridPane>
                            </children>
                         </AnchorPane>
                      </children>
-                  </AnchorPane>
-                  <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
-                  <AnchorPane fx:id="createRoot" layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="create-order" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
-                     <children>
-                        <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <AnchorPane maxHeight="43.0" maxWidth="527.0" minHeight="9.0" minWidth="61.0" prefHeight="38.0" prefWidth="430.0" styleClass="add-button-container" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                 <children>
-                                    <TextField fx:id="menuSearch" alignment="CENTER" prefHeight="38.0" prefWidth="187.0" promptText="Search" style="-fx-background-color: #FC3903; -fx-text-fill: white; -fx-border-width: 0 1 0 0; -fx-border-color: white; -fx-prompt-text-fill: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="220.5" />
-                                    <Button alignment="CENTER" layoutX="10.0" onMouseClicked="#createNewOrder" prefHeight="38.0" prefWidth="187.0" style="-fx-background-color: #FC3903; -fx-text-fill: white; -fx-prompt-text-fill: white;" text="Create" textFill="WHITE" AnchorPane.leftAnchor="221.5" AnchorPane.rightAnchor="0.0" />
-                                 </children>
-                                 <effect>
-                                    <DropShadow height="10.0" radius="4.5" width="10.0" />
-                                 </effect>
-                              </AnchorPane>
-                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="370.0" style="-fx-background-color: transparent;" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-                                 <children>
-                                    <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 1 0;" styleClass="new-order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="370.0" styleClass="dishes-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
-                                 <children>
-                                    <ListView fx:id="menuList" layoutY="33.0" onMouseClicked="#addMenuItem" prefHeight="157.0" prefWidth="401.0" styleClass="menu-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="179.0" vgrow="ALWAYS" />
-                              <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="83.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="179.0" vgrow="ALWAYS" />
-                           </rowConstraints>
-                        </GridPane>
-                     </children></AnchorPane>
+                  </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="profileView" disable="true" layoutX="389.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="profileView" disable="true" layoutX="389.0" opacity="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane prefHeight="314.0" prefWidth="442.0" styleClass="profile-view" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -295,7 +300,7 @@
                            </children>
                         </HBox>
                      </children></AnchorPane>
-                  <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
+                  <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <AnchorPane layoutY="315.0" prefHeight="314.0" prefWidth="442.0" styleClass="updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
                      <children>
                         <ListView fx:id="notificationsList" layoutX="89.0" layoutY="16.0" onMouseClicked="#removeNotification" prefHeight="298.0" prefWidth="282.0" styleClass="notification-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="16.0" />
