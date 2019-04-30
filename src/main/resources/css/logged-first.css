@@ -40,7 +40,6 @@ ScrollPane ScrollBar .thumb{
 ScrollPane > .corner {
     -fx-background-color: transparent;
 }
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 TextArea .scroll-pane {
     -fx-background-color: transparent;
 }

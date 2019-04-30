@@ -58,12 +58,13 @@ public class ControllerLoggedThirdStyle {
     @FXML public Pane profileImageClip;
     @FXML public Label roleField, usernameField, firstNameLabel, lastNameLabel, countryLabel,
             ageLabel, roleLabel, usernameLabel;
+    @FXML ScrollPane mainChatScroll, secondChatScroll;
     @FXML ImageView profileImage;
     @FXML Button editButton;
     @FXML HBox notificationsInfo;
-    @FXML VBox chatsContainer;
-    private Image userProfileImage;
+    @FXML VBox chatsContainer, mainChatBlock, secondChatBlock;
 
+    private Image userProfileImage;
     private MediaPlayer notificationSound;
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -114,6 +115,10 @@ public class ControllerLoggedThirdStyle {
 
         chatsContainer.getChildren().remove(mainChatContainer);
         chatsContainer.getChildren().remove(secondChatContainer);
+
+        mainChatBlock.prefWidthProperty().bind(mainChatScroll.widthProperty().subtract(16));
+        secondChatBlock.prefWidthProperty().bind(secondChatScroll.widthProperty().subtract(16));
+
     }
 
     public void setStage() throws Exception {
@@ -296,12 +301,14 @@ public class ControllerLoggedThirdStyle {
             displayView(chatsView, chatsMenu);
         }
 
+
         Chat selectedChat = chatsList.getSelectionModel().getSelectedItem();
 
         GridPane container = (GridPane) event.getSource();
         VBox name = (VBox) container.getChildren().get(1);
         if(selectedChat != null) {
 
+            VBox chatBlock = null;
             int chatId = selectedChat.getId();
             ChatValue chat = chatsMap.get(chatId);
 
@@ -320,12 +327,14 @@ public class ControllerLoggedThirdStyle {
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
                 resizeWidth.play();
             }else if(mainChat == null){
+                chatBlock = mainChatBlock;
                 mainChat = chat;
 
                 chatsContainer.getChildren().add(0, mainChatContainer);
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
                 resizeWidth.play();
             }else if (secondChat == null){
+                chatBlock = secondChatBlock;
                 secondChat = chat;
 
                 chatsContainer.getChildren().add(2, secondChatContainer);
@@ -333,6 +342,8 @@ public class ControllerLoggedThirdStyle {
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
                 resizeWidth.play();
             } else{
+                chatBlock = secondChatBlock;
+
                 TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
                 resizeWidth.play();
 
@@ -344,6 +355,31 @@ public class ControllerLoggedThirdStyle {
 
                 secondChat = chat;
             }
+
+            if(chatBlock != null) {
+                chatBlock.setId("beginning");
+                chatBlock.getChildren().remove(1, chatBlock.getChildren().size());
+                HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
+                Text info = (Text) sessionInfo.lookup("Text");
+
+                ListOrderedMap<LocalDate, Session> sessionsMap = chat.getSessions();
+                List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
+                List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
+
+                if (lastSessions.size() == pageSize) {
+                    info.setText("Scroll for more history");
+                    chat.setDisplayedSessions(pageSize);
+                } else {
+                    info.setText("Beginning of the chat");
+                    chat.setMoreSessions(false);
+                    chat.setDisplayedSessions(lastSessions.size());
+                }
+
+                for (Session session : lastSessions) {
+                    appendSession(session, chatBlock, chat, 1);
+                }
+
+            }
         }
     }
 
@@ -354,7 +390,7 @@ public class ControllerLoggedThirdStyle {
         dateFlow.setTextAlignment(TextAlignment.CENTER);
 
         HBox sessionDate = new HBox(dateFlow);
-        HBox.setHgrow(dateFlow, Priority.ALWAYS);
+        sessionDate.setAlignment(Pos.CENTER);
         sessionDate.getStyleClass().add("session-date");
 
         VBox sessionBlock = new VBox(sessionDate);

@@ -34,7 +34,7 @@
                               <Text fill="WHITE" onMouseClicked="#displayProfileView" strokeType="OUTSIDE" strokeWidth="0.0" text="Updates" />
                               <Text fill="WHITE" onMouseClicked="#displayOrdersView" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
                               <Text fill="WHITE" onMouseClicked="#displayOrdersView" strokeType="OUTSIDE" strokeWidth="0.0" text="Create" />
-                              <Text fill="WHITE" onMouseClicked="#displayChatsView" strokeType="OUTSIDE" strokeWidth="0.0" text="Chats" />
+                              <Text fx:id="chatsBtn" fill="WHITE" onMouseClicked="#displayChatsView" strokeType="OUTSIDE" strokeWidth="0.0" text="Chats" />
                               <Line endX="33.0" stroke="WHITE">
                                  <VBox.margin>
                                     <Insets left="2.0" top="-6.0" />
@@ -72,8 +72,14 @@
                   </GridPane>
                   <VBox fx:id="chatsContainer" alignment="CENTER" minHeight="629.0" minWidth="442.0" prefHeight="629.0" prefWidth="442.0">
                      <children>
-                        <AnchorPane fx:id="mainChatContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="314.0" prefWidth="442.0" style="-fx-background-color: #E6353A;" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                        <AnchorPane fx:id="mainChatContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="314.0" prefWidth="442.0" styleClass="main-chat" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
                            <children>
+                              <AnchorPane prefHeight="314.0" prefWidth="442.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Pane layoutX="14.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                                    <Pane layoutX="428.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                                 </children>
+                              </AnchorPane>
                               <AnchorPane layoutX="52.0" prefHeight="48.0" prefWidth="328.0" styleClass="text-area-container" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="58.0">
                                  <children>
                                     <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="52.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
@@ -85,12 +91,12 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <TextArea fx:id="chatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
+                                    <TextArea fx:id="chatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <ScrollPane fx:id="chatScroll" layoutX="14.0" prefHeight="269.0" prefWidth="412.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
+                              <ScrollPane fx:id="mainChatScroll" layoutX="14.0" prefHeight="269.0" prefWidth="412.0" styleClass="main-chat-scroll" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <VBox fx:id="chatBlock" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="396.0">
+                                    <VBox fx:id="mainChatBlock" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="396.0">
                                        <children>
                                           <HBox alignment="CENTER" styleClass="session-info">
                                              <children>
@@ -116,17 +122,17 @@
                                     </VBox>
                                  </content>
                               </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                        <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
+                        <AnchorPane fx:id="secondChatContainer" layoutY="315.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="314.0" prefWidth="442.0" styleClass="second-chat" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" VBox.vgrow="ALWAYS">
+                           <children>
                               <AnchorPane prefHeight="314.0" prefWidth="442.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Pane layoutX="14.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
                                     <Pane layoutX="428.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0" />
                                  </children>
                               </AnchorPane>
-                           </children>
-                        </AnchorPane>
-                        <Pane layoutY="314.0" prefHeight="1.0" prefWidth="442.0" style="-fx-background-color: #EEEEEE;" />
-                        <AnchorPane fx:id="secondChatContainer" layoutY="315.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="314.0" prefWidth="442.0" styleClass="chat-second" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" VBox.vgrow="ALWAYS">
-                           <children>
                               <AnchorPane prefHeight="48.0" prefWidth="416.0" styleClass="text-area-container" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="58.0">
                                  <children>
                                     <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="52.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
@@ -138,12 +144,12 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <TextArea fx:id="chatTextArea1" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
+                                    <TextArea fx:id="chatTextArea1" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <ScrollPane fx:id="chatScroll1" prefHeight="143.0" prefWidth="418.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
+                              <ScrollPane fx:id="secondChatScroll" prefHeight="143.0" prefWidth="418.0" styleClass="second-chat-scroll" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <VBox fx:id="chatBlock1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="396.0">
+                                    <VBox fx:id="secondChatBlock" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="396.0">
                                        <children>
                                           <HBox alignment="CENTER" styleClass="session-info">
                                              <children>
@@ -169,12 +175,6 @@
                                     </VBox>
                                  </content>
                               </ScrollPane>
-                              <AnchorPane prefHeight="314.0" prefWidth="442.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <Pane layoutX="14.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
-                                    <Pane layoutX="428.0" layoutY="10.0" prefHeight="290.0" prefWidth="1.0" style="-fx-background-color: #EEEEEE;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0" />
-                                 </children>
-                              </AnchorPane>
                            </children>
                         </AnchorPane>
                      </children>

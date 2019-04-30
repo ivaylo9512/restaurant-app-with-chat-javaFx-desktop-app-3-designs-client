@@ -4,6 +4,28 @@ Button:focused{
 Button{
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
+ScrollPane > .corner {
+    -fx-background-color: transparent;
+}
+ScrollPane .scroll-bar > .increment-button,
+ScrollPane .scroll-bar > .decrement-button{
+    -fx-pref-height:0;
+    -fx-background-color:  transparent;
+}
+ScrollPane .scroll-bar > .increment-button > .increment-arrow,
+ScrollPane .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-pref-height:0;
+    -fx-background-color: transparent;
+}
+ScrollPane ScrollBar{
+    -fx-background-color: transparent;
+}
+ScrollPane{
+    -fx-background-color: transparent;
+}
+ScrollPane > .viewport{
+    -fx-background-color: transparent;
+}
 TextArea{
     -fx-background-color: transparent;
 }
@@ -171,15 +193,6 @@ TextArea .viewport{
 .updates{
     -fx-background-color: #FC3903;;
 }
-.scroll-bar:horizontal, .scroll-bar:vertical{
-    -fx-background-color:transparent;
-    -fx-border-color: #89936e;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-}
-.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb{
-    -fx-background-color: #b2b2b2;
-}
 .profile-image-container{
     -fx-background-color: #E6353A;
     -fx-background-radius: 40px;
@@ -203,10 +216,100 @@ TextArea .viewport{
 .chats-view{
     -fx-background-color: linear-gradient(#E6353A 50%, #FC3903 50%, #FC3903 100%);
 }
-.chat-second{
+.main-chat {
+    -fx-background-color: #E6353A;
+}
+.main-chat ScrollBar .thumb{
+    -fx-background-color: #E6353A;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+.second-chat{
     -fx-background-color: #FC3903;
+}
+.second-chat ScrollBar .thumb{
+    -fx-background-color: #FC3903;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
 }
 .text-area-container{
     -fx-background-color: white;
     -fx-background-radius: 20px;
 }
+.text-area-container TextArea{
+    -fx-background-radius: 20px;
+}
+
+.chats-view .time{
+    -fx-fill: #bcbcbc;
+}
+.chats-view TextFlow{
+    -fx-padding: 5 5 5 5;
+}
+.user-message-first{
+    -fx-padding: 30 0 0 165;
+}
+.user-message{
+    -fx-padding: -3 40 0 165;
+}
+.second-user-message-first{
+    -fx-padding: 32 165 0 0;
+}
+.second-user-message{
+    -fx-padding: -3 165 0 40;
+}
+.session-info{
+    -fx-padding: 0 0 0 15;
+}
+.session-info TextFlow{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
+    -fx-background-insets: 0 0 0 0;
+}
+.session-info Text{
+    -fx-fill: white;
+}
+.session-date{
+    -fx-padding: 0 0 0 15;
+}
+.session-date TextFlow{
+    -fx-padding: 13 20 13 20;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+}
+.session-date Text{
+    -fx-fill: white;
+}
+.chats-view HBox Pane{
+    -fx-pref-width: 40.0;
+    -fx-pref-height: 40.0;
+    -fx-border-radius: 180px;
+    -fx-background-radius: 180px;
+}
+.chats-view .imageShadow{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 6, 0.0 , 0 , 0 );
+}
+.chats-view .message{
+    -fx-fill: white;
+}
+.chats-view Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+
+}
+.chats-view Button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 0, 0.0 , 0 , 0 );
+}
+.chats-view HBox AnchorPane{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+}
+.main-chat .imageShadow{
+    -fx-background-color: #E6353A;
+}
+.second-chat .imageShadow{
+    -fx-background-color: #FC3903;
+}
+.main-chat .session-date TextFlow{
+    -fx-background-color: #E6353A;
+}
+.second-chat .session-date TextFlow{
+    -fx-background-color: #FC3903;
+}
+
+
