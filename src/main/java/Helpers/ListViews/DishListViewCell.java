@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.GridPane;
 import sample.LoggedSecondStyle;
+import sample.LoggedThirdStyle;
 
 import java.io.IOException;
 
@@ -55,7 +56,11 @@ public class DishListViewCell extends ListCell<Dish> {
             ready.setId("dish" + dish.getId());
             grid.setOnMouseClicked(event -> {
                 if(ready.getText().equals("X")) {
-                    LoggedSecondStyle.controller.updateDishStatus(dish, ready);
+                    if(LoggedSecondStyle.stage != null && LoggedSecondStyle.stage.isShowing()) {
+                        LoggedSecondStyle.controller.updateDishStatus(dish, ready);
+                    }else{
+                        LoggedThirdStyle.controller.updateDishStatus(dish, ready);
+                    }
                 }
             });
             grid.prefWidthProperty().bind(widthProperty().subtract(13));

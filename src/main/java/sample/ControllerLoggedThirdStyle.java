@@ -68,12 +68,13 @@ public class ControllerLoggedThirdStyle {
     @FXML public Pane profileImageClip;
     @FXML public Label roleField, usernameField, firstNameLabel, lastNameLabel, countryLabel,
             ageLabel, roleLabel, usernameLabel;
+    @FXML VBox chatsContainer, mainChatBlock, secondChatBlock;
     @FXML ScrollPane mainChatScroll, secondChatScroll;
     @FXML TextArea mainChatTextArea, secondChatTextArea;
     @FXML ImageView profileImage;
     @FXML Button editButton;
     @FXML HBox notificationsInfo;
-    @FXML VBox chatsContainer, mainChatBlock, secondChatBlock;
+    @FXML Text chatsBtn;
 
     private Image userProfileImage;
     private MediaPlayer notificationSound;
@@ -203,10 +204,6 @@ public class ControllerLoggedThirdStyle {
     }
 
     public void resetStage(){
-        menuMap.clear();
-
-        resetUserFields();
-
         mostRecentOrderDate = null;
         userProfileImage = null;
         loggedUser = null;
@@ -215,6 +212,8 @@ public class ControllerLoggedThirdStyle {
         mainChatTextArea.setText(null);
         secondChatTextArea.setText(null);
         menuSearch.setText("");
+
+        menuBar.setOpacity(0);
 
         mainChatBlock.getChildren().remove(1, mainChatBlock.getChildren().size());
         secondChatBlock.getChildren().remove(1, secondChatBlock.getChildren().size());
@@ -237,6 +236,9 @@ public class ControllerLoggedThirdStyle {
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
         contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
 
+        if(currentText != null){
+            currentText.getStyleClass().remove("strikethrough");
+        }
         if(currentView != null){
             currentView.setOpacity(0);
             currentView.setDisable(true);
@@ -391,6 +393,10 @@ public class ControllerLoggedThirdStyle {
     public void setChat(MouseEvent event) {
         if(chatsView.getOpacity() == 0) {
             displayView(chatsView, chatsMenu);
+
+            currentText.getStyleClass().remove("strikethrough");
+            chatsBtn.getStyleClass().add("strikethrough");
+            currentText = chatsBtn;
         }
 
         Chat selectedChat = chatsList.getSelectionModel().getSelectedItem();
@@ -744,7 +750,21 @@ public class ControllerLoggedThirdStyle {
 
         }
     }
+    public void updateDishStatus(Dish dish, Label ready) {
 
+        if(loggedUser.getRole().equals("Chef")){
+            try {
+                updateDishState(dish.getOrderId(), dish.getId());
+                dish.setReady(true);
+                ready.setText("O");
+
+            } catch (Exception e) {
+                showLoggedStageAlert(e.getMessage());
+            }
+        }else{
+            showLoggedStageAlert("You must be a chef to update the dish status.");
+        }
+    }
     private void waitForNewOrders() {
         orderService = new OrderService();
         orderService.setOnSucceeded(event -> {
@@ -836,7 +856,13 @@ public class ControllerLoggedThirdStyle {
                         }
                     }
                 });
+
+                if (order.isReady()) {
+                    addNotification("Order " + orderId + " is ready.");
+                }
+
             } else {
+
                 ordersList.getItems().add(0, order);
                 if(order.getUserId() != loggedUser.getId()){
                     addNotification("New order created " + orderId);

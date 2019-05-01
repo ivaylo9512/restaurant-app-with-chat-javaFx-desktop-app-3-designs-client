@@ -105,7 +105,7 @@ TextArea .viewport{
 }
 .notification-list TextField{
     -fx-background-color: #FC3903;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 0 );
     -fx-pref-height: 45;
     -fx-alignment: center;
     -fx-text-fill: white;
