@@ -13,12 +13,14 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -35,6 +37,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.transform.Translate;
+import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.http.impl.client.HttpClients;
@@ -203,6 +206,53 @@ public class ControllerLoggedThirdStyle {
         menuMap.clear();
 
         resetUserFields();
+
+        mostRecentOrderDate = null;
+        userProfileImage = null;
+        loggedUser = null;
+        mainChat = null;
+        secondChat = null;
+        mainChatTextArea.setText(null);
+        secondChatTextArea.setText(null);
+        menuSearch.setText("");
+
+        mainChatBlock.getChildren().remove(1, mainChatBlock.getChildren().size());
+        secondChatBlock.getChildren().remove(1, secondChatBlock.getChildren().size());
+
+        menuMap.clear();
+
+        newOrderList.getItems().clear();
+        menuList.getItems().clear();
+        chatsList.getItems().clear();
+        ordersList.getItems().clear();
+        notificationsList.getItems().clear();
+
+        resetUserFields();
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        contentRoot.setPrefWidth(contentRoot.getMinWidth());
+        contentRoot.setPrefHeight(contentRoot.getMinHeight());
+
+        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
+        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
+
+        if(currentView != null){
+            currentView.setOpacity(0);
+            currentView.setDisable(true);
+        }
+        if(currentMenu != null){
+            currentMenu.setOpacity(0);
+            currentMenu.setDisable(true);
+        }
+
+        currentView = null;
+        currentMenu= null;
+
+        Platform.runLater(() -> {
+            orderService.reset();
+            messageService.reset();
+        });
     }
     private void displayUserFields() {
         usernameLabel.setText(loggedUser.getUsername());
@@ -947,7 +997,7 @@ public class ControllerLoggedThirdStyle {
         if(!LoginThirdStyle.alert.isShowing()) {
             DialogPane dialog = LoginThirdStyle.alert.getDialogPane();
             dialog.setContentText(message);
-            LoginSecondStyle.alert.showAndWait();
+            LoginThirdStyle.alert.showAndWait();
         }
     }
 }
