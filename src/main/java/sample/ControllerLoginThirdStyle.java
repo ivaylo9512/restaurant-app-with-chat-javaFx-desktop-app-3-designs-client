@@ -291,7 +291,6 @@ public class ControllerLoginThirdStyle {
         menu.setOpacity(1);
         menuLine.setOpacity(1);
         logo.setOpacity(1);
-        loginFields.setOpacity(1);
         actionBtn.setOpacity(1);
 
         contentRoot.setOpacity(1);
@@ -299,6 +298,15 @@ public class ControllerLoginThirdStyle {
         contentRoot.setTranslateY(0);
         contentRoot.setPrefWidth(296);
         contentRoot.setPrefHeight(452);
+
+        resetFields();
+
+        setStrikeThrough(loginBtn);
+        showMenu(loginFields);
+
+        actionBtn.setText("login");
+        actionBtn.setOnMouseClicked(this::login);
+
     }
     @FXML
     public void minimize(){

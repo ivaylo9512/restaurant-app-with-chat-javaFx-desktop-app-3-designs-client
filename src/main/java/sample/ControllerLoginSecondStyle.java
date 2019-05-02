@@ -31,7 +31,7 @@ public class ControllerLoginSecondStyle {
     private LoginService loginService;
     private RegisterService registerService;
 
-    private Pane currentMenu = loginFields;
+    private Pane currentMenu;
 
     @FXML
     public void initialize(){
@@ -43,6 +43,8 @@ public class ControllerLoginSecondStyle {
         registerService.usernameProperty().bind(regUsername.textProperty());
         registerService.passwordProperty().bind(regPassword.textProperty());
         registerService.repeatPasswordProperty().bind(regRepeatPassword.textProperty());
+
+        currentMenu = loginFields;
     }
 
     @FXML
@@ -131,13 +133,7 @@ public class ControllerLoginSecondStyle {
     }
 
     public void resetStage(){
-        if(currentMenu != null){
-            currentMenu.setOpacity(0);
-            currentMenu.setDisable(true);
-        }
-        loginFields.setOpacity(1);
-        loginFields.setDisable(false);
-        currentMenu = loginFields;
+        showMenu(loginFields);
 
         username.setDisable(false);
         password.setDisable(false);
