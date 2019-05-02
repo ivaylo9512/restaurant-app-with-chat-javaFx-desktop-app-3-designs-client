@@ -38,7 +38,8 @@ PasswordField{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0);
 }
 .alert-box{
-    -fx-background-color: white;
+    -fx-background-color: #E6353A;
+    -fx-border-color: white;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
 
 }
@@ -54,19 +55,19 @@ PasswordField{
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-pref-height: 25;
-    -fx-text-fill: #bcbcbc;
+    -fx-text-fill: transparent;
     -fx-alignment: center;
     -fx-background-color: transparent;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
 }
 .alert-box > *.label.content{
     -fx-font-size: 12px;
-    -fx-text-fill: white;
+    -fx-text-fill: #E6353A;
     -fx-alignment: center;
     -fx-pref-height: 50;
     -fx-padding: 0,0,10,0;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
-    -fx-background-color: #E6353A;
+    -fx-background-color: white;
 }
 .alert-box Button{
     -fx-text-fill: white;

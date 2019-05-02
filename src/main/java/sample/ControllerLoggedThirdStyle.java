@@ -185,9 +185,13 @@ public class ControllerLoggedThirdStyle {
 
         ordersList.setItems(orders);
 
-        InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
-        userProfileImage = new Image(in);
-        in.close();
+        try{
+            InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
+            userProfileImage = new Image(in);
+            in.close();
+        }catch(Exception e){
+            userProfileImage = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
+        }
 
         displayUserFields();
 
@@ -358,35 +362,36 @@ public class ControllerLoggedThirdStyle {
 
     private void setChatValues(List<Chat> chats) {
         chats.forEach(chat -> {
-            try {
-                InputStream in;
-                ChatValue chatValue;
-                Image profilePicture;
-                if (chat.getFirstUser().getId() == loggedUser.getId()) {
+            InputStream in;
+            Image profilePicture;
+            User user;
+
+            if (chat.getFirstUser().getId() == loggedUser.getId()) {
+                user = chat.getSecondUser();
+                try {
                     in = new BufferedInputStream(
                             new URL(chat.getSecondUser().getProfilePicture()).openStream());
                     profilePicture = new Image(in);
-
-                    chat.getSecondUser().setImage(profilePicture);
-
-                    chatValue = new ChatValue(chat.getId(), chat.getSecondUser().getId(), profilePicture);
-                    chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
-                } else {
+                    in.close();
+                }catch(Exception e){
+                    profilePicture = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
+                }
+            } else {
+                user= chat.getFirstUser();
+                try {
                     in = new BufferedInputStream(
                             new URL(chat.getFirstUser().getProfilePicture()).openStream());
                     profilePicture = new Image(in);
-
-                    chat.getFirstUser().setImage(profilePicture);
-
-                    chatValue = new ChatValue(chat.getId(), chat.getFirstUser().getId(), profilePicture);
-                    chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
+                    in.close();
+                }catch(Exception e){
+                    profilePicture = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
                 }
-                in.close();
-                chatsMap.put(chat.getId(), chatValue);
-
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            user.setImage(profilePicture);
+
+            ChatValue chatValue = new ChatValue(chat.getId(), user.getId(), profilePicture);
+            chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
+            chatsMap.put(chat.getId(), chatValue);
         });
     }
 
