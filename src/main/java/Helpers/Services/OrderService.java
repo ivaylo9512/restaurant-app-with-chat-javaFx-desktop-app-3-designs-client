@@ -36,7 +36,7 @@ public class OrderService extends Service {
                 StringEntity postEntity = new StringEntity(mostRecentDate, "UTF8");
                 postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-                URIBuilder builder = new URIBuilder(base + "/api/auth/order/getUpdates");
+                URIBuilder builder = new URIBuilder(base + "/api/order/auth/getUpdates");
                 builder.setParameter("restaurantId", restaurantId);
 
                 HttpPatch httpPatch = new HttpPatch(builder.build());

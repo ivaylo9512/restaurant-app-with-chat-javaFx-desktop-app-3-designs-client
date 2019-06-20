@@ -57,7 +57,7 @@ public class ServerRequests {
         HttpGet get;
         List<Session> sessions = new LinkedList<>();
         try {
-            URIBuilder builder = new URIBuilder(base + "/api/auth/chat/nextSessions");
+            URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
             builder
                     .setParameter("chatId", String.valueOf(id))
                     .setParameter("page", String.valueOf(page))
@@ -93,7 +93,7 @@ public class ServerRequests {
         StringEntity postEntity = new StringEntity(orderJson, "UTF8");
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        HttpPost httpPost = new HttpPost(base + "/api/auth/order/create");
+        HttpPost httpPost = new HttpPost(base + "/api/order/auth/create");
         httpPost.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
         httpPost.setEntity(postEntity);
 
@@ -112,7 +112,7 @@ public class ServerRequests {
     }
 
     public static LocalDateTime getMostRecentOrderDate(int restaurantId) throws Exception{
-        HttpGet get = new HttpGet(base + "/api/auth/order/getMostRecentDate/" + restaurantId);
+        HttpGet get = new HttpGet(base + "/api/order/auth/getMostRecentDate/" + restaurantId);
         LocalDateTime localDateTime;
         get.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
 
@@ -136,7 +136,7 @@ public class ServerRequests {
 
     public static List<Chat> getChats() throws Exception{
         List<Chat> chats = new ArrayList<>();
-        URIBuilder builder = new URIBuilder(base + "/api/auth/chat/getChats");
+        URIBuilder builder = new URIBuilder(base + "/api/chat/auth/getChats");
         builder.setParameter("pageSize", String.valueOf(pageSize));
 
         HttpGet get = new HttpGet(builder.build());
@@ -173,7 +173,7 @@ public class ServerRequests {
         StringEntity postEntity = new StringEntity(jsonObject.toString(), "UTF8");
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        HttpPost post = new HttpPost(base + "/api/auth/users/changeUserInfo");
+        HttpPost post = new HttpPost(base + "/api/users/auth/changeUserInfo");
         post.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
         post.setEntity(postEntity);
 
@@ -206,7 +206,7 @@ public class ServerRequests {
         StringEntity postEntity = new StringEntity(jsonObject.toString(), "UTF8");
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        HttpPost post = new HttpPost(base + "/api/auth/chat/newMessage");
+        HttpPost post = new HttpPost(base + "/api/chat/auth/newMessage");
         post.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
         post.setEntity(postEntity);
 
@@ -228,7 +228,7 @@ public class ServerRequests {
         return message;
     }
     public static void updateDishState(int orderId, int dishId) throws Exception{
-        HttpPatch httpPatch = new HttpPatch(String.format(base + "/api/auth/order/update/%d/%d", orderId, dishId));
+        HttpPatch httpPatch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
         httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
 
         try(CloseableHttpResponse response = httpClient.execute(httpPatch)){
@@ -244,7 +244,7 @@ public class ServerRequests {
         }
     }
     public static void stopRequest() throws Exception{
-        HttpPatch httpPatch = new HttpPatch(base + "/api/auth/order/removeRequest");
+        HttpPatch httpPatch = new HttpPatch(base + "/api/order/auth/removeRequest");
         httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
 
         try(CloseableHttpResponse response = httpClient.execute(httpPatch)){
