@@ -135,7 +135,7 @@ public class ServerRequests {
     }
 
     public static List<Chat> getChats() throws Exception{
-        List<Chat> chats = new ArrayList<>();
+        List<Chat> chats;
         URIBuilder builder = new URIBuilder(base + "/api/chat/auth/getChats");
         builder.setParameter("pageSize", String.valueOf(pageSize));
 

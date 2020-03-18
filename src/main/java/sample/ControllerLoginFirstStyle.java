@@ -131,7 +131,7 @@ public class ControllerLoginFirstStyle {
     private void changeScene(Service service) {
         User loggedUser = (User) service.getValue();
         ServerRequests.loggedUserProperty.set(loggedUser);
-        ServerRequests.loggedUser = (User)service.getValue();
+        ServerRequests.loggedUser = loggedUser;
 
         if(LoggedFirstStyle.stage != null){
             LoggedFirstStyle.stage.show();
@@ -257,37 +257,13 @@ public class ControllerLoginFirstStyle {
     }
     @FXML
     public void showLoginThirdStyle(){
-
         LoginFirstStyle.stage.close();
-        if(LoginThirdStyle.stage != null){
-            LoginThirdStyle.stage.show();
-        }else {
-            try {
-                LoginThirdStyle.displayLoginScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-            }
-        }
+        LoginThirdStyle.stage.show();
     }
     @FXML
     public void showLoginSecondStyle(){
-
         LoginFirstStyle.stage.close();
-        if(LoginSecondStyle.stage != null){
-            LoginSecondStyle.stage.show();
-        }else {
-            try {
-                LoginSecondStyle.displayLoginScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-            }
-        }
+        LoginSecondStyle.stage.show();
     }
 
     @FXML

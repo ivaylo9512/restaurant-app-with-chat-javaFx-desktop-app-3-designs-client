@@ -116,7 +116,7 @@ public class ControllerLoginThirdStyle {
     private void changeScene(Service service) {
         User loggedUser = (User) service.getValue();
         ServerRequests.loggedUserProperty.set(loggedUser);
-        ServerRequests.loggedUser = (User)service.getValue();
+        ServerRequests.loggedUser = loggedUser;
 
         if(LoggedThirdStyle.stage != null){
             LoggedThirdStyle.stage.show();
@@ -264,20 +264,8 @@ public class ControllerLoginThirdStyle {
 
     @FXML
     public void showLoginSecondStyle(){
-
         LoginThirdStyle.stage.close();
-        if(LoginSecondStyle.stage != null){
-            LoginSecondStyle.stage.show();
-        }else {
-            try {
-                LoginSecondStyle.displayLoginScene();
-            } catch (Exception e) {
-                LoginThirdStyle.stage.show();
-                DialogPane dialogPane = LoginThirdStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginThirdStyle.alert.showAndWait();
-            }
-        }
+        LoginSecondStyle.stage.show();
     }
 
     @FXML

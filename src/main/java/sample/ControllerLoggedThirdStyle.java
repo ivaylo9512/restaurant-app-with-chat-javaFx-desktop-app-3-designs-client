@@ -957,20 +957,9 @@ public class ControllerLoggedThirdStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedThirdStyle.stage.close();
-        if(LoginThirdStyle.stage != null) {
-            LoginThirdStyle.stage.show();
-        }else{
-            try{
-                LoginThirdStyle.displayLoginScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-
-            }
-        }
+        LoginThirdStyle.stage.show();
     }
+
     @FXML
     public void showLoggedFirstStyle(){
         try {

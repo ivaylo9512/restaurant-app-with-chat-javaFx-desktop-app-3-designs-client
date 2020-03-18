@@ -16,9 +16,16 @@ import java.io.IOException;
 public class LoginSecondStyle extends LoginFirstStyle {
     static Alert alert;
     static Stage stage;
-    private static ControllerLoginSecondStyle controller;
 
-    public static void displayLoginScene() throws IOException {
+    static{
+        try {
+            initializeSecondStyle();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void initializeSecondStyle() throws IOException{
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         FXMLLoader loader = new FXMLLoader(LoggedSecondStyle.class.getResource("/FXML/login-second.fxml"));
@@ -29,7 +36,7 @@ public class LoginSecondStyle extends LoginFirstStyle {
         scene.setFill(Color.TRANSPARENT);
 
         stage = new Stage();
-        controller = loader.getController();
+        ControllerLoginSecondStyle controller = loader.getController();
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(!isShowing) {
                 controller.resetStage();
@@ -55,5 +62,4 @@ public class LoginSecondStyle extends LoginFirstStyle {
         dialog.setGraphic(null);
         dialog.getStyleClass().add("alert-box");
     }
-
 }

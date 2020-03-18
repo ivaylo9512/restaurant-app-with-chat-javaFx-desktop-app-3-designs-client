@@ -187,6 +187,7 @@ public class ControllerLoggedFirstStyle {
     private void waitForNewOrders() {
         orderService = new OrderService();
         orderService.setOnSucceeded(event -> {
+
             List<Order> newOrders = (List<Order>) orderService.getValue();
 
             if (newOrders.size() > 0) {
@@ -199,6 +200,7 @@ public class ControllerLoggedFirstStyle {
             }
 
             updateNewOrders(newOrders);
+
             orderService.restart();
         });
 
@@ -884,20 +886,7 @@ public class ControllerLoggedFirstStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedFirstStyle.stage.close();
-
-        if(LoginFirstStyle.stage != null){
-            LoginFirstStyle.stage.show();
-        }else{
-            try {
-                LoginSecondStyle.displayLoginScene();
-            } catch (IOException e) {
-                LoginFirstStyle.stage.show();
-
-                DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
-                dialog.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-            }
-        }
+        LoginFirstStyle.stage.show();
     }
     @FXML
     public void showLoggedSecondStyle(){

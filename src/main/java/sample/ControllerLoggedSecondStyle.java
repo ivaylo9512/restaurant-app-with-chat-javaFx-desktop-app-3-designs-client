@@ -291,7 +291,7 @@ public class ControllerLoggedSecondStyle {
                         Label ready = (Label) dishesList.lookup("#dish" + dish.getId());
 
                         if (ready != null && ready.getText().equals("X") && dish.getReady()) {
-                        addNotification(dish.getName() + " from order " + orderId + " is ready.");
+                            addNotification(dish.getName() + " from order " + orderId + " is ready.");
                             ready.setText("O");
                             ready.setUserData("ready");
                         }
@@ -571,19 +571,7 @@ public class ControllerLoggedSecondStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedSecondStyle.stage.close();
-        if(LoginSecondStyle.stage != null) {
-            LoginSecondStyle.stage.show();
-        }else{
-            try{
-                LoginSecondStyle.displayLoginScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-
-            }
-        }
+        LoginSecondStyle.stage.show();
     }
     @FXML
     public void showLoggedFirstStyle(){
