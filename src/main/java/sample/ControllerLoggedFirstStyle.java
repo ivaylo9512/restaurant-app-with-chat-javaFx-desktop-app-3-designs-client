@@ -187,20 +187,9 @@ public class ControllerLoggedFirstStyle {
     private void waitForNewOrders() {
         orderService = new OrderService();
         orderService.setOnSucceeded(event -> {
-
             List<Order> newOrders = (List<Order>) orderService.getValue();
 
-            if (newOrders.size() > 0) {
-                Order mostRecentNewOrder = newOrders.get(0);
-                if (mostRecentNewOrder.getCreated().isAfter(mostRecentNewOrder.getUpdated())) {
-                    mostRecentOrderDate = mostRecentNewOrder.getCreated();
-                } else {
-                    mostRecentOrderDate = mostRecentNewOrder.getUpdated();
-                }
-            }
-
             updateNewOrders(newOrders);
-
             orderService.restart();
         });
 
@@ -244,9 +233,16 @@ public class ControllerLoggedFirstStyle {
 
     private void updateNewOrders(List<Order> newOrders) {
         newOrders.forEach(order -> {
-            int orderId = order.getId();
 
+            if(order.getUpdated().isAfter(mostRecentOrderDate)) {
+                mostRecentOrderDate = order.getUpdated();
+            }else if(order.getCreated().isAfter(mostRecentOrderDate)){
+                mostRecentOrderDate = order.getCreated();
+            }
+
+            int orderId = order.getId();
             Order orderValue = loggedUser.getOrders().get(orderId);
+
             if (orderValue != null) {
                 orderValue.setDishes(order.getDishes());
                 orderValue.setUpdated(order.getUpdated());

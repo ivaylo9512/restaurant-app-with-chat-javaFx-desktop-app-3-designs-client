@@ -262,15 +262,6 @@ public class ControllerLoggedSecondStyle {
         orderService.setOnSucceeded(event -> {
             List<Order> newOrders = (List<Order>) orderService.getValue();
 
-            if (newOrders.size() > 0) {
-                Order mostRecentNewOrder = newOrders.get(0);
-                if (mostRecentNewOrder.getCreated().isAfter(mostRecentNewOrder.getUpdated())) {
-                    mostRecentOrderDate = mostRecentNewOrder.getCreated();
-                } else {
-                    mostRecentOrderDate = mostRecentNewOrder.getUpdated();
-                }
-            }
-
             updateNewOrders(newOrders);
             orderService.restart();
         });
@@ -281,6 +272,13 @@ public class ControllerLoggedSecondStyle {
 
     private void updateNewOrders(List<Order> newOrders) {
         newOrders.forEach(order -> {
+
+            if(order.getUpdated().isAfter(mostRecentOrderDate)) {
+                mostRecentOrderDate = order.getUpdated();
+            }else if(order.getCreated().isAfter(mostRecentOrderDate)){
+                mostRecentOrderDate = order.getCreated();
+            }
+            
             int orderId = order.getId();
             Order orderValue = loggedUser.getOrders().get(orderId);
 
