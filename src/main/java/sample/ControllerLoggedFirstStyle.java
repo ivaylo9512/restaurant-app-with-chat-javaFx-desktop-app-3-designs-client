@@ -244,6 +244,7 @@ public class ControllerLoggedFirstStyle {
             Order orderValue = loggedUser.getOrders().get(orderId);
 
             if (orderValue != null) {
+                //Todo
                 orderValue.setDishes(order.getDishes());
                 orderValue.setUpdated(order.getUpdated());
 
@@ -867,11 +868,10 @@ public class ControllerLoggedFirstStyle {
         chatsMap.clear();
         menuMap.clear();
 
-        Platform.runLater(() -> {
-            orderService.reset();
-            messageService.reset();
-        });
+        orderService.cancel();
+        messageService.cancel();
     }
+
     @FXML
     public void logOut(){
         try {

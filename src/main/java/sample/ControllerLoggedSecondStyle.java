@@ -480,10 +480,8 @@ public class ControllerLoggedSecondStyle {
         fadeOut.setToValue(0);
         fadeOut.play();
 
-        Platform.runLater(() -> {
-            orderService.reset();
-            messageService.reset();
-        });
+        orderService.cancel();
+        messageService.cancel();
     }
     private void displayUserFields() {
         usernameLabel.setText(loggedUser.getUsername());

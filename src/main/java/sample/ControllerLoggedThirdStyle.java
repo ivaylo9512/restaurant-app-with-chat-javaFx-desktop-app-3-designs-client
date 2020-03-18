@@ -255,10 +255,8 @@ public class ControllerLoggedThirdStyle {
         currentView = null;
         currentMenu= null;
 
-        Platform.runLater(() -> {
-            orderService.reset();
-            messageService.reset();
-        });
+        orderService.cancel();
+        messageService.cancel();
     }
     private void displayUserFields() {
         usernameLabel.setText(loggedUser.getUsername());
