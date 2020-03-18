@@ -118,22 +118,9 @@ public class ControllerLoginThirdStyle {
         ServerRequests.loggedUserProperty.set(loggedUser);
         ServerRequests.loggedUser = loggedUser;
 
-        if(LoggedThirdStyle.stage != null){
-            LoggedThirdStyle.stage.show();
-            loginAnimation();
-        }else {
-            Platform.runLater(() -> {
-                try {
-                    LoggedThirdStyle.displayLoggedScene();
-                    loginAnimation();
-                } catch (Exception e) {
-                    DialogPane dialog = LoginThirdStyle.alert.getDialogPane();
-                    dialog.setContentText(e.getMessage());
-                    LoginThirdStyle.alert.showAndWait();
-                }
+        LoggedThirdStyle.stage.show();
+        loginAnimation();
 
-            });
-        }
         username.setDisable(false);
         password.setDisable(false);
         resetFields();
@@ -163,9 +150,8 @@ public class ControllerLoginThirdStyle {
         fadeOut.setToValue(0);
         fadeOut.setDelay(Duration.millis(200));
 
-        Timeline closeStage = new Timeline(new KeyFrame(Duration.millis(500), event -> {
-            LoginThirdStyle.stage.close();
-        }));
+        Timeline closeStage = new Timeline(new KeyFrame(Duration.millis(500), event ->
+                LoginThirdStyle.stage.close()));
 
         SequentialTransition sequentialTransition = new SequentialTransition(parallelTransition, fadeOut,closeStage);
         sequentialTransition.play();

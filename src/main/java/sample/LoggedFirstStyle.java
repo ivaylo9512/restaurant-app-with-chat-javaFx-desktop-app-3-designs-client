@@ -20,7 +20,15 @@ public class LoggedFirstStyle extends LoginFirstStyle {
     static Stage stage;
     public static ControllerLoggedFirstStyle controller;
 
-    public static void displayLoggedScene() throws IOException {
+    static{
+        try {
+            initializeStage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void initializeStage() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         FXMLLoader loader = new FXMLLoader(LoggedFirstStyle.class.getResource("/FXML/logged-first.fxml"));
@@ -29,7 +37,7 @@ public class LoggedFirstStyle extends LoginFirstStyle {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(LoggedFirstStyle.class.getResource("/css/logged-first.css").toString());
         scene.setFill(Color.TRANSPARENT);
-        controller = loader.getController();
+        ControllerLoggedFirstStyle controller = loader.getController();
         stage = new Stage();
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(isShowing) {

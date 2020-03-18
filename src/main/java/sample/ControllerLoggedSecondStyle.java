@@ -570,7 +570,7 @@ public class ControllerLoggedSecondStyle {
         LoginSecondStyle.stage.show();
     }
     @FXML
-    public void showLoggedFirstStyle(){
+    public void showLoggedFirstStyle() {
         try {
             httpClientLongPolling.close();
         } catch (IOException e) {
@@ -579,21 +579,9 @@ public class ControllerLoggedSecondStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedSecondStyle.stage.close();
-        if(LoggedFirstStyle.stage != null){
-            LoggedFirstStyle.stage.show();
-
-        }else {
-            try {
-                LoggedFirstStyle.displayLoggedScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-
-            }
-        }
+        LoggedFirstStyle.stage.show();
     }
+
     @FXML
     public void showLoggedThirdStyle(){
         try {
@@ -604,20 +592,7 @@ public class ControllerLoggedSecondStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedSecondStyle.stage.close();
-        if(LoggedThirdStyle.stage != null){
-            LoggedThirdStyle.stage.show();
-        }else {
-
-            try {
-                LoggedThirdStyle.displayLoggedScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-
-            }
-        }
+        LoggedThirdStyle.stage.show();
     }
     @FXML
     public void showProfile(){

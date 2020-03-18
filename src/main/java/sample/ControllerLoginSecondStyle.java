@@ -110,21 +110,9 @@ public class ControllerLoginSecondStyle {
         ServerRequests.loggedUserProperty.set(loggedUser);
         ServerRequests.loggedUser = loggedUser;
 
-        if(LoggedSecondStyle.stage != null){
-            LoggedSecondStyle.stage.show();
-            LoginSecondStyle.stage.close();
-        }else {
-            Platform.runLater(() -> {
-                try {
-                    LoggedSecondStyle.displayLoggedScene();
-                    LoginSecondStyle.stage.close();
-                } catch (Exception e) {
-                    DialogPane dialog = LoginSecondStyle.alert.getDialogPane();
-                    dialog.setContentText(e.getMessage());
-                    LoginSecondStyle.alert.showAndWait();
-                }
-            });
-        }
+        LoggedSecondStyle.stage.show();
+        LoginSecondStyle.stage.close();
+
         loginFields.setDisable(false);
         resetFields();
         root.setCursor(Cursor.DEFAULT);

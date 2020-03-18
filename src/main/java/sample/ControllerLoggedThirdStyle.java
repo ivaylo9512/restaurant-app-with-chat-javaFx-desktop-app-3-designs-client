@@ -966,20 +966,8 @@ public class ControllerLoggedThirdStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedThirdStyle.stage.close();
-        if(LoggedFirstStyle.stage != null){
-            LoggedFirstStyle.stage.show();
+        LoggedFirstStyle.stage.show();
 
-        }else {
-            try {
-                LoggedFirstStyle.displayLoggedScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                DialogPane dialogPane = LoginFirstStyle.alert.getDialogPane();
-                dialogPane.setContentText(e.getMessage());
-                LoginFirstStyle.alert.showAndWait();
-
-            }
-        }
     }
     @FXML
     public void showLoggedSecondStyle(){
@@ -991,16 +979,7 @@ public class ControllerLoggedThirdStyle {
         httpClientLongPolling = HttpClients.createDefault();
 
         LoggedThirdStyle.stage.close();
-        if(LoggedSecondStyle.stage != null){
-            LoggedSecondStyle.stage.show();
-        }else {
-            try {
-                LoggedSecondStyle.displayLoggedScene();
-            } catch (Exception e) {
-                LoginFirstStyle.stage.show();
-                showLoginStageAlert(e.getMessage());
-            }
-        }
+        LoggedSecondStyle.stage.show();
     }
     private void showLoggedStageAlert(String message) {
         if(!LoggedThirdStyle.alert.isShowing()) {

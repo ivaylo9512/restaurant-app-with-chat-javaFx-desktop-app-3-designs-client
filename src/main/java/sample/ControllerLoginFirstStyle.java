@@ -133,21 +133,8 @@ public class ControllerLoginFirstStyle {
         ServerRequests.loggedUserProperty.set(loggedUser);
         ServerRequests.loggedUser = loggedUser;
 
-        if(LoggedFirstStyle.stage != null){
-            LoggedFirstStyle.stage.show();
-            LoginFirstStyle.stage.close();
-        }else {
-            Platform.runLater(() -> {
-                try {
-                    LoggedFirstStyle.displayLoggedScene();
-                    LoginFirstStyle.stage.close();
-                } catch (Exception e) {
-                    DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
-                    dialog.setContentText(e.getMessage());
-                    LoginFirstStyle.alert.showAndWait();
-                }
-            });
-        }
+        LoggedFirstStyle.stage.show();
+        LoginFirstStyle.stage.close();
 
         loginFields.setOpacity(0);
         loginFields.setDisable(true);

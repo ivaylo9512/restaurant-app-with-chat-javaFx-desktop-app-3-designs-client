@@ -20,7 +20,14 @@ public class LoggedThirdStyle extends LoginFirstStyle{
     public static Stage stage;
     public static ControllerLoggedThirdStyle controller;
 
-    static void displayLoggedScene() throws IOException {
+    static {
+        try {
+            initializeStage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private static void initializeStage() throws IOException {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         FXMLLoader loader = new FXMLLoader(LoggedThirdStyle.class.getResource("/FXML/logged-third.fxml"));
         Pane root = loader.load();
@@ -30,7 +37,7 @@ public class LoggedThirdStyle extends LoginFirstStyle{
         scene.getStylesheets().add(LoggedThirdStyle.class.getResource("/css/logged-third.css").toString());
 
         stage = new Stage();
-        controller = loader.getController();
+        ControllerLoggedThirdStyle controller = loader.getController();
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(isShowing) {
                 try {

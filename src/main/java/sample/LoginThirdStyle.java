@@ -17,15 +17,15 @@ public class LoginThirdStyle extends LoginFirstStyle {
     static Alert alert;
     static Stage stage;
 
-    static{
+    static {
         try {
-            initializeThirdStyle();
+            initializeStage();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void initializeThirdStyle() throws IOException{
+    private static void initializeStage() throws IOException{
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         FXMLLoader loader = new FXMLLoader(LoggedSecondStyle.class.getResource("/FXML/login-third.fxml"));
