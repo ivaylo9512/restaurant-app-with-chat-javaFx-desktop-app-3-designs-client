@@ -1,13 +1,9 @@
 package Helpers;
 
-import Helpers.Services.MessageService;
-import Helpers.Services.OrderService;
 import Models.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.apache.http.HttpEntity;
@@ -243,23 +239,4 @@ public class ServerRequests {
             }
         }
     }
-    public static void stopRequest() throws Exception{
-        HttpPatch httpPatch = new HttpPatch(base + "/api/order/auth/removeRequest");
-        httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
-
-        try(CloseableHttpResponse response = httpClient.execute(httpPatch)){
-            int statusCode = response.getStatusLine().getStatusCode();
-
-            HttpEntity responseEntity = response.getEntity();
-            String content = EntityUtils.toString(responseEntity);
-            EntityUtils.consume(responseEntity);
-
-            if(statusCode != 200){
-                throw new HttpException(content);
-            }
-        }
-    }
-
-
-
 }

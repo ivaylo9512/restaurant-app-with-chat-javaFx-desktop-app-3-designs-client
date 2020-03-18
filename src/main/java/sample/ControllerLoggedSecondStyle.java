@@ -278,7 +278,7 @@ public class ControllerLoggedSecondStyle {
             }else if(order.getCreated().isAfter(mostRecentOrderDate)){
                 mostRecentOrderDate = order.getCreated();
             }
-            
+
             int orderId = order.getId();
             Order orderValue = loggedUser.getOrders().get(orderId);
 
