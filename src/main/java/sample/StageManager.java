@@ -33,6 +33,23 @@ public class StageManager extends Application {
         scene.getStylesheets().add(getClass().getResource("/css/login-first.css").toString());
         scene.setFill(Color.TRANSPARENT);
         ControllerLoginFirstStyle controller = loader.getController();
+
+        firstAlert = createAlert(firstStage);
+        return firstStage = createStage(stage, scene, controller);
+    }
+
+    private static Alert createAlert(Stage stage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(stage);
+        alert.initStyle(StageStyle.TRANSPARENT);
+        DialogPane dialog = alert.getDialogPane();
+        dialog.setGraphic(null);
+        dialog.getStyleClass().add("alert-box");
+        return alert;
+    }
+
+    private static Stage createStage(Stage stage, Scene scene, Controller controller) {
+
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(!isShowing){
                 controller.resetStage();
@@ -47,6 +64,6 @@ public class StageManager extends Application {
         stage.setHeight(primaryScreenBounds.getHeight());
         stage.setX(primaryScreenBounds.getMinX());
         stage.setY(primaryScreenBounds.getMinY());
+        return stage;
     }
-
 }
