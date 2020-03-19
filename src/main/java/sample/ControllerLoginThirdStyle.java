@@ -28,7 +28,7 @@ import javafx.util.Duration;
 
 import java.net.ConnectException;
 
-public class ControllerLoginThirdStyle {
+public class ControllerLoginThirdStyle implements Controller{
     @FXML public TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane root, loginPane, loginFields, registerFields, nextRegisterFields, styleButtons, contentRoot, menu;
     @FXML Button actionBtn;

@@ -24,7 +24,7 @@ import javafx.stage.Screen;
 
 import java.net.ConnectException;
 
-public class ControllerLoginSecondStyle {
+public class ControllerLoginSecondStyle implements Controller{
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane root, loginPane, loginFields, registerFields, nextRegisterFields, styleButtons;
     @FXML Button actionBtn;

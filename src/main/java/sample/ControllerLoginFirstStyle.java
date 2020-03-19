@@ -26,7 +26,7 @@ import javafx.util.Duration;
 import java.net.ConnectException;
 import java.util.ArrayList;
 
-public class ControllerLoginFirstStyle {
+public class ControllerLoginFirstStyle implements  Controller{
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane contentRoot;
     @FXML Pane root, background, menu, loginFields, registerFields, nextRegisterFields, styleButtons;
