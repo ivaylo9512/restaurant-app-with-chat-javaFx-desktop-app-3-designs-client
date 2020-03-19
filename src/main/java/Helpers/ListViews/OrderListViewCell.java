@@ -99,8 +99,7 @@ public class OrderListViewCell extends ListCell<Order> {
 
             dishesBox.prefWidthProperty().bind(dishesScroll.widthProperty().subtract(14.65));
             dishesBox.getChildren().clear();
-            Order orderValue = loggedUserProperty.getValue().getOrders().get(order.getId());
-            orderValue.getDishes().forEach(dish -> {
+            order.getDishes().forEach(dish -> {
                 Label amount = new Label("3");
                 amount.getStyleClass().add("amount");
 

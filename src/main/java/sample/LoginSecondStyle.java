@@ -40,20 +40,17 @@ public class LoginSecondStyle extends LoginFirstStyle {
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(!isShowing) {
                 controller.resetStage();
+            }else{
+                controller.setStage();
             }
         });
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.show();
 
         stage.setWidth(primaryScreenBounds.getWidth());
         stage.setHeight(primaryScreenBounds.getHeight());
         stage.setX(primaryScreenBounds.getMinX());
         stage.setY(primaryScreenBounds.getMinY());
-
-        Pane loginPane = (Pane) root.getChildren().get(0);
-        loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
-        loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
 
         alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(stage);

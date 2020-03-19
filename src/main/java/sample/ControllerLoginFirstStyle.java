@@ -5,7 +5,9 @@ import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
 import javafx.animation.*;
-import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import java.net.ConnectException;
+import java.util.ArrayList;
 
 public class ControllerLoginFirstStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
@@ -143,6 +146,13 @@ public class ControllerLoginFirstStyle {
 
         resetFields();
         service.reset();
+    }
+
+    public void setStage(){
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
+        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2 - 17.2);
     }
 
     public void resetStage(){

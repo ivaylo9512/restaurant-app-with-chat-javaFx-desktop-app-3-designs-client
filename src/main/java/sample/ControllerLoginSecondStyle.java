@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -19,12 +20,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 
 import java.net.ConnectException;
 
 public class ControllerLoginSecondStyle {
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML AnchorPane root, loginFields, registerFields, nextRegisterFields, styleButtons;
+    @FXML AnchorPane root, loginPane, loginFields, registerFields, nextRegisterFields, styleButtons;
     @FXML Button actionBtn;
     @FXML ImageView actionBtnImage;
     @FXML Image loginImage;
@@ -118,6 +120,12 @@ public class ControllerLoginSecondStyle {
         root.setCursor(Cursor.DEFAULT);
 
         service.reset();
+    }
+    public void setStage(){
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
+        loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2 - 17.2);
     }
 
     public void resetStage(){
