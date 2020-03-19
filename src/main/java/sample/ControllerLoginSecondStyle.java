@@ -21,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.net.ConnectException;
 
@@ -195,13 +196,13 @@ public class ControllerLoginSecondStyle implements Controller{
 
     @FXML
     public void showLoginThirdStyle(){
-        LoginSecondStyle.stage.close();
-        LoginThirdStyle.stage.show();
+        StageManager.currentStage.close();
+        StageManager.thirdLoginStage.show();
     }
     @FXML
     public void showLoginFirstStyle(){
-        LoginSecondStyle.stage.close();
-        LoginFirstStyle.stage.show();
+        StageManager.currentStage.close();
+        StageManager.firstLoginStage.show();
     }
 
     @FXML

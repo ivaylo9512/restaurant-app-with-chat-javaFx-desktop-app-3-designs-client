@@ -254,13 +254,13 @@ public class ControllerLoginFirstStyle implements  Controller{
     }
     @FXML
     public void showLoginThirdStyle(){
-        LoginFirstStyle.stage.close();
-        LoginThirdStyle.stage.show();
+        StageManager.currentStage.close();
+        StageManager.thirdLoginStage.show();
     }
     @FXML
     public void showLoginSecondStyle(){
-        LoginFirstStyle.stage.close();
-        LoginSecondStyle.stage.show();
+        StageManager.currentStage.close();
+        StageManager.secondLoginStage.show();
     }
 
     @FXML
