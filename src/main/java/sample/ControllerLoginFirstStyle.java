@@ -152,7 +152,7 @@ public class ControllerLoginFirstStyle implements  Controller{
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
-        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2 - 17.2);
+        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
     }
 
     public void resetStage(){
@@ -254,13 +254,12 @@ public class ControllerLoginFirstStyle implements  Controller{
     }
     @FXML
     public void showLoginThirdStyle(){
-        StageManager.currentStage.close();
-        StageManager.thirdLoginStage.show();
+        StageManager.changeStage(StageManager.thirdLoginStage);
     }
     @FXML
     public void showLoginSecondStyle(){
-        StageManager.currentStage.close();
-        StageManager.secondLoginStage.show();
+        StageManager.changeStage(StageManager.secondLoginStage);
+
     }
 
     @FXML

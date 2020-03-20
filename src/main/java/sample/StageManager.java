@@ -15,21 +15,49 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class StageManager extends Application {
-    static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    static Stage currentStage;
+    static Controller currentController;
+    static Alert currentAlert;
+
+    static Alert firstLoginAlert;
+    static Controller firstLoginController;
+    static Stage firstLoginStage;
+    static Alert secondLoginAlert;
+    static Controller secondLoginController;
+    static Stage secondLoginStage;
+    static Alert thirdLoginAlert;
+    static Controller thirdLoginController;
+    static Stage thirdLoginStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        initializeFirstLoginStyle(primaryStage).show();
+        currentStage = initializeFirstLoginStyle(primaryStage);
+        currentStage.show();
+
         initializeSecondLoginStyle(new Stage());
         initializeThirdLoginStyle(new Stage());
 
     }
-    static Alert firstLoginAlert;
-    static Stage firstLoginStage;
-    static Alert secondLoginAlert;
-    static Stage secondLoginStage;
-    static Alert thirdLoginAlert;
-    static Stage thirdLoginStage;
+    public static void changeStage(Stage stage){
+        currentStage.close();
+
+        if(stage == firstLoginStage){
+            currentStage = firstLoginStage;
+            currentController = firstLoginController;
+            currentAlert = firstLoginAlert;
+        }else if(stage == secondLoginStage){
+            currentStage = secondLoginStage;
+            currentController = secondLoginController;
+            currentAlert = secondLoginAlert;
+        }else if(stage == thirdLoginStage){
+            currentStage = thirdLoginStage;
+            currentController = thirdLoginController;
+            currentAlert = thirdLoginAlert;
+        }
+
+        currentStage.show();
+    }
     private Stage initializeFirstLoginStyle(Stage stage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-first.fxml"));
@@ -39,9 +67,9 @@ public class StageManager extends Application {
         scene.getStylesheets().add(getClass().getResource("/css/login-first.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
-        ControllerLoginFirstStyle controller = loader.getController();
+        firstLoginController = loader.getController();
         firstLoginAlert = createAlert(firstLoginStage);
-        return firstLoginStage = createStage(stage, scene, controller);
+        return firstLoginStage = createStage(stage, scene, firstLoginController);
     }
 
     private Stage initializeSecondLoginStyle(Stage stage) throws IOException {
@@ -52,9 +80,9 @@ public class StageManager extends Application {
         scene.getStylesheets().add(LoggedSecondStyle.class.getResource("/css/login-second.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
-        ControllerLoginSecondStyle controller = loader.getController();
+        secondLoginController = loader.getController();
         secondLoginAlert = createAlert(secondLoginStage);
-        return secondLoginStage = createStage(stage, scene, controller);
+        return secondLoginStage = createStage(stage, scene, secondLoginController);
     }
 
     private Stage initializeThirdLoginStyle(Stage stage) throws IOException {
@@ -65,9 +93,9 @@ public class StageManager extends Application {
         scene.getStylesheets().add(LoggedSecondStyle.class.getResource("/css/login-third.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
-        ControllerLoginThirdStyle controller = loader.getController();
+        thirdLoginController = loader.getController();
         thirdLoginAlert = createAlert(thirdLoginStage);
-        return thirdLoginStage= createStage(stage, scene, controller);
+        return thirdLoginStage= createStage(stage, scene, thirdLoginController);
     }
 
     private static Alert createAlert(Stage stage) {
@@ -80,7 +108,7 @@ public class StageManager extends Application {
         return alert;
     }
 
-    private static Stage createStage(Stage stage, Scene scene, Controller controller) {
+    private Stage createStage(Stage stage, Scene scene, Controller controller) {
 
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(!isShowing){
