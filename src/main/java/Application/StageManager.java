@@ -1,6 +1,5 @@
-package sample;
+package Application;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -11,27 +10,29 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sample.Controller;
+import sample.LoggedSecondStyle;
+
 
 import java.io.IOException;
 
-public class StageManager extends Application {
+public class StageManager {
     Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
     static Stage currentStage;
     static Controller currentController;
     static Alert currentAlert;
 
-    static Alert firstLoginAlert;
-    static Controller firstLoginController;
-    static Stage firstLoginStage;
-    static Alert secondLoginAlert;
-    static Controller secondLoginController;
-    static Stage secondLoginStage;
-    static Alert thirdLoginAlert;
-    static Controller thirdLoginController;
-    static Stage thirdLoginStage;
+    public static Alert firstLoginAlert;
+    public static Controller firstLoginController;
+    public static Stage firstLoginStage;
+    public static Alert secondLoginAlert;
+    public static Controller secondLoginController;
+    public static Stage secondLoginStage;
+    public static Alert thirdLoginAlert;
+    public static Controller thirdLoginController;
+    public static Stage thirdLoginStage;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void initializeStages(Stage primaryStage) throws Exception {
         currentStage = initializeFirstLoginStyle(primaryStage);
         currentStage.show();
 
@@ -41,7 +42,6 @@ public class StageManager extends Application {
     }
     public static void changeStage(Stage stage){
         currentStage.close();
-
         if(stage == firstLoginStage){
             currentStage = firstLoginStage;
             currentController = firstLoginController;
@@ -55,7 +55,6 @@ public class StageManager extends Application {
             currentController = thirdLoginController;
             currentAlert = thirdLoginAlert;
         }
-
         currentStage.show();
     }
     private Stage initializeFirstLoginStyle(Stage stage) throws IOException {
@@ -86,7 +85,7 @@ public class StageManager extends Application {
     }
 
     private Stage initializeThirdLoginStyle(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoggedSecondStyle.class.getResource("/FXML/login-third.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-third.fxml"));
         Pane root = loader.load();
 
         Scene scene = new Scene(root);
