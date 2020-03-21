@@ -32,6 +32,15 @@ public class StageManager {
     public static Alert thirdLoginAlert;
     public static Controller thirdLoginController;
     public static Stage thirdLoginStage;
+    public static Alert firstLoggedAlert;
+    public static Controller firstLoggedController;
+    public static Stage firstLoggedStage;
+    public static Alert secondLoggedAlert;
+    public static Controller secondLoggedController;
+    public static Stage secondLoggedStage;
+    public static Alert thirdLoggedAlert;
+    public static Controller thirdLoggedController;
+    public static Stage thirdLoggedStage;
 
     public void initializeStages(Stage primaryStage) throws Exception {
         currentStage = initializeFirstLoginStyle(primaryStage);
@@ -39,6 +48,9 @@ public class StageManager {
 
         initializeSecondLoginStyle(new Stage());
         initializeThirdLoginStyle(new Stage());
+        initializeFirstLoggedStyle(new Stage());
+        initializeSecondLoggedStyle(new Stage());
+        initializeThirdLoggedStyle(new Stage());
 
     }
     public static void changeStage(Stage stage){
@@ -96,6 +108,45 @@ public class StageManager {
         thirdLoginController = loader.getController();
         thirdLoginAlert = createAlert(thirdLoginStage);
         return thirdLoginStage= createStage(stage, scene, thirdLoginController);
+    }
+
+    private Stage initializeFirstLoggedStyle(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-first.fxml"));
+        Pane root = loader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/logged-first.css").toString());
+        scene.setFill(Color.TRANSPARENT);
+
+        firstLoggedController = loader.getController();
+        firstLoggedAlert = createAlert(thirdLoginStage);
+        return firstLoggedStage = createStage(stage, scene, firstLoggedController);
+    }
+
+    private Stage initializeSecondLoggedStyle(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-second.fxml"));
+        Pane root = loader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/logged-second.css").toString());
+        scene.setFill(Color.TRANSPARENT);
+
+        secondLoggedController = loader.getController();
+        secondLoggedAlert = createAlert(thirdLoginStage);
+        return secondLoggedStage = createStage(stage, scene, secondLoggedController);
+    }
+
+    private Stage initializeThirdLoggedStyle(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-third.fxml"));
+        Pane root = loader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/logged-third.css").toString());
+        scene.setFill(Color.TRANSPARENT);
+
+        thirdLoggedController = loader.getController();
+        thirdLoggedAlert = createAlert(thirdLoginStage);
+        return thirdLoggedStage = createStage(stage, scene, thirdLoggedController);
     }
 
     private static Alert createAlert(Stage stage) {
