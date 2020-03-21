@@ -17,7 +17,7 @@ public class User {
     private String profilePicture;
     private Restaurant restaurant;
 
-    private Image image;
+    public Image image;
 
     private Map<Integer, Order> orders = new LinkedHashMap<>();
 

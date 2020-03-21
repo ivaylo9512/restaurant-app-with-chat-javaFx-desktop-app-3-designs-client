@@ -4,6 +4,7 @@ import Animations.MoveRoot;
 import Animations.ResizeRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
+import Application.RestaurantApplication;
 import Helpers.ListViews.ChatsListViewCell;
 import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
@@ -13,7 +14,6 @@ import Helpers.Services.OrderService;
 import Models.*;
 import Models.Menu;
 import javafx.animation.*;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -559,16 +559,9 @@ public class ControllerLoggedSecondStyle {
 
     @FXML
     public void logOut(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        LoggedSecondStyle.stage.close();
-        LoginSecondStyle.stage.show();
+        RestaurantApplication.logout();
     }
+
     @FXML
     public void showLoggedFirstStyle() {
         try {

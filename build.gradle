@@ -31,5 +31,12 @@ javafx {
 
 run {
     main = 'Application.RestaurantApplication'
+    tasks.withType(Test) {
+    jvmArgs += ['--add-opens', 'java.base/java.lang=ALL-UNNAMED']
+    }
+}
+
+tasks.withType(Test) {
+    jvmArgs += ['--add-opens', 'java.base/java.lang=ALL-UNNAMED']
 }
 

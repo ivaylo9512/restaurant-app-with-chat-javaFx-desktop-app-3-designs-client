@@ -1,6 +1,7 @@
 package sample;
 
 import Animations.*;
+import Application.RestaurantApplication;
 import Application.StageManager;
 import Helpers.ListViews.OrderListViewCell;
 import Helpers.Services.MessageService;
@@ -875,16 +876,9 @@ public class ControllerLoggedFirstStyle {
 
     @FXML
     public void logOut(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        LoggedFirstStyle.stage.close();
-        LoginFirstStyle.stage.show();
+        RestaurantApplication.logout();
     }
+
     @FXML
     public void showLoggedSecondStyle(){
         try {

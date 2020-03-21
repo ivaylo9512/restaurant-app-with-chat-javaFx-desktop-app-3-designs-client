@@ -3,6 +3,7 @@ package sample;
 import Animations.MoveRoot;
 import Animations.ResizeRoot;
 import Animations.TransitionResizeWidth;
+import Application.RestaurantApplication;
 import Helpers.ListViews.*;
 import Helpers.Scrolls;
 import Helpers.Services.MessageService;
@@ -945,15 +946,7 @@ public class ControllerLoggedThirdStyle {
 
     @FXML
     public void logOut(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        LoggedThirdStyle.stage.close();
-        LoginThirdStyle.stage.show();
+        RestaurantApplication.logout();
     }
 
     @FXML
