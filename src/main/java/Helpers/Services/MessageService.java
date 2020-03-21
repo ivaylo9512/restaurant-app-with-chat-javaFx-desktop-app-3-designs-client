@@ -1,26 +1,17 @@
 package Helpers.Services;
 
 import Models.Message;
-import Models.Order;
 import com.fasterxml.jackson.core.type.TypeReference;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
-import javafx.util.Duration;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import sample.LoggedFirstStyle;
-import sample.LoginFirstStyle;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

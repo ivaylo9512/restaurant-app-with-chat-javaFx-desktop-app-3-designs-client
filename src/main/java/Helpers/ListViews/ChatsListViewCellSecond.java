@@ -2,7 +2,6 @@ package Helpers.ListViews;
 
 import Animations.TransitionResizeWidth;
 import Models.Chat;
-import Models.Message;
 import Models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +13,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import sample.LoggedThirdStyle;
 
 import java.io.IOException;
-import java.util.List;
 
 import static Helpers.ServerRequests.loggedUser;
 

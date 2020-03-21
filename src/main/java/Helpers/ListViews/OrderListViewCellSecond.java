@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import sample.LoggedThirdStyle;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;

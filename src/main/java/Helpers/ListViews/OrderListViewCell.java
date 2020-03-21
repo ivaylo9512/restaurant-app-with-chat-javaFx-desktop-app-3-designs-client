@@ -11,13 +11,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import sample.LoggedFirstStyle;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
-
-import static Helpers.ServerRequests.loggedUserProperty;
 
 public class OrderListViewCell extends ListCell<Order> {
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
