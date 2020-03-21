@@ -46,6 +46,7 @@ public class StageManager {
 
         initializeSecondLoginStyle(new Stage());
         initializeThirdLoginStyle(new Stage());
+
         initializeFirstLoggedStyle(new Stage());
         initializeSecondLoggedStyle(new Stage());
         initializeThirdLoggedStyle(new Stage());
@@ -65,6 +66,18 @@ public class StageManager {
             currentStage = thirdLoginStage;
             currentController = thirdLoginController;
             currentAlert = thirdLoginAlert;
+        }else if(stage == firstLoggedStage){
+            currentStage = firstLoggedStage;
+            currentController = firstLoggedController;
+            currentAlert = firstLoggedAlert;
+        }else if(stage == secondLoggedStage){
+            currentStage = secondLoggedStage;
+            currentController = secondLoggedController;
+            currentAlert = secondLoggedAlert;
+        }else if(stage == thirdLoggedStage){
+            currentStage = thirdLoggedStage;
+            currentController = thirdLoggedController;
+            currentAlert = thirdLoggedAlert;
         }
         currentStage.show();
     }
@@ -83,11 +96,11 @@ public class StageManager {
     }
 
     private Stage initializeSecondLoginStyle(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoggedSecondStyle.class.getResource("/FXML/login-second.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-second.fxml"));
         Pane root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(LoggedSecondStyle.class.getResource("/css/login-second.css").toString());
+        scene.getStylesheets().add(getClass().getResource("/css/login-second.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         secondLoginController = loader.getController();
@@ -100,7 +113,7 @@ public class StageManager {
         Pane root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(LoggedSecondStyle.class.getResource("/css/login-third.css").toString());
+        scene.getStylesheets().add(getClass().getResource("/css/login-third.css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         thirdLoginController = loader.getController();
