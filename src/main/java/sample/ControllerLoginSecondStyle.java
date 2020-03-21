@@ -1,10 +1,10 @@
 package sample;
 
+import Application.StageManager;
 import Helpers.ServerRequests;
 import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
-import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -21,7 +21,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 
 import java.net.ConnectException;
 
@@ -174,7 +173,6 @@ public class ControllerLoginSecondStyle implements Controller{
     @FXML void showStyleButtons(){
         showMenu(styleButtons);
         actionBtn.setOnMouseClicked(event -> close());
-
     }
 
     private void showMenu(Pane requestedMenu){
@@ -205,6 +203,6 @@ public class ControllerLoginSecondStyle implements Controller{
 
     @FXML
     public void close(){
-        LoginSecondStyle.stage.close();
+        StageManager.currentStage.close();
     }
 }

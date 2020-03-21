@@ -1,6 +1,7 @@
 package sample;
 
 import Animations.*;
+import Application.StageManager;
 import Helpers.ListViews.OrderListViewCell;
 import Helpers.Services.MessageService;
 import Helpers.Services.OrderService;
@@ -911,12 +912,12 @@ public class ControllerLoggedFirstStyle {
     }
     @FXML
     public void minimize(){
-        LoggedFirstStyle.stage.setIconified(true);
+        StageManager.currentStage.setIconified(true);
     }
 
     @FXML
     public void close(){
-        LoggedFirstStyle.stage.close();
+        StageManager.currentStage.close();
     }
 
     public void updateDishStatus(int orderId, int dishId) {

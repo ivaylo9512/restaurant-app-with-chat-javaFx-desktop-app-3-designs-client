@@ -2,12 +2,12 @@ package sample;
 
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
+import Application.StageManager;
 import Helpers.ServerRequests;
 import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
 import javafx.animation.*;
-import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -253,7 +253,6 @@ public class ControllerLoginThirdStyle implements Controller{
     @FXML
     public void showLoginSecondStyle(){
         StageManager.changeStage(StageManager.secondLoginStage);
-
     }
 
     @FXML
@@ -293,11 +292,11 @@ public class ControllerLoginThirdStyle implements Controller{
 
     @FXML
     public void minimize(){
-        LoginThirdStyle.stage.setIconified(true);
+        StageManager.currentStage.setIconified(true);
     }
 
     @FXML
     public void close(){
-        LoginThirdStyle.stage.close();
+        StageManager.currentStage.close();
     }
 }

@@ -1,19 +1,19 @@
 package Application;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import sample.LoggedSecondStyle;
-import sample.LoginFirstStyle;
-import Application.StageManager;
-import java.io.IOException;
 
-public class RestaurantApplication{
+public class RestaurantApplication extends Application{
 
 
     public static void main(String[] args) {
-        Application.launch(StageManager.class, args);
+        Application.launch(args);
 
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        StageManager stageManager = new StageManager();
+        stageManager.initializeStages(primaryStage);
     }
 }

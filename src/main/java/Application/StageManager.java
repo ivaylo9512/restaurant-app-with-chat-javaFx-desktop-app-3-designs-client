@@ -1,5 +1,6 @@
 package Application;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -18,9 +19,9 @@ import java.io.IOException;
 
 public class StageManager {
     Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-    static Stage currentStage;
-    static Controller currentController;
-    static Alert currentAlert;
+    public static Stage currentStage;
+    public static Controller currentController;
+    public static Alert currentAlert;
 
     public static Alert firstLoginAlert;
     public static Controller firstLoginController;

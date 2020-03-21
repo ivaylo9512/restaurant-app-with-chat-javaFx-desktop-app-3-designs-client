@@ -1,13 +1,11 @@
 package sample;
 
+import Application.StageManager;
 import Helpers.ServerRequests;
 import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
 import javafx.animation.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -24,7 +22,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import java.net.ConnectException;
-import java.util.ArrayList;
 
 public class ControllerLoginFirstStyle implements  Controller{
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
@@ -264,12 +261,12 @@ public class ControllerLoginFirstStyle implements  Controller{
 
     @FXML
     public void minimize(){
-        LoginFirstStyle.stage.setIconified(true);
+        StageManager.currentStage.setIconified(true);
     }
 
     @FXML
     public void close(){
-        LoginFirstStyle.stage.close();
+        StageManager.currentStage.close();
     }
 
 }
