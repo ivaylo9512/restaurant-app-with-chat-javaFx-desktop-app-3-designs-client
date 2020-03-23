@@ -28,6 +28,15 @@ public class LoginService extends Service {
     public final StringProperty passwordProperty() { return password; }
 
     @Override
+    public void start() {
+        try{
+            super.start();
+        }catch (IllegalStateException e) {
+            System.out.println("request is executing");
+        }
+    }
+
+    @Override
     protected Task createTask() {
         return new Task<User>() {
             @Override

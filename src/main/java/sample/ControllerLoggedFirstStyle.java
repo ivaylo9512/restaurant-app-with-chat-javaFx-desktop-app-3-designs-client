@@ -11,7 +11,6 @@ import Helpers.ListViews.MenuListViewCell;
 import Models.*;
 import Models.Menu;
 import javafx.animation.*;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -56,7 +55,7 @@ import static Helpers.ServerRequests.*;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
 
 
-public class ControllerLoggedFirstStyle {
+public class ControllerLoggedFirstStyle implements Controller {
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
     @FXML VBox mainChatBlock, chatUsers, notificationBlock;
     @FXML FlowPane notificationInfo, chatInfo, userInfo, userInfoEditable;

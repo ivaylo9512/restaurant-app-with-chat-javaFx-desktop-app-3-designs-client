@@ -1,18 +1,12 @@
 package sample;
 
 import Application.StageManager;
-import Helpers.ServerRequests;
-import Helpers.Services.LoginService;
-import Helpers.Services.RegisterService;
-import Models.User;
 import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,7 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 
-import java.net.ConnectException;
+import static Application.RestaurantApplication.registerService;
+import static Application.RestaurantApplication.loginService;
 
 public class ControllerLoginSecondStyle implements Controller{
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
@@ -30,41 +25,25 @@ public class ControllerLoginSecondStyle implements Controller{
     @FXML Button actionBtn;
     @FXML ImageView actionBtnImage;
     @FXML Image loginImage;
-    private LoginService loginService;
-    private RegisterService registerService;
+
 
     private Pane currentMenu;
 
     @FXML
     public void initialize(){
-        loginService = new LoginService();
-        loginService.usernameProperty().bind(username.textProperty());
-        loginService.passwordProperty().bind(password.textProperty());
-
-        registerService = new RegisterService();
-        registerService.usernameProperty().bind(regUsername.textProperty());
-        registerService.passwordProperty().bind(regPassword.textProperty());
-        registerService.repeatPasswordProperty().bind(regRepeatPassword.textProperty());
-
         currentMenu = loginFields;
     }
 
     @FXML
     public void login(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            try {
-                username.setDisable(true);
-                password.setDisable(true);
-                root.setCursor(Cursor.WAIT);
+            username.setDisable(true);
+            password.setDisable(true);
+            root.setCursor(Cursor.WAIT);
 
-                loginService.start();
-            } catch (IllegalStateException e) {
-                System.out.println("request is executing");
-            }
+            loginService.start();
         }
 
-        loginService.setOnSucceeded(eventSuccess -> changeScene(loginService));
-        loginService.setOnFailed(eventFail -> updateError(loginService));
     }
     @FXML
     public void register(Event event){
@@ -80,10 +59,8 @@ public class ControllerLoginSecondStyle implements Controller{
                 System.out.println("request is executing");
             }
         }
-
-        registerService.setOnSucceeded(eventSuccess -> changeScene(registerService));
-        registerService.setOnFailed(eventFail -> updateError(registerService));
     }
+
     private void updateError(Service service) {
         username.setDisable(false);
         password.setDisable(false);
@@ -91,37 +68,16 @@ public class ControllerLoginSecondStyle implements Controller{
         regPassword.setDisable(false);
         regRepeatPassword.setDisable(false);
         root.setCursor(Cursor.DEFAULT);
-
-        Alert alert = LoginSecondStyle.alert;
-        DialogPane dialog = alert.getDialogPane();
-        try{
-            dialog.setContentText(service.getException().getMessage());
-            throw service.getException();
-        }catch (ConnectException e){
-            dialog.setContentText("No connection to the server.");
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-        alert.showAndWait();
-
-        service.reset();
     }
 
-    private void changeScene(Service service) {
-        User loggedUser = (User) service.getValue();
-        ServerRequests.loggedUserProperty.set(loggedUser);
-        ServerRequests.loggedUser = loggedUser;
-
-        LoggedSecondStyle.stage.show();
-        LoginSecondStyle.stage.close();
-
-        loginFields.setDisable(false);
-        resetFields();
-        root.setCursor(Cursor.DEFAULT);
-
-        service.reset();
-    }
     public void setStage(){
+        loginService.usernameProperty().bind(username.textProperty());
+        loginService.passwordProperty().bind(password.textProperty());
+
+        registerService.usernameProperty().bind(regUsername.textProperty());
+        registerService.passwordProperty().bind(regPassword.textProperty());
+        registerService.repeatPasswordProperty().bind(regRepeatPassword.textProperty());
+
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
@@ -129,6 +85,9 @@ public class ControllerLoginSecondStyle implements Controller{
     }
 
     public void resetStage(){
+        loginFields.setDisable(false);
+        root.setCursor(Cursor.DEFAULT);
+
         showMenu(loginFields);
 
         username.setDisable(false);

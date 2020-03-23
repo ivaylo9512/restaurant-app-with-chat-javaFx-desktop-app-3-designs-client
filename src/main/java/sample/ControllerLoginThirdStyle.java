@@ -3,19 +3,13 @@ package sample;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
 import Application.StageManager;
-import Helpers.ServerRequests;
-import Helpers.Services.LoginService;
-import Helpers.Services.RegisterService;
-import Models.User;
 import javafx.animation.*;
 import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -26,7 +20,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
-import java.net.ConnectException;
+import static Application.RestaurantApplication.loginService;
+import static Application.RestaurantApplication.registerService;
+
 
 public class ControllerLoginThirdStyle implements Controller{
     @FXML public TextField username, password, regUsername, regPassword, regRepeatPassword;
@@ -35,23 +31,12 @@ public class ControllerLoginThirdStyle implements Controller{
     @FXML Text loginBtn;
     @FXML Line menuLine;
     @FXML StackPane logo;
-    private LoginService loginService;
-    private RegisterService registerService;
 
     private Pane currentMenu;
     private Text currentText;
 
     @FXML
     public void initialize(){
-        loginService = new LoginService();
-        loginService.usernameProperty().bind(username.textProperty());
-        loginService.passwordProperty().bind(password.textProperty());
-
-        registerService = new RegisterService();
-        registerService.usernameProperty().bind(regUsername.textProperty());
-        registerService.passwordProperty().bind(regPassword.textProperty());
-        registerService.repeatPasswordProperty().bind(regRepeatPassword.textProperty());
-
         currentMenu = loginFields;
         currentText = loginBtn;
     }
@@ -59,20 +44,14 @@ public class ControllerLoginThirdStyle implements Controller{
     @FXML
     public void login(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            try {
-                username.setDisable(true);
-                password.setDisable(true);
-                root.setCursor(Cursor.WAIT);
+            username.setDisable(true);
+            password.setDisable(true);
+            root.setCursor(Cursor.WAIT);
 
-                loginService.start();
-            } catch (IllegalStateException e) {
-                System.out.println("request is executing");
-            }
+            loginService.start();
         }
-
-        loginService.setOnSucceeded(eventSuccess -> changeScene(loginService));
-        loginService.setOnFailed(eventFail -> updateError(loginService));
     }
+
     @FXML
     public void register(Event event) {
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
@@ -87,11 +66,7 @@ public class ControllerLoginThirdStyle implements Controller{
                 System.out.println("request is executing");
             }
         }
-
-        registerService.setOnSucceeded(eventSuccess -> changeScene(registerService));
-        registerService.setOnFailed(eventFail -> updateError(registerService));
     }
-
     private void updateError(Service service) {
         username.setDisable(false);
         password.setDisable(false);
@@ -99,36 +74,9 @@ public class ControllerLoginThirdStyle implements Controller{
         regPassword.setDisable(false);
         regRepeatPassword.setDisable(false);
         root.setCursor(Cursor.DEFAULT);
-
-        Alert alert = LoginThirdStyle.alert;
-        DialogPane dialog = alert.getDialogPane();
-        try{
-            dialog.setContentText(service.getException().getMessage());
-            throw service.getException();
-        }catch (ConnectException e){
-            dialog.setContentText("No connection to the server.");
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-        alert.showAndWait();
-
-        service.reset();
     }
-
     private void changeScene(Service service) {
-        User loggedUser = (User) service.getValue();
-        ServerRequests.loggedUserProperty.set(loggedUser);
-        ServerRequests.loggedUser = loggedUser;
-
-        LoggedThirdStyle.stage.show();
         loginAnimation();
-
-        username.setDisable(false);
-        password.setDisable(false);
-        resetFields();
-        root.setCursor(Cursor.DEFAULT);
-
-        service.reset();
     }
 
     private void loginAnimation() {
@@ -152,11 +100,12 @@ public class ControllerLoginThirdStyle implements Controller{
         fadeOut.setToValue(0);
         fadeOut.setDelay(Duration.millis(200));
 
-        Timeline closeStage = new Timeline(new KeyFrame(Duration.millis(500), event ->
-                LoginThirdStyle.stage.close()));
+        //TODO
+//        Timeline closeStage = new Timeline(new KeyFrame(Duration.millis(500), event ->
+//                LoginThirdStyle.stage.close()));
 
-        SequentialTransition sequentialTransition = new SequentialTransition(parallelTransition, fadeOut,closeStage);
-        sequentialTransition.play();
+//        SequentialTransition sequentialTransition = new SequentialTransition(parallelTransition, fadeOut,closeStage);
+//        sequentialTransition.play();
     }
 
     private void resetFields() {
@@ -261,6 +210,13 @@ public class ControllerLoginThirdStyle implements Controller{
     }
 
     public void setStage(){
+        loginService.usernameProperty().bind(username.textProperty());
+        loginService.passwordProperty().bind(password.textProperty());
+
+        registerService.usernameProperty().bind(regUsername.textProperty());
+        registerService.passwordProperty().bind(regPassword.textProperty());
+        registerService.repeatPasswordProperty().bind(regRepeatPassword.textProperty());
+
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
@@ -269,6 +225,10 @@ public class ControllerLoginThirdStyle implements Controller{
 
     @FXML
     public void resetStage(){
+        root.setCursor(Cursor.DEFAULT);
+        username.setDisable(false);
+        password.setDisable(false);
+
         menu.setOpacity(1);
         menuLine.setOpacity(1);
         logo.setOpacity(1);

@@ -42,7 +42,8 @@ public class StageManager {
 
     public void initializeStages(Stage primaryStage) throws Exception {
         currentStage = initializeFirstLoginStyle(primaryStage);
-        currentStage.show();
+        currentAlert = firstLoginAlert;
+        currentController = firstLoginController;
 
         initializeSecondLoginStyle(new Stage());
         initializeThirdLoginStyle(new Stage());
@@ -50,6 +51,14 @@ public class StageManager {
         initializeFirstLoggedStyle(new Stage());
         initializeSecondLoggedStyle(new Stage());
         initializeThirdLoggedStyle(new Stage());
+
+        firstLoggedStage.initOwner(firstLoginStage);
+        secondLoginStage.initOwner(secondLoggedStage);
+        secondLoggedStage.initOwner(secondLoginStage);
+        thirdLoginStage.initOwner(thirdLoggedStage);
+        thirdLoggedStage.initOwner(thirdLoginStage);
+
+        currentStage.show();
 
     }
     public static void changeStage(Stage stage){

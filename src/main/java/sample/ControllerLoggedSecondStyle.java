@@ -56,7 +56,7 @@ import java.util.stream.Collectors;
 import static Helpers.ServerRequests.*;
 import static Helpers.Services.OrderService.mostRecentOrderDate;
 
-public class ControllerLoggedSecondStyle {
+public class ControllerLoggedSecondStyle implements Controller {
     @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,
             createdDateLabel, createdTimeLabel, roleField, usernameField, firstNameLabel,
             lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
