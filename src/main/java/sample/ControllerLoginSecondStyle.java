@@ -48,16 +48,12 @@ public class ControllerLoginSecondStyle implements Controller{
     @FXML
     public void register(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            try {
-                regUsername.setDisable(true);
-                regPassword.setDisable(true);
-                regRepeatPassword.setDisable(true);
-                root.setCursor(Cursor.WAIT);
+            regUsername.setDisable(true);
+            regPassword.setDisable(true);
+            regRepeatPassword.setDisable(true);
+            root.setCursor(Cursor.WAIT);
 
-                registerService.start();
-            } catch (IllegalStateException e) {
-                System.out.println("request is executing");
-            }
+            registerService.start();
         }
     }
 

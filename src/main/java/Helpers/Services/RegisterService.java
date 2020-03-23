@@ -39,6 +39,15 @@ public class RegisterService extends Service {
     }
 
     @Override
+    public void start() {
+        try{
+            super.start();
+        }catch (IllegalStateException e) {
+            System.out.println("request is executing");
+        }
+    }
+
+    @Override
     protected Task createTask() {
         return new Task<Boolean>() {
             @Override

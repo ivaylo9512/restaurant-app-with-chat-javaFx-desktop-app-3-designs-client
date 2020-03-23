@@ -67,11 +67,8 @@ public class ControllerLoginFirstStyle implements  Controller{
     @FXML
     public void register(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            try {
-                registerService.start();
-            } catch (IllegalStateException e) {
-                System.out.println("request is executing");
-            }
+            //Todo
+            registerService.start();
         }
     }
 
