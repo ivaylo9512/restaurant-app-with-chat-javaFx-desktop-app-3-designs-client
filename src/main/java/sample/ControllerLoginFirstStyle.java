@@ -79,19 +79,16 @@ public class ControllerLoginFirstStyle implements  Controller{
     }
 
     public void setStage(){
-        loginService.usernameProperty().bind(username.textProperty());
-        loginService.passwordProperty().bind(password.textProperty());
-
-        registerService.usernameProperty().bind(regUsername.textProperty());
-        registerService.passwordProperty().bind(regPassword.textProperty());
-        registerService.repeatPasswordProperty().bind(regRepeatPassword.textProperty());
-
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         background.setPrefHeight(primaryScreenBounds.getHeight());
         background.setPrefWidth(primaryScreenBounds.getWidth());
+
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
         contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
+
+        loginService.bind(username.textProperty(), password.textProperty());
+        registerService.bind(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
     public void resetStage(){

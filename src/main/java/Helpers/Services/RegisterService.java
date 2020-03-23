@@ -26,18 +26,6 @@ public class RegisterService extends Service {
     private final StringProperty password = new SimpleStringProperty(this, "password");
     private final StringProperty repeatPassword = new SimpleStringProperty(this, "repeatPassword");
 
-    public final StringProperty usernameProperty() {
-        return username;
-    }
-
-    public final StringProperty passwordProperty() {
-        return password;
-    }
-
-    public final StringProperty repeatPasswordProperty() {
-        return repeatPassword;
-    }
-
     @Override
     public void start() {
         try{
@@ -86,5 +74,11 @@ public class RegisterService extends Service {
                 }
             }
         };
+    }
+
+    public void bind(StringProperty username, StringProperty password, StringProperty repeatPassword){
+        this.username.bind(username);
+        this.password.bind(password);
+        this.repeatPassword.bind(repeatPassword);
     }
 }

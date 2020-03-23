@@ -206,17 +206,13 @@ public class ControllerLoginThirdStyle implements Controller{
     }
 
     public void setStage(){
-        loginService.usernameProperty().bind(username.textProperty());
-        loginService.passwordProperty().bind(password.textProperty());
-
-        registerService.usernameProperty().bind(regUsername.textProperty());
-        registerService.passwordProperty().bind(regPassword.textProperty());
-        registerService.repeatPasswordProperty().bind(regRepeatPassword.textProperty());
-
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
         loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
+
+        loginService.bind(username.textProperty(), password.textProperty());
+        registerService.bind(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
     @FXML

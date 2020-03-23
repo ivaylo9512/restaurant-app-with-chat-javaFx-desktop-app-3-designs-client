@@ -24,8 +24,8 @@ import java.util.Map;
 public class LoginService extends Service {
     private final StringProperty username = new SimpleStringProperty(this, "username");
     private final StringProperty password = new SimpleStringProperty(this, "password");
-    public final StringProperty usernameProperty() { return username; }
-    public final StringProperty passwordProperty() { return password; }
+    private final StringProperty usernameProperty() { return username; }
+    private final StringProperty passwordProperty() { return password; }
 
     @Override
     public void start() {
@@ -74,5 +74,10 @@ public class LoginService extends Service {
                 }
             }
         };
+    }
+
+    public void bind(StringProperty username, StringProperty password){
+        this.username.bind(username);
+        this.password.bind(password);
     }
 }

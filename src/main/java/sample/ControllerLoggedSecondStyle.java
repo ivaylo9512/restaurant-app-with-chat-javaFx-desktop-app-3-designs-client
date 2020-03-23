@@ -78,7 +78,7 @@ public class ControllerLoggedSecondStyle implements Controller {
     @FXML ScrollPane chatScroll;
     @FXML VBox chatBlock;
 
-    public static Image userProfileImage;
+    private static Image userProfileImage;
     private AnchorPane currentView, currentMenuView;
 
     private MediaPlayer notificationSound;
