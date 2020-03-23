@@ -761,10 +761,10 @@ public class ControllerLoggedThirdStyle implements Controller {
                 ready.setText("O");
 
             } catch (Exception e) {
-                showLoggedStageAlert(e.getMessage());
+                RestaurantApplication.showAlert(e.getMessage());
             }
         }else{
-            showLoggedStageAlert("You must be a chef to update the dish status.");
+            RestaurantApplication.showAlert("You must be a chef to update the dish status.");
         }
     }
     private void waitForNewOrders() {
@@ -899,13 +899,13 @@ public class ControllerLoggedThirdStyle implements Controller {
                     sendOrder(new Order(dishes));
                     newOrderList.getItems().clear();
                 } catch (Exception e) {
-                    showLoggedStageAlert(e.getMessage());
+                    RestaurantApplication.showAlert(e.getMessage());
                 }
             } else {
-                showLoggedStageAlert("Order must have at least one dish.");
+                RestaurantApplication.showAlert("Order must have at least one dish.");
             }
         } else {
-            showLoggedStageAlert("You must be a server to create orders.");
+            RestaurantApplication.showAlert("You must be a server to create orders.");
         }
     }
     private SortedMap<String, Menu> searchMenu(String prefix) {
@@ -972,13 +972,7 @@ public class ControllerLoggedThirdStyle implements Controller {
         StageManager.changeStage(StageManager.secondLoggedStage);
 
     }
-    private void showLoggedStageAlert(String message) {
-        if(!LoggedThirdStyle.alert.isShowing()) {
-            DialogPane dialog = LoggedThirdStyle.alert.getDialogPane();
-            dialog.setContentText(message);
-            LoggedThirdStyle.alert.showAndWait();
-        }
-    }
+
     private void showLoginStageAlert(String message) {
         if(!LoginThirdStyle.alert.isShowing()) {
             DialogPane dialog = LoginThirdStyle.alert.getDialogPane();

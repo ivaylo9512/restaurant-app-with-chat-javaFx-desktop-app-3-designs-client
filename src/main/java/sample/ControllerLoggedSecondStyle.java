@@ -210,13 +210,13 @@ public class ControllerLoggedSecondStyle implements Controller {
                     sendOrder(new Order(dishes));
                     newOrderList.getItems().clear();
                 } catch (Exception e) {
-                    showLoggedStageAlert(e.getMessage());
+                    RestaurantApplication.showAlert(e.getMessage());
                 }
             } else {
-                showLoggedStageAlert("Order must have at least one dish.");
+                RestaurantApplication.showAlert("Order must have at least one dish.");
             }
         } else {
-            showLoggedStageAlert("You must be a server to create orders.");
+            RestaurantApplication.showAlert("You must be a server to create orders.");
         }
     }
     private void waitForNewMessages(){
@@ -350,13 +350,6 @@ public class ControllerLoggedSecondStyle implements Controller {
                 Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> service.restart()));
                 timeline.play();
             }
-        }
-    }
-    private void showLoggedStageAlert(String message) {
-        if(!LoggedSecondStyle.alert.isShowing()) {
-            DialogPane dialog = LoggedSecondStyle.alert.getDialogPane();
-            dialog.setContentText(message);
-            LoggedSecondStyle.alert.showAndWait();
         }
     }
     private void showLoginStageAlert(String message) {
@@ -713,16 +706,17 @@ public class ControllerLoggedSecondStyle implements Controller {
     public void updateDishStatus(Dish dish, Label ready) {
 
         if(loggedUser.getRole().equals("Chef")){
+            //todo: if jwt expired
             try {
                 updateDishState(dish.getOrderId(), dish.getId());
                 dish.setReady(true);
                 ready.setText("O");
 
             } catch (Exception e) {
-                showLoggedStageAlert(e.getMessage());
+                RestaurantApplication.showAlert(e.getMessage());
             }
         }else{
-            showLoggedStageAlert("You must be a chef to update the dish status.");
+            RestaurantApplication.showAlert("You must be a chef to update the dish status.");
         }
     }
 

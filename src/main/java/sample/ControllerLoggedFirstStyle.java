@@ -220,13 +220,6 @@ public class ControllerLoggedFirstStyle implements Controller {
             LoginFirstStyle.alert.showAndWait();
         }
     }
-    private void showLoggedStageAlert(String message) {
-        if(!LoggedFirstStyle.alert.isShowing()) {
-            DialogPane dialog = LoggedFirstStyle.alert.getDialogPane();
-            dialog.setContentText(message);
-            LoggedFirstStyle.alert.showAndWait();
-        }
-    }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
         return menuMap.subMap(prefix, prefix + Character.MAX_VALUE);
@@ -295,13 +288,13 @@ public class ControllerLoggedFirstStyle implements Controller {
                     sendOrder(new Order(dishes));
                     newOrderMenu.getItems().clear();
                 }catch (Exception e){
-                    showLoggedStageAlert(e.getMessage());
+                    RestaurantApplication.showAlert(e.getMessage());
                 }
             }else{
-                showLoggedStageAlert("Order must have at least one dish.");
+                RestaurantApplication.showAlert("Order must have at least one dish.");
             }
         } else {
-            showLoggedStageAlert("You must be a server to create orders.");
+            RestaurantApplication.showAlert("You must be a server to create orders.");
         }
 
     }
@@ -922,10 +915,10 @@ public class ControllerLoggedFirstStyle implements Controller {
                     ready.setText("O");
 
                 } catch (Exception e) {
-                    showLoggedStageAlert(e.getMessage());
+                    RestaurantApplication.showAlert(e.getMessage());
                 }
         }else{
-            showLoggedStageAlert("You must be a chef to update the dish status.");
+            RestaurantApplication.showAlert("You must be a chef to update the dish status.");
         }
     }
 

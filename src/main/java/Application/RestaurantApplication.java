@@ -20,9 +20,11 @@ public class RestaurantApplication extends Application{
     public static LoginService loginService;
     public static RegisterService registerService;
     private Stage primaryStage;
+
     public static void main(String[] args) {
         Application.launch(args);
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         loginService = new LoginService();
@@ -38,19 +40,25 @@ public class RestaurantApplication extends Application{
     }
 
     private void updateError(Service service) {
-        Alert alert = StageManager.currentAlert;
-        DialogPane dialog = alert.getDialogPane();
+        Throwable exception = service.getException();
+        String exceptionMessage = exception.getMessage();
 
-        try{
-            dialog.setContentText(service.getException().getMessage());
-            throw service.getException();
-        }catch (ConnectException e){
-            dialog.setContentText("No connection to the server.");
+        try {
+            throw exception;
+        } catch (ConnectException e) {
+            exceptionMessage = "No connection to the server.";
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-        alert.showAndWait();
+
+        showAlert(exceptionMessage);
         service.reset();
+    }
+
+    public static void showAlert(String exception) {
+        Alert alert = StageManager.currentAlert;
+        alert.getDialogPane().setContentText(exception);
+        alert.showAndWait();
     }
 
     private void login(Service service) {
@@ -63,7 +71,6 @@ public class RestaurantApplication extends Application{
                 : (Stage)currentStage.getOwner();
 
         StageManager.changeStage(stage);
-
         service.reset();
     }
     public static void logout(){
