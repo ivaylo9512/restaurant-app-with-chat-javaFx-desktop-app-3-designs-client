@@ -3,5 +3,5 @@ package sample;
 public interface Controller {
     void resetStage();
 
-    void setStage();
+    void setStage() throws Exception;
 }

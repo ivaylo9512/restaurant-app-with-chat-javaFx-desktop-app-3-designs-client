@@ -5,6 +5,7 @@ import Animations.ResizeRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
 import Application.RestaurantApplication;
+import Application.StageManager;
 import Helpers.ListViews.ChatsListViewCell;
 import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
@@ -571,8 +572,7 @@ public class ControllerLoggedSecondStyle {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        LoggedSecondStyle.stage.close();
-        LoggedFirstStyle.stage.show();
+        StageManager.changeStage(StageManager.firstLoggedStage);
     }
 
     @FXML
@@ -584,8 +584,7 @@ public class ControllerLoggedSecondStyle {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        LoggedSecondStyle.stage.close();
-        LoggedThirdStyle.stage.show();
+        StageManager.changeStage(StageManager.thirdLoggedStage);
     }
     @FXML
     public void showProfile(){

@@ -4,6 +4,7 @@ import Animations.MoveRoot;
 import Animations.ResizeRoot;
 import Animations.TransitionResizeWidth;
 import Application.RestaurantApplication;
+import Application.StageManager;
 import Helpers.ListViews.*;
 import Helpers.Scrolls;
 import Helpers.Services.MessageService;
@@ -166,14 +167,14 @@ public class ControllerLoggedThirdStyle {
         ResizeRoot.addListeners(contentRoot);
     }
 
-    public void setStage() throws Exception {
+    public void setStage() throws Exception{
         loggedUser = loggedUserProperty.getValue();
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
         ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
         FXCollections.reverse(orders);
 
-        ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
+        ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());//Todo
         setChatValues(chats);
         chatsList.setItems(chats);
 
@@ -958,8 +959,8 @@ public class ControllerLoggedThirdStyle {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        LoggedThirdStyle.stage.close();
-        LoggedFirstStyle.stage.show();
+        StageManager.changeStage(StageManager.firstLoggedStage);
+
 
     }
     @FXML
@@ -971,8 +972,8 @@ public class ControllerLoggedThirdStyle {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        LoggedThirdStyle.stage.close();
-        LoggedSecondStyle.stage.show();
+        StageManager.changeStage(StageManager.secondLoggedStage);
+
     }
     private void showLoggedStageAlert(String message) {
         if(!LoggedThirdStyle.alert.isShowing()) {

@@ -785,6 +785,7 @@ public class ControllerLoggedFirstStyle {
         userInfoScroll.setDisable(false);
         chatUsersScroll.setDisable(true);
     }
+
     @FXML
     public void showMenu(){
         profileRoot.setOpacity(0);
@@ -818,6 +819,7 @@ public class ControllerLoggedFirstStyle {
         displayUserFields();
         menu.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
     }
+
     public void resetStage(){
         notificationBlock.getChildren().clear();
         chatUsers.getChildren().clear();
@@ -888,11 +890,11 @@ public class ControllerLoggedFirstStyle {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        LoggedFirstStyle.stage.close();
-        LoggedSecondStyle.stage.show();
+        StageManager.changeStage(StageManager.secondLoggedStage);
     }
     @FXML
     public void showLoggedThirdStyle(){
+        //Todo
         try {
             httpClientLongPolling.close();
         } catch (IOException e) {
@@ -900,9 +902,7 @@ public class ControllerLoggedFirstStyle {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        LoggedFirstStyle.stage.close();
-        LoggedThirdStyle.stage.show();
-         FXCollections.synchronizedObservableMap(FXCollections.observableHashMap());
+        StageManager.changeStage(StageManager.thirdLoggedStage);
     }
     @FXML
     public void minimize(){
@@ -914,7 +914,8 @@ public class ControllerLoggedFirstStyle {
         StageManager.currentStage.close();
     }
 
-    public void updateDishStatus(int orderId, int dishId) {
+    //Todo
+        public void updateDishStatus(int orderId, int dishId) {
         if(loggedUser.getRole().equals("Chef")){
                 try {
                     updateDishState(orderId, dishId);
