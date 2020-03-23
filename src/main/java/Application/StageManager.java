@@ -185,7 +185,12 @@ public class StageManager {
             if(!isShowing){
                 controller.resetStage();
             }else{
-                controller.setStage();
+                try {
+                    controller.setStage();
+                } catch (Exception e) {
+                    RestaurantApplication.logout();
+                    RestaurantApplication.showAlert(e.getMessage());
+                }
             }
         });
         stage.setScene(scene);
