@@ -51,6 +51,7 @@ public class RestaurantApplication extends Application{
             throwable.printStackTrace();
         }
 
+        StageManager.currentController.resetStage();
         showAlert(exceptionMessage);
         service.reset();
     }

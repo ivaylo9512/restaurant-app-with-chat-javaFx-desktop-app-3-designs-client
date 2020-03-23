@@ -28,6 +28,7 @@ public class ControllerLoginSecondStyle implements Controller{
 
 
     private Pane currentMenu;
+    private boolean loading;
 
     @FXML
     public void initialize(){
@@ -41,6 +42,7 @@ public class ControllerLoginSecondStyle implements Controller{
             password.setDisable(true);
             root.setCursor(Cursor.WAIT);
 
+            loading = true;
             loginService.start();
         }
 
@@ -53,18 +55,11 @@ public class ControllerLoginSecondStyle implements Controller{
             regRepeatPassword.setDisable(true);
             root.setCursor(Cursor.WAIT);
 
+            loading = true;
             registerService.start();
         }
     }
 
-    private void updateError(Service service) {
-        username.setDisable(false);
-        password.setDisable(false);
-        regUsername.setDisable(false);
-        regPassword.setDisable(false);
-        regRepeatPassword.setDisable(false);
-        root.setCursor(Cursor.DEFAULT);
-    }
 
     public void setStage(){
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -77,19 +72,30 @@ public class ControllerLoginSecondStyle implements Controller{
     }
 
     public void resetStage(){
-        loginFields.setDisable(false);
-        root.setCursor(Cursor.DEFAULT);
+        if(loading){
+            username.setDisable(false);
+            password.setDisable(false);
+            regUsername.setDisable(false);
+            regPassword.setDisable(false);
+            regRepeatPassword.setDisable(false);
+            root.setCursor(Cursor.DEFAULT);
+        }else {
+            loginFields.setDisable(false);
+            root.setCursor(Cursor.DEFAULT);
 
-        showMenu(loginFields);
+            showMenu(loginFields);
 
-        username.setDisable(false);
-        password.setDisable(false);
-        regUsername.setDisable(false);
-        regPassword.setDisable(false);
-        regRepeatPassword.setDisable(false);
+            username.setDisable(false);
+            password.setDisable(false);
+            regUsername.setDisable(false);
+            regPassword.setDisable(false);
+            regRepeatPassword.setDisable(false);
 
-        resetFields();
+            loading = false;
+            resetFields();
+        }
     }
+
     private void resetFields() {
         username.setText(null);
         password.setText(null);

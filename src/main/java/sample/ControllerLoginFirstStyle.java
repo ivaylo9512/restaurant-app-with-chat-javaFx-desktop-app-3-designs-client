@@ -26,6 +26,7 @@ public class ControllerLoginFirstStyle implements  Controller{
     @FXML Button loginButton, registerButton, actionButton;
 
     private Pane currentMenu;
+    private boolean loading;
 
     private ParallelTransition expand, reverse;
     private SequentialTransition changeTransition;
@@ -56,9 +57,9 @@ public class ControllerLoginFirstStyle implements  Controller{
     public void login(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             reverse.play();
-
             loginFields.setDisable(true);
             root.setCursor(Cursor.WAIT);
+            loading = true;
 
             loginService.start();
         }
@@ -68,14 +69,16 @@ public class ControllerLoginFirstStyle implements  Controller{
     public void register(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             //Todo
+            loading = true;
             registerService.start();
         }
     }
 
-    private void updateError(Service service) {
+    public void resetLoading() {
         username.setDisable(false);
         password.setDisable(false);
         root.setCursor(Cursor.DEFAULT);
+        expand.play();
     }
 
     public void setStage(){
@@ -92,15 +95,23 @@ public class ControllerLoginFirstStyle implements  Controller{
     }
 
     public void resetStage(){
-        root.setCursor(Cursor.DEFAULT);
-        menu.setTranslateX(0);
-        contentRoot.setTranslateX(0);
-        if(currentMenu != null) {
-            currentMenu.setOpacity(0);
-            currentMenu.setDisable(true);
-            currentMenu = null;
+        if(loading){
+            username.setDisable(false);
+            password.setDisable(false);
+            root.setCursor(Cursor.DEFAULT);
+            expand.play();
+        }else {
+            root.setCursor(Cursor.DEFAULT);
+            menu.setTranslateX(0);
+            contentRoot.setTranslateX(0);
+            if (currentMenu != null) {
+                currentMenu.setOpacity(0);
+                currentMenu.setDisable(true);
+                currentMenu = null;
+            }
+            loading = false;
+            resetFields();
         }
-        resetFields();
     }
     private void resetFields() {
         username.setText(null);

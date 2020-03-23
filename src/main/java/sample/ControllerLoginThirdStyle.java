@@ -35,6 +35,8 @@ public class ControllerLoginThirdStyle implements Controller{
     private Pane currentMenu;
     private Text currentText;
 
+    private boolean loading;
+
     @FXML
     public void initialize(){
         currentMenu = loginFields;
@@ -48,6 +50,7 @@ public class ControllerLoginThirdStyle implements Controller{
             password.setDisable(true);
             root.setCursor(Cursor.WAIT);
 
+            loading = true;
             loginService.start();
         }
     }
@@ -60,17 +63,11 @@ public class ControllerLoginThirdStyle implements Controller{
             regRepeatPassword.setDisable(true);
             root.setCursor(Cursor.WAIT);
 
+            loading = true;
             registerService.start();
         }
     }
-    private void updateError(Service service) {
-        username.setDisable(false);
-        password.setDisable(false);
-        regUsername.setDisable(false);
-        regPassword.setDisable(false);
-        regRepeatPassword.setDisable(false);
-        root.setCursor(Cursor.DEFAULT);
-    }
+
     private void changeScene(Service service) {
         loginAnimation();
     }
@@ -217,29 +214,37 @@ public class ControllerLoginThirdStyle implements Controller{
 
     @FXML
     public void resetStage(){
-        root.setCursor(Cursor.DEFAULT);
-        username.setDisable(false);
-        password.setDisable(false);
+        if(loading){
+            username.setDisable(false);
+            password.setDisable(false);
+            regUsername.setDisable(false);
+            regPassword.setDisable(false);
+            regRepeatPassword.setDisable(false);
+            root.setCursor(Cursor.DEFAULT);
+        }else {
+            root.setCursor(Cursor.DEFAULT);
+            username.setDisable(false);
+            password.setDisable(false);
 
-        menu.setOpacity(1);
-        menuLine.setOpacity(1);
-        logo.setOpacity(1);
-        actionBtn.setOpacity(1);
+            menu.setOpacity(1);
+            menuLine.setOpacity(1);
+            logo.setOpacity(1);
+            actionBtn.setOpacity(1);
 
-        contentRoot.setOpacity(1);
-        contentRoot.setTranslateX(0);
-        contentRoot.setTranslateY(0);
-        contentRoot.setPrefWidth(296);
-        contentRoot.setPrefHeight(452);
+            contentRoot.setOpacity(1);
+            contentRoot.setTranslateX(0);
+            contentRoot.setTranslateY(0);
+            contentRoot.setPrefWidth(296);
+            contentRoot.setPrefHeight(452);
 
-        resetFields();
+            resetFields();
 
-        setStrikeThrough(loginBtn);
-        showMenu(loginFields);
+            setStrikeThrough(loginBtn);
+            showMenu(loginFields);
 
-        actionBtn.setText("login");
-        actionBtn.setOnMouseClicked(this::login);
-
+            actionBtn.setText("login");
+            actionBtn.setOnMouseClicked(this::login);
+        }
     }
 
     @FXML
