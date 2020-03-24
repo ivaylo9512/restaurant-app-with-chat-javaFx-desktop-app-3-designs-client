@@ -1,20 +1,24 @@
 package Models;
 
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class User {
-    private int id;
-    private String username;
-    private String firstName;
-    private String lastName;
-    private int age;
-    private String country;
-    private String role;
-    private String profilePicture;
+    private IntegerProperty id = new SimpleIntegerProperty();
+    private StringProperty username = new SimpleStringProperty();
+    private StringProperty firstName = new SimpleStringProperty();
+    private StringProperty lastName = new SimpleStringProperty();
+    private IntegerProperty age = new SimpleIntegerProperty();
+    private StringProperty country = new SimpleStringProperty();
+    private StringProperty role = new SimpleStringProperty();
+    private StringProperty profilePicture = new SimpleStringProperty();
     private Restaurant restaurant;
 
     public Image image;
@@ -26,79 +30,79 @@ public class User {
     }
 
     public User(int id, String username, String firstName, String lastName, int age, String country, String role, String profilePicture, Restaurant restaurant) {
-        this.id = id;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.country = country;
-        this.role = role;
-        this.profilePicture = profilePicture;
+        this.id.setValue(id);
+        this.username.setValue(username);
+        this.firstName.setValue(firstName);
+        this.lastName.setValue(lastName);
+        this.age.setValue(age);
+        this.country.setValue(country);
+        this.role.setValue(role);
+        this.profilePicture.setValue(profilePicture);
         this.restaurant = restaurant;
     }
 
-    public String getUsername() {
+    public StringProperty getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username.setValue(username);
     }
 
-    public int getId() {
+    public IntegerProperty getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this.id.setValue(id);
     }
 
-    public String getRole() {
+    public StringProperty getRole() {
         return role;
     }
 
     public void setRole(String role) {
-        this.role = role;
+        this.role.setValue(role);
     }
 
-    public String getFirstName() {
+    public StringProperty getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName.setValue(firstName);
     }
 
-    public String getLastName() {
+    public StringProperty getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName.setValue(lastName);
     }
 
-    public int getAge() {
+    public IntegerProperty getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAge(Integer age) {
+        this.age.setValue(age);
     }
 
-    public String getCountry() {
+    public StringProperty getCountry() {
         return country;
     }
 
     public void setCountry(String country) {
-        this.country = country;
+        this.country.setValue(country);
     }
 
-    public String getProfilePicture() {
+    public StringProperty getProfilePicture() {
         return profilePicture;
     }
 
     public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+        this.profilePicture.setValue(profilePicture);
     }
 
     public Restaurant getRestaurant() {
