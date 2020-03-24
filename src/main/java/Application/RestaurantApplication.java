@@ -7,7 +7,6 @@ import Models.User;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import org.apache.http.impl.client.HttpClients;
 
@@ -75,7 +74,7 @@ public class RestaurantApplication extends Application{
         service.reset();
     }
     public static void logout(){
-        //Todo
+        //Todo: remove close + reset user
         try {
             httpClientLongPolling.close();
         } catch (IOException e) {

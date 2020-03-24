@@ -3,11 +3,11 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
 }
+
 apply plugin: 'application'
 
 group 'fda'
 version '1.0-SNAPSHOT'
-
 sourceCompatibility = 1.8
 
 repositories {
@@ -34,5 +34,6 @@ javafx {
 run {
     main = 'Application.RestaurantApplication'
     applicationDefaultJvmArgs = ["--add-opens", "java.base/jdk.internal.loader=ALL-UNNAMED"]
+    applicationDefaultJvmArgs = ["--add-opens", "javafx.graphics/javafx.scene.image=ALL-UNNAMED"]
 }
 

@@ -2,7 +2,6 @@ package sample;
 
 import Application.StageManager;
 import javafx.animation.*;
-import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -72,13 +71,6 @@ public class ControllerLoginFirstStyle implements  Controller{
             loading = true;
             registerService.start();
         }
-    }
-
-    public void resetLoading() {
-        username.setDisable(false);
-        password.setDisable(false);
-        root.setCursor(Cursor.DEFAULT);
-        expand.play();
     }
 
     public void setStage(){
