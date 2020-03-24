@@ -4,8 +4,6 @@ import Models.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -28,26 +26,15 @@ import java.util.*;
 import java.util.prefs.Preferences;
 
 import static Helpers.Services.MessageService.lastMessageCheck;
+import static Application.RestaurantApplication.loggedUser;
 
 public class ServerRequests {
     public static CloseableHttpClient httpClient = HttpClients.createDefault();
     public static CloseableHttpClient httpClientLongPolling = HttpClients.createDefault();
     public static Preferences userPreference = Preferences.userRoot();
-    public static ObjectMapper mapper = new ObjectMapper();
+    public static ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     public static int pageSize = 3;
-    public static ObjectProperty<User> loggedUserProperty = new SimpleObjectProperty<>();
-    public static User loggedUser;
-
     public static String base = "http://localhost:8080";
-
-    static {
-        mapper.registerModule(new JavaTimeModule());
-
-        loggedUserProperty.addListener((observable, oldUser, newUser) ->{
-            newUser.getRestaurant().getOrders()
-                    .forEach(order -> newUser.getOrders().put(order.getId(), order));
-        });
-    }
 
     public static List<Session> getNextSessions(int id, int page, int pageSize) {
         HttpGet get;

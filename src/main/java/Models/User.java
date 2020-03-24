@@ -1,12 +1,12 @@
 package Models;
 
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -21,12 +21,14 @@ public class User {
     private StringProperty profilePicture = new SimpleStringProperty();
     private Restaurant restaurant;
 
-    public Image image;
+    public ObjectProperty<Image> image = new SimpleObjectProperty<>();
 
     private Map<Integer, Order> orders = new LinkedHashMap<>();
 
-    public User(){
+    public static Image defaultImage = new Image(User.class.getResourceAsStream("/images/default-picture.png"));
 
+
+    public User(){
     }
 
     public User(int id, String username, String firstName, String lastName, int age, String country, String role, String profilePicture, Restaurant restaurant) {
@@ -102,6 +104,11 @@ public class User {
     }
 
     public void setProfilePicture(String profilePicture) {
+        try(InputStream in = new BufferedInputStream(new URL(profilePicture).openStream())){
+            image.set(new Image(in));
+        }catch(Exception e){
+            image.set(defaultImage);
+        }
         this.profilePicture.setValue(profilePicture);
     }
 
@@ -121,11 +128,23 @@ public class User {
         this.orders = orders;
     }
 
-    public Image getImage() {
+    public ObjectProperty<Image> getImage() {
         return image;
     }
 
     public void setImage(Image image) {
-        this.image = image;
+        this.image.setValue(image);
+    }
+
+    public void setUser(User user) {
+        id.setValue(user.getId().get());
+        username.setValue(user.username.get());
+        firstName.setValue(user.firstName.get());
+        lastName.setValue(user.lastName.get());
+        age.setValue(user.age.get());
+        country.setValue(user.country.get());
+        role.setValue(user.role.get());
+        restaurant = user.getRestaurant();
+        setProfilePicture(user.getProfilePicture().get());
     }
 }

@@ -165,7 +165,7 @@ public class ControllerLoggedThirdStyle implements Controller {
     }
 
     public void setStage() throws Exception{
-        loggedUser = loggedUserProperty.getValue();
+        loggedUser = RestaurantApplication.loggedUser;
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
         ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
@@ -181,19 +181,9 @@ public class ControllerLoggedThirdStyle implements Controller {
         messageService.start();
 
         menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
-
         ordersList.setItems(orders);
 
-        try{
-            InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
-            userProfileImage = new Image(in);
-            in.close();
-        }catch(Exception e){
-            userProfileImage = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
-        }
-
         displayUserFields();
-
         loginAnimation();
     }
 

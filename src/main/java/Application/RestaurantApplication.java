@@ -1,6 +1,5 @@
 package Application;
 
-import Helpers.ServerRequests;
 import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
@@ -19,6 +18,7 @@ public class RestaurantApplication extends Application{
     public static LoginService loginService;
     public static RegisterService registerService;
     private Stage primaryStage;
+    public static User loggedUser = new User();
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -62,9 +62,7 @@ public class RestaurantApplication extends Application{
     }
 
     private void login(Service service) {
-        User loggedUser = (User) service.getValue();
-        ServerRequests.loggedUserProperty.set(loggedUser);
-        ServerRequests.loggedUser = loggedUser;
+        loggedUser.setUser((User) service.getValue());
 
         Stage currentStage = StageManager.currentStage;
         Stage stage = currentStage == primaryStage ? StageManager.firstLoggedStage

@@ -383,7 +383,7 @@ public class ControllerLoggedSecondStyle implements Controller {
         reverse.play();
     }
     public void setStage() throws Exception{
-        loggedUser = loggedUserProperty.getValue();
+        loggedUser = RestaurantApplication.loggedUser;
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
@@ -404,14 +404,6 @@ public class ControllerLoggedSecondStyle implements Controller {
 
         FXCollections.reverse(orders);
         ordersList.setItems(orders);
-
-        try{
-            InputStream in = new BufferedInputStream(new URL(loggedUser.getProfilePicture()).openStream());
-            userProfileImage = new Image(in);
-            in.close();
-        }catch(Exception e){
-            userProfileImage = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
-        }
 
         displayUserFields();
     }
