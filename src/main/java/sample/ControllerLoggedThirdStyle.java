@@ -7,8 +7,8 @@ import Application.RestaurantApplication;
 import Application.StageManager;
 import Helpers.ListViews.*;
 import Helpers.Scrolls;
-import Helpers.Services.MessageService;
-import Helpers.Services.OrderService;
+import Application.MessageService;
+import Application.OrderService;
 import Models.*;
 import Models.Menu;
 import javafx.animation.FadeTransition;
@@ -53,7 +53,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static Helpers.ServerRequests.*;
-import static Helpers.Services.OrderService.mostRecentOrderDate;
+import static Application.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedThirdStyle implements Controller {
     @FXML public ListView<Order> ordersList;

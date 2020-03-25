@@ -1,4 +1,4 @@
-package Helpers.Services;
+package Application;
 
 import Models.Message;
 import com.fasterxml.jackson.core.type.TypeReference;

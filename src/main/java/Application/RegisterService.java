@@ -1,7 +1,5 @@
-package Helpers.Services;
+package Application;
 
-import Helpers.ServerRequests;
-import Models.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
@@ -16,38 +14,41 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-
-import static Helpers.ServerRequests.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.prefs.Preferences;
 
-public class LoginService extends Service {
+import static Helpers.ServerRequests.base;
+import static Helpers.ServerRequests.httpClient;
+
+class RegisterService extends Service {
     private final StringProperty username = new SimpleStringProperty(this, "username");
     private final StringProperty password = new SimpleStringProperty(this, "password");
+    private final StringProperty repeatPassword = new SimpleStringProperty(this, "repeatPassword");
 
     @Override
     public void start() {
-        try{
+        if(!isRunning()) {
+            reset();
             super.start();
-        }catch (IllegalStateException e) {
-            System.out.println("request is executing");
         }
     }
 
     @Override
     protected Task createTask() {
-        return new Task<User>() {
+        return new Task<Boolean>() {
             @Override
-            protected User call() throws Exception {
+            protected Boolean call() throws Exception {
                 Map<String, Object> jsonValues = new HashMap<>();
                 jsonValues.put("username", username.get());
                 jsonValues.put("password", password.get());
+                jsonValues.put("repeatPassword", repeatPassword.get());
                 JSONObject json = new JSONObject(jsonValues);
 
                 StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
                 postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-                HttpPost httpPost = new HttpPost( base + "/api/users/login");
+                HttpPost httpPost = new HttpPost(base + "/api/users/register");
                 httpPost.setEntity(postEntity);
 
                 try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
@@ -63,19 +64,20 @@ public class LoginService extends Service {
 
                     String jwtToken = response.getHeaders("Authorization")[0].getValue();
 
-                    User user = mapper.readValue(content, User.class);
-                    ServerRequests.userPreference.put(String.valueOf(user.getId()), jwtToken);
+                    Preferences userPreference = Preferences.userRoot();
+                    userPreference.put("User", content);
+                    userPreference.put("Token", jwtToken);
 
                     EntityUtils.consume(receivedEntity);
-
-                    return mapper.readValue(content, User.class);
+                    return true;
                 }
             }
         };
     }
 
-    public void bind(StringProperty username, StringProperty password){
+    public void bind(StringProperty username, StringProperty password, StringProperty repeatPassword){
         this.username.bind(username);
         this.password.bind(password);
+        this.repeatPassword.bind(repeatPassword);
     }
 }

@@ -10,8 +10,8 @@ import Helpers.ListViews.ChatsListViewCell;
 import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
 import Helpers.Scrolls;
-import Helpers.Services.MessageService;
-import Helpers.Services.OrderService;
+import Application.MessageService;
+import Application.OrderService;
 import Models.*;
 import Models.Menu;
 import javafx.animation.*;
@@ -54,7 +54,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static Helpers.ServerRequests.*;
-import static Helpers.Services.OrderService.mostRecentOrderDate;
+import static Application.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedSecondStyle implements Controller {
     @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,

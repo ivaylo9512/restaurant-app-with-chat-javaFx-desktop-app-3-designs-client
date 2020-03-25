@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.prefs.Preferences;
 
-import static Helpers.Services.MessageService.lastMessageCheck;
+import static Application.MessageService.lastMessageCheck;
 import static Application.RestaurantApplication.loggedUser;
 
 public class ServerRequests {

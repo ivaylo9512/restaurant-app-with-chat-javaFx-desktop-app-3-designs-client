@@ -1,7 +1,7 @@
 package Application;
 
-import Helpers.Services.LoginService;
-import Helpers.Services.RegisterService;
+import LoginService;
+import RegisterService;
 import Models.User;
 import javafx.application.Application;
 import javafx.beans.property.StringProperty;
@@ -9,7 +9,6 @@ import javafx.concurrent.Service;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.apache.http.impl.client.HttpClients;
-import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.net.ConnectException;

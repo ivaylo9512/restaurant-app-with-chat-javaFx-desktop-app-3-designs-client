@@ -4,8 +4,8 @@ import Animations.*;
 import Application.RestaurantApplication;
 import Application.StageManager;
 import Helpers.ListViews.OrderListViewCell;
-import Helpers.Services.MessageService;
-import Helpers.Services.OrderService;
+import Application.MessageService;
+import Application.OrderService;
 import Helpers.Scrolls;
 import Helpers.ListViews.MenuListViewCell;
 import Models.*;
@@ -52,7 +52,7 @@ import java.util.*;
 import java.util.List;
 
 import static Helpers.ServerRequests.*;
-import static Helpers.Services.OrderService.mostRecentOrderDate;
+import static Application.OrderService.mostRecentOrderDate;
 
 
 public class ControllerLoggedFirstStyle implements Controller {
