@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 class LoginService extends Service {
-    private final StringProperty username = new SimpleStringProperty(this, "username");
-    private final StringProperty password = new SimpleStringProperty(this, "password");
+    final StringProperty username = new SimpleStringProperty(this, "username");
+    final StringProperty password = new SimpleStringProperty(this, "password");
 
     @Override
     public void start() {
@@ -71,10 +71,5 @@ class LoginService extends Service {
                 }
             }
         };
-    }
-
-    public void bind(StringProperty username, StringProperty password){
-        this.username.bind(username);
-        this.password.bind(password);
     }
 }

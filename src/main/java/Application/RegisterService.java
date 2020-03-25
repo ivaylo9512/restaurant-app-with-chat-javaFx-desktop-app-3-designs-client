@@ -22,9 +22,9 @@ import static Helpers.ServerRequests.base;
 import static Helpers.ServerRequests.httpClient;
 
 class RegisterService extends Service {
-    private final StringProperty username = new SimpleStringProperty(this, "username");
-    private final StringProperty password = new SimpleStringProperty(this, "password");
-    private final StringProperty repeatPassword = new SimpleStringProperty(this, "repeatPassword");
+    public final StringProperty username = new SimpleStringProperty(this, "username");
+    public final StringProperty password = new SimpleStringProperty(this, "password");
+    public final StringProperty repeatPassword = new SimpleStringProperty(this, "repeatPassword");
 
     @Override
     public void start() {
@@ -73,11 +73,5 @@ class RegisterService extends Service {
                 }
             }
         };
-    }
-
-    public void bind(StringProperty username, StringProperty password, StringProperty repeatPassword){
-        this.username.bind(username);
-        this.password.bind(password);
-        this.repeatPassword.bind(repeatPassword);
     }
 }

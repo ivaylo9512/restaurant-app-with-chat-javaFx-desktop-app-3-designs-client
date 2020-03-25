@@ -30,9 +30,6 @@ public class RestaurantApplication extends Application{
         loginManager = LoginManager.initialize();
         stageManager = StageManager.initialize(primaryStage);
 
-        loginService.setOnSucceeded(eventSuccess -> login(loginService));
-        loginService.setOnFailed(eventFail -> updateError(loginService));
-
         this.primaryStage = primaryStage;
     }
 
@@ -57,14 +54,6 @@ public class RestaurantApplication extends Application{
         Alert alert = StageManager.currentAlert;
         alert.getDialogPane().setContentText(exception);
         alert.showAndWait();
-    }
-
-    public static void bindLoginFields(StringProperty username, StringProperty password){
-        loginService.bind(username, password);
-    }
-
-    public static void bindRegisterFields(StringProperty username, StringProperty password, StringProperty repeatPassword){
-        registerService.bind(username, password, repeatPassword);
     }
 
     private void login(Service service) {
