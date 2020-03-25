@@ -89,7 +89,7 @@ public class ControllerLoggedSecondStyle implements Controller {
 
     private DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-    private TreeMap<String, Menu> menuMap = new TreeMap<>();
+    private ObservableList<Menu> userMenu = FXCollections.observableArrayList();
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private User loggedUser;
@@ -108,10 +108,9 @@ public class ControllerLoggedSecondStyle implements Controller {
         waitForNewOrders();
         waitForNewMessages();
 
+        menuList.setItems(userMenu);
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            ObservableList<Menu> observableList = FXCollections.observableArrayList();
-            searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
-            menuList.setItems(observableList);
+            userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
         });
 
         chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
@@ -160,7 +159,7 @@ public class ControllerLoggedSecondStyle implements Controller {
 
     }
     private SortedMap<String, Menu> searchMenu(String prefix) {
-        return menuMap.subMap(prefix, prefix + Character.MAX_VALUE);
+        return loginManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
     }
 
     @FXML
@@ -385,19 +384,16 @@ public class ControllerLoggedSecondStyle implements Controller {
         reverse.play();
     }
     public void setStage() throws Exception{
-        loggedUser = loginManager.loggedUser;
-        loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
-
         mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
 
         orderService.start();
         messageService.start();
 
-        menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
-
         ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
         setChatValues(chats);
         userChats.setItems(chats);
+
+        userMenu.setAll(loginManager.userMenu.values());
 
         ObservableList<String> orders = FXCollections.observableArrayList(loggedUser.getOrders().values()
                 .stream()
@@ -422,8 +418,6 @@ public class ControllerLoggedSecondStyle implements Controller {
 
         chatContainer.setDisable(true);
         chatContainer.setOpacity(0);
-
-        menuMap.clear();
 
         newOrderList.getItems().clear();
         menuList.getItems().clear();

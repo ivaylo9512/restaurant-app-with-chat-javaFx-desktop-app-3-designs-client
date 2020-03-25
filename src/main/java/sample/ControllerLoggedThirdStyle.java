@@ -81,8 +81,8 @@ public class ControllerLoggedThirdStyle implements Controller {
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
+    private ObservableList<Menu> userMenu = FXCollections.observableArrayList();
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
-    private TreeMap<String, Menu> menuMap = new TreeMap<>();
 
     private User loggedUser;
 
@@ -107,10 +107,9 @@ public class ControllerLoggedThirdStyle implements Controller {
         waitForNewMessages();
 
 
+        menuList.setItems(userMenu);
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            ObservableList<Menu> observableList = FXCollections.observableArrayList();
-            searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
-            menuList.setItems(observableList);
+            userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
         });
 
         mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
@@ -166,9 +165,6 @@ public class ControllerLoggedThirdStyle implements Controller {
     }
 
     public void setStage() throws Exception{
-        loggedUser = loginManager.loggedUser;
-        loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
-
         ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
         FXCollections.reverse(orders);
 
@@ -181,7 +177,7 @@ public class ControllerLoggedThirdStyle implements Controller {
         orderService.start();
         messageService.start();
 
-        menuList.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
+        userMenu.setAll(loginManager.userMenu.values());
         ordersList.setItems(orders);
 
         displayUserFields();
@@ -211,8 +207,6 @@ public class ControllerLoggedThirdStyle implements Controller {
 
         mainChatBlock.getChildren().remove(1, mainChatBlock.getChildren().size());
         secondChatBlock.getChildren().remove(1, secondChatBlock.getChildren().size());
-
-        menuMap.clear();
 
         newOrderList.getItems().clear();
         menuList.getItems().clear();

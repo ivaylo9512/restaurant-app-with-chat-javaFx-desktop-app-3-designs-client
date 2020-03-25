@@ -1,8 +1,6 @@
 package sample;
 
 import Animations.*;
-import Application.RestaurantApplication;
-import Application.StageManager;
 import Helpers.ListViews.OrderListViewCell;
 import Application.MessageService;
 import Application.OrderService;
@@ -75,8 +73,7 @@ public class ControllerLoggedFirstStyle implements Controller {
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
     private DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-
-    private TreeMap<String, Menu> menuMap = new TreeMap<>();
+    private ObservableList<Menu> userMenu = FXCollections.observableArrayList();
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private ScrollBar ordersScrollBar;
@@ -97,10 +94,9 @@ public class ControllerLoggedFirstStyle implements Controller {
         waitForNewOrders();
         waitForNewMessages();
 
+        menu.setItems(userMenu);
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            ObservableList<Menu> observableList = FXCollections.observableArrayList();
-            searchMenu(newValue.toLowerCase()).forEach((s, menu) -> observableList.add(menu));
-            menu.setItems(observableList);
+            userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
         });
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
@@ -224,7 +220,7 @@ public class ControllerLoggedFirstStyle implements Controller {
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
-        return menuMap.subMap(prefix, prefix + Character.MAX_VALUE);
+        return loginManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
     }
 
     private void updateNewOrders(List<Order> newOrders) {
@@ -787,12 +783,11 @@ public class ControllerLoggedFirstStyle implements Controller {
     }
 
     public void setStage() throws Exception{
-        loggedUser = loginManager.loggedUser;
-        loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
-
         ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
         FXCollections.reverse(orders);
         ordersList.setItems(orders);
+
+        userMenu.setAll(loginManager.userMenu.values());
 
         List<Chat> chats = getChats();
         appendChats(chats);
@@ -803,7 +798,6 @@ public class ControllerLoggedFirstStyle implements Controller {
         messageService.start();
 
         displayUserFields();
-        menu.setItems(FXCollections.observableArrayList(loggedUser.getRestaurant().getMenu()));
     }
 
     public void resetStage(){
@@ -856,7 +850,6 @@ public class ControllerLoggedFirstStyle implements Controller {
             ExpandOrderPane.reverseOrder();
         }
         chatsMap.clear();
-        menuMap.clear();
 
         orderService.cancel();
         messageService.cancel();

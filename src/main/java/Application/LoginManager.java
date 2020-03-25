@@ -1,5 +1,6 @@
 package Application;
 
+import Models.Menu;
 import Models.User;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -8,6 +9,7 @@ import javafx.concurrent.Service;
 import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.util.TreeMap;
 
 import static Application.RestaurantApplication.stageManager;
 import static Helpers.ServerRequests.httpClientLongPolling;
@@ -15,8 +17,9 @@ import static Helpers.ServerRequests.httpClientLongPolling;
 public class LoginManager {
     private LoginService loginService = new LoginService();
     private RegisterService registerService = new RegisterService();
-    public User loggedUser = new User();
+    private User loggedUser = new User();
     public static IntegerProperty userId = new SimpleIntegerProperty();
+    public TreeMap<String, Menu> userMenu = new TreeMap<>();
 
     private LoginManager(){
         userId.bind(loggedUser.getId());
@@ -87,6 +90,9 @@ public class LoginManager {
 
 
     public void setUser(User user) {
+        loggedUser.getRestaurant().getMenu().forEach(menu ->
+                userMenu.put(menu.getName().toLowerCase(), menu));
+
         loggedUser.setId(user.getId().get());
         loggedUser.setUsername(user.getUsername().get());
         loggedUser.setUsername(user.getFirstName().get());
