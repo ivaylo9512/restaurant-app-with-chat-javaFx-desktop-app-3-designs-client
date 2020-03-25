@@ -1,5 +1,6 @@
 package sample;
 
+import Application.RestaurantApplication;
 import Application.StageManager;
 import javafx.animation.*;
 import javafx.event.Event;
@@ -82,8 +83,8 @@ public class ControllerLoginFirstStyle implements  Controller{
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
         contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
 
-        loginService.bind(username.textProperty(), password.textProperty());
-        registerService.bind(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
+        RestaurantApplication.bindLoginFields(username.textProperty(), password.textProperty());
+        RestaurantApplication.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
     public void resetStage(){

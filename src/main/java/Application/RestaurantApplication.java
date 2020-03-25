@@ -4,6 +4,7 @@ import Helpers.Services.LoginService;
 import Helpers.Services.RegisterService;
 import Models.User;
 import javafx.application.Application;
+import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
@@ -15,8 +16,8 @@ import java.net.ConnectException;
 import static Helpers.ServerRequests.httpClientLongPolling;
 
 public class RestaurantApplication extends Application{
-    public static LoginService loginService;
-    public static RegisterService registerService;
+    private static LoginService loginService;
+    private static RegisterService registerService;
     private Stage primaryStage;
     public static User loggedUser = new User();
 
@@ -59,6 +60,14 @@ public class RestaurantApplication extends Application{
         Alert alert = StageManager.currentAlert;
         alert.getDialogPane().setContentText(exception);
         alert.showAndWait();
+    }
+
+    public static void bindLoginFields(StringProperty username, StringProperty password){
+        loginService.bind(username, password);
+    }
+
+    public static void bindRegisterFields(StringProperty username, StringProperty password, StringProperty repeatPassword){
+        registerService.bind(username, password, repeatPassword);
     }
 
     private void login(Service service) {
