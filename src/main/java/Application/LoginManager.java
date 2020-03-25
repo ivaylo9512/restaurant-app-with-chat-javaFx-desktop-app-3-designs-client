@@ -1,7 +1,8 @@
 package Application;
 
-import Models.Restaurant;
 import Models.User;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
 import org.apache.http.impl.client.HttpClients;
@@ -15,8 +16,11 @@ public class LoginManager {
     private LoginService loginService = new LoginService();
     private RegisterService registerService = new RegisterService();
     public User loggedUser = new User();
+    public static IntegerProperty userId = new SimpleIntegerProperty();
 
     private LoginManager(){
+        userId.bind(loggedUser.getId());
+
         loginService.setOnSucceeded(eventSuccess -> onSuccessfulService(loginService));
         loginService.setOnFailed(eventFail -> updateError(loginService));
 
@@ -35,7 +39,7 @@ public class LoginManager {
     public void bindRegisterFields(StringProperty username, StringProperty password, StringProperty repeatPassword){
         registerService.username.bind(username);
         registerService.password.bind(password);
-        registerService.repeatPassword.bind(password);
+        registerService.repeatPassword.bind(repeatPassword);
     }
 
     private void updateError(Service service) {
@@ -61,8 +65,9 @@ public class LoginManager {
     public void register(){
         registerService.start();
     }
+
     private void onSuccessfulService(Service service) {
-        loggedUser.setUser((User) service.getValue());
+        setUser((User) service.getValue());
         service.reset();
 
         stageManager.changeToOwner();
@@ -78,5 +83,18 @@ public class LoginManager {
         httpClientLongPolling = HttpClients.createDefault();
 
         stageManager.changeToOwner();
+    }
+
+
+    public void setUser(User user) {
+        loggedUser.setId(user.getId().get());
+        loggedUser.setUsername(user.getUsername().get());
+        loggedUser.setUsername(user.getFirstName().get());
+        loggedUser.setLastName(user.getLastName().get());
+        loggedUser.setAge(Integer.valueOf(user.getAge().get()));
+        loggedUser.setCountry(user.getCountry().get());
+        loggedUser.setRole(user.getRole().get());
+        loggedUser.setRestaurant(user.getRestaurant());
+        loggedUser.setProfilePicture(user.getProfilePicture().get());
     }
 }

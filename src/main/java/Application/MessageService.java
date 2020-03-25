@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Application.LoginManager.userId;
 import static Helpers.ServerRequests.*;
 
 
@@ -36,7 +37,7 @@ public class MessageService extends Service {
                 patchEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
                 HttpPatch httpPatch = new HttpPatch(base + "/api/chat/auth/getChatUpdates");
-                httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
+                httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
                 httpPatch.setEntity(patchEntity);
                 try (CloseableHttpResponse response = httpClientLongPolling.execute(httpPatch)) {
 

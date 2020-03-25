@@ -63,7 +63,7 @@ class LoginService extends Service {
                     String jwtToken = response.getHeaders("Authorization")[0].getValue();
 
                     User user = mapper.readValue(content, User.class);
-                    ServerRequests.userPreference.put(String.valueOf(user.getId()), jwtToken);
+                    ServerRequests.userPreference.put(String.valueOf(user.getId().get()), jwtToken);
 
                     EntityUtils.consume(receivedEntity);
 

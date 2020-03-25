@@ -15,7 +15,7 @@ public class User {
     private StringProperty username = new SimpleStringProperty();
     private StringProperty firstName = new SimpleStringProperty();
     private StringProperty lastName = new SimpleStringProperty();
-    private IntegerProperty age = new SimpleIntegerProperty();
+    private StringProperty age = new SimpleStringProperty();
     private StringProperty country = new SimpleStringProperty();
     private StringProperty role = new SimpleStringProperty();
     private StringProperty profilePicture = new SimpleStringProperty();
@@ -36,7 +36,7 @@ public class User {
         this.username.setValue(username);
         this.firstName.setValue(firstName);
         this.lastName.setValue(lastName);
-        this.age.setValue(age);
+        this.age.setValue(String.valueOf(age));
         this.country.setValue(country);
         this.role.setValue(role);
         this.profilePicture.setValue(profilePicture);
@@ -83,12 +83,12 @@ public class User {
         this.lastName.setValue(lastName);
     }
 
-    public IntegerProperty getAge() {
+    public StringProperty getAge() {
         return age;
     }
 
     public void setAge(Integer age) {
-        this.age.setValue(age);
+        this.age.setValue(String.valueOf(age));
     }
 
     public StringProperty getCountry() {
@@ -134,17 +134,5 @@ public class User {
 
     public void setImage(Image image) {
         this.image.setValue(image);
-    }
-
-    public void setUser(User user) {
-        id.setValue(user.getId().get());
-        username.setValue(user.username.get());
-        firstName.setValue(user.firstName.get());
-        lastName.setValue(user.lastName.get());
-        age.setValue(user.age.get());
-        country.setValue(user.country.get());
-        role.setValue(user.role.get());
-        restaurant = user.getRestaurant();
-        setProfilePicture(user.getProfilePicture().get());
     }
 }

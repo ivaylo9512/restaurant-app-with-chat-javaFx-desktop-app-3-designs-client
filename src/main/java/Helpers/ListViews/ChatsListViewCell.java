@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static Helpers.ServerRequests.loggedUser;
+import static Application.LoginManager.userId;
 
 public class ChatsListViewCell extends ListCell<Chat> {
     @FXML
@@ -53,7 +54,7 @@ public class ChatsListViewCell extends ListCell<Chat> {
 
             }
             User user;
-            if(chat.getFirstUser().getId() == loggedUser.getId()){
+            if(chat.getFirstUser().getId() == userId.get()){
                 user = chat.getSecondUser();
             }else{
                 user = chat.getFirstUser();

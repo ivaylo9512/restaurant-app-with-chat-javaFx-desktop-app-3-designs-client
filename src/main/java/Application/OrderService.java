@@ -20,6 +20,7 @@ import java.util.List;
 
 import static Helpers.ServerRequests.*;
 import static Helpers.ServerRequests.userPreference;
+import static Application.LoginManager.userId;
 
 public class OrderService extends Service {
 
@@ -40,7 +41,7 @@ public class OrderService extends Service {
                 builder.setParameter("restaurantId", restaurantId);
 
                 HttpPatch httpPatch = new HttpPatch(builder.build());
-                httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
+                httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
                 httpPatch.setEntity(postEntity);
 
                 try (CloseableHttpResponse response = httpClientLongPolling.execute(httpPatch)) {

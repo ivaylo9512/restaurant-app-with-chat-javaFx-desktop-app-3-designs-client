@@ -15,6 +15,8 @@ import sample.Controller;
 
 import java.io.IOException;
 
+import static Application.RestaurantApplication.loginManager;
+
 public class StageManager {
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
     private Stage primaryStage;
@@ -207,7 +209,7 @@ public class StageManager {
                 try {
                     controller.setStage();
                 } catch (Exception e) {
-                    RestaurantApplication.loginManager.logout();
+                    loginManager.logout();
                     showAlert(e.getMessage());
                 }
             }

@@ -26,7 +26,7 @@ import java.util.*;
 import java.util.prefs.Preferences;
 
 import static Application.MessageService.lastMessageCheck;
-import static Application.RestaurantApplication.loggedUser;
+import static Application.LoginManager.userId;
 
 public class ServerRequests {
     public static CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -46,7 +46,7 @@ public class ServerRequests {
                     .setParameter("page", String.valueOf(page))
                     .setParameter("pageSize", String.valueOf(pageSize));
             get = new HttpGet(builder.build());
-            get.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
+            get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
 
             try (CloseableHttpResponse response = httpClient.execute(get)) {
 
@@ -77,7 +77,7 @@ public class ServerRequests {
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         HttpPost httpPost = new HttpPost(base + "/api/order/auth/create");
-        httpPost.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
+        httpPost.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
         httpPost.setEntity(postEntity);
 
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
@@ -97,7 +97,7 @@ public class ServerRequests {
     public static LocalDateTime getMostRecentOrderDate(int restaurantId) throws Exception{
         HttpGet get = new HttpGet(base + "/api/order/auth/getMostRecentDate/" + restaurantId);
         LocalDateTime localDateTime;
-        get.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
+        get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
 
         try (CloseableHttpResponse response = httpClient.execute(get)) {
 
@@ -123,7 +123,7 @@ public class ServerRequests {
         builder.setParameter("pageSize", String.valueOf(pageSize));
 
         HttpGet get = new HttpGet(builder.build());
-        get.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
+        get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
 
         try (CloseableHttpResponse response = httpClient.execute(get)) {
 
@@ -157,7 +157,7 @@ public class ServerRequests {
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         HttpPost post = new HttpPost(base + "/api/users/auth/changeUserInfo");
-        post.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
+        post.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
         post.setEntity(postEntity);
 
         try (CloseableHttpResponse response = httpClient.execute(post)) {
@@ -190,7 +190,7 @@ public class ServerRequests {
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         HttpPost post = new HttpPost(base + "/api/chat/auth/newMessage");
-        post.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
+        post.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
         post.setEntity(postEntity);
 
         try(CloseableHttpResponse response = httpClient.execute(post)){
@@ -212,7 +212,7 @@ public class ServerRequests {
     }
     public static void updateDishState(int orderId, int dishId) throws Exception{
         HttpPatch httpPatch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
-        httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(loggedUser.getId()), null));
+        httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
 
         try(CloseableHttpResponse response = httpClient.execute(httpPatch)){
             int statusCode = response.getStatusLine().getStatusCode();
