@@ -1,7 +1,5 @@
 package sample;
 
-import Application.RestaurantApplication;
-import Application.StageManager;
 import javafx.animation.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -16,8 +14,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
-import static Application.RestaurantApplication.registerService;
-import static Application.RestaurantApplication.loginService;
+import static Application.RestaurantApplication.loginManager;
+import static Application.RestaurantApplication.stageManager;
 
 public class ControllerLoginFirstStyle implements  Controller{
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
@@ -61,7 +59,7 @@ public class ControllerLoginFirstStyle implements  Controller{
             root.setCursor(Cursor.WAIT);
             loading = true;
 
-            loginService.start();
+            loginManager.login();
         }
     }
 
@@ -70,7 +68,7 @@ public class ControllerLoginFirstStyle implements  Controller{
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
             //Todo
             loading = true;
-            registerService.start();
+            loginManager.register();
         }
     }
 
@@ -83,8 +81,8 @@ public class ControllerLoginFirstStyle implements  Controller{
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
         contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
 
-        RestaurantApplication.bindLoginFields(username.textProperty(), password.textProperty());
-        RestaurantApplication.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
+        loginManager.bindLoginFields(username.textProperty(), password.textProperty());
+        loginManager.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
     public void resetStage(){
@@ -195,22 +193,22 @@ public class ControllerLoginFirstStyle implements  Controller{
     }
     @FXML
     public void showLoginThirdStyle(){
-        StageManager.changeStage(StageManager.thirdLoginStage);
+        stageManager.changeStage(stageManager.thirdLoginStage);
     }
     @FXML
     public void showLoginSecondStyle(){
-        StageManager.changeStage(StageManager.secondLoginStage);
+        stageManager.changeStage(stageManager.secondLoginStage);
 
     }
 
     @FXML
     public void minimize(){
-        StageManager.currentStage.setIconified(true);
+        stageManager.currentStage.setIconified(true);
     }
 
     @FXML
     public void close(){
-        StageManager.currentStage.close();
+        stageManager.currentStage.close();
     }
 
 }

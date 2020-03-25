@@ -21,8 +21,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
-import static Application.RestaurantApplication.loginService;
-import static Application.RestaurantApplication.registerService;
+import static Application.RestaurantApplication.loginManager;
+import static Application.RestaurantApplication.stageManager;
 
 
 public class ControllerLoginThirdStyle implements Controller{
@@ -52,7 +52,7 @@ public class ControllerLoginThirdStyle implements Controller{
             root.setCursor(Cursor.WAIT);
 
             loading = true;
-            loginService.start();
+            loginManager.login();
         }
     }
 
@@ -65,7 +65,8 @@ public class ControllerLoginThirdStyle implements Controller{
             root.setCursor(Cursor.WAIT);
 
             loading = true;
-            registerService.start();
+            loginManager.register();
+
         }
     }
 
@@ -195,12 +196,12 @@ public class ControllerLoginThirdStyle implements Controller{
 
     @FXML
     public void showLoginSecondStyle(){
-        StageManager.changeStage(StageManager.secondLoginStage);
+        stageManager.changeStage(stageManager.secondLoginStage);
     }
 
     @FXML
     public void showLoginFirstStyle(){
-        StageManager.changeStage(StageManager.firstLoginStage);
+        stageManager.changeStage(stageManager.firstLoginStage);
     }
 
     public void setStage(){
@@ -209,8 +210,8 @@ public class ControllerLoginThirdStyle implements Controller{
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
         loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
 
-        RestaurantApplication.bindLoginFields(username.textProperty(), password.textProperty());
-        RestaurantApplication.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
+        loginManager.bindLoginFields(username.textProperty(), password.textProperty());
+        loginManager.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
     @FXML
@@ -250,11 +251,11 @@ public class ControllerLoginThirdStyle implements Controller{
 
     @FXML
     public void minimize(){
-        StageManager.currentStage.setIconified(true);
+        stageManager.currentStage.setIconified(true);
     }
 
     @FXML
     public void close(){
-        StageManager.currentStage.close();
+        stageManager.currentStage.close();
     }
 }

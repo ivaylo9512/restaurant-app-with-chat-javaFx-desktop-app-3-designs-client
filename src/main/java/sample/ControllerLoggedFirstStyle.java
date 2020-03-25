@@ -51,6 +51,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 
+import static Application.RestaurantApplication.loginManager;
+import static Application.RestaurantApplication.stageManager;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
@@ -288,13 +290,13 @@ public class ControllerLoggedFirstStyle implements Controller {
                     sendOrder(new Order(dishes));
                     newOrderMenu.getItems().clear();
                 }catch (Exception e){
-                    RestaurantApplication.showAlert(e.getMessage());
+                    stageManager.showAlert(e.getMessage());
                 }
             }else{
-                RestaurantApplication.showAlert("Order must have at least one dish.");
+                stageManager.showAlert("Order must have at least one dish.");
             }
         } else {
-            RestaurantApplication.showAlert("You must be a server to create orders.");
+            stageManager.showAlert("You must be a server to create orders.");
         }
 
     }
@@ -785,7 +787,7 @@ public class ControllerLoggedFirstStyle implements Controller {
     }
 
     public void setStage() throws Exception{
-        loggedUser = RestaurantApplication.loggedUser;
+        loggedUser = loginManager.loggedUser;
         loggedUser.getRestaurant().getMenu().forEach(menu -> menuMap.put(menu.getName().toLowerCase(), menu));
 
         ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
@@ -862,7 +864,7 @@ public class ControllerLoggedFirstStyle implements Controller {
 
     @FXML
     public void logOut(){
-        RestaurantApplication.logout();
+        loginManager.logout();
     }
 
     @FXML
@@ -874,7 +876,7 @@ public class ControllerLoggedFirstStyle implements Controller {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        StageManager.changeStage(StageManager.secondLoggedStage);
+        stageManager.changeStage(stageManager.secondLoggedStage);
     }
     @FXML
     public void showLoggedThirdStyle(){
@@ -886,16 +888,16 @@ public class ControllerLoggedFirstStyle implements Controller {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        StageManager.changeStage(StageManager.thirdLoggedStage);
+        stageManager.changeStage(stageManager.thirdLoggedStage);
     }
     @FXML
     public void minimize(){
-        StageManager.currentStage.setIconified(true);
+        stageManager.currentStage.setIconified(true);
     }
 
     @FXML
     public void close(){
-        StageManager.currentStage.close();
+        stageManager.currentStage.close();
     }
 
     //Todo
@@ -907,10 +909,10 @@ public class ControllerLoggedFirstStyle implements Controller {
                     ready.setText("O");
 
                 } catch (Exception e) {
-                    RestaurantApplication.showAlert(e.getMessage());
+                    stageManager.showAlert(e.getMessage());
                 }
         }else{
-            RestaurantApplication.showAlert("You must be a chef to update the dish status.");
+            stageManager.showAlert("You must be a chef to update the dish status.");
         }
     }
 

@@ -2,7 +2,6 @@ package sample;
 
 import Application.RestaurantApplication;
 import Application.StageManager;
-import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -17,8 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 
-import static Application.RestaurantApplication.registerService;
-import static Application.RestaurantApplication.loginService;
+import static Application.RestaurantApplication.loginManager;
+import static Application.RestaurantApplication.stageManager;
 
 public class ControllerLoginSecondStyle implements Controller{
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
@@ -44,7 +43,7 @@ public class ControllerLoginSecondStyle implements Controller{
             root.setCursor(Cursor.WAIT);
 
             loading = true;
-            loginService.start();
+            loginManager.login();
         }
 
     }
@@ -57,7 +56,7 @@ public class ControllerLoginSecondStyle implements Controller{
             root.setCursor(Cursor.WAIT);
 
             loading = true;
-            registerService.start();
+            loginManager.register();
         }
     }
 
@@ -68,8 +67,8 @@ public class ControllerLoginSecondStyle implements Controller{
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
         loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
 
-        RestaurantApplication.bindLoginFields(username.textProperty(), password.textProperty());
-        RestaurantApplication.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
+        loginManager.bindLoginFields(username.textProperty(), password.textProperty());
+        loginManager.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
     public void resetStage(){
@@ -152,15 +151,15 @@ public class ControllerLoginSecondStyle implements Controller{
 
     @FXML
     public void showLoginThirdStyle(){
-        StageManager.changeStage(StageManager.thirdLoginStage);
+        stageManager.changeStage(stageManager.thirdLoginStage);
     }
     @FXML
     public void showLoginFirstStyle(){
-        StageManager.changeStage(StageManager.firstLoginStage);
+        stageManager.changeStage(stageManager.firstLoginStage);
     }
 
     @FXML
     public void close(){
-        StageManager.currentStage.close();
+        stageManager.currentStage.close();
     }
 }

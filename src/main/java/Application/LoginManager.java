@@ -14,7 +14,7 @@ import static Helpers.ServerRequests.httpClientLongPolling;
 public class LoginManager {
     private LoginService loginService = new LoginService();
     private RegisterService registerService = new RegisterService();
-    public static User loggedUser = new User();
+    public User loggedUser = new User();
 
     private LoginManager(){
         loginService.setOnSucceeded(eventSuccess -> onSuccessfulService(loginService));
