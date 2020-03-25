@@ -19,7 +19,6 @@ public class RestaurantApplication extends Application{
     public static LoginManager loginManager;
     public static StageManager stageManager;
     private Stage primaryStage;
-    public static User loggedUser = new User();
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -33,48 +32,9 @@ public class RestaurantApplication extends Application{
         this.primaryStage = primaryStage;
     }
 
-    private void updateError(Service service) {
-        Throwable exception = service.getException();
-        String exceptionMessage = exception.getMessage();
-
-        try {
-            throw exception;
-        } catch (ConnectException e) {
-            exceptionMessage = "No connection to the server.";
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-
-        StageManager.currentController.resetStage();
-        showAlert(exceptionMessage);
-        service.reset();
-    }
-
     public static void showAlert(String exception) {
         Alert alert = StageManager.currentAlert;
         alert.getDialogPane().setContentText(exception);
         alert.showAndWait();
-    }
-
-    private void login(Service service) {
-        loggedUser.setUser((User) service.getValue());
-
-        Stage currentStage = StageManager.currentStage;
-        Stage stage = currentStage == primaryStage ? StageManager.firstLoggedStage
-                : (Stage)currentStage.getOwner();
-
-        StageManager.changeStage(stage);
-        service.reset();
-    }
-    public static void logout(){
-        //Todo: remove close + reset user
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        StageManager.changeStage((Stage)StageManager.currentStage.getOwner());
     }
 }
