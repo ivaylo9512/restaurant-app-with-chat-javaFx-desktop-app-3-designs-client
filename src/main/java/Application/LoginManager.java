@@ -3,7 +3,6 @@ package Application;
 import Models.User;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
-import javafx.stage.Stage;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
@@ -55,11 +54,7 @@ public class LoginManager {
     private void login(Service service) {
         loggedUser.setUser((User) service.getValue());
 
-        Stage currentStage = StageManager.currentStage;
-        Stage stage = currentStage == primaryStage ? StageManager.firstLoggedStage
-                : (Stage)currentStage.getOwner();
-
-        StageManager.changeStage(stage);
+        RestaurantApplication.stageManager.changeToOwner();
         service.reset();
     }
 
@@ -72,6 +67,6 @@ public class LoginManager {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        StageManager.changeStage((Stage)StageManager.currentStage.getOwner());
+        RestaurantApplication.stageManager.changeToOwner();
     }
 }

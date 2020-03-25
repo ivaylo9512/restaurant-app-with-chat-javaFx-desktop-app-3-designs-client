@@ -17,30 +17,34 @@ import java.io.IOException;
 
 public class StageManager {
     Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-    public static Stage currentStage;
-    public static Controller currentController;
-    public static Alert currentAlert;
+    private Stage primaryStage;
 
-    public static Alert firstLoginAlert;
-    public static Controller firstLoginController;
-    public static Stage firstLoginStage;
-    public static Alert secondLoginAlert;
-    public static Controller secondLoginController;
-    public static Stage secondLoginStage;
-    public static Alert thirdLoginAlert;
-    public static Controller thirdLoginController;
-    public static Stage thirdLoginStage;
-    public static Alert firstLoggedAlert;
-    public static Controller firstLoggedController;
-    public static Stage firstLoggedStage;
-    public static Alert secondLoggedAlert;
-    public static Controller secondLoggedController;
-    public static Stage secondLoggedStage;
-    public static Alert thirdLoggedAlert;
-    public static Controller thirdLoggedController;
-    public static Stage thirdLoggedStage;
+    public Stage currentStage;
+    public Controller currentController;
+    public Alert currentAlert;
+
+    public Alert firstLoginAlert;
+    public Controller firstLoginController;
+    public Stage firstLoginStage;
+    public Alert secondLoginAlert;
+    public Controller secondLoginController;
+    public Stage secondLoginStage;
+    public Alert thirdLoginAlert;
+    public Controller thirdLoginController;
+    public Stage thirdLoginStage;
+    public Alert firstLoggedAlert;
+    public Controller firstLoggedController;
+    public Stage firstLoggedStage;
+    public Alert secondLoggedAlert;
+    public Controller secondLoggedController;
+    public Stage secondLoggedStage;
+    public Alert thirdLoggedAlert;
+    public Controller thirdLoggedController;
+    public Stage thirdLoggedStage;
 
     private StageManager(Stage primaryStage) throws Exception{
+        this.primaryStage = primaryStage;
+
         currentStage = initializeFirstLoginStyle(primaryStage);
         currentAlert = firstLoginAlert;
         currentController = firstLoginController;
@@ -63,7 +67,14 @@ public class StageManager {
     static StageManager initialize(Stage primaryStage) throws Exception {
         return new StageManager(primaryStage);
     }
-    public static void changeStage(Stage stage){
+
+    void changeToOwner(){
+        Stage stage = currentStage == primaryStage ? firstLoggedStage
+                : (Stage)currentStage.getOwner();
+        changeStage(stage);
+    }
+
+    public void changeStage(Stage stage){
         currentStage.close();
         if(stage == firstLoginStage){
             currentStage = firstLoginStage;
@@ -91,6 +102,10 @@ public class StageManager {
             currentAlert = thirdLoggedAlert;
         }
         currentStage.show();
+    }
+    public void showAlert(String exception) {
+        currentAlert.getDialogPane().setContentText(exception);
+        currentAlert.showAndWait();
     }
     private Stage initializeFirstLoginStyle(Stage stage) throws IOException {
 
@@ -171,7 +186,7 @@ public class StageManager {
         return thirdLoggedStage = createStage(stage, scene, thirdLoggedController);
     }
 
-    private static Alert createAlert(Stage stage) {
+    private Alert createAlert(Stage stage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(stage);
         alert.initStyle(StageStyle.TRANSPARENT);
@@ -190,8 +205,8 @@ public class StageManager {
                 try {
                     controller.setStage();
                 } catch (Exception e) {
-                    RestaurantApplication.logout();
-                    RestaurantApplication.showAlert(e.getMessage());
+                    RestaurantApplication.loginManager.logout();
+                    showAlert(e.getMessage());
                 }
             }
         });
