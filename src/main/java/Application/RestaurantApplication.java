@@ -9,6 +9,7 @@ import javafx.concurrent.Service;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.apache.http.impl.client.HttpClients;
+import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -16,8 +17,8 @@ import java.net.ConnectException;
 import static Helpers.ServerRequests.httpClientLongPolling;
 
 public class RestaurantApplication extends Application{
-    private static LoginService loginService;
-    private static RegisterService registerService;
+    public static LoginManager loginManager;
+    public static StageManager stageManager;
     private Stage primaryStage;
     public static User loggedUser = new User();
 
@@ -27,11 +28,8 @@ public class RestaurantApplication extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        loginService = new LoginService();
-        registerService = new RegisterService();
-
-        StageManager stageManager = new StageManager();
-        stageManager.initializeStages(primaryStage);
+        loginManager = LoginManager.initialize();
+        stageManager = StageManager.initialize(primaryStage);
 
         loginService.setOnSucceeded(eventSuccess -> login(loginService));
         loginService.setOnFailed(eventFail -> updateError(loginService));

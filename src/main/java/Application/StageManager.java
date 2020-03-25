@@ -40,7 +40,7 @@ public class StageManager {
     public static Controller thirdLoggedController;
     public static Stage thirdLoggedStage;
 
-    public void initializeStages(Stage primaryStage) throws Exception {
+    private StageManager(Stage primaryStage) throws Exception{
         currentStage = initializeFirstLoginStyle(primaryStage);
         currentAlert = firstLoginAlert;
         currentController = firstLoginController;
@@ -59,7 +59,9 @@ public class StageManager {
         thirdLoggedStage.initOwner(thirdLoginStage);
 
         currentStage.show();
-
+    }
+    static StageManager initialize(Stage primaryStage) throws Exception {
+        return new StageManager(primaryStage);
     }
     public static void changeStage(Stage stage){
         currentStage.close();
