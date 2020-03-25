@@ -1,13 +1,14 @@
 package Application;
 
+import Models.Restaurant;
 import Models.User;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
 import org.apache.http.impl.client.HttpClients;
-
 import java.io.IOException;
 import java.net.ConnectException;
 
+import static Application.RestaurantApplication.stageManager;
 import static Helpers.ServerRequests.httpClientLongPolling;
 
 public class LoginManager {
@@ -16,8 +17,11 @@ public class LoginManager {
     public static User loggedUser = new User();
 
     private LoginManager(){
-        loginService.setOnSucceeded(eventSuccess -> login(loginService));
+        loginService.setOnSucceeded(eventSuccess -> onSuccessfulService(loginService));
         loginService.setOnFailed(eventFail -> updateError(loginService));
+
+        registerService.setOnSucceeded(eventSuccess -> onSuccessfulService(registerService));
+        registerService.setOnFailed(eventFail -> updateError(loginService));
     }
     static LoginManager initialize(){
         return new LoginManager();
@@ -46,16 +50,22 @@ public class LoginManager {
             throwable.printStackTrace();
         }
 
-        StageManager.currentController.resetStage();
-        showAlert(exceptionMessage);
+        stageManager.currentController.resetStage();
+        stageManager.showAlert(exceptionMessage);
         service.reset();
     }
 
-    private void login(Service service) {
+    public void login(){
+        loginService.start();
+    }
+    public void register(){
+        registerService.start();
+    }
+    private void onSuccessfulService(Service service) {
         loggedUser.setUser((User) service.getValue());
-
-        RestaurantApplication.stageManager.changeToOwner();
         service.reset();
+
+        stageManager.changeToOwner();
     }
 
     public void logout(){
@@ -67,6 +77,6 @@ public class LoginManager {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
-        RestaurantApplication.stageManager.changeToOwner();
+        stageManager.changeToOwner();
     }
 }

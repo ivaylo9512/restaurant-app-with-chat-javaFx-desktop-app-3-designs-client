@@ -16,7 +16,7 @@ import sample.Controller;
 import java.io.IOException;
 
 public class StageManager {
-    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
     private Stage primaryStage;
 
     public Stage currentStage;
@@ -103,10 +103,12 @@ public class StageManager {
         }
         currentStage.show();
     }
+
     public void showAlert(String exception) {
         currentAlert.getDialogPane().setContentText(exception);
         currentAlert.showAndWait();
     }
+
     private Stage initializeFirstLoginStyle(Stage stage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-first.fxml"));
