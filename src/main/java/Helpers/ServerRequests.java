@@ -26,7 +26,9 @@ import java.util.*;
 import java.util.prefs.Preferences;
 
 import static Application.MessageService.lastMessageCheck;
+import static Application.RestaurantApplication.loginManager;
 import static Application.LoginManager.userId;
+import static Application.RestaurantApplication.stageManager;
 
 public class ServerRequests {
     public static CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -56,11 +58,11 @@ public class ServerRequests {
                 EntityUtils.consume(entity);
 
                 if (responseStatus != 200) {
-                    throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
+                    handleException(content);
                 }
 
                 sessions = mapper.readValue(content, new TypeReference<List<Session>>() {});
-            } catch (IOException | HttpException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         } catch (URISyntaxException e) {
@@ -89,7 +91,7 @@ public class ServerRequests {
             EntityUtils.consume(receivedEntity);
 
             if (responseStatus != 200) {
-                throw new HttpException(content);
+                handleException(content);
             }
         }
     }
@@ -108,7 +110,7 @@ public class ServerRequests {
             EntityUtils.consume(entity);
 
             if (responseStatus != 200) {
-                throw new HttpException("Invalid response code: " + responseStatus + ". With an error message: " + content);
+                handleException(content);
             }
 
             localDateTime = mapper.readValue(content, LocalDateTime.class);
@@ -134,7 +136,7 @@ public class ServerRequests {
             EntityUtils.consume(entity);
 
             if (responseStatus != 200) {
-                throw new HttpException(content);
+                handleException(content);
             }
 
             chats = mapper.readValue(content, new TypeReference<List<Chat>>(){});
@@ -168,11 +170,11 @@ public class ServerRequests {
             EntityUtils.consume(responseEntity);
 
             if (responseCode != 200) {
-                throw new HttpException(content);
+                handleException(content);
             }
 
             user = mapper.readValue(content, User.class);
-        } catch (IOException | HttpException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return user;
@@ -201,11 +203,11 @@ public class ServerRequests {
             EntityUtils.consume(responseEntity);
 
             if(statusCode != 200){
-                throw new HttpException(content);
+                handleException(content);
             }
 
             message = mapper.readValue(content, Message.class);
-        } catch (IOException | HttpException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return message;
@@ -222,8 +224,16 @@ public class ServerRequests {
             EntityUtils.consume(responseEntity);
 
             if(statusCode != 200){
-                throw new HttpException(content);
+                handleException(content);
             }
         }
+    }
+
+
+    private static void handleException(String exception) {
+        if (exception.equals("Jwt token has expired.")) {
+            loginManager.logout();
+        }
+        stageManager.showAlert("Session has expired.");
     }
 }
