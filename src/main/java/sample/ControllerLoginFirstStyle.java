@@ -17,7 +17,6 @@ import sample.base.ControllerLogin;
 import static Application.RestaurantApplication.loginManager;
 
 public class ControllerLoginFirstStyle extends ControllerLogin implements  Controller{
-    @FXML AnchorPane contentRoot;
     @FXML Pane background, menu;
     @FXML Button loginButton, registerButton, actionButton;
 
@@ -28,13 +27,13 @@ public class ControllerLoginFirstStyle extends ControllerLogin implements  Contr
     public void initialize(){
         TranslateTransition translateMenu = new TranslateTransition(Duration.millis(1300), menu);
         translateMenu.setToX(-417);
-        TranslateTransition translateRoot = new TranslateTransition(Duration.millis(1300), contentRoot);
+        TranslateTransition translateRoot = new TranslateTransition(Duration.millis(1300), loginPane);
         translateRoot.setToX(209);
 
         TranslateTransition reverseMenu = new TranslateTransition(Duration.millis(800), menu);
         reverseMenu.setFromX(-417);
         reverseMenu.setToX(0);
-        TranslateTransition reverseRoot = new TranslateTransition(Duration.millis(800), contentRoot);
+        TranslateTransition reverseRoot = new TranslateTransition(Duration.millis(800), loginPane);
         reverseRoot.setFromX(209);
         reverseRoot.setToX(0);
 
@@ -46,17 +45,12 @@ public class ControllerLoginFirstStyle extends ControllerLogin implements  Contr
 
     }
 
-    public void setStage(){
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    @Override
+    public void setStage() {
+        super.setStage();
 
         background.setPrefHeight(primaryScreenBounds.getHeight());
         background.setPrefWidth(primaryScreenBounds.getWidth());
-
-        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
-        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
-
-        loginManager.bindLoginFields(username.textProperty(), password.textProperty());
-        loginManager.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
     public void resetStage(){
@@ -68,7 +62,7 @@ public class ControllerLoginFirstStyle extends ControllerLogin implements  Contr
         }else {
             root.setCursor(Cursor.DEFAULT);
             menu.setTranslateX(0);
-            contentRoot.setTranslateX(0);
+            loginPane.setTranslateX(0);
             if (currentMenu != null) {
                 currentMenu.setOpacity(0);
                 currentMenu.setDisable(true);
@@ -108,7 +102,7 @@ public class ControllerLoginFirstStyle extends ControllerLogin implements  Contr
                 }));
                 fade.play();
 
-            } else if (contentRoot.getTranslateX() > 0) {
+            } else if (loginPane.getTranslateX() > 0) {
                 currentMenu.setDisable(true);
 
                 Timeline changeFields = new Timeline(new KeyFrame(Duration.millis(800), event1 -> {

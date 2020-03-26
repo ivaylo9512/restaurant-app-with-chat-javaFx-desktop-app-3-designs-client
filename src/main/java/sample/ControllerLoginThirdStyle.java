@@ -8,31 +8,26 @@ import javafx.animation.*;
 import javafx.concurrent.Service;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.util.Duration;
 import sample.base.ControllerLogin;
 
-import static Application.RestaurantApplication.loginManager;
 
 
 public class ControllerLoginThirdStyle extends ControllerLogin implements Controller{
-    @FXML AnchorPane loginPane, contentRoot, menu;
+    @FXML AnchorPane contentRoot, menu;
     @FXML Button actionBtn;
     @FXML Text loginBtn;
     @FXML Line menuLine;
     @FXML StackPane logo;
 
-    private Pane currentMenu;
     private Text currentText;
 
     @FXML
@@ -153,16 +148,6 @@ public class ControllerLoginThirdStyle extends ControllerLogin implements Contro
             currentText.getStyleClass().remove("strikethrough");
         }
         currentText = clickedText;
-    }
-
-    public void setStage(){
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-        loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
-        loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
-
-        loginManager.bindLoginFields(username.textProperty(), password.textProperty());
-        loginManager.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
     @FXML

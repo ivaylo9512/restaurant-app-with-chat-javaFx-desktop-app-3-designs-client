@@ -2,22 +2,16 @@ package sample;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 import sample.base.ControllerLogin;
 
-import static Application.RestaurantApplication.loginManager;
-
 public class ControllerLoginSecondStyle extends ControllerLogin implements Controller{
-    @FXML AnchorPane loginPane;
     @FXML Button actionBtn;
     @FXML ImageView actionBtnImage;
     @FXML Image loginImage;
@@ -25,16 +19,6 @@ public class ControllerLoginSecondStyle extends ControllerLogin implements Contr
     @FXML
     public void initialize(){
         currentMenu = loginFields;
-    }
-
-    public void setStage(){
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-        loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
-        loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
-
-        loginManager.bindLoginFields(username.textProperty(), password.textProperty());
-        loginManager.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
     public void resetStage(){
