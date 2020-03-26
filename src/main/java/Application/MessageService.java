@@ -21,7 +21,7 @@ import static Application.LoginManager.userId;
 import static Helpers.ServerRequests.*;
 
 
-public class MessageService extends Service {
+public class MessageService extends Service<List<Message>> {
 
     public static LocalDateTime lastMessageCheck;
     @Override

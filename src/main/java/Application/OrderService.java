@@ -22,7 +22,7 @@ import static Helpers.ServerRequests.*;
 import static Helpers.ServerRequests.userPreference;
 import static Application.LoginManager.userId;
 
-public class OrderService extends Service {
+public class OrderService extends Service<List<Order>> {
 
     public static LocalDateTime mostRecentOrderDate;
     @Override
