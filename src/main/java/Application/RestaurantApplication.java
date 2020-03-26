@@ -9,6 +9,7 @@ public class RestaurantApplication extends Application{
     public static LoginManager loginManager;
     public static StageManager stageManager;
     public static OrderManager orderManager;
+    public static MessageManager messageManager;
 
     public static MediaPlayer notificationSound;
 
