@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -18,13 +17,9 @@ import sample.base.ControllerLogin;
 import static Application.RestaurantApplication.loginManager;
 
 public class ControllerLoginFirstStyle extends ControllerLogin implements  Controller{
-    @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane contentRoot;
-    @FXML Pane root, background, menu, loginFields, registerFields, nextRegisterFields, styleButtons;
+    @FXML Pane background, menu;
     @FXML Button loginButton, registerButton, actionButton;
-
-    private Pane currentMenu;
-    private boolean loading;
 
     private ParallelTransition expand, reverse;
     private SequentialTransition changeTransition;
@@ -49,27 +44,6 @@ public class ControllerLoginFirstStyle extends ControllerLogin implements  Contr
                 new ParallelTransition(reverseMenu, reverseRoot),
                 new ParallelTransition(translateMenu, translateRoot));
 
-    }
-
-    @FXML
-    public void login(Event event){
-        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            reverse.play();
-            loginFields.setDisable(true);
-            root.setCursor(Cursor.WAIT);
-            loading = true;
-
-            loginManager.login();
-        }
-    }
-
-    @FXML
-    public void register(Event event){
-        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            //Todo
-            loading = true;
-            loginManager.register();
-        }
     }
 
     public void setStage(){
@@ -103,13 +77,6 @@ public class ControllerLoginFirstStyle extends ControllerLogin implements  Contr
             loading = false;
             resetFields();
         }
-    }
-    private void resetFields() {
-        username.setText(null);
-        password.setText(null);
-        regUsername.setText(null);
-        regPassword.setText(null);
-        regRepeatPassword.setText(null);
     }
 
     @FXML
@@ -191,4 +158,13 @@ public class ControllerLoginFirstStyle extends ControllerLogin implements  Contr
             actionButton.setOnMousePressed(this::register);
         }
     }
+
+    @Override
+    protected void disableFields(boolean login) {
+        reverse.play();
+
+        if(login)loginFields.setDisable(true);
+        else registerFields.setDisable(true);
+    }
+
 }

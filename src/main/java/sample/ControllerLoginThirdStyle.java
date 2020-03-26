@@ -23,12 +23,10 @@ import javafx.util.Duration;
 import sample.base.ControllerLogin;
 
 import static Application.RestaurantApplication.loginManager;
-import static Application.RestaurantApplication.stageManager;
 
 
 public class ControllerLoginThirdStyle extends ControllerLogin implements Controller{
-    @FXML public TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML AnchorPane root, loginPane, loginFields, registerFields, nextRegisterFields, styleButtons, contentRoot, menu;
+    @FXML AnchorPane loginPane, contentRoot, menu;
     @FXML Button actionBtn;
     @FXML Text loginBtn;
     @FXML Line menuLine;
@@ -37,38 +35,10 @@ public class ControllerLoginThirdStyle extends ControllerLogin implements Contro
     private Pane currentMenu;
     private Text currentText;
 
-    private boolean loading;
-
     @FXML
     public void initialize(){
         currentMenu = loginFields;
         currentText = loginBtn;
-    }
-
-    @FXML
-    public void login(Event event){
-        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            username.setDisable(true);
-            password.setDisable(true);
-            root.setCursor(Cursor.WAIT);
-
-            loading = true;
-            loginManager.login();
-        }
-    }
-
-    @FXML
-    public void register(Event event) {
-        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            regUsername.setDisable(true);
-            regPassword.setDisable(true);
-            regRepeatPassword.setDisable(true);
-            root.setCursor(Cursor.WAIT);
-
-            loading = true;
-            loginManager.register();
-
-        }
     }
 
     private void changeScene(Service service) {
@@ -104,16 +74,6 @@ public class ControllerLoginThirdStyle extends ControllerLogin implements Contro
 //        sequentialTransition.play();
     }
 
-    private void resetFields() {
-        username.setText(null);
-        password.setText(null);
-        regUsername.setDisable(false);
-        regPassword.setDisable(false);
-        regRepeatPassword.setDisable(false);
-        regUsername.setText(null);
-        regPassword.setText(null);
-        regRepeatPassword.setText(null);
-    }
     @FXML
     public void showLoginFields(MouseEvent event){
         Text clicked = (Text) event.getSource();
@@ -237,6 +197,18 @@ public class ControllerLoginThirdStyle extends ControllerLogin implements Contro
 
             actionBtn.setText("login");
             actionBtn.setOnMouseClicked(this::login);
+        }
+    }
+
+    @Override
+    protected void disableFields(boolean login) {
+        if(login){
+            username.setDisable(true);
+            password.setDisable(true);
+        }else{
+            regUsername.setDisable(true);
+            regPassword.setDisable(true);
+            regRepeatPassword.setDisable(true);
         }
     }
 }

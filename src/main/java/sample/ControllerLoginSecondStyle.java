@@ -1,13 +1,10 @@
 package sample;
 
-import Application.RestaurantApplication;
-import Application.StageManager;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -20,46 +17,15 @@ import sample.base.ControllerLogin;
 import static Application.RestaurantApplication.loginManager;
 
 public class ControllerLoginSecondStyle extends ControllerLogin implements Controller{
-    @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
-    @FXML AnchorPane root, loginPane, loginFields, registerFields, nextRegisterFields, styleButtons;
+    @FXML AnchorPane loginPane;
     @FXML Button actionBtn;
     @FXML ImageView actionBtnImage;
     @FXML Image loginImage;
-
-
-    private Pane currentMenu;
-    private boolean loading;
 
     @FXML
     public void initialize(){
         currentMenu = loginFields;
     }
-
-    @FXML
-    public void login(Event event){
-        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            username.setDisable(true);
-            password.setDisable(true);
-            root.setCursor(Cursor.WAIT);
-
-            loading = true;
-            loginManager.login();
-        }
-
-    }
-    @FXML
-    public void register(Event event){
-        if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
-            regUsername.setDisable(true);
-            regPassword.setDisable(true);
-            regRepeatPassword.setDisable(true);
-            root.setCursor(Cursor.WAIT);
-
-            loading = true;
-            loginManager.register();
-        }
-    }
-
 
     public void setStage(){
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -94,17 +60,6 @@ public class ControllerLoginSecondStyle extends ControllerLogin implements Contr
             loading = false;
             resetFields();
         }
-    }
-
-    private void resetFields() {
-        username.setText(null);
-        password.setText(null);
-        regUsername.setDisable(false);
-        regPassword.setDisable(false);
-        regRepeatPassword.setDisable(false);
-        regUsername.setText(null);
-        regPassword.setText(null);
-        regRepeatPassword.setText(null);
     }
 
     @FXML
@@ -147,5 +102,17 @@ public class ControllerLoginSecondStyle extends ControllerLogin implements Contr
         requestedMenu.setOpacity(1);
         requestedMenu.setDisable(false);
         currentMenu = requestedMenu;
+    }
+
+    @Override
+    protected void disableFields(boolean login) {
+        if(login){
+            username.setDisable(true);
+            password.setDisable(true);
+        }else{
+            regUsername.setDisable(true);
+            regPassword.setDisable(true);
+            regRepeatPassword.setDisable(true);
+        }
     }
 }
