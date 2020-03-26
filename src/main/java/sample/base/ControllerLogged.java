@@ -106,7 +106,7 @@ public class ControllerLogged {
     }
 
     @FXML
-    public void logOut(){
+    protected void logOut(){
         loginManager.logout();
     }
 }

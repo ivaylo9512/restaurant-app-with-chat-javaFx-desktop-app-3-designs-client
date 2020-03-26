@@ -98,7 +98,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
     public void initialize() {
         userChats.setCellFactory(chatCell -> new ChatsListViewCell());
 
-        waitForNewOrders();
         waitForNewMessages();
 
         chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
@@ -243,19 +242,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
 
         messageService.setOnFailed(event -> serviceFailed(messageService));
     }
-
-    private void waitForNewOrders() {
-        orderService = new OrderService();
-        orderService.setOnSucceeded(event -> {
-            List<Order> newOrders = (List<Order>) orderService.getValue();
-
-            updateNewOrders(newOrders);
-            orderService.restart();
-        });
-
-        orderService.setOnFailed(event -> serviceFailed(orderService));
-    }
-
 
     private void updateNewOrders(List<Order> newOrders) {
         newOrders.forEach(order -> {

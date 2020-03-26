@@ -96,7 +96,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         ordersList.setCellFactory(ordersCell -> new OrderListViewCellSecond());
         chatsList.setCellFactory(chatCell -> new ChatsListViewCellSecond());
 
-        waitForNewOrders();
         waitForNewMessages();
 
 
@@ -739,17 +738,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         }else{
             stageManager.showAlert("You must be a chef to update the dish status.");
         }
-    }
-    private void waitForNewOrders() {
-        orderService = new OrderService();
-        orderService.setOnSucceeded(event -> {
-            List<Order> newOrders = (List<Order>) orderService.getValue();
-
-            updateNewOrders(newOrders);
-            orderService.restart();
-        });
-
-        orderService.setOnFailed(event -> serviceFailed(orderService));
     }
 
     private void waitForNewMessages(){

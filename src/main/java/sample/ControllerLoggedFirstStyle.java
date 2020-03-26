@@ -5,9 +5,7 @@ import Helpers.ListViews.OrderListViewCell;
 import Application.MessageService;
 import Application.OrderService;
 import Helpers.Scrolls;
-import Helpers.ListViews.MenuListViewCell;
 import Models.*;
-import Models.Menu;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +37,6 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
-import org.apache.http.impl.client.HttpClients;
 import sample.base.ControllerLogged;
 
 import java.io.*;
@@ -84,7 +81,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
     public void initialize() {
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
 
-        waitForNewOrders();
         waitForNewMessages();
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
@@ -170,17 +166,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
 
         messageService.setOnFailed(event -> serviceFailed(messageService));
 
-    }
-    private void waitForNewOrders() {
-        orderService = new OrderService();
-        orderService.setOnSucceeded(event -> {
-            List<Order> newOrders = (List<Order>) orderService.getValue();
-
-            updateNewOrders(newOrders);
-            orderService.restart();
-        });
-
-        orderService.setOnFailed(event -> serviceFailed(orderService));
     }
 
     private void serviceFailed(Service service){

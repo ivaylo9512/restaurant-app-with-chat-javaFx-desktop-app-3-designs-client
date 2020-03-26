@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 public class RestaurantApplication extends Application{
     public static LoginManager loginManager;
     public static StageManager stageManager;
+    public static OrderManager orderManager;
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -15,5 +16,6 @@ public class RestaurantApplication extends Application{
     public void start(Stage primaryStage) throws Exception {
         loginManager = LoginManager.initialize();
         stageManager = StageManager.initialize(primaryStage);
+        orderManager = OrderManager.initialize();
     }
 }
