@@ -148,7 +148,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="160.0" maxHeight="22.0" maxWidth="72.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="22.0" prefWidth="72.0" text="Log out" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="160.0" maxHeight="22.0" maxWidth="72.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="22.0" prefWidth="72.0" text="Log out" textFill="#bcbcbc">
                      <font>
                         <Font size="10.0" />
                      </font>

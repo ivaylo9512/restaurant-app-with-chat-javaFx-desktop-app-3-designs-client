@@ -72,7 +72,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
     @FXML ListView<String> ordersList, notificationsList;
     @FXML ListView<Chat> userChats;
-    @FXML ListView<Dish> dishesList;
     @FXML ImageView profileImage;
     @FXML TextArea chatTextArea;
     @FXML ScrollPane chatScroll;
@@ -97,10 +96,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
 
     @FXML
     public void initialize() {
-        menuList.setCellFactory(menuCell -> new MenuListViewCell());
-        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
         userChats.setCellFactory(chatCell -> new ChatsListViewCell());
-        dishesList.setCellFactory(dishCell -> new DishListViewCell());
 
         waitForNewOrders();
         waitForNewMessages();
@@ -149,9 +145,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
 
         chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
 
-    }
-    private SortedMap<String, Menu> searchMenu(String prefix) {
-        return loginManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
     }
 
     @FXML
@@ -318,16 +311,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
             notificationsInfo.setOpacity(1);
             notificationsInfo.setDisable(false);
         }
-    }
-    @FXML
-    public void addMenuItem(){
-        Menu menuItem = menuList.getSelectionModel().getSelectedItem();
-        newOrderList.getItems().add(0, menuItem);
-    }
-    @FXML
-    public void removeMenuItem(){
-        Menu menuItem = newOrderList.getSelectionModel().getSelectedItem();
-        newOrderList.getItems().remove(menuItem);
     }
     private void serviceFailed(Service service){
 
@@ -531,34 +514,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         editButton.setOnMouseClicked(event -> editUserInfo());
     }
 
-    @FXML
-    public void logOut(){
-        loginManager.logout();
-    }
-
-    @FXML
-    public void showLoggedFirstStyle() {
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        stageManager.changeStage(stageManager.firstLoggedStage);
-    }
-
-    @FXML
-    public void showLoggedThirdStyle(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        stageManager.changeStage(stageManager.thirdLoggedStage);
-    }
     @FXML
     public void showProfile(){
         if(menuContent.isDisabled()) {

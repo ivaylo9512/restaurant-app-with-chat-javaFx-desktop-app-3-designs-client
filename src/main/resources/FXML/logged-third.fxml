@@ -300,7 +300,7 @@
                                           <Button fx:id="editButton" minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#editUserInfo" prefWidth="57.0" text="Edit" textFill="WHITE" />
                                           <Button minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" prefWidth="57.0" text="Style 1" textFill="WHITE" />
                                           <Button minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#showLoggedSecondStyle" prefWidth="57.0" text="Style 2" textFill="WHITE" />
-                                          <Button minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#logOut" prefWidth="57.0" text="Logout" textFill="WHITE" />
+                                          <Button minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#logout" prefWidth="57.0" text="Logout" textFill="WHITE" />
                                        </children>
                                     </HBox>
                                  </children>

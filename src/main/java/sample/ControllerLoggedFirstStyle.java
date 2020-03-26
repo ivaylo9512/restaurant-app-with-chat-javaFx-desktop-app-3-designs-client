@@ -24,7 +24,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -83,8 +82,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
 
     @FXML
     public void initialize() {
-        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
-        menuList.setCellFactory(menuCell -> new MenuListViewCell());
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
 
         waitForNewOrders();
@@ -652,16 +649,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
             chatBlock.getChildren().add(newBlock);
         }
     }
-    @FXML
-    public void addMenuItem(){
-        Menu menuItem = menuList.getSelectionModel().getSelectedItem();
-        newOrderList.getItems().add(0, menuItem);
-    }
-    @FXML
-    public void removeMenuItem(){
-        Menu menuItem = menuList.getSelectionModel().getSelectedItem();
-        menuList.getItems().remove(menuItem);
-    }
 
     private void displayUserFields() {
         firstNameLabel.setText(loggedUser.getFirstName());
@@ -840,44 +827,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
 
         orderService.cancel();
         messageService.cancel();
-    }
-
-    @FXML
-    public void logOut(){
-        loginManager.logout();
-    }
-
-    @FXML
-    public void showLoggedSecondStyle(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        stageManager.changeStage(stageManager.secondLoggedStage);
-    }
-    @FXML
-    public void showLoggedThirdStyle(){
-        //Todo
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        stageManager.changeStage(stageManager.thirdLoggedStage);
-    }
-    @FXML
-    public void minimize(){
-        stageManager.currentStage.setIconified(true);
-    }
-
-    @FXML
-    public void close(){
-        stageManager.currentStage.close();
     }
 
     //Todo

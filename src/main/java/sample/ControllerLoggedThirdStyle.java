@@ -59,7 +59,6 @@ import static Application.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedThirdStyle extends ControllerLogged implements Controller {
     @FXML public ListView<Order> ordersList;
-    @FXML public ListView<Dish> dishesList;
     @FXML public ListView<TextField> notificationsList;
     @FXML public ListView<Chat> chatsList;
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot,
@@ -95,9 +94,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
     @FXML
     public void initialize(){
         ordersList.setCellFactory(ordersCell -> new OrderListViewCellSecond());
-        dishesList.setCellFactory(dishCell -> new DishListViewCell());
-        menuList.setCellFactory(menuCell -> new MenuListViewCell());
-        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
         chatsList.setCellFactory(chatCell -> new ChatsListViewCellSecond());
 
         waitForNewOrders();
@@ -885,19 +881,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
             stageManager.showAlert("You must be a server to create orders.");
         }
     }
-    private SortedMap<String, Menu> searchMenu(String prefix) {
-        return menuMap.subMap(prefix, prefix + Character.MAX_VALUE);
-    }
-    @FXML
-    public void addMenuItem(){
-        Menu menuItem = menuList.getSelectionModel().getSelectedItem();
-        newOrderList.getItems().add(0, menuItem);
-    }
-    @FXML
-    public void removeMenuItem(){
-        Menu menuItem = newOrderList.getSelectionModel().getSelectedItem();
-        newOrderList.getItems().remove(menuItem);
-    }
 
     private void addNotification(String notification) {
         notificationsInfo.setOpacity(0);
@@ -917,37 +900,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
             notificationsInfo.setOpacity(1);
             notificationsInfo.setDisable(false);
         }
-    }
-
-    @FXML
-    public void logOut(){
-        loginManager.logout();
-    }
-
-    @FXML
-    public void showLoggedFirstStyle(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        stageManager.changeStage(stageManager.firstLoggedStage);
-
-
-    }
-    @FXML
-    public void showLoggedSecondStyle(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
-        stageManager.changeStage(stageManager.secondLoggedStage);
-
     }
 
     private void showLoginStageAlert(String message) {
