@@ -3,18 +3,13 @@ package sample;
 import javafx.animation.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 import javafx.util.Duration;
 import sample.base.ControllerLogin;
-
-import static Application.RestaurantApplication.loginManager;
 
 public class ControllerLoginFirstStyle extends ControllerLogin implements  Controller{
     @FXML Pane background, menu;

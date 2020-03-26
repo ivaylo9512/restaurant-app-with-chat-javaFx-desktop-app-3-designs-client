@@ -41,6 +41,7 @@ import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.http.impl.client.HttpClients;
+import sample.base.ControllerLogged;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -58,22 +59,19 @@ import static Application.RestaurantApplication.stageManager;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
-public class ControllerLoggedSecondStyle implements Controller {
+public class ControllerLoggedSecondStyle extends ControllerLogged implements Controller {
     @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,
-            createdDateLabel, createdTimeLabel, roleField, usernameField, firstNameLabel,
-            lastNameLabel, countryLabel, ageLabel, roleLabel, usernameLabel;
+            createdDateLabel, createdTimeLabel, usernameField, usernameLabel;
 
     @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot, profileView,
             notificationsView, menuContent, orderInfo, userInfoLabels, userInfoFields, orderView,
             chatView, userChatsClip, createView, dishesContainer, chatContainer;
 
-    @FXML TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML Button menuButton, editButton;
     @FXML HBox notificationsInfo;
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
     @FXML ListView<String> ordersList, notificationsList;
     @FXML ListView<Chat> userChats;
-    @FXML ListView<Menu> menuList, newOrderList;
     @FXML ListView<Dish> dishesList;
     @FXML ImageView profileImage;
     @FXML TextArea chatTextArea;
@@ -89,7 +87,6 @@ public class ControllerLoggedSecondStyle implements Controller {
 
     private DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-    private ObservableList<Menu> userMenu = FXCollections.observableArrayList();
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private User loggedUser;
@@ -107,11 +104,6 @@ public class ControllerLoggedSecondStyle implements Controller {
 
         waitForNewOrders();
         waitForNewMessages();
-
-        menuList.setItems(userMenu);
-        menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
-        });
 
         chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
             if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue != null) {

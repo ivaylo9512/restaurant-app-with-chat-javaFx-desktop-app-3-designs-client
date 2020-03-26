@@ -2,8 +2,6 @@ package sample;
 
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
-import Application.RestaurantApplication;
-import Application.StageManager;
 import javafx.animation.*;
 import javafx.concurrent.Service;
 import javafx.event.Event;
@@ -18,8 +16,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import sample.base.ControllerLogin;
-
-
 
 public class ControllerLoginThirdStyle extends ControllerLogin implements Controller{
     @FXML AnchorPane contentRoot, menu;

@@ -41,6 +41,7 @@ import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.http.impl.client.HttpClients;
+import sample.base.ControllerLogged;
 
 import java.io.*;
 import java.net.URL;
@@ -55,25 +56,20 @@ import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
 
-public class ControllerLoggedFirstStyle implements Controller {
+public class ControllerLoggedFirstStyle extends ControllerLogged implements Controller {
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
     @FXML VBox mainChatBlock, chatUsers, notificationBlock;
     @FXML FlowPane notificationInfo, chatInfo, userInfo, userInfoEditable;
-    @FXML Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, roleField;
-    @FXML TextField firstNameField, lastNameField, countryField, ageField;
     @FXML AnchorPane contentRoot, contentPane, mainChat, ordersPane, profileImageContainer;
     @FXML Pane moveBar, notificationIcon, profileRoot;
     @FXML TextArea mainChatTextArea;
     @FXML ImageView roleImage, profileImage;
-    @FXML TextField menuSearch;
-    @FXML ListView<Menu> menu, newOrderMenu;
     @FXML ListView<Order> ordersList;
 
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
     private DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-    private ObservableList<Menu> userMenu = FXCollections.observableArrayList();
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private ScrollBar ordersScrollBar;
@@ -87,17 +83,12 @@ public class ControllerLoggedFirstStyle implements Controller {
 
     @FXML
     public void initialize() {
-        newOrderMenu.setCellFactory(menuCell -> new MenuListViewCell());
-        menu.setCellFactory(menuCell -> new MenuListViewCell());
+        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
+        menuList.setCellFactory(menuCell -> new MenuListViewCell());
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
 
         waitForNewOrders();
         waitForNewMessages();
-
-        menu.setItems(userMenu);
-        menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
-        });
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
                 mainChatScroll, notificationsScroll, mainChatTextArea);
@@ -219,10 +210,6 @@ public class ControllerLoggedFirstStyle implements Controller {
         }
     }
 
-    private SortedMap<String, Menu> searchMenu(String prefix) {
-        return loginManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
-    }
-
     private void updateNewOrders(List<Order> newOrders) {
         newOrders.forEach(order -> {
 
@@ -278,13 +265,13 @@ public class ControllerLoggedFirstStyle implements Controller {
     @FXML
     public void createNewOrder() {
         List<Dish> dishes = new ArrayList<>();
-        newOrderMenu.getItems().forEach(menuItem -> dishes.add(new Dish(menuItem.getName())));
+        newOrderList.getItems().forEach(menuItem -> dishes.add(new Dish(menuItem.getName())));
 
         if (loggedUser.getRole().equals("Server")) {
             if(dishes.size() > 0) {
                 try{
                     sendOrder(new Order(dishes));
-                    newOrderMenu.getItems().clear();
+                    newOrderList.getItems().clear();
                 }catch (Exception e){
                     stageManager.showAlert(e.getMessage());
                 }
@@ -667,13 +654,13 @@ public class ControllerLoggedFirstStyle implements Controller {
     }
     @FXML
     public void addMenuItem(){
-        Menu menuItem = menu.getSelectionModel().getSelectedItem();
-        newOrderMenu.getItems().add(0, menuItem);
+        Menu menuItem = menuList.getSelectionModel().getSelectedItem();
+        newOrderList.getItems().add(0, menuItem);
     }
     @FXML
     public void removeMenuItem(){
-        Menu menuItem = newOrderMenu.getSelectionModel().getSelectedItem();
-        newOrderMenu.getItems().remove(menuItem);
+        Menu menuItem = menuList.getSelectionModel().getSelectedItem();
+        menuList.getItems().remove(menuItem);
     }
 
     private void displayUserFields() {
@@ -803,8 +790,8 @@ public class ControllerLoggedFirstStyle implements Controller {
     public void resetStage(){
         notificationBlock.getChildren().clear();
         chatUsers.getChildren().clear();
-        newOrderMenu.getItems().clear();
-        menu.getItems().clear();
+        newOrderList.getItems().clear();
+        menuList.getItems().clear();
 
         mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
 

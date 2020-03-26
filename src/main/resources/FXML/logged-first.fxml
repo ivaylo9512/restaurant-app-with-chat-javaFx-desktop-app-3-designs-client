@@ -215,7 +215,7 @@
                            <children>
                               <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="menu" layoutY="46.0" onMouseClicked="#addMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                                    <ListView fx:id="menuList" layoutY="46.0" onMouseClicked="#addMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                        <effect>
                                           <DropShadow height="10.0" radius="4.5" width="10.0" />
                                        </effect>
@@ -247,7 +247,7 @@
                               </VBox>
                               <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="9.5" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ListView fx:id="newOrderMenu" layoutY="46.0" onMouseClicked="#removeMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <ListView fx:id="newOrderList" layoutY="46.0" onMouseClicked="#removeMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <effect>
                                           <DropShadow height="10.0" radius="4.5" width="10.0" />
                                        </effect>

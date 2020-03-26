@@ -40,6 +40,7 @@ import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.http.impl.client.HttpClients;
+import sample.base.ControllerLogged;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -56,18 +57,15 @@ import static Application.RestaurantApplication.stageManager;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
-public class ControllerLoggedThirdStyle implements Controller {
+public class ControllerLoggedThirdStyle extends ControllerLogged implements Controller {
     @FXML public ListView<Order> ordersList;
     @FXML public ListView<Dish> dishesList;
-    @FXML public ListView<Menu> menuList,newOrderList;
     @FXML public ListView<TextField> notificationsList;
     @FXML public ListView<Chat> chatsList;
-    @FXML public TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot,
             userInfoFields, userInfoLabels, contentRoot, menuBar, mainChatContainer, secondChatContainer;
     @FXML public Pane profileImageClip;
-    @FXML public Label roleField, usernameField, firstNameLabel, lastNameLabel, countryLabel,
-            ageLabel, roleLabel, usernameLabel;
+    @FXML public Label usernameField, usernameLabel;
     @FXML VBox chatsContainer, mainChatBlock, secondChatBlock;
     @FXML ScrollPane mainChatScroll, secondChatScroll;
     @FXML TextArea mainChatTextArea, secondChatTextArea;
@@ -81,7 +79,6 @@ public class ControllerLoggedThirdStyle implements Controller {
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-    private ObservableList<Menu> userMenu = FXCollections.observableArrayList();
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private User loggedUser;
@@ -106,11 +103,6 @@ public class ControllerLoggedThirdStyle implements Controller {
         waitForNewOrders();
         waitForNewMessages();
 
-
-        menuList.setItems(userMenu);
-        menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
-        });
 
         mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
             if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && mainChat != null) {
