@@ -20,12 +20,13 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.util.Duration;
+import sample.base.ControllerLogin;
 
 import static Application.RestaurantApplication.loginManager;
 import static Application.RestaurantApplication.stageManager;
 
 
-public class ControllerLoginThirdStyle implements Controller{
+public class ControllerLoginThirdStyle extends ControllerLogin implements Controller{
     @FXML public TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane root, loginPane, loginFields, registerFields, nextRegisterFields, styleButtons, contentRoot, menu;
     @FXML Button actionBtn;
@@ -194,16 +195,6 @@ public class ControllerLoginThirdStyle implements Controller{
         currentText = clickedText;
     }
 
-    @FXML
-    public void showLoginSecondStyle(){
-        stageManager.changeStage(stageManager.secondLoginStage);
-    }
-
-    @FXML
-    public void showLoginFirstStyle(){
-        stageManager.changeStage(stageManager.firstLoginStage);
-    }
-
     public void setStage(){
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
@@ -247,15 +238,5 @@ public class ControllerLoginThirdStyle implements Controller{
             actionBtn.setText("login");
             actionBtn.setOnMouseClicked(this::login);
         }
-    }
-
-    @FXML
-    public void minimize(){
-        stageManager.currentStage.setIconified(true);
-    }
-
-    @FXML
-    public void close(){
-        stageManager.currentStage.close();
     }
 }

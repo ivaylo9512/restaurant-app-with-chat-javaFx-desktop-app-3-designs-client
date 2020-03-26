@@ -13,11 +13,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.util.Duration;
+import sample.base.ControllerLogin;
 
 import static Application.RestaurantApplication.loginManager;
-import static Application.RestaurantApplication.stageManager;
 
-public class ControllerLoginFirstStyle implements  Controller{
+public class ControllerLoginFirstStyle extends ControllerLogin implements  Controller{
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane contentRoot;
     @FXML Pane root, background, menu, loginFields, registerFields, nextRegisterFields, styleButtons;
@@ -191,24 +191,4 @@ public class ControllerLoginFirstStyle implements  Controller{
             actionButton.setOnMousePressed(this::register);
         }
     }
-    @FXML
-    public void showLoginThirdStyle(){
-        stageManager.changeStage(stageManager.thirdLoginStage);
-    }
-    @FXML
-    public void showLoginSecondStyle(){
-        stageManager.changeStage(stageManager.secondLoginStage);
-
-    }
-
-    @FXML
-    public void minimize(){
-        stageManager.currentStage.setIconified(true);
-    }
-
-    @FXML
-    public void close(){
-        stageManager.currentStage.close();
-    }
-
 }

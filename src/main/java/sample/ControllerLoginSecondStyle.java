@@ -15,11 +15,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
+import sample.base.ControllerLogin;
 
 import static Application.RestaurantApplication.loginManager;
-import static Application.RestaurantApplication.stageManager;
 
-public class ControllerLoginSecondStyle implements Controller{
+public class ControllerLoginSecondStyle extends ControllerLogin implements Controller{
     @FXML TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML AnchorPane root, loginPane, loginFields, registerFields, nextRegisterFields, styleButtons;
     @FXML Button actionBtn;
@@ -147,19 +147,5 @@ public class ControllerLoginSecondStyle implements Controller{
         requestedMenu.setOpacity(1);
         requestedMenu.setDisable(false);
         currentMenu = requestedMenu;
-    }
-
-    @FXML
-    public void showLoginThirdStyle(){
-        stageManager.changeStage(stageManager.thirdLoginStage);
-    }
-    @FXML
-    public void showLoginFirstStyle(){
-        stageManager.changeStage(stageManager.firstLoginStage);
-    }
-
-    @FXML
-    public void close(){
-        stageManager.currentStage.close();
     }
 }
