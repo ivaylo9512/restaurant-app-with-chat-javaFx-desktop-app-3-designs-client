@@ -3,7 +3,6 @@ package sample;
 import Animations.*;
 import Helpers.ListViews.OrderListViewCell;
 import Application.MessageService;
-import Application.OrderService;
 import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
@@ -28,8 +27,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -42,7 +39,6 @@ import sample.base.ControllerLogged;
 import java.io.*;
 import java.net.URL;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 
@@ -62,19 +58,13 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
     @FXML ImageView roleImage, profileImage;
     @FXML ListView<Order> ordersList;
 
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
-    private DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private ScrollBar ordersScrollBar;
     private Image userProfileImage;
     private ChatValue mainChatValue;
-    private MediaPlayer notificationSound;
 
     private static MessageService messageService;
-    private static OrderService orderService;
     private User loggedUser;
 
     @FXML
@@ -111,11 +101,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
                 event.consume();
             }
         });
-        Media sound = new Media(getClass()
-                .getResource("/notification.mp3")
-                .toExternalForm());
-        notificationSound = new MediaPlayer(sound);
-        notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
         notificationBlock.prefWidthProperty().bind(notificationsScroll.widthProperty().subtract(20));
 
@@ -166,22 +151,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
 
         messageService.setOnFailed(event -> serviceFailed(messageService));
 
-    }
-
-    private void serviceFailed(Service service){
-        if(service.getException() != null && service.isRunning()) {
-            if (service.getException().getMessage().equals("Jwt token has expired.")) {
-                logOut();
-                showLoginStageAlert("Session has expired.");
-
-            } else if(service.getException().getMessage().equals("Socket closed")) {
-                service.reset();
-
-            }else{
-                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> service.restart()));
-                timeline.play();
-            }
-        }
     }
 
     private void showLoginStageAlert(String message) {

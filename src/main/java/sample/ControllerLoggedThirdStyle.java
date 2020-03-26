@@ -74,16 +74,12 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
     @FXML Text chatsBtn;
 
     private Image userProfileImage;
-    private MediaPlayer notificationSound;
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private User loggedUser;
 
     private MessageService messageService;
-    private OrderService orderService;
     private AnchorPane currentView, currentMenu;
     private Text currentText;
     private Order currentOrder;
@@ -126,12 +122,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
 
         Scrolls scrolls = new Scrolls(mainChatScroll, secondChatScroll, mainChatTextArea, secondChatTextArea);
         scrolls.manageScrollsThirdStyle();
-
-        Media sound = new Media(getClass()
-                .getResource("/notification.mp3")
-                .toExternalForm());
-        notificationSound = new MediaPlayer(sound);
-        notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
         Rectangle clip = new Rectangle();
         clip.heightProperty().bind(createRoot.heightProperty());
@@ -833,22 +823,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         });
     }
 
-    private void serviceFailed(Service service){
-
-        if(service.getException() != null && service.isRunning()) {
-            if (service.getException().getMessage().equals("Jwt token has expired.")) {
-                logOut();
-                showLoginStageAlert("Session has expired.");
-
-            } else if(service.getException().getMessage().equals("Socket closed")) {
-                service.reset();
-
-            }else{
-                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> service.restart()));
-                timeline.play();
-            }
-        }
-    }
     @FXML
     public void createNewOrder() {
         List<Dish> dishes = new ArrayList<>();

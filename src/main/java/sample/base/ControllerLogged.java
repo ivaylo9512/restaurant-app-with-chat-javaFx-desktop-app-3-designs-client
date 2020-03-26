@@ -1,5 +1,6 @@
 package sample.base;
 
+import Application.RestaurantApplication;
 import Helpers.ListViews.MenuListViewCell;
 import Models.Dish;
 import Models.Menu;
@@ -9,9 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.media.MediaPlayer;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.SortedMap;
 
 import static Application.RestaurantApplication.loginManager;
@@ -28,6 +31,11 @@ public class ControllerLogged {
     @FXML
     ListView<Dish> dishesList;
 
+    protected DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
+    protected DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+    protected MediaPlayer notificationSound = RestaurantApplication.notificationSound;
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();
 
     @FXML
@@ -106,7 +114,7 @@ public class ControllerLogged {
     }
 
     @FXML
-    protected void logOut(){
+    protected void logout(){
         loginManager.logout();
     }
 }

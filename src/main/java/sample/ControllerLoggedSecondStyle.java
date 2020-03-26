@@ -80,17 +80,11 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
     private static Image userProfileImage;
     private AnchorPane currentView, currentMenuView;
 
-    private MediaPlayer notificationSound;
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
-
-    private DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private User loggedUser;
     private static MessageService messageService;
-    private static OrderService orderService;
 
     private ChatValue chatValue;
 
@@ -121,12 +115,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         ResizeRoot.addListeners(contentRoot);
 
         menuContent.getChildren().remove(profileView);
-
-        Media sound = new Media(getClass()
-                .getResource("/notification.mp3")
-                .toExternalForm());
-        notificationSound = new MediaPlayer(sound);
-        notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
         Circle clip = new Circle(30.8, 30.8, 30.8);
         profileImageClip.setClip(clip);
@@ -298,22 +286,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
             notificationsInfo.setDisable(false);
         }
     }
-    private void serviceFailed(Service service){
 
-        if(service.getException() != null) {
-            if (service.getException().getMessage().equals("Jwt token has expired.")) {
-                logOut();
-                showLoginStageAlert("Session has expired.");
-
-            } else if(service.getException().getMessage().equals("Socket closed")) {
-                service.reset();
-
-            }else{
-                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> service.restart()));
-                timeline.play();
-            }
-        }
-    }
     private void showLoginStageAlert(String message) {
         if(!LoginSecondStyle.alert.isShowing()) {
             DialogPane dialog = LoginSecondStyle.alert.getDialogPane();
