@@ -21,7 +21,7 @@ public class MessageManager {
 
     }
 
-    static MessageService initialize(){
-        return new MessageService();
+    static MessageManager initialize(){
+        return new MessageManager();
     }
 }

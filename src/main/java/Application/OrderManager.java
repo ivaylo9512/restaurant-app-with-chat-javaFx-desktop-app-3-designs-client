@@ -1,18 +1,17 @@
 package Application;
 
 import Helpers.ServiceErrorHandler;
+import Models.Menu;
 import Models.Order;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.concurrent.Service;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
-import javafx.util.Duration;
+import Models.Restaurant;
 
 import java.util.List;
+import java.util.TreeMap;
 
 public class OrderManager {
     private static OrderService orderService;
+    public Restaurant userRestaurant;
+    public TreeMap<String, Menu> userMenu = new TreeMap<>();
 
     private OrderManager() {
         orderService = new OrderService();
@@ -29,5 +28,11 @@ public class OrderManager {
 
     static OrderManager initialize(){
         return new OrderManager();
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        userRestaurant = restaurant;
+        restaurant.getMenu().forEach(menu ->
+                userMenu.put(menu.getName().toLowerCase(), menu));
     }
 }

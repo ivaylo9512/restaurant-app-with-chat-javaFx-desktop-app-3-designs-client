@@ -52,8 +52,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static Application.RestaurantApplication.loginManager;
-import static Application.RestaurantApplication.stageManager;
+import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
@@ -149,12 +148,12 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         setChatValues(chats);
         chatsList.setItems(chats);
 
-        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+        mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
 
         orderService.start();
         messageService.start();
 
-        userMenu.setAll(loginManager.userMenu.values());
+        userMenu.setAll(orderManager.userMenu.values());
         ordersList.setItems(orders);
 
         displayUserFields();

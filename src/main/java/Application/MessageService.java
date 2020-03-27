@@ -25,7 +25,7 @@ public class MessageService extends Service<List<Message>> {
 
     public static LocalDateTime lastMessageCheck;
     @Override
-    protected Task createTask() {
+    protected Task<List<Message>> createTask() {
         return new Task<List<Message>>() {
             @Override
             protected List<Message> call() throws Exception {

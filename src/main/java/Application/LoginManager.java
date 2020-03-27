@@ -12,6 +12,7 @@ import java.net.ConnectException;
 import java.util.TreeMap;
 
 import static Application.RestaurantApplication.stageManager;
+import static Application.RestaurantApplication.orderManager;
 import static Helpers.ServerRequests.httpClientLongPolling;
 
 public class LoginManager {
@@ -19,7 +20,6 @@ public class LoginManager {
     private RegisterService registerService = new RegisterService();
     private User loggedUser = new User();
     public static IntegerProperty userId = new SimpleIntegerProperty();
-    public TreeMap<String, Menu> userMenu = new TreeMap<>();
 
     private LoginManager(){
         userId.bind(loggedUser.getId());
@@ -70,7 +70,10 @@ public class LoginManager {
     }
 
     private void onSuccessfulService(Service service) {
-        setUser((User) service.getValue());
+        User loggedUser = (User) service.getValue();
+        setUser(loggedUser);
+        orderManager.setRestaurant(loggedUser.getRestaurant());
+
         service.reset();
 
         stageManager.changeToOwner();
@@ -90,9 +93,6 @@ public class LoginManager {
 
 
     public void setUser(User user) {
-        loggedUser.getRestaurant().getMenu().forEach(menu ->
-                userMenu.put(menu.getName().toLowerCase(), menu));
-
         loggedUser.setId(user.getId().get());
         loggedUser.setUsername(user.getUsername().get());
         loggedUser.setUsername(user.getFirstName().get());
@@ -100,7 +100,6 @@ public class LoginManager {
         loggedUser.setAge(Integer.valueOf(user.getAge().get()));
         loggedUser.setCountry(user.getCountry().get());
         loggedUser.setRole(user.getRole().get());
-        loggedUser.setRestaurant(user.getRestaurant());
         loggedUser.setProfilePicture(user.getProfilePicture().get());
     }
 }

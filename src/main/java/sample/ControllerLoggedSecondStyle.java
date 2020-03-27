@@ -54,8 +54,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static Application.RestaurantApplication.loginManager;
-import static Application.RestaurantApplication.stageManager;
+import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
@@ -318,7 +317,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         reverse.play();
     }
     public void setStage() throws Exception{
-        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+        mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
 
         orderService.start();
         messageService.start();
@@ -327,7 +326,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         setChatValues(chats);
         userChats.setItems(chats);
 
-        userMenu.setAll(loginManager.userMenu.values());
+        userMenu.setAll(orderManager.userMenu.values());
 
         ObservableList<String> orders = FXCollections.observableArrayList(loggedUser.getOrders().values()
                 .stream()

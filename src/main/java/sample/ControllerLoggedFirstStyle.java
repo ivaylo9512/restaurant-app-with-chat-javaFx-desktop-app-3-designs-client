@@ -42,8 +42,7 @@ import java.time.*;
 import java.util.*;
 import java.util.List;
 
-import static Application.RestaurantApplication.loginManager;
-import static Application.RestaurantApplication.stageManager;
+import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
@@ -715,12 +714,12 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         FXCollections.reverse(orders);
         ordersList.setItems(orders);
 
-        userMenu.setAll(loginManager.userMenu.values());
+        userMenu.setAll(orderManager.userMenu.values());
 
         List<Chat> chats = getChats();
         appendChats(chats);
 
-        mostRecentOrderDate = getMostRecentOrderDate(loggedUser.getRestaurant().getId());
+        mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
 
         orderService.start();
         messageService.start();

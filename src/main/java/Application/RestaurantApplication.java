@@ -23,6 +23,7 @@ public class RestaurantApplication extends Application{
         loginManager = LoginManager.initialize();
         stageManager = StageManager.initialize(primaryStage);
         orderManager = OrderManager.initialize();
+        messageManager = MessageManager.initialize();
 
         Media sound = new Media(getClass()
                 .getResource("/notification.mp3")
