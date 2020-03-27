@@ -30,7 +30,7 @@ public class OrderManager {
         return new OrderManager();
     }
 
-    public void setRestaurant(Restaurant restaurant) {
+    void setRestaurant(Restaurant restaurant) {
         userRestaurant = restaurant;
         restaurant.getMenu().forEach(menu ->
                 userMenu.put(menu.getName().toLowerCase(), menu));

@@ -1,15 +1,19 @@
 package Models;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 public class Order{
 
-    private int id;
-    private List<Dish> dishes;
-    private LocalDateTime created;
-    private LocalDateTime updated;
+    private IntegerProperty id;
+    private ObjectProperty<List<Dish>> dishes = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDateTime> created = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDateTime> updated = new SimpleObjectProperty<>();
     private int userId;
 
     private boolean ready = false;
@@ -17,40 +21,40 @@ public class Order{
     }
 
     public Order(List<Dish> dishes) {
-        this.dishes = dishes;
+        this.dishes.setValue(dishes);
     }
 
-    public int getId() {
+    public IntegerProperty getId() {
         return id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id.setValue(id);
     }
 
 
-    public List<Dish> getDishes() {
+    public ObjectProperty<List<Dish>> getDishes() {
         return dishes;
     }
 
     public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
+        this.dishes.setValue(dishes);
     }
 
-    public LocalDateTime getCreated() {
+    public ObjectProperty<LocalDateTime> getCreated() {
         return created;
     }
 
     public void setCreated(LocalDateTime created) {
-        this.created = created;
+        this.created.setValue(created);
     }
 
-    public LocalDateTime getUpdated() {
+    public ObjectProperty<LocalDateTime> getUpdated() {
         return updated;
     }
 
     public void setUpdated(LocalDateTime updated) {
-        this.updated = updated;
+        this.updated.setValue(updated);
     }
 
     public boolean isReady() {
