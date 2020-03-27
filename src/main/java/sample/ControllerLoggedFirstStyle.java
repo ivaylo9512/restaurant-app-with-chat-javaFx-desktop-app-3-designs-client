@@ -163,28 +163,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
     private void updateNewOrders(List<Order> newOrders) {
         newOrders.forEach(order -> {
 
-            if(order.getUpdated().isAfter(mostRecentOrderDate)) {
-                mostRecentOrderDate = order.getUpdated();
-            }else if(order.getCreated().isAfter(mostRecentOrderDate)){
-                mostRecentOrderDate = order.getCreated();
-            }
-
-            int orderId = order.getId();
-            Order orderValue = loggedUser.getOrders().get(orderId);
-
             if (orderValue != null) {
-                //Todo
-                orderValue.setDishes(order.getDishes());
-                orderValue.setUpdated(order.getUpdated());
-
-                order.getDishes().forEach(dish -> {
-                    Label ready = (Label) contentRoot.lookup("#dish" + dish.getId());
-
-                    if (ready != null && ready.getText().equals("X") && dish.getReady()) {
-                        addNotification(dish.getName() + " from order " + orderId + " is ready.");
-                        ready.setText("O");
-                    }
-                });
 
                 AnchorPane updateContainer = (AnchorPane) contentRoot.lookup("#update" + order.getId());
                 if(updateContainer != null){

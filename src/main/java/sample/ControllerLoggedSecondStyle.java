@@ -230,46 +230,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         messageService.setOnFailed(event -> serviceFailed(messageService));
     }
 
-    private void updateNewOrders(List<Order> newOrders) {
-        newOrders.forEach(order -> {
-
-            if(order.getUpdated().isAfter(mostRecentOrderDate)) {
-                mostRecentOrderDate = order.getUpdated();
-            }else if(order.getCreated().isAfter(mostRecentOrderDate)){
-                mostRecentOrderDate = order.getCreated();
-            }
-
-            int orderId = order.getId();
-            Order orderValue = loggedUser.getOrders().get(orderId);
-
-            if (orderValue != null) {
-                order.getDishes().forEach(dish -> {
-
-                    if(orderIdLabel.getText().equals(String.valueOf(orderId))) {
-                        Label ready = (Label) dishesList.lookup("#dish" + dish.getId());
-
-                        if (ready != null && ready.getText().equals("X") && dish.getReady()) {
-                            addNotification(dish.getName() + " from order " + orderId + " is ready.");
-                            ready.setText("O");
-                            ready.setUserData("ready");
-                        }
-                    }
-                });
-
-                if (order.isReady()) {
-                    addNotification("Order " + orderId + " is ready.");
-                }
-
-            } else {
-                ordersList.getItems().add(0, "Order " + orderId);
-                if(order.getUserId() != loggedUser.getId()){
-                    addNotification("New order created " + orderId);
-                }
-            }
-            loggedUser.getOrders().put(orderId, order);
-        });
-    }
-
     private void addNotification(String notification) {
         notificationsInfo.setOpacity(0);
         notificationsInfo.setDisable(true);

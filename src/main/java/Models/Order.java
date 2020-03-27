@@ -3,6 +3,7 @@ package Models;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.List;
 public class Order{
 
     private IntegerProperty id;
-    private ObjectProperty<List<Dish>> dishes = new SimpleObjectProperty<>();
+    private ObservableList<Dish> dishes = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDateTime> created = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDateTime> updated = new SimpleObjectProperty<>();
     private int userId;
@@ -21,7 +22,7 @@ public class Order{
     }
 
     public Order(List<Dish> dishes) {
-        this.dishes.setValue(dishes);
+        this.dishes.setAll(dishes);
     }
 
     public IntegerProperty getId() {
@@ -33,12 +34,12 @@ public class Order{
     }
 
 
-    public ObjectProperty<List<Dish>> getDishes() {
+    public ObservableList<Dish> getDishes() {
         return dishes;
     }
 
     public void setDishes(List<Dish> dishes) {
-        this.dishes.setValue(dishes);
+        this.dishes.setAll(dishes);
     }
 
     public ObjectProperty<LocalDateTime> getCreated() {

@@ -781,47 +781,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         messageService.setOnFailed(event -> serviceFailed(messageService));
     }
 
-    private void updateNewOrders(List<Order> newOrders) {
-        newOrders.forEach(order -> {
-
-            if(order.getUpdated().isAfter(mostRecentOrderDate)) {
-                mostRecentOrderDate = order.getUpdated();
-            }else if(order.getCreated().isAfter(mostRecentOrderDate)){
-                mostRecentOrderDate = order.getCreated();
-            }
-
-            int orderId = order.getId();
-            Order orderValue = loggedUser.getOrders().get(orderId);
-
-            if (orderValue != null) {
-                order.getDishes().forEach(dish -> {
-
-                    if(currentOrder != null && currentOrder.getId() == orderId) {
-                        Label ready = (Label) dishesList.lookup("#dish" + dish.getId());
-
-                        if (ready != null && ready.getText().equals("X") && dish.getReady()) {
-                            addNotification(dish.getName() + " from order " + orderId + " is ready.");
-                            ready.setText("O");
-                            ready.setUserData("ready");
-                        }
-                    }
-                });
-
-                if (order.isReady()) {
-                    addNotification("Order " + orderId + " is ready.");
-                }
-
-            } else {
-
-                ordersList.getItems().add(0, order);
-                if(order.getUserId() != loggedUser.getId()){
-                    addNotification("New order created " + orderId);
-                }
-            }
-            loggedUser.getOrders().put(orderId, order);
-        });
-    }
-
     @FXML
     public void createNewOrder() {
         List<Dish> dishes = new ArrayList<>();
