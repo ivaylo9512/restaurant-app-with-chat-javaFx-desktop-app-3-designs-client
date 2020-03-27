@@ -7,13 +7,11 @@ import Models.Order;
 import Models.Restaurant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 
 import java.util.List;
 import java.util.TreeMap;
 
 import static Application.OrderService.mostRecentOrderDate;
-import static Application.RestaurantApplication.loginManager;
 import static Application.RestaurantApplication.stageManager;
 import static Application.LoginManager.userId;
 
@@ -83,5 +81,11 @@ public class OrderManager {
         restaurant.getMenu().forEach(menu ->
                 userMenu.put(menu.getName().toLowerCase(), menu));
         orders.setAll(restaurant.getOrders());
+    }
+
+    void resetRestaurant(){
+        userRestaurant = null;
+        userMenu.clear();
+        orders.clear();
     }
 }

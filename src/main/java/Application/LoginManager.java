@@ -80,7 +80,7 @@ public class LoginManager {
     }
 
     public void logout(){
-        //Todo: remove close + reset user
+        //Todo: remove close
         try {
             httpClientLongPolling.close();
         } catch (IOException e) {
@@ -88,9 +88,11 @@ public class LoginManager {
         }
         httpClientLongPolling = HttpClients.createDefault();
 
+        resetUser();
+        orderManager.resetRestaurant();
+
         stageManager.changeToOwner();
     }
-
 
     public void setUser(User user) {
         loggedUser.setId(user.getId().get());
@@ -101,5 +103,16 @@ public class LoginManager {
         loggedUser.setCountry(user.getCountry().get());
         loggedUser.setRole(user.getRole().get());
         loggedUser.setProfilePicture(user.getProfilePicture().get());
+    }
+
+    public void resetUser(){
+        loggedUser.setId(null);
+        loggedUser.setUsername(null);
+        loggedUser.setUsername(null);
+        loggedUser.setLastName(null);
+        loggedUser.setAge(null);
+        loggedUser.setCountry(null);
+        loggedUser.setRole(null);
+        loggedUser.setProfilePicture(null);
     }
 }
