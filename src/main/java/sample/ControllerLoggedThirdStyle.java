@@ -821,12 +821,4 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
             notificationsInfo.setDisable(false);
         }
     }
-
-    private void showLoginStageAlert(String message) {
-        if(!LoginThirdStyle.alert.isShowing()) {
-            DialogPane dialog = LoginThirdStyle.alert.getDialogPane();
-            dialog.setContentText(message);
-            LoginThirdStyle.alert.showAndWait();
-        }
-    }
 }

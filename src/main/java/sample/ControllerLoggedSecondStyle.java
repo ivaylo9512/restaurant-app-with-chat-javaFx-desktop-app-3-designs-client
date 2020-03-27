@@ -246,13 +246,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         }
     }
 
-    private void showLoginStageAlert(String message) {
-        if(!LoginSecondStyle.alert.isShowing()) {
-            DialogPane dialog = LoginSecondStyle.alert.getDialogPane();
-            dialog.setContentText(message);
-            LoginSecondStyle.alert.showAndWait();
-        }
-    }
     @FXML public void expandMenu(){
         if(menuButtonsContainer.getChildren().size() == 1){
             menuButtonsContainer.getChildren().add(0, menuButtons);

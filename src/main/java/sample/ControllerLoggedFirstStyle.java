@@ -152,14 +152,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
 
     }
 
-    private void showLoginStageAlert(String message) {
-        if(!LoginFirstStyle.alert.isShowing()) {
-            DialogPane dialog = LoginFirstStyle.alert.getDialogPane();
-            dialog.setContentText(message);
-            LoginFirstStyle.alert.showAndWait();
-        }
-    }
-
     private void updateNewOrders(List<Order> newOrders) {
         newOrders.forEach(order -> {
 

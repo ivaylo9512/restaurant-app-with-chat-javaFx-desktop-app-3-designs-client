@@ -3,16 +3,18 @@ package Models;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Order{
 
     private IntegerProperty id;
-    private ObservableList<Dish> dishes = new SimpleObjectProperty<>();
+    private ObservableList<Dish> dishes = FXCollections.observableArrayList();
     private ObjectProperty<LocalDateTime> created = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDateTime> updated = new SimpleObjectProperty<>();
     private int userId;
@@ -72,5 +74,18 @@ public class Order{
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return id.get() == order.id.get();
+    }
+
+    @Override
+    public int hashCode() {
+        return id.get();
     }
 }
