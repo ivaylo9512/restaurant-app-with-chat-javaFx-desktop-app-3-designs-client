@@ -120,7 +120,7 @@ public class ServerRequests {
     }
 
     public static List<Chat> getChats() throws Exception{
-        List<Chat> chats;
+        List<Chat> chats = null;
         URIBuilder builder = new URIBuilder(base + "/api/chat/auth/getChats");
         builder.setParameter("pageSize", String.valueOf(pageSize));
 
@@ -136,11 +136,13 @@ public class ServerRequests {
             EntityUtils.consume(entity);
 
             if (responseStatus != 200) {
-                handleException(content);
+                throw new HttpException(content);
             }
 
             chats = mapper.readValue(content, new TypeReference<List<Chat>>(){});
             lastMessageCheck = LocalDateTime.now();
+        }catch (HttpException e) {
+            handleException(e.getMessage());
         }
         return chats;
     }
@@ -170,12 +172,12 @@ public class ServerRequests {
             EntityUtils.consume(responseEntity);
 
             if (responseCode != 200) {
-                handleException(content);
+                throw new HttpException(content);
             }
 
             user = mapper.readValue(content, User.class);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | HttpException e) {
+            handleException(e.getMessage());
         }
         return user;
     }
@@ -203,16 +205,16 @@ public class ServerRequests {
             EntityUtils.consume(responseEntity);
 
             if(statusCode != 200){
-                handleException(content);
+                throw new HttpException(content);
             }
 
             message = mapper.readValue(content, Message.class);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | HttpException e) {
+            handleException(e.getMessage());
         }
         return message;
     }
-    public static void updateDishState(int orderId, int dishId) throws Exception{
+    public static void updateDishState(int orderId, int dishId) {
         HttpPatch httpPatch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
         httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
 
@@ -224,8 +226,10 @@ public class ServerRequests {
             EntityUtils.consume(responseEntity);
 
             if(statusCode != 200){
-                handleException(content);
+                throw new HttpException(content);
             }
+        } catch (IOException | HttpException e) {
+            handleException(e.getMessage());
         }
     }
 
