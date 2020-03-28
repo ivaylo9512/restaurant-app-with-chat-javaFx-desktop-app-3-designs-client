@@ -43,6 +43,13 @@ public class User {
         this.restaurant = restaurant;
     }
 
+    public User(String username, String firstName, String lastName, int age, String country) {
+        this.firstName.setValue(firstName);
+        this.lastName.setValue(lastName);
+        this.age.setValue(String.valueOf(age));
+        this.country.setValue(country);
+    }
+
     public StringProperty getUsername() {
         return username;
     }

@@ -185,8 +185,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         ordersList.getItems().clear();
         notificationsList.getItems().clear();
 
-        resetUserFields();
-
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         contentRoot.setPrefWidth(contentRoot.getMinWidth());
@@ -213,23 +211,7 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         orderService.cancel();
         messageService.cancel();
     }
-
-    private void resetUserFields() {
-        usernameLabel.setText(null);
-        firstNameLabel.setText(null);
-        lastNameLabel.setText(null);
-        countryLabel.setText(null);
-        ageLabel.setText(null);
-        roleLabel.setText(null);
-
-        usernameField.setText(null);
-        firstNameField.setText(null);
-        lastNameField.setText(null);
-        countryField.setText(null);
-        ageField.setText(null);
-        roleField.setText(null);
-
-    }
+    
     @FXML
     public void editUserInfo(){
         userInfoLabels.setDisable(true);

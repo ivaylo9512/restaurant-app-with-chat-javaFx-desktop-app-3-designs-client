@@ -577,21 +577,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
             chatBlock.getChildren().add(newBlock);
         }
     }
-
-    private void resetUserFields() {
-        firstNameLabel.setText(null);
-        lastNameLabel.setText(null);
-        countryLabel.setText(null);
-        ageLabel.setText(null);
-        roleLabel.setText(null);
-
-        firstNameField.setText(null);
-        lastNameField.setText(null);
-        countryField.setText(null);
-        ageField.setText(null);
-        roleField.setText(null);
-
-    }
     @FXML
     public void editUserInfo() {
         userInfoScroll.setContent(userInfoEditable);
