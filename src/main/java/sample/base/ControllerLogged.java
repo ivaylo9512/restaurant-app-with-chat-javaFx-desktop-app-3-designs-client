@@ -7,11 +7,14 @@ import Models.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
 import javafx.scene.media.MediaPlayer;
 import org.apache.http.impl.client.HttpClients;
 
@@ -84,6 +87,7 @@ public class ControllerLogged {
         userInfo.getChildren().add(saveButton);
         userInfo.getChildren().remove(editButton);
     }
+
     @FXML
     public void saveUserInfo() {
         setFieldsEditable(false);
