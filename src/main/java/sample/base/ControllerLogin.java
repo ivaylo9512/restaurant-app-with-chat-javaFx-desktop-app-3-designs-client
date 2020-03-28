@@ -85,6 +85,11 @@ public abstract class ControllerLogin {
     }
 
     @FXML
+    public void minimize(){
+        stageManager.currentStage.setIconified(true);
+    }
+
+    @FXML
     public void close(){
         stageManager.currentStage.close();
     }

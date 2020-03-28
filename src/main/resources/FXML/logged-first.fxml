@@ -22,50 +22,74 @@
                               <children>
                                     <ScrollPane fx:id="userInfoScroll" layoutY="77.0" prefHeight="134.0" prefViewportHeight="154.0" prefViewportWidth="103.0" prefWidth="124.0">
                                        <content>
-                                             <FlowPane fx:id="userInfo" layoutY="77.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
-                                                <children>
-                                                      <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label fx:id="lastNameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label fx:id="countryLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label fx:id="ageLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label fx:id="roleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" textAlignment="CENTER" textFill="#bcbcbc">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Label>
-                                          <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#editUserInfo" prefHeight="22.0" prefWidth="72.0" text="Edit" textFill="#bcbcbc">
-                                             <font>
-                                                <Font size="10.0" />
-                                             </font>
-                                             <graphic>
-                                                <ImageView fitHeight="15.0" fitWidth="15.0">
-                                                   <image>
-                                                      <Image url="/images/edit.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </Button>
-                                                </children>
-                                                <padding>
-                                                   <Insets bottom="10.0" left="15.5" top="9.5" />
-                                                </padding>
-                                             </FlowPane>
+                                          <FlowPane fx:id="userInfo" layoutX="517.0" layoutY="-219.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
+                                             <children>
+                                                <TextField fx:id="firstNameField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                   <effect>
+                                                      <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                                                   </effect>
+                                                </TextField>
+                                                <TextField fx:id="lastNameField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                   <effect>
+                                                      <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                                                   </effect>
+                                                </TextField>
+                                                <TextField fx:id="countryField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                   <effect>
+                                                      <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                                                   </effect>
+                                                </TextField>
+                                                <TextField fx:id="ageField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                   <effect>
+                                                      <InnerShadow height="10.0" radius="4.5" width="10.0" />
+                                                   </effect>
+                                                </TextField>
+                                                <TextField fx:id="roleField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Button fx:id="saveButton" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" prefHeight="22.0" prefWidth="72.0" text="Save" textFill="#bcbcbc">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                   <graphic>
+                                                      <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                         <image>
+                                                            <Image url="/images/edit.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                                <Button fx:id="editButton" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#editUserInfo" prefHeight="22.0" prefWidth="72.0" text="Edit" textFill="#bcbcbc">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                   <graphic>
+                                                      <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                         <image>
+                                                            <Image url="/images/edit.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="15.5" top="9.5" />
+                                             </padding>
+                                          </FlowPane>
                                        </content>
                                     </ScrollPane>
                                     <Pane layoutX="11.0" layoutY="8.0" maxWidth="6.0" prefHeight="39.0" prefWidth="6.0">
@@ -363,61 +387,5 @@
             <TextField prefHeight="67.0" prefWidth="218.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" />
          </children>
       </HBox>
-      <FlowPane fx:id="userInfoEditable" layoutX="517.0" layoutY="-219.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
-         <children>
-            <TextField fx:id="firstNameField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
-               <font>
-                  <Font size="10.0" />
-               </font>
-               <effect>
-                  <InnerShadow height="10.0" radius="4.5" width="10.0" />
-               </effect>
-            </TextField>
-            <TextField fx:id="lastNameField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
-               <font>
-                  <Font size="10.0" />
-               </font>
-               <effect>
-                  <InnerShadow height="10.0" radius="4.5" width="10.0" />
-               </effect>
-            </TextField>
-            <TextField fx:id="countryField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
-               <font>
-                  <Font size="10.0" />
-               </font>
-               <effect>
-                  <InnerShadow height="10.0" radius="4.5" width="10.0" />
-               </effect>
-            </TextField>
-            <TextField fx:id="ageField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
-               <font>
-                  <Font size="10.0" />
-               </font>
-               <effect>
-                  <InnerShadow height="10.0" radius="4.5" width="10.0" />
-               </effect>
-            </TextField>
-            <Label fx:id="roleField" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="72.0" text="chef" textAlignment="CENTER" textFill="#bcbcbc">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
-            <Button contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" prefHeight="22.0" prefWidth="72.0" text="Save" textFill="#bcbcbc">
-               <font>
-                  <Font size="10.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0">
-                     <image>
-                        <Image url="/images/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="15.5" top="9.5" />
-         </padding>
-      </FlowPane>
    </children>
 </AnchorPane>

@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.net.ConnectException;
-import java.util.TreeMap;
 
 import static Application.RestaurantApplication.stageManager;
 import static Application.RestaurantApplication.orderManager;
@@ -50,7 +49,7 @@ public class LoginManager {
     public void bindUserFields(StringProperty firstName, StringProperty lastName,
                                StringProperty country, StringProperty role, StringProperty age, ObjectProperty<Image> image){
         loggedUser.getFirstName().bindBidirectional(firstName);
-        loggedUser.getFirstName().bindBidirectional(lastName);
+        loggedUser.getLastName().bindBidirectional(lastName);
         loggedUser.getCountry().bindBidirectional(country);
         loggedUser.getAge().bindBidirectional(age);
         loggedUser.getRole().bindBidirectional(role);
@@ -109,7 +108,7 @@ public class LoginManager {
     public void setUser(User user) {
         loggedUser.setId(user.getId().get());
         loggedUser.setUsername(user.getUsername().get());
-        loggedUser.setUsername(user.getFirstName().get());
+        loggedUser.setFirstName(user.getFirstName().get());
         loggedUser.setLastName(user.getLastName().get());
         loggedUser.setAge(Integer.valueOf(user.getAge().get()));
         loggedUser.setCountry(user.getCountry().get());

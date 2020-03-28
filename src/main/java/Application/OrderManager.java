@@ -34,42 +34,42 @@ public class OrderManager {
     }
 
     private void updateOrders(List<Order> newOrders) {
-        newOrders.forEach(newOrder -> {
-            if(newOrder.getUpdated().get().isAfter(mostRecentOrderDate)) {
-                mostRecentOrderDate = newOrder.getUpdated().get();
-            }else if(newOrder.getCreated().get().isAfter(mostRecentOrderDate)){
-                mostRecentOrderDate = newOrder.getCreated().get();
-            }
-
-            int orderId = newOrder.getId().get();
-            int index = orders.indexOf(newOrder);
-            if(index == -1){
-                stageManager.currentController.createOrder(newOrder);
-
-                if(newOrder.getUserId() != userId.getValue()){
-                    addNotification("New order created " + orderId);
-                }
-            }else{
-                Order oldOrder = orders.get(index);
-                ObservableList<Dish> oldDishes = oldOrder.getDishes();
-                ObservableList<Dish> newDishes = newOrder.getDishes();
-
-                for (int i = 0; i < newDishes.size(); i++) {
-                    Dish newDish = newDishes.get(i);
-                    Dish oldDish = oldDishes.get(i);
-                    if(oldDish.getReady() && newDish.getReady()){
-                        stageManager.currentController.addNotification(newDish.getName() + " from order " + orderId + " is ready.");
-                    }
-                }
-                orders.remove(index);
-                orders.add(0, newOrder);
-
-                if (newOrder.isReady()) {
-                    stageManager.currentController.addNotification("Order " + orderId + " is ready.");
-                }
-
-            }
-        });
+//        newOrders.forEach(newOrder -> {
+//            if(newOrder.getUpdated().get().isAfter(mostRecentOrderDate)) {
+//                mostRecentOrderDate = newOrder.getUpdated().get();
+//            }else if(newOrder.getCreated().get().isAfter(mostRecentOrderDate)){
+//                mostRecentOrderDate = newOrder.getCreated().get();
+//            }
+//
+//            int orderId = newOrder.getId().get();
+//            int index = orders.indexOf(newOrder);
+//            if(index == -1){
+//                stageManager.currentController.createOrder(newOrder);
+//
+//                if(newOrder.getUserId() != userId.getValue()){
+//                    addNotification("New order created " + orderId);
+//                }
+//            }else{
+//                Order oldOrder = orders.get(index);
+//                ObservableList<Dish> oldDishes = oldOrder.getDishes();
+//                ObservableList<Dish> newDishes = newOrder.getDishes();
+//
+//                for (int i = 0; i < newDishes.size(); i++) {
+//                    Dish newDish = newDishes.get(i);
+//                    Dish oldDish = oldDishes.get(i);
+//                    if(oldDish.getReady() && newDish.getReady()){
+//                        stageManager.currentController.addNotification(newDish.getName() + " from order " + orderId + " is ready.");
+//                    }
+//                }
+//                orders.remove(index);
+//                orders.add(0, newOrder);
+//
+//                if (newOrder.isReady()) {
+//                    stageManager.currentController.addNotification("Order " + orderId + " is ready.");
+//                }
+//
+//            }
+//        });
     }
 
     static OrderManager initialize(){

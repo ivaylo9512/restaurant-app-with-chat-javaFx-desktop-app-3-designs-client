@@ -7,11 +7,11 @@ import Models.Menu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.media.MediaPlayer;
 import org.apache.http.impl.client.HttpClients;
 
@@ -24,9 +24,12 @@ import static Helpers.ServerRequests.httpClientLongPolling;
 
 public class ControllerLogged {
     @FXML
-    protected Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, roleField;
+    protected TextField firstNameField, lastNameField, countryField, ageField, menuSearch, roleField;
     @FXML
-    TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
+    protected Button saveButton, editButton;
+    @FXML
+    protected FlowPane userInfo;
+
     @FXML
     ListView<Menu> menuList, newOrderList;
     @FXML
@@ -51,18 +54,23 @@ public class ControllerLogged {
             userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
         });
 
+        userInfo.getChildren().remove(saveButton);
+
+        setFieldsEditable(false);
         bindUserFields();
     }
 
     private void bindUserFields() {
-        loginManager.bindUserFields(firstNameLabel.textProperty(), lastNameLabel.textProperty(), countryLabel.textProperty(),
-                roleLabel.textProperty(), ageLabel.textProperty(), profileImage.imageProperty());
+        loginManager.bindUserFields(firstNameField.textProperty(), lastNameField.textProperty(), countryField.textProperty(),
+                roleField.textProperty(), ageField.textProperty(), profileImage.imageProperty());
+    }
 
-        firstNameField.textProperty().bindBidirectional(firstNameLabel.textProperty());
-        lastNameField.textProperty().bindBidirectional(lastNameLabel.textProperty());
-        countryField.textProperty().bindBidirectional(countryLabel.textProperty());
-        roleField.textProperty().bindBidirectional(roleLabel.textProperty());
-        ageField.textProperty().bindBidirectional(ageLabel.textProperty());
+    private void setFieldsEditable(boolean editable) {
+        firstNameField.setEditable(editable);
+        lastNameField.setEditable(editable);
+        countryField.setEditable(editable);
+        ageField.setEditable(editable);
+        roleField.setEditable(editable);
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
@@ -70,10 +78,26 @@ public class ControllerLogged {
     }
 
     @FXML
+    public void editUserInfo() {
+        setFieldsEditable(true);
+
+        userInfo.getChildren().add(saveButton);
+        userInfo.getChildren().remove(editButton);
+    }
+    @FXML
+    public void saveUserInfo() {
+        setFieldsEditable(false);
+
+        userInfo.getChildren().add(editButton);
+        userInfo.getChildren().remove(saveButton);
+    }
+
+    @FXML
     public void addMenuItem(){
         Menu menuItem = menuList.getSelectionModel().getSelectedItem();
         newOrderList.getItems().add(0, menuItem);
     }
+
     @FXML
     public void removeMenuItem(){
         Menu menuItem = newOrderList.getSelectionModel().getSelectedItem();

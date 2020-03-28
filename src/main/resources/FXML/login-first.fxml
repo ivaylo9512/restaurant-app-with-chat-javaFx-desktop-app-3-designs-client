@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="root" maxWidth="-Infinity" prefHeight="84.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
+<AnchorPane fx:id="root" maxWidth="-Infinity" prefHeight="84.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
    <children>
        <Pane fx:id="background" styleClass="background">
 
@@ -30,7 +30,7 @@
                         </ImageView>
                      </graphic>
                        </Button>
-                  <Pane fx:id="registerFields" disable="true" layoutX="7.0" layoutY="22.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
+                  <AnchorPane fx:id="registerFields" disable="true" layoutX="7.0" layoutY="22.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
                      <children>
                         <TextField fx:id="regUsername" alignment="CENTER" layoutX="98.5" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#showNextRegisterFields" prefHeight="32.0" prefWidth="162.0" promptText="username" style="-fx-background-radius: 0 0 0 0;">
                            <effect>
@@ -41,8 +41,8 @@
                            </font>
                         </TextField>
                      </children>
-                  </Pane>
-                  <Pane fx:id="loginFields" disable="true" layoutX="7.0" layoutY="22.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
+                  </AnchorPane>
+                  <AnchorPane fx:id="loginFields" disable="true" layoutX="7.0" layoutY="22.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
                      <children>
                             <TextField fx:id="username" alignment="CENTER" layoutX="8.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#login" prefHeight="32.0" prefWidth="162.0" promptText="username" style="-fx-background-radius: 0 0 0 0;">
                                 <font>
@@ -61,8 +61,8 @@
                            </effect>
                         </PasswordField>
                      </children>
-                  </Pane>
-                  <Pane fx:id="nextRegisterFields" disable="true" layoutX="7.0" layoutY="22.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
+                  </AnchorPane>
+                  <AnchorPane fx:id="nextRegisterFields" disable="true" layoutX="7.0" layoutY="22.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
                      <children>
                         <PasswordField fx:id="regPassword" alignment="CENTER" layoutX="8.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#register" prefHeight="32.0" prefWidth="162.0" promptText="password">
                            <effect>
@@ -81,8 +81,8 @@
                            </font>
                         </PasswordField>
                      </children>
-                  </Pane>
-                  <Pane fx:id="styleButtons" disable="true" layoutX="7.0" layoutY="18.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
+                  </AnchorPane>
+                  <AnchorPane fx:id="styleButtons" disable="true" layoutX="7.0" layoutY="18.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
                      <children>
                         <Button contentDisplay="CENTER" layoutX="39.5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoginSecondStyle" prefHeight="39.0" prefWidth="70.0" styleClass="btn" text="Style 2" textFill="#bfbfbf">
                            <font>
@@ -105,7 +105,7 @@
                            </font>
                         </Button>
                      </children>
-                  </Pane>
+                  </AnchorPane>
                </children>
                <effect>
                   <InnerShadow />
@@ -136,4 +136,4 @@
          </children>
       </AnchorPane>
     </children>
-</Pane>
+</AnchorPane>

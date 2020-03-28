@@ -6,19 +6,13 @@ import Application.MessageService;
 import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -36,8 +30,6 @@ import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import sample.base.ControllerLogged;
 
-import java.io.*;
-import java.net.URL;
 import java.time.*;
 import java.util.*;
 import java.util.List;
@@ -50,7 +42,7 @@ import static Application.OrderService.mostRecentOrderDate;
 public class ControllerLoggedFirstStyle extends ControllerLogged implements Controller {
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
     @FXML VBox mainChatBlock, chatUsers, notificationBlock;
-    @FXML FlowPane notificationInfo, chatInfo, userInfo, userInfoEditable;
+    @FXML FlowPane notificationInfo, chatInfo, userInfoEditable;
     @FXML AnchorPane contentRoot, contentPane, mainChat, ordersPane, profileImageContainer;
     @FXML Pane moveBar, notificationIcon, profileRoot;
     @FXML TextArea mainChatTextArea;
@@ -69,6 +61,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
 
     @FXML
     public void initialize() {
+        super.initialize();
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
 
         waitForNewMessages();
@@ -107,7 +100,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
 
         notificationBlock.prefWidthProperty().bind(notificationsScroll.widthProperty().subtract(20));
 
-        contentRoot.getChildren().remove(userInfoEditable);
         ResizeMainChat.addListeners(mainChat);
 
         Circle clip = new Circle(0, 0, 30);
@@ -578,35 +570,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         }
     }
     @FXML
-    public void editUserInfo() {
-        userInfoScroll.setContent(userInfoEditable);
-    }
-
-    @FXML
-    public void saveUserInfo() {
-        boolean edited = !firstNameLabel.getText().equals(firstNameField.getText()) || !lastNameLabel.getText().equals(lastNameField.getText()) ||
-                !ageLabel.getText().equals(ageField.getText()) || !countryLabel.getText().equals(countryField.getText());
-        userInfoScroll.setContent(userInfo);
-
-        if (edited) {
-            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
-                    ageField.getText(), countryField.getText());
-
-            if(user != null) {
-                loggedUser.setFirstName(user.getFirstName());
-                loggedUser.setLastName(user.getLastName());
-                loggedUser.setAge(user.getAge());
-                loggedUser.setCountry(user.getCountry());
-
-                firstNameLabel.setText(user.getFirstName());
-                lastNameLabel.setText(user.getLastName());
-                ageLabel.setText(String.valueOf(user.getAge()));
-                countryLabel.setText(user.getCountry());
-            }
-        }
-
-    }
-    @FXML
     private void showNotifications() {
         notificationIcon.setOpacity(0);
         ordersPane.setDisable(true);
@@ -652,7 +615,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         FXCollections.reverse(orders);
         ordersList.setItems(orders);
 
-        if (roleLabel.getText().equals("Chef")) {
+        if (roleField.getText().equals("Chef")) {
             roleImage.setImage(chefImage);
         } else {
             roleImage.setImage(waiterImage);
@@ -664,9 +627,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         appendChats(chats);
 
         mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
-
-        orderService.start();
-        messageService.start();
 
     }
 
@@ -711,7 +671,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         ordersPane.setOpacity(1);
 
         ResizeRoot.resize = true;
-        userInfoScroll.setContent(userInfo);
 
         if(ExpandOrderPane.buttonExpandedProperty().getValue()){
             ExpandOrderPane.reverseOrder();

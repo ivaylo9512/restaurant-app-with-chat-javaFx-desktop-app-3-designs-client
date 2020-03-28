@@ -51,18 +51,18 @@ public class StageManager {
         currentAlert = firstLoginAlert;
         currentController = firstLoginController;
 
-        initializeSecondLoginStyle(new Stage());
-        initializeThirdLoginStyle(new Stage());
+//        initializeSecondLoginStyle(new Stage());
+//        initializeThirdLoginStyle(new Stage());
 
         initializeFirstLoggedStyle(new Stage());
-        initializeSecondLoggedStyle(new Stage());
-        initializeThirdLoggedStyle(new Stage());
+//        initializeSecondLoggedStyle(new Stage());
+//        initializeThirdLoggedStyle(new Stage());
 
         firstLoggedStage.initOwner(firstLoginStage);
-        secondLoginStage.initOwner(secondLoggedStage);
-        secondLoggedStage.initOwner(secondLoginStage);
-        thirdLoginStage.initOwner(thirdLoggedStage);
-        thirdLoggedStage.initOwner(thirdLoginStage);
+//        secondLoginStage.initOwner(secondLoggedStage);
+//        secondLoggedStage.initOwner(secondLoginStage);
+//        thirdLoginStage.initOwner(thirdLoggedStage);
+//        thirdLoggedStage.initOwner(thirdLoginStage);
 
         currentStage.show();
     }

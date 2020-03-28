@@ -2,18 +2,17 @@ package Models;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class Order{
 
-    private IntegerProperty id;
+    private IntegerProperty id = new SimpleIntegerProperty();
     private ObservableList<Dish> dishes = FXCollections.observableArrayList();
     private ObjectProperty<LocalDateTime> created = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDateTime> updated = new SimpleObjectProperty<>();
