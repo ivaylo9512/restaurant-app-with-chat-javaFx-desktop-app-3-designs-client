@@ -71,12 +71,10 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
     @FXML ListView<String> ordersList, notificationsList;
     @FXML ListView<Chat> userChats;
-    @FXML ImageView profileImage;
     @FXML TextArea chatTextArea;
     @FXML ScrollPane chatScroll;
     @FXML VBox chatBlock;
 
-    private static Image userProfileImage;
     private AnchorPane currentView, currentMenuView;
 
 
@@ -289,12 +287,10 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         FXCollections.reverse(orders);
         ordersList.setItems(orders);
 
-        displayUserFields();
     }
 
     public void resetStage(){
         mostRecentOrderDate = null;
-        userProfileImage = null;
         loggedUser = null;
         chatValue = null;
         chatTextArea.setText(null);
@@ -310,8 +306,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         userChats.getItems().clear();
         ordersList.getItems().clear();
         notificationsList.getItems().clear();
-
-        resetUserFields();
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
@@ -351,23 +345,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         orderService.cancel();
         messageService.cancel();
     }
-    private void displayUserFields() {
-        usernameLabel.setText(loggedUser.getUsername());
-        firstNameLabel.setText(loggedUser.getFirstName());
-        lastNameLabel.setText(loggedUser.getLastName());
-        countryLabel.setText(loggedUser.getCountry());
-        ageLabel.setText(String.valueOf(loggedUser.getAge()));
-        roleLabel.setText(loggedUser.getRole());
-
-        usernameField.setText(loggedUser.getUsername());
-        firstNameField.setText(loggedUser.getFirstName());
-        lastNameField.setText(loggedUser.getLastName());
-        countryField.setText(loggedUser.getCountry());
-        ageField.setText(String.valueOf(loggedUser.getAge()));
-        roleField.setText(loggedUser.getRole());
-
-        profileImage.setImage(userProfileImage);
-    }
     private void resetUserFields() {
         usernameLabel.setText(null);
         firstNameLabel.setText(null);
@@ -383,7 +360,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         ageField.setText(null);
         roleField.setText(null);
 
-        profileImage.setImage(null);
     }
     @FXML
     public void editUserInfo(){

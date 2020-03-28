@@ -54,17 +54,18 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
     @FXML AnchorPane contentRoot, contentPane, mainChat, ordersPane, profileImageContainer;
     @FXML Pane moveBar, notificationIcon, profileRoot;
     @FXML TextArea mainChatTextArea;
-    @FXML ImageView roleImage, profileImage;
+    @FXML ImageView roleImage;
     @FXML ListView<Order> ordersList;
 
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private ScrollBar ordersScrollBar;
-    private Image userProfileImage;
     private ChatValue mainChatValue;
 
     private static MessageService messageService;
-    private User loggedUser;
+
+    private Image chefImage;
+    private Image waiterImage;
 
     @FXML
     public void initialize() {
@@ -100,6 +101,9 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
                 event.consume();
             }
         });
+
+        chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
+        waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
 
         notificationBlock.prefWidthProperty().bind(notificationsScroll.widthProperty().subtract(20));
 
@@ -574,27 +578,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         }
     }
 
-    private void displayUserFields() {
-        firstNameLabel.setText(loggedUser.getFirstName());
-        lastNameLabel.setText(loggedUser.getLastName());
-        countryLabel.setText(loggedUser.getCountry());
-        ageLabel.setText(String.valueOf(loggedUser.getAge()));
-        roleLabel.setText(loggedUser.getRole());
-
-        firstNameField.setText(loggedUser.getFirstName());
-        lastNameField.setText(loggedUser.getLastName());
-        countryField.setText(loggedUser.getCountry());
-        ageField.setText(String.valueOf(loggedUser.getAge()));
-        roleField.setText(loggedUser.getRole());
-
-        profileImage.setImage(userProfileImage);
-
-        if (loggedUser.getRole().equals("Chef")) {
-            roleImage.setImage(new Image(getClass().getResourceAsStream("/images/chef-second.png")));
-        } else {
-            roleImage.setImage(new Image(getClass().getResourceAsStream("/images/waiter-second.png")));
-        }
-    }
     private void resetUserFields() {
         firstNameLabel.setText(null);
         lastNameLabel.setText(null);
@@ -608,7 +591,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         ageField.setText(null);
         roleField.setText(null);
 
-        profileImage.setImage(null);
     }
     @FXML
     public void editUserInfo() {
@@ -685,6 +667,12 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         FXCollections.reverse(orders);
         ordersList.setItems(orders);
 
+        if (roleLabel.getText().equals("Chef")) {
+            roleImage.setImage(chefImage);
+        } else {
+            roleImage.setImage(waiterImage);
+        }
+
         userMenu.setAll(orderManager.userMenu.values());
 
         List<Chat> chats = getChats();
@@ -695,7 +683,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         orderService.start();
         messageService.start();
 
-        displayUserFields();
     }
 
     public void resetStage(){
@@ -720,9 +707,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
 
         menuSearch.setText("");
         mainChatTextArea.setText(null);
-        profileImage.setImage(null);
         mostRecentOrderDate = null;
-        userProfileImage = null;
         mainChatValue = null;
         loggedUser = null;
 
@@ -742,7 +727,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
 
         ResizeRoot.resize = true;
         userInfoScroll.setContent(userInfo);
-        resetUserFields();
 
         if(ExpandOrderPane.buttonExpandedProperty().getValue()){
             ExpandOrderPane.reverseOrder();

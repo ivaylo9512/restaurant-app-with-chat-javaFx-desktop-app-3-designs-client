@@ -3,9 +3,11 @@ package Application;
 import Models.Menu;
 import Models.User;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
+import javafx.scene.image.Image;
 import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -43,6 +45,16 @@ public class LoginManager {
         registerService.username.bind(username);
         registerService.password.bind(password);
         registerService.repeatPassword.bind(repeatPassword);
+    }
+
+    public void bindUserFields(StringProperty firstName, StringProperty lastName,
+                               StringProperty country, StringProperty role, StringProperty age, ObjectProperty<Image> image){
+        loggedUser.getFirstName().bindBidirectional(firstName);
+        loggedUser.getFirstName().bindBidirectional(lastName);
+        loggedUser.getCountry().bindBidirectional(country);
+        loggedUser.getAge().bindBidirectional(age);
+        loggedUser.getRole().bindBidirectional(role);
+        loggedUser.getImage().bindBidirectional(image);
     }
 
     private void updateError(Service service) {

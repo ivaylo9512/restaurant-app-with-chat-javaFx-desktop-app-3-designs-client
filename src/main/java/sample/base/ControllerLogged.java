@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import org.apache.http.impl.client.HttpClients;
 
@@ -17,19 +19,20 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.SortedMap;
 
-import static Application.RestaurantApplication.loginManager;
-import static Application.RestaurantApplication.stageManager;
+import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.httpClientLongPolling;
 
 public class ControllerLogged {
     @FXML
-    Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, roleField;
+    protected Label firstNameLabel, lastNameLabel, countryLabel, ageLabel, roleLabel, roleField;
     @FXML
     TextField firstNameField, lastNameField, countryField, ageField, menuSearch;
     @FXML
     ListView<Menu> menuList, newOrderList;
     @FXML
     ListView<Dish> dishesList;
+    @FXML
+    ImageView profileImage;
 
     protected DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
@@ -47,10 +50,23 @@ public class ControllerLogged {
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
         });
+
+        bindUserFields();
+    }
+
+    private void bindUserFields() {
+        loginManager.bindUserFields(firstNameLabel.textProperty(), lastNameLabel.textProperty(), countryLabel.textProperty(),
+                roleLabel.textProperty(), ageLabel.textProperty(), profileImage.imageProperty());
+
+        firstNameField.textProperty().bindBidirectional(firstNameLabel.textProperty());
+        lastNameField.textProperty().bindBidirectional(lastNameLabel.textProperty());
+        countryField.textProperty().bindBidirectional(countryLabel.textProperty());
+        roleField.textProperty().bindBidirectional(roleLabel.textProperty());
+        ageField.textProperty().bindBidirectional(ageLabel.textProperty());
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
-        return loginManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
+        return orderManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
     }
 
     @FXML
