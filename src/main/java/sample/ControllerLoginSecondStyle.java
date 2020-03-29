@@ -11,7 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import sample.base.ControllerLogin;
 
-public class ControllerLoginSecondStyle extends ControllerLogin implements Controller{
+public class ControllerLoginSecondStyle extends ControllerLogin {
     @FXML Button actionBtn;
     @FXML ImageView actionBtnImage;
     @FXML Image loginImage;

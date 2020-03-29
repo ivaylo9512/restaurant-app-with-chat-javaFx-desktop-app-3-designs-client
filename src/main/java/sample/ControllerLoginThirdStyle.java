@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import sample.base.ControllerLogin;
 
-public class ControllerLoginThirdStyle extends ControllerLogin implements Controller{
+public class ControllerLoginThirdStyle extends ControllerLogin {
     @FXML AnchorPane contentRoot, menu;
     @FXML Button actionBtn;
     @FXML Text loginBtn;

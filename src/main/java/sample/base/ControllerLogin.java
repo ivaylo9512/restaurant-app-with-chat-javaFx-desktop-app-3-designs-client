@@ -14,7 +14,7 @@ import javafx.stage.Screen;
 import static Application.RestaurantApplication.loginManager;
 import static Application.RestaurantApplication.stageManager;
 
-public abstract class ControllerLogin {
+public abstract class ControllerLogin implements Controller {
     @FXML
     protected TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML

@@ -1,4 +1,4 @@
-package sample;
+package sample.base;
 
 public interface Controller {
     void resetStage();

@@ -21,7 +21,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
 import org.apache.http.impl.client.HttpClients;
-import sample.Controller;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +30,7 @@ import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.httpClientLongPolling;
 import static Helpers.ServerRequests.sendUserInfo;
 
-public class ControllerLogged {
+public class ControllerLogged implements Controller {
     @FXML
     ListView<Menu> menuList, newOrderList;
     @FXML

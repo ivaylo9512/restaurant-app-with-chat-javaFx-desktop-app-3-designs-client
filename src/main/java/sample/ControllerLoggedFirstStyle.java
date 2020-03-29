@@ -36,7 +36,7 @@ import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
 
-public class ControllerLoggedFirstStyle extends ControllerLogged implements Controller{
+public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
     @FXML VBox mainChatBlock, chatUsers, notificationBlock;
     @FXML FlowPane notificationInfo, chatInfo;

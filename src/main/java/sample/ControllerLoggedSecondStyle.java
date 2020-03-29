@@ -43,7 +43,7 @@ import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
-public class ControllerLoggedSecondStyle extends ControllerLogged implements Controller{
+public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,
             createdDateLabel, createdTimeLabel;
 

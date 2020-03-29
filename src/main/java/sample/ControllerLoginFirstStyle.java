@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import sample.base.ControllerLogin;
 
-public class ControllerLoginFirstStyle extends ControllerLogin implements  Controller{
+public class ControllerLoginFirstStyle extends ControllerLogin {
     @FXML Pane background, menu;
     @FXML Button loginButton, registerButton, actionButton;
 

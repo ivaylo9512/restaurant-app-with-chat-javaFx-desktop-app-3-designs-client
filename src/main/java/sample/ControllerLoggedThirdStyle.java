@@ -45,7 +45,7 @@ import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
-public class ControllerLoggedThirdStyle extends ControllerLogged implements Controller{
+public class ControllerLoggedThirdStyle extends ControllerLogged {
     @FXML public ListView<Order> ordersList;
     @FXML public ListView<TextField> notificationsList;
     @FXML public ListView<Chat> chatsList;
