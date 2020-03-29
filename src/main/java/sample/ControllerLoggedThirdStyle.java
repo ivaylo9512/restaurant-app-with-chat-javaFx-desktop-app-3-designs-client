@@ -671,27 +671,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged {
         messageService.setOnFailed(event -> serviceFailed(messageService));
     }
 
-    @FXML
-    public void createNewOrder() {
-        List<Dish> dishes = new ArrayList<>();
-        newOrderList.getItems().forEach(menuItem -> dishes.add(new Dish(menuItem.getName())));
-
-        if (loggedUser.getRole().equals("Server")) {
-            if (dishes.size() > 0) {
-                try {
-                    sendOrder(new Order(dishes));
-                    newOrderList.getItems().clear();
-                } catch (Exception e) {
-                    stageManager.showAlert(e.getMessage());
-                }
-            } else {
-                stageManager.showAlert("Order must have at least one dish.");
-            }
-        } else {
-            stageManager.showAlert("You must be a server to create orders.");
-        }
-    }
-
     private void addNotification(String notification) {
         notificationsInfo.setOpacity(0);
         notificationsInfo.setDisable(true);

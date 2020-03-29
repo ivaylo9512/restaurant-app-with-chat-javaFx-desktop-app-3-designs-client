@@ -24,11 +24,12 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.SortedMap;
+import java.util.stream.Collectors;
 
 import static Application.RestaurantApplication.*;
-import static Helpers.ServerRequests.httpClientLongPolling;
-import static Helpers.ServerRequests.sendUserInfo;
+import static Helpers.ServerRequests.*;
 
 public class ControllerLogged implements Controller {
     @FXML
@@ -132,6 +133,23 @@ public class ControllerLogged implements Controller {
                 ageField.setText(oldInfo.getAge().get());
                 countryField.setText(oldInfo.getCountry().get());
             }
+        }
+    }
+
+    @FXML
+    public void createNewOrder() {
+        if (roleField.getText().equals("Server")) {
+            List<Dish> dishes = newOrderList.getItems().stream().map(menu -> new Dish(menu.getName())).collect(Collectors.toList());
+            if(dishes.size() > 0) {
+
+                if(sendOrder(new Order(dishes)))
+                    newOrderList.getItems().clear();
+
+            }else{
+                stageManager.showAlert("Order must have at least one dish.");
+            }
+        } else {
+            stageManager.showAlert("You must be a server to create orders.");
         }
     }
 
