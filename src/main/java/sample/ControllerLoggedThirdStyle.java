@@ -39,17 +39,14 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
-import org.apache.http.impl.client.HttpClients;
 import sample.base.ControllerLogged;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static Application.RestaurantApplication.*;
@@ -60,14 +57,11 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
     @FXML public ListView<Order> ordersList;
     @FXML public ListView<TextField> notificationsList;
     @FXML public ListView<Chat> chatsList;
-    @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot,
-            userInfoFields, userInfoLabels, contentRoot, menuBar, mainChatContainer, secondChatContainer;
-    @FXML public Pane profileImageClip;
-    @FXML public Label usernameField, usernameLabel;
+    @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot, contentRoot, menuBar, mainChatContainer, secondChatContainer;
+    @FXML public Pane profileImageContainer, profileImageClip;
     @FXML VBox chatsContainer, mainChatBlock, secondChatBlock;
     @FXML ScrollPane mainChatScroll, secondChatScroll;
     @FXML TextArea mainChatTextArea, secondChatTextArea;
-    @FXML Button editButton;
     @FXML HBox notificationsInfo;
     @FXML Text chatsBtn;
 
@@ -83,8 +77,10 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
     private ChatValue mainChat;
     private ChatValue secondChat;
 
-    @FXML
+    @Override
     public void initialize(){
+        super.initialize();
+
         ordersList.setCellFactory(ordersCell -> new OrderListViewCellSecond());
         chatsList.setCellFactory(chatCell -> new ChatsListViewCellSecond());
 
@@ -212,45 +208,45 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         messageService.cancel();
     }
     
-    @FXML
-    public void editUserInfo(){
-        userInfoLabels.setDisable(true);
-        userInfoLabels.setOpacity(0);
-        userInfoFields.setDisable(false);
-        userInfoFields.setOpacity(1);
-
-        editButton.setText("Save");
-        editButton.setOnMouseClicked(event -> saveUserInfo());
-    }
-
-    private void saveUserInfo() {
-        userInfoLabels.setDisable(false);
-        userInfoLabels.setOpacity(1);
-        userInfoFields.setDisable(true);
-        userInfoFields.setOpacity(0);
-
-        boolean edited = !firstNameLabel.getText().equals(firstNameField.getText()) || !lastNameLabel.getText().equals(lastNameField.getText()) ||
-                !ageLabel.getText().equals(ageField.getText()) || !countryLabel.getText().equals(countryField.getText());
-
-        if (edited) {
-            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
-                    ageField.getText(), countryField.getText());
-
-            if (user != null) {
-                loggedUser.setFirstName(user.getFirstName());
-                loggedUser.setLastName(user.getLastName());
-                loggedUser.setAge(user.getAge());
-                loggedUser.setCountry(user.getCountry());
-
-                firstNameLabel.setText(user.getFirstName());
-                lastNameLabel.setText(user.getLastName());
-                ageLabel.setText(String.valueOf(user.getAge()));
-                countryLabel.setText(user.getCountry());
-            }
-        }
-        editButton.setText("Edit");
-        editButton.setOnMouseClicked(event -> editUserInfo());
-    }
+//    @FXML
+//    public void editUserInfo(){
+//        userInfoLabels.setDisable(true);
+//        userInfoLabels.setOpacity(0);
+//        userInfoFields.setDisable(false);
+//        userInfoFields.setOpacity(1);
+//
+//        editButton.setText("Save");
+//        editButton.setOnMouseClicked(event -> saveUserInfo());
+//    }
+//
+//    private void saveUserInfo() {
+//        userInfoLabels.setDisable(false);
+//        userInfoLabels.setOpacity(1);
+//        userInfoFields.setDisable(true);
+//        userInfoFields.setOpacity(0);
+//
+//        boolean edited = !firstNameLabel.getText().equals(firstNameField.getText()) || !lastNameLabel.getText().equals(lastNameField.getText()) ||
+//                !ageLabel.getText().equals(ageField.getText()) || !countryLabel.getText().equals(countryField.getText());
+//
+//        if (edited) {
+//            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
+//                    ageField.getText(), countryField.getText());
+//
+//            if (user != null) {
+//                loggedUser.setFirstName(user.getFirstName());
+//                loggedUser.setLastName(user.getLastName());
+//                loggedUser.setAge(user.getAge());
+//                loggedUser.setCountry(user.getCountry());
+//
+//                firstNameLabel.setText(user.getFirstName());
+//                lastNameLabel.setText(user.getLastName());
+//                ageLabel.setText(String.valueOf(user.getAge()));
+//                countryLabel.setText(user.getCountry());
+//            }
+//        }
+//        editButton.setText("Edit");
+//        editButton.setOnMouseClicked(event -> editUserInfo());
+//    }
     @FXML
     public void displayOrdersView(MouseEvent event){
         Text clickedText = (Text)event.getSource();

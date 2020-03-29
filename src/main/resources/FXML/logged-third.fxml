@@ -251,56 +251,23 @@
                                           </Pane>
                                        </children>
                                     </Pane>
-                                    <AnchorPane fx:id="userInfoFields" disable="true" layoutX="32.0" layoutY="115.0" opacity="0.0" prefHeight="118.0" styleClass="user-fields" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
+                                    <AnchorPane fx:id="userInfo" layoutX="32.0" layoutY="115.0" prefHeight="118.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
                                        <children>
-                                          <TextField fx:id="firstNameField" alignment="CENTER" layoutX="2.0" prefHeight="56.0" prefWidth="119.0" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0">
-                                             <effect>
-                                                <InnerShadow />
-                                             </effect>
-                                          </TextField>
-                                          <TextField fx:id="lastNameField" alignment="CENTER" layoutX="132.0" prefHeight="56.0" prefWidth="119.0" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0">
-                                             <effect>
-                                                <InnerShadow />
-                                             </effect>
-                                          </TextField>
-                                          <Label fx:id="usernameField" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" prefHeight="56.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0">
-                                             <effect>
-                                                <DropShadow />
-                                             </effect>
-                                          </Label>
-                                          <Label fx:id="roleField" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" prefHeight="56.0" prefWidth="115.0" textFill="#bcbcbc" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0">
-                                             <effect>
-                                                <DropShadow />
-                                             </effect>
-                                          </Label>
-                                          <TextField fx:id="ageField" alignment="CENTER" layoutX="132.0" prefHeight="56.0" prefWidth="119.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0">
-                                             <effect>
-                                                <InnerShadow />
-                                             </effect>
-                                          </TextField>
-                                          <TextField fx:id="countryField" alignment="CENTER" layoutX="2.0" prefHeight="56.0" prefWidth="119.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0">
-                                             <effect>
-                                                <InnerShadow />
-                                             </effect>
-                                          </TextField>
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane fx:id="userInfoLabels" layoutX="32.0" layoutY="115.0" prefHeight="118.0" prefWidth="384.0" styleClass="user-labels" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
-                                       <children>
-                                          <Label fx:id="roleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="271.5" prefHeight="27.0" prefWidth="100.0" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0" />
-                                          <Label fx:id="ageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="141.5" prefHeight="27.0" prefWidth="100.0" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0" />
-                                          <Label fx:id="countryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.5" prefHeight="27.0" prefWidth="100.0" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0" />
-                                          <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="11.5" prefHeight="51.0" prefWidth="100.0" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0" />
-                                          <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="271.5" prefHeight="27.0" prefWidth="100.0" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0" />
-                                          <Label fx:id="lastNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="141.5" prefHeight="27.0" prefWidth="100.0" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0" />
+                                          <TextField fx:id="firstNameField" alignment="CENTER" layoutX="2.0" prefHeight="56.0" prefWidth="119.0" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0"/>
+                                          <TextField fx:id="lastNameField" alignment="CENTER" layoutX="132.0" prefHeight="56.0" prefWidth="119.0" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0"/>
+                                          <TextField fx:id="usernameField" alignment="CENTER" layoutX="264.0" prefHeight="56.0" prefWidth="115.0" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="13.0"/>
+                                          <TextField fx:id="roleField" alignment="CENTER" layoutX="264.0" prefHeight="56.0" prefWidth="115.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0"/>
+                                          <TextField fx:id="ageField" alignment="CENTER" layoutX="132.0" prefHeight="56.0" prefWidth="119.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0"/>
+                                          <TextField fx:id="countryField" alignment="CENTER" layoutX="2.0" prefHeight="56.0" prefWidth="119.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="66.0"/>
                                        </children>
                                     </AnchorPane>
                                     <HBox layoutX="124.0" layoutY="256.0" prefHeight="33.0" prefWidth="200.0" styleClass="profile-menu" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="107.0">
                                        <children>
-                                          <Button fx:id="editButton" minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#editUserInfo" prefWidth="57.0" text="Edit" textFill="WHITE" />
                                           <Button minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" prefWidth="57.0" text="Style 1" textFill="WHITE" />
                                           <Button minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#showLoggedSecondStyle" prefWidth="57.0" text="Style 2" textFill="WHITE" />
                                           <Button minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#logout" prefWidth="57.0" text="Logout" textFill="WHITE" />
+                                          <Button fx:id="editButton" minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#editUserInfo" prefWidth="57.0" text="Edit" textFill="WHITE" />
+                                          <Button fx:id="saveButton" minHeight="36.0" minWidth="57.0" mnemonicParsing="false" onMouseClicked="#saveUserInfo" prefWidth="57.0" text="Save" textFill="WHITE" />
                                        </children>
                                     </HBox>
                                  </children>

@@ -98,7 +98,7 @@ public class StageManager {
             currentStage = secondLoggedStage;
             currentController = secondLoggedController;
             currentAlert = secondLoggedAlert;
-        }else(stage == thirdLoggedStage){
+        }else {
             currentStage = thirdLoggedStage;
             currentController = thirdLoggedController;
             currentAlert = thirdLoggedAlert;

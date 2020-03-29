@@ -64,30 +64,32 @@ TextArea .viewport{
     -fx-background-radius: 180px;
     -fx-border-radius: 180px;
     -fx-background-color: #E6353A;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 1);
 
 }
-.user-labels Label{
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: white;
-}
-.user-fields Label,
-.user-fields TextField{
+.profile-view TextField{
     -fx-background-color: #E6353A;
     -fx-text-fill: white;
+    -fx-opacity: 1;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+    -fx-pref-width: 119px;
+    -fx-pref-height: 56px;
+}
+.profile-view TextField:readonly{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 1 );
 }
 .profile-menu{
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
     -fx-background-color: #E6353A;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 1 );
 }
 .profile-menu Button{
     -fx-background-color: transparent;
 }
 .profile-menu Button:hover{
     -fx-background-color: #E6353A;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 1 );
 }
 .profile-picture-container{
     -fx-background-radius: 180px;
@@ -101,11 +103,11 @@ TextArea .viewport{
     -fx-pref-height: 55;
 }
 .notification-list .list-cell:hover TextField{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .notification-list TextField{
     -fx-background-color: #FC3903;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 0 );
     -fx-pref-height: 45;
     -fx-alignment: center;
     -fx-text-fill: white;
@@ -202,7 +204,7 @@ TextArea .viewport{
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
     -fx-background-color: #E6353A;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 1 );
 }
 .chats-list Label{
     -fx-text-fill: white;
@@ -221,14 +223,14 @@ TextArea .viewport{
 }
 .main-chat ScrollBar .thumb{
     -fx-background-color: #E6353A;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .second-chat{
     -fx-background-color: #FC3903;
 }
 .second-chat ScrollBar .thumb{
     -fx-background-color: #FC3903;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .text-area-container{
     -fx-background-color: white;
@@ -272,7 +274,7 @@ TextArea .viewport{
 .session-date TextFlow{
     -fx-padding: 13 20 13 20;
     -fx-background-radius: 20px;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
 .session-date Text{
     -fx-fill: white;
@@ -287,20 +289,20 @@ TextArea .viewport{
     -fx-background-color: transparent;
 }
 .chats-view .imageShadow{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 6, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6, 0.0 , 0 , 0 );
 }
 .chats-view .message{
     -fx-fill: white;
 }
 .chats-view Button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 
 }
 .chats-view Button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 0, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 0, 0.0 , 0 , 0 );
 }
 .chats-view HBox AnchorPane{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .main-chat .imageShadow{
     -fx-background-color: #E6353A;
@@ -317,7 +319,7 @@ TextArea .viewport{
 .alert-box{
     -fx-background-color: white;
     -fx-border-color: #E6353A;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 2 );
 
 }
 .alert-box > *.button-bar > *.container{
@@ -343,18 +345,18 @@ TextArea .viewport{
     -fx-alignment: center;
     -fx-pref-height: 50;
     -fx-padding: 0,0,10,0;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 2 );
     -fx-background-color: #E6353A;
 }
 .alert-box Button{
     -fx-text-fill: white;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 0);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 0);
     -fx-background-color: #E6353A;
 }
 .alert-box Button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0);
 }
 .alert-box Button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0);
 }
 
