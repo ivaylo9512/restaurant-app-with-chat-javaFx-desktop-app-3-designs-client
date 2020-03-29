@@ -5,6 +5,8 @@ import Helpers.ListViews.MenuListViewCell;
 import Models.Dish;
 import Models.Menu;
 import Models.User;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,6 +48,7 @@ public class ControllerLogged {
     protected MediaPlayer notificationSound = RestaurantApplication.notificationSound;
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();
 
+    private BooleanProperty isEditable = new SimpleBooleanProperty(false);
     private User oldInfo;
 
     @FXML
@@ -60,10 +63,10 @@ public class ControllerLogged {
 
         userInfo.getChildren().remove(saveButton);
 
-        roleField.setEditable(false);
-        setFieldsEditable(false);
-
         if(usernameField == null) usernameField = new TextField();
+
+        roleField.setEditable(false);
+        roleField.setDisable(true);
 
         bindUserFields();
     }
@@ -71,18 +74,18 @@ public class ControllerLogged {
     private void bindUserFields() {
         loginManager.bindUserFields(usernameField.textProperty(), firstNameField.textProperty(), lastNameField.textProperty(), countryField.textProperty(),
                 roleField.textProperty(), ageField.textProperty(), profileImage.imageProperty());
-    }
 
-    private void setFieldsEditable(boolean editable) {
-        firstNameField.setEditable(editable);
-        lastNameField.setEditable(editable);
-        countryField.setEditable(editable);
-        ageField.setEditable(editable);
+        usernameField.editableProperty().bind(isEditable);
+        firstNameField.editableProperty().bind(isEditable);
+        lastNameField.editableProperty().bind(isEditable);
+        ageField.editableProperty().bind(isEditable);
+        countryField.editableProperty().bind(isEditable);
 
-        firstNameField.setDisable(editable);
-        lastNameField.setDisable(editable);
-        countryField.setDisable(editable);
-        ageField.setDisable(editable);
+        usernameField.disableProperty().bind(isEditable.not());
+        firstNameField.disableProperty().bind(isEditable.not());
+        lastNameField.disableProperty().bind(isEditable.not());
+        ageField.disableProperty().bind(isEditable.not());
+        countryField.disableProperty().bind(isEditable.not());
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
@@ -91,7 +94,7 @@ public class ControllerLogged {
 
     @FXML
     public void editUserInfo() {
-        setFieldsEditable(true);
+        isEditable.setValue(true);
 
         userInfo.getChildren().add(saveButton);
         userInfo.getChildren().remove(editButton);
@@ -101,7 +104,7 @@ public class ControllerLogged {
 
     @FXML
     public void saveUserInfo() {
-        setFieldsEditable(false);
+        isEditable.setValue(false);
 
         userInfo.getChildren().add(editButton);
         userInfo.getChildren().remove(saveButton);
