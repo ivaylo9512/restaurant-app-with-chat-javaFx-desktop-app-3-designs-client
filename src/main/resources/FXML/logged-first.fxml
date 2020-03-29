@@ -24,26 +24,17 @@
                                        <content>
                                           <FlowPane fx:id="userInfo" layoutX="517.0" layoutY="-219.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
                                              <children>
-                                                <TextField fx:id="firstNameField"  focusTraversable="false" alignment="CENTER" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
-                                                   <effect>
-                                                      <InnerShadow height="10.0" radius="4.5" width="10.0" />
-                                                   </effect>
+                                                <TextField fx:id="firstNameField" alignment="CENTER">
                                                 </TextField>
-                                                <TextField fx:id="lastNameField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
+                                                <TextField fx:id="lastNameField" alignment="CENTER">
                                                 </TextField>
-                                                <TextField fx:id="countryField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
+                                                <TextField fx:id="countryField" alignment="CENTER">
                                                 </TextField>
-                                                <TextField fx:id="ageField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
+                                                <TextField fx:id="ageField" alignment="CENTER">
                                                 </TextField>
-                                                <TextField fx:id="roleField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
+                                                <TextField fx:id="roleField" alignment="CENTER" focusTraversable="false">
                                                 </TextField>
-                                                <Button fx:id="saveButton" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" prefHeight="22.0" prefWidth="72.0" text="Save" textFill="#bcbcbc">
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
+                                                <Button fx:id="saveButton" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
                                                    <graphic>
                                                       <ImageView fitHeight="15.0" fitWidth="15.0">
                                                          <image>
@@ -52,10 +43,7 @@
                                                       </ImageView>
                                                    </graphic>
                                                 </Button>
-                                                <Button fx:id="editButton" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#editUserInfo" prefHeight="22.0" prefWidth="72.0" text="Edit" textFill="#bcbcbc">
-                                                   <font>
-                                                      <Font size="10.0" />
-                                                   </font>
+                                                <Button fx:id="editButton" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#editUserInfo" text="Edit">
                                                    <graphic>
                                                       <ImageView fitHeight="15.0" fitWidth="15.0">
                                                          <image>

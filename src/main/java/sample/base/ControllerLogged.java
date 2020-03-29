@@ -78,6 +78,11 @@ public class ControllerLogged {
         lastNameField.setEditable(editable);
         countryField.setEditable(editable);
         ageField.setEditable(editable);
+
+        firstNameField.setDisable(editable);
+        lastNameField.setDisable(editable);
+        countryField.setDisable(editable);
+        ageField.setDisable(editable);
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
@@ -98,8 +103,8 @@ public class ControllerLogged {
     public void saveUserInfo() {
         setFieldsEditable(false);
 
-        userInfo.getChildren().add(saveButton);
-        userInfo.getChildren().remove(editButton);
+        userInfo.getChildren().add(editButton);
+        userInfo.getChildren().remove(saveButton);
 
         if (loginManager.isUserEdited(oldInfo)) {
             User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),

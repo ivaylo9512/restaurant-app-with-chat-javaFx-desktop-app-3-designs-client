@@ -128,6 +128,6 @@ public class LoginManager {
     }
 
     public boolean isUserEdited(User oldInfo) {
-        return oldInfo.equals(loggedUser);
+        return !oldInfo.equals(loggedUser);
     }
 }
