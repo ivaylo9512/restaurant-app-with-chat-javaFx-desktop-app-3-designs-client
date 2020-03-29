@@ -8,18 +8,20 @@ import Models.Restaurant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.TreeMap;
 
-import static Application.OrderService.mostRecentOrderDate;
 import static Application.RestaurantApplication.stageManager;
 import static Application.LoginManager.userId;
+import static Helpers.ServerRequests.getMostRecentOrderDate;
 
 public class OrderManager {
     private static OrderService orderService;
     public Restaurant userRestaurant;
     public TreeMap<String, Menu> userMenu = new TreeMap<>();
     public ObservableList<Order> orders = FXCollections.observableArrayList();
+    public LocalDateTime mostRecentOrderDate;
 
     private OrderManager() {
         orderService = new OrderService();
@@ -81,10 +83,12 @@ public class OrderManager {
         restaurant.getMenu().forEach(menu ->
                 userMenu.put(menu.getName().toLowerCase(), menu));
         orders.setAll(restaurant.getOrders());
+        mostRecentOrderDate = getMostRecentOrderDate(userRestaurant.getId());
     }
 
     void resetRestaurant(){
         userRestaurant = null;
+        mostRecentOrderDate = null;
         userMenu.clear();
         orders.clear();
     }

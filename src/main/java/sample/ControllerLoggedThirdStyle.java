@@ -43,7 +43,6 @@ import java.util.*;
 
 import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
-import static Application.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedThirdStyle extends ControllerLogged {
     @FXML public ListView<Order> ordersList;
@@ -126,13 +125,9 @@ public class ControllerLoggedThirdStyle extends ControllerLogged {
     public void setStage() throws Exception{
         super.setStage();
 
-
         ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());//Todo
         setChatValues(chats);
         chatsList.setItems(chats);
-
-        mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
-
 
         loginAnimation();
     }

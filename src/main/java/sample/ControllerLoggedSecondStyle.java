@@ -41,7 +41,6 @@ import java.util.*;
 
 import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
-import static Application.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,
@@ -230,7 +229,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     }
     @Override
     public void setStage() throws Exception{
-        mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
+        super.setStage();
 
         ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
         setChatValues(chats);

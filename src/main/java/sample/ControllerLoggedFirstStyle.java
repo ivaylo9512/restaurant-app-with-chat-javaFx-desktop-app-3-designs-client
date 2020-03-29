@@ -33,7 +33,6 @@ import java.util.List;
 
 import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
-import static Application.OrderService.mostRecentOrderDate;
 
 
 public class ControllerLoggedFirstStyle extends ControllerLogged {
@@ -592,8 +591,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
         List<Chat> chats = getChats();
         appendChats(chats);
-
-        mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
     }
 
     @Override
