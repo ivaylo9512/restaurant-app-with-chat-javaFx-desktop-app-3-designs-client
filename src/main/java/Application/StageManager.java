@@ -47,22 +47,22 @@ public class StageManager {
     private StageManager(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
 
-        currentStage = initializeFirstLoginStyle(primaryStage);
+        currentStage = firstLoggedStage = initializeFirstLoginStyle(primaryStage);
         currentAlert = firstLoginAlert;
         currentController = firstLoginController;
 
-//        initializeSecondLoginStyle(new Stage());
-//        initializeThirdLoginStyle(new Stage());
+        secondLoginStage = initializeSecondLoginStyle(new Stage());
+        thirdLoginStage = initializeThirdLoginStyle(new Stage());
 
-        initializeFirstLoggedStyle(new Stage());
-//        initializeSecondLoggedStyle(new Stage());
-//        initializeThirdLoggedStyle(new Stage());
+        firstLoggedStage = initializeFirstLoggedStyle(new Stage());
+        secondLoggedStage = initializeSecondLoggedStyle(new Stage());
+        thirdLoggedStage = initializeThirdLoggedStyle(new Stage());
 
         firstLoggedStage.initOwner(firstLoginStage);
-//        secondLoginStage.initOwner(secondLoggedStage);
-//        secondLoggedStage.initOwner(secondLoginStage);
-//        thirdLoginStage.initOwner(thirdLoggedStage);
-//        thirdLoggedStage.initOwner(thirdLoginStage);
+        secondLoginStage.initOwner(secondLoggedStage);
+        secondLoggedStage.initOwner(secondLoginStage);
+        thirdLoginStage.initOwner(thirdLoggedStage);
+        thirdLoggedStage.initOwner(thirdLoginStage);
 
         currentStage.show();
     }
@@ -98,7 +98,7 @@ public class StageManager {
             currentStage = secondLoggedStage;
             currentController = secondLoggedController;
             currentAlert = secondLoggedAlert;
-        }else if(stage == thirdLoggedStage){
+        }else(stage == thirdLoggedStage){
             currentStage = thirdLoggedStage;
             currentController = thirdLoggedController;
             currentAlert = thirdLoggedAlert;
@@ -122,7 +122,7 @@ public class StageManager {
 
         firstLoginController = loader.getController();
         firstLoginAlert = createAlert(firstLoginStage);
-        return firstLoginStage = createStage(stage, scene, firstLoginController);
+        return createStage(stage, scene, firstLoginController);
     }
 
     private Stage initializeSecondLoginStyle(Stage stage) throws IOException {
@@ -135,7 +135,7 @@ public class StageManager {
 
         secondLoginController = loader.getController();
         secondLoginAlert = createAlert(secondLoginStage);
-        return secondLoginStage = createStage(stage, scene, secondLoginController);
+        return createStage(stage, scene, secondLoginController);
     }
 
     private Stage initializeThirdLoginStyle(Stage stage) throws IOException {
@@ -148,7 +148,7 @@ public class StageManager {
 
         thirdLoginController = loader.getController();
         thirdLoginAlert = createAlert(thirdLoginStage);
-        return thirdLoginStage= createStage(stage, scene, thirdLoginController);
+        return createStage(stage, scene, thirdLoginController);
     }
 
     private Stage initializeFirstLoggedStyle(Stage stage) throws IOException {
@@ -161,7 +161,7 @@ public class StageManager {
 
         firstLoggedController = loader.getController();
         firstLoggedAlert = createAlert(thirdLoginStage);
-        return firstLoggedStage = createStage(stage, scene, firstLoggedController);
+        return createStage(stage, scene, firstLoggedController);
     }
 
     private Stage initializeSecondLoggedStyle(Stage stage) throws IOException {
@@ -174,7 +174,7 @@ public class StageManager {
 
         secondLoggedController = loader.getController();
         secondLoggedAlert = createAlert(thirdLoginStage);
-        return secondLoggedStage = createStage(stage, scene, secondLoggedController);
+        return createStage(stage, scene, secondLoggedController);
     }
 
     private Stage initializeThirdLoggedStyle(Stage stage) throws IOException {
@@ -187,7 +187,7 @@ public class StageManager {
 
         thirdLoggedController = loader.getController();
         thirdLoggedAlert = createAlert(thirdLoginStage);
-        return thirdLoggedStage = createStage(stage, scene, thirdLoggedController);
+        return createStage(stage, scene, thirdLoggedController);
     }
 
     private Alert createAlert(Stage stage) {
