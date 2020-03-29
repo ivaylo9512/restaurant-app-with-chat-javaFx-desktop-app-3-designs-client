@@ -15,6 +15,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.media.MediaPlayer;
 import org.apache.http.impl.client.HttpClients;
 
@@ -32,7 +34,7 @@ public class ControllerLogged {
     @FXML
     protected Button saveButton, editButton;
     @FXML
-    protected FlowPane userInfo;
+    protected Pane userInfo;
 
     @FXML
     ListView<Menu> menuList, newOrderList;
@@ -50,6 +52,7 @@ public class ControllerLogged {
 
     private BooleanProperty isEditable = new SimpleBooleanProperty(false);
     private User oldInfo;
+    private Pane buttonParent;
 
     @FXML
     public void initialize() {
@@ -61,10 +64,13 @@ public class ControllerLogged {
             userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
         });
 
-        userInfo.getChildren().remove(saveButton);
+        buttonParent = (Pane) saveButton.getParent();
+        buttonParent.getChildren().remove(saveButton);
 
         if(usernameField == null) usernameField = new TextField();
 
+        usernameField.setEditable(false);
+        usernameField.setDisable(true);
         roleField.setEditable(false);
         roleField.setDisable(true);
 
@@ -75,13 +81,11 @@ public class ControllerLogged {
         loginManager.bindUserFields(usernameField.textProperty(), firstNameField.textProperty(), lastNameField.textProperty(), countryField.textProperty(),
                 roleField.textProperty(), ageField.textProperty(), profileImage.imageProperty());
 
-        usernameField.editableProperty().bind(isEditable);
         firstNameField.editableProperty().bind(isEditable);
         lastNameField.editableProperty().bind(isEditable);
         ageField.editableProperty().bind(isEditable);
         countryField.editableProperty().bind(isEditable);
 
-        usernameField.disableProperty().bind(isEditable.not());
         firstNameField.disableProperty().bind(isEditable.not());
         lastNameField.disableProperty().bind(isEditable.not());
         ageField.disableProperty().bind(isEditable.not());
@@ -96,8 +100,8 @@ public class ControllerLogged {
     public void editUserInfo() {
         isEditable.setValue(true);
 
-        userInfo.getChildren().add(saveButton);
-        userInfo.getChildren().remove(editButton);
+        buttonParent.getChildren().add(saveButton);
+        buttonParent.getChildren().remove(editButton);
 
         oldInfo = new User(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), Integer.valueOf(ageField.getText()), countryField.getText());
     }
@@ -106,8 +110,8 @@ public class ControllerLogged {
     public void saveUserInfo() {
         isEditable.setValue(false);
 
-        userInfo.getChildren().add(editButton);
-        userInfo.getChildren().remove(saveButton);
+        buttonParent.getChildren().add(editButton);
+        buttonParent.getChildren().remove(saveButton);
 
         if (loginManager.isUserEdited(oldInfo)) {
             User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),

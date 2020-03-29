@@ -60,13 +60,13 @@ import static Application.OrderService.mostRecentOrderDate;
 
 public class ControllerLoggedSecondStyle extends ControllerLogged implements Controller {
     @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,
-            createdDateLabel, createdTimeLabel, usernameField, usernameLabel;
+            createdDateLabel, createdTimeLabel;
 
     @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot, profileView,
-            notificationsView, menuContent, orderInfo, userInfoLabels, userInfoFields, orderView,
+            notificationsView, menuContent, orderInfo, orderView,
             chatView, userChatsClip, createView, dishesContainer, chatContainer;
 
-    @FXML Button menuButton, editButton;
+    @FXML Button menuButton;
     @FXML HBox notificationsInfo;
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
     @FXML ListView<String> ordersList, notificationsList;
@@ -85,8 +85,10 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
 
     private ChatValue chatValue;
 
-    @FXML
+    @Override
     public void initialize() {
+        super.initialize();
+
         userChats.setCellFactory(chatCell -> new ChatsListViewCell());
 
         waitForNewMessages();
@@ -344,45 +346,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
 
         orderService.cancel();
         messageService.cancel();
-    }
-    @FXML
-    public void editUserInfo(){
-        userInfoLabels.setDisable(true);
-        userInfoLabels.setOpacity(0);
-        userInfoFields.setDisable(false);
-        userInfoFields.setOpacity(1);
-
-        editButton.setText("Save");
-        editButton.setOnMouseClicked(event -> saveUserInfo());
-    }
-
-    private void saveUserInfo() {
-        userInfoLabels.setDisable(false);
-        userInfoLabels.setOpacity(1);
-        userInfoFields.setDisable(true);
-        userInfoFields.setOpacity(0);
-
-        boolean edited = !firstNameLabel.getText().equals(firstNameField.getText()) || !lastNameLabel.getText().equals(lastNameField.getText()) ||
-                !ageLabel.getText().equals(ageField.getText()) || !countryLabel.getText().equals(countryField.getText());
-
-        if (edited) {
-            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
-                    ageField.getText(), countryField.getText());
-
-            if (user != null) {
-                loggedUser.setFirstName(user.getFirstName());
-                loggedUser.setLastName(user.getLastName());
-                loggedUser.setAge(user.getAge());
-                loggedUser.setCountry(user.getCountry());
-
-                firstNameLabel.setText(user.getFirstName());
-                lastNameLabel.setText(user.getLastName());
-                ageLabel.setText(String.valueOf(user.getAge()));
-                countryLabel.setText(user.getCountry());
-            }
-        }
-        editButton.setText("Edit");
-        editButton.setOnMouseClicked(event -> editUserInfo());
     }
 
     @FXML

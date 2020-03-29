@@ -29,7 +29,7 @@ TextFlow {
     -fx-border-radius: 5;
     -fx-background-insets: -2 -6 -2 -8;
     -fx-background-radius: 5;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
 .list-view .scroll-bar:vertical .increment-arrow,
 .list-view .scroll-bar:vertical .decrement-arrow,
@@ -47,10 +47,10 @@ TextFlow {
     -fx-background-color: transparent;
 }
 .shadow{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 15, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
 }
 .shadow2{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 10, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 10, 0.0 , 0 , 2 );
 }
 .content-bar{
     -fx-background-color: #FC3903;
@@ -102,6 +102,17 @@ TextFlow {
     -fx-text-fill: #bcbcbc;
     -fx-background-color: #1a1a1a;
 }
+.profile-view TextField{
+    -fx-background-color: #1a1a1a;
+    -fx-opacity: 1;
+    -fx-text-fill: #bcbcbc;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+    -fx-pref-width: 119px;
+    -fx-pref-height: 56px;
+}
+.profile-view TextField:readonly{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 1 );
+}
 .menu-container .list-view .list-cell{
     -fx-padding: 0;
     -fx-background-color: transparent;
@@ -119,14 +130,14 @@ TextFlow {
     -fx-background-radius: 180px;
     -fx-background-color: #1a1a1a;
     -fx-border-width: 2px;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 1 );
 }
 .add-button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 
 }
 .add-button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 
 }
 .order-info AnchorPane{
@@ -143,7 +154,7 @@ TextFlow {
 }
 .chats-list GridPane{
     -fx-background-color: #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 1 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 1 );
 
 }
 .chats-list GridPane:hover{
@@ -181,22 +192,18 @@ TextFlow {
     -fx-background-color: transparent;
 }
 .profile-button-shadow {
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 8, 0.0 , 0 , 1 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 1 );
     -fx-background-radius: 180px;
     -fx-border-radius: 180px;
     -fx-background-color: #1a1a1a;
 
 }
 .profile-button-hovered{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .profile-view Button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 
-}
-.profile-view Label{
-    -fx-background-color: #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 9, 0.0 , 0 , 1 );
 }
 .notifications-view{
     -fx-background-radius: 15px;
@@ -212,7 +219,7 @@ TextFlow {
     -fx-border-radius: 15px;
 }
 .notifications-list .list-cell{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 2 );
     -fx-background-color: #1a1a1a;
     -fx-pref-height: 50px;
     -fx-alignment: center;
@@ -237,20 +244,20 @@ TextFlow {
 }
 .main-chat .imageShadow{
     -fx-background-color: white;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 6, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6, 0.0 , 0 , 0 );
 }
 .main-chat .message{
     -fx-fill: #bcbcbc;
 }
 .main-chat Button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 
 }
 .main-chat Button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 0, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 0, 0.0 , 0 , 0 );
 }
 .main-chat AnchorPane{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .main-chat .time{
     -fx-fill: #2A2E37;
@@ -279,7 +286,7 @@ TextFlow {
 }
 .main-chat ScrollBar .thumb{
     -fx-background-color:  #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .user-message-first{
     -fx-padding: 15 0 0 165;
@@ -294,7 +301,7 @@ TextFlow {
     -fx-padding: 8 165 0 40;
 }
 .session-date{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
     -fx-padding: 10 0 15 15;
 }
 .session-info{
@@ -321,7 +328,7 @@ TextFlow {
 .alert-box{
     -fx-background-color: #1a1a1a;
     -fx-border-color: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 2 );
 
 }
 .alert-box > *.button-bar > *.container{
@@ -347,17 +354,17 @@ TextFlow {
     -fx-alignment: center;
     -fx-pref-height: 50;
     -fx-padding: 0,0,10,0;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 2 );
     -fx-background-color: #FC3903;
 }
 .alert-box Button{
     -fx-text-fill: white;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 0);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 0);
     -fx-background-color: #FC3903;
 }
 .alert-box Button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0);
 }
 .alert-box Button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0);
 }
