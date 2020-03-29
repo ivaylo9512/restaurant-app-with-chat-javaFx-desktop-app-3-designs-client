@@ -4,21 +4,24 @@ import Application.RestaurantApplication;
 import Helpers.ListViews.MenuListViewCell;
 import Models.Dish;
 import Models.Menu;
+import Models.Order;
 import Models.User;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Screen;
 import org.apache.http.impl.client.HttpClients;
+import sample.Controller;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -30,18 +33,22 @@ import static Helpers.ServerRequests.sendUserInfo;
 
 public class ControllerLogged {
     @FXML
-    protected TextField usernameField, firstNameField, lastNameField, countryField, ageField, menuSearch, roleField;
-    @FXML
-    protected Button saveButton, editButton;
-    @FXML
-    protected Pane userInfo;
-
-    @FXML
     ListView<Menu> menuList, newOrderList;
     @FXML
     ListView<Dish> dishesList;
     @FXML
     ImageView profileImage;
+
+    @FXML
+    protected TextField usernameField, firstNameField, lastNameField, countryField, ageField, menuSearch, roleField;
+    @FXML
+    protected Button saveButton, editButton;
+    @FXML
+    protected Pane userInfo;
+    @FXML
+    protected AnchorPane contentRoot;
+    @FXML
+    protected ListView<Order> ordersList;
 
     protected DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
@@ -49,6 +56,8 @@ public class ControllerLogged {
 
     protected MediaPlayer notificationSound = RestaurantApplication.notificationSound;
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();
+
+    protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     private BooleanProperty isEditable = new SimpleBooleanProperty(false);
     private User oldInfo;
@@ -74,6 +83,7 @@ public class ControllerLogged {
         roleField.setEditable(false);
         roleField.setDisable(true);
 
+        ordersList.setItems(orderManager.orders);
         bindUserFields();
     }
 
@@ -136,6 +146,21 @@ public class ControllerLogged {
     public void removeMenuItem(){
         Menu menuItem = newOrderList.getSelectionModel().getSelectedItem();
         newOrderList.getItems().remove(menuItem);
+    }
+
+    public void setStage() throws Exception{
+        userMenu.setAll(orderManager.userMenu.values());
+
+        contentRoot.setPrefWidth(contentRoot.getMinWidth());
+        contentRoot.setPrefHeight(contentRoot.getMinHeight());
+
+        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
+        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
+    }
+
+    public void resetStage(){
+        newOrderList.getItems().clear();
+        menuList.getItems().clear();
     }
 
     @FXML

@@ -2,14 +2,12 @@ package sample;
 
 import Animations.*;
 import Helpers.ListViews.OrderListViewCell;
-import Application.MessageService;
 import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -25,7 +23,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import sample.base.ControllerLogged;
@@ -39,22 +36,19 @@ import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
 
-public class ControllerLoggedFirstStyle extends ControllerLogged implements Controller {
+public class ControllerLoggedFirstStyle extends ControllerLogged implements Controller{
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
     @FXML VBox mainChatBlock, chatUsers, notificationBlock;
-    @FXML FlowPane notificationInfo, chatInfo, userInfoEditable;
-    @FXML AnchorPane contentRoot, contentPane, mainChat, ordersPane, profileImageContainer;
+    @FXML FlowPane notificationInfo, chatInfo;
+    @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer;
     @FXML Pane moveBar, notificationIcon, profileRoot;
     @FXML TextArea mainChatTextArea;
     @FXML ImageView roleImage;
-    @FXML ListView<Order> ordersList;
 
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private ScrollBar ordersScrollBar;
     private ChatValue mainChatValue;
-
-    private static MessageService messageService;
 
     private Image chefImage;
     private Image waiterImage;
@@ -63,8 +57,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
     public void initialize() {
         super.initialize();
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
-
-        waitForNewMessages();
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
                 mainChatScroll, notificationsScroll, mainChatTextArea);
@@ -610,10 +602,9 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         profileRoot.setDisable(true);
     }
 
+    @Override
     public void setStage() throws Exception{
-        ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
-        FXCollections.reverse(orders);
-        ordersList.setItems(orders);
+        super.setStage();
 
         if (roleField.getText().equals("Chef")) {
             roleImage.setImage(chefImage);
@@ -621,20 +612,18 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
             roleImage.setImage(waiterImage);
         }
 
-        userMenu.setAll(orderManager.userMenu.values());
-
         List<Chat> chats = getChats();
         appendChats(chats);
 
         mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
-
     }
 
+    @Override
     public void resetStage(){
+        super.resetStage();
+
         notificationBlock.getChildren().clear();
         chatUsers.getChildren().clear();
-        newOrderList.getItems().clear();
-        menuList.getItems().clear();
 
         mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
 
@@ -644,17 +633,8 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
         mainChat.setLayoutY(231);
         mainChat.setPrefHeight(189);
 
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getHeight()) / 2);
-        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getWidth()) / 2);
-        contentRoot.setPrefHeight(428);
-        contentRoot.setPrefWidth(743);
-
-        menuSearch.setText("");
         mainChatTextArea.setText(null);
-        mostRecentOrderDate = null;
         mainChatValue = null;
-        loggedUser = null;
 
         userInfoScroll.setVvalue(0);
         menuScroll.setVvalue(0);
@@ -676,9 +656,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged implements Cont
             ExpandOrderPane.reverseOrder();
         }
         chatsMap.clear();
-
-        orderService.cancel();
-        messageService.cancel();
     }
 
     //Todo

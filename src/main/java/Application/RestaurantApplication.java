@@ -21,8 +21,8 @@ public class RestaurantApplication extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         loginManager = LoginManager.initialize();
-        stageManager = StageManager.initialize(primaryStage);
         orderManager = OrderManager.initialize();
+        stageManager = StageManager.initialize(primaryStage);
         messageManager = MessageManager.initialize();
 
         Media sound = new Media(getClass()

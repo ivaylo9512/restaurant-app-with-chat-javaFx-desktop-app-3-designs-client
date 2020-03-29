@@ -3,24 +3,19 @@ package sample;
 import Animations.MoveRoot;
 import Animations.ResizeRoot;
 import Animations.TransitionResizeWidth;
-import Application.RestaurantApplication;
 import Helpers.ListViews.*;
 import Helpers.Scrolls;
 import Application.MessageService;
-import Application.OrderService;
 import Models.*;
-import Models.Menu;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -29,14 +24,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import sample.base.ControllerLogged;
@@ -53,11 +45,11 @@ import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
-public class ControllerLoggedThirdStyle extends ControllerLogged implements Controller {
+public class ControllerLoggedThirdStyle extends ControllerLogged implements Controller{
     @FXML public ListView<Order> ordersList;
     @FXML public ListView<TextField> notificationsList;
     @FXML public ListView<Chat> chatsList;
-    @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot, contentRoot, menuBar, mainChatContainer, secondChatContainer;
+    @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot, menuBar, mainChatContainer, secondChatContainer;
     @FXML public Pane profileImageContainer, profileImageClip;
     @FXML VBox chatsContainer, mainChatBlock, secondChatBlock;
     @FXML ScrollPane mainChatScroll, secondChatScroll;
@@ -67,9 +59,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
 
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
-    private User loggedUser;
-
-    private MessageService messageService;
     private AnchorPane currentView, currentMenu;
     private Text currentText;
     private Order currentOrder;
@@ -133,9 +122,10 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         ResizeRoot.addListeners(contentRoot);
     }
 
+    @Override
     public void setStage() throws Exception{
-        ObservableList<Order> orders = FXCollections.observableArrayList(loggedUser.getOrders().values());
-        FXCollections.reverse(orders);
+        super.setStage();
+
 
         ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());//Todo
         setChatValues(chats);
@@ -143,27 +133,14 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
 
         mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
 
-        orderService.start();
-        messageService.start();
-
-        userMenu.setAll(orderManager.userMenu.values());
-        ordersList.setItems(orders);
 
         loginAnimation();
     }
 
-    private void loginAnimation() {
-        menuBar.setTranslateX(contentRoot.getPrefWidth() / 2 - menuBar.getPrefWidth() / 2);
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(700), menuBar);
-        fadeIn.setDelay(Duration.millis(1000));
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-        fadeIn.play();
-    }
-
+    @Override
     public void resetStage(){
-        mostRecentOrderDate = null;
-        loggedUser = null;
+        super.resetStage();
+
         mainChat = null;
         secondChat = null;
         mainChatTextArea.setText(null);
@@ -175,19 +152,9 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
         mainChatBlock.getChildren().remove(1, mainChatBlock.getChildren().size());
         secondChatBlock.getChildren().remove(1, secondChatBlock.getChildren().size());
 
-        newOrderList.getItems().clear();
-        menuList.getItems().clear();
         chatsList.getItems().clear();
         ordersList.getItems().clear();
         notificationsList.getItems().clear();
-
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-        contentRoot.setPrefWidth(contentRoot.getMinWidth());
-        contentRoot.setPrefHeight(contentRoot.getMinHeight());
-
-        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
-        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
 
         if(currentText != null){
             currentText.getStyleClass().remove("strikethrough");
@@ -203,50 +170,17 @@ public class ControllerLoggedThirdStyle extends ControllerLogged implements Cont
 
         currentView = null;
         currentMenu= null;
-
-        orderService.cancel();
-        messageService.cancel();
     }
-    
-//    @FXML
-//    public void editUserInfo(){
-//        userInfoLabels.setDisable(true);
-//        userInfoLabels.setOpacity(0);
-//        userInfoFields.setDisable(false);
-//        userInfoFields.setOpacity(1);
-//
-//        editButton.setText("Save");
-//        editButton.setOnMouseClicked(event -> saveUserInfo());
-//    }
-//
-//    private void saveUserInfo() {
-//        userInfoLabels.setDisable(false);
-//        userInfoLabels.setOpacity(1);
-//        userInfoFields.setDisable(true);
-//        userInfoFields.setOpacity(0);
-//
-//        boolean edited = !firstNameLabel.getText().equals(firstNameField.getText()) || !lastNameLabel.getText().equals(lastNameField.getText()) ||
-//                !ageLabel.getText().equals(ageField.getText()) || !countryLabel.getText().equals(countryField.getText());
-//
-//        if (edited) {
-//            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
-//                    ageField.getText(), countryField.getText());
-//
-//            if (user != null) {
-//                loggedUser.setFirstName(user.getFirstName());
-//                loggedUser.setLastName(user.getLastName());
-//                loggedUser.setAge(user.getAge());
-//                loggedUser.setCountry(user.getCountry());
-//
-//                firstNameLabel.setText(user.getFirstName());
-//                lastNameLabel.setText(user.getLastName());
-//                ageLabel.setText(String.valueOf(user.getAge()));
-//                countryLabel.setText(user.getCountry());
-//            }
-//        }
-//        editButton.setText("Edit");
-//        editButton.setOnMouseClicked(event -> editUserInfo());
-//    }
+
+    private void loginAnimation() {
+        menuBar.setTranslateX(contentRoot.getPrefWidth() / 2 - menuBar.getPrefWidth() / 2);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(700), menuBar);
+        fadeIn.setDelay(Duration.millis(1000));
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+    }
+
     @FXML
     public void displayOrdersView(MouseEvent event){
         Text clickedText = (Text)event.getSource();

@@ -24,9 +24,7 @@ public class User {
 
     public ObjectProperty<Image> image = new SimpleObjectProperty<>();
 
-    private Map<Integer, Order> orders = new LinkedHashMap<>();
-
-    public static Image defaultImage = new Image(User.class.getResourceAsStream("/images/default-picture.png"));
+    private static Image defaultImage = new Image(User.class.getResourceAsStream("/images/default-picture.png"));
 
 
     public User(){
@@ -127,14 +125,6 @@ public class User {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
-    }
-
-    public Map<Integer, Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Map<Integer, Order> orders) {
-        this.orders = orders;
     }
 
     public ObjectProperty<Image> getImage() {

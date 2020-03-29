@@ -19,7 +19,7 @@ public class OrderManager {
     private static OrderService orderService;
     public Restaurant userRestaurant;
     public TreeMap<String, Menu> userMenu = new TreeMap<>();
-    private ObservableList<Order> orders = FXCollections.observableArrayList();
+    public ObservableList<Order> orders = FXCollections.observableArrayList();
 
     private OrderManager() {
         orderService = new OrderService();

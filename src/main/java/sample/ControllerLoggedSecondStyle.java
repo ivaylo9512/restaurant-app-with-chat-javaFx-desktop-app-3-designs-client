@@ -4,24 +4,16 @@ import Animations.MoveRoot;
 import Animations.ResizeRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
-import Application.RestaurantApplication;
-import Application.StageManager;
 import Helpers.ListViews.ChatsListViewCell;
-import Helpers.ListViews.DishListViewCell;
-import Helpers.ListViews.MenuListViewCell;
 import Helpers.Scrolls;
 import Application.MessageService;
-import Application.OrderService;
 import Models.*;
-import Models.Menu;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -30,39 +22,32 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Screen;
 import javafx.util.Duration;
 import org.apache.commons.collections4.map.ListOrderedMap;
-import org.apache.http.impl.client.HttpClients;
 import sample.base.ControllerLogged;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.*;
 import static Application.OrderService.mostRecentOrderDate;
 
-public class ControllerLoggedSecondStyle extends ControllerLogged implements Controller {
+public class ControllerLoggedSecondStyle extends ControllerLogged implements Controller{
     @FXML Label dishesCountLabel, orderIdLabel, updatedDateLabel, updatedTimeLabel,
             createdDateLabel, createdTimeLabel;
 
-    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, contentRoot, profileView,
+    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, profileView,
             notificationsView, menuContent, orderInfo, orderView,
             chatView, userChatsClip, createView, dishesContainer, chatContainer;
 
@@ -77,11 +62,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
 
     private AnchorPane currentView, currentMenuView;
 
-
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
-
-    private User loggedUser;
-    private static MessageService messageService;
 
     private ChatValue chatValue;
 
@@ -90,8 +71,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         super.initialize();
 
         userChats.setCellFactory(chatCell -> new ChatsListViewCell());
-
-        waitForNewMessages();
 
         chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
             if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue != null) {
@@ -269,31 +248,22 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
         reverse.play();
     }
+    @Override
     public void setStage() throws Exception{
         mostRecentOrderDate = getMostRecentOrderDate(orderManager.userRestaurant.getId());
-
-        orderService.start();
-        messageService.start();
 
         ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
         setChatValues(chats);
         userChats.setItems(chats);
 
-        userMenu.setAll(orderManager.userMenu.values());
-
-        ObservableList<String> orders = FXCollections.observableArrayList(loggedUser.getOrders().values()
-                .stream()
-                .map(order -> "Order " + order.getId())
-                .collect(Collectors.toList()));
-
-        FXCollections.reverse(orders);
-        ordersList.setItems(orders);
-
+        menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getWidth()) / 2);
+        menuRoot.setLayoutY(contentRoot.getLayoutY() - 60);
     }
 
+    @Override
     public void resetStage(){
-        mostRecentOrderDate = null;
-        loggedUser = null;
+        super.resetStage();
+
         chatValue = null;
         chatTextArea.setText(null);
         menuSearch.setText("");
@@ -303,22 +273,9 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         chatContainer.setDisable(true);
         chatContainer.setOpacity(0);
 
-        newOrderList.getItems().clear();
-        menuList.getItems().clear();
         userChats.getItems().clear();
         ordersList.getItems().clear();
         notificationsList.getItems().clear();
-
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-        contentRoot.setPrefWidth(contentRoot.getMinWidth());
-        contentRoot.setPrefHeight(contentRoot.getMinHeight());
-
-        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
-        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
-
-        menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getWidth()) / 2);
-        menuRoot.setLayoutY(contentRoot.getLayoutY() - 60);
 
         menuContent.setDisable(true);
         menuContent.getChildren().remove(profileView);
@@ -343,9 +300,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged implements Con
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
         fadeOut.play();
-
-        orderService.cancel();
-        messageService.cancel();
     }
 
     @FXML
