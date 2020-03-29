@@ -22,6 +22,7 @@ import java.util.SortedMap;
 
 import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.httpClientLongPolling;
+import static Helpers.ServerRequests.sendUserInfo;
 
 public class ControllerLogged {
     @FXML
@@ -62,9 +63,8 @@ public class ControllerLogged {
         roleField.setEditable(false);
         setFieldsEditable(false);
 
-        if(usernameField == null) {
-            usernameField = new TextField();
-        }
+        if(usernameField == null) usernameField = new TextField();
+
         bindUserFields();
     }
 
@@ -91,6 +91,7 @@ public class ControllerLogged {
         userInfo.getChildren().add(saveButton);
         userInfo.getChildren().remove(editButton);
 
+        oldInfo = new User(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), Integer.valueOf(ageField.getText()), countryField.getText());
     }
 
     @FXML
@@ -99,6 +100,18 @@ public class ControllerLogged {
 
         userInfo.getChildren().add(saveButton);
         userInfo.getChildren().remove(editButton);
+
+        if (loginManager.isUserEdited(oldInfo)) {
+            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
+                    ageField.getText(), countryField.getText());
+
+            if (user == null) {
+                firstNameField.setText(oldInfo.getFirstName().get());
+                lastNameField.setText(oldInfo.getLastName().get());
+                ageField.setText(oldInfo.getAge().get());
+                countryField.setText(oldInfo.getCountry().get());
+            }
+        }
     }
 
     @FXML

@@ -1,6 +1,5 @@
 package Application;
 
-import Models.Menu;
 import Models.User;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -126,5 +125,9 @@ public class LoginManager {
         loggedUser.setCountry(null);
         loggedUser.setRole(null);
         loggedUser.setProfilePicture(null);
+    }
+
+    public boolean isUserEdited(User oldInfo) {
+        return oldInfo.equals(loggedUser);
     }
 }
