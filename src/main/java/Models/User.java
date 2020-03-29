@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class User {
     private IntegerProperty id = new SimpleIntegerProperty();
@@ -142,5 +143,22 @@ public class User {
 
     public void setImage(Image image) {
         this.image.setValue(image);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return username.get().equals(user.username.get()) &&
+                firstName.get().equals(user.firstName.get()) &&
+                lastName.get().equals(user.lastName.get()) &&
+                age.get().equals(user.age.get()) &&
+                country.get().equals(user.country.get());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username.get(), firstName.get(), lastName.get(), age.get(), country.get());
     }
 }
