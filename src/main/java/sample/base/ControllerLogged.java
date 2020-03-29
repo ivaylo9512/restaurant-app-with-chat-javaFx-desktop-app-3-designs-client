@@ -4,17 +4,15 @@ import Application.RestaurantApplication;
 import Helpers.ListViews.MenuListViewCell;
 import Models.Dish;
 import Models.Menu;
+import Models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Region;
 import javafx.scene.media.MediaPlayer;
 import org.apache.http.impl.client.HttpClients;
 
@@ -27,7 +25,7 @@ import static Helpers.ServerRequests.httpClientLongPolling;
 
 public class ControllerLogged {
     @FXML
-    protected TextField firstNameField, lastNameField, countryField, ageField, menuSearch, roleField;
+    protected TextField usernameField, firstNameField, lastNameField, countryField, ageField, menuSearch, roleField;
     @FXML
     protected Button saveButton, editButton;
     @FXML
@@ -47,6 +45,8 @@ public class ControllerLogged {
     protected MediaPlayer notificationSound = RestaurantApplication.notificationSound;
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();
 
+    private User oldInfo;
+
     @FXML
     public void initialize() {
         menuList.setCellFactory(menuCell -> new MenuListViewCell());
@@ -59,12 +59,17 @@ public class ControllerLogged {
 
         userInfo.getChildren().remove(saveButton);
 
+        roleField.setEditable(false);
         setFieldsEditable(false);
+
+        if(usernameField == null) {
+            usernameField = new TextField();
+        }
         bindUserFields();
     }
 
     private void bindUserFields() {
-        loginManager.bindUserFields(firstNameField.textProperty(), lastNameField.textProperty(), countryField.textProperty(),
+        loginManager.bindUserFields(usernameField.textProperty(), firstNameField.textProperty(), lastNameField.textProperty(), countryField.textProperty(),
                 roleField.textProperty(), ageField.textProperty(), profileImage.imageProperty());
     }
 
@@ -73,7 +78,6 @@ public class ControllerLogged {
         lastNameField.setEditable(editable);
         countryField.setEditable(editable);
         ageField.setEditable(editable);
-        roleField.setEditable(editable);
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
@@ -86,14 +90,15 @@ public class ControllerLogged {
 
         userInfo.getChildren().add(saveButton);
         userInfo.getChildren().remove(editButton);
+
     }
 
     @FXML
     public void saveUserInfo() {
         setFieldsEditable(false);
 
-        userInfo.getChildren().add(editButton);
-        userInfo.getChildren().remove(saveButton);
+        userInfo.getChildren().add(saveButton);
+        userInfo.getChildren().remove(editButton);
     }
 
     @FXML

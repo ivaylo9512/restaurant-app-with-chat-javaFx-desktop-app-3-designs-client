@@ -224,7 +224,7 @@ TextFlow {
     -fx-opacity: 1.0;
 }
 .user-info TextField {
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
     -fx-background-color: #363b41;
     -fx-opacity: 1.0;
     -fx-border-radius: 0;
@@ -232,12 +232,12 @@ TextFlow {
     -fx-background-radius: 0, 0, 0, 0;
     -fx-text-fill: #bcbcbc;
     -fx-font-size: 10px;
-    -fx-opacity: 1.0;
     -fx-padding: 0;
 
 }
 .user-info TextField:readonly {
-    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0 , 0 , 0 );
+    -fx-cursor: pointer;
 }
 .user-info Button{
     -fx-background-color: #363b41;

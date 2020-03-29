@@ -40,7 +40,7 @@
                                                 </TextField>
                                                 <TextField fx:id="roleField" alignment="CENTER" focusTraversable="false" minHeight="22.0" prefHeight="22.0" prefWidth="72.0">
                                                 </TextField>
-                                                <Button fx:id="saveButton" contentDisplay="RIGHT" focusTraversable="true" mnemonicParsing="false" onMouseClicked="#saveUserInfo" prefHeight="22.0" prefWidth="72.0" text="Save" textFill="#bcbcbc">
+                                                <Button fx:id="saveButton" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" prefHeight="22.0" prefWidth="72.0" text="Save" textFill="#bcbcbc">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>

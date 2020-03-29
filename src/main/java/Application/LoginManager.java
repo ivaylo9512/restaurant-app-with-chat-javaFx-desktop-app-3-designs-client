@@ -46,8 +46,9 @@ public class LoginManager {
         registerService.repeatPassword.bind(repeatPassword);
     }
 
-    public void bindUserFields(StringProperty firstName, StringProperty lastName,
+    public void bindUserFields(StringProperty username, StringProperty firstName, StringProperty lastName,
                                StringProperty country, StringProperty role, StringProperty age, ObjectProperty<Image> image){
+        loggedUser.getUsername().bindBidirectional(username);
         loggedUser.getFirstName().bindBidirectional(firstName);
         loggedUser.getLastName().bindBidirectional(lastName);
         loggedUser.getCountry().bindBidirectional(country);

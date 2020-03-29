@@ -44,6 +44,7 @@ public class User {
     }
 
     public User(String username, String firstName, String lastName, int age, String country) {
+        this.username.setValue(username);
         this.firstName.setValue(firstName);
         this.lastName.setValue(lastName);
         this.age.setValue(String.valueOf(age));
