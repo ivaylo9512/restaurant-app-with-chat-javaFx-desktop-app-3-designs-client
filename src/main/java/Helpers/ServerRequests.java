@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPatch;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -39,111 +36,79 @@ public class ServerRequests {
     public static String base = "http://localhost:8080";
 
     public static List<Session> getNextSessions(int id, int page, int pageSize) {
-        HttpGet get;
         List<Session> sessions = new LinkedList<>();
         try {
+
             URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
             builder
                     .setParameter("chatId", String.valueOf(id))
                     .setParameter("page", String.valueOf(page))
                     .setParameter("pageSize", String.valueOf(pageSize));
-            get = new HttpGet(builder.build());
+            HttpGet get = new HttpGet(builder.build());
             get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
 
-            try (CloseableHttpResponse response = httpClient.execute(get)) {
+            sessions = mapper.readValue(executeRequest(get), new TypeReference<List<Session>>() {});
 
-                int responseStatus = response.getStatusLine().getStatusCode();
-                HttpEntity entity = response.getEntity();
-                String content = EntityUtils.toString(entity);
-                EntityUtils.consume(entity);
-
-                if (responseStatus != 200) {
-                    handleException(content);
-                }
-
-                sessions = mapper.readValue(content, new TypeReference<List<Session>>() {});
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        } catch (IOException | HttpException | URISyntaxException e) {
+            handleException(e.getMessage());
         }
+
         return sessions;
     }
 
-    public static void sendOrder(Order order) throws Exception {
-        String orderJson;
-        orderJson = mapper.writeValueAsString(order);
+    public boolean sendOrder(Order order) {
+        try {
+            String orderJson;
+            orderJson = mapper.writeValueAsString(order);
 
-        StringEntity postEntity = new StringEntity(orderJson, "UTF8");
-        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            StringEntity postEntity = new StringEntity(orderJson, "UTF8");
+            postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        HttpPost httpPost = new HttpPost(base + "/api/order/auth/create");
-        httpPost.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
-        httpPost.setEntity(postEntity);
+            HttpPost httpPost = new HttpPost(base + "/api/order/auth/create");
+            httpPost.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+            httpPost.setEntity(postEntity);
 
-        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+            executeRequest(httpPost);
 
-            int responseStatus = response.getStatusLine().getStatusCode();
-
-            HttpEntity receivedEntity = response.getEntity();
-            String content = EntityUtils.toString(receivedEntity);
-            EntityUtils.consume(receivedEntity);
-
-            if (responseStatus != 200) {
-                handleException(content);
-            }
-        }
-    }
-
-    public static LocalDateTime getMostRecentOrderDate(int restaurantId) throws Exception{
-        HttpGet get = new HttpGet(base + "/api/order/auth/getMostRecentDate/" + restaurantId);
-        LocalDateTime localDateTime;
-        get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
-
-        try (CloseableHttpResponse response = httpClient.execute(get)) {
-
-            int responseStatus = response.getStatusLine().getStatusCode();
-
-            HttpEntity entity = response.getEntity();
-            String content = EntityUtils.toString(entity);
-            EntityUtils.consume(entity);
-
-            if (responseStatus != 200) {
-                handleException(content);
-            }
-
-            localDateTime = mapper.readValue(content, LocalDateTime.class);
-        }
-        return localDateTime;
-
-    }
-
-    public static List<Chat> getChats() throws Exception{
-        List<Chat> chats = null;
-        URIBuilder builder = new URIBuilder(base + "/api/chat/auth/getChats");
-        builder.setParameter("pageSize", String.valueOf(pageSize));
-
-        HttpGet get = new HttpGet(builder.build());
-        get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
-
-        try (CloseableHttpResponse response = httpClient.execute(get)) {
-
-            int responseStatus = response.getStatusLine().getStatusCode();
-
-            HttpEntity entity = response.getEntity();
-            String content = EntityUtils.toString(entity);
-            EntityUtils.consume(entity);
-
-            if (responseStatus != 200) {
-                throw new HttpException(content);
-            }
-
-            chats = mapper.readValue(content, new TypeReference<List<Chat>>(){});
-            lastMessageCheck = LocalDateTime.now();
-        }catch (HttpException e) {
+            return true;
+        }catch (IOException | HttpException e) {
             handleException(e.getMessage());
         }
+        return false;
+    }
+
+    public static LocalDateTime getMostRecentOrderDate(int restaurantId) {
+        LocalDateTime localDateTime = null;
+
+        HttpGet get = new HttpGet(base + "/api/order/auth/getMostRecentDate/" + restaurantId);
+        get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+
+        try{
+            localDateTime = mapper.readValue(executeRequest(get), LocalDateTime.class);
+        }catch (IOException | HttpException e) {
+            handleException(e.getMessage());
+        }
+
+        return localDateTime;
+    }
+
+    public static List<Chat> getChats() {
+        List<Chat> chats = null;
+        try{
+
+            URIBuilder builder = new URIBuilder(base + "/api/chat/auth/getChats");
+            builder.setParameter("pageSize", String.valueOf(pageSize));
+
+            HttpGet get = new HttpGet(builder.build());
+            get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+
+            chats = mapper.readValue(executeRequest(get), new TypeReference<List<Chat>>() {});
+            lastMessageCheck = LocalDateTime.now();
+
+        }catch (IOException | HttpException | URISyntaxException e) {
+            handleException(e.getMessage());
+        }
+
         return chats;
     }
 
@@ -164,21 +129,12 @@ public class ServerRequests {
         post.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
         post.setEntity(postEntity);
 
-        try (CloseableHttpResponse response = httpClient.execute(post)) {
-            int responseCode = response.getStatusLine().getStatusCode();
-
-            HttpEntity responseEntity = response.getEntity();
-            String content = EntityUtils.toString(responseEntity);
-            EntityUtils.consume(responseEntity);
-
-            if (responseCode != 200) {
-                throw new HttpException(content);
-            }
-
-            user = mapper.readValue(content, User.class);
+        try{
+            user = mapper.readValue(executeRequest(post), User.class);
         } catch (IOException | HttpException e) {
             handleException(e.getMessage());
         }
+
         return user;
     }
 
@@ -197,42 +153,43 @@ public class ServerRequests {
         post.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
         post.setEntity(postEntity);
 
-        try(CloseableHttpResponse response = httpClient.execute(post)){
-            int statusCode = response.getStatusLine().getStatusCode();
-
-            HttpEntity responseEntity = response.getEntity();
-            String content = EntityUtils.toString(responseEntity);
-            EntityUtils.consume(responseEntity);
-
-            if(statusCode != 200){
-                throw new HttpException(content);
-            }
-
-            message = mapper.readValue(content, Message.class);
-        } catch (IOException | HttpException e) {
+        try{
+            message = mapper.readValue(executeRequest(post), Message.class);
+        }catch (IOException | HttpException e) {
             handleException(e.getMessage());
         }
+
         return message;
     }
-    public static void updateDishState(int orderId, int dishId) {
-        HttpPatch httpPatch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
-        httpPatch.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+    public static boolean updateDishState(int orderId, int dishId) {
+        HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
+        patch.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
 
-        try(CloseableHttpResponse response = httpClient.execute(httpPatch)){
-            int statusCode = response.getStatusLine().getStatusCode();
+        try{
+            executeRequest(patch);
+            return true;
+        } catch (IOException | HttpException e) {
+            handleException(e.getMessage());
+        }
+
+        return false;
+    }
+
+    private static String executeRequest(HttpRequestBase request) throws HttpException, IOException{
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
+            int responseCode = response.getStatusLine().getStatusCode();
 
             HttpEntity responseEntity = response.getEntity();
             String content = EntityUtils.toString(responseEntity);
             EntityUtils.consume(responseEntity);
 
-            if(statusCode != 200){
+            if (responseCode != 200) {
                 throw new HttpException(content);
             }
-        } catch (IOException | HttpException e) {
-            handleException(e.getMessage());
+
+            return content;
         }
     }
-
 
     private static void handleException(String exception) {
         if (exception.equals("Jwt token has expired.")) {
