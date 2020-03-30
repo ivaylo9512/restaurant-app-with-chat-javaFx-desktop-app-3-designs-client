@@ -56,7 +56,7 @@ public class ServerRequests {
         return sessions;
     }
 
-    public boolean sendOrder(Order order) {
+    public static boolean sendOrder(Order order) {
         try {
             String orderJson;
             orderJson = mapper.writeValueAsString(order);
@@ -175,7 +175,7 @@ public class ServerRequests {
         return false;
     }
 
-    private static String executeRequest(HttpRequestBase request) throws HttpException, IOException{
+    public static String executeRequest(HttpRequestBase request) throws HttpException, IOException{
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             int responseCode = response.getStatusLine().getStatusCode();
 

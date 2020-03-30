@@ -1,15 +1,19 @@
 package Application;
 
 import Models.User;
+import com.sun.javafx.iio.ios.IosDescriptor;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.image.Image;
+import org.apache.http.HttpException;
 import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
-import java.net.ConnectException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static Application.RestaurantApplication.stageManager;
 import static Application.RestaurantApplication.orderManager;
@@ -62,7 +66,7 @@ public class LoginManager {
 
         try {
             throw exception;
-        } catch (ConnectException e) {
+        } catch (IOException e) {
             exceptionMessage = "No connection to the server.";
         } catch (Throwable throwable) {
             throwable.printStackTrace();

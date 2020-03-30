@@ -21,7 +21,7 @@ import static Helpers.ServerRequests.*;
 import java.util.HashMap;
 import java.util.Map;
 
-class LoginService extends Service {
+class LoginService extends Service<User> {
     final StringProperty username = new SimpleStringProperty(this, "username");
     final StringProperty password = new SimpleStringProperty(this, "password");
 
@@ -34,7 +34,7 @@ class LoginService extends Service {
     }
 
     @Override
-    protected Task createTask() {
+    protected Task<User> createTask() {
         return new Task<User>() {
             @Override
             protected User call() throws Exception {
