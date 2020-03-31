@@ -1,20 +1,20 @@
 package Helpers;
 
 import javafx.concurrent.Task;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
+import static Application.RestaurantApplication.loginManager;
+import static Application.RestaurantApplication.stageManager;
+import static Helpers.ServerRequests.executeRequest;
+import static Helpers.ServerRequests.mapper;
+
 public class TaskRequest<T> extends Task<T> {
 
-    HttpRequestBase request;
-    Class<T> c;
-    public TaskRequest(HttpRequestBase request, Class<T> c) {
-        this.request = request;
+    private Class<T> c;
+    public TaskRequest(Class<T> c) {
         this.c = c;
     }
 
@@ -23,13 +23,23 @@ public class TaskRequest<T> extends Task<T> {
         return executeTask();
     }
 
-    private T executeTask() {
-        T t;
-        try{
-            t = ServerRequests.executeRequest(request, c);
-        }catch (IOException e){
+    private T executeTask() throws Exception{
+        try {
+            HttpRequestBase request = createRequest(c);
+            String content = executeRequest(request);
+            if(content.equals("Success") || content.equals("Time out.")){
+                return null;
+            }
+            return mapper.readValue(content, c);
+
+        }catch (HttpException e) {
+            if(e.getMessage().equals("Jwt token has expired."))
+            loginManager.logout();
+            stageManager.showAlert("Session has expired.");
+
+            throw new HttpException(e.getMessage());
+        }catch (IOException e) {
             return executeTask();
         }
-        return t;
     }
 }
