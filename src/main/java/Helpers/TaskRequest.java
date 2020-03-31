@@ -9,7 +9,6 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-import static Helpers.ServerRequests.httpClient;
 public class TaskRequest<T> extends Task<T> {
 
     HttpRequestBase request;

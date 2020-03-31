@@ -190,8 +190,6 @@ public class ControllerLogged implements Controller {
         httpClientLongPolling = HttpClients.createDefault();
 
         stageManager.changeStage(stageManager.firstLoggedStage);
-
-
     }
 
     @FXML
@@ -204,7 +202,6 @@ public class ControllerLogged implements Controller {
         httpClientLongPolling = HttpClients.createDefault();
 
         stageManager.changeStage(stageManager.secondLoggedStage);
-
     }
 
     @FXML
