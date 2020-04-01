@@ -1,12 +1,13 @@
 package Helpers;
 
 import Application.LoginManager;
+import com.fasterxml.jackson.databind.JavaType;
 import javafx.concurrent.Task;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.IOException;
-
+import java.util.Collection;
 import static Application.RestaurantApplication.loginManager;
 import static Application.RestaurantApplication.stageManager;
 import static Helpers.ServerRequests.executeRequest;
@@ -14,10 +15,15 @@ import static Helpers.ServerRequests.mapper;
 
 public class TaskRequest<T> extends Task<T> {
 
-    private Class<T> c;
+    private JavaType t;
     HttpRequestBase request;
-    public TaskRequest(Class<T> c) {
-        this.c = c;
+    public TaskRequest(Class type, Class<? extends Collection> collection) {
+        if(collection == null){
+            t = mapper.getTypeFactory().constructType(type);
+        }else {
+            t = mapper.getTypeFactory().
+                    constructCollectionType(collection, type);
+        }
     }
 
     @Override
@@ -32,7 +38,7 @@ public class TaskRequest<T> extends Task<T> {
             if(content.equals("Success") || content.equals("Time out.")){
                 return null;
             }
-            return mapper.readValue(content, c);
+            return mapper.readValue(content, t);
 
         }catch (HttpException e) {
             String message = e.getMessage();

@@ -10,8 +10,7 @@ import javafx.scene.image.Image;
 import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 
-import static Application.RestaurantApplication.stageManager;
-import static Application.RestaurantApplication.orderManager;
+import static Application.RestaurantApplication.*;
 import static Helpers.ServerRequests.httpClientLongPolling;
 
 public class LoginManager {
@@ -90,7 +89,6 @@ public class LoginManager {
     }
 
     public void logout(){
-        //Todo: remove close
         try {
             httpClientLongPolling.close();
         } catch (IOException e) {
