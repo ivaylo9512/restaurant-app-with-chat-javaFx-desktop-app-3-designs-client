@@ -15,11 +15,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
+import javafx.util.Duration;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
@@ -59,8 +61,6 @@ public class ControllerLogged implements Controller {
 
     protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    private BooleanProperty isEditable = new SimpleBooleanProperty(false);
-    private User oldInfo;
     private Pane buttonParent;
 
     @FXML
@@ -73,15 +73,20 @@ public class ControllerLogged implements Controller {
             userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
         });
 
-        buttonParent = (Pane) saveButton.getParent();
-        buttonParent.getChildren().remove(saveButton);
-
         if(usernameField == null) usernameField = new TextField();
 
         usernameField.setEditable(false);
         usernameField.setDisable(true);
         roleField.setEditable(false);
         roleField.setDisable(true);
+
+        Tooltip loading = new Tooltip("Loading...");
+        loading.setShowDelay(Duration.millis(50));
+        editButton.setTooltip(loading);
+
+        editButton.visibleProperty().bind(editButton.managedProperty());
+        saveButton.setManaged(false);
+        saveButton.visibleProperty().bind(saveButton.managedProperty());
 
         ordersList.setItems(orderManager.orders);
         bindUserFields();
@@ -91,15 +96,15 @@ public class ControllerLogged implements Controller {
         loginManager.bindUserFields(usernameField.textProperty(), firstNameField.textProperty(), lastNameField.textProperty(), countryField.textProperty(),
                 roleField.textProperty(), ageField.textProperty(), profileImage.imageProperty());
 
-        firstNameField.editableProperty().bind(isEditable);
-        lastNameField.editableProperty().bind(isEditable);
-        ageField.editableProperty().bind(isEditable);
-        countryField.editableProperty().bind(isEditable);
+        firstNameField.editableProperty().bind(saveButton.managedProperty());
+        lastNameField.editableProperty().bind(saveButton.managedProperty());
+        ageField.editableProperty().bind(saveButton.managedProperty());
+        countryField.editableProperty().bind(saveButton.managedProperty());
 
-        firstNameField.disableProperty().bind(isEditable.not());
-        lastNameField.disableProperty().bind(isEditable.not());
-        ageField.disableProperty().bind(isEditable.not());
-        countryField.disableProperty().bind(isEditable.not());
+        firstNameField.disableProperty().bind(saveButton.managedProperty().not());
+        lastNameField.disableProperty().bind(saveButton.managedProperty().not());
+        ageField.disableProperty().bind(saveButton.managedProperty().not());
+        countryField.disableProperty().bind(saveButton.managedProperty().not());
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
@@ -108,32 +113,27 @@ public class ControllerLogged implements Controller {
 
     @FXML
     public void editUserInfo() {
-        isEditable.setValue(true);
-
-        buttonParent.getChildren().add(saveButton);
-        buttonParent.getChildren().remove(editButton);
-
-        oldInfo = new User(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), Integer.valueOf(ageField.getText()), countryField.getText());
+        saveButton.setManaged(true);
+        editButton.setManaged(false);
     }
 
     @FXML
     public void saveUserInfo() {
-        isEditable.setValue(false);
+        saveButton.setManaged(false);
+        editButton.setManaged(true);
 
-        buttonParent.getChildren().add(editButton);
-        buttonParent.getChildren().remove(saveButton);
-
-        if (loginManager.isUserEdited(oldInfo)) {
-            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
-                    ageField.getText(), countryField.getText());
-
-            if (user == null) {
-                firstNameField.setText(oldInfo.getFirstName().get());
-                lastNameField.setText(oldInfo.getLastName().get());
-                ageField.setText(oldInfo.getAge().get());
-                countryField.setText(oldInfo.getCountry().get());
-            }
-        }
+//        if (loginManager.isUserEdited(oldInfo)) {
+//            loginManager.sendUserInfo();
+//            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
+//                    ageField.getText(), countryField.getText());
+//
+//            if (user == null) {
+//                firstNameField.setText(oldInfo.getFirstName().get());
+//                lastNameField.setText(oldInfo.getLastName().get());
+//                ageField.setText(oldInfo.getAge().get());
+//                countryField.setText(oldInfo.getCountry().get());
+//            }
+//        }
     }
 
     @FXML
@@ -142,8 +142,8 @@ public class ControllerLogged implements Controller {
             List<Dish> dishes = newOrderList.getItems().stream().map(menu -> new Dish(menu.getName())).collect(Collectors.toList());
             if(dishes.size() > 0) {
 
-                if(sendOrder(new Order(dishes)))
-                    newOrderList.getItems().clear();
+//                if(sendOrder(new Order(dishes)))
+//                    newOrderList.getItems().clear();
 
             }else{
                 stageManager.showAlert("Order must have at least one dish.");
