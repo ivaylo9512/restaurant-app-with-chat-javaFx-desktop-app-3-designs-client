@@ -14,12 +14,11 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Helpers.ServerRequests.*;
-import static Helpers.ServerRequests.userPreference;
+import static Application.ServerRequests.*;
+import static Application.ServerRequests.userPreference;
 import static Application.RestaurantApplication.orderManager;
 import static Application.LoginManager.userId;
 

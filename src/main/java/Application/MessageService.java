@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Application.LoginManager.userId;
-import static Helpers.ServerRequests.*;
+import static Application.ServerRequests.*;
 
 
 public class MessageService extends Service<List<Message>> {

@@ -29,7 +29,7 @@ import java.util.SortedMap;
 import java.util.stream.Collectors;
 
 import static Application.RestaurantApplication.*;
-import static Helpers.ServerRequests.*;
+import static Application.ServerRequests.*;
 
 public class ControllerLogged implements Controller {
     @FXML

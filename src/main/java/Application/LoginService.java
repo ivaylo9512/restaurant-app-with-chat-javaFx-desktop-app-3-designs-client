@@ -1,6 +1,5 @@
 package Application;
 
-import Helpers.ServerRequests;
 import Models.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -17,7 +16,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 
-import static Helpers.ServerRequests.*;
+import static Application.ServerRequests.*;
 import java.util.HashMap;
 import java.util.Map;
 

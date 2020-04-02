@@ -1,26 +1,32 @@
 package Application;
 
+import Helpers.RequestEnum;
+import Helpers.RequestService;
 import Models.User;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.concurrent.Service;
 import javafx.scene.image.Image;
 import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 
 import static Application.RestaurantApplication.*;
-import static Helpers.ServerRequests.httpClientLongPolling;
+import static Application.ServerRequests.httpClientLongPolling;
 
 public class LoginManager {
-    private LoginService loginService = new LoginService();
+    private RequestService<User> loginService = new RequestService<>(User.class, null, RequestEnum.login);
     private RegisterService registerService = new RegisterService();
     private User loggedUser = new User();
     public static IntegerProperty userId = new SimpleIntegerProperty();
 
+    StringProperty username = new SimpleStringProperty();
+    StringProperty password = new SimpleStringProperty();
+
+    StringProperty regUsername = new SimpleStringProperty();
+    StringProperty regPassword = new SimpleStringProperty();
+    StringProperty repeatPassword = new SimpleStringProperty();
+
     private LoginManager(){
-        userId.bind(loggedUser.getId());
+        userId = loggedUser.getId();
 
         loginService.setOnSucceeded(eventSuccess -> onSuccessfulService(loginService));
         loginService.setOnFailed(eventFail -> updateError(loginService));
@@ -33,14 +39,14 @@ public class LoginManager {
     }
 
     public void bindLoginFields(StringProperty username, StringProperty password){
-        loginService.username.bind(username);
-        loginService.password.bind(password);
+        this.username.bind(username);
+        this.password.bind(password);
     }
 
-    public void bindRegisterFields(StringProperty username, StringProperty password, StringProperty repeatPassword){
-        registerService.username.bind(username);
-        registerService.password.bind(password);
-        registerService.repeatPassword.bind(repeatPassword);
+    public void bindRegisterFields(StringProperty username, StringProperty password, StringProperty repeat){
+        regUsername.bind(username);
+        regPassword.bind(password);
+        repeatPassword.bind(repeat);
     }
 
     public void bindUserFields(StringProperty username, StringProperty firstName, StringProperty lastName,

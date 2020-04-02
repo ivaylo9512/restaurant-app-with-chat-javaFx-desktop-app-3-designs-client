@@ -1,7 +1,6 @@
 package Application;
 
 import Helpers.ServiceErrorHandler;
-import Models.Dish;
 import Models.Menu;
 import Models.Order;
 import Models.Restaurant;
@@ -12,9 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.TreeMap;
 
-import static Application.RestaurantApplication.stageManager;
-import static Application.LoginManager.userId;
-import static Helpers.ServerRequests.getMostRecentOrderDate;
+import static Application.ServerRequests.getMostRecentOrderDate;
 
 public class OrderManager {
     private static OrderService orderService;

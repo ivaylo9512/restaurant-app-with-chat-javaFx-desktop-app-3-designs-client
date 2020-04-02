@@ -18,8 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.prefs.Preferences;
 
-import static Helpers.ServerRequests.base;
-import static Helpers.ServerRequests.httpClient;
+import static Application.ServerRequests.base;
+import static Application.ServerRequests.httpClient;
 
 class RegisterService extends Service {
     final StringProperty username = new SimpleStringProperty(this, "username");

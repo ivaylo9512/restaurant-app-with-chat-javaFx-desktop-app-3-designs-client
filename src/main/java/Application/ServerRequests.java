@@ -1,9 +1,10 @@
-package Helpers;
+package Application;
 
 import Models.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.*;
@@ -24,7 +25,6 @@ import java.util.prefs.Preferences;
 
 import static Application.MessageService.lastMessageCheck;
 import static Application.RestaurantApplication.loginManager;
-import static Application.LoginManager.userId;
 import static Application.RestaurantApplication.stageManager;
 
 public class ServerRequests {
@@ -45,7 +45,7 @@ public class ServerRequests {
                     .setParameter("page", String.valueOf(page))
                     .setParameter("pageSize", String.valueOf(pageSize));
             HttpGet get = new HttpGet(builder.build());
-            get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+            get.setHeader("Authorization", userPreference.get("jwt", null));
 
             sessions = mapper.readValue(executeRequest(get), new TypeReference<List<Session>>() {});
 
@@ -65,7 +65,7 @@ public class ServerRequests {
             postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
             HttpPost httpPost = new HttpPost(base + "/api/order/auth/create");
-            httpPost.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+            httpPost.setHeader("Authorization", userPreference.get("jwt", null));
             httpPost.setEntity(postEntity);
 
             executeRequest(httpPost);
@@ -81,7 +81,7 @@ public class ServerRequests {
         LocalDateTime localDateTime = null;
 
         HttpGet get = new HttpGet(base + "/api/order/auth/getMostRecentDate/" + restaurantId);
-        get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+        get.setHeader("Authorization", userPreference.get("jwt", null));
 
         try{
             localDateTime = mapper.readValue(executeRequest(get), LocalDateTime.class);
@@ -100,7 +100,7 @@ public class ServerRequests {
             builder.setParameter("pageSize", String.valueOf(pageSize));
 
             HttpGet get = new HttpGet(builder.build());
-            get.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+            get.setHeader("Authorization", userPreference.get("jwt", null));
 
             chats = mapper.readValue(executeRequest(get), new TypeReference<List<Chat>>() {});
             lastMessageCheck = LocalDateTime.now();
@@ -110,6 +110,20 @@ public class ServerRequests {
         }
 
         return chats;
+    }
+
+    public static HttpRequestBase login(){
+        Map<String, Object> jsonValues = new HashMap<>();
+        jsonValues.put("username", loginManager.username.get());
+        jsonValues.put("password", loginManager.password.get());
+        JSONObject json = new JSONObject(jsonValues);
+
+        StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
+        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        HttpPost httpPost = new HttpPost( base + "/api/users/login");
+        httpPost.setEntity(postEntity);
+        return httpPost;
     }
 
     public static User sendUserInfo(String firstName, String lastName, String age, String country) {
@@ -126,7 +140,7 @@ public class ServerRequests {
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         HttpPost post = new HttpPost(base + "/api/users/auth/changeUserInfo");
-        post.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+        post.setHeader("Authorization", userPreference.get("jwt", null));
         post.setEntity(postEntity);
 
         try{
@@ -150,7 +164,7 @@ public class ServerRequests {
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
         HttpPost post = new HttpPost(base + "/api/chat/auth/newMessage");
-        post.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+        post.setHeader("Authorization", userPreference.get("jwt", null));
         post.setEntity(postEntity);
 
         try{
@@ -163,7 +177,7 @@ public class ServerRequests {
     }
     public static boolean updateDishState(int orderId, int dishId) {
         HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
-        patch.setHeader("Authorization", userPreference.get(String.valueOf(userId.get()), null));
+        patch.setHeader("Authorization", userPreference.get("jwt", null));
 
         try{
             executeRequest(patch);
@@ -185,6 +199,11 @@ public class ServerRequests {
 
             if (responseCode != 200) {
                 throw new HttpException(content);
+            }
+
+            Header[] authHeaders = response.getHeaders("Authorization");
+            if(authHeaders.length > 0){
+                userPreference.put("jwt", authHeaders[0].getValue());
             }
 
             return content;
