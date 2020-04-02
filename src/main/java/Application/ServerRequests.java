@@ -125,6 +125,21 @@ public class ServerRequests {
         httpPost.setEntity(postEntity);
         return httpPost;
     }
+    public HttpRequestBase register(){
+        Map<String, Object> jsonValues = new HashMap<>();
+        jsonValues.put("username", loginManager.regUsername.get());
+        jsonValues.put("password", loginManager.regPassword.get());
+        jsonValues.put("repeatPassword", loginManager.repeatPassword.get());
+        JSONObject json = new JSONObject(jsonValues);
+
+        StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
+        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        HttpPost httpPost = new HttpPost(base + "/api/users/register");
+        httpPost.setEntity(postEntity);
+
+        return httpPost;
+    }
 
     public static User sendUserInfo(String firstName, String lastName, String age, String country) {
         User user = null;

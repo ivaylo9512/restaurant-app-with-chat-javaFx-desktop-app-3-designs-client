@@ -14,7 +14,7 @@ import static Application.ServerRequests.httpClientLongPolling;
 
 public class LoginManager {
     private RequestService<User> loginService = new RequestService<>(User.class, null, RequestEnum.login);
-    private RegisterService registerService = new RegisterService();
+    private RequestService<User> registerService = new RequestService<>(User.class, null, RequestEnum.register);
     private User loggedUser = new User();
     public static IntegerProperty userId = new SimpleIntegerProperty();
 

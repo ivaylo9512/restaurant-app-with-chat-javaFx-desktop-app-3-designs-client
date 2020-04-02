@@ -36,6 +36,6 @@ public class RequestService<T> extends Service<T> {
 
     @Override
     protected Task<T> createTask() {
-        return new TaskRequest<>(t, function);
+        return new RequestTask<>(t, function);
     }
 }

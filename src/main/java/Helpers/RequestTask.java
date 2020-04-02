@@ -16,12 +16,12 @@ import static Application.RestaurantApplication.stageManager;
 import static Application.ServerRequests.executeRequest;
 import static Application.ServerRequests.mapper;
 
-public class TaskRequest<T> extends Task<T> {
+public class RequestTask<T> extends Task<T> {
 
     private HttpRequestBase request;
     private JavaType type;
     private MethodHandle function;
-    public TaskRequest(JavaType type, MethodHandle function) {
+    public RequestTask(JavaType type, MethodHandle function) {
         this.type = type;
         this.function = function;
     }
