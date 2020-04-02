@@ -15,7 +15,11 @@ import static Application.ServerRequests.httpClientLongPolling;
 public class LoginManager {
     private RequestService<User> loginService = new RequestService<>(User.class, null, RequestEnum.login);
     private RequestService<User> registerService = new RequestService<>(User.class, null, RequestEnum.register);
-    private User loggedUser = new User();
+
+    public RequestService<User> sendInfo = new RequestService<>(User.class, null, RequestEnum.sendUserInfo);
+    private User savedUserInfo;
+
+    User loggedUser = new User();
     public static IntegerProperty userId = new SimpleIntegerProperty();
 
     StringProperty username = new SimpleStringProperty();
@@ -33,7 +37,11 @@ public class LoginManager {
 
         registerService.setOnSucceeded(eventSuccess -> onSuccessfulService(registerService));
         registerService.setOnFailed(eventFail -> updateError(loginService));
+
+        sendInfo.setOnFailed(event -> returnOldInfo());
+        sendInfo.setOnSucceeded(event -> setSavedInfo());
     }
+
     static LoginManager initialize(){
         return new LoginManager();
     }
@@ -74,6 +82,7 @@ public class LoginManager {
 
     private void onSuccessfulService(Service service) {
         User loggedUser = (User) service.getValue();
+        savedUserInfo = new User(loggedUser);
         setUser(loggedUser);
         orderManager.setRestaurant(loggedUser.getRestaurant());
 
@@ -117,8 +126,23 @@ public class LoginManager {
         loggedUser.setRole(null);
         loggedUser.setProfilePicture(null);
     }
+    public void sendUserInfo() {
+        if(!savedUserInfo.equals(loggedUser)){
+            sendInfo.start();
+        }
+    }
 
-    public boolean isUserEdited(User oldInfo) {
-        return !oldInfo.equals(loggedUser);
+    private void returnOldInfo() {
+        sendInfo.reset();
+
+        loggedUser.setFirstName(savedUserInfo.getFirstName().get());
+        loggedUser.setLastName(savedUserInfo.getLastName().get());
+        loggedUser.setAge(Integer.valueOf(savedUserInfo.getAge().get()));
+        loggedUser.setCountry(savedUserInfo.getCountry().get());
+    }
+    private void setSavedInfo() {
+        sendInfo.reset();
+
+        savedUserInfo = new User(loggedUser);
     }
 }

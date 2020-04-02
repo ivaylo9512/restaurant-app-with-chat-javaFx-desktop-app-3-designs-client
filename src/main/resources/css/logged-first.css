@@ -247,12 +247,6 @@ TextFlow {
 .user-info Button:disabled{
     -fx-opacity: 0.5;
 }
-.user-info Button:disabled .tooltip{
-    -fx-opacity: 1;
-}
-.user-info Button .tooltip{
-    -fx-opacity: 0;
-}
 .user-info TextField:readonly {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0 , 0 , 0 );
     -fx-cursor: pointer;

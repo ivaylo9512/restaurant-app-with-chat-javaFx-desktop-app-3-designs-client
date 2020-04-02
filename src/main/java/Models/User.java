@@ -49,6 +49,12 @@ public class User {
         this.age.setValue(String.valueOf(age));
         this.country.setValue(country);
     }
+    public User(User user) {
+        this.firstName.setValue(user.getFirstName().get());
+        this.lastName.setValue(user.getLastName().get());
+        this.age.setValue(user.getAge().get());
+        this.country.setValue(user.getCountry().get());
+    }
 
     public StringProperty getUsername() {
         return username;
@@ -140,8 +146,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return username.get().equals(user.username.get()) &&
-                firstName.get().equals(user.firstName.get()) &&
+        return firstName.get().equals(user.firstName.get()) &&
                 lastName.get().equals(user.lastName.get()) &&
                 age.get().equals(user.age.get()) &&
                 country.get().equals(user.country.get());

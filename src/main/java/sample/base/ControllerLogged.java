@@ -6,6 +6,7 @@ import Models.Dish;
 import Models.Menu;
 import Models.Order;
 import Models.User;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -85,6 +86,15 @@ public class ControllerLogged implements Controller {
         editButton.setTooltip(loading);
 
         editButton.visibleProperty().bind(editButton.managedProperty());
+        editButton.opacityProperty().bind(Bindings.createDoubleBinding(() ->{
+          if(loginManager.sendInfo.runningProperty().get()){
+              editButton.getTooltip().setOpacity(1);
+              return 0.8;
+          }
+            editButton.getTooltip().setOpacity(0);
+            return 1.0;
+        },loginManager.sendInfo.runningProperty()));
+
         saveButton.setManaged(false);
         saveButton.visibleProperty().bind(saveButton.managedProperty());
 
@@ -113,8 +123,10 @@ public class ControllerLogged implements Controller {
 
     @FXML
     public void editUserInfo() {
-        saveButton.setManaged(true);
-        editButton.setManaged(false);
+        if(!loginManager.sendInfo.isRunning()) {
+            saveButton.setManaged(true);
+            editButton.setManaged(false);
+        }
     }
 
     @FXML
@@ -122,18 +134,7 @@ public class ControllerLogged implements Controller {
         saveButton.setManaged(false);
         editButton.setManaged(true);
 
-//        if (loginManager.isUserEdited(oldInfo)) {
-//            loginManager.sendUserInfo();
-//            User user = sendUserInfo(firstNameField.getText(), lastNameField.getText(),
-//                    ageField.getText(), countryField.getText());
-//
-//            if (user == null) {
-//                firstNameField.setText(oldInfo.getFirstName().get());
-//                lastNameField.setText(oldInfo.getLastName().get());
-//                ageField.setText(oldInfo.getAge().get());
-//                countryField.setText(oldInfo.getCountry().get());
-//            }
-//        }
+        loginManager.sendUserInfo();
     }
 
     @FXML

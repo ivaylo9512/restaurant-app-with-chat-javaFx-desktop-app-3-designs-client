@@ -37,6 +37,9 @@ public class RequestTask<T> extends Task<T> {
     }
 
     private T executeTask() throws Exception{
+        if(request.getURI().getPath().equals("/api/users/auth/changeUserInfo")){
+            Thread.sleep(5000);
+        }
         try {
 
             String content = executeRequest(request);
