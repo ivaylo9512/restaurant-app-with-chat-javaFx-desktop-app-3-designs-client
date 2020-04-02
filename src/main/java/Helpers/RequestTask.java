@@ -38,13 +38,23 @@ public class RequestTask<T> extends Task<T> {
 
     private T executeTask() throws Exception{
         try {
+
             String content = executeRequest(request);
             if(content.equals("Success") || content.equals("Time out.")){
                 return null;
             }
             return mapper.readValue(content, type);
 
-        }catch (HttpException e) {
+        }catch (IOException e) {
+
+            if(stageManager.currentController instanceof LoginManager){
+                stageManager.showAlert("No connection to the server");
+                throw e;
+            }
+            return executeTask();
+
+        }catch (Exception e) {
+
             String message = e.getMessage();
             if(message.equals("Jwt token has expired.")) {
                 loginManager.logout();
@@ -52,12 +62,7 @@ public class RequestTask<T> extends Task<T> {
             }
             stageManager.showAlert(message);
             throw e;
-        }catch (IOException e) {
-            if(stageManager.currentController instanceof LoginManager){
-                stageManager.showAlert("No connection to the server");
-                throw e;
-            }
-            return executeTask();
+
         }
     }
 }

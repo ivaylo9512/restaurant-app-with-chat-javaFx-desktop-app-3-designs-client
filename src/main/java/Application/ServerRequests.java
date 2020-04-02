@@ -125,7 +125,7 @@ public class ServerRequests {
         httpPost.setEntity(postEntity);
         return httpPost;
     }
-    public HttpRequestBase register(){
+    public static HttpRequestBase register(){
         Map<String, Object> jsonValues = new HashMap<>();
         jsonValues.put("username", loginManager.regUsername.get());
         jsonValues.put("password", loginManager.regPassword.get());
@@ -223,12 +223,5 @@ public class ServerRequests {
 
             return content;
         }
-    }
-
-    private static void handleException(String exception) {
-        if (exception.equals("Jwt token has expired.")) {
-            loginManager.logout();
-        }
-        stageManager.showAlert("Session has expired.");
     }
 }

@@ -61,19 +61,7 @@ public class LoginManager {
     }
 
     private void updateError(Service service) {
-        Throwable exception = service.getException();
-        String exceptionMessage = exception.getMessage();
-
-        try {
-            throw exception;
-        } catch (IOException e) {
-            exceptionMessage = "No connection to the server.";
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-
         stageManager.currentController.resetStage();
-        stageManager.showAlert(exceptionMessage);
         service.reset();
     }
 
