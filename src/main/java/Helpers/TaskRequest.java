@@ -1,9 +1,11 @@
 package Helpers;
 
 import Application.LoginManager;
+import Application.ServerRequests;
 import com.fasterxml.jackson.databind.JavaType;
 import javafx.concurrent.Task;
 import org.apache.http.HttpException;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.IOException;
@@ -11,30 +13,17 @@ import java.lang.invoke.*;
 import java.util.Collection;
 import static Application.RestaurantApplication.loginManager;
 import static Application.RestaurantApplication.stageManager;
-import static Helpers.ServerRequests.executeRequest;
-import static Helpers.ServerRequests.mapper;
+import static Application.ServerRequests.executeRequest;
+import static Application.ServerRequests.mapper;
 
 public class TaskRequest<T> extends Task<T> {
 
-    private JavaType t;
     private HttpRequestBase request;
-    MethodHandle function;
-
-    public TaskRequest(Class type, Class<? extends Collection> collection, RequestEnum requestType) {
-        if (collection == null) {
-            t = mapper.getTypeFactory().constructType(type);
-        } else {
-            t = mapper.getTypeFactory().
-                    constructCollectionType(collection, type);
-        }
-
-        try {
-            MethodType methodType = MethodType.methodType(String.class);
-            function = MethodHandles.lookup()
-                    .findStatic(ServerRequests.class, requestType.name(), methodType);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private JavaType type;
+    private MethodHandle function;
+    public TaskRequest(JavaType type, MethodHandle function) {
+        this.type = type;
+        this.function = function;
     }
 
     @Override
@@ -53,7 +42,7 @@ public class TaskRequest<T> extends Task<T> {
             if(content.equals("Success") || content.equals("Time out.")){
                 return null;
             }
-            return mapper.readValue(content, t);
+            return mapper.readValue(content, type);
 
         }catch (HttpException e) {
             String message = e.getMessage();
