@@ -7,6 +7,7 @@ import org.apache.http.HttpException;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.IOException;
+import java.lang.invoke.*;
 import java.util.Collection;
 import static Application.RestaurantApplication.loginManager;
 import static Application.RestaurantApplication.stageManager;
@@ -16,19 +17,33 @@ import static Helpers.ServerRequests.mapper;
 public class TaskRequest<T> extends Task<T> {
 
     private JavaType t;
-    HttpRequestBase request;
-    public TaskRequest(Class type, Class<? extends Collection> collection) {
-        if(collection == null){
+    private HttpRequestBase request;
+    MethodHandle function;
+
+    public TaskRequest(Class type, Class<? extends Collection> collection, RequestEnum requestType) {
+        if (collection == null) {
             t = mapper.getTypeFactory().constructType(type);
-        }else {
+        } else {
             t = mapper.getTypeFactory().
                     constructCollectionType(collection, type);
+        }
+
+        try {
+            MethodType methodType = MethodType.methodType(String.class);
+            function = MethodHandles.lookup()
+                    .findStatic(ServerRequests.class, requestType.name(), methodType);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     protected T call() throws Exception {
-        request = createRequest(c);
+        try {
+            request = (HttpRequestBase) function.invokeExact();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
         return executeTask();
     }
 
