@@ -19,13 +19,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.prefs.Preferences;
 
-import static Application.MessageService.lastMessageCheck;
 import static Application.RestaurantApplication.loginManager;
-import static Application.RestaurantApplication.stageManager;
 
 public class ServerRequests {
     public static CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -35,7 +32,7 @@ public class ServerRequests {
     public static int pageSize = 3;
     public static String base = "http://localhost:8080";
 
-    public static List<Session> getNextSessions(int id, int page, int pageSize) {
+    public static List<Session> getNextSessions(int id, int page) {
         List<Session> sessions = new LinkedList<>();
         try {
 
@@ -56,60 +53,17 @@ public class ServerRequests {
         return sessions;
     }
 
-    public static boolean sendOrder(Order order) {
-        try {
-            String orderJson;
-            orderJson = mapper.writeValueAsString(order);
+    public static HttpRequestBase sendOrder(Order order) throws Exception {
+        String orderJson = mapper.writeValueAsString(order);
 
-            StringEntity postEntity = new StringEntity(orderJson, "UTF8");
-            postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        StringEntity postEntity = new StringEntity(orderJson, "UTF8");
+        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-            HttpPost httpPost = new HttpPost(base + "/api/order/auth/create");
-            httpPost.setHeader("Authorization", userPreference.get("jwt", null));
-            httpPost.setEntity(postEntity);
+        HttpPost httpPost = new HttpPost(base + "/api/order/auth/create");
+        httpPost.setHeader("Authorization", userPreference.get("jwt", null));
+        httpPost.setEntity(postEntity);
 
-            executeRequest(httpPost);
-
-            return true;
-        }catch (IOException | HttpException e) {
-            handleException(e.getMessage());
-        }
-        return false;
-    }
-
-    public static LocalDateTime getMostRecentOrderDate(int restaurantId) {
-        LocalDateTime localDateTime = null;
-
-        HttpGet get = new HttpGet(base + "/api/order/auth/getMostRecentDate/" + restaurantId);
-        get.setHeader("Authorization", userPreference.get("jwt", null));
-
-        try{
-            localDateTime = mapper.readValue(executeRequest(get), LocalDateTime.class);
-        }catch (IOException | HttpException e) {
-            handleException(e.getMessage());
-        }
-
-        return localDateTime;
-    }
-
-    public static List<Chat> getChats() {
-        List<Chat> chats = null;
-        try{
-
-            URIBuilder builder = new URIBuilder(base + "/api/chat/auth/getChats");
-            builder.setParameter("pageSize", String.valueOf(pageSize));
-
-            HttpGet get = new HttpGet(builder.build());
-            get.setHeader("Authorization", userPreference.get("jwt", null));
-
-            chats = mapper.readValue(executeRequest(get), new TypeReference<List<Chat>>() {});
-            lastMessageCheck = LocalDateTime.now();
-
-        }catch (IOException | HttpException | URISyntaxException e) {
-            handleException(e.getMessage());
-        }
-
-        return chats;
+        return httpPost;
     }
 
     public static HttpRequestBase login(){
@@ -125,6 +79,7 @@ public class ServerRequests {
         httpPost.setEntity(postEntity);
         return httpPost;
     }
+
     public static HttpRequestBase register(){
         Map<String, Object> jsonValues = new HashMap<>();
         jsonValues.put("username", loginManager.regUsername.get());
@@ -141,13 +96,12 @@ public class ServerRequests {
         return httpPost;
     }
 
-    public static User sendUserInfo(String firstName, String lastName, String age, String country) {
-        User user = null;
+    public static HttpRequestBase sendUserInfo() {
         Map<String, Object> jsonValues = new HashMap<>();
-        jsonValues.put("firstName", firstName);
-        jsonValues.put("lastName", lastName);
-        jsonValues.put("age", age);
-        jsonValues.put("country", country);
+        jsonValues.put("firstName", loginManager.loggedUser.getFirstName().get());
+        jsonValues.put("lastName", loginManager.loggedUser.getLastName().get());
+        jsonValues.put("age", loginManager.loggedUser.getAge().get());
+        jsonValues.put("country", loginManager.loggedUser.getCountry().get());
 
         JSONObject jsonObject = new JSONObject(jsonValues);
 
@@ -158,16 +112,10 @@ public class ServerRequests {
         post.setHeader("Authorization", userPreference.get("jwt", null));
         post.setEntity(postEntity);
 
-        try{
-            user = mapper.readValue(executeRequest(post), User.class);
-        } catch (IOException | HttpException e) {
-            handleException(e.getMessage());
-        }
-
-        return user;
+        return post;
     }
 
-    public static Message sendMessage(String messageText, int chatId, int receiverId){
+    public static HttpRequestBase sendMessage(){
         Message message = null;
         Map<String, Object> jsonValues = new HashMap<>();
         jsonValues.put("message", messageText);
@@ -182,26 +130,13 @@ public class ServerRequests {
         post.setHeader("Authorization", userPreference.get("jwt", null));
         post.setEntity(postEntity);
 
-        try{
-            message = mapper.readValue(executeRequest(post), Message.class);
-        }catch (IOException | HttpException e) {
-            handleException(e.getMessage());
-        }
-
-        return message;
+        return post;
     }
-    public static boolean updateDishState(int orderId, int dishId) {
+    public static HttpRequestBase updateDishState() {
         HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
         patch.setHeader("Authorization", userPreference.get("jwt", null));
 
-        try{
-            executeRequest(patch);
-            return true;
-        } catch (IOException | HttpException e) {
-            handleException(e.getMessage());
-        }
-
-        return false;
+        return patch;
     }
 
     public static String executeRequest(HttpRequestBase request) throws HttpException, IOException{
