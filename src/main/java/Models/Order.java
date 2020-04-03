@@ -1,5 +1,6 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -73,6 +74,21 @@ public class Order{
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    @JsonProperty("id")
+    public int getIdValue(){
+        return id.get();
+    }
+
+    @JsonProperty("created")
+    public LocalDateTime getCreateValue(){
+        return created.get();
+    }
+
+    @JsonProperty("updated")
+    public LocalDateTime getUpdatedValue(){
+        return updated.get();
     }
 
     @Override

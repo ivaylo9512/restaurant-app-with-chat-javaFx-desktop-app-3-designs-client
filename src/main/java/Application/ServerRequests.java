@@ -23,6 +23,7 @@ import java.util.*;
 import java.util.prefs.Preferences;
 
 import static Application.RestaurantApplication.loginManager;
+import static Application.RestaurantApplication.orderManager;
 
 public class ServerRequests {
     public static CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -47,14 +48,14 @@ public class ServerRequests {
             sessions = mapper.readValue(executeRequest(get), new TypeReference<List<Session>>() {});
 
         } catch (IOException | HttpException | URISyntaxException e) {
-            handleException(e.getMessage());
+//            handleException(e.getMessage());
         }
 
         return sessions;
     }
 
-    public static HttpRequestBase sendOrder(Order order) throws Exception {
-        String orderJson = mapper.writeValueAsString(order);
+    public static HttpRequestBase sendOrder() throws Exception {
+        String orderJson = mapper.writeValueAsString(orderManager.newOrder);
 
         StringEntity postEntity = new StringEntity(orderJson, "UTF8");
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
@@ -118,9 +119,9 @@ public class ServerRequests {
     public static HttpRequestBase sendMessage(){
         Message message = null;
         Map<String, Object> jsonValues = new HashMap<>();
-        jsonValues.put("message", messageText);
-        jsonValues.put("chatId", chatId);
-        jsonValues.put("receiverId", receiverId);
+//        jsonValues.put("message", messageText);
+//        jsonValues.put("chatId", chatId);
+//        jsonValues.put("receiverId", receiverId);
 
         JSONObject jsonObject = new JSONObject(jsonValues);
         StringEntity postEntity = new StringEntity(jsonObject.toString(), "UTF8");
@@ -132,12 +133,12 @@ public class ServerRequests {
 
         return post;
     }
-    public static HttpRequestBase updateDishState() {
-        HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
-        patch.setHeader("Authorization", userPreference.get("jwt", null));
-
-        return patch;
-    }
+//    public static HttpRequestBase updateDishState() {
+//        HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
+//        patch.setHeader("Authorization", userPreference.get("jwt", null));
+//
+//        return patch;
+//    }
 
     public static String executeRequest(HttpRequestBase request) throws HttpException, IOException{
         try (CloseableHttpResponse response = httpClient.execute(request)) {

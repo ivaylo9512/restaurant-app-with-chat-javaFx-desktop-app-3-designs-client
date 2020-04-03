@@ -5,10 +5,7 @@ import Helpers.ListViews.MenuListViewCell;
 import Models.Dish;
 import Models.Menu;
 import Models.Order;
-import Models.User;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -99,6 +96,8 @@ public class ControllerLogged implements Controller {
         saveButton.visibleProperty().bind(saveButton.managedProperty());
 
         ordersList.setItems(orderManager.orders);
+        newOrderList.setItems(orderManager.newOrderList);
+
         bindUserFields();
     }
 
@@ -139,19 +138,7 @@ public class ControllerLogged implements Controller {
 
     @FXML
     public void createNewOrder() {
-        if (roleField.getText().equals("Server")) {
-            List<Dish> dishes = newOrderList.getItems().stream().map(menu -> new Dish(menu.getName())).collect(Collectors.toList());
-            if(dishes.size() > 0) {
-
-//                if(sendOrder(new Order(dishes)))
-//                    newOrderList.getItems().clear();
-
-            }else{
-                stageManager.showAlert("Order must have at least one dish.");
-            }
-        } else {
-            stageManager.showAlert("You must be a server to create orders.");
-        }
+        orderManager.sendOrder();
     }
 
     @FXML

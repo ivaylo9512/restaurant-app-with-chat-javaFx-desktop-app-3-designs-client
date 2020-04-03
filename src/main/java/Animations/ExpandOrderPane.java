@@ -45,7 +45,7 @@ public class ExpandOrderPane {
     public static ListView orderList;
     public static ScrollBar scrollBar;
     public static Pane contentRoot;
-    public static AnchorPane contentPane;
+    public static AnchorPane contentPane, orderPane;
     public static boolean action = false;
 
     private static BooleanProperty buttonExpanded = new SimpleBooleanProperty(false,"buttonExpanded");
@@ -54,20 +54,9 @@ public class ExpandOrderPane {
     }
 
     public static void setCurrentOrder(MouseEvent event){
-        Node intersectedNode = event.getPickResult().getIntersectedNode();
-        if(intersectedNode instanceof  Button){
-            button = (Button) intersectedNode;
-            currentOrder = (Pane) button.getParent();
-        }else{
-            currentOrder = (Pane) intersectedNode;
-            button = (Button) currentOrder.getChildren().get(2);
-        }
+        orderContainer = (Pane) event.getPickResult().getIntersectedNode();
+        currentOrder = (Pane) orderContainer.getChildren().get(0);
         action = true;
-
-        dishesAnchor = (AnchorPane) currentOrder.getChildren().get(0);
-        dates = (GridPane) currentOrder.getChildren().get(1);
-        orderContainer = (Pane) currentOrder.getParent();
-
 
         mouseX = event.getScreenX();
         mouseY = event.getScreenY();
@@ -92,20 +81,20 @@ public class ExpandOrderPane {
 
         orderList.setDisable(true);
 
-        currentOrder.setLayoutX(translatePaneX + contentPane.getLayoutX());
-        currentOrder.setLayoutY(currentOrder.getLayoutY() + contentPane.getLayoutY() + 1);
-        currentOrder.setStyle("-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 )");
-        contentRoot.getChildren().add(currentOrder);
+        orderPane.setLayoutX(translatePaneX + contentPane.getLayoutX());
+        orderPane.setLayoutY(currentOrder.getLayoutY() + contentPane.getLayoutY() + 1);
 
-        if(intersectedNode instanceof Button){
-            expandOrderOnClick();
-        }
+        currentOrder.setOpacity(0);
+    }
 
-        currentOrder.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEntered -> ResizeRoot.resize = false);
-        currentOrder.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExited -> ResizeRoot.resize = true);
-        currentOrder.addEventFilter(MouseEvent.MOUSE_PRESSED, panePress);
-        currentOrder.addEventFilter(MouseEvent.MOUSE_DRAGGED, paneDrag);
-        currentOrder.addEventFilter(MouseEvent.MOUSE_RELEASED, paneReleased);
+    public static void setListeners(){
+        button.setOnMouseClicked(event -> expandOrderOnClick());
+
+        orderPane.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEntered -> ResizeRoot.resize = false);
+        orderPane.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExited -> ResizeRoot.resize = true);
+        orderPane.addEventFilter(MouseEvent.MOUSE_PRESSED, panePress);
+        orderPane.addEventFilter(MouseEvent.MOUSE_DRAGGED, paneDrag);
+        orderPane.addEventFilter(MouseEvent.MOUSE_RELEASED, paneReleased);
     }
 
     private static EventHandler<MouseEvent> panePress = eventPress -> {
@@ -127,8 +116,8 @@ public class ExpandOrderPane {
     };
 
     private static void moveOrder(MouseEvent eventDrag){
-        currentOrder.setTranslateX((currentOrder.getTranslateX()) + (eventDrag.getScreenX() - mouseX));
-        currentOrder.setTranslateY((currentOrder.getTranslateY()) + (eventDrag.getScreenY() - mouseY));
+        orderPane.setTranslateX((orderPane.getTranslateX()) + (eventDrag.getScreenX() - mouseX));
+        orderPane.setTranslateY((orderPane.getTranslateY()) + (eventDrag.getScreenY() - mouseY));
         mouseX = eventDrag.getScreenX();
         mouseY = eventDrag.getScreenY();
     }
@@ -167,13 +156,13 @@ public class ExpandOrderPane {
         showDates.setDelay(Duration.millis(750));
         showDates.play();
 
-        dates.setDisable(false);
+//        dates.setDisable(false);
 
     }
 
     private static void expandOrderOnDrag(MouseEvent eventDrag){
-        dishesAnchor.setDisable(false);
-        dishesAnchor.setOpacity(1);
+//        dishesAnchor.setDisable(false);
+//        dishesAnchor.setOpacity(1);
 
         double fasterExpand = 1.8;
         double expand = (initialMouseX - eventDrag.getScreenX()) * fasterExpand;
@@ -182,25 +171,25 @@ public class ExpandOrderPane {
                 expand = 0;
             }else{
                 expand *= -1;
-                currentOrder.setTranslateX(expand);
+                orderPane.setTranslateX(expand);
             }
         }
         if(expand >= 0){
-            currentOrder.setPrefWidth(orderWidth);
-            currentOrder.setPrefHeight(orderHeight);
+            orderPane.setPrefWidth(orderWidth);
+            orderPane.setPrefHeight(orderHeight);
             button.setTranslateY(0);
             button.setTranslateX(0);
-            currentOrder.setTranslateX(0);
+            orderPane.setTranslateX(0);
         }
 
         if(orderWidth - expand > orderWidth) {
 
-            currentOrder.setPrefWidth(orderWidth - expand);
-            currentOrder.setPrefHeight(orderHeight - expand);
+            orderPane.setPrefWidth(orderWidth - expand);
+            orderPane.setPrefHeight(orderHeight - expand);
 
-            if (currentOrder.getPrefWidth() >= maxOrderWidth) {
-                currentOrder.setPrefWidth(maxOrderWidth);
-                currentOrder.setPrefHeight(maxOrderWidth);
+            if (orderPane.getPrefWidth() >= maxOrderWidth) {
+                orderPane.setPrefWidth(maxOrderWidth);
+                orderPane.setPrefHeight(maxOrderWidth);
 
                 buttonExpanded.setValue(true);
                 mouseX = eventDrag.getScreenX();
@@ -212,11 +201,11 @@ public class ExpandOrderPane {
                 showDates.setDelay(Duration.millis(750));
                 showDates.play();
 
-                dates.setDisable(false);
+//                dates.setDisable(false);
             }
 
-            double translateButtonY = currentOrder.getPrefHeight() - button.getPrefHeight() - 10.5 - buttonY;
-            double translateButtonX = (currentOrder.getPrefWidth() - button.getPrefWidth()) / xButtonRation - buttonX;
+            double translateButtonY = orderPane.getPrefHeight() - button.getPrefHeight() - 10.5 - buttonY;
+            double translateButtonX = (orderPane.getPrefWidth() - button.getPrefWidth()) / xButtonRation - buttonX;
 
             button.setTranslateX(translateButtonX);
             button.setTranslateY(translateButtonY);
@@ -231,11 +220,7 @@ public class ExpandOrderPane {
 
             buttonExpanded.setValue(false);
 
-            currentOrder.removeEventFilter(MouseEvent.MOUSE_CLICKED, panePress);
-            currentOrder.removeEventFilter(MouseEvent.MOUSE_DRAGGED, paneDrag);
-            currentOrder.removeEventFilter(MouseEvent.MOUSE_RELEASED, paneReleased);
-
-            TranslateTransition transitionPane = new TranslateTransition(Duration.millis(750), currentOrder);
+            TranslateTransition transitionPane = new TranslateTransition(Duration.millis(750), orderPane);
             transitionPane.setToX(0);
             transitionPane.setToY(0);
             transitionPane.play();
@@ -245,17 +230,15 @@ public class ExpandOrderPane {
             transitionButton.setToY(0);
             transitionButton.play();
 
-            TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750), currentOrder, orderHeight);
+            TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750), orderPane, orderHeight);
             heightPane.play();
-            TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750), currentOrder, orderWidth);
+            TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750), orderPane, orderWidth);
             widthPane.play();
 
             Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(Duration.millis(750), actionEvent -> {
-                currentOrder.setLayoutX(orderX);
-                currentOrder.setLayoutY(currentOrder.getLayoutY() - contentPane.getLayoutY() - 1);
-                orderContainer.getChildren().add(currentOrder);
-                currentOrder.setStyle("");
                 orderList.setDisable(false);
+                currentOrder.setOpacity(1);
+
                 dishesAnchor.setDisable(true);
                 dishesAnchor.setOpacity(0);
                 action = false;

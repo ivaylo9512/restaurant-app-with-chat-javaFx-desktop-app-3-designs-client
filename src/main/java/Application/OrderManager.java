@@ -1,6 +1,9 @@
 package Application;
 
+import Helpers.RequestEnum;
+import Helpers.RequestService;
 import Helpers.ServiceErrorHandler;
+import Models.Dish;
 import Models.Menu;
 import Models.Order;
 import Models.Restaurant;
@@ -10,8 +13,10 @@ import javafx.collections.ObservableList;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
-import static Application.ServerRequests.getMostRecentOrderDate;
+import static Application.RestaurantApplication.loginManager;
+import static Application.RestaurantApplication.stageManager;
 
 public class OrderManager {
     private static OrderService orderService;
@@ -19,6 +24,9 @@ public class OrderManager {
     public TreeMap<String, Menu> userMenu = new TreeMap<>();
     public ObservableList<Order> orders = FXCollections.observableArrayList();
     public LocalDateTime mostRecentOrderDate;
+    public RequestService<Order> sendOrder = new RequestService<>(Order.class, null, RequestEnum.sendOrder);
+    public ObservableList<Menu> newOrderList = FXCollections.observableArrayList();
+    public Order newOrder;
 
     private OrderManager() {
         orderService = new OrderService();
@@ -30,6 +38,12 @@ public class OrderManager {
             updateOrders(newOrders);
             orderService.restart();
         });
+
+        sendOrder.setOnSucceeded(event -> {
+            newOrderList.clear();
+            sendOrder.reset();
+        });
+        sendOrder.setOnFailed(event -> sendOrder.reset());
     }
 
     private void updateOrders(List<Order> newOrders) {
@@ -80,13 +94,29 @@ public class OrderManager {
         restaurant.getMenu().forEach(menu ->
                 userMenu.put(menu.getName().toLowerCase(), menu));
         orders.setAll(restaurant.getOrders());
-        mostRecentOrderDate = getMostRecentOrderDate(userRestaurant.getId());
     }
 
     void resetRestaurant(){
         userRestaurant = null;
         mostRecentOrderDate = null;
+        newOrder = null;
         userMenu.clear();
         orders.clear();
+    }
+
+    public void sendOrder(){
+        if (loginManager.loggedUser.getRole().get().equals("Chef")) {
+            List<Dish> dishes = newOrderList.stream().map(menu -> new Dish(menu.getName())).collect(Collectors.toList());
+            if(dishes.size() > 0) {
+
+                newOrder = new Order(dishes);
+                sendOrder.start();
+
+            }else{
+                stageManager.showAlert("Order must have at least one dish.");
+            }
+        } else {
+            stageManager.showAlert("You must be a server to create orders.");
+        }
     }
 }
