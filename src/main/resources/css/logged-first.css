@@ -112,6 +112,9 @@ TextArea .scroll-pane .content{
 .order ScrollPane ScrollBar{
     -fx-background-color: transparent;
 }
+.order ListView{
+    -fx-background-color: transparent;
+}
 .order ScrollPane ScrollBar .thumb{
     -fx-background-color: transparent;
 }

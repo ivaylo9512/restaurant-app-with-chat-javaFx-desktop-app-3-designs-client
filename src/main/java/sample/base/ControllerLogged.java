@@ -10,10 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -39,6 +36,10 @@ public class ControllerLogged implements Controller {
     @FXML
     ImageView profileImage;
 
+    @FXML
+    protected Label updatedDate, createdDate, createdTime, updatedTime;
+    @FXML
+    protected ListView<Dish> dishList;
     @FXML
     protected TextField usernameField, firstNameField, lastNameField, countryField, ageField, menuSearch, roleField;
     @FXML

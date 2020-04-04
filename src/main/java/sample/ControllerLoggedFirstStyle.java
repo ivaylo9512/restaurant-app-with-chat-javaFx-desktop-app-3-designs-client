@@ -1,6 +1,7 @@
 package sample;
 
 import Animations.*;
+import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.OrderListViewCell;
 import Helpers.Scrolls;
 import Models.*;
@@ -20,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
@@ -31,18 +33,19 @@ import java.time.*;
 import java.util.*;
 import java.util.List;
 
+import static Animations.ExpandOrderPane.isButtonExpanded;
 import static Application.RestaurantApplication.*;
-import static Helpers.ServerRequests.*;
 
 
 public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
     @FXML VBox mainChatBlock, chatUsers, notificationBlock;
     @FXML FlowPane notificationInfo, chatInfo;
-    @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer;
+    @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, notificationIcon, profileRoot;
     @FXML TextArea mainChatTextArea;
     @FXML ImageView roleImage;
+    @FXML Button expandButton;
 
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
@@ -98,6 +101,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         clip.setLayoutY(30);
         profileImageContainer.setClip(clip);
 
+        setOrderPane();
         MoveRoot.move(moveBar, contentRoot);
     }
     private void waitForNewMessages(){
@@ -627,26 +631,55 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
         ResizeRoot.resize = true;
 
-        if(ExpandOrderPane.buttonExpandedProperty().getValue()){
+        if(isButtonExpanded){
             ExpandOrderPane.reverseOrder();
         }
+
         chatsMap.clear();
     }
 
     //Todo
-        public void updateDishStatus(int orderId, int dishId) {
+    public void updateDishStatus(int orderId, int dishId) {
         if(loggedUser.getRole().equals("Chef")){
-                try {
-                    updateDishState(orderId, dishId);
-                    Label ready = (Label) contentRoot.lookup("#dish" + dishId);
-                    ready.setText("O");
+            try {
+                updateDishState(orderId, dishId);
+                Label ready = (Label) contentRoot.lookup("#dish" + dishId);
+                ready.setText("O");
 
-                } catch (Exception e) {
-                    stageManager.showAlert(e.getMessage());
-                }
+            } catch (Exception e) {
+                stageManager.showAlert(e.getMessage());
+            }
         }else{
             stageManager.showAlert("You must be a chef to update the dish status.");
         }
+    }
+
+    public void setOrderPane(){
+        dishList.setCellFactory(c -> new DishListViewCell());
+
+        Rectangle rect = new Rectangle(orderContainer.getWidth(), orderContainer.getHeight());
+        rect.heightProperty().bind(orderContainer.prefHeightProperty());
+        rect.widthProperty().bind(orderContainer.prefWidthProperty());
+        rect.setArcWidth(20);
+        rect.setArcHeight(20);
+        rect.getStyleClass().add("shadow");
+        orderPane.setClip(rect);
+
+        expandButton.prefWidthProperty().bind(((orderContainer.prefWidthProperty()
+                .subtract(81.6))
+                .divide(15))
+                .add(28));
+        expandButton.prefHeightProperty().bind(((orderContainer.prefHeightProperty()
+                .subtract(81.6))
+                .divide(30))
+                .add(28));
+        Rectangle dishesClip = new Rectangle();
+        dishesClip.widthProperty().bind(dishesAnchor.widthProperty());
+        dishesClip.heightProperty().bind(dishesAnchor.heightProperty());
+        dishesAnchor.setClip(dishesClip);
+
+
+        dishesAnchor.prefHeightProperty().bind(orderContainer.prefHeightProperty().subtract(99));
     }
 
     private void ExpandOrderListeners() {
@@ -662,7 +695,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML
     public void expandOrder(MouseEvent event) {
         Node intersectedNode = event.getPickResult().getIntersectedNode();
-        if(!ExpandOrderPane.action && intersectedNode.getId().equals("container")){
+        if(!ExpandOrderPane.action && intersectedNode.getTypeSelector().equals("Pane") && intersectedNode.getId().equals("container")){
             OrderListViewCell orderCell = (OrderListViewCell) intersectedNode.getParent();
             Order order = orderCell.order;
 
