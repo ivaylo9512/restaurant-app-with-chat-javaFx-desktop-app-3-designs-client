@@ -64,7 +64,6 @@ public class ExpandOrderPane {
         buttonX = button.getLayoutX();
         buttonY = button.getLayoutY();
 
-
         orderX = currentOrder.getLayoutX();
         orderWidth = currentOrder.getWidth();
         orderHeight = currentOrder.getHeight();
@@ -84,32 +83,51 @@ public class ExpandOrderPane {
         orderPane.setLayoutX(translatePaneX + contentPane.getLayoutX());
         orderPane.setLayoutY(currentOrder.getLayoutY() + contentPane.getLayoutY() + 1);
 
-        currentOrder.setOpacity(0);
     }
 
     public static void setListeners(){
-        button.setOnMouseClicked(event -> expandOrderOnClick());
+        button.setOnMouseClicked(ExpandOrderPane::buttonPress);
 
-        orderPane.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEntered -> ResizeRoot.resize = false);
-        orderPane.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExited -> ResizeRoot.resize = true);
-        orderPane.addEventFilter(MouseEvent.MOUSE_PRESSED, panePress);
-        orderPane.addEventFilter(MouseEvent.MOUSE_DRAGGED, paneDrag);
-        orderPane.addEventFilter(MouseEvent.MOUSE_RELEASED, paneReleased);
+        orderPane.setOnMouseEntered(event -> ResizeRoot.resize = false);
+        orderPane.setOnMouseExited(event -> ResizeRoot.resize = true);
+        orderPane.setOnMousePressed(ExpandOrderPane::panePress);
+        orderPane.setOnDragDetected(ExpandOrderPane::paneDrag);
+        orderPane.setOnMouseReleased(ExpandOrderPane::paneReleased);
     }
 
-    private static EventHandler<MouseEvent> panePress = eventPress -> {
-        mouseX = eventPress.getScreenX();
-        mouseY = eventPress.getScreenY();
-    };
-
-    private static EventHandler<MouseEvent> paneDrag = eventDrag -> {
-        if(!buttonExpanded.getValue()){
-            expandOrderOnDrag(eventDrag);
-        }else {
-            moveOrder(eventDrag);
+    private static void buttonPress(MouseEvent event){
+        if(buttonExpanded.getValue()){
+            reverseOrder();
+        }else{
+            expandOrderOnClick();
         }
     };
-    private static EventHandler<MouseEvent> paneReleased = event1 -> {
+
+    private static void panePress(MouseEvent event){
+
+        if(initial){
+            action = true;
+            initial = false;
+
+            initialOffsetX = event.getX() - translatePaneX;
+            initialMouseX = event.getScreenX();
+
+            orderList.setDisable(true);
+            currentOrder.setOpacity(0);
+
+        }
+        mouseX = event.getScreenX();
+        mouseY = event.getScreenY();
+    };
+
+    private static void paneDrag(MouseEvent event) {
+        if(!buttonExpanded.getValue()){
+            expandOrderOnDrag(event);
+        }else {
+            moveOrder(event);
+        }
+    };
+    private static void paneReleased(MouseEvent event) {
         if(!buttonExpanded.getValue()) {
             reverseOrder();
         }

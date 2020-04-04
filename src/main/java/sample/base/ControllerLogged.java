@@ -46,7 +46,7 @@ public class ControllerLogged implements Controller {
     @FXML
     protected Pane userInfo;
     @FXML
-    protected AnchorPane contentRoot;
+    protected AnchorPane contentRoot, orderPane;
     @FXML
     protected ListView<Order> ordersList;
 
@@ -59,6 +59,7 @@ public class ControllerLogged implements Controller {
 
     protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
+    protected Order currentOrder;
     private Pane buttonParent;
 
     @FXML

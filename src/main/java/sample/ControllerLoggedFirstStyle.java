@@ -651,32 +651,25 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
     private void ExpandOrderListeners() {
         ExpandOrderPane.contentRoot = contentRoot;
+        ExpandOrderPane.orderPane = orderContainer;
+        ExpandOrderPane.button = expandButton;
         ExpandOrderPane.contentPane = contentPane;
         ExpandOrderPane.scrollBar = ordersScrollBar;
         ExpandOrderPane.orderList = ordersList;
-        ExpandOrderPane.buttonExpandedProperty().addListener((observable, oldValue, newValue) -> {
-            Button currentButton = ExpandOrderPane.button;
-            if (newValue) {
-                currentButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
-                currentButton.addEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
-            } else {
-                currentButton.removeEventFilter(MouseEvent.MOUSE_CLICKED, reverseOrderHandler);
-                currentButton.addEventFilter(MouseEvent.MOUSE_CLICKED, expandOrderHandler);
-            }
-        });
+        ExpandOrderPane.setListeners();
     }
-
-    private EventHandler<MouseEvent> expandOrderHandler = this::expandOrder;
-    private EventHandler<MouseEvent> reverseOrderHandler = e -> ExpandOrderPane.reverseOrder();
 
     @FXML
     public void expandOrder(MouseEvent event) {
         Node intersectedNode = event.getPickResult().getIntersectedNode();
-        if (!ExpandOrderPane.action && (intersectedNode instanceof Button
-                || (!intersectedNode.getTypeSelector().equals("ScrollPaneSkin$6") && intersectedNode.getStyleClass().get(0).equals("order")))) {
+        if(!ExpandOrderPane.action && intersectedNode.getId().equals("container")){
+            OrderListViewCell orderCell = (OrderListViewCell) intersectedNode.getParent();
+            Order order = orderCell.order;
 
-            ExpandOrderPane.setCurrentOrder(event);
-
+            if(currentOrder != order){
+                currentOrder = order;
+                ExpandOrderPane.setCurrentOrder(event);
+            }
         }
     }
 }

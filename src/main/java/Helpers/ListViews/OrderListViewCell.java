@@ -42,8 +42,11 @@ public class OrderListViewCell extends ListCell<Order> {
 
     private FXMLLoader mLLoader;
 
+    public Order order;
+
     @Override
     protected void updateItem(Order order, boolean empty) {
+        this.order = order;
         super.updateItem(order, empty);
 
         if(empty || order == null) {
@@ -62,9 +65,9 @@ public class OrderListViewCell extends ListCell<Order> {
                 }
             }
 
-            orderPane.setId(String.valueOf(order.getId()));
+            orderPane.setId(String.valueOf(order.getId().get()));
 
-            orderId.setText(String.valueOf(order.getId()));
+            orderId.setText(String.valueOf(order.getId().get()));
 
             container.setClip(new Rectangle(container.getPrefWidth(), container.getPrefHeight()));
 
