@@ -90,20 +90,24 @@ TextArea .scroll-pane .content{
     -fx-background-color: transparent;
     -fx-padding: 0;
 }
-.order-container{
+.order-cell{
     -fx-pref-height: 188.0px;
     -fx-pref-width: 127.35px;
     -fx-border-width: 0 1 0 0;
     -fx-border-color: #363b41;
 }
-.order-container:hover .order{
+.order-cell:hover .order{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
-.order{
+.order,
+.order-container{
     -fx-background-color: #2A2E37;
     -fx-background-radius: 10px;
     -fx-pref-height: 86.5;
     -fx-pref-width: 86.5;
+}
+.order-container{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .order ScrollPane ScrollBar{
     -fx-background-color: transparent;
