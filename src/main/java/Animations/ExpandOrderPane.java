@@ -239,25 +239,29 @@ public class ExpandOrderPane {
 
     }
     public static void reverseOrder() {
-        Timeline delay = new Timeline(new KeyFrame(Duration.millis(20), actionEvent1 -> {
+        Timeline delayAnimation = new Timeline(new KeyFrame(Duration.millis(20), actionEvent1 -> {
             isButtonExpanded.setValue(false);
 
-            TranslateTransition transitionPane = new TranslateTransition(Duration.millis(750), orderPane);
+            int maxDelay = 750;
+            double widthRatio = orderPane.getWidth() / maxOrderWidth;
+            double delay = widthRatio * maxDelay;
+
+            TranslateTransition transitionPane = new TranslateTransition(Duration.millis(delay), orderPane);
             transitionPane.setToX(0);
             transitionPane.setToY(0);
             transitionPane.play();
 
-            TranslateTransition transitionButton = new TranslateTransition(Duration.millis(750), button);
+            TranslateTransition transitionButton = new TranslateTransition(Duration.millis(delay), button);
             transitionButton.setToX(0);
             transitionButton.setToY(0);
             transitionButton.play();
 
-            TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750), orderPane, orderHeight);
+            TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(delay), orderPane, orderHeight);
             heightPane.play();
-            TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750), orderPane, orderWidth);
+            TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(delay), orderPane, orderWidth);
             widthPane.play();
 
-            Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(Duration.millis(750), actionEvent -> {
+            Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(Duration.millis(delay), actionEvent -> {
                 orderList.setDisable(false);
                 currentPane.setOpacity(1);
                 initial = true;
@@ -265,6 +269,6 @@ public class ExpandOrderPane {
             }));
             reAppendOrderInFlow.play();
         }));
-        delay.play();
+        delayAnimation.play();
     }
 }
