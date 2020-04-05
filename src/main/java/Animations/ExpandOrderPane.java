@@ -54,7 +54,6 @@ public class ExpandOrderPane {
 
 
     public static void setCurrentOrder(MouseEvent event){
-
         mouseX = event.getScreenX();
         mouseY = event.getScreenY();
 
