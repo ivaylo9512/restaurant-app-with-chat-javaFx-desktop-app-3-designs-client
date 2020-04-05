@@ -6,7 +6,6 @@ import Helpers.ListViews.OrderListViewCell;
 import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
@@ -19,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -34,8 +34,6 @@ import java.util.*;
 import java.util.List;
 
 import static Animations.ExpandOrderPane.isButtonExpanded;
-import static Application.RestaurantApplication.*;
-
 
 public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
@@ -64,6 +62,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
                 mainChatScroll, notificationsScroll, mainChatTextArea);
         scrolls.manageScrollsFirstStyle();
 
+        ordersList.addEventFilter(ScrollEvent.SCROLL, event -> orderContainer.setOpacity(0));
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node: ordersList.lookupAll(".scroll-bar")) {
                 if (node instanceof ScrollBar) {
@@ -631,7 +630,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
         ResizeRoot.resize = true;
 
-        if(isButtonExpanded){
+        if(isButtonExpanded.get()){
             ExpandOrderPane.reverseOrder();
         }
 
@@ -676,8 +675,10 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         Rectangle dishesClip = new Rectangle();
         dishesClip.widthProperty().bind(dishesAnchor.widthProperty());
         dishesClip.heightProperty().bind(dishesAnchor.heightProperty());
-        dishesAnchor.setClip(dishesClip);
+        dishList.setClip(dishesClip);
 
+        orderContainer.disableProperty().bind(isButtonExpanded.not());
+        orderContainer.setOpacity(0);
 
         dishesAnchor.prefHeightProperty().bind(orderContainer.prefHeightProperty().subtract(99));
     }
@@ -689,17 +690,28 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         ExpandOrderPane.contentPane = contentPane;
         ExpandOrderPane.scrollBar = ordersScrollBar;
         ExpandOrderPane.orderList = ordersList;
+
         ExpandOrderPane.setListeners();
     }
 
     @FXML
     public void expandOrder(MouseEvent event) {
         Node intersectedNode = event.getPickResult().getIntersectedNode();
-        if(!ExpandOrderPane.action && intersectedNode.getTypeSelector().equals("Pane") && intersectedNode.getId().equals("container")){
-            OrderListViewCell orderCell = (OrderListViewCell) intersectedNode.getParent();
-            Order order = orderCell.order;
+        if(!ExpandOrderPane.action && (intersectedNode.getTypeSelector().equals("Pane") || intersectedNode.getTypeSelector().equals("AnchorPane"))){
 
+            Node cell = intersectedNode.getParent();
+            Pane currentContainer = (Pane)intersectedNode;
+            if(intersectedNode.getTypeSelector().equals("AnchorPane")){
+                currentContainer = (Pane) cell;
+                cell = cell.getParent();
+            }
+
+            Order order = ((OrderListViewCell) cell).order;
             if(currentOrder != order){
+                ExpandOrderPane.cell = cell;
+                ExpandOrderPane.currentContainer = currentContainer;
+                ExpandOrderPane.currentPane = (Pane) currentContainer.getChildren().get(0);
+
                 currentOrder = order;
                 ExpandOrderPane.setCurrentOrder(event);
             }
