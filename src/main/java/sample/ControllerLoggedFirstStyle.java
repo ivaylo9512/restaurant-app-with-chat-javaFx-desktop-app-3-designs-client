@@ -44,6 +44,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML TextArea mainChatTextArea;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
+    @FXML GridPane dates;
 
     private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
@@ -683,6 +684,38 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         dishesAnchor.prefHeightProperty().bind(orderContainer.prefHeightProperty().subtract(99));
     }
 
+    @FXML
+    public void showCreated(){
+        createdDate.setText("created");
+        TranslateTransition translate = new TranslateTransition(Duration.millis(400), createdDate);
+        translate.setToX(30);
+        translate.play();
+    }
+
+    @FXML
+    public void hideCreated(){
+        createdDate.setText("00");
+        TranslateTransition translate = new TranslateTransition(Duration.millis(400), createdDate);
+        translate.setToX(0);
+        translate.play();
+    }
+
+    @FXML
+    public void showUpdated(){
+        updatedDate.setText("updated");
+        TranslateTransition translate = new TranslateTransition(Duration.millis(400), updatedDate);
+        translate.setToX(-30);
+        translate.play();
+    }
+
+    @FXML
+    public void hideUpdated(){
+        updatedDate.setText("00");
+        TranslateTransition translate = new TranslateTransition(Duration.millis(400), updatedDate);
+        translate.setToX(0);
+        translate.play();
+    }
+
     private void ExpandOrderListeners() {
         ExpandOrderPane.contentRoot = contentRoot;
         ExpandOrderPane.orderPane = orderContainer;
@@ -690,6 +723,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         ExpandOrderPane.contentPane = contentPane;
         ExpandOrderPane.scrollBar = ordersScrollBar;
         ExpandOrderPane.orderList = ordersList;
+        ExpandOrderPane.dates = dates;
 
         ExpandOrderPane.setListeners();
     }

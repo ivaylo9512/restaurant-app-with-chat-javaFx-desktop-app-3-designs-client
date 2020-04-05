@@ -346,7 +346,7 @@
                                      <ListView fx:id="dishList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0"/>
                                  </children>
                              </AnchorPane>
-                             <GridPane layoutY="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                             <GridPane fx:id="dates" layoutY="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
                                  <columnConstraints>
                                      <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="0.0" prefWidth="100.0" />
                                      <ColumnConstraints hgrow="ALWAYS" minWidth="0.0" prefWidth="100.0" />
@@ -355,9 +355,9 @@
                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                     <AnchorPane fx:id="createdContainer" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0" prefHeight="30.0" prefWidth="12.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                     <AnchorPane fx:id="createdContainer" onMouseEntered="#showCreated" onMouseExited="#hideCreated" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0" prefHeight="30.0" prefWidth="12.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                          <children>
-                                             <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutY="121.0" minWidth="30.0" styleClass="dish-time" text="12:40" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutY="121.0" minWidth="30.0" maxWidth="38.0" styleClass="dish-time" text="12:40" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                  <font>
                                                      <Font size="16.0" />
                                                  </font>
@@ -375,9 +375,9 @@
                                              <Insets />
                                          </GridPane.margin>
                                      </AnchorPane>
-                                     <AnchorPane fx:id="updatedContainer" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                     <AnchorPane fx:id="updatedContainer" onMouseEntered="#showUpdated" onMouseExited="#hideUpdated" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                          <children>
-                                             <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" minWidth="30.0" styleClass="dish-time" text="12:40" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" maxWidth="38.0" styleClass="dish-time" text="12:40" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                  <effect>
                                                      <InnerShadow height="10.0" radius="4.5" width="10.0" />
                                                  </effect>

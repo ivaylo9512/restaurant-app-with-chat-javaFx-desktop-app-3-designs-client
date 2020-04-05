@@ -106,6 +106,9 @@ TextArea .scroll-pane .content{
 .order-container{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
+.order-container GridPane{
+    -fx-opacity: 0;
+}
 .order ScrollPane ScrollBar{
     -fx-background-color: transparent;
 }

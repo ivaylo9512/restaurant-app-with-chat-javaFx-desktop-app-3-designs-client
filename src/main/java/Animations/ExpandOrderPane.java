@@ -34,12 +34,11 @@ public class ExpandOrderPane {
     private static double initialOffsetX;
     private static double initialMouseX;
 
-    private static AnchorPane dishesAnchor;
-    private static GridPane dates;
 
     private static boolean initial = true;
     private static double translatePaneX;
 
+    public static GridPane dates;
     public static Node cell;
     public static Pane currentContainer;
     public static Pane currentPane;
@@ -240,6 +239,7 @@ public class ExpandOrderPane {
     public static void reverseOrder() {
         Timeline delayAnimation = new Timeline(new KeyFrame(Duration.millis(20), actionEvent1 -> {
             isButtonExpanded.setValue(false);
+            dates.setOpacity(0);
 
             int maxDelay = 750;
             double widthRatio = orderPane.getWidth() / maxOrderWidth;
