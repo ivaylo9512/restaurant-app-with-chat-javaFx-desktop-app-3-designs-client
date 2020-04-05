@@ -6,6 +6,7 @@ import Helpers.ListViews.OrderListViewCell;
 import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
@@ -655,8 +656,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     }
 
     public void setOrderPane(){
-        dishList.setCellFactory(c -> new DishListViewCell());
-
         Rectangle rect = new Rectangle(orderContainer.getWidth(), orderContainer.getHeight());
         rect.heightProperty().bind(orderContainer.prefHeightProperty());
         rect.widthProperty().bind(orderContainer.prefWidthProperty());
@@ -676,12 +675,29 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         Rectangle dishesClip = new Rectangle();
         dishesClip.widthProperty().bind(dishesAnchor.widthProperty());
         dishesClip.heightProperty().bind(dishesAnchor.heightProperty());
-        dishList.setClip(dishesClip);
+        currentDishList.setClip(dishesClip);
 
         orderContainer.disableProperty().bind(isButtonExpanded.not());
         orderContainer.setOpacity(0);
 
         dishesAnchor.prefHeightProperty().bind(orderContainer.prefHeightProperty().subtract(99));
+
+        bindProperties();
+    }
+
+    private void bindProperties() {
+        currentOrder.setCreated(LocalDateTime.now());
+        currentOrder.setUpdated(LocalDateTime.now());
+
+        orderId.textProperty().bind(currentOrder.getId().asString());
+        createdDate.textProperty().bind(Bindings.createObjectBinding(()->
+                dateFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
+        createdTime.textProperty().bind(Bindings.createObjectBinding(()->
+                timeFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
+        updatedDate.textProperty().bind(Bindings.createObjectBinding(()->
+                dateFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
+        updatedTime.textProperty().bind(Bindings.createObjectBinding(()->
+                timeFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
     }
 
     @FXML
@@ -741,12 +757,12 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
             }
 
             Order order = ((OrderListViewCell) cell).order;
-            if(currentOrder != order){
+            if(currentOrder.equals(order)){
                 ExpandOrderPane.cell = cell;
                 ExpandOrderPane.currentContainer = currentContainer;
                 ExpandOrderPane.currentPane = (Pane) currentContainer.getChildren().get(0);
 
-                currentOrder = order;
+                setOrder(order);
                 ExpandOrderPane.setCurrentOrder(event);
             }
         }

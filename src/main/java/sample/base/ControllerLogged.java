@@ -1,6 +1,7 @@
 package sample.base;
 
 import Application.RestaurantApplication;
+import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
 import Models.Dish;
 import Models.Menu;
@@ -37,9 +38,9 @@ public class ControllerLogged implements Controller {
     ImageView profileImage;
 
     @FXML
-    protected Label updatedDate, createdDate, createdTime, updatedTime;
+    protected Label orderId, updatedDate, createdDate, createdTime, updatedTime;
     @FXML
-    protected ListView<Dish> dishList;
+    protected ListView<Dish> currentDishList;
     @FXML
     protected TextField usernameField, firstNameField, lastNameField, countryField, ageField, menuSearch, roleField;
     @FXML
@@ -60,11 +61,12 @@ public class ControllerLogged implements Controller {
 
     protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    protected Order currentOrder;
+    protected Order currentOrder = new Order();
     private Pane buttonParent;
 
     @FXML
     public void initialize() {
+        currentDishList.setCellFactory(c -> new DishListViewCell());
         menuList.setCellFactory(menuCell -> new MenuListViewCell());
         newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
 
@@ -120,6 +122,15 @@ public class ControllerLogged implements Controller {
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
         return orderManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
+    }
+
+    protected void setOrder(Order order) {
+        currentOrder.setId(order.getId().get());
+        currentOrder.setUpdated(order.getUpdated().get());
+        currentOrder.setCreated(order.getCreated().get());
+        currentOrder.setDishes(order.getDishes());
+        currentOrder.setReady(order.isReady());
+        currentOrder.setUserId(order.getUserId());
     }
 
     @FXML

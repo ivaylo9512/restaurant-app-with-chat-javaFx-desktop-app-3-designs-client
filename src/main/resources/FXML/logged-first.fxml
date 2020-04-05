@@ -343,7 +343,7 @@
                          <children>
                              <AnchorPane fx:id="dishesAnchor" prefHeight="35.0" prefWidth="31.0" styleClass="dishes-container" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="41.0">
                                  <children>
-                                     <ListView fx:id="dishList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0"/>
+                                     <ListView fx:id="currentDishList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0"/>
                                  </children>
                              </AnchorPane>
                              <GridPane fx:id="dates" layoutY="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
@@ -406,7 +406,7 @@
                                      </ImageView>
                                  </graphic>
                              </Button>
-                             <Label disable="true" layoutX="22.0" layoutY="14.0" text="Label" AnchorPane.leftAnchor="27.5" AnchorPane.rightAnchor="27.5" />
+                             <Label fx:id="orderId" disable="true" layoutX="22.0" layoutY="14.0" text="Label" AnchorPane.leftAnchor="27.5" AnchorPane.rightAnchor="27.5" />
                          </children>
                      </AnchorPane>
                  </children>
