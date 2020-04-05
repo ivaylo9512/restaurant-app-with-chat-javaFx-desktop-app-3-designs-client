@@ -96,9 +96,6 @@ TextArea .scroll-pane .content{
     -fx-border-width: 0 1 0 0;
     -fx-border-color: #363b41;
 }
-.order-cell:hover .order{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-}
 .order,
 .order-container{
     -fx-background-color: #2A2E37;
