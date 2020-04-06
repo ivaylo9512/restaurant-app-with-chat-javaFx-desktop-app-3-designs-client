@@ -680,13 +680,9 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         orderContainer.disableProperty().bind(isButtonExpanded.not());
         orderContainer.setOpacity(0);
 
-        bindProperties();
     }
 
-    private void bindProperties() {
-        currentOrder.setCreated(LocalDateTime.now());
-        currentOrder.setUpdated(LocalDateTime.now());
-
+    private void bindProperties(Order currentOrder) {
         orderId.textProperty().bind(currentOrder.getId().asString());
         currentDishList.setItems(currentOrder.getDishes());
         createdDate.textProperty().bind(Bindings.createObjectBinding(()->
@@ -752,12 +748,12 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
             }
 
             Order order = ((OrderListViewCell) cell).order;
-            if(!currentOrder.equals(order)){
+            if(!orderId.getText().equals(String.valueOf(order.getId().get()))){
                 ExpandOrderPane.cell = cell;
                 ExpandOrderPane.currentContainer = currentContainer;
                 ExpandOrderPane.currentPane = (Pane) currentContainer.getChildren().get(0);
 
-                setOrder(order);
+                bindProperties(order);
                 ExpandOrderPane.setCurrentOrder(event);
             }
         }

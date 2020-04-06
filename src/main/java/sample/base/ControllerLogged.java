@@ -61,7 +61,6 @@ public class ControllerLogged implements Controller {
 
     protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    protected Order currentOrder = new Order();
     private Pane buttonParent;
 
     @FXML
@@ -122,15 +121,6 @@ public class ControllerLogged implements Controller {
 
     private SortedMap<String, Menu> searchMenu(String prefix) {
         return orderManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
-    }
-
-    protected void setOrder(Order order) {
-        currentOrder.setId(order.getId().get());
-        currentOrder.setUpdated(order.getUpdated().get());
-        currentOrder.setCreated(order.getCreated().get());
-        currentOrder.setDishes(order.getDishes());
-        currentOrder.setReady(order.isReady());
-        currentOrder.setUserId(order.getUserId());
     }
 
     @FXML
