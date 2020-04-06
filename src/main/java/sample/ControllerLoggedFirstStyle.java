@@ -605,22 +605,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         chatsMap.clear();
     }
 
-    //Todo
-    public void updateDishStatus(int orderId, int dishId) {
-        if(loggedUser.getRole().equals("Chef")){
-            try {
-                updateDishState(orderId, dishId);
-                Label ready = (Label) contentRoot.lookup("#dish" + dishId);
-                ready.setText("O");
-
-            } catch (Exception e) {
-                stageManager.showAlert(e.getMessage());
-            }
-        }else{
-            stageManager.showAlert("You must be a chef to update the dish status.");
-        }
-    }
-
     public void setOrderPane(){
         Rectangle rect = new Rectangle(orderContainer.getWidth(), orderContainer.getHeight());
         rect.heightProperty().bind(orderContainer.prefHeightProperty());

@@ -598,21 +598,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged {
 
         }
     }
-    public void updateDishStatus(Dish dish, Label ready) {
-
-        if(loggedUser.getRole().equals("Chef")){
-            try {
-                updateDishState(dish.getOrderId(), dish.getId());
-                dish.setReady(true);
-                ready.setText("O");
-
-            } catch (Exception e) {
-                stageManager.showAlert(e.getMessage());
-            }
-        }else{
-            stageManager.showAlert("You must be a chef to update the dish status.");
-        }
-    }
 
     private void waitForNewMessages(){
         messageService = new MessageService();

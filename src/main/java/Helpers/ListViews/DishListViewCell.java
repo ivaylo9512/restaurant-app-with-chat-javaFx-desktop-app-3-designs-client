@@ -11,7 +11,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-import static Application.RestaurantApplication.orderManager;
+import static Application.RestaurantApplication.*;
 
 public class DishListViewCell extends ListCell<Dish> {
     @FXML
@@ -73,11 +73,17 @@ public class DishListViewCell extends ListCell<Dish> {
     }
     @FXML
     public void updateDishState() {
-        Dish dish = getItem();
-        if (!dish.isLoading() && !dish.getReady()){
-            ready.setText("...");
-            dish.setLoading(true);
-            orderManager.updateDishState(dish);
+        if(loginManager.role.get().equals("Chef")) {
+
+            Dish dish = getItem();
+            if (!dish.isLoading() && !dish.getReady()) {
+                ready.setText("...");
+                dish.setLoading(true);
+                orderManager.updateDishState(dish);
+            }
+
+        }else{
+            stageManager.showAlert("You must be a chef to update the dish status.");
         }
     }
 }

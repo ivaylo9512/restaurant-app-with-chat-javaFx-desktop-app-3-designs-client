@@ -20,7 +20,8 @@ public class LoginManager {
     private User savedUserInfo;
 
     User loggedUser = new User();
-    public static IntegerProperty userId = new SimpleIntegerProperty();
+    public IntegerProperty userId;
+    public StringProperty role;
 
     StringProperty username = new SimpleStringProperty();
     StringProperty password = new SimpleStringProperty();
@@ -31,6 +32,7 @@ public class LoginManager {
 
     private LoginManager(){
         userId = loggedUser.getId();
+        role = loggedUser.getRole();
 
         loginService.setOnSucceeded(eventSuccess -> onSuccessfulService(loginService));
         loginService.setOnFailed(eventFail -> updateError(loginService));
