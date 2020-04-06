@@ -106,7 +106,11 @@ TextArea .scroll-pane .content{
 .order-container{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
-.order-container GridPane{
+.order-container .list-cell{
+     -fx-background-color: transparent;
+     -fx-padding: 0;
+}
+.order-container .dates {
     -fx-opacity: 0;
 }
 .order ScrollPane ScrollBar{
@@ -169,44 +173,12 @@ TextArea .scroll-pane .content{
 .order > Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
-.dish {
+.order .menu-cell{
     -fx-background-color: #2A2E37;
 }
-.dish .amount{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0.0 , 0 , 0 );
-    -fx-background-color: #2A2E37;
-    -fx-pref-width: 46.0;
-    -fx-pref-height: 46.0;
-    -fx-alignment: center;
-    -fx-text-fill:  #bcbcbc;
-
-}
-.dish .ready{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0.0 , 0 , 0 );
-    -fx-text-fill:  #bcbcbc;
-    -fx-background-color: #2A2E37;
-    -fx-pref-width: 46.0;
-    -fx-pref-height: 46.0;
-    -fx-alignment: center;
-
-}
-.dish .ready:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-}
-.dish .ready:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0.0 , 0 , 0 );
-}
-.dish .name{
-    -fx-text-fill:  #bcbcbc;
-    -fx-background-color: #2A2E37;
-    -fx-background-radius: 0px;
-    -fx-border-radius: 0px;
-    -fx-pref-height: 46.0;
-    -fx-alignment: center;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0.0 , 0 , 0 );
+.order ListView:disabled{
     -fx-opacity: 1;
 }
-
 .program-bar{
     -fx-background-color: #2A2E37;
     -fx-border-width: 0 0 1 0;
@@ -364,6 +336,9 @@ TextFlow {
 .create-order{
     -fx-background-color: #363b41;
 }
+.create-order .menu-cell{
+    -fx-background-color: #363b41;
+}
 .create-order ListView .list-cell{
    -fx-padding: 0;
    -fx-background-color: transparent;
@@ -376,14 +351,9 @@ TextFlow {
     -fx-text-fill: #bcbcbc;
     -fx-background-radius: 2 2 0 0;
 }
-.menu-cell{
-    -fx-background-color: #363b41;
-}
-
 .create-button{
     -fx-background-color: #363b41;
 }
-
 .create-button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 0 );
 

@@ -50,6 +50,7 @@ public class ExpandOrderPane {
 
     public static BooleanProperty isButtonExpanded = new SimpleBooleanProperty(false);
     public static boolean action;
+    static FadeTransition showDates = new FadeTransition(Duration.millis(500), dates);
 
 
     public static void setCurrentOrder(MouseEvent event){
@@ -86,6 +87,11 @@ public class ExpandOrderPane {
         orderList.setOnMousePressed(ExpandOrderPane::listPress);
         orderList.addEventFilter(MouseEvent.MOUSE_CLICKED, ExpandOrderPane::listClick);
         orderList.setOnMouseDragged(ExpandOrderPane::listDrag);
+
+        showDates = new FadeTransition(Duration.millis(500), dates);
+        showDates.setFromValue(0);
+        showDates.setToValue(1);
+
     }
 
     private static void listDrag(MouseEvent event) {
@@ -179,9 +185,6 @@ public class ExpandOrderPane {
         translatePane.setToY(0);
         translatePane.play();
 
-        FadeTransition showDates = new FadeTransition(Duration.millis(500), dates);
-        showDates.setFromValue(0);
-        showDates.setToValue(1);
         showDates.setDelay(Duration.millis(750));
         showDates.play();
     }
@@ -212,6 +215,7 @@ public class ExpandOrderPane {
             orderPane.setPrefHeight(orderHeight - expand);
 
             if (orderPane.getPrefWidth() >= maxOrderWidth) {
+                isButtonExpanded.setValue(true);
                 orderPane.setPrefWidth(maxOrderWidth);
                 orderPane.setPrefHeight(maxOrderWidth);
 
@@ -219,12 +223,8 @@ public class ExpandOrderPane {
                 mouseX = eventDrag.getScreenX();
                 mouseY = eventDrag.getScreenY();
 
-                FadeTransition showDates = new FadeTransition(Duration.millis(500), dates);
-                showDates.setFromValue(0);
-                showDates.setToValue(1);
-                showDates.setDelay(Duration.millis(750));
+                showDates.setDelay(Duration.ZERO);
                 showDates.play();
-
             }
 
             double translateButtonY = orderPane.getPrefHeight() - button.getPrefHeight() - 10.5 - buttonY;
@@ -239,6 +239,7 @@ public class ExpandOrderPane {
     public static void reverseOrder() {
         Timeline delayAnimation = new Timeline(new KeyFrame(Duration.millis(20), actionEvent1 -> {
             isButtonExpanded.setValue(false);
+            showDates.stop();
             dates.setOpacity(0);
 
             int maxDelay = 750;

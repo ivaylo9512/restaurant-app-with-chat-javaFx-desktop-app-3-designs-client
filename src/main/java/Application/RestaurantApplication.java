@@ -20,15 +20,15 @@ public class RestaurantApplication extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        loginManager = LoginManager.initialize();
-        orderManager = OrderManager.initialize();
-        stageManager = StageManager.initialize(primaryStage);
-        messageManager = MessageManager.initialize();
-
         Media sound = new Media(getClass()
                 .getResource("/notification.mp3")
                 .toExternalForm());
         notificationSound = new MediaPlayer(sound);
         notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
+
+        loginManager = LoginManager.initialize();
+        orderManager = OrderManager.initialize();
+        stageManager = StageManager.initialize(primaryStage);
+        messageManager = MessageManager.initialize();
     }
 }

@@ -680,8 +680,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         orderContainer.disableProperty().bind(isButtonExpanded.not());
         orderContainer.setOpacity(0);
 
-        dishesAnchor.prefHeightProperty().bind(orderContainer.prefHeightProperty().subtract(99));
-
         bindProperties();
     }
 
@@ -690,6 +688,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         currentOrder.setUpdated(LocalDateTime.now());
 
         orderId.textProperty().bind(currentOrder.getId().asString());
+        currentDishList.setItems(currentOrder.getDishes());
         createdDate.textProperty().bind(Bindings.createObjectBinding(()->
                 dateFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
         createdTime.textProperty().bind(Bindings.createObjectBinding(()->
@@ -702,7 +701,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
     @FXML
     public void showCreated(){
-        createdDate.setText("created");
         TranslateTransition translate = new TranslateTransition(Duration.millis(400), createdDate);
         translate.setToX(30);
         translate.play();
@@ -710,7 +708,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
     @FXML
     public void hideCreated(){
-        createdDate.setText("00");
         TranslateTransition translate = new TranslateTransition(Duration.millis(400), createdDate);
         translate.setToX(0);
         translate.play();
@@ -718,7 +715,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
     @FXML
     public void showUpdated(){
-        updatedDate.setText("updated");
         TranslateTransition translate = new TranslateTransition(Duration.millis(400), updatedDate);
         translate.setToX(-30);
         translate.play();
@@ -726,7 +722,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
     @FXML
     public void hideUpdated(){
-        updatedDate.setText("00");
         TranslateTransition translate = new TranslateTransition(Duration.millis(400), updatedDate);
         translate.setToX(0);
         translate.play();
@@ -757,7 +752,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
             }
 
             Order order = ((OrderListViewCell) cell).order;
-            if(currentOrder.equals(order)){
+            if(!currentOrder.equals(order)){
                 ExpandOrderPane.cell = cell;
                 ExpandOrderPane.currentContainer = currentContainer;
                 ExpandOrderPane.currentPane = (Pane) currentContainer.getChildren().get(0);
