@@ -1,11 +1,13 @@
 package Helpers.ListViews;
 
+import Animations.TransitionResizeHeight;
 import Models.Dish;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -61,10 +63,20 @@ public class DishListViewCell extends ListCell<Dish> {
                     }
                 }
             });
-            grid.prefWidthProperty().bind(widthProperty().subtract(13));
+
             setText(null);
             setGraphic(grid);
         }
 
+    }
+    @FXML
+    public void shrink(){
+        TransitionResizeHeight resizeWidth2 = new TransitionResizeHeight(Duration.millis(250), grid, grid.getMaxHeight());
+        resizeWidth2.play();
+    }
+    @FXML
+    public void expand(){
+        TransitionResizeHeight resizeWidth2 = new TransitionResizeHeight(Duration.millis(250), grid, grid.getMinHeight());
+        resizeWidth2.play();
     }
 }
