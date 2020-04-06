@@ -36,6 +36,12 @@ public class RequestService<T> extends Service<T> {
 
     @Override
     protected Task<T> createTask() {
-        return new RequestTask<>(t, function);
+        HttpRequestBase request = null;
+        try {
+            request = (HttpRequestBase) function.invokeExact();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        return new RequestTask<>(t, request);
     }
 }

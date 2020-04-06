@@ -1,10 +1,15 @@
 package Models;
 
+import java.time.LocalDateTime;
+
 public class Dish{
     private int id;
     private String name;
-    private Boolean ready = false;
+    private Boolean ready;
     private int orderId;
+    private boolean loading;
+    private LocalDateTime created;
+    private LocalDateTime updated;
 
     public Dish() {
     }
@@ -43,5 +48,29 @@ public class Dish{
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public boolean isLoading() {
+        return loading;
+    }
+
+    public void setLoading(boolean loading) {
+        this.loading = loading;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
     }
 }

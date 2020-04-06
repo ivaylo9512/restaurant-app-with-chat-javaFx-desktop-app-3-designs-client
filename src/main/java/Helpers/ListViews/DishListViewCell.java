@@ -11,6 +11,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+import static Application.RestaurantApplication.orderManager;
+
 public class DishListViewCell extends ListCell<Dish> {
     @FXML
     private Label price;
@@ -46,12 +48,12 @@ public class DishListViewCell extends ListCell<Dish> {
             }
             price.setText(String.valueOf(dish.getId()));
             name.setText(dish.getName());
-            if (dish.getReady()) {
+            if(dish.isLoading()){
+                ready.setText("...");
+            } else if (dish.getReady()) {
                 ready.setText("O");
-                ready.setUserData("ready");
             } else {
                 ready.setText("X");
-                ready.setUserData("not ready");
             }
             ready.setId("dish" + dish.getId());
             grid.setOnMouseClicked(event -> {
@@ -78,5 +80,14 @@ public class DishListViewCell extends ListCell<Dish> {
     public void expand(){
         TransitionResizeHeight resizeWidth2 = new TransitionResizeHeight(Duration.millis(250), grid, grid.getMinHeight());
         resizeWidth2.play();
+    }
+    @FXML
+    public void updateDishState() {
+        Dish dish = getItem();
+        if (!dish.isLoading() && !dish.getReady()){
+            ready.setText("...");
+            dish.setLoading(true);
+            orderManager.updateDishState(dish);
+        }
     }
 }

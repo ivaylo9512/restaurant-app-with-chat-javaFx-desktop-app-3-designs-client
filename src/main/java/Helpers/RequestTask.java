@@ -1,16 +1,11 @@
 package Helpers;
 
 import Application.LoginManager;
-import Application.ServerRequests;
 import com.fasterxml.jackson.databind.JavaType;
 import javafx.concurrent.Task;
-import org.apache.http.HttpException;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.IOException;
-import java.lang.invoke.*;
-import java.util.Collection;
 import static Application.RestaurantApplication.loginManager;
 import static Application.RestaurantApplication.stageManager;
 import static Application.ServerRequests.executeRequest;
@@ -20,24 +15,18 @@ public class RequestTask<T> extends Task<T> {
 
     private HttpRequestBase request;
     private JavaType type;
-    private MethodHandle function;
-    public RequestTask(JavaType type, MethodHandle function) {
+    public RequestTask(JavaType type, HttpRequestBase request) {
         this.type = type;
-        this.function = function;
+        this.request = request;
     }
 
     @Override
     protected T call() throws Exception {
-        try {
-            request = (HttpRequestBase) function.invokeExact();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
         return executeTask();
     }
 
     private T executeTask() throws Exception{
-        if(request.getURI().getPath().equals("/api/users/auth/changeUserInfo")){
+        if(true){
             Thread.sleep(5000);
         }
         try {

@@ -22,7 +22,9 @@ public class Order{
     private boolean ready = false;
     public Order() {
     }
-
+    public Order(int id) {
+        this.id.set(id);
+    }
     public Order(List<Dish> dishes) {
         this.dishes.setAll(dishes);
     }

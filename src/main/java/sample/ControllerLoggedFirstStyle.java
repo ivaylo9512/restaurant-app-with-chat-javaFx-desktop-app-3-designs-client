@@ -1,7 +1,6 @@
 package sample;
 
 import Animations.*;
-import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.OrderListViewCell;
 import Helpers.Scrolls;
 import Models.*;
@@ -27,10 +26,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
-import org.apache.commons.collections4.map.ListOrderedMap;
 import sample.base.ControllerLogged;
 
-import java.time.*;
 import java.util.*;
 import java.util.List;
 
@@ -747,15 +744,12 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
                 cell = cell.getParent();
             }
 
-            Order order = ((OrderListViewCell) cell).order;
-            if(!orderId.getText().equals(String.valueOf(order.getId().get()))){
-                ExpandOrderPane.cell = cell;
-                ExpandOrderPane.currentContainer = currentContainer;
-                ExpandOrderPane.currentPane = (Pane) currentContainer.getChildren().get(0);
+            ExpandOrderPane.cell = cell;
+            ExpandOrderPane.currentContainer = currentContainer;
+            ExpandOrderPane.currentPane = (Pane) currentContainer.getChildren().get(0);
 
-                bindProperties(order);
-                ExpandOrderPane.setCurrentOrder(event);
-            }
+            bindProperties(((OrderListViewCell) cell).order);
+            ExpandOrderPane.setCurrentOrder(event);
         }
     }
 }

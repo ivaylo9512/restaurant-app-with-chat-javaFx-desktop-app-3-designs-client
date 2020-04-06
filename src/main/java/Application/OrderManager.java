@@ -2,13 +2,16 @@ package Application;
 
 import Helpers.RequestEnum;
 import Helpers.RequestService;
+import Helpers.RequestTask;
 import Helpers.ServiceErrorHandler;
 import Models.Dish;
 import Models.Menu;
 import Models.Order;
 import Models.Restaurant;
+import com.fasterxml.jackson.databind.JavaType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.http.client.methods.HttpRequestBase;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 
 import static Application.RestaurantApplication.loginManager;
 import static Application.RestaurantApplication.stageManager;
+import static Application.ServerRequests.mapper;
+import static Application.ServerRequests.tasks;
 
 public class OrderManager {
     private static OrderService orderService;
@@ -118,5 +123,29 @@ public class OrderManager {
         } else {
             stageManager.showAlert("You must be a server to create orders.");
         }
+    }
+
+    private JavaType type = mapper.constructType(Dish.class);
+    public void updateDishState(Dish dish){
+        HttpRequestBase request = ServerRequests.updateDishState(dish.getOrderId(), dish.getId());
+        RequestTask<Dish> task = new RequestTask<>(type, request);
+        tasks.execute(task);
+        task.setOnSucceeded(event -> {
+            Dish newDish = (Dish) event.getSource().getValue();
+
+            int orderIndex = orders.indexOf(new Order(newDish.getOrderId()));
+            Order order = orders.get(orderIndex);
+            order.setUpdated(newDish.getUpdated());
+            orders.remove(orderIndex);
+            orders.add(0, order);
+
+            List<Dish> dishes = order.getDishes();
+            int dishIndex = dishes.indexOf(dish);
+            Dish oldDish = dishes.get(dishIndex);
+            oldDish.setLoading(false);
+            oldDish.setReady(true);
+
+            dishes.set(dishIndex, oldDish);
+        });
     }
 }

@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.prefs.Preferences;
 
 import static Application.RestaurantApplication.loginManager;
@@ -32,6 +34,9 @@ public class ServerRequests {
     public static ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     public static int pageSize = 3;
     public static String base = "http://localhost:8080";
+
+    static ExecutorService tasks = Executors.newFixedThreadPool(10);
+
 
     public static List<Session> getNextSessions(int id, int page) {
         List<Session> sessions = new LinkedList<>();
@@ -133,12 +138,12 @@ public class ServerRequests {
 
         return post;
     }
-//    public static HttpRequestBase updateDishState() {
-//        HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
-//        patch.setHeader("Authorization", userPreference.get("jwt", null));
-//
-//        return patch;
-//    }
+    public static HttpRequestBase updateDishState(int orderId, int dishId) {
+        HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
+        patch.setHeader("Authorization", userPreference.get("jwt", null));
+
+        return patch;
+    }
 
     public static String executeRequest(HttpRequestBase request) throws HttpException, IOException{
         try (CloseableHttpResponse response = httpClient.execute(request)) {

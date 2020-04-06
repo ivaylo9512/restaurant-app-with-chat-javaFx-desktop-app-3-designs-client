@@ -52,7 +52,6 @@ public class ExpandOrderPane {
     public static boolean action;
     static FadeTransition showDates = new FadeTransition(Duration.millis(500), dates);
 
-
     public static void setCurrentOrder(MouseEvent event){
         mouseX = event.getScreenX();
         mouseY = event.getScreenY();
@@ -264,6 +263,7 @@ public class ExpandOrderPane {
             Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(Duration.millis(delay), actionEvent -> {
                 orderList.setDisable(false);
                 currentPane.setOpacity(1);
+                orderPane.setOpacity(0);
                 initial = true;
                 action = false;
             }));
