@@ -141,37 +141,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
     }
 
-    private void updateNewOrders(List<Order> newOrders) {
-        newOrders.forEach(order -> {
-
-            if (orderValue != null) {
-
-                AnchorPane updateContainer = (AnchorPane) contentRoot.lookup("#update" + order.getId());
-                if(updateContainer != null){
-                    Label updatedTime = (Label) updateContainer.getChildren().get(0);
-                    Label updatedDate = (Label) updateContainer.getChildren().get(1);
-
-                    updatedTime.setText(timeFormatter.format(order.getUpdated()));
-                    updatedDate.setText(dateFormatterSimple.format(order.getUpdated()));
-                }
-                if (order.isReady()) {
-                    addNotification("Order " + orderId + " is ready.");
-                }
-
-            } else {
-                if(ExpandOrderPane.buttonExpandedProperty().getValue()){
-                    ExpandOrderPane.reverseOrder();
-                }
-                loggedUser.getOrders().put(order.getId(), order);
-                ordersList.getItems().add(0, order);
-
-                if(order.getUserId() != loggedUser.getId()){
-                    addNotification("New order created " + orderId);
-                }
-            }
-        });
-    }
-
     private void addNotification(String notification) {
         Text text = new Text(notification);
         HBox hBox = new HBox(text);

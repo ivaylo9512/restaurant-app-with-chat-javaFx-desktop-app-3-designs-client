@@ -55,16 +55,6 @@ public class DishListViewCell extends ListCell<Dish> {
             } else {
                 ready.setText("X");
             }
-            ready.setId("dish" + dish.getId());
-            grid.setOnMouseClicked(event -> {
-                if(ready.getText().equals("X")) {
-                    if(LoggedSecondStyle.stage != null && LoggedSecondStyle.stage.isShowing()) {
-                        LoggedSecondStyle.controller.updateDishStatus(dish, ready);
-                    }else{
-                        LoggedThirdStyle.controller.updateDishStatus(dish, ready);
-                    }
-                }
-            });
 
             setText(null);
             setGraphic(grid);

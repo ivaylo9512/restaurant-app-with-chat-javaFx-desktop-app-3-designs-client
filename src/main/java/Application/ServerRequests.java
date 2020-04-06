@@ -37,7 +37,6 @@ public class ServerRequests {
 
     static ExecutorService tasks = Executors.newFixedThreadPool(10);
 
-
     public static List<Session> getNextSessions(int id, int page) {
         List<Session> sessions = new LinkedList<>();
         try {
