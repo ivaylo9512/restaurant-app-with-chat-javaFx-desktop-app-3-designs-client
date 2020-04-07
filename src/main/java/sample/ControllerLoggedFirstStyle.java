@@ -18,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -31,7 +30,7 @@ import sample.base.ControllerLogged;
 import java.util.*;
 import java.util.List;
 
-import static Animations.ExpandOrderPane.isButtonExpanded;
+import static Animations.ExpandOrderPane.*;
 
 public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
@@ -61,7 +60,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
                 mainChatScroll, notificationsScroll, mainChatTextArea);
         scrolls.manageScrollsFirstStyle();
 
-        ordersList.addEventFilter(ScrollEvent.SCROLL, event -> orderContainer.setOpacity(0));
+        ordersList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::expandOrder);
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node: ordersList.lookupAll(".scroll-bar")) {
                 if (node instanceof ScrollBar) {
@@ -628,8 +627,12 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         currentDishList.setClip(dishesClip);
 
         orderContainer.disableProperty().bind(isButtonExpanded.not());
-        orderContainer.setOpacity(0);
-
+        orderContainer.opacityProperty().bind(Bindings.createIntegerBinding(()->{
+            if(action.get()){
+                return 1;
+            }
+            return 0;
+        },action));
     }
 
     private void bindProperties(Order currentOrder) {
@@ -688,20 +691,20 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML
     public void expandOrder(MouseEvent event) {
         Node intersectedNode = event.getPickResult().getIntersectedNode();
-        if(!ExpandOrderPane.action && (intersectedNode.getTypeSelector().equals("Pane") || intersectedNode.getTypeSelector().equals("AnchorPane"))){
+        if(intersectedNode.getTypeSelector().equals("Button")) {
+            currentPane = (AnchorPane) intersectedNode.getParent();
+            currentContainer = (Pane)currentPane.getParent();
+            cell =  (OrderListViewCell) currentContainer.getParent();
+            bindProperties(cell.order);
 
-            Node cell = intersectedNode.getParent();
-            Pane currentContainer = (Pane)intersectedNode;
-            if(intersectedNode.getTypeSelector().equals("AnchorPane")){
-                currentContainer = (Pane) cell;
-                cell = cell.getParent();
-            }
+            ExpandOrderPane.setCurrentOrder(event);
+            expandOrderOnClick();
+        } else if(!ExpandOrderPane.action.get() && intersectedNode.getTypeSelector().equals("AnchorPane")){
+            currentPane = (AnchorPane) intersectedNode;
+            currentContainer = (Pane)intersectedNode.getParent();
+            cell =  (OrderListViewCell) currentContainer.getParent();
 
-            ExpandOrderPane.cell = cell;
-            ExpandOrderPane.currentContainer = currentContainer;
-            ExpandOrderPane.currentPane = (Pane) currentContainer.getChildren().get(0);
-
-            bindProperties(((OrderListViewCell) cell).order);
+            bindProperties(cell.order);
             ExpandOrderPane.setCurrentOrder(event);
         }
     }

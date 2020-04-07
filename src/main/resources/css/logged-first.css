@@ -103,15 +103,13 @@ TextArea .scroll-pane .content{
     -fx-pref-height: 86.5;
     -fx-pref-width: 86.5;
 }
+.order:hover,
 .order-container{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .order-container .list-cell{
      -fx-background-color: transparent;
      -fx-padding: 0;
-}
-.order-container .dates {
-    -fx-opacity: 0;
 }
 .order ScrollPane ScrollBar{
     -fx-background-color: transparent;

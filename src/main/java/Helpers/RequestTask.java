@@ -26,9 +26,6 @@ public class RequestTask<T> extends Task<T> {
     }
 
     private T executeTask() throws Exception{
-        if(true){
-            Thread.sleep(5000);
-        }
         try {
 
             String content = executeRequest(request);

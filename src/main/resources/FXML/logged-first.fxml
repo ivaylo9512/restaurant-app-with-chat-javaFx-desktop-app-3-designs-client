@@ -283,7 +283,7 @@
                   </FlowPane>
                   <AnchorPane fx:id="ordersPane" minHeight="-Infinity" prefHeight="190.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView fx:id="ordersList" onMouseMoved="#expandOrder" orientation="HORIZONTAL" prefHeight="200.0" prefWidth="200.0" styleClass="order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="ordersList" orientation="HORIZONTAL" prefHeight="200.0" prefWidth="200.0" styleClass="order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -346,7 +346,7 @@
                                      <ListView fx:id="currentDishList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="-1" AnchorPane.rightAnchor="-1" AnchorPane.topAnchor="0.0"/>
                                  </children>
                              </AnchorPane>
-                             <GridPane fx:id="dates" styleClass="dates" layoutY="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                             <GridPane fx:id="dates" opacity="0" layoutY="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
                                  <columnConstraints>
                                      <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="0.0" prefWidth="100.0" />
                                      <ColumnConstraints hgrow="ALWAYS" minWidth="0.0" prefWidth="100.0" />
