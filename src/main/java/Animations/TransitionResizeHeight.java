@@ -16,7 +16,15 @@ public class TransitionResizeHeight extends Transition {
         this.height = region.getHeight();
         this.heightDifference = newHeight - height;
     }
-
+    public TransitionResizeHeight(Region region){
+        this.region = region;
+    }
+    public void setAndPlay(Duration duration, double newHeight){
+        setCycleDuration(duration);
+        this.height = region.getPrefHeight();
+        this.heightDifference = newHeight - height;
+        play();
+    }
     @Override
     protected void interpolate(double frac) {
         region.setPrefHeight(height + (heightDifference * frac));

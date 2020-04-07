@@ -16,7 +16,15 @@ public class TransitionResizeWidth extends Transition {
         this.width = region.getWidth();
         this.widthDifference = newWidth - width;
     }
-
+    public TransitionResizeWidth(Region region){
+        this.region = region;
+    }
+    public void setAndPlay(Duration duration, double newWidth){
+        setCycleDuration(duration);
+        this.width = region.getPrefWidth();
+        this.widthDifference = newWidth - width;
+        play();
+    }
     @Override
     protected void interpolate(double frac) {
         region.setPrefWidth(width + (widthDifference * frac));
