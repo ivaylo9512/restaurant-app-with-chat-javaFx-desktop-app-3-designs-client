@@ -688,24 +688,20 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         ExpandOrderPane.setListeners();
     }
 
-    @FXML
-    public void expandOrder(MouseEvent event) {
+    private void expandOrder(MouseEvent event) {
         Node intersectedNode = event.getPickResult().getIntersectedNode();
-        if(intersectedNode.getTypeSelector().equals("Button")) {
-            currentPane = (AnchorPane) intersectedNode.getParent();
+        String type = intersectedNode.getTypeSelector();
+        if(type.equals("Button") || (!ExpandOrderPane.action.get() && type.equals("AnchorPane"))){
+            currentPane = type.equals("AnchorPane") ? (AnchorPane) intersectedNode
+                    : (AnchorPane) intersectedNode.getParent();
             currentContainer = (Pane)currentPane.getParent();
             cell =  (OrderListViewCell) currentContainer.getParent();
             bindProperties(cell.order);
-
             ExpandOrderPane.setCurrentOrder(event);
-            expandOrderOnClick();
-        } else if(!ExpandOrderPane.action.get() && intersectedNode.getTypeSelector().equals("AnchorPane")){
-            currentPane = (AnchorPane) intersectedNode;
-            currentContainer = (Pane)intersectedNode.getParent();
-            cell =  (OrderListViewCell) currentContainer.getParent();
 
-            bindProperties(cell.order);
-            ExpandOrderPane.setCurrentOrder(event);
+            if(intersectedNode.getTypeSelector().equals("Button"))
+                expandOrderOnClick();
+
         }
     }
 }

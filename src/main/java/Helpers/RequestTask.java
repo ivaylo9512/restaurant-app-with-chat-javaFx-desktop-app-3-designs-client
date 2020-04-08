@@ -2,8 +2,11 @@ package Helpers;
 
 import Application.LoginManager;
 import com.fasterxml.jackson.databind.JavaType;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import org.apache.http.client.methods.HttpRequestBase;
+import sample.base.ControllerLogged;
+import sample.base.ControllerLogin;
 
 import java.io.IOException;
 import static Application.RestaurantApplication.loginManager;
@@ -36,22 +39,26 @@ public class RequestTask<T> extends Task<T> {
 
         }catch (IOException e) {
 
-            if(stageManager.currentController instanceof LoginManager){
-                stageManager.showAlert("No connection to the server");
+            if(stageManager.currentController instanceof ControllerLogin){
+                showAlert("No connection to the server");
                 throw e;
             }
             return executeTask();
 
         }catch (Exception e) {
-
             String message = e.getMessage();
             if(message.equals("Jwt token has expired.")) {
-                loginManager.logout();
+                if(stageManager.currentController instanceof ControllerLogged){
+                    loginManager.logout();
+                }
                 message = "Session has expired.";
             }
-            stageManager.showAlert(message);
+            showAlert(message);
             throw e;
-
         }
+    }
+
+    private void showAlert(String message) {
+        Platform.runLater(() -> stageManager.showAlert(message));
     }
 }
