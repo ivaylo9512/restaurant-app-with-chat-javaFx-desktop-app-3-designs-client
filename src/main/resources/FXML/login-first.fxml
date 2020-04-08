@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
@@ -133,6 +134,15 @@
                   <DropShadow />
                </effect>
             </Pane>
+            <HBox fx:id="loadingPane" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="loading-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ProgressIndicator nodeOrientation="LEFT_TO_RIGHT" styleClass="loading-indicator">
+                     <HBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </HBox.margin>
+                  </ProgressIndicator>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
     </children>

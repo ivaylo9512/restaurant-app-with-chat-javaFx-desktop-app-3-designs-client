@@ -1,19 +1,24 @@
 package sample;
 
 import javafx.animation.*;
+import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import sample.base.ControllerLogin;
 
+import static Application.RestaurantApplication.loginManager;
+
 public class ControllerLoginFirstStyle extends ControllerLogin {
     @FXML Pane background, menu;
     @FXML Button loginButton, registerButton, actionButton;
+    @FXML HBox loadingPane;
 
     private ParallelTransition expand, reverse;
     private SequentialTransition changeTransition;
@@ -38,6 +43,13 @@ public class ControllerLoginFirstStyle extends ControllerLogin {
                 new ParallelTransition(reverseMenu, reverseRoot),
                 new ParallelTransition(translateMenu, translateRoot));
 
+        loadingPane.opacityProperty().bind(Bindings.createDoubleBinding(()-> {
+            if(loginManager.loading.get()){
+                return 0.8;
+            }
+            return 0.0;
+        }, loginManager.loading));
+        loadingPane.disableProperty().bind(loginManager.loading.not());
     }
 
     @Override

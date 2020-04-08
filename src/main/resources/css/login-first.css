@@ -35,6 +35,12 @@ ImageView{
 .fields-container{
     -fx-background-color:  #2A2E37;
 }
+.loading-pane {
+    -fx-background-color: #2A2E37;
+}
+.loading-indicator {
+    -fx-accent: #bcbcbc;
+}
 .alert-box{
     -fx-background-color: #2A2E37;
     -fx-border-width:1.5px;
