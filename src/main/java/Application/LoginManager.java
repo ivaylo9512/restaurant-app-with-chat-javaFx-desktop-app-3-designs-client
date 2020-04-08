@@ -2,15 +2,18 @@ package Application;
 
 import Helpers.RequestEnum;
 import Helpers.RequestService;
+import Helpers.RequestTask;
 import Models.User;
+import com.fasterxml.jackson.databind.JavaType;
 import javafx.beans.property.*;
 import javafx.concurrent.Service;
 import javafx.scene.image.Image;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 
 import static Application.RestaurantApplication.*;
-import static Application.ServerRequests.httpClientLongPolling;
+import static Application.ServerRequests.*;
 
 public class LoginManager {
     private RequestService<User> loginService = new RequestService<>(User.class, null, RequestEnum.login);
@@ -22,6 +25,7 @@ public class LoginManager {
     User loggedUser = new User();
     public IntegerProperty userId;
     public StringProperty role;
+    public BooleanProperty loading = new SimpleBooleanProperty(false);
 
     StringProperty username = new SimpleStringProperty();
     StringProperty password = new SimpleStringProperty();
@@ -42,6 +46,24 @@ public class LoginManager {
 
         sendInfo.setOnFailed(event -> returnOldInfo());
         sendInfo.setOnSucceeded(event -> setSavedInfo());
+    }
+
+    JavaType type = mapper.constructType(User.class);
+    public void checkIfLogged() {
+        System.out.println(userPreference.get("jwt", null));
+        if(userPreference.get("jwt", null) == null){
+            loading.setValue(true);
+
+            HttpRequestBase request = ServerRequests.getLoggedUser();
+            RequestTask<User> task = new RequestTask<>(type, request);
+            tasks.execute(task);
+
+            task.setOnSucceeded(event -> {
+                setLoggedUser((User)event.getSource().getValue());
+                loading.setValue(false);
+            });
+            task.setOnFailed(event -> loading.setValue(false));
+        }
     }
 
     static LoginManager initialize(){
@@ -84,30 +106,29 @@ public class LoginManager {
 
     private void onSuccessfulService(Service service) {
         User loggedUser = (User) service.getValue();
-        savedUserInfo = new User(loggedUser);
-        setUser(loggedUser);
-        orderManager.setRestaurant(loggedUser.getRestaurant());
+        setLoggedUser(loggedUser);
 
         service.reset();
+    }
+
+    private void setLoggedUser(User loggedUser){
+        savedUserInfo = new User(loggedUser);
+        setUserFields(loggedUser);
+        orderManager.setRestaurant(loggedUser.getRestaurant());
 
         stageManager.changeToOwner();
     }
-
     public void logout(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         httpClientLongPolling = HttpClients.createDefault();
 
+        userPreference.remove("jwt");
         resetUser();
         orderManager.resetRestaurant();
 
         stageManager.changeToOwner();
     }
 
-    public void setUser(User user) {
+    public void setUserFields(User user) {
         loggedUser.setId(user.getId().get());
         loggedUser.setUsername(user.getUsername().get());
         loggedUser.setFirstName(user.getFirstName().get());

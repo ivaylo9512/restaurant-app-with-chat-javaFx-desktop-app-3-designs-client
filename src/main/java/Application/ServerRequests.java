@@ -85,6 +85,12 @@ public class ServerRequests {
         return httpPost;
     }
 
+    public static HttpRequestBase getLoggedUser(){
+        HttpGet httpGet = new HttpGet( base + "/api/users/auth/getLoggedUser");
+        httpGet.setHeader("Authorization", userPreference.get("jwt", null));
+        return httpGet;
+    }
+
     public static HttpRequestBase register(){
         Map<String, Object> jsonValues = new HashMap<>();
         jsonValues.put("username", loginManager.regUsername.get());
