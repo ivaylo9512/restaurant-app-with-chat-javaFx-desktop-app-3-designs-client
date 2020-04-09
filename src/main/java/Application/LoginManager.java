@@ -10,7 +10,6 @@ import javafx.concurrent.Service;
 import javafx.scene.image.Image;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
-import java.io.IOException;
 
 import static Application.RestaurantApplication.*;
 import static Application.ServerRequests.*;
@@ -50,8 +49,7 @@ public class LoginManager {
 
     JavaType type = mapper.constructType(User.class);
     public void checkIfLogged() {
-        System.out.println(userPreference.get("jwt", null));
-        if(userPreference.get("jwt", null) == null){
+        if(userPreference.get("jwt", null) != null){
             loading.setValue(true);
 
             HttpRequestBase request = ServerRequests.getLoggedUser();
@@ -62,7 +60,10 @@ public class LoginManager {
                 setLoggedUser((User)event.getSource().getValue());
                 loading.setValue(false);
             });
-            task.setOnFailed(event -> loading.setValue(false));
+            task.setOnFailed(event -> {
+                userPreference.remove("jwt");
+                loading.setValue(false);
+            });
         }
     }
 
