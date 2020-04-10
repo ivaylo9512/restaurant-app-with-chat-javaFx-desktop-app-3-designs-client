@@ -3,6 +3,7 @@ package sample.base;
 import Application.RestaurantApplication;
 import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
+import Helpers.ListViews.NotificationListViewCell;
 import Models.Dish;
 import Models.Menu;
 import Models.Order;
