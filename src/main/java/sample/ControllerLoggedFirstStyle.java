@@ -1,6 +1,7 @@
 package sample;
 
 import Animations.*;
+import Helpers.ListViews.NotificationListViewCell;
 import Helpers.ListViews.OrderListViewCell;
 import Helpers.Scrolls;
 import Models.*;
@@ -58,6 +59,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     public void initialize() {
         super.initialize();
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
+        notificationsList.setCellFactory(menuCell -> new NotificationListViewCell());
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
                 mainChatScroll, mainChatTextArea);
@@ -104,7 +106,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         contentRoot.setCursor(Cursor.DEFAULT);
         MoveRoot.move(moveBar, contentRoot);
 
-        notificationList.getItems().addListener((ListChangeListener<String>)c -> {
+        notificationsList.getItems().addListener((ListChangeListener<String>)c -> {
             c.next();
             if(c.getRemovedSize() > 0) {
                 removeNotification();
@@ -163,7 +165,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     }
 
     private void removeNotification() {
-        if (notificationList.getItems().size() == 0) {
+        if (notificationsList.getItems().size() == 0) {
             notificationInfo.setOpacity(1);
         }
     }

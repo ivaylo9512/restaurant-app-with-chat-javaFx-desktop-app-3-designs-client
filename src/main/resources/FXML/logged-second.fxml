@@ -22,7 +22,7 @@
                      <children>
                         <AnchorPane fx:id="dishesContainer" layoutX="35.0" layoutY="290.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="398.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="290.0">
                            <children>
-                              <ListView fx:id="dishesList" prefHeight="200.0" prefWidth="200.0" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
+                              <ListView fx:id="currentDishList" prefHeight="200.0" prefWidth="200.0" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
                            </children>
                            <effect>
                               <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
@@ -42,7 +42,7 @@
                                  <children>
                                     <AnchorPane layoutX="147.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" styleClass="shadow" GridPane.columnIndex="1">
                                        <children>
-                                          <Label fx:id="updatedTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <effect>
                                                 <DropShadow />
                                              </effect>
@@ -50,7 +50,7 @@
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="updatedDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
+                                          <Label fx:id="updatedDate" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
                                              <effect>
                                                 <DropShadow />
                                              </effect>
@@ -67,7 +67,7 @@
                                     </AnchorPane>
                                     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" styleClass="shadow">
                                        <children>
-                                          <Label fx:id="createdTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <effect>
                                                 <DropShadow />
                                              </effect>
@@ -75,7 +75,7 @@
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="createdDateLabel" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
+                                          <Label fx:id="createdDate" alignment="CENTER" layoutX="21.0" layoutY="41.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0" textFill="#bcbcbc">
                                              <effect>
                                                 <DropShadow />
                                              </effect>
@@ -92,7 +92,7 @@
                                     </AnchorPane>
                                     <AnchorPane layoutX="294.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" styleClass="shadow" GridPane.columnIndex="2">
                                        <children>
-                                          <Label fx:id="orderIdLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
+                                          <Label fx:id="orderId" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <font>
                                                 <Font name="System Bold" size="10.0" />
                                              </font>

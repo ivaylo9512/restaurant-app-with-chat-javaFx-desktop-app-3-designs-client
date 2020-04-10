@@ -265,7 +265,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="190.0" prefWidth="637.0" styleClass="notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView fx:id="notificationList" prefHeight="200.0" prefWidth="200.0" styleClass="notification-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ListView fx:id="notificationsList" prefHeight="200.0" prefWidth="200.0" styleClass="notification-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
                               <Insets bottom="5.0" top="5.0" />
                            </padding>
