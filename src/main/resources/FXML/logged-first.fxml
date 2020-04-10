@@ -333,7 +333,7 @@
                   <DropShadow />
                </effect>
             </AnchorPane>
-             <AnchorPane fx:id="orderContainer" layoutX="20.6" layoutY="51.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="86.5" minWidth="86.5" prefHeight="86.5" prefWidth="86.5" styleClass="order-container" AnchorPane.leftAnchor="200.0">
+             <AnchorPane fx:id="orderContainer" layoutX="20.6" layoutY="51.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="86.5" minWidth="86.5" prefHeight="86.5" prefWidth="86.5" styleClass="order-container">
                  <children>
                      <AnchorPane fx:id="orderPane" styleClass="order" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                          <children>

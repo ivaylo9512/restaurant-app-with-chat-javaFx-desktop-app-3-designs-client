@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Dish{
     private int id;
     private String name;
-    private Boolean ready;
+    private boolean ready;
     private int orderId;
     private boolean loading;
     private LocalDateTime created;

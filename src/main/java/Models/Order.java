@@ -19,7 +19,7 @@ public class Order{
     private ObjectProperty<LocalDateTime> updated = new SimpleObjectProperty<>();
     private int userId;
 
-    private boolean ready = false;
+    private boolean ready;
     public Order() {
     }
     public Order(int id) {

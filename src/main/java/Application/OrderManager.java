@@ -45,6 +45,7 @@ public class OrderManager {
         });
 
         sendOrder.setOnSucceeded(event -> {
+            orders.add(0, (Order)event.getSource().getValue());
             newOrderList.clear();
             sendOrder.reset();
         });
@@ -110,7 +111,7 @@ public class OrderManager {
     }
 
     public void sendOrder(){
-        if (loginManager.loggedUser.getRole().get().equals("Chef")) {
+        if (loginManager.loggedUser.getRole().get().equals("Server")) {
             List<Dish> dishes = newOrderList.stream().map(menu -> new Dish(menu.getName())).collect(Collectors.toList());
             if(dishes.size() > 0) {
 
