@@ -1,8 +1,6 @@
 package Application;
 
-import Helpers.ServiceErrorHandler;
 import Models.Message;
-import Models.Order;
 
 import java.util.List;
 
@@ -16,9 +14,6 @@ public class MessageManager {
 
             messageService.restart();
         });
-
-        messageService.setOnFailed(new ServiceErrorHandler());
-
     }
 
     static MessageManager initialize(){
