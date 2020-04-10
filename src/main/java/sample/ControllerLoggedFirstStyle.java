@@ -6,8 +6,10 @@ import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -31,10 +33,11 @@ import java.util.*;
 import java.util.List;
 
 import static Animations.ExpandOrderPane.*;
+import static Application.RestaurantApplication.notificationManager;
 
 public class ControllerLoggedFirstStyle extends ControllerLogged {
-    @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll, notificationsScroll;
-    @FXML VBox mainChatBlock, chatUsers, notificationBlock;
+    @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll;
+    @FXML VBox mainChatBlock, chatUsers;
     @FXML FlowPane notificationInfo, chatInfo;
     @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, notificationIcon, profileRoot;
@@ -57,7 +60,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
-                mainChatScroll, notificationsScroll, mainChatTextArea);
+                mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsFirstStyle();
 
         ordersList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::expandOrder);
@@ -89,8 +92,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
         waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
 
-        notificationBlock.prefWidthProperty().bind(notificationsScroll.widthProperty().subtract(20));
-
         ResizeMainChat.addListeners(mainChat);
 
         Circle clip = new Circle(0, 0, 30);
@@ -99,7 +100,18 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         profileImageContainer.setClip(clip);
 
         setOrderPane();
+
+        contentRoot.setCursor(Cursor.DEFAULT);
         MoveRoot.move(moveBar, contentRoot);
+
+        notificationList.getItems().addListener((ListChangeListener<String>)c -> {
+            c.next();
+            if(c.getRemovedSize() > 0) {
+                removeNotification();
+            }else{
+                addNotification();
+            }
+        });
     }
     private void waitForNewMessages(){
         messageService = new MessageService();
@@ -140,51 +152,20 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
     }
 
-    private void addNotification(String notification) {
-        Text text = new Text(notification);
-        HBox hBox = new HBox(text);
-
-        hBox.setOnMouseClicked(this::removeNotification);
-        hBox.setOnMouseEntered(event -> {
-            TransitionResizeHeight transitionResizeHeight = new TransitionResizeHeight(Duration.millis(150), hBox, 46);
-            transitionResizeHeight.play();
-        });
-        hBox.setOnMouseExited(event -> {
-            TransitionResizeHeight transitionResizeHeight = new TransitionResizeHeight(Duration.millis(150), hBox, 38);
-            transitionResizeHeight.play();
-        });
-        hBox.setMinHeight(0);
-
-        notificationBlock.getChildren().add(0, hBox);
+    private void addNotification() {
+        notificationInfo.setOpacity(0);
 
         if (!ordersPane.isDisabled()) {
             notificationIcon.setOpacity(1);
         }
-        notificationInfo.setOpacity(0);
+
         notificationSound.play();
     }
 
-    private void removeNotification(MouseEvent event) {
-        HBox notification = (HBox) event.getSource();
-        Text text = (Text) notification.getChildren().get(0);
-
-        FadeTransition fade = new FadeTransition(Duration.millis(500), text);
-        fade.setFromValue(1);
-        fade.setToValue(0);
-        fade.play();
-
-        TranslateTransition translate = new TranslateTransition(Duration.millis(200), notification);
-        translate.setFromY(0);
-        translate.setToY(-5);
-        translate.play();
-
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), timelineEvent -> {
-            notificationBlock.getChildren().remove(notification);
-            if (notificationBlock.getChildren().size() == 0) {
-                notificationInfo.setOpacity(1);
-            }
-        }));
-        timeline.play();
+    private void removeNotification() {
+        if (notificationList.getItems().size() == 0) {
+            notificationInfo.setOpacity(1);
+        }
     }
 
 
@@ -567,7 +548,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     public void resetStage(){
         super.resetStage();
 
-        notificationBlock.getChildren().clear();
         chatUsers.getChildren().clear();
 
         mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());

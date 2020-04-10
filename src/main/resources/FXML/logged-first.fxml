@@ -265,18 +265,14 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="190.0" prefWidth="637.0" styleClass="notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ScrollPane fx:id="notificationsScroll" layoutX="6.0" layoutY="-17.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <content>
-                              <VBox fx:id="notificationBlock" prefWidth="617.0" spacing="5.0">
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" top="10.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
+                        <ListView fx:id="notificationList" prefHeight="200.0" prefWidth="200.0" styleClass="notification-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                        </ListView>
                      </children>
                   </AnchorPane>
-                  <FlowPane fx:id="notificationInfo" alignment="CENTER" disable="true" prefHeight="190.0" prefWidth="637.0" style="-fx-opacity: 1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <FlowPane fx:id="notificationInfo" alignment="CENTER" disable="true" prefHeight="190.0" prefWidth="637.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no notifications to show." textAlignment="CENTER" />
                      </children>
@@ -337,16 +333,16 @@
                   <DropShadow />
                </effect>
             </AnchorPane>
-             <AnchorPane fx:id="orderContainer" layoutX="20.6" layoutY="51.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="86.5" minWidth="86.5" prefHeight="86.5" prefWidth="86.5" styleClass="order-container">
+             <AnchorPane fx:id="orderContainer" layoutX="20.6" layoutY="51.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="86.5" minWidth="86.5" prefHeight="86.5" prefWidth="86.5" styleClass="order-container" AnchorPane.leftAnchor="200.0">
                  <children>
-                     <AnchorPane fx:id="orderPane" styleClass="order" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+                     <AnchorPane fx:id="orderPane" styleClass="order" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                          <children>
-                             <AnchorPane fx:id="dishesAnchor" prefHeight="35.0" prefWidth="31.0" styleClass="dishes-container" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="41.0" AnchorPane.bottomAnchor="58.0">
+                             <AnchorPane fx:id="dishesAnchor" prefHeight="35.0" prefWidth="31.0" styleClass="dishes-container" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="41.0">
                                  <children>
-                                     <ListView fx:id="currentDishList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="-1" AnchorPane.rightAnchor="-1" AnchorPane.topAnchor="0.0"/>
+                                     <ListView fx:id="currentDishList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="-1" AnchorPane.rightAnchor="-1" AnchorPane.topAnchor="0.0" />
                                  </children>
                              </AnchorPane>
-                             <GridPane fx:id="dates" opacity="0" layoutY="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                             <GridPane fx:id="dates" layoutY="10.0" opacity="0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
                                  <columnConstraints>
                                      <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="0.0" prefWidth="100.0" />
                                      <ColumnConstraints hgrow="ALWAYS" minWidth="0.0" prefWidth="100.0" />
@@ -355,9 +351,9 @@
                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                     <AnchorPane fx:id="createdContainer" onMouseEntered="#showCreated" onMouseExited="#hideCreated" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0" prefHeight="30.0" prefWidth="12.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                     <AnchorPane fx:id="createdContainer" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0" onMouseEntered="#showCreated" onMouseExited="#hideCreated" prefHeight="30.0" prefWidth="12.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                          <children>
-                                             <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutY="121.0" minWidth="30.0" maxWidth="38.0" styleClass="dish-time" text="12:40" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutY="121.0" maxWidth="38.0" minWidth="30.0" styleClass="dish-time" text="12:40" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                  <font>
                                                      <Font size="16.0" />
                                                  </font>
@@ -375,7 +371,7 @@
                                              <Insets />
                                          </GridPane.margin>
                                      </AnchorPane>
-                                     <AnchorPane fx:id="updatedContainer" onMouseEntered="#showUpdated" onMouseExited="#hideUpdated" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                     <AnchorPane fx:id="updatedContainer" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0" onMouseEntered="#showUpdated" onMouseExited="#hideUpdated" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                          <children>
                                              <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" maxWidth="38.0" styleClass="dish-time" text="12:40" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                  <effect>

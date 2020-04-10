@@ -9,6 +9,7 @@ public class RestaurantApplication extends Application{
     public static LoginManager loginManager;
     public static StageManager stageManager;
     public static OrderManager orderManager;
+    public static NotificationManager notificationManager;
     public static MessageManager messageManager;
 
     public static MediaPlayer notificationSound;
@@ -26,6 +27,7 @@ public class RestaurantApplication extends Application{
         notificationSound = new MediaPlayer(sound);
         notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
+        notificationManager = NotificationManager.initialize();
         orderManager = OrderManager.initialize();
         loginManager = LoginManager.initialize();
         stageManager = StageManager.initialize(primaryStage);

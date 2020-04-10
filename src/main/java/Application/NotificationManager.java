@@ -4,13 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class NotificationManager {
-    ObservableList<String> notifications = FXCollections.observableArrayList();
+    public ObservableList<String> notifications = FXCollections.observableArrayList();
 
     private NotificationManager(){
-
     }
 
-    NotificationManager initialize(){
+    static NotificationManager initialize(){
         return new NotificationManager();
     }
 

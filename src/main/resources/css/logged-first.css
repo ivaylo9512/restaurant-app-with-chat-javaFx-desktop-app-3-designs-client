@@ -83,7 +83,8 @@ TextArea .scroll-pane .content{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 3, 0.0 , 0 , 0 );
 }
 
-.order-list{
+.order-list,
+.notification-list{
     -fx-background-color: transparent;
 }
 .order-list .list-cell{
@@ -107,7 +108,8 @@ TextArea .scroll-pane .content{
 .order-container{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
-.order-container .list-cell{
+.order-container .list-cell,
+.notification-list .list-cell{
      -fx-background-color: transparent;
      -fx-padding: 0;
 }
@@ -317,7 +319,8 @@ TextFlow {
 .notifications{
     -fx-background-color: #2A2E37;
 }
-.notifications HBox{
+.notifications HBox,
+.notification HBox{
     -fx-pref-height: 38;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-background-color:  #2A2E37;

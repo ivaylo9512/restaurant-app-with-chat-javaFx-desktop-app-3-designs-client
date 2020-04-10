@@ -3,3 +3,5 @@ out/
 classes/
 build/
 .gradle/
+src/main/java/sample/ControllerLoggedSecondStyle
+src/main/java/sample/ControllerLoggedThirdStyle

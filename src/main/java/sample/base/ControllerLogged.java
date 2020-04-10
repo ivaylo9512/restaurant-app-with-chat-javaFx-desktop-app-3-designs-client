@@ -22,9 +22,7 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.SortedMap;
-import java.util.stream.Collectors;
 
 import static Application.RestaurantApplication.*;
 import static Application.ServerRequests.*;
@@ -51,6 +49,8 @@ public class ControllerLogged implements Controller {
     protected AnchorPane contentRoot, orderPane;
     @FXML
     protected ListView<Order> ordersList;
+    @FXML
+    protected ListView<String> notificationList;
 
     protected DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
@@ -68,6 +68,7 @@ public class ControllerLogged implements Controller {
         currentDishList.setCellFactory(c -> new DishListViewCell());
         menuList.setCellFactory(menuCell -> new MenuListViewCell());
         newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
+        notificationList.setCellFactory(menuCell -> new NotificationListViewCell());
 
         menuList.setItems(userMenu);
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -100,6 +101,7 @@ public class ControllerLogged implements Controller {
 
         ordersList.setItems(orderManager.orders);
         newOrderList.setItems(orderManager.newOrderList);
+        notificationList.setItems(notificationManager.notifications);
 
         bindUserFields();
     }

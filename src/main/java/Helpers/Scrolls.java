@@ -25,7 +25,7 @@ public class Scrolls {
     private double heightDiff;
     private double offsetY;
 
-    public Scrolls(ScrollPane menuScroll,ScrollPane userInfoScroll, ScrollPane chatUsersScroll,ScrollPane mainChatScroll,ScrollPane notificationsScroll, TextArea mainChatTextArea) {
+    public Scrolls(ScrollPane menuScroll,ScrollPane userInfoScroll, ScrollPane chatUsersScroll,ScrollPane mainChatScroll, TextArea mainChatTextArea) {
         this.menuScroll = menuScroll;
         this.userInfoScroll = userInfoScroll;
         this.chatUsersScroll = chatUsersScroll;
@@ -178,7 +178,6 @@ public class Scrolls {
         fixBlurriness(chatUsersScroll);
         fixBlurriness(mainChatScroll);
         fixBlurriness(mainChatScroll);
-        fixBlurriness(notificationsScroll);
 
         mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
