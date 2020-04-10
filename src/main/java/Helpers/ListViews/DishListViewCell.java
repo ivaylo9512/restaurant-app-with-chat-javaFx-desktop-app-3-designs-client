@@ -48,9 +48,10 @@ public class DishListViewCell extends ListCell<Dish> {
             }
             price.setText(String.valueOf(dish.getId()));
             name.setText(dish.getName());
+
             if(dish.isLoading()){
                 ready.setText("...");
-            } else if (dish.getReady()) {
+            } else if (dish.isReady()) {
                 ready.setText("O");
             } else {
                 ready.setText("X");
@@ -76,7 +77,7 @@ public class DishListViewCell extends ListCell<Dish> {
         if(loginManager.role.get().equals("Chef")) {
 
             Dish dish = getItem();
-            if (!dish.isLoading() && !dish.getReady()) {
+            if (!dish.isLoading() && !dish.isReady()) {
                 ready.setText("...");
                 dish.setLoading(true);
                 orderManager.updateDishState(dish);

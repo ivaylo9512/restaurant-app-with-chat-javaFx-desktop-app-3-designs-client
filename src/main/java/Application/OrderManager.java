@@ -3,7 +3,6 @@ package Application;
 import Helpers.RequestEnum;
 import Helpers.RequestService;
 import Helpers.RequestTask;
-import Helpers.ServiceErrorHandler;
 import Models.Dish;
 import Models.Menu;
 import Models.Order;
@@ -71,18 +70,20 @@ public class OrderManager {
                 for (int i = 0; i < newDishes.size(); i++) {
                     Dish newDish = newDishes.get(i);
                     Dish oldDish = oldDishes.get(i);
-                    if(!oldDish.getReady() && newDish.getReady()){
+                    if(!oldDish.isReady() && newDish.isReady()){
                         notificationManager.addNotification(newDish.getName() + " from order " + orderId + " is ready.");
                         oldDishes.set(i, newDish);
                     }
                 }
-                orders.remove(index);
-                orders.add(0, newOrder);
 
                 if (newOrder.isReady()) {
+                    oldOrder.setReady(true);
                     notificationManager.addNotification("Order " + orderId + " is ready.");
                 }
 
+                orders.remove(index);
+                oldOrder.setUpdated(newOrder.getUpdated().get());
+                orders.add(0, oldOrder);
             }
         });
     }
@@ -145,16 +146,14 @@ public class OrderManager {
             int orderIndex = orders.indexOf(new Order(newDish.getOrderId()));
             Order order = orders.get(orderIndex);
             order.setUpdated(newDish.getUpdated());
+
             orders.remove(orderIndex);
             orders.add(0, order);
 
             List<Dish> dishes = order.getDishes();
             int dishIndex = dishes.indexOf(dish);
-            Dish oldDish = dishes.get(dishIndex);
-            oldDish.setLoading(false);
-            oldDish.setReady(true);
 
-            dishes.set(dishIndex, oldDish);
+            dishes.set(dishIndex, newDish);
         });
     }
 }

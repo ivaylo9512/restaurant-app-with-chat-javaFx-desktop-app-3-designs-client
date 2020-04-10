@@ -1,6 +1,7 @@
 package Models;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Dish{
     private int id;
@@ -34,7 +35,7 @@ public class Dish{
         this.name = name;
     }
 
-    public Boolean getReady() {
+    public boolean isReady() {
         return ready;
     }
 
@@ -72,5 +73,18 @@ public class Dish{
 
     public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dish dish = (Dish) o;
+        return id == dish.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
