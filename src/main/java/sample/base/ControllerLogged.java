@@ -9,12 +9,14 @@ import Models.Menu;
 import Models.Order;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
@@ -35,6 +37,9 @@ public class ControllerLogged implements Controller {
     ListView<Dish> dishesList;
     @FXML
     ImageView profileImage;
+    @FXML
+    HBox notificationsInfo;
+
 
     @FXML
     protected Label orderId, updatedDate, createdDate, createdTime, updatedTime;
@@ -73,6 +78,15 @@ public class ControllerLogged implements Controller {
         menuList.setItems(userMenu);
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
+        });
+
+        notificationsList.getItems().addListener((ListChangeListener<String>)c -> {
+            c.next();
+            if(c.getRemovedSize() > 0) {
+                removeNotification();
+            }else{
+                addNotification();
+            }
         });
 
         if(usernameField == null) usernameField = new TextField();
@@ -156,6 +170,24 @@ public class ControllerLogged implements Controller {
     public void removeMenuItem(){
         Menu menuItem = newOrderList.getSelectionModel().getSelectedItem();
         newOrderList.getItems().remove(menuItem);
+    }
+
+    private void addNotification() {
+        notificationsInfo.setOpacity(0);
+        notificationsInfo.setDisable(true);
+
+        if (!ordersPane.isDisabled()) {
+            notificationIcon.setOpacity(1);
+        }
+
+        notificationSound.play();
+    }
+
+    protected void removeNotification() {
+        if (notificationsList.getItems().size() == 0) {
+            notificationsInfo.setOpacity(1);
+            notificationsInfo.setDisable(false);
+        }
     }
 
     public void setStage() throws Exception{

@@ -34,12 +34,11 @@ import java.util.*;
 import java.util.List;
 
 import static Animations.ExpandOrderPane.*;
-import static Application.RestaurantApplication.notificationManager;
 
 public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll;
     @FXML VBox mainChatBlock, chatUsers;
-    @FXML FlowPane notificationInfo, chatInfo;
+    @FXML FlowPane chatInfo;
     @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, notificationIcon, profileRoot;
     @FXML TextArea mainChatTextArea;
@@ -105,15 +104,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
         contentRoot.setCursor(Cursor.DEFAULT);
         MoveRoot.move(moveBar, contentRoot);
-
-        notificationsList.getItems().addListener((ListChangeListener<String>)c -> {
-            c.next();
-            if(c.getRemovedSize() > 0) {
-                removeNotification();
-            }else{
-                addNotification();
-            }
-        });
     }
     private void waitForNewMessages(){
         messageService = new MessageService();
@@ -153,23 +143,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         messageService.setOnFailed(event -> serviceFailed(messageService));
 
     }
-
-    private void addNotification() {
-        notificationInfo.setOpacity(0);
-
-        if (!ordersPane.isDisabled()) {
-            notificationIcon.setOpacity(1);
-        }
-
-        notificationSound.play();
-    }
-
-    private void removeNotification() {
-        if (notificationsList.getItems().size() == 0) {
-            notificationInfo.setOpacity(1);
-        }
-    }
-
 
     private void loadOlderHistory(ChatValue chatValue, VBox chatBlock) {
         int displayedSessions = chatValue.getDisplayedSessions();

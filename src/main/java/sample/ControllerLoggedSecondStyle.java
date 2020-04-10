@@ -10,8 +10,6 @@ import Application.MessageService;
 import Models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,9 +37,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-
-import static Application.RestaurantApplication.*;
-//import static Helpers.ServerRequests.*;
 
 public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML Label dishesCountLabel;
@@ -119,7 +114,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         notificationsList.setClip(notificationClip);
 
         chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
-
     }
 
     @FXML
@@ -199,20 +193,10 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         messageService.setOnFailed(event -> serviceFailed(messageService));
     }
 
-    private void addNotification(String notification) {
-        notificationsInfo.setOpacity(0);
-        notificationsInfo.setDisable(true);
-
-        notificationsList.getItems().add(0, notification);
-        notificationSound.play();
-    }
-    @FXML
+    @Override
     public void removeNotification(){
+        super.removeNotification();
         notificationsList.getItems().remove(notificationsList.getFocusModel().getFocusedItem());
-        if(notificationsList.getItems().size() == 0){
-            notificationsInfo.setOpacity(1);
-            notificationsInfo.setDisable(false);
-        }
     }
 
     @FXML public void expandMenu(){
@@ -242,9 +226,9 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     public void setStage() throws Exception{
         super.setStage();
 
-        ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
-        setChatValues(chats);
-        userChats.setItems(chats);
+//        ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
+//        setChatValues(chats);
+//        userChats.setItems(chats);
 
         menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getWidth()) / 2);
         menuRoot.setLayoutY(contentRoot.getLayoutY() - 60);

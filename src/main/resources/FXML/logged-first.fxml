@@ -144,16 +144,6 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Pane fx:id="notificationIcon1" disable="true" layoutX="81.0" layoutY="110.0" opacity="0.0">
-                     <children>
-                        <Circle fill="#d62127" layoutX="8.0" layoutY="8.0" radius="8.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" styleClass="shadow" />
-                        <Text fill="#2a2e37" layoutX="5.5" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="shadow" text="!">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
                   <AnchorPane layoutX="22.0" layoutY="5.0" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture-shadow">
                      <children>
                         <AnchorPane fx:id="profileImageContainer" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture">
@@ -272,11 +262,11 @@
                         </ListView>
                      </children>
                   </AnchorPane>
-                  <FlowPane fx:id="notificationInfo" alignment="CENTER" disable="true" prefHeight="190.0" prefWidth="637.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox fx:id="notificationsInfo" alignment="CENTER" prefHeight="190.0" prefWidth="637.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no notifications to show." textAlignment="CENTER" />
                      </children>
-                  </FlowPane>
+                  </HBox>
                   <AnchorPane fx:id="ordersPane" minHeight="-Infinity" prefHeight="190.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <ListView fx:id="ordersList" orientation="HORIZONTAL" prefHeight="200.0" prefWidth="200.0" styleClass="order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

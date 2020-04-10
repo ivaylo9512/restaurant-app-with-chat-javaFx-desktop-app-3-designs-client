@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
@@ -312,6 +313,11 @@
                                     <Font size="12.0" />
                                  </font>
                               </Button>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="374.0" layoutY="3.0">
+                                 <image>
+                                    <Image url="@../../../../../../../../Downloads/notification.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                         <Button fx:id="menuButton" focusTraversable="false" layoutX="2.5" layoutY="3.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow">
@@ -349,12 +355,12 @@
                         </Pane>
                         <AnchorPane fx:id="userInfo" layoutX="103.0" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TextField fx:id="firstNameField" alignment="CENTER" layoutX="7.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0"/>
-                              <TextField fx:id="lastNameField" alignment="CENTER" layoutX="137.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0"/>
+                              <TextField fx:id="firstNameField" alignment="CENTER" layoutX="7.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
+                              <TextField fx:id="lastNameField" alignment="CENTER" layoutX="137.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
                               <TextField fx:id="roleField" alignment="CENTER" layoutX="269.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
                               <TextField fx:id="usernameField" alignment="CENTER" layoutX="269.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
-                              <TextField fx:id="countryField" alignment="CENTER" layoutX="7.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0"/>
-                              <TextField fx:id="ageField" alignment="CENTER" layoutX="137.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0"/>
+                              <TextField fx:id="countryField" alignment="CENTER" layoutX="7.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
+                              <TextField fx:id="ageField" alignment="CENTER" layoutX="137.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="12.0" layoutY="115.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="104.0" AnchorPane.topAnchor="114.0">
