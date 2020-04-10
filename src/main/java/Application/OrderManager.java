@@ -18,30 +18,28 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import static Application.RestaurantApplication.loginManager;
-import static Application.RestaurantApplication.stageManager;
+import static Application.RestaurantApplication.*;
 import static Application.ServerRequests.mapper;
 import static Application.ServerRequests.tasks;
 
 public class OrderManager {
-    private static OrderService orderService;
     public Restaurant userRestaurant;
     public TreeMap<String, Menu> userMenu = new TreeMap<>();
     public ObservableList<Order> orders = FXCollections.observableArrayList();
     public LocalDateTime mostRecentOrderDate;
-    public RequestService<Order> sendOrder = new RequestService<>(Order.class, null, RequestEnum.sendOrder);
     public ObservableList<Menu> newOrderList = FXCollections.observableArrayList();
     public Order newOrder;
 
-    private OrderManager() {
-        orderService = new OrderService();
+    private RequestService<List<Order>> orderService = new RequestService<>(Order.class, List.class, RequestEnum.waitOrders);
+    private RequestService<Order> sendOrder = new RequestService<>(Order.class, null, RequestEnum.sendOrder);
 
-        orderService.setOnFailed(new ServiceErrorHandler());
+    private OrderManager() {
         orderService.setOnSucceeded(event -> {
             List<Order> newOrders = orderService.getValue();
-
-            updateOrders(newOrders);
-            orderService.restart();
+            if(newOrders != null) {
+                updateOrders(newOrders);
+                orderService.restart();
+            }
         });
 
         sendOrder.setOnSucceeded(event -> {
@@ -53,42 +51,40 @@ public class OrderManager {
     }
 
     private void updateOrders(List<Order> newOrders) {
-//        newOrders.forEach(newOrder -> {
-//            if(newOrder.getUpdated().get().isAfter(mostRecentOrderDate)) {
-//                mostRecentOrderDate = newOrder.getUpdated().get();
-//            }else if(newOrder.getCreated().get().isAfter(mostRecentOrderDate)){
-//                mostRecentOrderDate = newOrder.getCreated().get();
-//            }
-//
-//            int orderId = newOrder.getId().get();
-//            int index = orders.indexOf(newOrder);
-//            if(index == -1){
-//                stageManager.currentController.createOrder(newOrder);
-//
-//                if(newOrder.getUserId() != userId.getValue()){
-//                    addNotification("New order created " + orderId);
-//                }
-//            }else{
-//                Order oldOrder = orders.get(index);
-//                ObservableList<Dish> oldDishes = oldOrder.getDishes();
-//                ObservableList<Dish> newDishes = newOrder.getDishes();
-//
-//                for (int i = 0; i < newDishes.size(); i++) {
-//                    Dish newDish = newDishes.get(i);
-//                    Dish oldDish = oldDishes.get(i);
-//                    if(oldDish.getReady() && newDish.getReady()){
-//                        stageManager.currentController.addNotification(newDish.getName() + " from order " + orderId + " is ready.");
-//                    }
-//                }
-//                orders.remove(index);
-//                orders.add(0, newOrder);
-//
-//                if (newOrder.isReady()) {
-//                    stageManager.currentController.addNotification("Order " + orderId + " is ready.");
-//                }
-//
-//            }
-//        });
+        newOrders.forEach(newOrder -> {
+            if(newOrder.getUpdated().get().isAfter(mostRecentOrderDate)) {
+                mostRecentOrderDate = newOrder.getUpdated().get();
+            }else if(newOrder.getCreated().get().isAfter(mostRecentOrderDate)){
+                mostRecentOrderDate = newOrder.getCreated().get();
+            }
+
+            int orderId = newOrder.getId().get();
+            int index = orders.indexOf(newOrder);
+            if(index == -1){
+                    notificationManager.addNotification("New order created " + orderId);
+                    orders.add(0, newOrder);
+            }else{
+                Order oldOrder = orders.get(index);
+                ObservableList<Dish> oldDishes = oldOrder.getDishes();
+                ObservableList<Dish> newDishes = newOrder.getDishes();
+
+                for (int i = 0; i < newDishes.size(); i++) {
+                    Dish newDish = newDishes.get(i);
+                    Dish oldDish = oldDishes.get(i);
+                    if(!oldDish.getReady() && newDish.getReady()){
+                        notificationManager.addNotification(newDish.getName() + " from order " + orderId + " is ready.");
+                        oldDishes.set(i, newDish);
+                    }
+                }
+                orders.remove(index);
+                orders.add(0, newOrder);
+
+                if (newOrder.isReady()) {
+                    notificationManager.addNotification("Order " + orderId + " is ready.");
+                }
+
+            }
+        });
     }
 
     static OrderManager initialize(){
@@ -100,6 +96,12 @@ public class OrderManager {
         restaurant.getMenu().forEach(menu ->
                 userMenu.put(menu.getName().toLowerCase(), menu));
         orders.setAll(restaurant.getOrders());
+
+        Order order = orders.get(0);
+        mostRecentOrderDate = order.getCreated().get().isAfter(order.getUpdated().get())
+                ? order.getCreated().get() : order.getUpdated().get();
+
+        orderService.start();
     }
 
     void resetRestaurant(){
@@ -108,6 +110,12 @@ public class OrderManager {
         newOrder = null;
         userMenu.clear();
         orders.clear();
+
+        if(orderService.isRunning())orderService.cancel();
+        if(sendOrder.isRunning()) sendOrder.cancel();
+
+        orderService.reset();
+        sendOrder.reset();
     }
 
     public void sendOrder(){
@@ -132,7 +140,7 @@ public class OrderManager {
         RequestTask<Dish> task = new RequestTask<>(type, request);
         tasks.execute(task);
         task.setOnSucceeded(event -> {
-            Dish newDish = (Dish) event.getSource().getValue();
+            Dish newDish = task.getValue();
 
             int orderIndex = orders.indexOf(new Order(newDish.getOrderId()));
             Order order = orders.get(orderIndex);

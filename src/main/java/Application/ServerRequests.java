@@ -90,7 +90,23 @@ public class ServerRequests {
         httpGet.setHeader("Authorization", userPreference.get("jwt", null));
         return httpGet;
     }
+    public static HttpRequestBase waitOrders() throws Exception{
+        List<Order> orders = new ArrayList<>();
+        String mostRecentDate = mapper.writeValueAsString(orderManager.mostRecentOrderDate);
+        String restaurantId = String.valueOf(orderManager.userRestaurant.getId());
 
+        StringEntity postEntity = new StringEntity(mostRecentDate, "UTF8");
+        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        URIBuilder builder = new URIBuilder(base + "/api/order/auth/getUpdates");
+        builder.setParameter("restaurantId", restaurantId);
+
+        HttpPatch httpPatch = new HttpPatch(builder.build());
+        httpPatch.setHeader("Authorization", userPreference.get("jwt", null));
+        httpPatch.setEntity(postEntity);
+
+        return httpPatch;
+    }
     public static HttpRequestBase register(){
         Map<String, Object> jsonValues = new HashMap<>();
         jsonValues.put("username", loginManager.regUsername.get());

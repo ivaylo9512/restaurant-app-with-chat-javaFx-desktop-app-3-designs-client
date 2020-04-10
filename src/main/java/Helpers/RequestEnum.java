@@ -5,5 +5,6 @@ public enum RequestEnum {
     register,
     sendUserInfo,
     sendOrder,
+    waitOrders,
     getNextSessions
 }
