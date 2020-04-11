@@ -7,7 +7,6 @@ import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.Cursor;
@@ -40,7 +39,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML VBox mainChatBlock, chatUsers;
     @FXML FlowPane chatInfo;
     @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
-    @FXML Pane moveBar, notificationIcon, profileRoot;
+    @FXML Pane moveBar, profileRoot;
     @FXML TextArea mainChatTextArea;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
@@ -466,13 +465,17 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     }
     @FXML
     private void showNotifications() {
-        notificationIcon.setOpacity(0);
+        notificationsView.setDisable(false);
+        isNewNotificationChecked.set(true);
+
         ordersPane.setDisable(true);
         ordersPane.setOpacity(0);
     }
 
     @FXML
     private void showOrders() {
+        notificationsView.setDisable(true);
+
         ordersPane.setDisable(false);
         ordersPane.setOpacity(1);
     }
@@ -515,8 +518,8 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
             roleImage.setImage(waiterImage);
         }
 
-        List<Chat> chats = getChats();
-        appendChats(chats);
+//        List<Chat> chats = getChats();
+//        appendChats(chats);
     }
 
     @Override
@@ -546,7 +549,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         profileRoot.setOpacity(0);
         profileRoot.setDisable(true);
 
-        notificationIcon.setOpacity(0);
         ordersPane.setDisable(false);
         ordersPane.setOpacity(1);
 

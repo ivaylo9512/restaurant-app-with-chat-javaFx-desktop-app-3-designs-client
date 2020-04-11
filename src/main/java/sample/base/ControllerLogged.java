@@ -8,11 +8,14 @@ import Models.Dish;
 import Models.Menu;
 import Models.Order;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -52,22 +55,22 @@ public class ControllerLogged implements Controller {
     @FXML
     protected Pane userInfo;
     @FXML
-    protected AnchorPane contentRoot, orderPane;
+    protected AnchorPane contentRoot, orderPane, notificationsView;
     @FXML
     protected ListView<Order> ordersList;
     @FXML
     protected ListView<String> notificationsList;
+    @FXML
+    protected Node notificationIcon;
 
     protected DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
     protected DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-    protected MediaPlayer notificationSound = RestaurantApplication.notificationSound;
+    protected static BooleanProperty isNewNotificationChecked = new SimpleBooleanProperty(true);
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();
 
     protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-    private Pane buttonParent;
 
     @FXML
     public void initialize() {
@@ -78,15 +81,6 @@ public class ControllerLogged implements Controller {
         menuList.setItems(userMenu);
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
-        });
-
-        notificationsList.getItems().addListener((ListChangeListener<String>)c -> {
-            c.next();
-            if(c.getRemovedSize() > 0) {
-                removeNotification();
-            }else{
-                addNotification();
-            }
         });
 
         if(usernameField == null) usernameField = new TextField();
@@ -116,6 +110,23 @@ public class ControllerLogged implements Controller {
         ordersList.setItems(orderManager.orders);
         newOrderList.setItems(orderManager.newOrderList);
         notificationsList.setItems(notificationManager.notifications);
+
+        notificationsList.getItems().addListener((ListChangeListener<String>)c -> {
+            c.next();
+            if(c.getRemovedSize() > 0) {
+                removeNotification();
+            }else{
+                addNotification();
+            }
+        });
+
+        isNewNotificationChecked.addListener(c -> {
+            if(!isNewNotificationChecked.get() && notificationsView.isDisabled()){
+                notificationIcon.setOpacity(1);
+                return;
+            }
+            notificationIcon.setOpacity(0);
+        });
 
         bindUserFields();
     }
@@ -176,11 +187,7 @@ public class ControllerLogged implements Controller {
         notificationsInfo.setOpacity(0);
         notificationsInfo.setDisable(true);
 
-        if (!ordersPane.isDisabled()) {
-            notificationIcon.setOpacity(1);
-        }
-
-        notificationSound.play();
+        isNewNotificationChecked.set(false);
     }
 
     protected void removeNotification() {

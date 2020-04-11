@@ -219,7 +219,7 @@ TextFlow {
     -fx-border-radius: 15px;
 }
 .notifications-list .list-cell{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
     -fx-background-color: #1a1a1a;
     -fx-pref-height: 50px;
     -fx-alignment: center;

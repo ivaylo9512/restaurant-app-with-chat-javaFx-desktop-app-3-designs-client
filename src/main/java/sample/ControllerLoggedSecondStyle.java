@@ -51,8 +51,7 @@ import static Application.RestaurantApplication.*;
 public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML Label dishesCountLabel;
 
-    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, profileView,
-            notificationsView, menuContent, orderInfo, orderView,
+    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, profileView, menuContent, orderInfo, orderView,
             chatView, userChatsClip, createView, dishesContainer, chatContainer;
 
     @FXML Button menuButton, updateButton;
@@ -63,6 +62,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML TextArea chatTextArea;
     @FXML ScrollPane chatScroll;
     @FXML VBox chatBlock;
+    @FXML Region notificationRegion;
 
     private AnchorPane currentView, currentMenuView;
 
@@ -138,28 +138,24 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         Shape s = Shape.union(usb3,usb4);
         s.setFill(Paint.valueOf("FC3903"));
 
-        Rectangle rectangle = new Rectangle();
-        rectangle.widthProperty().bind(updateButton.widthProperty().add(30));
-        rectangle.heightProperty().bind(updateButton.heightProperty());
+        HBox notificationIcon = (HBox)this.notificationIcon;
 
-        updateButton.setClip(rectangle);
-        notificationIcon.setShape(s);
-        notificationIcon.minWidthProperty().bind(updateButton.widthProperty().subtract(68));
-        notificationIcon.prefWidthProperty().bind(updateButton.widthProperty().subtract(68));
-        notificationIcon.setMaxSize(14, 14);
-        notificationIcon.minHeightProperty().bind(notificationIcon.widthProperty());
-        notificationIcon.prefHeightProperty().bind(notificationIcon.widthProperty());
-        notificationIcon.setStyle("-fx-background-color: #FC3903");
-        notificationIcon.getStyleClass().add("shadow");
+        notificationRegion.setShape(s);
+        notificationRegion.minWidthProperty().bind(updateButton.widthProperty().subtract(68));
+        notificationRegion.prefWidthProperty().bind(updateButton.widthProperty().subtract(68));
+        notificationRegion.setMaxSize(14, 14);
+        notificationRegion.minHeightProperty().bind(notificationRegion.widthProperty());
+        notificationRegion.prefHeightProperty().bind(notificationRegion.widthProperty());
+        notificationRegion.setStyle("-fx-background-color: #FC3903");
+        notificationRegion.getStyleClass().add("shadow");
 
-        HBox iconContainer = (HBox)notificationIcon.getParent();
-        iconContainer.setAlignment(Pos.CENTER);
-        iconContainer.prefWidthProperty().bind(updateButton.widthProperty().subtract(57));
-        iconContainer.prefHeightProperty().bind(updateButton.widthProperty().subtract(57));
-        iconContainer.setMaxSize(25, 25);
-        iconContainer.setTranslateX(40);
-        iconContainer.setTranslateY(-8);
-        iconContainer.setStyle("-fx-background-radius: 5em;" + "-fx-background-color: #1a1a1a;" + "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6.5, 0.4 , 0 , 0 )");
+        notificationIcon.setAlignment(Pos.CENTER);
+        notificationIcon.prefWidthProperty().bind(updateButton.widthProperty().subtract(57));
+        notificationIcon.prefHeightProperty().bind(updateButton.widthProperty().subtract(57));
+        notificationIcon.setMaxSize(25, 25);
+        notificationIcon.setTranslateX(40);
+        notificationIcon.setTranslateY(-8);
+        notificationIcon.setStyle("-fx-background-radius: 5em;" + "-fx-background-color: #1a1a1a;" + "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6.5, 0.4 , 0 , 0 )");
 
         RotateTransition tt = new RotateTransition(Duration.millis(200), notificationIcon);
         tt.setByAngle(16);
@@ -213,42 +209,42 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     }
 
     private void waitForNewMessages(){
-        messageService = new MessageService();
-        messageService.setOnSucceeded(event -> {
-            MessageService.lastMessageCheck = LocalDateTime.now();
-            List<Message> newMessages = (List<Message>) messageService.getValue();
-            newMessages.forEach(message -> {
-                int index = chatBlock.getChildren().size();
-                chatBlock.setId("new-message");
-
-                ChatValue chat = chatsMap.get(message.getChatId());
-                ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
-
-                Session session = sessions.get(LocalDate.now());
-                if (session == null) {
-                    LocalDate sessionDate = LocalDate.now();
-
-                    session = new Session();
-                    session.setDate(sessionDate);
-                    sessions.put(0, sessionDate, session);
-                    session.getMessages().add(message);
-
-                    if (chatValue != null && chatValue.getChatId() == message.getChatId()) {
-                        chatValue.setDisplayedSessions(chatValue.getDisplayedSessions() + 1);
-                        appendSession(session, chatBlock, chatValue, index);
-                    }
-                } else {
-                    session.getMessages().add(message);
-                    if (chatValue != null && chatValue.getChatId() == message.getChatId()) {
-                        appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
-                    }
-                }
-                updateLastMessage(message.getChatId(), message.getMessage());
-            });
-            messageService.restart();
-        });
-
-        messageService.setOnFailed(event -> serviceFailed(messageService));
+//        messageService = new MessageService();
+//        messageService.setOnSucceeded(event -> {
+//            MessageService.lastMessageCheck = LocalDateTime.now();
+//            List<Message> newMessages = (List<Message>) messageService.getValue();
+//            newMessages.forEach(message -> {
+//                int index = chatBlock.getChildren().size();
+//                chatBlock.setId("new-message");
+//
+//                ChatValue chat = chatsMap.get(message.getChatId());
+//                ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+//
+//                Session session = sessions.get(LocalDate.now());
+//                if (session == null) {
+//                    LocalDate sessionDate = LocalDate.now();
+//
+//                    session = new Session();
+//                    session.setDate(sessionDate);
+//                    sessions.put(0, sessionDate, session);
+//                    session.getMessages().add(message);
+//
+//                    if (chatValue != null && chatValue.getChatId() == message.getChatId()) {
+//                        chatValue.setDisplayedSessions(chatValue.getDisplayedSessions() + 1);
+//                        appendSession(session, chatBlock, chatValue, index);
+//                    }
+//                } else {
+//                    session.getMessages().add(message);
+//                    if (chatValue != null && chatValue.getChatId() == message.getChatId()) {
+//                        appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
+//                    }
+//                }
+//                updateLastMessage(message.getChatId(), message.getMessage());
+//            });
+//            messageService.restart();
+//        });
+//
+//        messageService.setOnFailed(event -> serviceFailed(messageService));
     }
 
     @Override
@@ -372,7 +368,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         }
     }
     @FXML
-    public void showNotification(){
+    public void showNotifications(){
         if(menuContent.isDisabled()) {
             expandMenuContent();
 
@@ -380,6 +376,8 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             currentMenuView.setOpacity(1);
             currentMenuView.setDisable(false);
             menuContent.setDisable(false);
+
+            isNewNotificationChecked.set(true);
         }else if(!currentMenuView.equals(notificationsView) && menuContent.getPrefHeight() == menuContent.getMaxHeight()){
             menuContent.getChildren().remove(currentMenuView);
             profileImageContainer.setOpacity(0);
@@ -387,6 +385,8 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             currentMenuView = notificationsView;
             currentMenuView.setDisable(false);
             currentMenuView.setOpacity(1);
+
+            isNewNotificationChecked.set(true);
         }else if(menuContent.getPrefHeight() == menuContent.getMaxHeight()){
             reverseMenuContent();
 
@@ -399,7 +399,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             }));
             removeView.play();
         }
-
     }
     @FXML
     public void profileButtonHoverOver(MouseEvent event){

@@ -115,7 +115,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Pane fx:id="notificationIcon" disable="true" layoutX="81.0" layoutY="110.0" opacity="0.0">
+                  <Pane fx:id="notificationIcon" opacity="0.0" disable="true" layoutX="81.0" layoutY="110.0">
                      <children>
                         <Circle fill="#d62127" layoutX="8.0" layoutY="8.0" radius="8.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" styleClass="shadow" />
                         <Text fill="#2a2e37" layoutX="5.5" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="shadow" text="!">
@@ -253,7 +253,7 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="190.0" prefWidth="637.0" styleClass="notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="notificationsView" disable="true" prefHeight="190.0" prefWidth="637.0" styleClass="notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <ListView fx:id="notificationsList" prefHeight="200.0" prefWidth="200.0" styleClass="notification-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
