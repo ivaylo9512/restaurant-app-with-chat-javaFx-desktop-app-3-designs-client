@@ -4,12 +4,14 @@ import Animations.MoveRoot;
 import Animations.ResizeRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
-import Helpers.ListViews.ChatsListViewCell;
+//import Helpers.ListViews.ChatsListViewCell;
 import Helpers.Scrolls;
 import Application.MessageService;
 import Models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,8 +23,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.SVGPath;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
@@ -33,10 +39,14 @@ import sample.base.ControllerLogged;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+
+import static Application.RestaurantApplication.*;
+//import static Helpers.ServerRequests.*;
 
 public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML Label dishesCountLabel;
@@ -45,8 +55,9 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             notificationsView, menuContent, orderInfo, orderView,
             chatView, userChatsClip, createView, dishesContainer, chatContainer;
 
-    @FXML Button menuButton;
+    @FXML Button menuButton, updateButton;
     @FXML HBox notificationsInfo;
+    @FXML Region notificationIcon;
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
     @FXML ListView<Chat> userChats;
     @FXML TextArea chatTextArea;
@@ -75,7 +86,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             }
         });
 
-        userChats.setCellFactory(chatCell -> new ChatsListViewCell());
+//        userChats.setCellFactory(chatCell -> new ChatsListViewCell());
 
         chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
             if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue != null) {
@@ -114,6 +125,53 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         notificationsList.setClip(notificationClip);
 
         chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
+
+        setNotificationIcon();
+    }
+
+    private void setNotificationIcon() {
+        SVGPath usb3 = new SVGPath();
+        usb3.setContent("m434.753906 360.8125c-32.257812-27.265625-50.753906-67.117188-50.753906-109.335938v-59.476562c0-75.070312-55.765625-137.214844-128-147.625v-23.042969c0-11.796875-9.558594-21.332031-21.332031-21.332031-11.777344 0-21.335938 9.535156-21.335938 21.332031v23.042969c-72.253906 10.410156-128 72.554688-128 147.625v59.476562c0 42.21875-18.496093 82.070313-50.941406 109.503907-8.300781 7.105469-13.058594 17.429687-13.058594 28.351562 0 20.589844 16.746094 37.335938 37.335938 37.335938h352c20.585937 0 37.332031-16.746094 37.332031-37.335938 0-10.921875-4.757812-21.246093-13.246094-28.519531zm0 0");
+
+        SVGPath usb4 = new SVGPath();
+        usb4.setContent("m234.667969 512c38.632812 0 70.953125-27.542969 78.378906-64h-156.757813c7.421876 36.457031 39.742188 64 78.378907 64zm0 0");
+        Shape s = Shape.union(usb3,usb4);
+        s.setFill(Paint.valueOf("FC3903"));
+
+        Rectangle rectangle = new Rectangle();
+        rectangle.widthProperty().bind(updateButton.widthProperty().add(30));
+        rectangle.heightProperty().bind(updateButton.heightProperty());
+
+        updateButton.setClip(rectangle);
+        notificationIcon.setShape(s);
+        notificationIcon.minWidthProperty().bind(updateButton.widthProperty().subtract(68));
+        notificationIcon.prefWidthProperty().bind(updateButton.widthProperty().subtract(68));
+        notificationIcon.setMaxSize(14, 14);
+        notificationIcon.minHeightProperty().bind(notificationIcon.widthProperty());
+        notificationIcon.prefHeightProperty().bind(notificationIcon.widthProperty());
+        notificationIcon.setStyle("-fx-background-color: #FC3903");
+        notificationIcon.getStyleClass().add("shadow");
+
+        HBox iconContainer = (HBox)notificationIcon.getParent();
+        iconContainer.setAlignment(Pos.CENTER);
+        iconContainer.prefWidthProperty().bind(updateButton.widthProperty().subtract(57));
+        iconContainer.prefHeightProperty().bind(updateButton.widthProperty().subtract(57));
+        iconContainer.setMaxSize(25, 25);
+        iconContainer.setTranslateX(40);
+        iconContainer.setTranslateY(-8);
+        iconContainer.setStyle("-fx-background-radius: 5em;" + "-fx-background-color: #1a1a1a;" + "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6.5, 0.4 , 0 , 0 )");
+
+        RotateTransition tt = new RotateTransition(Duration.millis(200), notificationIcon);
+        tt.setByAngle(16);
+        RotateTransition tl = new RotateTransition(Duration.millis(200), notificationIcon);
+        tl.setByAngle(-32);
+        PauseTransition pauseTransition = new PauseTransition(Duration.millis(500));
+
+        SequentialTransition sequentialTransition = new SequentialTransition(pauseTransition, tt, tl);
+        sequentialTransition.setCycleCount(Timeline.INDEFINITE);
+        sequentialTransition.setAutoReverse(true);
+        sequentialTransition.play();
+
     }
 
     @FXML

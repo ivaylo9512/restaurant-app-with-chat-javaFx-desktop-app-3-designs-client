@@ -293,10 +293,17 @@
                                     <Font size="12.0" />
                                  </font>
                               </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="276.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotification" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Updates" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="-1.0">
+                              <Button fx:id="updateButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="276.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotification" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Updates" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="-1.0">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
+                                 <graphic>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Region fx:id="notificationIcon" prefHeight="200.0" prefWidth="200.0" />
+                                       </children>
+                                    </HBox>
+                                 </graphic>
                               </Button>
                               <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrderView" onMouseEntered="#focus" onMouseExited="#unFocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="-1.0">
                                  <font>
@@ -313,11 +320,6 @@
                                     <Font size="12.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="374.0" layoutY="3.0">
-                                 <image>
-                                    <Image url="@../../../../../../../../Downloads/notification.png" />
-                                 </image>
-                              </ImageView>
                            </children>
                         </AnchorPane>
                         <Button fx:id="menuButton" focusTraversable="false" layoutX="2.5" layoutY="3.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow">

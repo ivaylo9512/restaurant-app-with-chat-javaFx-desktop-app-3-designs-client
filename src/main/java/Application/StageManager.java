@@ -56,8 +56,8 @@ public class StageManager {
 //        initializeSecondLoginStyle(new Stage());
 //        initializeThirdLoginStyle(new Stage());
 
-          initializeFirstLoggedStyle(new Stage());
-//        initializeSecondLoggedStyle(new Stage());
+        initializeFirstLoggedStyle(new Stage());
+        initializeSecondLoggedStyle(new Stage());
 //        initializeThirdLoggedStyle(new Stage());
 
         firstLoggedStage.initOwner(firstLoginStage);
