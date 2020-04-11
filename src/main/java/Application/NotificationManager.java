@@ -10,9 +10,6 @@ public class NotificationManager {
     public ObservableList<Notification> notifications = FXCollections.observableArrayList();
 
     private NotificationManager(){
-        addNotification("add");
-        addNotification("hey");
-        addNotification("add");
     }
 
     static NotificationManager initialize(){

@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -96,14 +97,15 @@ public class ControllerLogged implements Controller {
         editButton.setTooltip(loading);
 
         editButton.visibleProperty().bind(editButton.managedProperty());
-        editButton.opacityProperty().bind(Bindings.createDoubleBinding(() ->{
-          if(loginManager.sendInfo.runningProperty().get()){
-              editButton.getTooltip().setOpacity(1);
-              return 0.8;
-          }
-            editButton.getTooltip().setOpacity(0);
-            return 1.0;
-        },loginManager.sendInfo.runningProperty()));
+        loginManager.sendInfo.runningProperty().addListener((observable, oldValue, newValue)->{
+            if(newValue){
+                editButton.getTooltip().setOpacity(1);
+                editButton.setOpacity(0.8);
+            }else {
+                editButton.getTooltip().setOpacity(0);
+                editButton.getTooltip().setOpacity(0);
+            }
+        });
 
         saveButton.setManaged(false);
         saveButton.visibleProperty().bind(saveButton.managedProperty());
@@ -157,6 +159,20 @@ public class ControllerLogged implements Controller {
         lastNameField.disableProperty().bind(saveButton.managedProperty().not());
         ageField.disableProperty().bind(saveButton.managedProperty().not());
         countryField.disableProperty().bind(saveButton.managedProperty().not());
+    }
+
+    public void bindOrderProperties(Order currentOrder) {
+        currentDishList.setItems(currentOrder.getDishes());
+
+        orderId.textProperty().bind(currentOrder.getId().asString());
+        createdDate.textProperty().bind(Bindings.createObjectBinding(()->
+                dateFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
+        createdTime.textProperty().bind(Bindings.createObjectBinding(()->
+                timeFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
+        updatedDate.textProperty().bind(Bindings.createObjectBinding(()->
+                dateFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
+        updatedTime.textProperty().bind(Bindings.createObjectBinding(()->
+                timeFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
     }
 
     private SortedMap<String, Menu> searchMenu(String prefix) {

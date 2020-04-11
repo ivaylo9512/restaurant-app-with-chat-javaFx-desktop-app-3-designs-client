@@ -594,19 +594,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         },action));
     }
 
-    private void bindProperties(Order currentOrder) {
-        orderId.textProperty().bind(currentOrder.getId().asString());
-        currentDishList.setItems(currentOrder.getDishes());
-        createdDate.textProperty().bind(Bindings.createObjectBinding(()->
-                dateFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
-        createdTime.textProperty().bind(Bindings.createObjectBinding(()->
-                timeFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
-        updatedDate.textProperty().bind(Bindings.createObjectBinding(()->
-                dateFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
-        updatedTime.textProperty().bind(Bindings.createObjectBinding(()->
-                timeFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
-    }
-
     @FXML
     public void showCreated(){
         TranslateTransition translate = new TranslateTransition(Duration.millis(400), createdDate);
@@ -655,7 +642,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
                     : (AnchorPane) intersectedNode.getParent();
             currentContainer = (Pane)currentPane.getParent();
             cell =  (OrderListViewCell) currentContainer.getParent();
-            bindProperties(cell.order);
+            bindOrderProperties(cell.order);
             ExpandOrderPane.setCurrentOrder(event);
 
             if(intersectedNode.getTypeSelector().equals("Button"))

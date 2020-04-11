@@ -6,24 +6,16 @@ import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
 //import Helpers.ListViews.ChatsListViewCell;
 import Helpers.Scrolls;
-import Application.MessageService;
 import Models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -33,19 +25,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
-import org.apache.commons.collections4.map.ListOrderedMap;
 import sample.base.ControllerLogged;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
-
-import static Application.RestaurantApplication.*;
 //import static Helpers.ServerRequests.*;
 
 public class ControllerLoggedSecondStyle extends ControllerLogged {
@@ -425,7 +407,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML
     private void showOrder(){
         Order order = ordersList.getSelectionModel().getSelectedItem();
-        bindProperties(order);
+        bindOrderProperties(order);
 
         if(!currentView.equals(orderView)){
             currentView.setOpacity(0);
@@ -443,23 +425,13 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         fadeIn.play();
     }
 
-    private void bindProperties(Order currentOrder) {
-
-        currentDishList.setItems(currentOrder.getDishes());
+    @Override
+    public void bindOrderProperties(Order currentOrder) {
+        super.bindOrderProperties(currentOrder);
 
         dishesCountLabel.textProperty().unbind();
         dishesCountLabel.textProperty().bind(Bindings.concat("Dishes ")
                 .concat(Bindings.size(currentDishList.getItems()).asString()));
-
-        orderId.textProperty().bind(currentOrder.getId().asString());
-        createdDate.textProperty().bind(Bindings.createObjectBinding(()->
-                dateFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
-        createdTime.textProperty().bind(Bindings.createObjectBinding(()->
-                timeFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
-        updatedDate.textProperty().bind(Bindings.createObjectBinding(()->
-                dateFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
-        updatedTime.textProperty().bind(Bindings.createObjectBinding(()->
-                timeFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
     }
 
     private void setChatValues(List<Chat> chats) {
