@@ -140,6 +140,7 @@ public class OrderManager {
         HttpRequestBase request = ServerRequests.updateDishState(dish.getOrderId(), dish.getId());
         RequestTask<Dish> task = new RequestTask<>(type, request);
         tasks.execute(task);
+
         task.setOnSucceeded(event -> {
             Dish newDish = task.getValue();
 

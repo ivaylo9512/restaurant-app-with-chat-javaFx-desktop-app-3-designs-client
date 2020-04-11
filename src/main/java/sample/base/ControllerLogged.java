@@ -6,6 +6,7 @@ import Helpers.ListViews.MenuListViewCell;
 import Helpers.ListViews.NotificationListViewCell;
 import Models.Dish;
 import Models.Menu;
+import Models.Notification;
 import Models.Order;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -59,7 +60,7 @@ public class ControllerLogged implements Controller {
     @FXML
     protected ListView<Order> ordersList;
     @FXML
-    protected ListView<String> notificationsList;
+    protected ListView<Notification> notificationsList;
     @FXML
     protected Node notificationIcon;
 
@@ -111,7 +112,19 @@ public class ControllerLogged implements Controller {
         newOrderList.setItems(orderManager.newOrderList);
         notificationsList.setItems(notificationManager.notifications);
 
-        notificationsList.getItems().addListener((ListChangeListener<String>)c -> {
+        notificationsList.setCellFactory(param -> new ListCell<Notification>(){
+            @Override
+            protected void updateItem(Notification item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName());
+                }
+            }
+        });
+
+        notificationsList.getItems().addListener((ListChangeListener<Notification>)c -> {
             c.next();
             if(c.getRemovedSize() > 0) {
                 removeNotification();

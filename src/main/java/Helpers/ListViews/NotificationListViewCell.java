@@ -1,6 +1,7 @@
 package Helpers.ListViews;
 
 import Animations.TransitionResizeHeight;
+import Models.Notification;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -14,10 +15,10 @@ import javafx.util.Duration;
 
 import static Application.RestaurantApplication.notificationManager;
 
-public class NotificationListViewCell extends ListCell<String> {
+public class NotificationListViewCell extends ListCell<Notification> {
 
     @Override
-    protected void updateItem(String item, boolean empty) {
+    protected void updateItem(Notification item, boolean empty) {
         super.updateItem(item, empty);
 
         if(empty || item == null) {
@@ -30,7 +31,7 @@ public class NotificationListViewCell extends ListCell<String> {
             pane.getStyleClass().add("notification");
             pane.setPrefHeight(48);
 
-            Text notification = new Text(item);
+            Text notification = new Text(item.getName());
             HBox hBox = new HBox(notification);
             hBox.setLayoutY(10);
 
