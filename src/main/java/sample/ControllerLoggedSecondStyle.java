@@ -247,9 +247,8 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
 //        messageService.setOnFailed(event -> serviceFailed(messageService));
     }
 
-    @Override
-    public void removeNotification(){
-        super.removeNotification();
+    @FXML
+    public void onNotificationClick(){
         notificationsList.getItems().remove(notificationsList.getFocusModel().getFocusedItem());
     }
 

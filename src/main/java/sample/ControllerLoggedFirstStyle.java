@@ -549,6 +549,8 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         profileRoot.setOpacity(0);
         profileRoot.setDisable(true);
 
+        notificationsView.setDisable(true);
+
         ordersPane.setDisable(false);
         ordersPane.setOpacity(1);
 

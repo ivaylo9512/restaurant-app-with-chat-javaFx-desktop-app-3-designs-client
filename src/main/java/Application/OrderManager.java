@@ -60,8 +60,8 @@ public class OrderManager {
             int orderId = newOrder.getId().get();
             int index = orders.indexOf(newOrder);
             if(index == -1){
-                    notificationManager.addNotification("New order created " + orderId);
-                    orders.add(0, newOrder);
+                notificationManager.addNotification("New order created " + orderId);
+                orders.add(0, newOrder);
             }else{
                 Order oldOrder = orders.get(index);
                 ObservableList<Dish> oldDishes = oldOrder.getDishes();

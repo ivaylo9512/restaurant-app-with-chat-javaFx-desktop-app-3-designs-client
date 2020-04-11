@@ -225,6 +225,9 @@ TextFlow {
     -fx-alignment: center;
     -fx-text-fill: #bcbcbc;
 }
+.notifications-list .list-cell:empty {
+    -fx-opacity: 0;
+}
 .notifications-list .list-cell:hover{
     -fx-text-fill: #FC3903;
 }
