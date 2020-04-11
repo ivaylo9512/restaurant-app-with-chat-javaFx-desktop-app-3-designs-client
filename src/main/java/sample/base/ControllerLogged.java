@@ -214,37 +214,16 @@ public class ControllerLogged implements Controller {
 
     @FXML
     public void showLoggedFirstStyle(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
         stageManager.changeStage(stageManager.firstLoggedStage);
     }
 
     @FXML
     public void showLoggedSecondStyle(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
         stageManager.changeStage(stageManager.secondLoggedStage);
     }
 
     @FXML
     public void showLoggedThirdStyle(){
-        try {
-            httpClientLongPolling.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpClientLongPolling = HttpClients.createDefault();
-
         stageManager.changeStage(stageManager.thirdLoggedStage);
     }
 
