@@ -19,8 +19,9 @@ public class ControllerLoginSecondStyle extends ControllerLogin {
     @FXML ImageView actionBtnImage;
     @FXML Image loginImage;
 
-    @FXML
+    @Override
     public void initialize(){
+        super.initialize();
         currentMenu = loginFields;
     }
 

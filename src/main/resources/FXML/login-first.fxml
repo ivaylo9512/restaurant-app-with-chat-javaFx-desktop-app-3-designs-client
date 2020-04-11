@@ -10,11 +10,7 @@
 
 <AnchorPane fx:id="root" maxWidth="-Infinity" prefHeight="84.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
    <children>
-       <Pane fx:id="background" styleClass="background">
-
-    </Pane>
-   </children>
-    <children>
+      <Pane fx:id="background" styleClass="background"/>
       <AnchorPane fx:id="loginPane" layoutX="71.0" maxHeight="79.0" maxWidth="835.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="419.0" style="-fx-background-color: #2A2E37;">
          <children>
             <Pane layoutX="342.0" layoutY="2.0" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="77.0" prefWidth="417.0" styleClass="fields-container" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0">

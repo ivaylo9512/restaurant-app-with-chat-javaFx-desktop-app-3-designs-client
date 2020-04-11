@@ -1,5 +1,6 @@
 package sample.base;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 
@@ -15,6 +17,8 @@ import static Application.RestaurantApplication.loginManager;
 import static Application.RestaurantApplication.stageManager;
 
 public abstract class ControllerLogin implements Controller {
+    @FXML
+    HBox loadingPane;
     @FXML
     protected TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML
@@ -25,6 +29,16 @@ public abstract class ControllerLogin implements Controller {
     protected Pane currentMenu;
     protected boolean loading;
 
+    @FXML
+    public void initialize(){
+        loadingPane.opacityProperty().bind(Bindings.createDoubleBinding(()-> {
+            if(loginManager.loading.get()){
+                return 0.8;
+            }
+            return 0.0;
+        }, loginManager.loading));
+        loadingPane.disableProperty().bind(loginManager.loading.not());
+    }
     protected void resetFields() {
         username.setText(null);
         password.setText(null);

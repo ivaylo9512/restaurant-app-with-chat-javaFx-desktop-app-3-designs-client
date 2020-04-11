@@ -14,6 +14,12 @@ PasswordField{
     -fx-background-color: #1a1a1a;
     -fx-text-fill: #bcbcbc;
 }
+.loading-pane {
+    -fx-background-color: #1a1a1a;
+}
+.loading-indicator {
+    -fx-accent: #FC3903;
+}
 .action-btn{
     -fx-background-color: #FC3903;
     -fx-border-color: transparent;

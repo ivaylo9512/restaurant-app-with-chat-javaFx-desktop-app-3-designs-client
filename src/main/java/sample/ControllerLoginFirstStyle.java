@@ -19,13 +19,14 @@ import static javafx.concurrent.Worker.State.FAILED;
 public class ControllerLoginFirstStyle extends ControllerLogin {
     @FXML Pane background, menu;
     @FXML Button loginButton, registerButton, actionButton;
-    @FXML HBox loadingPane;
 
     private ParallelTransition expand, reverse;
     private SequentialTransition changeTransition;
 
-    @FXML
+    @Override
     public void initialize(){
+        super.initialize();
+
         TranslateTransition translateMenu = new TranslateTransition(Duration.millis(1300), menu);
         translateMenu.setToX(-417);
         TranslateTransition translateRoot = new TranslateTransition(Duration.millis(1300), loginPane);
@@ -43,14 +44,6 @@ public class ControllerLoginFirstStyle extends ControllerLogin {
         changeTransition = new SequentialTransition(
                 new ParallelTransition(reverseMenu, reverseRoot),
                 new ParallelTransition(translateMenu, translateRoot));
-
-        loadingPane.opacityProperty().bind(Bindings.createDoubleBinding(()-> {
-            if(loginManager.loading.get()){
-                return 0.8;
-            }
-            return 0.0;
-        }, loginManager.loading));
-        loadingPane.disableProperty().bind(loginManager.loading.not());
     }
 
     @Override

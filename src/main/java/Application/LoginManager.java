@@ -59,7 +59,6 @@ public class LoginManager {
 
             task.setOnSucceeded(event -> {
                 setLoggedUser((User)event.getSource().getValue());
-                loading.setValue(false);
             });
             task.setOnFailed(event -> {
                 userPreference.remove("jwt");
@@ -95,15 +94,20 @@ public class LoginManager {
     }
 
     private void updateError(Service service) {
+        loading.setValue(false);
         stageManager.currentController.resetStage();
         service.reset();
     }
 
     public void login(){
+        loading.setValue(true);
+
         currentService = loginService;
         loginService.start();
     }
     public void register(){
+        loading.setValue(true);
+
         currentService = registerService;
         registerService.start();
     }
@@ -116,6 +120,8 @@ public class LoginManager {
     }
 
     private void setLoggedUser(User loggedUser){
+        loading.setValue(false);
+
         savedUserInfo = new User(loggedUser);
         setUserFields(loggedUser);
         orderManager.setRestaurant(loggedUser.getRestaurant());
