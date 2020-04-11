@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import sample.base.ControllerLogin;
 
 import static Application.RestaurantApplication.loginManager;
+import static javafx.concurrent.Worker.State.FAILED;
 
 public class ControllerLoginFirstStyle extends ControllerLogin {
     @FXML Pane background, menu;
@@ -61,13 +62,10 @@ public class ControllerLoginFirstStyle extends ControllerLogin {
     }
 
     public void resetStage(){
-        if(loading){
-            username.setDisable(false);
-            password.setDisable(false);
-            root.setCursor(Cursor.DEFAULT);
+        if(loginManager.currentService != null && loginManager.currentService.getState() == FAILED){
+            currentMenu.setDisable(false);
             expand.play();
         }else {
-            root.setCursor(Cursor.DEFAULT);
             menu.setTranslateX(0);
             loginPane.setTranslateX(0);
             if (currentMenu != null) {
@@ -75,9 +73,9 @@ public class ControllerLoginFirstStyle extends ControllerLogin {
                 currentMenu.setDisable(true);
                 currentMenu = null;
             }
-            loading = false;
             resetFields();
         }
+        root.setCursor(Cursor.DEFAULT);
     }
 
     @FXML
@@ -162,10 +160,8 @@ public class ControllerLoginFirstStyle extends ControllerLogin {
 
     @Override
     protected void disableFields(boolean login) {
+        super.disableFields(login);
         reverse.play();
-
-        if(login)loginFields.setDisable(true);
-        else registerFields.setDisable(true);
     }
 
 }

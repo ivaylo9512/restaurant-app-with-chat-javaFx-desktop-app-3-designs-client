@@ -25,6 +25,7 @@ public class LoginManager {
     public IntegerProperty userId;
     public StringProperty role;
     public BooleanProperty loading = new SimpleBooleanProperty(false);
+    public RequestService currentService;
 
     StringProperty username = new SimpleStringProperty();
     StringProperty password = new SimpleStringProperty();
@@ -41,7 +42,7 @@ public class LoginManager {
         loginService.setOnFailed(eventFail -> updateError(loginService));
 
         registerService.setOnSucceeded(eventSuccess -> onSuccessfulService(registerService));
-        registerService.setOnFailed(eventFail -> updateError(loginService));
+        registerService.setOnFailed(eventFail -> updateError(registerService));
 
         sendInfo.setOnFailed(event -> returnOldInfo());
         sendInfo.setOnSucceeded(event -> setSavedInfo());
@@ -99,9 +100,11 @@ public class LoginManager {
     }
 
     public void login(){
+        currentService = loginService;
         loginService.start();
     }
     public void register(){
+        currentService = registerService;
         registerService.start();
     }
 

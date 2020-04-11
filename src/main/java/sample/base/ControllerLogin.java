@@ -28,9 +28,6 @@ public abstract class ControllerLogin implements Controller {
     protected void resetFields() {
         username.setText(null);
         password.setText(null);
-        regUsername.setDisable(false);
-        regPassword.setDisable(false);
-        regRepeatPassword.setDisable(false);
         regUsername.setText(null);
         regPassword.setText(null);
         regRepeatPassword.setText(null);
@@ -52,7 +49,6 @@ public abstract class ControllerLogin implements Controller {
             disableFields(true);
 
             root.setCursor(Cursor.WAIT);
-            loading = true;
             loginManager.login();
         }
     }
@@ -63,12 +59,14 @@ public abstract class ControllerLogin implements Controller {
             disableFields(false);
 
             root.setCursor(Cursor.WAIT);
-            loading = true;
             loginManager.register();
         }
     }
 
-    protected abstract void disableFields(boolean login);
+    protected void disableFields(boolean login){
+        if(login)loginFields.setDisable(true);
+        else nextRegisterFields.setDisable(true);
+    };
 
     @FXML
     public void showLoginThirdStyle(){

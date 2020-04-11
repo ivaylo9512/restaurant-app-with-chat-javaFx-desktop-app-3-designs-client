@@ -11,6 +11,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import sample.base.ControllerLogin;
 
+import static Application.RestaurantApplication.loginManager;
+import static javafx.concurrent.Worker.State.FAILED;
+
 public class ControllerLoginSecondStyle extends ControllerLogin {
     @FXML Button actionBtn;
     @FXML ImageView actionBtnImage;
@@ -22,28 +25,15 @@ public class ControllerLoginSecondStyle extends ControllerLogin {
     }
 
     public void resetStage(){
-        if(loading){
-            username.setDisable(false);
-            password.setDisable(false);
-            regUsername.setDisable(false);
-            regPassword.setDisable(false);
-            regRepeatPassword.setDisable(false);
-            root.setCursor(Cursor.DEFAULT);
+        if(loginManager.currentService != null && loginManager.currentService.getState() == FAILED){
+            currentMenu.setDisable(false);
         }else {
             loginFields.setDisable(false);
-            root.setCursor(Cursor.DEFAULT);
 
             showMenu(loginFields);
-
-            username.setDisable(false);
-            password.setDisable(false);
-            regUsername.setDisable(false);
-            regPassword.setDisable(false);
-            regRepeatPassword.setDisable(false);
-
-            loading = false;
             resetFields();
         }
+        root.setCursor(Cursor.DEFAULT);
     }
 
     @FXML
@@ -66,7 +56,8 @@ public class ControllerLoginSecondStyle extends ControllerLogin {
             actionBtn.setOnMouseClicked(this::register);
         }
     }
-    @FXML void showStyleButtons(){
+    @FXML
+    void showStyleButtons(){
         showMenu(styleButtons);
         actionBtn.setOnMouseClicked(event -> close());
     }
@@ -86,17 +77,5 @@ public class ControllerLoginSecondStyle extends ControllerLogin {
         requestedMenu.setOpacity(1);
         requestedMenu.setDisable(false);
         currentMenu = requestedMenu;
-    }
-
-    @Override
-    protected void disableFields(boolean login) {
-        if(login){
-            username.setDisable(true);
-            password.setDisable(true);
-        }else{
-            regUsername.setDisable(true);
-            regPassword.setDisable(true);
-            regRepeatPassword.setDisable(true);
-        }
     }
 }

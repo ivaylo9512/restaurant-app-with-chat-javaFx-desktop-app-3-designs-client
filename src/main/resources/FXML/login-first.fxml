@@ -83,7 +83,7 @@
                         </PasswordField>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="styleButtons" disable="true" layoutX="7.0" layoutY="18.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
+                  <AnchorPane fx:id="styleButtons" styleClass="style-buttons" disable="true" layoutX="7.0" layoutY="18.0" opacity="0.0" prefHeight="33.0" prefWidth="345.0">
                      <children>
                         <Button contentDisplay="CENTER" layoutX="39.5" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoginSecondStyle" prefHeight="39.0" prefWidth="70.0" styleClass="btn" text="Style 2" textFill="#bfbfbf">
                            <font>
