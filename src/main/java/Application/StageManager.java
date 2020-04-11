@@ -54,17 +54,17 @@ public class StageManager {
         currentController = firstLoginController;
 
         initializeSecondLoginStyle(new Stage());
-//        initializeThirdLoginStyle(new Stage());
+        initializeThirdLoginStyle(new Stage());
 
         initializeFirstLoggedStyle(new Stage());
         initializeSecondLoggedStyle(new Stage());
-//        initializeThirdLoggedStyle(new Stage());
+        initializeThirdLoggedStyle(new Stage());
 
         firstLoggedStage.initOwner(firstLoginStage);
         secondLoginStage.initOwner(secondLoggedStage);
-//        secondLoggedStage.initOwner(secondLoginStage);
-//        thirdLoginStage.initOwner(thirdLoggedStage);
-//        thirdLoggedStage.initOwner(thirdLoginStage);
+        secondLoggedStage.initOwner(secondLoginStage);
+        thirdLoginStage.initOwner(thirdLoggedStage);
+        thirdLoggedStage.initOwner(thirdLoginStage);
 
         currentStage.show();
     }
@@ -163,7 +163,7 @@ public class StageManager {
 
         firstLoggedController = loader.getController();
         firstLoggedStage = createStage(stage, scene, firstLoggedController);
-        firstLoggedAlert = createAlert(thirdLoginStage);
+        firstLoggedAlert = createAlert(firstLoggedStage);
     }
 
     private void initializeSecondLoggedStyle(Stage stage) throws IOException {
@@ -176,7 +176,7 @@ public class StageManager {
 
         secondLoggedController = loader.getController();
         secondLoggedStage = createStage(stage, scene, secondLoggedController);
-        secondLoggedAlert = createAlert(thirdLoginStage);
+        secondLoggedAlert = createAlert(secondLoggedStage);
     }
 
     private void initializeThirdLoggedStyle(Stage stage) throws IOException {
@@ -189,7 +189,7 @@ public class StageManager {
 
         thirdLoggedController = loader.getController();
         thirdLoggedStage = createStage(stage, scene, thirdLoggedController);
-        thirdLoggedAlert = createAlert(thirdLoginStage);
+        thirdLoggedAlert = createAlert(thirdLoggedStage);
     }
 
     private Alert createAlert(Stage stage) {
