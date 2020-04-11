@@ -155,5 +155,16 @@ public class OrderManager {
 
             dishes.set(dishIndex, newDish);
         });
+
+        task.setOnFailed(event -> {
+            int orderIndex = orders.indexOf(new Order(dish.getOrderId()));
+            Order order = orders.get(orderIndex);
+
+            List<Dish> dishes = order.getDishes();
+            int dishIndex = dishes.indexOf(dish);
+            dish.setLoading(false);
+
+            dishes.set(dishIndex, dish);
+        });
     }
 }
