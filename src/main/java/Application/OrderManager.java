@@ -145,27 +145,32 @@ public class OrderManager {
             Dish newDish = task.getValue();
 
             int orderIndex = orders.indexOf(new Order(newDish.getOrderId()));
-            Order order = orders.get(orderIndex);
-            order.setUpdated(newDish.getUpdated());
+            if(orderIndex >= 0) {
+                Order order = orders.get(orderIndex);
+                order.setUpdated(newDish.getUpdated());
 
-            orders.remove(orderIndex);
-            orders.add(0, order);
+                orders.remove(orderIndex);
+                orders.add(0, order);
 
-            List<Dish> dishes = order.getDishes();
-            int dishIndex = dishes.indexOf(dish);
+                List<Dish> dishes = order.getDishes();
+                int dishIndex = dishes.indexOf(dish);
 
-            dishes.set(dishIndex, newDish);
+                dishes.set(dishIndex, newDish);
+            }
         });
 
         task.setOnFailed(event -> {
             int orderIndex = orders.indexOf(new Order(dish.getOrderId()));
-            Order order = orders.get(orderIndex);
+            if(orderIndex >= 0) {
 
-            List<Dish> dishes = order.getDishes();
-            int dishIndex = dishes.indexOf(dish);
-            dish.setLoading(false);
+                Order order = orders.get(orderIndex);
 
-            dishes.set(dishIndex, dish);
+                List<Dish> dishes = order.getDishes();
+                int dishIndex = dishes.indexOf(dish);
+                dish.setLoading(false);
+
+                dishes.set(dishIndex, dish);
+            }
         });
     }
 }

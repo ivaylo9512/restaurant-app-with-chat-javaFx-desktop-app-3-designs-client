@@ -5,6 +5,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+
 public class RestaurantApplication extends Application{
     public static LoginManager loginManager;
     public static StageManager stageManager;
@@ -13,7 +14,6 @@ public class RestaurantApplication extends Application{
     public static MessageManager messageManager;
 
     public static MediaPlayer notificationSound;
-
 
     public static void main(String[] args) {
         Application.launch(args);
