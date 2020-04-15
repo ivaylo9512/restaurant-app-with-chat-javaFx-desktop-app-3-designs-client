@@ -90,7 +90,7 @@ public class ServerRequests {
         httpGet.setHeader("Authorization", userPreference.get("jwt", null));
         return httpGet;
     }
-    
+
     public static HttpRequestBase register(){
         Map<String, Object> jsonValues = new HashMap<>();
         jsonValues.put("username", loginManager.regUsername.get());
