@@ -11,6 +11,8 @@ public class Dish{
     private boolean loading;
     private LocalDateTime created;
     private LocalDateTime updated;
+    private int updatedById;
+    private boolean orderReady;
 
     public Dish() {
     }
@@ -86,5 +88,21 @@ public class Dish{
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public int getUpdatedById() {
+        return updatedById;
+    }
+
+    public void setUpdatedById(int updatedById) {
+        this.updatedById = updatedById;
+    }
+
+    public boolean isOrderReady() {
+        return orderReady;
+    }
+
+    public void setOrderReady(boolean orderReady) {
+        this.orderReady = orderReady;
     }
 }

@@ -18,6 +18,7 @@ public class Order{
     private ObjectProperty<LocalDateTime> created = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDateTime> updated = new SimpleObjectProperty<>();
     private int userId;
+    private int restaurantId;
 
     private boolean ready;
     public Order() {
@@ -104,5 +105,13 @@ public class Order{
     @Override
     public int hashCode() {
         return id.get();
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
     }
 }

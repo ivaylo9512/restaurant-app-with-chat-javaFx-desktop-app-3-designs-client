@@ -32,13 +32,15 @@ public class RequestTask<T> extends Task<T> {
         try {
 
             String content = executeRequest(request);
-            if(content.equals("Success") || content.equals("Time out.")){
+            if(content.equals("Success")){
                 return null;
+            }
+            if(content.equals("Time out.")){
+                return executeTask();
             }
             return mapper.readValue(content, type);
 
         }catch (IOException e) {
-
             if(stageManager.currentController instanceof ControllerLogin){
                 showAlert("No connection to the server");
                 throw e;
