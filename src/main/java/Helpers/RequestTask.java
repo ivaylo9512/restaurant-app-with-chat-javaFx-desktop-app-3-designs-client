@@ -51,7 +51,7 @@ public class RequestTask<T> extends Task<T> {
             String message = e.getMessage();
             if(message.equals("Jwt token has expired.")) {
                 if(stageManager.currentController instanceof ControllerLogged){
-                    loginManager.logout();
+                    Platform.runLater(() -> loginManager.logout());
                 }
                 message = "Session has expired.";
             }

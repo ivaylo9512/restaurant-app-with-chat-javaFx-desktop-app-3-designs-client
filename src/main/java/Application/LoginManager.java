@@ -53,7 +53,7 @@ public class LoginManager {
             UserRequest userRequest = (UserRequest) event.getSource().getValue();
             userRequest.getDishes().forEach(orderManager::updateDish);
             userRequest.getOrders().forEach(orderManager::addOrder);
-            
+
             longPollingService.restart();
         });
     }
@@ -146,6 +146,12 @@ public class LoginManager {
         userPreference.remove("jwt");
         resetUser();
         orderManager.resetRestaurant();
+
+        if(longPollingService.isRunning()) longPollingService.cancel();
+        if(sendInfo.isRunning()) sendInfo.cancel();
+
+        longPollingService.reset();
+        sendInfo.reset();
 
         stageManager.changeToOwner();
     }
