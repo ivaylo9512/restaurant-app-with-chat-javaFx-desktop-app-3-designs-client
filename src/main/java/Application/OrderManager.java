@@ -83,6 +83,26 @@ public class OrderManager {
         }
     }
 
+    public void updateDish(Dish dish){
+        int orderId = dish.getOrderId();
+        int orderIndex = orders.indexOf(new Order(orderId));
+        if(orderIndex >= 0) {
+            Order order = orders.get(orderIndex);
+            order.setUpdated(dish.getUpdated());
+
+            orders.remove(orderIndex);
+            orders.add(0, order);
+
+            List<Dish> dishes = order.getDishes();
+            int dishIndex = dishes.indexOf(dish);
+            dishes.set(dishIndex, dish);
+
+            if(dish.getUpdatedById() != loginManager.userId.get()){
+                notificationManager.addNotification(dish.getName() + " from order " + orderId + " is ready.");
+            }
+        }
+    }
+
     private JavaType type = mapper.constructType(Dish.class);
     public void updateDishState(Dish dish){
         HttpRequestBase request = ServerRequests.updateDishState(dish.getOrderId(), dish.getId());
@@ -91,20 +111,7 @@ public class OrderManager {
 
         task.setOnSucceeded(event -> {
             Dish newDish = task.getValue();
-
-            int orderIndex = orders.indexOf(new Order(newDish.getOrderId()));
-            if(orderIndex >= 0) {
-                Order order = orders.get(orderIndex);
-                order.setUpdated(newDish.getUpdated());
-
-                orders.remove(orderIndex);
-                orders.add(0, order);
-
-                List<Dish> dishes = order.getDishes();
-                int dishIndex = dishes.indexOf(dish);
-
-                dishes.set(dishIndex, newDish);
-            }
+            updateDish(newDish);
         });
 
         task.setOnFailed(event -> {

@@ -4,6 +4,7 @@ import Helpers.RequestEnum;
 import Helpers.RequestService;
 import Helpers.RequestTask;
 import Models.User;
+import Models.UserRequest;
 import com.fasterxml.jackson.databind.JavaType;
 import javafx.beans.property.*;
 import javafx.concurrent.Service;
@@ -19,6 +20,7 @@ public class LoginManager {
     private RequestService<User> registerService = new RequestService<>(User.class, null, RequestEnum.register);
 
     public RequestService<User> sendInfo = new RequestService<>(User.class, null, RequestEnum.sendUserInfo);
+    public RequestService<UserRequest> longPollingService = new RequestService<>(UserRequest.class, null, RequestEnum.longPollingRequest);
     private User savedUserInfo;
 
     User loggedUser = new User();
@@ -46,6 +48,12 @@ public class LoginManager {
 
         sendInfo.setOnFailed(event -> returnOldInfo());
         sendInfo.setOnSucceeded(event -> setSavedInfo());
+
+        longPollingService.setOnSucceeded(event -> {
+            UserRequest userRequest = (UserRequest) event.getSource().getValue();
+            userRequest.getDishes().forEach(orderManager::updateDish);
+            longPollingService.restart();
+        });
     }
 
     JavaType type = mapper.constructType(User.class);
@@ -125,6 +133,8 @@ public class LoginManager {
         savedUserInfo = new User(loggedUser);
         setUserFields(loggedUser);
         orderManager.setRestaurant(loggedUser.getRestaurant());
+
+        longPollingService.start();
 
         stageManager.changeToOwner();
     }
