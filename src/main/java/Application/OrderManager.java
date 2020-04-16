@@ -83,12 +83,22 @@ public class OrderManager {
         }
     }
 
+    public void addOrder(Order order){
+        notificationManager.addNotification("New order created " + order.getId());
+        orders.add(0, newOrder);
+    }
+
     public void updateDish(Dish dish){
         int orderId = dish.getOrderId();
         int orderIndex = orders.indexOf(new Order(orderId));
         if(orderIndex >= 0) {
             Order order = orders.get(orderIndex);
             order.setUpdated(dish.getUpdated());
+
+            if (dish.isOrderReady()) {
+                order.setReady(true);
+                notificationManager.addNotification("Order " + orderId + " is ready.");
+            }
 
             orders.remove(orderIndex);
             orders.add(0, order);

@@ -52,6 +52,8 @@ public class LoginManager {
         longPollingService.setOnSucceeded(event -> {
             UserRequest userRequest = (UserRequest) event.getSource().getValue();
             userRequest.getDishes().forEach(orderManager::updateDish);
+            userRequest.getOrders().forEach(orderManager::addOrder);
+            
             longPollingService.restart();
         });
     }
