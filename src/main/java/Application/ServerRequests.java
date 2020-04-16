@@ -143,6 +143,13 @@ public class ServerRequests {
 
         return post;
     }
+
+        public static HttpRequestBase longPollingRequest(){
+        HttpGet httpGet = new HttpGet( base + "/api/users/auth/waitData");
+        httpGet.setHeader("Authorization", userPreference.get("jwt", null));
+        return httpGet;
+    }
+
     public static HttpRequestBase updateDishState(int orderId, int dishId) {
         HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
         patch.setHeader("Authorization", userPreference.get("jwt", null));
