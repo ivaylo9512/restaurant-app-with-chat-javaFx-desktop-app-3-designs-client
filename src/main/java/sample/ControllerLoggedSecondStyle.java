@@ -90,7 +90,10 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         MoveRoot.move(contentBar, contentRoot);
         ResizeRoot.addListeners(contentRoot);
 
-        menuContent.getChildren().remove(profileView);
+        Rectangle profileViewClip = new Rectangle();
+        profileViewClip.widthProperty().bind(profileView.widthProperty());
+        profileViewClip.heightProperty().bind(profileView.heightProperty());
+        profileView.setClip(profileViewClip);
 
         Circle clip = new Circle(30.8, 30.8, 30.8);
         profileImageClip.setClip(clip);
@@ -317,7 +320,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             expandMenuContent();
             currentMenuView = profileView;
 
-            menuContent.getChildren().add(profileView);
             menuContent.setDisable(false);
 
             FadeTransition fadeIn = new FadeTransition(Duration.millis(600), profileImageContainer);
@@ -332,8 +334,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             currentMenuView = profileView;
 
             profileImageContainer.setOpacity(1);
-            menuContent.getChildren().add(profileView);
-
         }else if(menuContent.getPrefHeight() == menuContent.getMaxHeight()){
             reverseMenuContent();
 
@@ -343,7 +343,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             fadeOut.play();
             Timeline removeView = new Timeline(new KeyFrame(Duration.millis(800), event -> {
                 menuContent.setDisable(true);
-                menuContent.getChildren().remove(profileView);
                 currentMenuView = null;
                 reverseMenu();
             }));
@@ -362,7 +361,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
 
             isNewNotificationChecked.set(true);
         }else if(!currentMenuView.equals(notificationsView) && menuContent.getPrefHeight() == menuContent.getMaxHeight()){
-            menuContent.getChildren().remove(currentMenuView);
             profileImageContainer.setOpacity(0);
 
             currentMenuView = notificationsView;
@@ -419,7 +417,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             orderView.setDisable(false);
             currentView = orderView;
         }
-
 
         FadeTransition fadeIn = new FadeTransition(Duration.millis(450), orderInfo);
         fadeIn.setFromValue(0.36);
