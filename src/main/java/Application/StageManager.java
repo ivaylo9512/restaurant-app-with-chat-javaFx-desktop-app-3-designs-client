@@ -23,26 +23,22 @@ public class StageManager {
 
     public Stage currentStage;
     public Controller currentController;
-    public Alert currentAlert;
 
-    public Alert firstLoginAlert;
-    public Controller firstLoginController;
-    public Stage firstLoginStage;
-    public Alert secondLoginAlert;
-    public Controller secondLoginController;
-    public Stage secondLoginStage;
-    public Alert thirdLoginAlert;
-    public Controller thirdLoginController;
-    public Stage thirdLoginStage;
-    public Alert firstLoggedAlert;
-    public Controller firstLoggedController;
+    private Controller firstLoginController;
+    private Controller secondLoginController;
+    private Controller thirdLoginController;
+
+    private Controller firstLoggedController;
+    private Controller secondLoggedController;
+    private Controller thirdLoggedController;
+
     public Stage firstLoggedStage;
-    public Alert secondLoggedAlert;
-    public Controller secondLoggedController;
     public Stage secondLoggedStage;
-    public Alert thirdLoggedAlert;
-    public Controller thirdLoggedController;
     public Stage thirdLoggedStage;
+
+    public Stage firstLoginStage;
+    public Stage secondLoginStage;
+    public Stage thirdLoginStage;
 
     private StageManager(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
@@ -50,7 +46,6 @@ public class StageManager {
         initializeFirstLoginStyle(primaryStage);
 
         currentStage = primaryStage;
-        currentAlert = firstLoginAlert;
         currentController = firstLoginController;
 
         initializeSecondLoginStyle(new Stage());
@@ -83,34 +78,29 @@ public class StageManager {
         if(stage == firstLoginStage){
             currentStage = firstLoginStage;
             currentController = firstLoginController;
-            currentAlert = firstLoginAlert;
         }else if(stage == secondLoginStage){
             currentStage = secondLoginStage;
             currentController = secondLoginController;
-            currentAlert = secondLoginAlert;
         }else if(stage == thirdLoginStage){
             currentStage = thirdLoginStage;
             currentController = thirdLoginController;
-            currentAlert = thirdLoginAlert;
         }else if(stage == firstLoggedStage){
             currentStage = firstLoggedStage;
             currentController = firstLoggedController;
-            currentAlert = firstLoggedAlert;
         }else if(stage == secondLoggedStage){
             currentStage = secondLoggedStage;
             currentController = secondLoggedController;
-            currentAlert = secondLoggedAlert;
         }else {
             currentStage = thirdLoggedStage;
             currentController = thirdLoggedController;
-            currentAlert = thirdLoggedAlert;
         }
         currentStage.show();
     }
 
     public void showAlert(String exception) {
-        currentAlert.getDialogPane().setContentText(exception);
-        currentAlert.showAndWait();
+        Alert alert = createAlert(currentStage);
+        alert.getDialogPane().setContentText(exception);
+        alert.showAndWait();
     }
 
     private void initializeFirstLoginStyle(Stage stage) throws IOException {
@@ -124,7 +114,6 @@ public class StageManager {
 
         firstLoginController = loader.getController();
         firstLoginStage = createStage(stage, scene, firstLoginController);
-        firstLoginAlert = createAlert(firstLoginStage);
     }
 
     private void initializeSecondLoginStyle(Stage stage) throws IOException {
@@ -137,7 +126,6 @@ public class StageManager {
 
         secondLoginController = loader.getController();
         secondLoginStage = createStage(stage, scene, secondLoginController);
-        secondLoginAlert = createAlert(secondLoginStage);
     }
 
     private void initializeThirdLoginStyle(Stage stage) throws IOException {
@@ -150,7 +138,6 @@ public class StageManager {
 
         thirdLoginController = loader.getController();
         thirdLoginStage = createStage(stage, scene, thirdLoginController);
-        thirdLoginAlert = createAlert(thirdLoginStage);
     }
 
     private void initializeFirstLoggedStyle(Stage stage) throws IOException {
@@ -163,7 +150,6 @@ public class StageManager {
 
         firstLoggedController = loader.getController();
         firstLoggedStage = createStage(stage, scene, firstLoggedController);
-        firstLoggedAlert = createAlert(firstLoggedStage);
     }
 
     private void initializeSecondLoggedStyle(Stage stage) throws IOException {
@@ -176,7 +162,6 @@ public class StageManager {
 
         secondLoggedController = loader.getController();
         secondLoggedStage = createStage(stage, scene, secondLoggedController);
-        secondLoggedAlert = createAlert(secondLoggedStage);
     }
 
     private void initializeThirdLoggedStyle(Stage stage) throws IOException {
@@ -189,7 +174,6 @@ public class StageManager {
 
         thirdLoggedController = loader.getController();
         thirdLoggedStage = createStage(stage, scene, thirdLoggedController);
-        thirdLoggedAlert = createAlert(thirdLoggedStage);
     }
 
     private Alert createAlert(Stage stage) {
