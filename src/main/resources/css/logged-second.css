@@ -134,11 +134,12 @@ TextFlow {
 }
 .add-button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-
 }
 .add-button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
-
+}
+.add-button ProgressIndicator{
+    -fx-accent: #FC3903;
 }
 .order-info AnchorPane{
     -fx-background-color: #1a1a1a;

@@ -236,7 +236,7 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </ListView>
-                                    <Button layoutY="154.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#createNewOrder" prefHeight="38.0" styleClass="create-button" text="Create" textFill="#bcbcbc" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
+                                    <Button fx:id="createButton" layoutY="154.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#createNewOrder" styleClass="create-button" text="Create" textFill="#bcbcbc" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>

@@ -157,12 +157,15 @@
                            <children>
                               <AnchorPane maxHeight="61.0" maxWidth="61.0" minHeight="61.0" minWidth="61.0" prefHeight="61.0" prefWidth="61.0" styleClass="add-button-container" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="9.0" onMouseClicked="#createNewOrder" prefHeight="61.0" prefWidth="61.0" styleClass="add-button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <ImageView disable="true" fitHeight="34.0" fitWidth="34.0" layoutX="23.0" layoutY="23.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
-                                       <image>
-                                          <Image url="/images/add.png" />
-                                       </image>
-                                    </ImageView>
+                                    <Button fx:id="createButton" layoutX="9.0" layoutY="9.0" onMouseClicked="#createNewOrder" prefHeight="61.0" prefWidth="61.0" styleClass="add-button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" >
+                                       <graphic>
+                                          <ImageView disable="true" fitHeight="34.0" fitWidth="34.0">
+                                             <image>
+                                                <Image url="/images/add.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="399.0" styleClass="menu-container" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">

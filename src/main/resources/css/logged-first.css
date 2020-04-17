@@ -236,6 +236,9 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
 }
+.user-info ProgressIndicator{
+    -fx-max-height: 12;
+}
 .chat-block{
     -fx-padding: 0 0 7 0;
 }
@@ -355,15 +358,17 @@ TextFlow {
 }
 .create-button{
     -fx-background-color: #363b41;
+    -fx-pref-height: 38.0;
 }
 .create-button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 0 );
-
 }
 
 .create-button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-
+}
+.create-button ProgressIndicator{
+    -fx-max-height: 22;
 }
 .clear-button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );

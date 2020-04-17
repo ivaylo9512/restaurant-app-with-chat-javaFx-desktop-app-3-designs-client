@@ -21,7 +21,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
-import javafx.util.Duration;
 
 import java.time.format.DateTimeFormatter;
 import java.util.SortedMap;
@@ -46,7 +45,7 @@ public class ControllerLogged implements Controller {
     @FXML
     protected TextField usernameField, firstNameField, lastNameField, countryField, ageField, menuSearch, roleField;
     @FXML
-    protected Button saveButton, editButton;
+    protected Button saveButton, editButton, createButton;
     @FXML
     protected Pane userInfo;
     @FXML
@@ -67,8 +66,11 @@ public class ControllerLogged implements Controller {
 
     protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
     protected ProgressIndicator editIndicator = new ProgressIndicator();
+    protected ProgressIndicator createIndicator = new ProgressIndicator();
 
     private Node editButtonGraphic;
+    private Node createButtonGraphic;
+    private String createButtonText;
 
     @FXML
     public void initialize() {
@@ -88,10 +90,6 @@ public class ControllerLogged implements Controller {
         roleField.setEditable(false);
         roleField.setDisable(true);
 
-        Tooltip loading = new Tooltip("Loading...");
-        loading.setShowDelay(Duration.millis(50));
-
-        editButton.visibleProperty().bind(editButton.managedProperty());
         editButtonGraphic = editButton.getGraphic();
         loginManager.sendInfo.runningProperty().addListener((observable, oldValue, newValue)->{
             if(newValue){
@@ -103,8 +101,21 @@ public class ControllerLogged implements Controller {
             }
         });
 
+        createButtonGraphic = createButton.getGraphic();
+        createButtonText = createButton.getText();
+        orderManager.sendOrder.runningProperty().addListener((observable, oldValue, newValue)->{
+            if(newValue){
+                createButton.setGraphic(createIndicator);
+                createButton.setText(null);
+            }else {
+                createButton.setGraphic(createButtonGraphic);
+                createButton.setText(createButtonText);
+            }
+        });
+
         saveButton.setManaged(false);
         saveButton.visibleProperty().bind(saveButton.managedProperty());
+        editButton.visibleProperty().bind(editButton.managedProperty());
 
         ordersList.setItems(orderManager.orders);
         newOrderList.setItems(orderManager.newOrderList);
@@ -193,7 +204,9 @@ public class ControllerLogged implements Controller {
 
     @FXML
     public void createNewOrder() {
-        orderManager.sendOrder();
+        if(!orderManager.sendOrder.isRunning()) {
+            orderManager.sendOrder();
+        }
     }
 
     @FXML

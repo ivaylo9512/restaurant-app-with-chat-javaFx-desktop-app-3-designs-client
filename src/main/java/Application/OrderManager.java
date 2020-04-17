@@ -29,7 +29,7 @@ public class OrderManager {
     public ObservableList<Menu> newOrderList = FXCollections.observableArrayList();
     public Order newOrder;
 
-    private RequestService<Order> sendOrder = new RequestService<>(Order.class, null, RequestEnum.sendOrder);
+    public RequestService<Order> sendOrder = new RequestService<>(Order.class, null, RequestEnum.sendOrder);
 
     private OrderManager() {
         sendOrder.setOnSucceeded(event -> {
