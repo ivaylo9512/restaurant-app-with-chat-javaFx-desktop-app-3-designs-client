@@ -1,22 +1,8 @@
-.shadow{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-}
 Button:focused{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
-.list-view:focused{
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-}
-.list-view .scroll-bar:vertical .increment-arrow,
-.list-view .scroll-bar:vertical .decrement-arrow,
-.list-view .scroll-bar:vertical .increment-button,
-.list-view .scroll-bar:vertical .decrement-button{
-    -fx-padding: 0px;
-}
-
-.list-view .scroll-bar:vertical{
-    -fx-scale-x: 0;
+ProgressIndicator {
+    -fx-accent: #bcbcbc;
 }
 ScrollPane{
     -fx-background-color: transparent;
@@ -48,9 +34,21 @@ TextArea .scroll-pane .viewport{
     -fx-background-color: transparent;
 }
 
-
 TextArea .scroll-pane .content{
     -fx-background-color: transparent;
+}
+.list-view:focused{
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+.list-view .scroll-bar:vertical .increment-arrow,
+.list-view .scroll-bar:vertical .decrement-arrow,
+.list-view .scroll-bar:vertical .increment-button,
+.list-view .scroll-bar:vertical .decrement-button{
+    -fx-padding: 0px;
+}
+.list-view .scroll-bar:vertical{
+    -fx-scale-x: 0;
 }
 .scroll-bar > .increment-button,
 .scroll-bar > .decrement-button{
@@ -61,6 +59,9 @@ TextArea .scroll-pane .content{
 .scroll-bar > .decrement-button > .decrement-arrow {
     -fx-pref-height:0;
     -fx-background-color: transparent;
+}
+.shadow{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .menu Button{
     -fx-border-radius: 0px;
@@ -367,7 +368,6 @@ TextFlow {
 .clear-button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
-
 .alert-box{
     -fx-background-color: #2A2E37;
     -fx-border-color: #363b41;

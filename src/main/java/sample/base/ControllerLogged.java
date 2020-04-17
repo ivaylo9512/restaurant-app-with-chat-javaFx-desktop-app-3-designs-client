@@ -1,9 +1,7 @@
 package sample.base;
 
-import Application.RestaurantApplication;
 import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
-import Helpers.ListViews.NotificationListViewCell;
 import Models.Dish;
 import Models.Menu;
 import Models.Notification;
@@ -14,7 +12,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -23,17 +20,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
 import javafx.util.Duration;
-import org.apache.http.impl.client.HttpClients;
 
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.SortedMap;
 
 import static Application.RestaurantApplication.*;
-import static Application.ServerRequests.*;
 
 public class ControllerLogged implements Controller {
     @FXML
@@ -73,6 +66,9 @@ public class ControllerLogged implements Controller {
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();
 
     protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    protected ProgressIndicator editIndicator = new ProgressIndicator();
+
+    private Node editButtonGraphic;
 
     @FXML
     public void initialize() {
@@ -94,16 +90,16 @@ public class ControllerLogged implements Controller {
 
         Tooltip loading = new Tooltip("Loading...");
         loading.setShowDelay(Duration.millis(50));
-        editButton.setTooltip(loading);
 
         editButton.visibleProperty().bind(editButton.managedProperty());
+        editButtonGraphic = editButton.getGraphic();
         loginManager.sendInfo.runningProperty().addListener((observable, oldValue, newValue)->{
             if(newValue){
-                editButton.getTooltip().setOpacity(1);
-                editButton.setOpacity(0.8);
+                editButton.setGraphic(editIndicator);
+                editButton.setText(null);
             }else {
-                editButton.getTooltip().setOpacity(0);
-                editButton.getTooltip().setOpacity(0);
+                editButton.setGraphic(editButtonGraphic);
+                editButton.setText("Edit");
             }
         });
 

@@ -108,6 +108,8 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
 
         chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
 
+        editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
+
         setNotificationIcon();
     }
 

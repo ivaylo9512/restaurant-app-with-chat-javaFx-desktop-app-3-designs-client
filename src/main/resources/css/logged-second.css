@@ -191,6 +191,9 @@ TextFlow {
     -fx-border-radius: 180px;
     -fx-background-color: transparent;
 }
+.profile-view Button ProgressIndicator{
+    -fx-accent: #bcbcbc;
+}
 .profile-button-shadow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 1 );
     -fx-background-radius: 180px;

@@ -101,6 +101,8 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
         setOrderPane();
 
+        editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(10));
+
         contentRoot.setCursor(Cursor.DEFAULT);
         MoveRoot.move(moveBar, contentRoot);
     }
