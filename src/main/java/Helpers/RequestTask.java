@@ -27,16 +27,16 @@ public class RequestTask<T> extends Task<T> {
     protected T call() throws Exception {
         return executeTask();
     }
-
     private T executeTask() throws Exception{
         try {
 
             String content = executeRequest(request);
+            while (content.equals("Time out.")){
+                content = executeRequest(request);
+            }
+
             if(content.equals("Success")){
                 return null;
-            }
-            if(content.equals("Time out.")){
-                return executeTask();
             }
             return mapper.readValue(content, type);
 
@@ -46,18 +46,20 @@ public class RequestTask<T> extends Task<T> {
                 throw e;
             }
             return executeTask();
-
-        }catch (Exception e) {
-            String message = e.getMessage();
-            if(message.equals("Jwt token has expired.")) {
-                if(stageManager.currentController instanceof ControllerLogged){
-                    Platform.runLater(() -> loginManager.logout());
-                }
-                message = "Session has expired.";
-            }
-            showAlert(message);
-            throw e;
         }
+    }
+
+    @Override
+    protected void failed() {
+        super.failed();
+        String message = getException().getMessage();
+        if(message.equals("Jwt token has expired.")) {
+            if(stageManager.currentController instanceof ControllerLogged){
+                Platform.runLater(() -> loginManager.logout());
+            }
+            message = "Session has expired.";
+        }
+        showAlert(message);
     }
 
     private void showAlert(String message) {
