@@ -20,41 +20,24 @@ import javafx.util.Duration;
 
 public class ExpandOrderPane {
 
-    private static double orderWidth;
-    private static double orderHeight;
+    private static double orderWidth, orderHeight, maxOrderWidth, buttonX, buttonY, mouseY, mouseX,
+            initialOffsetX, xButtonRation, initialMouseX, translatePaneX;
 
-    private static double maxOrderWidth;
-
-    private static double buttonX;
-    private static double buttonY;
-
-    private static double mouseY;
-    private static double mouseX;
-
-    private static double xButtonRation;
-    private static double initialOffsetX;
-    private static double initialMouseX;
-    private static double translatePaneX;
+    public static Pane currentContainer, currentPane, contentRoot, contentPane, orderPane;
 
     public static GridPane dates;
     public static OrderListViewCell cell;
-    public volatile static Pane currentContainer;
-    public volatile static Pane currentPane;
     public static Button button;
     public static ListView orderList;
     public static ScrollBar scrollBar;
-    public static Pane contentRoot;
-    public static AnchorPane contentPane, orderPane;
     public static Order currentOrder;
 
-    public static double cellLayoutX;
 
     public static BooleanProperty isButtonExpanded = new SimpleBooleanProperty(false);
     public static BooleanProperty action = new SimpleBooleanProperty(false);
-    private static FadeTransition showDates;
 
-    private static TranslateTransition transitionPane;
-    private static TranslateTransition transitionButton;
+    private static FadeTransition showDates;
+    private static TranslateTransition transitionPane, transitionButton;
     private static TransitionResizeHeight heightPane;
     private static TransitionResizeWidth widthPane;
 
@@ -84,7 +67,7 @@ public class ExpandOrderPane {
         orderWidth = currentPane.getWidth();
         orderHeight = currentPane.getHeight();
 
-        cellLayoutX = cell.getLayoutX();
+        double cellLayoutX = cell.getLayoutX();
         translatePaneX = cellLayoutX + orderX + currentContainer.getLayoutX() + 1;
 
         double newLayoutX = translatePaneX + contentPane.getLayoutX();
