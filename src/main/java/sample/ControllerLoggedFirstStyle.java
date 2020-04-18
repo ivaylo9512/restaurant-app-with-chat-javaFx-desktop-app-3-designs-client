@@ -63,6 +63,21 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
                 mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsFirstStyle();
 
+        addListeners();
+
+        chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
+        waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
+
+        ResizeMainChat.addListeners(mainChat);
+
+        setClips();
+        setOrderPane();
+
+        contentRoot.setCursor(Cursor.DEFAULT);
+        MoveRoot.move(moveBar, contentRoot);
+    }
+
+    private void addListeners() {
         ordersList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::expandOrder);
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node: ordersList.lookupAll(".scroll-bar")) {
@@ -88,17 +103,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
                 event.consume();
             }
         });
-
-        chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
-        waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
-
-        ResizeMainChat.addListeners(mainChat);
-
-        setClips();
-        setOrderPane();
-
-        contentRoot.setCursor(Cursor.DEFAULT);
-        MoveRoot.move(moveBar, contentRoot);
     }
 
     private void setClips() {

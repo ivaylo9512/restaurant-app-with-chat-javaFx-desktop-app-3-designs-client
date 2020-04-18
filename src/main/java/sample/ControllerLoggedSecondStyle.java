@@ -70,18 +70,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
 
 //        userChats.setCellFactory(chatCell -> new ChatsListViewCell());
 
-        chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
-            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue != null) {
-                loadOlderHistory(chatValue, chatBlock);
-            }
-        });
-
-        chatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if(event.getCode().equals(KeyCode.ENTER)) {
-                addNewMessage();
-                event.consume();
-            }
-        });
+        addListeners();
 
         Scrolls scrolls = new Scrolls(chatScroll, chatTextArea);
         scrolls.manageScrollsSecondStyle();
@@ -96,6 +85,21 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
 
         setNotificationIcon();
+    }
+
+    private void addListeners() {
+        chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
+            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue != null) {
+                loadOlderHistory(chatValue, chatBlock);
+            }
+        });
+
+        chatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+                addNewMessage();
+                event.consume();
+            }
+        });
     }
 
     private void setClips() {
