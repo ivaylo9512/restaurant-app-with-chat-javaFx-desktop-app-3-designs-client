@@ -466,6 +466,8 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML
     private void showNotifications() {
         notificationsView.setDisable(false);
+        notificationsView.setOpacity(1);
+
         isNewNotificationChecked.set(true);
 
         ordersPane.setDisable(true);
@@ -475,6 +477,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML
     private void showOrders() {
         notificationsView.setDisable(true);
+        notificationsView.setOpacity(0);
 
         ordersPane.setDisable(false);
         ordersPane.setOpacity(1);
@@ -548,8 +551,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
         profileRoot.setOpacity(0);
         profileRoot.setDisable(true);
-
-        notificationsView.setDisable(true);
 
         ordersPane.setDisable(false);
         ordersPane.setOpacity(1);

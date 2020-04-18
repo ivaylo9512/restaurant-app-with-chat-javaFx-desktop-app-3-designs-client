@@ -289,13 +289,10 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
 
         userChats.getItems().clear();
 
-        menuContent.setDisable(true);
-        menuContent.getChildren().remove(profileView);
-        notificationsView.setOpacity(0);
-        notificationsView.setDisable(true);
-
         contentRoot.setOpacity(0);
         contentRoot.setDisable(true);
+
+        menuContent.setDisable(true);
 
         if(currentView != null){
             currentView.setOpacity(0);

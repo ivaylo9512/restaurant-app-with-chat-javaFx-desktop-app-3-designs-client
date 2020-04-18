@@ -78,7 +78,11 @@ public class ControllerLogged implements Controller {
         menuList.setCellFactory(menuCell -> new MenuListViewCell());
         newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
 
+        ordersList.setItems(orderManager.orders);
+        newOrderList.setItems(orderManager.newOrderList);
+        notificationsList.setItems(notificationManager.notifications);
         menuList.setItems(userMenu);
+
         menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
         });
@@ -116,10 +120,6 @@ public class ControllerLogged implements Controller {
         saveButton.setManaged(false);
         saveButton.visibleProperty().bind(saveButton.managedProperty());
         editButton.visibleProperty().bind(editButton.managedProperty());
-
-        ordersList.setItems(orderManager.orders);
-        newOrderList.setItems(orderManager.newOrderList);
-        notificationsList.setItems(notificationManager.notifications);
 
         notificationsList.setCellFactory(param -> new ListCell<Notification>(){
             @Override
@@ -246,8 +246,12 @@ public class ControllerLogged implements Controller {
     }
 
     public void resetStage(){
-        newOrderList.getItems().clear();
         menuList.getItems().clear();
+        ordersList.scrollTo(0);
+        notificationsList.scrollTo(0);
+
+        notificationsView.setOpacity(0);
+        notificationsView.setDisable(true);
     }
 
     @FXML
