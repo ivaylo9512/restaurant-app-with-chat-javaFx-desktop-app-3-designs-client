@@ -81,9 +81,6 @@ public class OrderListViewCell extends ListCell<Order> {
 
             orderPane.setOpacity(1);
             if(ExpandOrderPane.currentOrder == order){
-                System.out.println(order.getIndex() + "old");
-                System.out.println(getIndex() + "old");
-                System.out.println(ExpandOrderPane.currentOrder == order);
                 ExpandOrderPane.currentPane = orderPane;
                 ExpandOrderPane.currentContainer = container;
                 ExpandOrderPane.cell = this;

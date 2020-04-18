@@ -88,7 +88,6 @@ public class ControllerLogged implements Controller {
         editButton.visibleProperty().bind(editButton.managedProperty());
 
         ResizeRoot.addListeners(contentRoot);
-        setUserFields();
     }
 
 
@@ -145,7 +144,7 @@ public class ControllerLogged implements Controller {
 
     }
 
-    private void setListsFactories() {
+    public void setListsFactories() {
         currentDishList.setCellFactory(c -> new DishListViewCell());
         menuList.setCellFactory(menuCell -> new MenuListViewCell());
         newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
@@ -171,6 +170,8 @@ public class ControllerLogged implements Controller {
         roleField.setEditable(false);
         roleField.setDisable(true);
         saveButton.setManaged(false);
+
+        bindUserFields();
     }
 
     private void bindUserFields() {

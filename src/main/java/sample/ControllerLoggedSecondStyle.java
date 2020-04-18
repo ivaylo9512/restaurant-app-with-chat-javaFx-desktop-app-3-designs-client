@@ -56,6 +56,24 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     public void initialize() {
         super.initialize();
 
+        addListeners();
+        setClips();
+        setNotificationIcon();
+
+        Scrolls scrolls = new Scrolls(chatScroll, chatTextArea);
+        scrolls.manageScrollsSecondStyle();
+
+        MoveRoot.move(menuButton, menuRoot);
+        MoveRoot.move(contentBar, contentRoot);
+
+        chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
+        editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
+    }
+
+    @Override
+    public void setListsFactories() {
+        super.setListsFactories();
+
         ordersList.setCellFactory(param -> new ListCell<Order>(){
             @Override
             protected void updateItem(Order item, boolean empty) {
@@ -67,24 +85,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
                 }
             }
         });
-
-//        userChats.setCellFactory(chatCell -> new ChatsListViewCell());
-
-        addListeners();
-
-        Scrolls scrolls = new Scrolls(chatScroll, chatTextArea);
-        scrolls.manageScrollsSecondStyle();
-
-        MoveRoot.move(menuButton, menuRoot);
-        MoveRoot.move(contentBar, contentRoot);
-
-        setClips();
-
-        chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
-
-        editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
-
-        setNotificationIcon();
     }
 
     private void addListeners() {

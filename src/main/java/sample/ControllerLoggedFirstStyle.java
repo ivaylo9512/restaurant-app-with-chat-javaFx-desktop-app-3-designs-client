@@ -56,25 +56,30 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML
     public void initialize() {
         super.initialize();
-        ordersList.setCellFactory(orderCell -> new OrderListViewCell());
-        notificationsList.setCellFactory(menuCell -> new NotificationListViewCell());
+
+        addListeners();
+        setClips();
+        setOrderPane();
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
                 mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsFirstStyle();
-
-        addListeners();
 
         chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
         waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
 
         ResizeMainChat.addListeners(mainChat);
 
-        setClips();
-        setOrderPane();
-
         contentRoot.setCursor(Cursor.DEFAULT);
         MoveRoot.move(moveBar, contentRoot);
+    }
+
+    @Override
+    public void setListsFactories(){
+        super.setListsFactories();
+
+        ordersList.setCellFactory(orderCell -> new OrderListViewCell());
+        notificationsList.setCellFactory(menuCell -> new NotificationListViewCell());
     }
 
     private void addListeners() {
