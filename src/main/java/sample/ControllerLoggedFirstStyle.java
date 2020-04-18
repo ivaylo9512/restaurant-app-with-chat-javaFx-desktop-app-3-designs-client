@@ -76,8 +76,8 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
             }
         });
 
-        mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
-            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && mainChatValue != null) {
+        mainChatBlock.idProperty().addListener((observable, oldValue, newValue) -> {
+            if ((newValue.equals("append") || newValue.equals("beginning-append")) && mainChatValue != null) {
                 loadOlderHistory(mainChatValue, mainChatBlock);
             }
         });
@@ -104,6 +104,13 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         contentRoot.setCursor(Cursor.DEFAULT);
         MoveRoot.move(moveBar, contentRoot);
     }
+
+    public void updateListScroll() {
+        if(currentOrder != null && ordersList.isDisabled()) {
+            ordersList.scrollTo(currentOrder);
+        }
+    }
+
     private void waitForNewMessages(){
         messageService = new MessageService();
         messageService.setOnSucceeded(event -> {
@@ -639,12 +646,15 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         Node intersectedNode = event.getPickResult().getIntersectedNode();
         String type = intersectedNode.getTypeSelector();
         if(type.equals("Button") || (!ExpandOrderPane.action.get() && type.equals("AnchorPane"))){
+
             currentPane = type.equals("AnchorPane") ? (AnchorPane) intersectedNode
                     : (AnchorPane) intersectedNode.getParent();
             currentContainer = (Pane)currentPane.getParent();
             cell =  (OrderListViewCell) currentContainer.getParent();
-            bindOrderProperties(cell.order);
+
             ExpandOrderPane.setCurrentOrder(event);
+            currentOrder = cell.order;
+            bindOrderProperties(currentOrder);
 
             if(intersectedNode.getTypeSelector().equals("Button"))
                 expandOrderOnClick();

@@ -1,5 +1,7 @@
 package Helpers.ListViews;
 
+import Animations.ExpandOrderPane;
+import Application.StageManager;
 import Helpers.Scrolls;
 import Models.Order;
 import javafx.animation.TranslateTransition;
@@ -11,10 +13,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import sample.ControllerLoggedFirstStyle;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+
+import static Application.RestaurantApplication.stageManager;
 
 public class OrderListViewCell extends ListCell<Order> {
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -46,8 +51,8 @@ public class OrderListViewCell extends ListCell<Order> {
 
     @Override
     protected void updateItem(Order order, boolean empty) {
-        this.order = order;
         super.updateItem(order, empty);
+        this.order = order;
 
         if(empty || order == null) {
 
@@ -73,7 +78,26 @@ public class OrderListViewCell extends ListCell<Order> {
 
             setText(null);
             setGraphic(container);
+
+            orderPane.setOpacity(1);
+            if(ExpandOrderPane.currentOrder == order){
+                System.out.println(order.getIndex() + "old");
+                System.out.println(getIndex() + "old");
+                System.out.println(ExpandOrderPane.currentOrder == order);
+                ExpandOrderPane.currentPane = orderPane;
+                ExpandOrderPane.currentContainer = container;
+                ExpandOrderPane.cell = this;
+                ExpandOrderPane.setOrderDimension();
+
+                orderPane.setOpacity(0);
+                if(order.getIndex() != getIndex()){
+                    ((ControllerLoggedFirstStyle)stageManager.currentController).updateListScroll();
+                }
+            }
+            order.setIndex(getIndex());
         }
 
     }
+
+
 }

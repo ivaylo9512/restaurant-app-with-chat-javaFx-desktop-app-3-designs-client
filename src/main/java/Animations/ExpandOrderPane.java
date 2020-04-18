@@ -1,6 +1,7 @@
 package Animations;
 
 import Helpers.ListViews.OrderListViewCell;
+import Models.Order;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -8,6 +9,7 @@ import javafx.animation.TranslateTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
@@ -20,7 +22,6 @@ public class ExpandOrderPane {
 
     private static double orderWidth;
     private static double orderHeight;
-    private static double orderX;
 
     private static double maxOrderWidth;
 
@@ -33,19 +34,20 @@ public class ExpandOrderPane {
     private static double xButtonRation;
     private static double initialOffsetX;
     private static double initialMouseX;
-
-
     private static double translatePaneX;
 
     public static GridPane dates;
     public static OrderListViewCell cell;
-    public static Pane currentContainer;
-    public static Pane currentPane;
+    public volatile static Pane currentContainer;
+    public volatile static Pane currentPane;
     public static Button button;
     public static ListView orderList;
     public static ScrollBar scrollBar;
     public static Pane contentRoot;
     public static AnchorPane contentPane, orderPane;
+    public static Order currentOrder;
+
+    public static double cellLayoutX;
 
     public static BooleanProperty isButtonExpanded = new SimpleBooleanProperty(false);
     public static BooleanProperty action = new SimpleBooleanProperty(false);
@@ -68,21 +70,34 @@ public class ExpandOrderPane {
         buttonX = button.getLayoutX();
         buttonY = button.getLayoutY();
 
-        orderX = currentPane.getLayoutX();
-        orderWidth = currentPane.getWidth();
-        orderHeight = currentPane.getHeight();
-
-        double cellLayoutX = cell.getLayoutX();
-        translatePaneX = cellLayoutX + orderX + currentContainer.getLayoutX() + 1;
-
+        setOrderDimension();
         initialOffsetX = event.getX() - translatePaneX;
         initialMouseX = event.getScreenX();
 
         maxOrderWidth = orderWidth * 4;
         xButtonRation = currentPane.getWidth() / (button.getLayoutX() + button.getWidth() / 2);
+    }
 
-        orderPane.setLayoutX(translatePaneX + contentPane.getLayoutX());
-        orderPane.setLayoutY(currentPane.getLayoutY() + contentPane.getLayoutY() + 1);
+    public static void setOrderDimension() {
+
+        double orderX = currentPane.getLayoutX();
+        orderWidth = currentPane.getWidth();
+        orderHeight = currentPane.getHeight();
+
+        cellLayoutX = cell.getLayoutX();
+        translatePaneX = cellLayoutX + orderX + currentContainer.getLayoutX() + 1;
+
+        double newLayoutX = translatePaneX + contentPane.getLayoutX();
+        double newLayoutY = currentPane.getLayoutY() + contentPane.getLayoutY() + 1;
+
+        if(currentOrder != null){
+            orderPane.setTranslateY(orderPane.getTranslateY() + newLayoutY - orderPane.getLayoutY());
+            orderPane.setTranslateX(orderPane.getTranslateX() + newLayoutX - orderPane.getLayoutX());
+        }
+
+        orderPane.setLayoutX(newLayoutX);
+        orderPane.setLayoutY(newLayoutY);
+
     }
 
     public static void setListeners(){
@@ -241,6 +256,7 @@ public class ExpandOrderPane {
         widthPane.setAndPlay(delay, orderWidth);
 
         Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(delay, actionEvent -> {
+            currentOrder = null;
             orderList.setDisable(false);
             currentPane.setOpacity(1);
             action.setValue(false);

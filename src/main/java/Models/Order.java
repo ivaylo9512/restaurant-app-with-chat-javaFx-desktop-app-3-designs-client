@@ -19,6 +19,7 @@ public class Order{
     private ObjectProperty<LocalDateTime> updated = new SimpleObjectProperty<>();
     private int userId;
     private int restaurantId;
+    private int index;
 
     private boolean ready;
     public Order() {
@@ -113,5 +114,13 @@ public class Order{
 
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }
