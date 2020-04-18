@@ -75,65 +75,24 @@ public class ControllerLogged implements Controller {
 
     @FXML
     public void initialize() {
-        currentDishList.setCellFactory(c -> new DishListViewCell());
-        menuList.setCellFactory(menuCell -> new MenuListViewCell());
-        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
+        setListsFactories();
+        setListsItems();
+        setGraphicIndicators();
+        setNotificationsListeners();
+        setUserFields();
 
-        ordersList.setItems(orderManager.orders);
-        newOrderList.setItems(orderManager.newOrderList);
-        notificationsList.setItems(notificationManager.notifications);
-        menuList.setItems(userMenu);
+        menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
+                userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
 
-        menuSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            userMenu.setAll(searchMenu(newValue.toLowerCase()).values());
-        });
-
-        if(usernameField == null) usernameField = new TextField();
-
-        usernameField.setEditable(false);
-        usernameField.setDisable(true);
-        roleField.setEditable(false);
-        roleField.setDisable(true);
-
-        editButtonGraphic = editButton.getGraphic();
-        loginManager.sendInfo.runningProperty().addListener((observable, oldValue, newValue)->{
-            if(newValue){
-                editButton.setGraphic(editIndicator);
-                editButton.setText(null);
-            }else {
-                editButton.setGraphic(editButtonGraphic);
-                editButton.setText("Edit");
-            }
-        });
-
-        createButtonGraphic = createButton.getGraphic();
-        createButtonText = createButton.getText();
-        orderManager.sendOrder.runningProperty().addListener((observable, oldValue, newValue)->{
-            if(newValue){
-                createButton.setGraphic(createIndicator);
-                createButton.setText(null);
-            }else {
-                createButton.setGraphic(createButtonGraphic);
-                createButton.setText(createButtonText);
-            }
-        });
-
-        saveButton.setManaged(false);
         saveButton.visibleProperty().bind(saveButton.managedProperty());
         editButton.visibleProperty().bind(editButton.managedProperty());
 
-        notificationsList.setCellFactory(param -> new ListCell<Notification>(){
-            @Override
-            protected void updateItem(Notification item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getName());
-                }
-            }
-        });
+        ResizeRoot.addListeners(contentRoot);
+        setUserFields();
+    }
 
+
+    private void setNotificationsListeners() {
         notificationsList.getItems().addListener((ListChangeListener<Notification>)c -> {
             c.next();
             if(c.getRemovedSize() > 0) {
@@ -150,10 +109,68 @@ public class ControllerLogged implements Controller {
             }
             notificationIcon.setOpacity(0);
         });
+    }
 
-        ResizeRoot.addListeners(contentRoot);
+    private void setGraphicIndicators() {
+        editButtonGraphic = editButton.getGraphic();
+        createButtonGraphic = createButton.getGraphic();
+        createButtonText = createButton.getText();
 
-        bindUserFields();
+        loginManager.sendInfo.runningProperty().addListener((observable, oldValue, newValue)->{
+            if(newValue){
+                editButton.setGraphic(editIndicator);
+                editButton.setText(null);
+            }else {
+                editButton.setGraphic(editButtonGraphic);
+                editButton.setText("Edit");
+            }
+        });
+
+        orderManager.sendOrder.runningProperty().addListener((observable, oldValue, newValue)->{
+            if(newValue){
+                createButton.setGraphic(createIndicator);
+                createButton.setText(null);
+            }else {
+                createButton.setGraphic(createButtonGraphic);
+                createButton.setText(createButtonText);
+            }
+        });
+    }
+
+    private void setListsItems() {
+        ordersList.setItems(orderManager.orders);
+        newOrderList.setItems(orderManager.newOrderList);
+        notificationsList.setItems(notificationManager.notifications);
+        menuList.setItems(userMenu);
+
+    }
+
+    private void setListsFactories() {
+        currentDishList.setCellFactory(c -> new DishListViewCell());
+        menuList.setCellFactory(menuCell -> new MenuListViewCell());
+        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
+
+        notificationsList.setCellFactory(param -> new ListCell<Notification>(){
+            @Override
+            protected void updateItem(Notification item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName());
+                }
+            }
+        });
+    }
+
+    private void setUserFields(){
+        if(usernameField == null) usernameField = new TextField();
+
+        usernameField.setEditable(false);
+        usernameField.setDisable(true);
+        roleField.setEditable(false);
+        roleField.setDisable(true);
+        saveButton.setManaged(false);
     }
 
     private void bindUserFields() {
