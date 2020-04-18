@@ -1,5 +1,6 @@
 package sample.base;
 
+import Animations.ResizeRoot;
 import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
 import Models.Dish;
@@ -149,6 +150,8 @@ public class ControllerLogged implements Controller {
             }
             notificationIcon.setOpacity(0);
         });
+
+        ResizeRoot.addListeners(contentRoot);
 
         bindUserFields();
     }

@@ -94,15 +94,18 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
         ResizeMainChat.addListeners(mainChat);
 
-        Circle clip = new Circle(0, 0, 30);
-        clip.setLayoutX(30);
-        clip.setLayoutY(30);
-        profileImageContainer.setClip(clip);
-
+        setClips();
         setOrderPane();
 
         contentRoot.setCursor(Cursor.DEFAULT);
         MoveRoot.move(moveBar, contentRoot);
+    }
+
+    private void setClips() {
+        Circle clip = new Circle(0, 0, 30);
+        clip.setLayoutX(30);
+        clip.setLayoutY(30);
+        profileImageContainer.setClip(clip);
     }
 
     public void updateListScroll() {

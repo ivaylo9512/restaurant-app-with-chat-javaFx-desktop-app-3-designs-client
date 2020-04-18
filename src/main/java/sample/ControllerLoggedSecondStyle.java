@@ -88,8 +88,17 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
 
         MoveRoot.move(menuButton, menuRoot);
         MoveRoot.move(contentBar, contentRoot);
-        ResizeRoot.addListeners(contentRoot);
 
+        setClips();
+
+        chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
+
+        editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
+
+        setNotificationIcon();
+    }
+
+    private void setClips() {
         Rectangle profileViewClip = new Rectangle();
         profileViewClip.widthProperty().bind(profileView.widthProperty());
         profileViewClip.heightProperty().bind(profileView.heightProperty());
@@ -106,14 +115,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         notificationClip.setArcWidth(33);
         notificationClip.heightProperty().bind(notificationsList.heightProperty());
         notificationClip.widthProperty().bind(notificationsList.widthProperty());
-
         notificationsList.setClip(notificationClip);
-
-        chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
-
-        editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
-
-        setNotificationIcon();
     }
 
     private void setNotificationIcon() {
