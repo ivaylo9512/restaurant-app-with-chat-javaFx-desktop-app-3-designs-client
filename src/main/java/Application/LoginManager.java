@@ -8,9 +8,13 @@ import Models.UserRequest;
 import com.fasterxml.jackson.databind.JavaType;
 import javafx.beans.property.*;
 import javafx.concurrent.Service;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
+
+import java.io.IOException;
 
 import static Application.RestaurantApplication.*;
 import static Application.ServerRequests.*;
@@ -46,20 +50,14 @@ public class LoginManager {
         registerService.setOnSucceeded(eventSuccess -> onSuccessfulService(registerService));
         registerService.setOnFailed(eventFail -> updateError(registerService));
 
-        sendInfo.setOnFailed(event -> returnOldInfo());
-        sendInfo.setOnSucceeded(event -> setSavedInfo());
+        sendInfo.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendUserInfoSuccess);
+        sendInfo.addEventFilter(WorkerStateEvent.WORKER_STATE_FAILED, onSendUserInfoFail);
 
-        longPollingService.setOnSucceeded(event -> {
-            UserRequest userRequest = (UserRequest) event.getSource().getValue();
-            userRequest.getDishes().forEach(orderManager::updateDish);
-            userRequest.getOrders().forEach(orderManager::addOrder);
-
-            longPollingService.restart();
-        });
+        longPollingService.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onLongPollingSuccess);
     }
 
-    JavaType type = mapper.constructType(User.class);
-    public void checkIfLogged() {
+    private JavaType type = mapper.constructType(User.class);
+    void checkIfLogged() {
         if(userPreference.get("jwt", null) != null){
             loading.setValue(true);
 
@@ -76,6 +74,16 @@ public class LoginManager {
             });
         }
     }
+    private EventHandler<WorkerStateEvent> onSendUserInfoSuccess = e -> setSavedInfo();
+    private EventHandler<WorkerStateEvent> onSendUserInfoFail = e -> returnOldInfo();
+
+    private EventHandler<WorkerStateEvent> onLongPollingSuccess = e -> {
+        UserRequest userRequest = longPollingService.getValue();
+        userRequest.getDishes().forEach(orderManager::updateDish);
+        userRequest.getOrders().forEach(orderManager::addOrder);
+
+        longPollingService.restart();
+    };
 
     static LoginManager initialize(){
         return new LoginManager();
@@ -141,17 +149,26 @@ public class LoginManager {
         stageManager.changeToOwner();
     }
     public void logout(){
-        httpClientLongPolling = HttpClients.createDefault();
+        sendInfo.removeEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendUserInfoFail);
+        sendInfo.removeEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendUserInfoSuccess);
+        longPollingService.removeEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onLongPollingSuccess);
+
+        if(sendInfo.isRunning()) sendInfo.cancel();
+        if(longPollingService.isRunning()) longPollingService.cancel();
+
+        longPollingService.reset();
+        sendInfo.reset();
+
+        try {
+            httpClient.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        httpClient = HttpClients.createDefault();
 
         userPreference.remove("jwt");
         resetUser();
         orderManager.resetRestaurant();
-
-        if(longPollingService.isRunning()) longPollingService.cancel();
-        if(sendInfo.isRunning()) sendInfo.cancel();
-
-        longPollingService.reset();
-        sendInfo.reset();
 
         stageManager.changeToOwner();
     }
