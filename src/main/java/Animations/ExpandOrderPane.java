@@ -9,11 +9,9 @@ import javafx.animation.TranslateTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -32,6 +30,7 @@ public class ExpandOrderPane {
     public static ScrollBar scrollBar;
     public static Order currentOrder;
 
+    public static double cellLayoutX, cellWidth;
 
     public static BooleanProperty isButtonExpanded = new SimpleBooleanProperty(false);
     public static BooleanProperty action = new SimpleBooleanProperty(false);
@@ -54,6 +53,7 @@ public class ExpandOrderPane {
         buttonY = button.getLayoutY();
 
         setOrderDimension();
+
         initialOffsetX = event.getX() - translatePaneX;
         initialMouseX = event.getScreenX();
 
@@ -67,15 +67,17 @@ public class ExpandOrderPane {
         orderWidth = currentPane.getWidth();
         orderHeight = currentPane.getHeight();
 
-        double cellLayoutX = cell.getLayoutX();
+        cellLayoutX = cell.getLayoutX();
+        cellWidth = cell.getWidth();
+
         translatePaneX = cellLayoutX + orderX + currentContainer.getLayoutX() + 1;
 
         double newLayoutX = translatePaneX + contentPane.getLayoutX();
         double newLayoutY = currentPane.getLayoutY() + contentPane.getLayoutY() + 1;
 
         if(currentOrder != null){
-            orderPane.setTranslateY(orderPane.getTranslateY() + newLayoutY - orderPane.getLayoutY());
-            orderPane.setTranslateX(orderPane.getTranslateX() + newLayoutX - orderPane.getLayoutX());
+            orderPane.setTranslateY(orderPane.getTranslateY() + orderPane.getLayoutY() - newLayoutY);
+            orderPane.setTranslateX(orderPane.getTranslateX() + orderPane.getLayoutX() - newLayoutX);
         }
 
         orderPane.setLayoutX(newLayoutX);

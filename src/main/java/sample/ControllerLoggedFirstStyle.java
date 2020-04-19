@@ -120,6 +120,9 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     public void updateListScroll() {
         if(currentOrder != null && ordersList.isDisabled()) {
             ordersList.scrollTo(currentOrder);
+            double zeroIndexScroll = (currentOrder.getIndex() * (cellWidth + 0.40)) / (ordersList.getItems().size() * cellWidth + 1);
+            double scrollPosition = zeroIndexScroll - (cellLayoutX / (ordersList.getItems().size() * cellWidth + 1));
+            scrollBar.setValue(scrollPosition);
         }
     }
 

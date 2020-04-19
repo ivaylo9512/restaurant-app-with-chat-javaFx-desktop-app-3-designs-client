@@ -267,9 +267,10 @@ public class ControllerLogged implements Controller {
     }
 
     public void resetStage(){
+        if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
+        if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
+
         menuList.getItems().clear();
-        ordersList.scrollTo(0);
-        notificationsList.scrollTo(0);
 
         notificationsView.setOpacity(0);
         notificationsView.setDisable(true);

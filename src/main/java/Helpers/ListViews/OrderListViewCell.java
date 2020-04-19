@@ -84,10 +84,10 @@ public class OrderListViewCell extends ListCell<Order> {
                 ExpandOrderPane.currentPane = orderPane;
                 ExpandOrderPane.currentContainer = container;
                 ExpandOrderPane.cell = this;
-                ExpandOrderPane.setOrderDimension();
 
                 orderPane.setOpacity(0);
                 if(order.getIndex() != getIndex()){
+                    order.setIndex(getIndex());
                     ((ControllerLoggedFirstStyle)stageManager.currentController).updateListScroll();
                 }
             }
