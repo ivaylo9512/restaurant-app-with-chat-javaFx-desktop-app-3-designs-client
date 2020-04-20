@@ -56,7 +56,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     public void initialize() {
         super.initialize();
 
-        addListeners();
         setClips();
         setNotificationIcon();
 
@@ -83,21 +82,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
                 } else {
                     setText("Order" + item.getId().get());
                 }
-            }
-        });
-    }
-
-    private void addListeners() {
-        chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
-            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue != null) {
-                loadOlderHistory(chatValue, chatBlock);
-            }
-        });
-
-        chatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if(event.getCode().equals(KeyCode.ENTER)) {
-                addNewMessage();
-                event.consume();
             }
         });
     }
