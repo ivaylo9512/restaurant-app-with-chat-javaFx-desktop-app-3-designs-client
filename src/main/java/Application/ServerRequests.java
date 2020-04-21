@@ -1,5 +1,6 @@
 package Application;
 
+import Helpers.RequestTask;
 import Models.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,25 +38,16 @@ public class ServerRequests {
 
     static ExecutorService tasks = Executors.newFixedThreadPool(10);
 
-    public static List<Session> getNextSessions(int id, int page) {
-        List<Session> sessions = new LinkedList<>();
-        try {
+    public static HttpRequestBase getNextSessions(int id, int page) throws Exception{
+        URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
+        builder
+                .setParameter("chatId", String.valueOf(id))
+                .setParameter("page", String.valueOf(page))
+                .setParameter("pageSize", String.valueOf(pageSize));
+        HttpGet get = new HttpGet(builder.build());
+        get.setHeader("Authorization", userPreference.get("jwt", null));
 
-            URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
-            builder
-                    .setParameter("chatId", String.valueOf(id))
-                    .setParameter("page", String.valueOf(page))
-                    .setParameter("pageSize", String.valueOf(pageSize));
-            HttpGet get = new HttpGet(builder.build());
-            get.setHeader("Authorization", userPreference.get("jwt", null));
-
-            sessions = mapper.readValue(executeRequest(get), new TypeReference<List<Session>>() {});
-
-        } catch (IOException | HttpException | URISyntaxException e) {
-//            handleException(e.getMessage());
-        }
-
-        return sessions;
+        return get;
     }
 
     public static HttpRequestBase sendOrder() throws Exception {
@@ -157,8 +149,8 @@ public class ServerRequests {
         return patch;
     }
 
-    public static String executeRequest(HttpRequestBase request) throws HttpException, IOException{
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
+    public static String executeRequest(HttpRequestBase request, RequestTask task) throws Exception{
+        try(CloseableHttpResponse response = httpClient.execute(request)) {
             int responseCode = response.getStatusLine().getStatusCode();
 
             HttpEntity responseEntity = response.getEntity();
