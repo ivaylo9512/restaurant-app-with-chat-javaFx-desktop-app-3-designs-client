@@ -1,16 +1,22 @@
 package Application;
 
 import Models.Chat;
+import Models.ChatValue;
+import javafx.scene.image.Image;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import static Application.RestaurantApplication.loginManager;
 
+
 public class ChatManager {
 
-    HashMap<Integer, Chat> chats = new HashMap<>();
+    public Map<Integer, ChatValue> chats = new HashMap<>();
     private ChatManager() {
     }
 
@@ -18,12 +24,25 @@ public class ChatManager {
         return new ChatManager();
     }
 
-    void setChats(List<Chat> chats){
-        this.chats = chats.stream().collect(Collectors.toMap(chat -> {
-            if(chat.getFirstUser().getId().get() == loginManager.userId.get()){
-                return chat.getSecondUser().getId().get();
+    void setChats(List<Chat> chatsList){
+        chatsList.forEach(chat -> {
+            Image profilePicture;
+            if(chat.getSecondUser().getId().get() == loginManager.userId.get()){
+                chat.setSecondUser(chat.getFirstUser());
             }
-            return chat.getFirstUser().getId().get();
-        }, chat -> chat));
+
+            int userId = chat.getSecondUser().getId().get();
+            try(InputStream in = new BufferedInputStream(
+                    new URL(chat.getSecondUser().getProfilePicture().get()).openStream())) {
+
+                profilePicture = new Image(in);
+            }catch(Exception e){
+                profilePicture = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
+            }
+            ChatValue chatValue = new ChatValue(chat.getId(), userId, profilePicture);
+            chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
+
+            chats.put(chat.getId(), chatValue);
+        });
     }
 }
