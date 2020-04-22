@@ -7,9 +7,8 @@ import javafx.scene.image.Image;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class User {
     private IntegerProperty id = new SimpleIntegerProperty();
@@ -21,6 +20,7 @@ public class User {
     private StringProperty role = new SimpleStringProperty();
     private StringProperty profilePicture = new SimpleStringProperty();
     private Restaurant restaurant;
+    private List<Chat> chats = new ArrayList<>();
 
     public ObjectProperty<Image> image = new SimpleObjectProperty<>();
 
@@ -135,6 +135,14 @@ public class User {
 
     public ObjectProperty<Image> getImage() {
         return image;
+    }
+
+    public List<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(List<Chat> chats) {
+        this.chats = chats;
     }
 
     public void setImage(Image image) {

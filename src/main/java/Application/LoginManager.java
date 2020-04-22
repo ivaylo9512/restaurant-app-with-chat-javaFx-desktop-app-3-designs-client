@@ -142,10 +142,11 @@ public class LoginManager {
 
         savedUserInfo = new User(loggedUser);
         setUserFields(loggedUser);
+
+        chatManager.setChats(loggedUser.getChats());
         orderManager.setRestaurant(loggedUser.getRestaurant());
 
         longPollingService.start();
-
         stageManager.changeToOwner();
     }
     public void logout(){
