@@ -42,8 +42,7 @@ public class RequestTask<T> extends Task<T> {
 
         }catch (IOException e) {
             if(stageManager.currentController instanceof ControllerLogin){
-                showAlert("No connection to the server");
-                throw e;
+                throw new IOException("No connection to the server");
             }
             return executeTask();
         }
