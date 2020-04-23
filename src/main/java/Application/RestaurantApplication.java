@@ -30,8 +30,8 @@ public class RestaurantApplication extends Application{
         notificationManager = NotificationManager.initialize();
         orderManager = OrderManager.initialize();
         loginManager = LoginManager.initialize();
-        stageManager = StageManager.initialize(primaryStage);
         chatManager = ChatManager.initialize();
+        stageManager = StageManager.initialize(primaryStage);
 
         loginManager.checkIfLogged();
     }

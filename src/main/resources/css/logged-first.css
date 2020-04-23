@@ -198,6 +198,20 @@ TextFlow {
     -fx-background-radius: 5;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
+.menuScroll ListView{
+    -fx-background-color:transparent;
+}
+.menuScroll .list-cell{
+    -fx-background-color:transparent;
+}
+.userInfoScroll .scroll-bar .track {
+    -fx-scale-x: 0px;
+    -fx-padding: 0px;
+}
+.userInfoScroll .scroll-bar .thumb {
+    -fx-scale-x: 0px;
+    -fx-padding: 0px;
+}
 .user-info Label{
     -fx-background-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
@@ -238,6 +252,9 @@ TextFlow {
 }
 .user-info ProgressIndicator{
     -fx-max-height: 12;
+}
+.user-info:disabled Button{
+    -fx-opacity: 0.9;
 }
 .chat-block{
     -fx-padding: 0 0 7 0;

@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -17,21 +18,22 @@ import javafx.util.Duration;
 
 
 public class Scrolls {
-    private ScrollPane menuScroll, userInfoScroll, chatUsersScroll, notificationsScroll;
+    private ScrollPane menuScroll, userInfoScroll;
     private TextArea mainChatTextArea;
     private TextArea secondChatTextArea;
     private ScrollPane mainChatScroll;
     private ScrollPane secondChatScroll;
     private double heightDiff;
     private double offsetY;
+    private ListView chatUsersList;
+    private ScrollBar chatUsersScrollBar;
 
-    public Scrolls(ScrollPane menuScroll,ScrollPane userInfoScroll, ScrollPane chatUsersScroll,ScrollPane mainChatScroll, TextArea mainChatTextArea) {
+    public Scrolls(ScrollPane menuScroll, ScrollPane userInfoScroll, ListView chatUsersList, ScrollPane mainChatScroll, TextArea mainChatTextArea) {
         this.menuScroll = menuScroll;
         this.userInfoScroll = userInfoScroll;
-        this.chatUsersScroll = chatUsersScroll;
+        this.chatUsersList = chatUsersList;
         this.mainChatScroll = mainChatScroll;
         this.mainChatTextArea = mainChatTextArea;
-        this.notificationsScroll = notificationsScroll;
 
     }
     public Scrolls(ScrollPane mainChatScroll, TextArea mainChatTextArea) {
@@ -46,9 +48,19 @@ public class Scrolls {
     }
     public void manageScrollsFirstStyle(){
         fixBlurryContent();
-        changeMenuScrollBehaviour();
         listenForHistoryRequest(mainChatScroll);
 
+        chatUsersList.skinProperty().addListener((observable, oldValue, newValue) -> {
+            for (Node node : chatUsersList.lookupAll(".scroll-bar")) {
+                if (node instanceof ScrollBar) {
+                    ScrollBar bar = (ScrollBar) node;
+                    if (bar.getOrientation().equals(Orientation.VERTICAL)) {
+                        chatUsersScrollBar = (ScrollBar) node;
+                        changeMenuScrollBehaviour();
+                    }
+                }
+            }
+        });
     }
     public void manageScrollsSecondStyle(){
         mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
@@ -143,27 +155,27 @@ public class Scrolls {
 
                 if (menuScroll.getHeight() <= 212) {
                     if(menuScroll.getVvalue() == 0 || menuScroll.getVvalue() == 1) {
-                        chatUsersScroll.setDisable(false);
+                        chatUsersList.setDisable(false);
                         userInfoScroll.setDisable(false);
 
-                        ScrollPane scrollPane;
                         if (menuScroll.getVvalue() == 0) {
-                            scrollPane = userInfoScroll;
+                            Pane content = (Pane) userInfoScroll.getContent();
+                            userInfoScroll.setVvalue(userInfoScroll.getVvalue() - event.getDeltaY() / content.getHeight());
                         } else {
-                            scrollPane = chatUsersScroll;
+                            double value = chatUsersScrollBar.getValue() - event.getDeltaY() / chatUsersList.getHeight();
+
+                            chatUsersScrollBar.setValue(Math.max(value, 0));
                         }
-                        Pane content = (Pane) scrollPane.getContent();
-                        scrollPane.setVvalue(scrollPane.getVvalue() - event.getDeltaY() / content.getHeight());
                         event.consume();
                     }
                 }else{
-                    chatUsersScroll.setDisable(true);
+                    chatUsersList.setDisable(true);
                     userInfoScroll.setDisable(false);
 
                     if(anchorPane.getHeight() <= menuScroll.getHeight()){
-                        chatUsersScroll.setDisable(false);
+                        chatUsersList.setDisable(false);
                     }else if(menuScroll.getVvalue() == 1){
-                        chatUsersScroll.setDisable(false);
+                        chatUsersList.setDisable(false);
                         userInfoScroll.setDisable(true);
                     }
                 }
@@ -175,7 +187,6 @@ public class Scrolls {
     private void fixBlurryContent(){
         fixBlurriness(menuScroll);
         fixBlurriness(userInfoScroll);
-        fixBlurriness(chatUsersScroll);
         fixBlurriness(mainChatScroll);
         fixBlurriness(mainChatScroll);
 

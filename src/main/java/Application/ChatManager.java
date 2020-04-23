@@ -2,6 +2,8 @@ package Application;
 
 import Models.Chat;
 import Models.ChatValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
 import java.io.BufferedInputStream;
@@ -17,6 +19,7 @@ import static Application.RestaurantApplication.loginManager;
 public class ChatManager {
 
     public Map<Integer, ChatValue> chats = new HashMap<>();
+    public ObservableList<ChatValue> chatsList = FXCollections.observableArrayList();
     private ChatManager() {
     }
 
@@ -42,6 +45,7 @@ public class ChatManager {
             ChatValue chatValue = new ChatValue(chat.getId(), userId, profilePicture);
             chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
 
+            this.chatsList.add(chatValue);
             chats.put(chat.getId(), chatValue);
         });
     }

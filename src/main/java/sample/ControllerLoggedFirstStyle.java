@@ -17,26 +17,18 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import sample.base.ControllerLogged;
-
-import java.util.*;
-import java.util.List;
 
 import static Animations.ExpandOrderPane.*;
 
 public class ControllerLoggedFirstStyle extends ControllerLogged {
-    @FXML ScrollPane menuScroll, userInfoScroll, chatUsersScroll, mainChatScroll;
-    @FXML VBox mainChatBlock, chatUsers;
+    @FXML ScrollPane menuScroll, userInfoScroll, mainChatScroll;
+    @FXML VBox mainChatBlock;
     @FXML FlowPane chatInfo;
     @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, profileRoot;
@@ -44,8 +36,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     @FXML ImageView roleImage;
     @FXML Button expandButton;
     @FXML GridPane dates;
-
-    private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private ScrollBar ordersScrollBar;
     private ChatValue mainChatValue;
@@ -61,7 +51,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         setClips();
         setOrderPane();
 
-        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersScroll,
+        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
                 mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsFirstStyle();
 
@@ -78,6 +68,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     public void setListsFactories(){
         super.setListsFactories();
 
+        chatUsersList.setCellFactory(chatList -> new ChatsUsersListViewCell());
         ordersList.setCellFactory(orderCell -> new OrderListViewCell());
         notificationsList.setCellFactory(menuCell -> new NotificationListViewCell());
     }
@@ -139,7 +130,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
                 new KeyFrame(Duration.millis(1000), new KeyValue(
                         menuScroll.vvalueProperty(), 1)));
         animation.play();
-        chatUsersScroll.setDisable(false);
+        chatUsersList.setDisable(false);
         userInfoScroll.setDisable(true);
     }
 
@@ -152,7 +143,7 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         profileRoot.setOpacity(1);
         profileRoot.setDisable(false);
         userInfoScroll.setDisable(false);
-        chatUsersScroll.setDisable(true);
+        chatUsersList.setDisable(true);
     }
 
     @FXML
@@ -179,8 +170,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
     public void resetStage(){
         super.resetStage();
 
-        chatUsers.getChildren().clear();
-
         mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
 
         mainChat.setDisable(true);
@@ -194,7 +183,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
 
         userInfoScroll.setVvalue(0);
         menuScroll.setVvalue(0);
-        chatUsersScroll.setVvalue(0);
 
         userInfoScroll.setDisable(false);
         ordersList.setDisable(false);
@@ -210,8 +198,6 @@ public class ControllerLoggedFirstStyle extends ControllerLogged {
         if(isButtonExpanded.get()){
             ExpandOrderPane.reverseOrder();
         }
-
-        chatsMap.clear();
     }
 
     public void setOrderPane(){

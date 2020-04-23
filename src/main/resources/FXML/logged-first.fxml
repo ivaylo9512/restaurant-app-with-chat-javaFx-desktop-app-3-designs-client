@@ -16,13 +16,13 @@
          <children>
             <AnchorPane layoutY="218.0" maxWidth="103.0" minHeight="0.0" minWidth="103.0" prefHeight="0.0" prefWidth="103.0" snapToPixel="false" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="217.0">
                <children>
-                  <ScrollPane fx:id="menuScroll" prefHeight="211.0" prefWidth="142.0" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane fx:id="menuScroll" styleClass="menuScroll" prefHeight="211.0" prefWidth="125.0" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
                      <content>
-                           <AnchorPane prefHeight="212.0" prefWidth="103.0">
+                           <AnchorPane prefHeight="212.0" prefWidth="10">
                               <children>
-                                    <ScrollPane fx:id="userInfoScroll" layoutY="77.0" prefHeight="134.0" prefViewportHeight="154.0" prefViewportWidth="103.0" prefWidth="124.0">
+                                    <ScrollPane fx:id="userInfoScroll" styleClass="userInfoScroll" layoutY="77.0" prefHeight="132.0" prefViewportHeight="120.0" prefViewportWidth="100.0" prefWidth="105.0">
                                        <content>
-                                          <FlowPane fx:id="userInfo" layoutX="517.0" layoutY="-219.0" prefHeight="130.0" prefWidth="103.0" styleClass="user-info" vgap="6.0">
+                                          <FlowPane fx:id="userInfo" layoutX="517.0" layoutY="-219.0" prefHeight="115.0" prefWidth="90.0" styleClass="user-info" vgap="6.0">
                                              <children>
                                                 <TextField fx:id="firstNameField" alignment="CENTER">
                                                 </TextField>
@@ -54,7 +54,7 @@
                                                 </Button>
                                              </children>
                                              <padding>
-                                                <Insets bottom="10.0" left="15.5" top="9.5" />
+                                                <Insets bottom="8.0" left="15.5" top="9.5" />
                                              </padding>
                                           </FlowPane>
                                        </content>
@@ -66,18 +66,8 @@
                                              <Pane layoutY="68.5" prefHeight="2.0" prefWidth="80.0" style="-fx-background-color: #363B41;" styleClass="shadow" />
                                        </children>
                                     </Pane>
-                                    <ScrollPane fx:id="chatUsersScroll" layoutY="211.0" maxHeight="212.5" prefHeight="212.5" prefWidth="124.0">
-                                       <padding>
-                                          <Insets bottom="10.0" />
-                                       </padding>
-                                       <content>
-                                             <VBox fx:id="chatUsers" prefWidth="103.0" spacing="20.0" styleClass="chat-users">
-                                                <padding>
-                                                   <Insets bottom="5.0" left="26.5" top="10.0" />
-                                                </padding>
-                                             </VBox>
-                                       </content>
-                                    </ScrollPane>
+                                    <ListView disable="true" focusTraversable="false" fx:id="chatUsersList" styleClass="chat-users" layoutY="211.0" maxHeight="212.5" prefHeight="212.5" prefWidth="103">
+                                    </ListView>
                                     <Pane layoutX="12.0" layoutY="209.0" prefHeight="2.0" prefWidth="80.0" style="-fx-background-color: #363B41;" styleClass="shadow" />
                               </children>
                            </AnchorPane>

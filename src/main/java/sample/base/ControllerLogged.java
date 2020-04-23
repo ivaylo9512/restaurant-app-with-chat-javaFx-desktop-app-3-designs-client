@@ -3,10 +3,8 @@ package sample.base;
 import Animations.ResizeRoot;
 import Helpers.ListViews.DishListViewCell;
 import Helpers.ListViews.MenuListViewCell;
-import Models.Dish;
+import Models.*;
 import Models.Menu;
-import Models.Notification;
-import Models.Order;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -42,8 +40,6 @@ public class ControllerLogged implements Controller {
     @FXML
     protected Label orderId, updatedDate, createdDate, createdTime, updatedTime;
     @FXML
-    protected ListView<Dish> currentDishList;
-    @FXML
     protected TextField usernameField, firstNameField, lastNameField, countryField, ageField, menuSearch, roleField;
     @FXML
     protected Button saveButton, editButton, createButton;
@@ -56,7 +52,12 @@ public class ControllerLogged implements Controller {
     @FXML
     protected ListView<Notification> notificationsList;
     @FXML
+    protected ListView<Dish> currentDishList;
+    @FXML
+    protected ListView<ChatValue> chatUsersList;
+    @FXML
     protected Node notificationIcon;
+
 
     protected DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
@@ -69,8 +70,7 @@ public class ControllerLogged implements Controller {
     protected ProgressIndicator editIndicator = new ProgressIndicator();
     protected ProgressIndicator createIndicator = new ProgressIndicator();
 
-    private Node editButtonGraphic;
-    private Node createButtonGraphic;
+    private Node editButtonGraphic, createButtonGraphic;
     private String createButtonText;
 
     @FXML
@@ -141,7 +141,7 @@ public class ControllerLogged implements Controller {
         newOrderList.setItems(orderManager.newOrderList);
         notificationsList.setItems(notificationManager.notifications);
         menuList.setItems(userMenu);
-
+        chatUsersList.setItems(chatManager.chatsList);
     }
 
     public void setListsFactories() {
