@@ -2,47 +2,25 @@ package sample;
 
 import Animations.MoveRoot;
 import Animations.ResizeRoot;
-import Animations.TransitionResizeWidth;
-import Helpers.ListViews.*;
 import Helpers.Scrolls;
-import Application.MessageService;
 import Models.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
-import org.apache.commons.collections4.map.ListOrderedMap;
 import sample.base.ControllerLogged;
-
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 
 import static Application.RestaurantApplication.*;
-import static Helpers.ServerRequests.*;
 
 public class ControllerLoggedThirdStyle extends ControllerLogged {
     @FXML public ListView<Order> ordersList;
@@ -69,37 +47,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged {
     public void initialize(){
         super.initialize();
 
-        ordersList.setCellFactory(ordersCell -> new OrderListViewCellSecond());
-        chatsList.setCellFactory(chatCell -> new ChatsListViewCellSecond());
-
-        waitForNewMessages();
-
-
-        mainChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
-            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && mainChat != null) {
-                loadOlderHistory(mainChat, mainChatBlock);
-            }
-        });
-
-        secondChatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
-            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && secondChat != null) {
-                loadOlderHistory(secondChat, secondChatBlock);
-            }
-        });
-        secondChatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if(event.getCode().equals(KeyCode.ENTER)) {
-                addNewMessage(secondChatTextArea, secondChat, secondChatBlock);
-                event.consume();
-            }
-        });
-
-        mainChatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if(event.getCode().equals(KeyCode.ENTER)) {
-                addNewMessage(mainChatTextArea, mainChat, mainChatBlock);
-                event.consume();
-            }
-        });
-
         Scrolls scrolls = new Scrolls(mainChatScroll, secondChatScroll, mainChatTextArea, secondChatTextArea);
         scrolls.manageScrollsThirdStyle();
 
@@ -124,10 +71,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged {
     @Override
     public void setStage() throws Exception{
         super.setStage();
-
-        ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());//Todo
-        setChatValues(chats);
-        chatsList.setItems(chats);
 
         loginAnimation();
     }
@@ -203,357 +146,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged {
         currentText = clickedText;
     }
 
-    private void setChatValues(List<Chat> chats) {
-        chats.forEach(chat -> {
-            InputStream in;
-            Image profilePicture;
-            User user;
-
-            if (chat.getFirstUser().getId() == loggedUser.getId()) {
-                user = chat.getSecondUser();
-                try {
-                    in = new BufferedInputStream(
-                            new URL(chat.getSecondUser().getProfilePicture()).openStream());
-                    profilePicture = new Image(in);
-                    in.close();
-                }catch(Exception e){
-                    profilePicture = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
-                }
-            } else {
-                user= chat.getFirstUser();
-                try {
-                    in = new BufferedInputStream(
-                            new URL(chat.getFirstUser().getProfilePicture()).openStream());
-                    profilePicture = new Image(in);
-                    in.close();
-                }catch(Exception e){
-                    profilePicture = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
-                }
-            }
-            user.setImage(profilePicture);
-
-            ChatValue chatValue = new ChatValue(chat.getId(), user.getId(), profilePicture);
-            chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
-            chatsMap.put(chat.getId(), chatValue);
-        });
-    }
-
-    public void setChat(MouseEvent event) {
-        if(chatsView.getOpacity() == 0) {
-            displayView(chatsView, chatsMenu);
-
-            currentText.getStyleClass().remove("strikethrough");
-            chatsBtn.getStyleClass().add("strikethrough");
-            currentText = chatsBtn;
-        }
-
-        Chat selectedChat = chatsList.getSelectionModel().getSelectedItem();
-
-        GridPane container = (GridPane) event.getSource();
-        VBox name = (VBox) container.getChildren().get(1);
-        if(selectedChat != null) {
-
-            VBox chatBlock = null;
-            int chatId = selectedChat.getId();
-            ChatValue chat = chatsMap.get(chatId);
-
-            if (mainChat != null && mainChat.getChatId() == chatId){
-                mainChat = null;
-
-                mainChatBlock.getChildren().remove(1, mainChatBlock.getChildren().size());
-
-                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), event1 ->
-                        chatsContainer.getChildren().remove(mainChatContainer)));
-                timeline.play();
-
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
-                resizeWidth.play();
-            } else if (secondChat != null && secondChat.getChatId() == chatId){
-                secondChat = null;
-
-                secondChatBlock.getChildren().remove(1, secondChatBlock.getChildren().size());
-
-                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), event1 ->
-                        chatsContainer.getChildren().remove(secondChatContainer)));
-                timeline.play();
-
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 133);
-                resizeWidth.play();
-            }else if(mainChat == null){
-                chatBlock = mainChatBlock;
-                mainChat = chat;
-
-                chatsContainer.getChildren().add(0, mainChatContainer);
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
-                resizeWidth.play();
-            }else if (secondChat == null){
-                chatBlock = secondChatBlock;
-                secondChat = chat;
-
-                chatsContainer.getChildren().add(2, secondChatContainer);
-
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
-                resizeWidth.play();
-            } else{
-                chatBlock = secondChatBlock;
-
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(500), name, 0);
-                resizeWidth.play();
-
-                GridPane currentContainer = (GridPane) contentRoot.lookup("#" + secondChat.getChatId());
-                VBox currentName = (VBox) currentContainer.getChildren().get(1);
-
-                TransitionResizeWidth reverseWidth = new TransitionResizeWidth(Duration.millis(500), currentName, 133);
-                reverseWidth.play();
-
-                secondChat = chat;
-            }
-
-            if(chatBlock != null) {
-                chatBlock.setId("beginning");
-                chatBlock.getChildren().remove(1, chatBlock.getChildren().size());
-                HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
-                Text info = (Text) sessionInfo.lookup("Text");
-
-                ListOrderedMap<LocalDate, Session> sessionsMap = chat.getSessions();
-                List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
-                List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
-
-                if (lastSessions.size() == pageSize) {
-                    info.setText("Scroll for more history");
-                    chat.setDisplayedSessions(pageSize);
-                } else {
-                    info.setText("Beginning of the chat");
-                    chat.setMoreSessions(false);
-                    chat.setDisplayedSessions(lastSessions.size());
-                }
-
-                for (Session session : lastSessions) {
-                    appendSession(session, chatBlock, chat, 1);
-                }
-
-            }
-        }
-    }
-
-    private void loadOlderHistory(ChatValue chatValue, VBox chatBlock) {
-        int displayedSessions = chatValue.getDisplayedSessions();
-        int loadedSessions = chatValue.getSessions().size();
-        int nextPage = loadedSessions / pageSize;
-
-        HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
-        Text info = (Text) sessionInfo.lookup("Text");
-
-        ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.getSessions();
-        List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
-        List<Session> nextSessions;
-        if (loadedSessions > displayedSessions) {
-
-            nextSessions = chatSessions.subList(displayedSessions,
-                    Math.min(displayedSessions + pageSize, loadedSessions));
-
-            if (displayedSessions + nextSessions.size() == loadedSessions && !chatValue.isMoreSessions()) {
-                info.setText("Beginning of the chat");
-            }
-            chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
-
-            nextSessions.forEach(session -> appendSession(session, chatBlock, chatValue, 1));
-
-        } else if (chatValue.isMoreSessions()) {
-            nextSessions = getNextSessions(chatValue.getChatId(), nextPage, pageSize);
-            if (nextSessions.size() < pageSize) {
-                chatValue.setMoreSessions(false);
-                info.setText("Beginning of the chat");
-            }
-            chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
-            nextSessions.forEach(session -> {
-
-                if (!sessionsMap.containsKey(session.getDate())) {
-                    sessionsMap.put(session.getDate(), session);
-
-                    appendSession(session, chatBlock, chatValue, 1);
-                }
-
-            });
-        } else {
-            info.setText("Beginning of the chat");
-        }
-    }
-    private void appendSession(Session session, VBox chatBlock, ChatValue chatValue, int index) {
-
-        Text date = new Text(dateFormatter.format(session.getDate()));
-        TextFlow dateFlow = new TextFlow(date);
-        dateFlow.setTextAlignment(TextAlignment.CENTER);
-
-        HBox sessionDate = new HBox(dateFlow);
-        sessionDate.setAlignment(Pos.CENTER);
-        sessionDate.getStyleClass().add("session-date");
-
-        VBox sessionBlock = new VBox(sessionDate);
-        sessionBlock.setId(session.getDate().toString());
-        session.getMessages()
-                .forEach(message -> appendMessage(message, chatValue, sessionBlock));
-        chatBlock.getChildren().add(index, sessionBlock);
-    }
-    private void appendMessage(Message message, ChatValue chat, VBox chatBlock) {
-        HBox hBox = new HBox();
-        VBox newBlock = new VBox();
-        Text text = new Text();
-        Text time = new Text();
-        ImageView imageView = new ImageView();
-        TextFlow textFlow = new TextFlow();
-
-        time.getStyleClass().add("time");
-        text.getStyleClass().add("message");
-        newBlock.getStyleClass().add("chat-block");
-
-        imageView.setFitHeight(34);
-        imageView.setFitWidth(34);
-        imageView.setLayoutX(3);
-        imageView.setLayoutY(7);
-
-        Circle clip = new Circle(20.5, 20.5, 20.5);
-
-        Pane imageContainer = new Pane(imageView);
-        imageContainer.setClip(clip);
-        imageContainer.setMaxHeight(40);
-        imageContainer.setMaxWidth(40);
-        imageContainer.setMinWidth(40);
-
-
-        Pane imageShadow = new Pane(imageContainer);
-        imageShadow.setMaxHeight(40);
-        imageShadow.setMaxWidth(40);
-        imageShadow.setMinWidth(40);
-        imageShadow.getStyleClass().add("imageShadow");
-
-        imageShadow.setViewOrder(1);
-        textFlow.setViewOrder(5);
-
-        HBox.setMargin(imageShadow, new Insets(-20, 0, 0, 0));
-
-        if (message.getReceiverId() == loggedUser.getId()) {
-            imageView.setImage(chat.getSecondUserPicture());
-            text.setText(message.getMessage());
-            time.setText("  " + timeFormatter.format(message.getTime()));
-            textFlow.getChildren().addAll(text, time);
-            hBox.setAlignment(Pos.TOP_LEFT);
-
-        } else {
-            imageView.setImage(userProfileImage);
-            text.setText(message.getMessage());
-            time.setText(timeFormatter.format(message.getTime()) + "  ");
-            textFlow.getChildren().addAll(time, text);
-            hBox.setAlignment(Pos.TOP_RIGHT);
-
-        }
-
-        boolean timeElapsed;
-        int timeToElapse = 10;
-
-        List<Node> messageBlocks = chatBlock.getChildren();
-        if (messageBlocks.size() > 0 && messageBlocks.get(messageBlocks.size() - 1) instanceof VBox) {
-            VBox lastBlock = (VBox) messageBlocks.get(messageBlocks.size() - 1);
-            HBox lastMessage = (HBox) lastBlock.getChildren().get(lastBlock.getChildren().size() - 1);
-            LocalTime lastBlockStartedDate;
-            TextFlow firstTextFlow = (TextFlow) lastMessage.lookup("TextFlow");
-            Text lastBlockStartedText = (Text) firstTextFlow.lookup(".time");
-            lastBlockStartedDate = LocalTime.parse(lastBlockStartedText.getText().replaceAll("\\s+", ""));
-
-            timeElapsed = java.time.Duration.between(lastBlockStartedDate, message.getTime()).toMinutes() > timeToElapse;
-
-            if (message.getReceiverId() == loggedUser.getId()) {
-                if (!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("second-user-message")) {
-
-                    hBox.getStyleClass().add("second-user-message");
-                    hBox.getChildren().addAll(textFlow);
-                    lastBlock.getChildren().add(hBox);
-
-                } else {
-
-                    hBox.getStyleClass().add("second-user-message-first");
-                    hBox.getChildren().addAll(imageShadow, textFlow);
-                    newBlock.getChildren().add(hBox);
-                    chatBlock.getChildren().add(newBlock);
-
-                }
-            } else {
-                if (!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("user-message")) {
-
-                    hBox.getStyleClass().add("user-message");
-                    hBox.getChildren().addAll(textFlow);
-                    lastBlock.getChildren().add(hBox);
-
-                } else {
-
-                    hBox.getStyleClass().add("user-message-first");
-                    hBox.getChildren().addAll(textFlow, imageShadow);
-                    newBlock.getChildren().add(hBox);
-                    chatBlock.getChildren().add(newBlock);
-
-                }
-            }
-        } else {
-
-            if (message.getReceiverId() == loggedUser.getId()) {
-                hBox.getStyleClass().add("second-user-message-first");
-                hBox.getChildren().addAll(imageShadow, textFlow);
-                newBlock.getChildren().add(hBox);
-            } else {
-                hBox.getStyleClass().add("user-message-first");
-                hBox.getChildren().addAll(textFlow, imageShadow);
-                newBlock.getChildren().add(hBox);
-            }
-            chatBlock.getChildren().add(newBlock);
-        }
-    }
-
-    @FXML
-    public void sendMessageMainChat(){
-        addNewMessage(mainChatTextArea, mainChat, mainChatBlock);
-    }
-
-    @FXML
-    public void sendMessageSecondChat(){
-        addNewMessage(secondChatTextArea, secondChat, secondChatBlock);
-    }
-
-    public void addNewMessage(TextArea textArea, ChatValue chatValue, VBox chatBlock){
-        String messageText = textArea.getText();
-        int chatId = chatValue.getChatId();
-        int receiverId = chatValue.getUserId();
-        int index = chatBlock.getChildren().size();
-        textArea.clear();
-
-        if (messageText.length() > 0){
-            Message message = sendMessage(messageText, chatId, receiverId);
-
-            ChatValue chat = chatsMap.get(chatId);
-            ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
-
-            chatBlock.setId("new-message");
-            Session session = sessions.get(LocalDate.now());
-            if (session == null) {
-                LocalDate sessionDate = LocalDate.now();
-
-                session = new Session();
-                session.setDate(sessionDate);
-                sessions.put(0, sessionDate, session);
-                session.getMessages().add(message);
-
-                if (chatValue.getChatId() == message.getChatId()) {
-                    chatValue.setDisplayedSessions(chatValue.getDisplayedSessions() + 1);
-                    appendSession(session, chatBlock, chatValue, index);
-                }
-            } else {
-                session.getMessages().add(message);
-                if (chatValue.getChatId() == message.getChatId()) {
-                    appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
-                }
-            }
-        }
-    }
-
     private void displayView(AnchorPane requestedView, AnchorPane requestedMenu){
         Timeline delayView = new Timeline(new KeyFrame(Duration.millis(1), event -> {
             if (currentMenu != null) {
@@ -597,58 +189,6 @@ public class ControllerLoggedThirdStyle extends ControllerLogged {
             dishesList.setItems(FXCollections.observableArrayList(currentOrder.getDishes()));
 
         }
-    }
-
-    private void waitForNewMessages(){
-        messageService = new MessageService();
-        messageService.setOnSucceeded(event -> {
-            MessageService.lastMessageCheck = LocalDateTime.now();
-            List<Message> newMessages = (List<Message>) messageService.getValue();
-            newMessages.forEach(message -> {
-
-                ChatValue chat = chatsMap.get(message.getChatId());
-                ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
-                ChatValue chatValue = null;
-                VBox chatBlock = null;
-                int index = 0;
-                if (mainChat != null && mainChat.getChatId() == message.getChatId()) {
-                    chatBlock = mainChatBlock;
-                    chatValue = mainChat;
-
-                    index = mainChatBlock.getChildren().size();
-                    mainChatBlock.setId("new-message");
-                }else if(secondChat != null && secondChat.getChatId() == message.getChatId()) {
-                    chatBlock = secondChatBlock;
-                    chatValue = secondChat;
-
-                    index = secondChatBlock.getChildren().size();
-                    secondChatBlock.setId("new-message");
-                }
-
-                Session session = sessions.get(LocalDate.now());
-                if (session == null) {
-                    LocalDate sessionDate = LocalDate.now();
-
-                    session = new Session();
-                    session.setDate(sessionDate);
-                    sessions.put(0, sessionDate, session);
-                    session.getMessages().add(message);
-
-                    if (chatValue != null) {
-                        chatValue.setDisplayedSessions(chatValue.getDisplayedSessions() + 1);
-                        appendSession(session, chatBlock, chatValue, index);
-                    }
-                } else {
-                    session.getMessages().add(message);
-                    if (chatValue != null) {
-                        appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
-                    }
-                }
-            });
-            messageService.restart();
-        });
-
-        messageService.setOnFailed(event -> serviceFailed(messageService));
     }
 
     private void addNotification(String notification) {

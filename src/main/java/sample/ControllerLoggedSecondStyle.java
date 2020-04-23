@@ -1,10 +1,8 @@
 package sample;
 
 import Animations.MoveRoot;
-import Animations.ResizeRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
-//import Helpers.ListViews.ChatsListViewCell;
 import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
@@ -12,8 +10,6 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
@@ -21,14 +17,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import sample.base.ControllerLogged;
 
 import java.util.*;
-//import static Helpers.ServerRequests.*;
 
 public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML Label dishesCountLabel;
@@ -47,8 +39,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML Region notificationRegion;
 
     private AnchorPane currentView, currentMenuView;
-
-    private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private ChatValue chatValue;
 
@@ -183,45 +173,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
             currentView.setOpacity(0);
             currentView = requestedView;
         }
-    }
-
-    private void waitForNewMessages(){
-//        messageService = new MessageService();
-//        messageService.setOnSucceeded(event -> {
-//            MessageService.lastMessageCheck = LocalDateTime.now();
-//            List<Message> newMessages = (List<Message>) messageService.getValue();
-//            newMessages.forEach(message -> {
-//                int index = chatBlock.getChildren().size();
-//                chatBlock.setId("new-message");
-//
-//                ChatValue chat = chatsMap.get(message.getChatId());
-//                ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
-//
-//                Session session = sessions.get(LocalDate.now());
-//                if (session == null) {
-//                    LocalDate sessionDate = LocalDate.now();
-//
-//                    session = new Session();
-//                    session.setDate(sessionDate);
-//                    sessions.put(0, sessionDate, session);
-//                    session.getMessages().add(message);
-//
-//                    if (chatValue != null && chatValue.getChatId() == message.getChatId()) {
-//                        chatValue.setDisplayedSessions(chatValue.getDisplayedSessions() + 1);
-//                        appendSession(session, chatBlock, chatValue, index);
-//                    }
-//                } else {
-//                    session.getMessages().add(message);
-//                    if (chatValue != null && chatValue.getChatId() == message.getChatId()) {
-//                        appendMessage(message, chatValue, (VBox) chatBlock.getChildren().get(index - 1));
-//                    }
-//                }
-//                updateLastMessage(message.getChatId(), message.getMessage());
-//            });
-//            messageService.restart();
-//        });
-//
-//        messageService.setOnFailed(event -> serviceFailed(messageService));
     }
 
     @FXML
