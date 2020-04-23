@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import java.util.List;
 
 
 public class Scrolls {
@@ -47,7 +48,9 @@ public class Scrolls {
         this.secondChatTextArea = secondChatTextArea;
     }
     public void manageScrollsFirstStyle(){
-        fixBlurryContent();
+        fixBlurryContent(List.of(mainChatTextArea),
+                List.of(menuScroll, mainChatScroll, userInfoScroll));
+
         listenForHistoryRequest(mainChatScroll);
 
         chatUsersList.skinProperty().addListener((observable, oldValue, newValue) -> {
@@ -63,17 +66,14 @@ public class Scrolls {
         });
     }
     public void manageScrollsSecondStyle(){
-        fixTextAreaBlurriness(mainChatTextArea);
-        fixBlurriness(mainChatScroll);
+        fixBlurryContent(List.of(mainChatTextArea), List.of(mainChatScroll));
         listenForHistoryRequest(mainChatScroll);
 
     }
 
     public void manageScrollsThirdStyle(){
-        fixTextAreaBlurriness(mainChatTextArea);
-        fixTextAreaBlurriness(secondChatTextArea);
-        fixBlurriness(mainChatScroll);
-        fixBlurriness(secondChatScroll);
+        fixBlurryContent(List.of(mainChatTextArea, secondChatTextArea),
+                List.of(mainChatScroll, secondChatScroll));
 
         listenForHistoryRequest(mainChatScroll);
         listenForHistoryRequest(secondChatScroll);
@@ -166,14 +166,6 @@ public class Scrolls {
         });
     }
 
-    private void fixBlurryContent(){
-        fixBlurriness(menuScroll);
-        fixBlurriness(userInfoScroll);
-        fixBlurriness(mainChatScroll);
-        fixBlurriness(mainChatScroll);
-        fixTextAreaBlurriness(mainChatTextArea);
-    }
-
     public static ScrollBar findVerticalScrollBar(Node scroll) {
         for (Node node : scroll.lookupAll(".scroll-bar")) {
             if (node instanceof ScrollBar) {
@@ -186,6 +178,11 @@ public class Scrolls {
         return null;
     }
 
+    private void fixBlurryContent(List<TextArea> textAreas, List<ScrollPane> scrollPanes){
+        scrollPanes.forEach(this::fixBlurriness);
+        textAreas.forEach(this::fixTextAreaBlurriness);
+    }
+
     private void fixTextAreaBlurriness(TextArea textArea) {
         textArea.skinProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -195,8 +192,8 @@ public class Scrolls {
             }
         });
     }
-    
-    public static void fixBlurriness(ScrollPane scrollPane){
+
+    public void fixBlurriness(ScrollPane scrollPane){
         scrollPane.skinProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 scrollPane.getChildrenUnmodifiable().get(0).setCache(false);
