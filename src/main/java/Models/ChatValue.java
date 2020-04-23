@@ -4,8 +4,6 @@ import javafx.scene.image.Image;
 import org.apache.commons.collections4.map.ListOrderedMap;
 
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
-import java.util.Objects;
 
 public class ChatValue {
     private int userId;
@@ -15,12 +13,14 @@ public class ChatValue {
     private int displayedSessions;
 
     private Image secondUserPicture;
+    private User secondUser;
     private ListOrderedMap<LocalDate, Session> sessions = new ListOrderedMap<>();
 
-    public ChatValue(int chatId, int userId, Image profilePicture) {
+    public ChatValue(int chatId, int userId, Image profilePicture, User secondUser) {
         this.chatId = chatId;
         this.userId = userId;
         this.secondUserPicture = profilePicture;
+        this.secondUser = secondUser;
     }
 
     public int getUserId() {
@@ -69,5 +69,13 @@ public class ChatValue {
 
     public void setDisplayedSessions(int displayedSessions) {
         this.displayedSessions = displayedSessions;
+    }
+
+    public User getSecondUser() {
+        return secondUser;
+    }
+
+    public void setSecondUser(User secondUser) {
+        this.secondUser = secondUser;
     }
 }

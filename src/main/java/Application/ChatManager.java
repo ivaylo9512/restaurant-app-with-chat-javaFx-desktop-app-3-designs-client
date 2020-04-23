@@ -42,7 +42,7 @@ public class ChatManager {
             }catch(Exception e){
                 profilePicture = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
             }
-            ChatValue chatValue = new ChatValue(chat.getId(), userId, profilePicture);
+            ChatValue chatValue = new ChatValue(chat.getId(), userId, profilePicture, chat.getSecondUser());
             chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
 
             this.chatsList.add(chatValue);

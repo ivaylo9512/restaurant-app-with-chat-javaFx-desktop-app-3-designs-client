@@ -1,7 +1,6 @@
 package Helpers.ListViews;
 
-import Helpers.ServerRequests;
-import Models.Chat;
+import Models.ChatValue;
 import Models.Message;
 import Models.User;
 import javafx.fxml.FXML;
@@ -12,14 +11,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import sample.ControllerLoggedSecondStyle;
 import java.io.IOException;
 import java.util.List;
 
-import static Helpers.ServerRequests.loggedUser;
-import static Application.LoginManager.userId;
 
-public class ChatsListViewCell extends ListCell<Chat> {
+public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
     @FXML
     private Label lastMessage;
     @FXML
@@ -34,7 +30,7 @@ public class ChatsListViewCell extends ListCell<Chat> {
     private FXMLLoader mLLoader;
 
     @Override
-    protected void updateItem(Chat chat, boolean empty) {
+    protected void updateItem(ChatValue chat, boolean empty) {
         super.updateItem(chat, empty);
 
         if(empty || chat == null) {
@@ -53,25 +49,21 @@ public class ChatsListViewCell extends ListCell<Chat> {
                 }
 
             }
-            User user;
-            if(chat.getFirstUser().getId() == userId.get()){
-                user = chat.getSecondUser();
-            }else{
-                user = chat.getFirstUser();
-            }
 
 
             if(chat.getSessions().size() > 0) {
-                List<Message> lastSessionMessages = chat.getSessions().get(0).getMessages();
+                List<Message> lastSessionMessages = chat.getSessions().getValue(0).getMessages();
                 if (lastSessionMessages.size() > 0) {
                     Message last = lastSessionMessages.get(lastSessionMessages.size() - 1);
                     lastMessage.setText(last.getMessage());
                 }
             }
-            lastMessage.setId("lastMessage"+ chat.getId());
-            name.setText(user.getFirstName() + " " + user.getLastName());
 
-            profileImage.setImage(user.getImage());
+            User user = chat.getSecondUser();
+            lastMessage.setId("lastMessage"+ chat.getChatId());
+            name.setText(user.getFirstName().get() + " " + user.getLastName().get());
+
+            profileImage.setImage(chat.getSecondUserPicture());
             Circle clip = new Circle(23.5, 23.5, 23.5);
             profileImageClip.setClip(clip);
 

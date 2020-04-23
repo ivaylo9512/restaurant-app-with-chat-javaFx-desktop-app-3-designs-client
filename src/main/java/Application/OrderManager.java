@@ -60,6 +60,8 @@ public class OrderManager {
         userRestaurant = null;
         mostRecentOrderDate = null;
         newOrder = null;
+
+        newOrderList.clear();
         userMenu.clear();
         orders.clear();
 

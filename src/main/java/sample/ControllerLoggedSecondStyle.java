@@ -3,6 +3,7 @@ package sample;
 import Animations.MoveRoot;
 import Animations.TransitionResizeHeight;
 import Animations.TransitionResizeWidth;
+import Helpers.ListViews.ChatsUsersListViewCellSecond;
 import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
@@ -20,7 +21,6 @@ import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import sample.base.ControllerLogged;
 
-import java.util.*;
 
 public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML Label dishesCountLabel;
@@ -32,7 +32,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML HBox notificationsInfo;
     @FXML Region notificationIcon;
     @FXML Pane profileImageContainer, profileImageClip, contentBar;
-    @FXML ListView<Chat> userChats;
     @FXML TextArea chatTextArea;
     @FXML ScrollPane chatScroll;
     @FXML VBox chatBlock;
@@ -63,6 +62,7 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     public void setListsFactories() {
         super.setListsFactories();
 
+        chatUsersList.setCellFactory(chatUsersList -> new ChatsUsersListViewCellSecond());
         ordersList.setCellFactory(param -> new ListCell<Order>(){
             @Override
             protected void updateItem(Order item, boolean empty) {
@@ -227,8 +227,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
 
         chatContainer.setDisable(true);
         chatContainer.setOpacity(0);
-
-        userChats.getItems().clear();
 
         contentRoot.setOpacity(0);
         contentRoot.setDisable(true);
