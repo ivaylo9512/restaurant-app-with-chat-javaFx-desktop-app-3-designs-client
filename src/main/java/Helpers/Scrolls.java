@@ -63,33 +63,15 @@ public class Scrolls {
         });
     }
     public void manageScrollsSecondStyle(){
-        mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
-                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
-                fixBlurriness(textAreaScroll);
-            }
-        });
+        fixTextAreaBlurriness(mainChatTextArea);
         fixBlurriness(mainChatScroll);
         listenForHistoryRequest(mainChatScroll);
 
     }
-    public void manageScrollsThirdStyle(){
-        mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
-                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
-                fixBlurriness(textAreaScroll);
-            }
-        });
-        secondChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
-                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
-                fixBlurriness(textAreaScroll);
-            }
-        });
 
+    public void manageScrollsThirdStyle(){
+        fixTextAreaBlurriness(mainChatTextArea);
+        fixTextAreaBlurriness(secondChatTextArea);
         fixBlurriness(mainChatScroll);
         fixBlurriness(secondChatScroll);
 
@@ -189,14 +171,7 @@ public class Scrolls {
         fixBlurriness(userInfoScroll);
         fixBlurriness(mainChatScroll);
         fixBlurriness(mainChatScroll);
-
-        mainChatTextArea.skinProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
-                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
-                fixBlurriness(textAreaScroll);
-            }
-        });
+        fixTextAreaBlurriness(mainChatTextArea);
     }
 
     public static ScrollBar findVerticalScrollBar(Node scroll) {
@@ -211,6 +186,16 @@ public class Scrolls {
         return null;
     }
 
+    private void fixTextAreaBlurriness(TextArea textArea) {
+        textArea.skinProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                TextAreaSkin textAreaSkin= (TextAreaSkin) newValue;
+                ScrollPane textAreaScroll = (ScrollPane) textAreaSkin.getChildren().get(0);
+                fixBlurriness(textAreaScroll);
+            }
+        });
+    }
+    
     public static void fixBlurriness(ScrollPane scrollPane){
         scrollPane.skinProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
