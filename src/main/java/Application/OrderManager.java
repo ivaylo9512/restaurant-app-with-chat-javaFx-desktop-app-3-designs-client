@@ -10,6 +10,8 @@ import Models.Restaurant;
 import com.fasterxml.jackson.databind.JavaType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.time.LocalDateTime;
@@ -32,19 +34,23 @@ public class OrderManager {
     public RequestService<Order> sendOrder = new RequestService<>(Order.class, null, RequestEnum.sendOrder);
 
     private OrderManager() {
-        sendOrder.setOnSucceeded(event -> {
-            orders.add(0, (Order)event.getSource().getValue());
-            newOrderList.clear();
-            sendOrder.reset();
-        });
+        sendOrder.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
         sendOrder.setOnFailed(event -> sendOrder.reset());
     }
+
+    private EventHandler<WorkerStateEvent> onSendOrderSuccess = event -> {
+        orders.add(0, (Order)event.getSource().getValue());
+        newOrderList.clear();
+        sendOrder.reset();
+    };
 
     static OrderManager initialize(){
         return new OrderManager();
     }
 
     void setRestaurant(Restaurant restaurant) {
+        sendOrder.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
+
         userRestaurant = restaurant;
         restaurant.getMenu().forEach(menu ->
                 userMenu.put(menu.getName().toLowerCase(), menu));
@@ -53,10 +59,11 @@ public class OrderManager {
         Order order = orders.get(0);
         mostRecentOrderDate = order.getCreated().get().isAfter(order.getUpdated().get())
                 ? order.getCreated().get() : order.getUpdated().get();
-
     }
 
     void resetRestaurant(){
+        sendOrder.removeEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
+
         userRestaurant = null;
         mostRecentOrderDate = null;
         newOrder = null;
@@ -64,6 +71,7 @@ public class OrderManager {
         newOrderList.clear();
         userMenu.clear();
         orders.clear();
+        notificationManager.notifications.clear();
 
         if(sendOrder.isRunning()) sendOrder.cancel();
         sendOrder.reset();
@@ -86,7 +94,7 @@ public class OrderManager {
     }
 
     public void addOrder(Order order){
-        notificationManager.addNotification("New order created " + order.getId());
+        notificationManager.addNotification("New order created " + order.getId().get());
         orders.add(0, newOrder);
     }
 
