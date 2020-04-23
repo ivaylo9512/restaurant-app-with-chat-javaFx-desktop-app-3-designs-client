@@ -1,6 +1,7 @@
 package sample;
 
 import Animations.*;
+import Helpers.ListViews.ChatsUsersListViewCell;
 import Helpers.ListViews.NotificationListViewCell;
 import Helpers.ListViews.OrderListViewCell;
 import Helpers.Scrolls;
