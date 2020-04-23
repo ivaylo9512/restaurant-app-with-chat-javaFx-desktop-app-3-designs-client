@@ -34,7 +34,7 @@ public class OrderManager {
     public RequestService<Order> sendOrder = new RequestService<>(Order.class, null, RequestEnum.sendOrder);
 
     private OrderManager() {
-        sendOrder.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
+        sendOrder.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
         sendOrder.setOnFailed(event -> sendOrder.reset());
     }
 
@@ -49,7 +49,7 @@ public class OrderManager {
     }
 
     void setRestaurant(Restaurant restaurant) {
-        sendOrder.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
+        sendOrder.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
 
         userRestaurant = restaurant;
         restaurant.getMenu().forEach(menu ->
@@ -62,7 +62,7 @@ public class OrderManager {
     }
 
     void resetRestaurant(){
-        sendOrder.removeEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
+        sendOrder.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
 
         userRestaurant = null;
         mostRecentOrderDate = null;

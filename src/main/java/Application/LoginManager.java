@@ -138,6 +138,11 @@ public class LoginManager {
     }
 
     private void setLoggedUser(User loggedUser){
+        sendInfo.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendUserInfoSuccess);
+        sendInfo.addEventFilter(WorkerStateEvent.WORKER_STATE_FAILED, onSendUserInfoFail);
+
+        longPollingService.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onLongPollingSuccess);
+
         loading.setValue(false);
 
         savedUserInfo = new User(loggedUser);
@@ -150,7 +155,7 @@ public class LoginManager {
         stageManager.changeToOwner();
     }
     public void logout(){
-        sendInfo.removeEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendUserInfoFail);
+        sendInfo.removeEventFilter(WorkerStateEvent.WORKER_STATE_FAILED, onSendUserInfoFail);
         sendInfo.removeEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendUserInfoSuccess);
         longPollingService.removeEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onLongPollingSuccess);
 
