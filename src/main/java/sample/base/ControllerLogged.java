@@ -72,6 +72,7 @@ public class ControllerLogged implements Controller {
 
     private Node editButtonGraphic, createButtonGraphic;
     private String createButtonText;
+    protected Order currentOrder;
 
     @FXML
     public void initialize() {
@@ -190,6 +191,7 @@ public class ControllerLogged implements Controller {
     }
 
     public void bindOrderProperties(Order currentOrder) {
+        this.currentOrder = currentOrder;
         currentDishList.setItems(currentOrder.getDishes());
 
         orderId.textProperty().bind(currentOrder.getId().asString());
@@ -271,6 +273,7 @@ public class ControllerLogged implements Controller {
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 
         menuList.getItems().clear();
+        currentOrder = null;
 
         notificationsView.setOpacity(0);
         notificationsView.setDisable(true);

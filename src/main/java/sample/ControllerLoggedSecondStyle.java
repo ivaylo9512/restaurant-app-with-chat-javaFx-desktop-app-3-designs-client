@@ -8,6 +8,7 @@ import Helpers.Scrolls;
 import Models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -47,15 +48,25 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
 
         setClips();
         setNotificationIcon();
+        focusCurrentOrderOnListUpdate();
 
         Scrolls scrolls = new Scrolls(chatScroll, chatTextArea);
         scrolls.manageScrollsSecondStyle();
+
 
         MoveRoot.move(menuButton, menuRoot);
         MoveRoot.move(contentBar, contentRoot);
 
         chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
+    }
+
+    private void focusCurrentOrderOnListUpdate() {
+        ordersList.getItems().addListener((ListChangeListener<Order>)c -> {
+            if(currentOrder != null){
+                ordersList.getSelectionModel().select(currentOrder);
+            }
+        });
     }
 
     @Override

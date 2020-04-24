@@ -95,7 +95,7 @@ public class OrderManager {
 
     public void addOrder(Order order){
         notificationManager.addNotification("New order created " + order.getId().get());
-        orders.add(0, newOrder);
+        orders.add(0, order);
     }
 
     public void updateDish(Dish dish){
