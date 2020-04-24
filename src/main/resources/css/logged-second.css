@@ -97,10 +97,12 @@ TextFlow {
 }
 .menu-container{
     -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
 }
 .menu-container TextField{
     -fx-text-fill: #bcbcbc;
     -fx-background-color: #1a1a1a;
+        -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 0, 0, 0, 2 );
 }
 .profile-view TextField{
     -fx-background-color: #1a1a1a;
@@ -141,9 +143,14 @@ TextFlow {
 .add-button ProgressIndicator{
     -fx-accent: #FC3903;
 }
+.dishes-container{
+    -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
+}
 .order-info AnchorPane{
     -fx-background-color: #1a1a1a;
     -fx-background-radius: 15;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
 }
 .info-label{
     -fx-border-width: 0 0 1 0;

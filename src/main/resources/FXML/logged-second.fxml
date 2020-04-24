@@ -21,13 +21,10 @@
                         <InnerShadow />
                      </effect>
                      <children>
-                        <AnchorPane fx:id="dishesContainer" layoutX="35.0" layoutY="290.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="398.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="290.0">
+                        <AnchorPane fx:id="dishesContainer" layoutX="35.0" layoutY="290.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="398.0" styleClass="dishes-container" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="290.0">
                            <children>
                               <ListView fx:id="currentDishList" prefHeight="200.0" prefWidth="200.0" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
                            </children>
-                           <effect>
-                              <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
-                           </effect>
                         </AnchorPane>
                         <AnchorPane fx:id="orderInfo" layoutX="28.0" layoutY="39.0" styleClass="order-info" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <children>
@@ -41,7 +38,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <AnchorPane layoutX="147.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" styleClass="shadow" GridPane.columnIndex="1">
+                                    <AnchorPane layoutX="147.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" GridPane.columnIndex="1">
                                        <children>
                                           <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <effect>
@@ -66,7 +63,7 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" styleClass="shadow">
+                                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0">
                                        <children>
                                           <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <effect>
@@ -91,7 +88,7 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane layoutX="294.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" styleClass="shadow" GridPane.columnIndex="2">
+                                    <AnchorPane layoutX="294.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0" GridPane.columnIndex="2">
                                        <children>
                                           <Label fx:id="orderId" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0" textAlignment="CENTER" textFill="#bcbcbc">
                                              <font>
@@ -172,22 +169,12 @@
                                  <children>
                                     <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem" prefHeight="200.0" prefWidth="200.0" styleClass="new-order-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0" />
                                  </children>
-                                 <effect>
-                                    <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
-                                 </effect>
                               </AnchorPane>
                               <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="189.0" prefWidth="399.0" styleClass="menu-container" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                                  <children>
                                     <ListView fx:id="menuList" layoutY="33.0" onMouseClicked="#addMenuItem" prefHeight="157.0" prefWidth="401.0" styleClass="menu-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="43.0" />
-                                    <TextField fx:id="menuSearch" alignment="CENTER" prefHeight="43.0" prefWidth="399.0" promptText="Search" style="-fx-background-color: #1a1a1a; -fx-text-fill: #bcbcbc;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <effect>
-                                          <DropShadow height="10.0" radius="4.5" width="10.0" />
-                                       </effect>
-                                    </TextField>
+                                    <TextField fx:id="menuSearch" alignment="CENTER" prefHeight="43.0" prefWidth="399.0" promptText="Search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                                  </children>
-                                 <effect>
-                                    <DropShadow height="43.59" radius="20.490000000000002" width="40.37" />
-                                 </effect>
                               </AnchorPane>
                            </children>
                         </GridPane>
