@@ -16,7 +16,7 @@
          <children>
             <AnchorPane layoutY="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane fx:id="orderView" disable="true" layoutX="221.0" layoutY="9.0" opacity="0.0" prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="orderView" disable="true" layoutX="221.0" layoutY="9.0" opacity="0.0" prefHeight="371.0" prefWidth="469.0" styleClass="order-view, inactive" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <effect>
                         <InnerShadow />
                      </effect>

@@ -230,6 +230,8 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     public void resetStage(){
         super.resetStage();
 
+        orderView.getStyleClass().add("inactive");
+
         chatValue = null;
         chatTextArea.setText(null);
         menuSearch.setText("");
@@ -354,6 +356,9 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML
     private void showOrder(){
         Order order = ordersList.getSelectionModel().getSelectedItem();
+        if(currentOrder == null){
+            orderView.getStyleClass().remove("inactive");
+        }
         bindOrderProperties(order);
 
         if(!currentView.equals(orderView)){

@@ -55,6 +55,12 @@ TextFlow {
 .content-bar{
     -fx-background-color: #FC3903;
 }
+.order-view{
+    -fx-background-color: #1a1a1a;
+}
+.order-view.inactive AnchorPane{
+    -fx-opacity: 0;
+}
 .dishes-list .list-cell{
     -fx-background-color: transparent;
     -fx-padding: 0;
