@@ -205,6 +205,16 @@ public class ControllerLogged implements Controller {
                 timeFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
     }
 
+    public void unbindOrderProperties() {
+        this.currentOrder = null;
+
+        orderId.textProperty().unbind();
+        createdDate.textProperty().unbind();
+        createdTime.textProperty().unbind();
+        updatedDate.textProperty().unbind();
+        updatedTime.textProperty().unbind();
+    }
+
     private SortedMap<String, Menu> searchMenu(String prefix) {
         return orderManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
     }
@@ -273,7 +283,8 @@ public class ControllerLogged implements Controller {
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 
         menuList.getItems().clear();
-        currentOrder = null;
+        ordersList.getSelectionModel().clearSelection();
+        unbindOrderProperties();
 
         notificationsView.setOpacity(0);
         notificationsView.setDisable(true);
