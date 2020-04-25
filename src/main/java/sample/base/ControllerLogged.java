@@ -299,6 +299,60 @@ public class ControllerLogged implements Controller {
             chatsMap.put(chat.getId(), chatValue);
         });
     }
+    private void setMainChat(MouseEvent event) {
+        Pane container = (Pane) event.getSource();
+        container.getStyleClass().set(0, "imageShadowPressed");
+        chatInfo.setOpacity(0);
+
+        int chatId = Integer.parseInt(container.getId());
+
+        ChatValue chat = chatsMap.get(chatId);
+        HBox sessionInfo = (HBox) mainChatBlock.getChildren().get(0);
+        Text info = (Text) sessionInfo.lookup("Text");
+        if (mainChatValue != null) {
+            Pane currentImageView = (Pane) chatUsersScroll.lookup("#" + mainChatValue.getChatId());
+            currentImageView.getStyleClass().set(0, "imageShadow");
+
+        }
+
+        if (mainChatValue != null && chatId == mainChatValue.getChatId()) {
+            if (mainChat.isDisabled()) {
+                container.getStyleClass().set(0, "imageShadowPressed");
+                mainChat.setDisable(false);
+                mainChat.setOpacity(1);
+            } else {
+                chatInfo.setOpacity(1);
+                mainChat.setOpacity(0);
+                mainChat.setDisable(true);
+
+            }
+        } else {
+            mainChatBlock.setId("beginning");
+            mainChatBlock.getChildren().remove(1, mainChatBlock.getChildren().size());
+            mainChat.setDisable(false);
+            mainChat.setOpacity(0);
+
+            Timeline opacity = new Timeline(new KeyFrame(Duration.millis(200), event1 -> mainChat.setOpacity(1)));
+            opacity.play();
+
+            mainChatValue = chat;
+
+            ListOrderedMap<LocalDate, Session> sessionsMap = mainChatValue.getSessions();
+            List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
+            List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
+
+            if (lastSessions.size() == pageSize) {
+                info.setText("Scroll for more history");
+                mainChatValue.setDisplayedSessions(pageSize);
+            } else {
+                info.setText("Beginning of the chat");
+                mainChatValue.setMoreSessions(false);
+                mainChatValue.setDisplayedSessions(lastSessions.size());
+            }
+
+            lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
+        }
+    }
 
     @FXML
     public void addMenuItem(){
