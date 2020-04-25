@@ -45,6 +45,31 @@ TextFlow {
 }
 .root{
     -fx-background-color: transparent;
+    -fx-pref-height: 84px;
+    -fx-pref-width: 621px;
+}
+.login-pane{
+    -fx-pref-height: 55px;
+    -fx-pref-width: 528px;
+    -fx-background-color: transparent;
+    -fx-border-color: #1a1a1a;
+    -fx-border-width: 2;
+}
+.background{
+    -fx-background-color: #1a1a1a;
+    -fx-opacity:0.8;
+}
+.background-line{
+    -fx-pref-height: 200px;
+    -fx-pref-width: 200px;
+    -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(252,57,3,1.6) , 45, 0.0 , 0 , 6 );
+}
+.action-button{
+    -fx-pref-height: 35px;
+    -fx-pref-width: 70px;
+    -fx-text-fill: #bcbcbc;
+    -fx-font-size: 12px;
 }
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
