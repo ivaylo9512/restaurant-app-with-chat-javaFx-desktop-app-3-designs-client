@@ -12,27 +12,27 @@
 
 <AnchorPane style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoggedFirstStyle">
    <children>
-      <AnchorPane fx:id="contentRoot" maxHeight="641.0" maxWidth="1100.0" minHeight="428.0" minWidth="743.0" prefHeight="428.0" prefWidth="743.0" style="-fx-background-color: transparent;">
+      <AnchorPane fx:id="contentRoot" styleClass="content-root">
          <children>
-            <AnchorPane layoutY="218.0" maxWidth="103.0" minHeight="0.0" minWidth="103.0" prefHeight="0.0" prefWidth="103.0" snapToPixel="false" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="217.0">
+            <AnchorPane styleClass="menu-scroll-container" layoutY="218.0" snapToPixel="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="217.0">
                <children>
-                  <ScrollPane fx:id="menuScroll" styleClass="menuScroll" prefHeight="211.0" prefWidth="125.0" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane fx:id="menuScroll" styleClass="menu-scroll" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
                      <content>
-                           <AnchorPane prefHeight="212.0" prefWidth="10">
+                           <AnchorPane>
                               <children>
-                                    <ScrollPane fx:id="userInfoScroll" styleClass="userInfoScroll" layoutY="77.0" prefHeight="132.0" prefViewportHeight="120.0" prefViewportWidth="100.0" prefWidth="105.0">
+                                    <ScrollPane fx:id="userInfoScroll" styleClass="userInfoScroll" layoutY="77.0" prefViewportHeight="120.0" prefViewportWidth="100.0">
                                        <content>
-                                          <FlowPane fx:id="userInfo" layoutX="517.0" layoutY="-219.0" prefHeight="115.0" prefWidth="90.0" styleClass="user-info" vgap="6.0">
+                                          <FlowPane fx:id="userInfo" layoutX="517.0" layoutY="-219.0" styleClass="user-info" vgap="6.0">
                                              <children>
-                                                <TextField fx:id="firstNameField" alignment="CENTER">
+                                                <TextField fx:id="firstNameField">
                                                 </TextField>
-                                                <TextField fx:id="lastNameField" alignment="CENTER">
+                                                <TextField fx:id="lastNameField">
                                                 </TextField>
-                                                <TextField fx:id="countryField" alignment="CENTER">
+                                                <TextField fx:id="countryField">
                                                 </TextField>
-                                                <TextField fx:id="ageField" alignment="CENTER">
+                                                <TextField fx:id="ageField">
                                                 </TextField>
-                                                <TextField fx:id="roleField" alignment="CENTER" focusTraversable="false">
+                                                <TextField fx:id="roleField" focusTraversable="false">
                                                 </TextField>
                                                 <Button fx:id="saveButton" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
                                                    <graphic>
@@ -59,16 +59,16 @@
                                           </FlowPane>
                                        </content>
                                     </ScrollPane>
-                                    <Pane layoutX="11.0" layoutY="8.0" maxWidth="6.0" prefHeight="39.0" prefWidth="6.0">
+                                    <Pane styleClass="role-image-container" layoutX="11.0" layoutY="8.0">
                                        <children>
                                              <ImageView fx:id="roleImage" layoutX="10.5" styleClass="shadow">
                                                    </ImageView>
-                                             <Pane layoutY="68.5" prefHeight="2.0" prefWidth="80.0" style="-fx-background-color: #363B41;" styleClass="shadow" />
+                                             <Pane layoutY="68.5" styleClass="shadow" />
                                        </children>
                                     </Pane>
-                                    <ListView disable="true" focusTraversable="false" fx:id="chatUsersList" styleClass="chat-users" layoutY="211.0" maxHeight="212.5" prefHeight="212.5" prefWidth="103">
+                                    <ListView disable="true" focusTraversable="false" fx:id="chatUsersList" styleClass="chat-users" layoutY="211.0">
                                     </ListView>
-                                    <Pane layoutX="12.0" layoutY="209.0" prefHeight="2.0" prefWidth="80.0" style="-fx-background-color: #363B41;" styleClass="shadow" />
+                                    <Pane layoutX="12.0" layoutY="209.0" styleClass="info-line" />
                               </children>
                            </AnchorPane>
                      </content>
@@ -78,29 +78,29 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <Pane layoutY="28.0" minHeight="190.0" prefHeight="190.0" prefWidth="103.0" styleClass="menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
+            <Pane layoutY="28.0" styleClass="menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
                <children>
-                  <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" prefHeight="22.0" prefWidth="72.0" text="Profile" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" text="Profile">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToChats" prefHeight="22.0" prefWidth="72.0" text="Chat" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToChats" text="Chat">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Create" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Create">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="115.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotifications" prefHeight="22.0" prefWidth="72.0" text="Updates" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="115.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotifications" text="Updates">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="147.0" maxHeight="22.0" maxWidth="72.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrders" prefHeight="22.0" prefWidth="72.0" text="Orders" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="147.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrders" text="Orders">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -117,26 +117,26 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="profileRoot" disable="true" layoutY="38.0" minHeight="190.0" opacity="0.0" prefHeight="190.0" prefWidth="103.0" styleClass="menu" AnchorPane.topAnchor="28.0">
+            <Pane fx:id="profileRoot" disable="true" layoutY="38.0" opacity="0.0" styleClass="menu" AnchorPane.topAnchor="28.0">
                <children>
-                  <Button layoutX="16.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedSecondStyle" prefHeight="22.0" prefWidth="72.0" text="Style 2" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedSecondStyle" text="Style 2">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="130.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" prefHeight="22.0" prefWidth="72.0" text="Style 3" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="130.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" text="Style 3">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="16.0" layoutY="160.0" maxHeight="22.0" maxWidth="72.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="22.0" prefWidth="72.0" text="Log out" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="160.0" maxHeight="22.0" maxWidth="72.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" text="Log out">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <AnchorPane layoutX="22.0" layoutY="5.0" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture-shadow">
+                  <AnchorPane layoutX="22.0" layoutY="5.0" styleClass="profile-picture-shadow">
                      <children>
-                        <AnchorPane fx:id="profileImageContainer" prefHeight="60.0" prefWidth="60.0" styleClass="profile-picture">
+                        <AnchorPane fx:id="profileImageContainer" styleClass="profile-picture">
                            <children>
                               <ImageView fx:id="profileImage" fitHeight="50.0" fitWidth="50.0" layoutX="4.0" layoutY="10.0">
                               </ImageView>
@@ -144,7 +144,7 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <Button layoutX="16.0" layoutY="71.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showMenu" prefHeight="22.0" prefWidth="72.0" text="Menu" textFill="#bcbcbc">
+                  <Button layoutX="16.0" layoutY="71.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showMenu" text="Menu">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -184,7 +184,7 @@
                      <children>
                         <HBox layoutX="13.0" layoutY="6.5" spacing="9.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="10.0">
                            <children>
-                              <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS">
+                              <AnchorPane AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ListView fx:id="menuList" layoutY="46.0" onMouseClicked="#addMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                        <effect>
@@ -194,7 +194,7 @@
                                           <Insets bottom="5.0" />
                                        </padding>
                                     </ListView>
-                                    <TextField fx:id="menuSearch" alignment="CENTER" layoutX="-287.0" layoutY="20.0" prefHeight="39.0" prefWidth="339.0" promptText="Search" styleClass="menu-search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TextField fx:id="menuSearch" layoutX="-287.0" layoutY="20.0" promptText="Search" styleClass="menu-search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <effect>
                                           <DropShadow height="10.0" radius="4.5" width="10.0" />
                                        </effect>
@@ -216,7 +216,7 @@
                                     </ImageView>
                                  </children>
                               </VBox>
-                              <AnchorPane prefHeight="195.0" prefWidth="275.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="9.5" HBox.hgrow="ALWAYS">
+                              <AnchorPane AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="9.5" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ListView fx:id="newOrderList" layoutY="46.0" onMouseClicked="#removeMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <effect>
@@ -310,13 +310,13 @@
                   <DropShadow />
                </effect>
             </AnchorPane>
-             <AnchorPane fx:id="orderContainer" layoutX="20.6" layoutY="51.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="86.5" minWidth="86.5" prefHeight="86.5" prefWidth="86.5" styleClass="order-container">
+             <AnchorPane fx:id="orderContainer" layoutX="20.6" layoutY="51.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="order-container">
                  <children>
                      <AnchorPane fx:id="orderPane" styleClass="order" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                          <children>
-                             <AnchorPane fx:id="dishesAnchor" prefHeight="35.0" prefWidth="31.0" styleClass="dishes-container" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="41.0">
+                             <AnchorPane fx:id="dishesAnchor" styleClass="dishes-container" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="41.0">
                                  <children>
-                                     <ListView fx:id="currentDishList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="-1" AnchorPane.rightAnchor="-1" AnchorPane.topAnchor="0.0" />
+                                     <ListView fx:id="currentDishList" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="-1" AnchorPane.rightAnchor="-1" AnchorPane.topAnchor="0.0" />
                                  </children>
                              </AnchorPane>
                              <GridPane fx:id="dates" layoutY="10.0" opacity="0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
