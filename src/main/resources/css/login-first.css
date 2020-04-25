@@ -24,9 +24,21 @@ Button:hover{
 ImageView{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
 }
+.action-btn{
+    -fx-pref-height: 29px;
+    -fx-pref-width: 40px;
+    -fx-text-fill: #bfbfbf;
+    -fx-font-size: 10px;
+}
 .background{
     -fx-background-color: black;
     -fx-opacity: 0.5;
+}
+.login-pane{
+    -fx-max-width: 835px;
+    -fx-max-height: 79px;
+    -fx-pref-height: 79px;
+    -fx-pref-width: 419px;
 }
 .login-pane > Pane{
     -fx-opacity: 1;
@@ -34,15 +46,47 @@ ImageView{
 }
 .fields-container{
     -fx-background-color:  #2A2E37;
+    -fx-pref-height: 77px;
+    -fx-pref-width: 417px;
+}
+.fields-container AnchorPane{
+    -fx-pref-height: 33px;
+    -fx-pref-width: 345px;
+}
+.fields-container TextField{
+    -fx-pref-height: 32px;
+    -fx-pref-width: 162px;
+}
+.fields-container TextField{
+    -fx-font-size: 11px;
+    -fx-background-radius: 0 0 0 0;
+}
+.menu{
+    -fx-background-color: #2A2E37;
+    -fx-pref-height: 78px;
+    -fx-pref-width: 417px;
+}
+.menu Button{
+    -fx-pref-height: 78px;
+    -fx-pref-width: 140px;
+    -fx-text-fill: #bfbfbf;
 }
 .loading-pane {
     -fx-background-color: #2A2E37;
+    -fx-pref-height: 100px;
+    -fx-pref-width: 200px;
 }
 .loading-indicator {
     -fx-accent: #bcbcbc;
 }
 .style-buttons:disabled Button{
     -fx-opacity: 1;
+}
+.style-buttons Button {
+    -fx-text-fill: #bfbfbf;
+    -fx-pref-height: 39px;
+    -fx-pref-width: 70px;
+    -fx-font-size: 10px;
 }
 .alert-box{
     -fx-background-color: #2A2E37;
