@@ -433,6 +433,133 @@ public class ControllerLogged implements Controller {
 
     }
 
+    private void appendSession(Session session, VBox chatBlock, ChatValue chatValue, int index) {
+
+        Text date = new Text(dateFormatter.format(session.getDate()));
+        TextFlow dateFlow = new TextFlow(date);
+        dateFlow.setTextAlignment(TextAlignment.CENTER);
+
+        HBox sessionDate = new HBox(dateFlow);
+        HBox.setHgrow(dateFlow, Priority.ALWAYS);
+        sessionDate.getStyleClass().add("session-date");
+
+        VBox sessionBlock = new VBox(sessionDate);
+        sessionBlock.setId(session.getDate().toString());
+        session.getMessages()
+                .forEach(message -> appendMessage(message, chatValue, sessionBlock));
+        chatBlock.getChildren().add(index, sessionBlock);
+    }
+
+    private void appendMessage(Message message, ChatValue chat, VBox chatBlock) {
+        HBox hBox = new HBox();
+        VBox newBlock = new VBox();
+        Text text = new Text();
+        Text time = new Text();
+        ImageView imageView = new ImageView();
+        TextFlow textFlow = new TextFlow();
+
+        time.getStyleClass().add("time");
+        text.getStyleClass().add("message");
+        newBlock.getStyleClass().add("chat-block");
+
+        imageView.setFitHeight(34);
+        imageView.setFitWidth(34);
+        imageView.setLayoutX(3);
+        imageView.setLayoutY(7);
+
+        Circle clip = new Circle(20, 20, 20);
+
+        Pane imageContainer = new Pane(imageView);
+        imageContainer.setClip(clip);
+        imageContainer.setMaxHeight(40);
+        imageContainer.setMaxWidth(40);
+        imageContainer.setMinWidth(40);
+
+
+        Pane imageShadow = new Pane(imageContainer);
+        imageShadow.setMaxHeight(40);
+        imageShadow.setMaxWidth(40);
+        imageShadow.setMinWidth(40);
+        imageShadow.getStyleClass().add("imageShadow");
+
+        HBox.setMargin(imageShadow, new Insets(-20, 0, 0, 0));
+
+        if (message.getReceiverId() == loggedUser.getId()) {
+            imageView.setImage(chat.getSecondUserPicture());
+            text.setText(message.getMessage());
+            time.setText("  " + timeFormatter.format(message.getTime()));
+            textFlow.getChildren().addAll(text, time);
+            hBox.setAlignment(Pos.TOP_LEFT);
+
+        } else {
+            imageView.setImage(userProfileImage);
+            text.setText(message.getMessage());
+            time.setText(timeFormatter.format(message.getTime()) + "  ");
+            textFlow.getChildren().addAll(time, text);
+            hBox.setAlignment(Pos.TOP_RIGHT);
+
+        }
+
+        boolean timeElapsed;
+        int timeToElapse = 10;
+
+        List<Node> messageBlocks = chatBlock.getChildren();
+        if (messageBlocks.size() > 0 && messageBlocks.get(messageBlocks.size() - 1) instanceof VBox) {
+            VBox lastBlock = (VBox) messageBlocks.get(messageBlocks.size() - 1);
+            HBox lastMessage = (HBox) lastBlock.getChildren().get(lastBlock.getChildren().size() - 1);
+            LocalTime lastBlockStartedDate;
+            TextFlow firstTextFlow = (TextFlow) lastMessage.lookup("TextFlow");
+            Text lastBlockStartedText = (Text) firstTextFlow.lookup(".time");
+            lastBlockStartedDate = LocalTime.parse(lastBlockStartedText.getText().replaceAll("\\s+", ""));
+
+            timeElapsed = java.time.Duration.between(lastBlockStartedDate, message.getTime()).toMinutes() > timeToElapse;
+
+            if (message.getReceiverId() == loggedUser.getId()) {
+                if (!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("second-user-message")) {
+
+                    hBox.getStyleClass().add("second-user-message");
+                    hBox.getChildren().addAll(textFlow);
+                    lastBlock.getChildren().add(hBox);
+
+                } else {
+
+                    hBox.getStyleClass().add("second-user-message-first");
+                    hBox.getChildren().addAll(imageShadow, textFlow);
+                    newBlock.getChildren().add(hBox);
+                    chatBlock.getChildren().add(newBlock);
+
+                }
+            } else {
+                if (!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("user-message")) {
+
+                    hBox.getStyleClass().add("user-message");
+                    hBox.getChildren().addAll(textFlow);
+                    lastBlock.getChildren().add(hBox);
+
+                } else {
+
+                    hBox.getStyleClass().add("user-message-first");
+                    hBox.getChildren().addAll(textFlow, imageShadow);
+                    newBlock.getChildren().add(hBox);
+                    chatBlock.getChildren().add(newBlock);
+
+                }
+            }
+        } else {
+
+            if (message.getReceiverId() == loggedUser.getId()) {
+                hBox.getStyleClass().add("second-user-message-first");
+                hBox.getChildren().addAll(imageShadow, textFlow);
+                newBlock.getChildren().add(hBox);
+            } else {
+                hBox.getStyleClass().add("user-message-first");
+                hBox.getChildren().addAll(textFlow, imageShadow);
+                newBlock.getChildren().add(hBox);
+            }
+            chatBlock.getChildren().add(newBlock);
+        }
+    }
+
     @FXML
     public void addMenuItem(){
         Menu menuItem = menuList.getSelectionModel().getSelectedItem();
