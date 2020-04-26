@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -20,6 +21,8 @@ import static Application.RestaurantApplication.loginManager;
 
 public class StageManager {
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    private BoxBlur boxBlur = new BoxBlur(3, 3, 3);
+
     private Stage primaryStage;
 
     public Stage currentStage;
@@ -99,8 +102,11 @@ public class StageManager {
     }
 
     public void showAlert(String exception) {
+        currentStage.getScene().getRoot().setEffect(boxBlur);
+
         Alert alert = createAlert(currentStage);
         alert.getDialogPane().setContentText(exception);
+        alert.setOnHiding(event -> currentStage.getScene().getRoot().setEffect(null));
         alert.showAndWait();
     }
 

@@ -43,6 +43,11 @@ TextFlow {
 .list-view .scroll-bar:vertical{
     -fx-scale-x: 0;
 }
+.stage-root{
+    -fx-pref-height: 503px;
+    -fx-pref-width: 683px;
+    -fx-background-color: transparent;
+}
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
 }
