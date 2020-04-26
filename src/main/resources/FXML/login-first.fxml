@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" maxWidth="-Infinity" styleClass="stage-root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
+<AnchorPane fx:id="root" maxWidth="-Infinity" styleClass="stage-root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.firststyle.LoginFirst">
    <children>
       <Pane fx:id="background" styleClass="background"/>
       <AnchorPane fx:id="loginPane" styleClass="login-pane" layoutX="71.0" minHeight="-Infinity" minWidth="-Infinity">

@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" maxWidth="-Infinity" prefHeight="431.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginThirdStyle">
+<AnchorPane fx:id="root" maxWidth="-Infinity" prefHeight="431.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.thirdstyle.LoginThird">
    <children>
       <AnchorPane fx:id="loginPane" layoutX="134.6999969482422" minWidth="-Infinity">
          <children>
