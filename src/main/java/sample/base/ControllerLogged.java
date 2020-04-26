@@ -353,6 +353,86 @@ public class ControllerLogged implements Controller {
         }
     }
 
+    private void loadOlderHistory(ChatValue chatValue, VBox chatBlock) {
+        int displayedSessions = chatValue.getDisplayedSessions();
+        int loadedSessions = chatValue.getSessions().size();
+        int nextPage = loadedSessions / pageSize;
+
+        HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
+        Text info = (Text) sessionInfo.lookup("Text");
+
+        ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.getSessions();
+        List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
+        List<Session> nextSessions;
+        if (loadedSessions > displayedSessions) {
+
+            nextSessions = chatSessions.subList(displayedSessions,
+                    Math.min(displayedSessions + pageSize, loadedSessions));
+
+            if (displayedSessions + nextSessions.size() == loadedSessions && !chatValue.isMoreSessions()) {
+                info.setText("Beginning of the chat");
+            }
+            chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
+
+            nextSessions.forEach(session -> appendSession(session, chatBlock, chatValue, 1));
+
+        } else if (chatValue.isMoreSessions()) {
+            nextSessions = getNextSessions(chatValue.getChatId(), nextPage, pageSize);
+            if (nextSessions.size() < pageSize) {
+                chatValue.setMoreSessions(false);
+                info.setText("Beginning of the chat");
+            }
+            chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
+            nextSessions.forEach(session -> {
+
+                if (!sessionsMap.containsKey(session.getDate())) {
+                    sessionsMap.put(session.getDate(), session);
+
+                    appendSession(session, chatBlock, chatValue, 1);
+                }
+
+            });
+        } else {
+            info.setText("Beginning of the chat");
+        }
+    }
+    @FXML
+    public void addNewMessage(){
+        String messageText = mainChatTextArea.getText();
+        int chatId = mainChatValue.getChatId();
+        int receiverId = mainChatValue.getUserId();
+        int index = mainChatBlock.getChildren().size();
+        mainChatTextArea.clear();
+
+        if (messageText.length() > 0){
+            Message message = sendMessage(messageText, chatId, receiverId);
+            ChatValue chat = chatsMap.get(chatId);
+            ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+
+            mainChatBlock.setId("new-message");
+            Session session = sessions.get(LocalDate.now());
+            if (session == null) {
+                LocalDate sessionDate = LocalDate.now();
+
+                session = new Session();
+                session.setDate(sessionDate);
+                sessions.put(0, sessionDate, session);
+                session.getMessages().add(message);
+
+                if (mainChatValue.getChatId() == message.getChatId()) {
+                    mainChatValue.setDisplayedSessions(mainChatValue.getDisplayedSessions() + 1);
+                    appendSession(session, mainChatBlock, mainChatValue, index);
+                }
+            } else {
+                session.getMessages().add(message);
+                if (mainChatValue.getChatId() == message.getChatId()) {
+                    appendMessage(message, mainChatValue, (VBox) mainChatBlock.getChildren().get(index - 1));
+                }
+            }
+        }
+
+    }
+
     @FXML
     public void addMenuItem(){
         Menu menuItem = menuList.getSelectionModel().getSelectedItem();
