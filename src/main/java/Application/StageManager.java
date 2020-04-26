@@ -2,6 +2,7 @@ package Application;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
@@ -104,89 +105,69 @@ public class StageManager {
     }
 
     private void initializeFirstLoginStyle(Stage stage) throws IOException {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-first.fxml"));
         Pane root = loader.load();
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/login-first.css").toString());
-        scene.setFill(Color.TRANSPARENT);
-
         firstLoginController = loader.getController();
-        firstLoginStage = createStage(stage, scene, firstLoginController);
+        firstLoginStage = createStage(root, "/css/login-first.css", stage , firstLoginController);
     }
 
     private void initializeSecondLoginStyle(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-second.fxml"));
         Pane root = loader.load();
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/login-second.css").toString());
-        scene.setFill(Color.TRANSPARENT);
-
         secondLoginController = loader.getController();
-        secondLoginStage = createStage(stage, scene, secondLoginController);
+        secondLoginStage = createStage(root, "/css/login-second.css", stage , secondLoginController);
     }
 
     private void initializeThirdLoginStyle(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-third.fxml"));
         Pane root = loader.load();
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/login-third.css").toString());
-        scene.setFill(Color.TRANSPARENT);
-
         thirdLoginController = loader.getController();
-        thirdLoginStage = createStage(stage, scene, thirdLoginController);
+        thirdLoginStage = createStage(root, "/css/login-third.css", stage , thirdLoginController);
     }
 
     private void initializeFirstLoggedStyle(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-first.fxml"));
         Pane root = loader.load();
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/logged-first.css").toString());
-        scene.setFill(Color.TRANSPARENT);
-
         firstLoggedController = loader.getController();
-        firstLoggedStage = createStage(stage, scene, firstLoggedController);
+        firstLoggedStage = createStage(root, "/css/logged-first.css", stage , firstLoggedController);
     }
 
     private void initializeSecondLoggedStyle(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-second.fxml"));
         Pane root = loader.load();
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/logged-second.css").toString());
-        scene.setFill(Color.TRANSPARENT);
-
         secondLoggedController = loader.getController();
-        secondLoggedStage = createStage(stage, scene, secondLoggedController);
+        secondLoggedStage = createStage(root, "/css/logged-second.css", stage , secondLoggedController);
     }
 
     private void initializeThirdLoggedStyle(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-third.fxml"));
         Pane root = loader.load();
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/logged-third.css").toString());
-        scene.setFill(Color.TRANSPARENT);
-
         thirdLoggedController = loader.getController();
-        thirdLoggedStage = createStage(stage, scene, thirdLoggedController);
+        thirdLoggedStage = createStage(root, "/css/logged-third.css", stage , thirdLoggedController);
     }
 
     private Alert createAlert(Stage stage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(stage);
         alert.initStyle(StageStyle.TRANSPARENT);
+
         DialogPane dialog = alert.getDialogPane();
         dialog.setGraphic(null);
         dialog.getStyleClass().add("alert-box");
+
         return alert;
     }
 
-    private Stage createStage(Stage stage, Scene scene, Controller controller) {
+    private Stage createStage(Parent root, String rootCss, Stage stage, Controller controller) {
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource(rootCss).toString());
+        scene.setFill(Color.TRANSPARENT);
 
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
             if(!isShowing){
