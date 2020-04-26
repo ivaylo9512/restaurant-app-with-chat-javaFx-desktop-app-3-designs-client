@@ -25,24 +25,10 @@ public class StageManager {
 
     private Stage primaryStage;
 
-    public Stage currentStage;
-    public Controller currentController;
-
-    private Controller firstLoginController;
-    private Controller secondLoginController;
-    private Controller thirdLoginController;
-
-    private Controller firstLoggedController;
-    private Controller secondLoggedController;
-    private Controller thirdLoggedController;
-
-    public Stage firstLoggedStage;
-    public Stage secondLoggedStage;
-    public Stage thirdLoggedStage;
-
-    public Stage firstLoginStage;
-    public Stage secondLoginStage;
-    public Stage thirdLoginStage;
+    public Controller currentController, firstLoggedController, secondLoggedController,
+            thirdLoggedController, firstLoginController, secondLoginController, thirdLoginController;
+    public Stage currentStage, firstLoggedStage, secondLoggedStage, thirdLoggedStage,
+            firstLoginStage, secondLoginStage, thirdLoginStage;
 
     private StageManager(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
