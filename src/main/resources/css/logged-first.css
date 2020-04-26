@@ -266,11 +266,11 @@ TextFlow {
     -fx-pref-height: 132px;
     -fx-pref-width: 105px;
 }
-.userInfoScroll .scroll-bar .track {
+.user-info-scroll .scroll-bar .track {
     -fx-scale-x: 0px;
     -fx-padding: 0px;
 }
-.userInfoScroll .scroll-bar .thumb {
+.user-info-scroll .scroll-bar .thumb {
     -fx-scale-x: 0px;
     -fx-padding: 0px;
 }

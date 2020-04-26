@@ -1,5 +1,11 @@
+Button,
+TextField,
+PasswordField{
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #bcbcbc;
+}
+
 Button{
-    -fx-background-color:  #1a1a1a;
     -fx-border-color: black;
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
@@ -10,19 +16,62 @@ Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 1);
 }
 TextField,
-PasswordField{
-    -fx-background-color: #1a1a1a;
-    -fx-text-fill: #bcbcbc;
+PasswordField,
+.style-buttons Button{
+    -fx-pref-height: 30px;
+    -fx-pref-width: 100px;
+    -fx-font-size: 10px;
 }
-.loading-pane {
-    -fx-background-color: #1a1a1a;
+.stage-root{
+    -fx-background-color: transparent;
+    -fx-pref-height: 84px;
+    -fx-pref-width: 621px;
 }
-.loading-indicator {
-    -fx-accent: #FC3903;
+.login-pane{
+    -fx-pref-height: 55px;
+    -fx-pref-width: 528px;
+    -fx-background-color: transparent;
+    -fx-border-color: #1a1a1a;
+    -fx-border-width: 2;
+}
+.background{
+    -fx-background-color: #1a1a1a;
+    -fx-opacity:0.8;
+}
+.background-line{
+    -fx-pref-height: 200px;
+    -fx-pref-width: 200px;
+    -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(252,57,3,1.6) , 45, 0.0 , 0 , 6 );
+}
+.menu-button{
+    -fx-pref-height: 35px;
+    -fx-pref-width: 70px;
+    -fx-font-size: 12px;
+}
+.register-fields{
+    -fx-pref-height: 39px;
+    -fx-pref-width: 206px;
 }
 .action-btn{
     -fx-background-color: #FC3903;
     -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-pref-height: 25px;
+    -fx-pref-width: 30px;
+    -fx-max-height: 25px;
+    -fx-max-width: 30px;
+    -fx-min-height: 25px;
+    -fx-min-width: 25px;
+}
+.loading-pane {
+    -fx-background-color: #1a1a1a;
+    -fx-pref-height: 100px;
+    -fx-pref-width: 200px;
+    -fx-alignment: center;
+}
+.loading-indicator {
+    -fx-accent: #FC3903;
 }
 .alert-box{
     -fx-background-color: #1a1a1a;
@@ -51,7 +100,7 @@ PasswordField{
     -fx-font-size: 12px;
     -fx-text-fill: white;
     -fx-alignment: center;
-    -fx-pref-height: 50;
+    -fx-pref-height: 40;
     -fx-padding: 0,0,10,0;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
     -fx-background-color: #FC3903;

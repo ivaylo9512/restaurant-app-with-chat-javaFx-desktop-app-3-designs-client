@@ -2,13 +2,11 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.effect.*?>
-<?import java.lang.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" maxWidth="-Infinity" prefHeight="84.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
+<AnchorPane fx:id="root" maxWidth="-Infinity" styleClass="stage-root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLoginFirstStyle">
    <children>
       <Pane fx:id="background" styleClass="background"/>
       <AnchorPane fx:id="loginPane" styleClass="login-pane" layoutX="71.0" minHeight="-Infinity" minWidth="-Infinity">

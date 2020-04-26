@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -20,7 +18,7 @@
                      <content>
                            <AnchorPane>
                               <children>
-                                    <ScrollPane fx:id="userInfoScroll" styleClass="userInfoScroll" layoutY="77.0" prefViewportHeight="120.0" prefViewportWidth="100.0">
+                                    <ScrollPane fx:id="userInfoScroll" styleClass="user-info-scroll" layoutY="77.0" prefViewportHeight="130.0" prefViewportWidth="95.0">
                                        <content>
                                           <FlowPane fx:id="userInfo" layoutX="517.0" layoutY="-219.0" styleClass="user-info" vgap="6.0">
                                              <children>
@@ -63,7 +61,7 @@
                                        <children>
                                              <ImageView fx:id="roleImage" layoutX="10.5" styleClass="shadow">
                                                    </ImageView>
-                                             <Pane layoutY="68.5" styleClass="shadow" />
+                                             <Pane layoutY="68.5" styleClass="info-line" />
                                        </children>
                                     </Pane>
                                     <ListView disable="true" focusTraversable="false" fx:id="chatUsersList" styleClass="chat-users" layoutY="211.0">
