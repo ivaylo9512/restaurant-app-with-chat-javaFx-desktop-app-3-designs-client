@@ -26,17 +26,12 @@ import sample.base.ControllerLogged;
 public class ControllerLoggedSecondStyle extends ControllerLogged {
     @FXML Label dishesCountLabel;
 
-    @FXML AnchorPane menuRoot,menu, menuButtons, menuButtonsContainer, profileView, menuContent, orderInfo, orderView,
+    @FXML AnchorPane  orderInfo, orderView,
             chatView, userChatsClip, createView, dishesContainer, chatContainer;
-
-    @FXML Button menuButton, updateButton;
-    @FXML HBox notificationsInfo;
-    @FXML Region notificationIcon;
-    @FXML Pane profileImageContainer, profileImageClip, contentBar;
+    @FXML Pane contentBar;
     @FXML TextArea chatTextArea;
     @FXML ScrollPane chatScroll;
     @FXML VBox chatBlock;
-    @FXML Region notificationRegion;
 
     private AnchorPane currentView, currentMenuView;
 
@@ -53,8 +48,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         Scrolls scrolls = new Scrolls(chatScroll, chatTextArea);
         scrolls.manageScrollsSecondStyle();
 
-
-        MoveRoot.move(menuButton, menuRoot);
         MoveRoot.move(contentBar, contentRoot);
 
         chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
@@ -214,17 +207,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
         reverse.play();
     }
-    @Override
-    public void setStage() throws Exception{
-        super.setStage();
-
-//        ObservableList<Chat> chats = FXCollections.observableArrayList(getChats());
-//        setChatValues(chats);
-//        userChats.setItems(chats);
-
-        menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getWidth()) / 2);
-        menuRoot.setLayoutY(contentRoot.getLayoutY() - 60);
-    }
 
     @Override
     public void resetStage(){
@@ -244,7 +226,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
         contentRoot.setOpacity(0);
         contentRoot.setDisable(true);
 
-        menuContent.setDisable(true);
 
         if(currentView != null){
             currentView.setOpacity(0);
@@ -256,11 +237,6 @@ public class ControllerLoggedSecondStyle extends ControllerLogged {
 
         expandMenu();
         reverseMenuContent();
-
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(600), profileImageContainer);
-        fadeOut.setFromValue(1);
-        fadeOut.setToValue(0);
-        fadeOut.play();
     }
 
     @FXML

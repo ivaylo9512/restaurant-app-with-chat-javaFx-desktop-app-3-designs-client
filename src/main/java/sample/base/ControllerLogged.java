@@ -12,14 +12,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 
 import java.time.format.DateTimeFormatter;
 import java.util.SortedMap;
@@ -28,6 +26,9 @@ import static Application.RestaurantApplication.*;
 
 public class ControllerLogged implements Controller {
     @FXML
+    public AnchorPane contentRoot;
+
+    @FXML
     ListView<Menu> menuList, newOrderList;
     @FXML
     ListView<Dish> dishesList;
@@ -35,7 +36,6 @@ public class ControllerLogged implements Controller {
     ImageView profileImage;
     @FXML
     HBox notificationsInfo;
-
 
     @FXML
     protected Label orderId, updatedDate, createdDate, createdTime, updatedTime;
@@ -46,7 +46,7 @@ public class ControllerLogged implements Controller {
     @FXML
     protected Pane userInfo;
     @FXML
-    protected AnchorPane contentRoot, orderPane, notificationsView;
+    protected AnchorPane orderPane, notificationsView;
     @FXML
     protected ListView<Order> ordersList;
     @FXML
@@ -66,7 +66,6 @@ public class ControllerLogged implements Controller {
     protected static BooleanProperty isNewNotificationChecked = new SimpleBooleanProperty(true);
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();
 
-    protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
     protected ProgressIndicator editIndicator = new ProgressIndicator();
     protected ProgressIndicator createIndicator = new ProgressIndicator();
 
