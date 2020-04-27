@@ -47,9 +47,6 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
         MoveRoot.move(menuButton, menuRoot);
 
-        menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
-                userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
-
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
         contentController = (LoggedSecond) stageManager.secondLoggedController;
     }

@@ -45,6 +45,9 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         Scrolls scrolls = new Scrolls(chatScroll, chatTextArea);
         scrolls.manageScrollsSecondStyle();
 
+        menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
+                userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
+
         MoveRoot.move(contentBar, contentRoot);
         ResizeRoot.addListeners(contentRoot);
 

@@ -30,7 +30,7 @@ public class StageManager {
     public Stage currentStage, currentStageMenu, firstLoggedStage, secondLoggedStage, secondLoggedMenuStage, thirdLoggedStage,
             firstLoginStage, secondLoginStage, thirdLoginStage;
 
-    private StageManager(Stage primaryStage) throws Exception{
+    void initializeStages(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
 
         initializeFirstLoginStyle(primaryStage);
@@ -43,8 +43,10 @@ public class StageManager {
 
         initializeFirstLoggedStyle(new Stage());
         initializeSecondLoggedStyle(new Stage());
-        initializeLoggedMenuSecondStyle(new Stage());
+        initializeSecondLoggedMenuStyle(new Stage());
         initializeThirdLoggedStyle(new Stage());
+
+        secondLoggedMenuStage.setAlwaysOnTop(true);
 
         firstLoggedStage.initOwner(firstLoginStage);
         secondLoginStage.initOwner(secondLoggedStage);
@@ -56,8 +58,8 @@ public class StageManager {
         currentStage.show();
         if(currentStageMenu != null) currentStageMenu.show();
     }
-    static StageManager initialize(Stage primaryStage) throws Exception {
-        return new StageManager(primaryStage);
+    static StageManager initialize() throws Exception {
+        return new StageManager();
     }
 
     void changeToOwner(){
@@ -144,7 +146,7 @@ public class StageManager {
         secondLoggedStage = createStage(root, "/css/logged-second.css", stage , secondLoggedController);
     }
 
-    private void initializeLoggedMenuSecondStyle(Stage stage) throws IOException {
+    private void initializeSecondLoggedMenuStyle(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-second-menu.fxml"));
         Pane root = loader.load();
 
