@@ -26,6 +26,7 @@ import javafx.util.Duration;
 import controllers.base.ControllerLogged;
 
 import static animations.ExpandOrderPane.*;
+import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll, mainChatScroll;
@@ -41,28 +42,38 @@ public class LoggedFirst extends ControllerLogged {
     private ScrollBar ordersScrollBar;
     private ChatValue mainChatValue;
 
-    private Image chefImage;
-    private Image waiterImage;
+    private Image chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
+    private Image waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
 
     @FXML
     public void initialize() {
-        super.initialize();
-
         addListeners();
         setClips();
+        setListsItems();
+        setNotificationsListeners();
+        setNotificationsFactories();
+        setListsFactories();
+        setUserFields();
         setOrderPane();
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
                 mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsFirstStyle();
 
-        chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
-        waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
+        menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
+                userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
 
         ResizeMainChat.addListeners(mainChat);
-
-        contentRoot.setCursor(Cursor.DEFAULT);
+        ResizeRoot.addListeners(contentRoot);
         MoveRoot.move(moveBar, contentRoot);
+    }
+
+    private void setListsItems() {
+        ordersList.setItems(orderManager.orders);
+        newOrderList.setItems(orderManager.newOrderList);
+        notificationsList.setItems(notificationManager.notifications);
+        menuList.setItems(userMenu);
+        chatUsersList.setItems(chatManager.chatsList);
     }
 
     @Override

@@ -1,8 +1,10 @@
 package controllers.secondstyle;
 
 import animations.MoveRoot;
+import animations.ResizeRoot;
 import animations.TransitionResizeHeight;
 import animations.TransitionResizeWidth;
+import controllers.base.ControllerLogged;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -20,9 +22,10 @@ import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import controllers.base.Controller;
 
-import static application.RestaurantApplication.stageManager;
+import static application.RestaurantApplication.*;
+import static application.RestaurantApplication.chatManager;
 
-public class LoggedSecond implements Controller {
+public class LoggedSecond extends ControllerLogged {
     @FXML AnchorPane menuRoot, menu, menuButtons, menuButtonsContainer, profileView, menuContent;
     @FXML Button menuButton, updateButton;
     @FXML Region notificationIcon;
@@ -37,10 +40,24 @@ public class LoggedSecond implements Controller {
     public void initialize(){
         setNotificationIcon();
         setClips();
+        setCreateGraphicIndicators();
+        setListsItems();
+        setListsFactories();
 
+        ResizeRoot.addListeners(contentRoot);
         MoveRoot.move(menuButton, menuRoot);
 
+        menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
+                userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
+
         contentController = (LoggedMenu) stageManager.secondLoggedController;
+    }
+
+    private void setListsItems() {
+        ordersList.setItems(orderManager.orders);
+        newOrderList.setItems(orderManager.newOrderList);
+        menuList.setItems(userMenu);
+        chatUsersList.setItems(chatManager.chatsList);
     }
 
     private void setClips() {

@@ -29,8 +29,6 @@ public class ControllerLogged implements Controller {
     public AnchorPane contentRoot;
 
     @FXML
-    ListView<Menu> menuList, newOrderList;
-    @FXML
     ListView<Dish> dishesList;
     @FXML
     ImageView profileImage;
@@ -49,6 +47,8 @@ public class ControllerLogged implements Controller {
     protected AnchorPane orderPane, notificationsView;
     @FXML
     protected ListView<Order> ordersList;
+    @FXML
+    protected ListView<Menu> menuList, newOrderList;
     @FXML
     protected ListView<Notification> notificationsList;
     @FXML
@@ -73,25 +73,7 @@ public class ControllerLogged implements Controller {
     private String createButtonText;
     protected Order currentOrder;
 
-    @FXML
-    public void initialize() {
-        setListsFactories();
-        setListsItems();
-        setGraphicIndicators();
-        setNotificationsListeners();
-        setUserFields();
-
-        menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
-                userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
-
-        saveButton.visibleProperty().bind(saveButton.managedProperty());
-        editButton.visibleProperty().bind(editButton.managedProperty());
-
-        ResizeRoot.addListeners(contentRoot);
-    }
-
-
-    private void setNotificationsListeners() {
+    protected void setNotificationsListeners() {
         notificationsList.getItems().addListener((ListChangeListener<Notification>)c -> {
             c.next();
             if(c.getRemovedSize() > 0) {
@@ -110,11 +92,8 @@ public class ControllerLogged implements Controller {
         });
     }
 
-    private void setGraphicIndicators() {
+    protected void setUserGraphicIndicator(){
         editButtonGraphic = editButton.getGraphic();
-        createButtonGraphic = createButton.getGraphic();
-        createButtonText = createButton.getText();
-
         loginManager.sendInfo.runningProperty().addListener((observable, oldValue, newValue)->{
             if(newValue){
                 editButton.setGraphic(editIndicator);
@@ -124,6 +103,10 @@ public class ControllerLogged implements Controller {
                 editButton.setText("Edit");
             }
         });
+    }
+    protected void setCreateGraphicIndicators() {
+        createButtonGraphic = createButton.getGraphic();
+        createButtonText = createButton.getText();
 
         orderManager.sendOrder.runningProperty().addListener((observable, oldValue, newValue)->{
             if(newValue){
@@ -136,19 +119,7 @@ public class ControllerLogged implements Controller {
         });
     }
 
-    private void setListsItems() {
-        ordersList.setItems(orderManager.orders);
-        newOrderList.setItems(orderManager.newOrderList);
-        notificationsList.setItems(notificationManager.notifications);
-        menuList.setItems(userMenu);
-        chatUsersList.setItems(chatManager.chatsList);
-    }
-
-    public void setListsFactories() {
-        currentDishList.setCellFactory(c -> new DishListViewCell());
-        menuList.setCellFactory(menuCell -> new MenuListViewCell());
-        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
-
+    protected void setNotificationsFactories(){
         notificationsList.setCellFactory(param -> new ListCell<Notification>(){
             @Override
             protected void updateItem(Notification item, boolean empty) {
@@ -161,8 +132,13 @@ public class ControllerLogged implements Controller {
             }
         });
     }
+    protected void setListsFactories() {
+        currentDishList.setCellFactory(c -> new DishListViewCell());
+        menuList.setCellFactory(menuCell -> new MenuListViewCell());
+        newOrderList.setCellFactory(menuCell -> new MenuListViewCell());
+    }
 
-    private void setUserFields(){
+    protected void setUserFields(){
         if(usernameField == null) usernameField = new TextField();
 
         usernameField.setEditable(false);
@@ -175,6 +151,9 @@ public class ControllerLogged implements Controller {
     }
 
     private void bindUserFields() {
+        saveButton.visibleProperty().bind(saveButton.managedProperty());
+        editButton.visibleProperty().bind(editButton.managedProperty());
+
         loginManager.bindUserFields(usernameField.textProperty(), firstNameField.textProperty(), lastNameField.textProperty(), countryField.textProperty(),
                 roleField.textProperty(), ageField.textProperty(), profileImage.imageProperty());
 
@@ -214,7 +193,7 @@ public class ControllerLogged implements Controller {
         updatedTime.textProperty().unbind();
     }
 
-    private SortedMap<String, Menu> searchMenu(String prefix) {
+    protected SortedMap<String, Menu> searchMenu(String prefix) {
         return orderManager.userMenu.subMap(prefix, prefix + Character.MAX_VALUE);
     }
 

@@ -15,6 +15,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import controllers.base.ControllerLogged;
 
+import static application.RestaurantApplication.notificationManager;
+
 
 public class LoggedMenu extends ControllerLogged {
     @FXML Label dishesCountLabel;
@@ -30,12 +32,16 @@ public class LoggedMenu extends ControllerLogged {
 
     private ChatValue chatValue;
 
-    @Override
+    @FXML
     public void initialize() {
-        super.initialize();
-
         setClips();
+        setListsFactories();
+        setUserGraphicIndicator();
+        setNotificationsListeners();
+        setNotificationsFactories();
+        setUserFields();
         focusCurrentOrderOnListUpdate();
+        notificationsList.setItems(notificationManager.notifications);
 
         Scrolls scrolls = new Scrolls(chatScroll, chatTextArea);
         scrolls.manageScrollsSecondStyle();
