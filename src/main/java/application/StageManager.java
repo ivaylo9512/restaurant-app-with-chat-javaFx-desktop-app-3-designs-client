@@ -25,9 +25,9 @@ public class StageManager {
 
     private Stage primaryStage;
 
-    public Controller currentController, firstLoggedController, secondLoggedController,
+    public Controller currentController, firstLoggedController, secondLoggedController, secondLoggedMenuController,
             thirdLoggedController, firstLoginController, secondLoginController, thirdLoginController;
-    public Stage currentStage, firstLoggedStage, secondLoggedStage, thirdLoggedStage,
+    public Stage currentStage, currentStageMenu, firstLoggedStage, secondLoggedStage, secondLoggedMenuStage, thirdLoggedStage,
             firstLoginStage, secondLoginStage, thirdLoginStage;
 
     private StageManager(Stage primaryStage) throws Exception{
@@ -43,15 +43,18 @@ public class StageManager {
 
         initializeFirstLoggedStyle(new Stage());
         initializeSecondLoggedStyle(new Stage());
+        initializeLoggedMenuSecondStyle(new Stage());
         initializeThirdLoggedStyle(new Stage());
 
         firstLoggedStage.initOwner(firstLoginStage);
         secondLoginStage.initOwner(secondLoggedStage);
         secondLoggedStage.initOwner(secondLoginStage);
+        secondLoggedMenuStage.initOwner(secondLoggedStage);
         thirdLoginStage.initOwner(thirdLoggedStage);
         thirdLoggedStage.initOwner(thirdLoginStage);
 
         currentStage.show();
+        if(currentStageMenu != null) currentStageMenu.show();
     }
     static StageManager initialize(Stage primaryStage) throws Exception {
         return new StageManager(primaryStage);
@@ -65,6 +68,9 @@ public class StageManager {
 
     public void changeStage(Stage stage){
         currentStage.close();
+        if(currentStageMenu != null) currentStageMenu.close();
+        currentStageMenu = null;
+
         if(stage == firstLoginStage){
             currentStage = firstLoginStage;
             currentController = firstLoginController;
@@ -80,11 +86,13 @@ public class StageManager {
         }else if(stage == secondLoggedStage){
             currentStage = secondLoggedStage;
             currentController = secondLoggedController;
+            currentStageMenu = secondLoggedMenuStage;
         }else {
             currentStage = thirdLoggedStage;
             currentController = thirdLoggedController;
         }
         currentStage.show();
+        if(currentStageMenu != null) currentStageMenu.show();
     }
 
     public void showAlert(String exception) {
@@ -134,6 +142,14 @@ public class StageManager {
 
         secondLoggedController = loader.getController();
         secondLoggedStage = createStage(root, "/css/logged-second.css", stage , secondLoggedController);
+    }
+
+    private void initializeLoggedMenuSecondStyle(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-second-menu.fxml"));
+        Pane root = loader.load();
+
+        secondLoggedMenuController = loader.getController();
+        secondLoggedMenuStage = createStage(root, "/css/logged-second-menu.css", stage , secondLoggedMenuController);
     }
 
     private void initializeThirdLoggedStyle(Stage stage) throws IOException {
