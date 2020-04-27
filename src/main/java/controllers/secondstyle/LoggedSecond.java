@@ -87,13 +87,6 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     private void setClips() {
         Rectangle chatsClip = new Rectangle(211, 421);
         userChatsClip.setClip(chatsClip);
-
-        Rectangle notificationClip = new Rectangle();
-        notificationClip.setArcHeight(33);
-        notificationClip.setArcWidth(33);
-        notificationClip.heightProperty().bind(notificationsList.heightProperty());
-        notificationClip.widthProperty().bind(notificationsList.widthProperty());
-        notificationsList.setClip(notificationClip);
     }
 
     void displayView(AnchorPane requestedView){

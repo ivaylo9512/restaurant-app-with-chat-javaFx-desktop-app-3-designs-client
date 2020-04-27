@@ -62,6 +62,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
         Circle clip = new Circle(30.8, 30.8, 30.8);
         profileImageClip.setClip(clip);
+
+        Rectangle notificationClip = new Rectangle();
+        notificationClip.setArcHeight(33);
+        notificationClip.setArcWidth(33);
+        notificationClip.heightProperty().bind(notificationsList.heightProperty());
+        notificationClip.widthProperty().bind(notificationsList.widthProperty());
+        notificationsList.setClip(notificationClip);
     }
 
     @Override

@@ -1,0 +1,72 @@
+.shadow{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+}
+
+.profile-view{
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-background-color: #1a1a1a;
+}
+.profile-view Button {
+    -fx-background-radius: 180px;
+    -fx-border-radius: 180px;
+    -fx-background-color: transparent;
+}
+.profile-view Button ProgressIndicator{
+    -fx-accent: #bcbcbc;
+}
+.profile-button-shadow {
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 1 );
+    -fx-background-radius: 180px;
+    -fx-border-radius: 180px;
+    -fx-background-color: #1a1a1a;
+}
+.profile-button-hovered{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+}
+.profile-view Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+}
+.profile-view TextField{
+    -fx-background-color: #1a1a1a;
+    -fx-opacity: 1;
+    -fx-text-fill: #bcbcbc;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+    -fx-pref-width: 119px;
+    -fx-pref-height: 56px;
+}
+.profile-view TextField:readonly{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 1 );
+}
+.notifications-view{
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-background-color: #1a1a1a;
+}
+.notifications-view-clip{
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+.notifications-list .list-view{
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+.notifications-list .list-cell{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
+    -fx-background-color: #1a1a1a;
+    -fx-pref-height: 50px;
+    -fx-alignment: center;
+    -fx-text-fill: #bcbcbc;
+}
+.notifications-list .list-cell:empty {
+    -fx-opacity: 0;
+}
+.notifications-list .list-cell:hover{
+    -fx-text-fill: #FC3903;
+}
+.notifications-info{
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-background-color: #1a1a1a;
+}

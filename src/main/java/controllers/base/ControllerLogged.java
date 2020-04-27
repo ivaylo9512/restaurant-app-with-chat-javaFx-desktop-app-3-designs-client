@@ -60,10 +60,10 @@ public class ControllerLogged {
     protected Node notificationIcon;
 
 
-    static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
-    static DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-    static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    protected static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    protected static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
+    protected static DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    protected static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     protected static BooleanProperty isNewNotificationChecked = new SimpleBooleanProperty(true);
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();
