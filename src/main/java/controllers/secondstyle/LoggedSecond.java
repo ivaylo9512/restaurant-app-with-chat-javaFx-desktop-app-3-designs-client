@@ -122,7 +122,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     }
 
     @Override
-    public void setStage() throws Exception {
+    public void setStage() {
         userMenu.setAll(orderManager.userMenu.values());
 
         setContentRoot();

@@ -1,8 +1,9 @@
 package controllers.base;
 
-import animations.ResizeRoot;
 import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import models.*;
 import models.Menu;
 import javafx.beans.binding.Bindings;
@@ -59,9 +60,10 @@ public class ControllerLogged {
     protected Node notificationIcon;
 
 
-    protected DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
-    protected DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
+    static DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     protected static BooleanProperty isNewNotificationChecked = new SimpleBooleanProperty(true);
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();

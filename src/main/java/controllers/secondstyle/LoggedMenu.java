@@ -1,7 +1,6 @@
 package controllers.secondstyle;
 
 import animations.MoveRoot;
-import animations.ResizeRoot;
 import animations.TransitionResizeHeight;
 import animations.TransitionResizeWidth;
 import controllers.base.Controller;
@@ -23,7 +22,6 @@ import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 import static application.RestaurantApplication.*;
-import static application.RestaurantApplication.chatManager;
 
 public class LoggedMenu extends ControllerLogged implements Controller {
     @FXML AnchorPane menuRoot, menu, menuButtons, menuButtonsContainer, profileView, menuContent;
