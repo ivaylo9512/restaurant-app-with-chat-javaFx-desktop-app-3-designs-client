@@ -24,7 +24,7 @@ import java.util.SortedMap;
 
 import static application.RestaurantApplication.*;
 
-public class ControllerLogged implements Controller {
+public class ControllerLogged {
     @FXML
     public AnchorPane contentRoot;
 
@@ -565,26 +565,12 @@ public class ControllerLogged implements Controller {
         }
     }
 
-    public void setStage() throws Exception{
-        userMenu.setAll(orderManager.userMenu.values());
-
+    protected void setContentRoot(){
         contentRoot.setPrefWidth(contentRoot.getMinWidth());
         contentRoot.setPrefHeight(contentRoot.getMinHeight());
 
         contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
         contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
-    }
-
-    public void resetStage(){
-        if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
-        if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
-
-        menuList.getItems().clear();
-        ordersList.getSelectionModel().clearSelection();
-        unbindOrderProperties();
-
-        notificationsView.setOpacity(0);
-        notificationsView.setDisable(true);
     }
 
     @FXML

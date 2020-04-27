@@ -1,6 +1,7 @@
 package controllers.firststyle;
 
 import animations.*;
+import controllers.base.Controller;
 import helpers.listviews.ChatsUsersListViewCell;
 import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;
@@ -28,7 +29,7 @@ import controllers.base.ControllerLogged;
 import static animations.ExpandOrderPane.*;
 import static application.RestaurantApplication.*;
 
-public class LoggedFirst extends ControllerLogged {
+public class LoggedFirst extends ControllerLogged implements Controller{
     @FXML ScrollPane menuScroll, userInfoScroll, mainChatScroll;
     @FXML VBox mainChatBlock;
     @FXML FlowPane chatInfo;
@@ -166,21 +167,28 @@ public class LoggedFirst extends ControllerLogged {
 
     @Override
     public void setStage() throws Exception{
-        super.setStage();
+        userMenu.setAll(orderManager.userMenu.values());
+
+        setContentRoot();
 
         if (roleField.getText().equals("Chef")) {
             roleImage.setImage(chefImage);
         } else {
             roleImage.setImage(waiterImage);
         }
-
-//        List<Chat> chats = getChats();
-//        appendChats(chats);
     }
 
     @Override
     public void resetStage(){
-        super.resetStage();
+        unbindOrderProperties();
+
+        menuList.getItems().clear();
+        if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
+        if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
+        ordersList.getSelectionModel().clearSelection();
+
+        notificationsView.setOpacity(0);
+        notificationsView.setDisable(true);
 
         mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
 
