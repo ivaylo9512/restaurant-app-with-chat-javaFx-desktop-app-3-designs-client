@@ -74,6 +74,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     public void resetStage() {
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 
+        stageManager.secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
         reverseMenuContent();
         reverseMenu();
 
@@ -104,10 +105,17 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     }
 
     private void expandMenuContent(){
+        stageManager.secondLoggedMenuStage.setHeight(menuRoot.getMaxHeight());
+
         TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
         expand.play();
     }
     private void reverseMenuContent(){
+        Timeline reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> {
+            stageManager.secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
+        }));
+        reverseStageHeight.play();
+
         TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
         reverse.play();
     }
@@ -116,7 +124,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         if(menuButtonsContainer.getChildren().size() == 1){
             menuButtonsContainer.getChildren().add(0, menuButtons);
         }
-        TransitionResizeWidth expand = new TransitionResizeWidth(Duration.millis(700), menu, 518);
+        TransitionResizeWidth expand = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMaxWidth());
         expand.play();
     }
     @FXML
