@@ -33,7 +33,6 @@ javafx {
 
 run {
     main = 'application.RestaurantApplication'
-    applicationDefaultJvmArgs = ["--add-opens", "java.base/jdk.internal.loader=ALL-UNNAMED"]
-    applicationDefaultJvmArgs = ["--add-opens", "javafx.graphics/javafx.scene.image=ALL-UNNAMED"]
+    applicationDefaultJvmArgs = ["--add-opens", "javafx.base/com.sun.javafx.event=ALL-UNNAMED", "--add-opens", "javafx.graphics/javafx.scene.image=ALL-UNNAMED"]
 }
 
