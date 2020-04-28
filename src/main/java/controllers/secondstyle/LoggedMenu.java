@@ -21,6 +21,8 @@ import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import static application.RestaurantApplication.*;
 
 public class LoggedMenu extends ControllerLogged implements Controller {
@@ -45,7 +47,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         setUserFields();
         notificationsList.setItems(notificationManager.notifications);
 
-        MoveRoot.move(menuButton, menuRoot);
+        MoveRoot.moveStage(menuButton, stageManager.secondLoggedMenuStage);
 
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
         contentController = (LoggedSecond) stageManager.secondLoggedController;
@@ -72,6 +74,9 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     public void resetStage() {
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 
+        reverseMenuContent();
+        reverseMenu();
+
         menuContent.setDisable(true);
         notificationsView.setOpacity(0);
         notificationsView.setDisable(true);
@@ -84,8 +89,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     @Override
     public void setStage() throws Exception {
-        menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getWidth()) / 2);
-        menuRoot.setLayoutY(contentController.contentRoot.getLayoutY() - 60);
+        stageManager.secondLoggedMenuStage.setWidth(menuRoot.getPrefWidth());
+        stageManager.secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
+
+        stageManager.secondLoggedMenuStage.setX((primaryScreenBounds.getWidth() - stageManager.secondLoggedMenuStage.getWidth()) / 2);
+        stageManager.secondLoggedMenuStage.setY(contentController.contentRoot.getLayoutY() - 60);
+
+        menuRoot.setLayoutX((menuRoot.getPrefWidth() - menu.getPrefWidth()) / 2);
     }
 
     @FXML
