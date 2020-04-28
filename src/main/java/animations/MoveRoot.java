@@ -4,6 +4,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class MoveRoot {
     private static Double offsetX;
@@ -26,6 +27,18 @@ public class MoveRoot {
                 root.setLayoutX(event.getScreenX() - offsetX);
                 root.setLayoutY(event.getScreenY() - offsetY);
             }
+        });
+    }
+
+    public static void moveStage(Node moveNode, Stage stage) {
+        stage.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            offsetX = event.getX();
+            offsetY = event.getY();
+        });
+
+        moveNode.setOnMouseDragged(event -> {
+                stage.setX(event.getScreenX() - offsetX);
+                stage.setY(event.getScreenY() - offsetY);
         });
     }
 
