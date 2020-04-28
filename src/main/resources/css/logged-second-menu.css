@@ -1,7 +1,20 @@
 .root{
-    -fx-pref-height: 21px;
-    -fx-pref-width: 518px;
-    -fx-background-color: transparent
+    -fx-pref-height: 70px;
+    -fx-max-height: 328px;
+    -fx-pref-width: 530px;
+    -fx-background-color: transparent;
+}
+.list-view .scroll-bar:vertical .increment-arrow,
+.list-view .scroll-bar:vertical .decrement-arrow,
+.list-view .scroll-bar:vertical .increment-button,
+.list-view .scroll-bar:vertical .decrement-button{
+    -fx-padding: 0px;
+}
+.list-view{
+    -fx-background-color: transparent;
+}
+.list-view .scroll-bar:vertical{
+    -fx-scale-x: 0;
 }
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );

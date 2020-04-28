@@ -27,12 +27,14 @@ import static application.RestaurantApplication.*;
 
 public class LoggedMenu extends ControllerLogged implements Controller {
     @FXML AnchorPane menuRoot, menu, menuButtons, menuButtonsContainer, profileView, menuContent;
-    @FXML Button menuButton, updateButton;
+    @FXML Button menuButton, notificationButton;
     @FXML Region notificationIcon;
     @FXML Pane profileImageContainer, profileImageClip;
     @FXML Region notificationRegion;
 
     private AnchorPane currentMenuView;
+    private AtomicReference<Button> currentContentButton = new AtomicReference<>();
+    private AtomicReference<Button> currentMenuButton = new AtomicReference<>();
 
     LoggedSecond contentController;
 
@@ -214,13 +216,54 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         shadowContainer.getStyleClass().remove("profile-button-hovered");
     }
     @FXML
-    public void focus(MouseEvent event){
+    public void menuButtonAction(MouseEvent event){
+        Button button = (Button) event.getSource();
+
+        switch (button.getId()){
+            case "profileButton":
+                showProfile();
+                if(menuContent.getPrefHeight() == 0 || menuContent.getPrefHeight() == menuContent.getMaxHeight())
+                    changeButtonStyle(button, currentMenuButton);
+                break;
+            case "notificationButton":
+                if(menuContent.getPrefHeight() == 0 || menuContent.getPrefHeight() == menuContent.getMaxHeight())
+                    changeButtonStyle(button, currentMenuButton);
+                showNotifications();
+                break;
+            case "orderButton":
+                changeButtonStyle(button, currentContentButton);
+                showOrderView();
+                break;
+            case "chatButton":
+                showChatView();
+                changeButtonStyle(button, currentContentButton);
+                break;
+            case "createButton":
+                showCreateView();
+                changeButtonStyle(button, currentContentButton);
+                break;
+        }
+    }
+    private void changeButtonStyle(Button newButton, AtomicReference<Button> currentButtonOptional){
+        Button currentButton = currentButtonOptional.get();
+        if(currentButton != null){
+            currentButton.getStyleClass().add("shadow");
+        }
+        if(newButton != currentButton){
+            newButton.getStyleClass().remove("shadow");
+            currentButtonOptional.set(newButton);
+        }else{
+            currentButtonOptional.set(null);
+        }
+    }
+    @FXML
+    public void menuButtonFocus(MouseEvent event){
         Button button = (Button) event.getSource();
         AnchorPane.setTopAnchor(button, -5.5);
         AnchorPane.setBottomAnchor(button, -4.0);
     }
     @FXML
-    public void unFocus(MouseEvent event){
+    public void menuButtonUnfocus(MouseEvent event){
         Button button = (Button) event.getSource();
         AnchorPane.setTopAnchor(button, -1.0);
         AnchorPane.setBottomAnchor(button, 0.0);
@@ -239,8 +282,8 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         HBox notificationIcon = (HBox)this.notificationIcon;
 
         notificationRegion.setShape(s);
-        notificationRegion.minWidthProperty().bind(updateButton.widthProperty().subtract(68));
-        notificationRegion.prefWidthProperty().bind(updateButton.widthProperty().subtract(68));
+        notificationRegion.minWidthProperty().bind(notificationButton.widthProperty().subtract(68));
+        notificationRegion.prefWidthProperty().bind(notificationButton.widthProperty().subtract(68));
         notificationRegion.setMaxSize(14, 14);
         notificationRegion.minHeightProperty().bind(notificationRegion.widthProperty());
         notificationRegion.prefHeightProperty().bind(notificationRegion.widthProperty());
@@ -248,8 +291,8 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         notificationRegion.getStyleClass().add("shadow");
 
         notificationIcon.setAlignment(Pos.CENTER);
-        notificationIcon.prefWidthProperty().bind(updateButton.widthProperty().subtract(57));
-        notificationIcon.prefHeightProperty().bind(updateButton.widthProperty().subtract(57));
+        notificationIcon.prefWidthProperty().bind(notificationButton.widthProperty().subtract(57));
+        notificationIcon.prefHeightProperty().bind(notificationButton.widthProperty().subtract(57));
         notificationIcon.setMaxSize(25, 25);
         notificationIcon.setTranslateX(40);
         notificationIcon.setTranslateY(-8);

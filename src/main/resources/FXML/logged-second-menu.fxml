@@ -8,20 +8,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="menuRoot" styleClass="root" fx:controller="controllers.secondstyle.LoggedMenu" layoutX="90.0" layoutY="-13.0" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="menuRoot" styleClass="root" fx:controller="controllers.secondstyle.LoggedMenu" layoutY="15.0" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu">
 <children>
-    <AnchorPane fx:id="menu" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="518.0" style="-fx-border-color: #1a1a1a; -fx-border-radius: 180; -fx-border-width: 1;" styleClass="shadow" AnchorPane.leftAnchor="0.0">
+    <AnchorPane fx:id="menu" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="518.0" maxWidth="518" style="-fx-border-color: #1a1a1a; -fx-border-radius: 180; -fx-border-width: 1;" styleClass="shadow" AnchorPane.leftAnchor="0.0">
         <children>
             <AnchorPane fx:id="menuButtonsContainer" layoutX="1.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="400.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <children>
                     <AnchorPane fx:id="menuButtons" layoutX="50.0" layoutY="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <children>
-                            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="182.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showCreateView" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Create" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="182.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Create" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="updateButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="276.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotifications" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Updates" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="notificationButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="276.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Updates" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
@@ -33,17 +33,17 @@
                                     </HBox>
                                 </graphic>
                             </Button>
-                            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrderView" onMouseEntered="#focus" onMouseExited="#unFocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="orderButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Button>
-                            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="370.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showChatView" onMouseEntered="#focus" onMouseExited="#unFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Chats" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="chatButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="370.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Chats" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Button>
-                            <Button alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" onMouseEntered="#focus" onMouseExited="#unFocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="profileButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
