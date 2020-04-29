@@ -9,6 +9,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -39,24 +40,26 @@ public class StageManager {
         currentController = firstLoginController;
 
         initializeSecondLoginStyle(new Stage());
-        initializeThirdLoginStyle(new Stage());
+//        initializeThirdLoginStyle(new Stage());
 
         initializeFirstLoggedStyle(new Stage());
         initializeSecondLoggedStyle(new Stage());
         initializeSecondLoggedMenuStyle(new Stage());
-        initializeThirdLoggedStyle(new Stage());
+//        initializeThirdLoggedStyle(new Stage());
 
         secondLoggedMenuStage.setAlwaysOnTop(true);
 
         firstLoggedStage.initOwner(firstLoginStage);
         secondLoginStage.initOwner(secondLoggedStage);
         secondLoggedStage.initOwner(secondLoginStage);
-        secondLoggedMenuStage.initOwner(secondLoggedStage);
-        thirdLoginStage.initOwner(thirdLoggedStage);
-        thirdLoggedStage.initOwner(thirdLoginStage);
+//        thirdLoginStage.initOwner(thirdLoggedStage);
+//        thirdLoggedStage.initOwner(thirdLoginStage);
 
         currentStage.show();
-        if(currentStageMenu != null) currentStageMenu.show();
+        if(currentStageMenu != null) {
+            ((Stage)currentStageMenu.getOwner()).show();
+            currentStageMenu.show();
+        }
     }
     static StageManager initialize() throws Exception {
         return new StageManager();
@@ -70,7 +73,7 @@ public class StageManager {
 
     public void changeStage(Stage stage){
         currentStage.close();
-        if(currentStageMenu != null) currentStageMenu.close();
+        if(currentStageMenu != null) ((Stage)currentStageMenu.getOwner()).close();
         currentStageMenu = null;
 
         if(stage == firstLoginStage){
@@ -94,7 +97,10 @@ public class StageManager {
             currentController = thirdLoggedController;
         }
         currentStage.show();
-        if(currentStageMenu != null) currentStageMenu.show();
+        if(currentStageMenu != null){
+            ((Stage)currentStageMenu.getOwner()).show();
+            currentStageMenu.show();
+        }
     }
 
     public void showAlert(String exception) {
@@ -158,6 +164,7 @@ public class StageManager {
 
     private void initializeSecondLoggedMenuStyle(Stage stage) throws IOException {
         secondLoggedMenuStage = stage;
+        stage.initOwner(createTransparentUtilityStage());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-second-menu.fxml"));
         Pane root = loader.load();
@@ -186,6 +193,18 @@ public class StageManager {
         dialog.getStyleClass().add("alert-box");
 
         return alert;
+    }
+
+    private Stage createTransparentUtilityStage() {
+        Stage utilityStage = new Stage();
+        utilityStage.initStyle(StageStyle.UTILITY);
+        utilityStage.setOpacity(0);
+
+        utilityStage.setHeight(0);
+        utilityStage.setWidth(0);
+        utilityStage.setY(-primaryScreenBounds.getMaxY());
+
+        return utilityStage;
     }
 
     private Stage createStage(Parent root, String rootCss, Stage stage, Controller controller) {
