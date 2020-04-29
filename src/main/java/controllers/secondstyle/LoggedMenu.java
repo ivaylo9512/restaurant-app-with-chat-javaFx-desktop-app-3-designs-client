@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Paint;
@@ -29,7 +30,6 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     @FXML Button menuButton, notificationButton;
     @FXML Region notificationIcon;
     @FXML Pane profileImageContainer, profileImageClip;
-    @FXML Region notificationRegion;
 
     private AnchorPane currentMenuView;
     private AtomicReference<Button> currentContentButton = new AtomicReference<>();
@@ -286,7 +286,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     }
 
 
-    private void setNotificationIcon() {
+    private void setNotificationIcon(HBox icon) {
         SVGPath usb3 = new SVGPath();
         usb3.setContent("m434.753906 360.8125c-32.257812-27.265625-50.753906-67.117188-50.753906-109.335938v-59.476562c0-75.070312-55.765625-137.214844-128-147.625v-23.042969c0-11.796875-9.558594-21.332031-21.332031-21.332031-11.777344 0-21.335938 9.535156-21.335938 21.332031v23.042969c-72.253906 10.410156-128 72.554688-128 147.625v59.476562c0 42.21875-18.496093 82.070313-50.941406 109.503907-8.300781 7.105469-13.058594 17.429687-13.058594 28.351562 0 20.589844 16.746094 37.335938 37.335938 37.335938h352c20.585937 0 37.332031-16.746094 37.332031-37.335938 0-10.921875-4.757812-21.246093-13.246094-28.519531zm0 0");
 
@@ -295,20 +295,12 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         Shape s = Shape.union(usb3,usb4);
         s.setFill(Paint.valueOf("FC3903"));
 
-        notificationRegion.setShape(s);
-        notificationRegion.minWidthProperty().bind(notificationButton.widthProperty().subtract(68));
-        notificationRegion.prefWidthProperty().bind(notificationButton.widthProperty().subtract(68));
-        notificationRegion.minHeightProperty().bind(notificationRegion.widthProperty());
-        notificationRegion.prefHeightProperty().bind(notificationRegion.widthProperty());
+        Region region = new Region();
+        region.setShape(s);
 
-        notificationIcon.prefWidthProperty().bind(notificationButton.widthProperty().subtract(57));
-        notificationIcon.prefHeightProperty().bind(notificationButton.widthProperty().subtract(57));
-        notificationIcon.setTranslateX(40);
-        notificationIcon.setTranslateY(-8);
-
-        RotateTransition tt = new RotateTransition(Duration.millis(200), notificationIcon);
+        RotateTransition tt = new RotateTransition(Duration.millis(200), icon);
         tt.setByAngle(16);
-        RotateTransition tl = new RotateTransition(Duration.millis(200), notificationIcon);
+        RotateTransition tl = new RotateTransition(Duration.millis(200), icon);
         tl.setByAngle(-32);
         PauseTransition pauseTransition = new PauseTransition(Duration.millis(500));
 
@@ -319,6 +311,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     }
 
+    bindNotificationSize()
     @FXML
     public void showChatView(){
         contentController.displayView(contentController.chatView);
