@@ -87,3 +87,21 @@
     -fx-border-radius: 15px;
     -fx-background-color: #1a1a1a;
 }
+.notification-icon{
+    -fx-pref-height: 100px;
+    -fx-pref-width: 200px;
+    -fx-alignment: center;
+    -fx-max-height: 25px;
+    -fx-max-width: 25px;
+    -fx-background-radius: 5em;
+    -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6.5, 0.4 , 0 , 0 );
+}
+.notification-region{
+    -fx-pref-height: 200px;
+    -fx-pref-width: 200px;
+    -fx-background-color: #FC3903;
+    -fx-max-height: 14px;
+    -fx-max-width: 14px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+}

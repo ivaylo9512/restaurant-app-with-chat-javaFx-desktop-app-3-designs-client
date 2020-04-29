@@ -21,18 +21,6 @@
                                     <Font size="12.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="notificationButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="276.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Updates" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="-1.0">
-                                <font>
-                                    <Font size="12.0" />
-                                </font>
-                                <graphic>
-                                    <HBox fx:id="notificationIcon" prefHeight="100.0" prefWidth="200.0">
-                                        <children>
-                                            <Region fx:id="notificationRegion" prefHeight="200.0" prefWidth="200.0" />
-                                        </children>
-                                    </HBox>
-                                </graphic>
-                            </Button>
                             <Button fx:id="orderButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
@@ -42,6 +30,18 @@
                                 <font>
                                     <Font size="12.0" />
                                 </font>
+                            </Button>
+                            <Button fx:id="notificationButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="276.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Updates" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="-1.0">
+                                <font>
+                                    <Font size="12.0" />
+                                </font>
+                                <graphic>
+                                    <HBox fx:id="notificationIcon" styleClass="notification-icon">
+                                        <children>
+                                            <Region fx:id="notificationRegion" styleClass="notification-region" />
+                                        </children>
+                                    </HBox>
+                                </graphic>
                             </Button>
                             <Button fx:id="profileButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
                                 <font>

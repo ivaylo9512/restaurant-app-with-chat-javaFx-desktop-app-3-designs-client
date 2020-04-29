@@ -279,24 +279,16 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         Shape s = Shape.union(usb3,usb4);
         s.setFill(Paint.valueOf("FC3903"));
 
-        HBox notificationIcon = (HBox)this.notificationIcon;
-
         notificationRegion.setShape(s);
         notificationRegion.minWidthProperty().bind(notificationButton.widthProperty().subtract(68));
         notificationRegion.prefWidthProperty().bind(notificationButton.widthProperty().subtract(68));
-        notificationRegion.setMaxSize(14, 14);
         notificationRegion.minHeightProperty().bind(notificationRegion.widthProperty());
         notificationRegion.prefHeightProperty().bind(notificationRegion.widthProperty());
-        notificationRegion.setStyle("-fx-background-color: #FC3903");
-        notificationRegion.getStyleClass().add("shadow");
 
-        notificationIcon.setAlignment(Pos.CENTER);
         notificationIcon.prefWidthProperty().bind(notificationButton.widthProperty().subtract(57));
         notificationIcon.prefHeightProperty().bind(notificationButton.widthProperty().subtract(57));
-        notificationIcon.setMaxSize(25, 25);
         notificationIcon.setTranslateX(40);
         notificationIcon.setTranslateY(-8);
-        notificationIcon.setStyle("-fx-background-radius: 5em;" + "-fx-background-color: #1a1a1a;" + "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6.5, 0.4 , 0 , 0 )");
 
         RotateTransition tt = new RotateTransition(Duration.millis(200), notificationIcon);
         tt.setByAngle(16);
