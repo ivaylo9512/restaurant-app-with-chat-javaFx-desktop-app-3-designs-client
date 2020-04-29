@@ -16,47 +16,48 @@
                 <children>
                     <AnchorPane fx:id="menuButtons" layoutX="50.0" layoutY="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <children>
-                            <Button fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="182.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Create" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="182.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Create" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="orderButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="orderButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Orders" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="chatButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="370.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Chats" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="chatButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="370.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Chats" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="notificationButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="276.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Updates" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="notificationButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutX="276.0" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" prefHeight="31.5" prefWidth="86.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Updates" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                                 <graphic>
-                                    <HBox fx:id="notificationIcon" styleClass="notification-icon">
-                                        <children>
-                                            <Region fx:id="notificationRegion" styleClass="notification-region" />
-                                        </children>
+                                    <HBox fx:id="notificationIcon" translateX="40" opacity="0" translateY="-8" styleClass="notification-icon">
                                     </HBox>
                                 </graphic>
                             </Button>
-                            <Button fx:id="profileButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnfocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
+                            <Button fx:id="profileButton" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow" text="Profile" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
                                 <font>
                                     <Font size="12.0" />
                                 </font>
                             </Button>
                         </children>
                     </AnchorPane>
-                    <Button fx:id="menuButton" focusTraversable="false" layoutX="2.5" layoutY="3.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="shadow">
+                    <Button fx:id="menuButton" styleClass="menu-button" focusTraversable="false" layoutX="2.5" layoutY="3.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false">
                         <graphic>
-                            <ImageView fitHeight="16.0" fitWidth="16.0" styleClass="shadow">
-                                <image>
-                                    <Image url="/images/menu.png" />
-                                </image>
-                            </ImageView>
+                            <StackPane>
+                                <ImageView fitHeight="16.0" fitWidth="16.0" styleClass="shadow">
+                                    <image>
+                                        <Image url="/images/menu.png" />
+                                    </image>
+                                </ImageView>
+                                <HBox fx:id="notificationMenuIcon" translateX="14" translateY="-12" styleClass="notification-icon">
+                                </HBox>
+                            </StackPane>
                         </graphic>
                     </Button>
                 </children>

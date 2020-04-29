@@ -1,5 +1,5 @@
 .root{
-    -fx-pref-height: 70px;
+    -fx-pref-height: 80px;
     -fx-max-height: 328px;
     -fx-pref-width: 540px;
     -fx-background-color: transparent;
@@ -18,6 +18,20 @@
 }
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+}
+.menu-button{
+    -fx-pref-height: 31px;
+    -fx-pref-width: 31px;
+    -fx-background-radius: 180;
+    -fx-border-radius: 180;
+    -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+}
+.menu-button StackPane{
+    -fx-pref-height: 25px;
+    -fx-pref-width: 25px;
+    -fx-min-height: 25px;
+    -fx-min-width: 25px;
 }
 .profile-view{
     -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
@@ -93,15 +107,17 @@
     -fx-alignment: center;
     -fx-max-height: 25px;
     -fx-max-width: 25px;
+    -fx-pref-height: 25px;
+    -fx-pref-width: 25px;
     -fx-background-radius: 5em;
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6.5, 0.4 , 0 , 0 );
 }
-.notification-region{
-    -fx-pref-height: 200px;
-    -fx-pref-width: 200px;
-    -fx-background-color: #FC3903;
+.notification-icon Region{
+    -fx-pref-height: 14px;
+    -fx-pref-width: 14px;
     -fx-max-height: 14px;
     -fx-max-width: 14px;
+    -fx-background-color: #FC3903;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
 }

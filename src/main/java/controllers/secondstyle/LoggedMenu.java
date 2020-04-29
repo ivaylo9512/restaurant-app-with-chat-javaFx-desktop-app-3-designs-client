@@ -13,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
@@ -28,9 +27,10 @@ import static application.RestaurantApplication.*;
 public class LoggedMenu extends ControllerLogged implements Controller {
     @FXML AnchorPane menuRoot, menu, menuButtons, menuButtonsContainer, profileView, menuContent;
     @FXML Button menuButton, notificationButton;
-    @FXML Region notificationIcon;
     @FXML Pane profileImageContainer, profileImageClip;
+    @FXML HBox notificationMenuIcon;
 
+    private HBox notificationBox;
     private AnchorPane currentMenuView;
     private AtomicReference<Button> currentContentButton = new AtomicReference<>();
     private AtomicReference<Button> currentMenuButton = new AtomicReference<>();
@@ -44,8 +44,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     @FXML
     public void initialize(){
-        setNotificationIcon();
+        notificationBox = (HBox)notificationIcon;
+        setNotificationBox(notificationBox);
+        setNotificationBox(notificationMenuIcon);
+        bindNotificationIconSize();
         setClips();
+
+        notificationMenuIcon.opacityProperty().bind(notificationBox.opacityProperty());
 
         setUserGraphicIndicator();
         setNotificationsListeners();
@@ -134,6 +139,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     @FXML public void expandMenu(){
         if(secondLoggedMenuStage.getHeight() != menuRoot.getPrefWidth()) {
+            notificationMenuIcon.setVisible(false);
             if (menuButtonsContainer.getChildren().size() == 1) {
                 menuButtonsContainer.getChildren().add(0, menuButtons);
             }
@@ -147,6 +153,8 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     @FXML
     public void reverseMenu(){
         if(currentMenuView == null) {
+            notificationMenuIcon.setVisible(true);
+
             reverseStageWidth.play();
             expandMenu.stop();
             reverseMenu.play();
@@ -279,24 +287,24 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         AnchorPane.setBottomAnchor(button, -4.0);
     }
     @FXML
-    public void menuButtonUnfocus(MouseEvent event){
+    public void menuButtonUnFocus(MouseEvent event){
         Button button = (Button) event.getSource();
         AnchorPane.setTopAnchor(button, -1.0);
         AnchorPane.setBottomAnchor(button, 0.0);
     }
 
 
-    private void setNotificationIcon(HBox icon) {
+    private void setNotificationBox(HBox icon) {
         SVGPath usb3 = new SVGPath();
         usb3.setContent("m434.753906 360.8125c-32.257812-27.265625-50.753906-67.117188-50.753906-109.335938v-59.476562c0-75.070312-55.765625-137.214844-128-147.625v-23.042969c0-11.796875-9.558594-21.332031-21.332031-21.332031-11.777344 0-21.335938 9.535156-21.335938 21.332031v23.042969c-72.253906 10.410156-128 72.554688-128 147.625v59.476562c0 42.21875-18.496093 82.070313-50.941406 109.503907-8.300781 7.105469-13.058594 17.429687-13.058594 28.351562 0 20.589844 16.746094 37.335938 37.335938 37.335938h352c20.585937 0 37.332031-16.746094 37.332031-37.335938 0-10.921875-4.757812-21.246093-13.246094-28.519531zm0 0");
 
         SVGPath usb4 = new SVGPath();
         usb4.setContent("m234.667969 512c38.632812 0 70.953125-27.542969 78.378906-64h-156.757813c7.421876 36.457031 39.742188 64 78.378907 64zm0 0");
         Shape s = Shape.union(usb3,usb4);
-        s.setFill(Paint.valueOf("FC3903"));
 
         Region region = new Region();
         region.setShape(s);
+        icon.getChildren().add(region);
 
         RotateTransition tt = new RotateTransition(Duration.millis(200), icon);
         tt.setByAngle(16);
@@ -310,8 +318,16 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         sequentialTransition.play();
 
     }
+    void bindNotificationIconSize(){
+        Region region = (Region)notificationBox.getChildren().get(0);
+        region.minWidthProperty().bind(notificationButton.widthProperty().subtract(68));
+        region.prefWidthProperty().bind(notificationButton.widthProperty().subtract(68));
+        region.minHeightProperty().bind(region.widthProperty());
+        region.prefHeightProperty().bind(region.widthProperty());
 
-    bindNotificationSize()
+        notificationBox.prefWidthProperty().bind(notificationButton.widthProperty().subtract(57));
+        notificationBox.prefHeightProperty().bind(notificationButton.widthProperty().subtract(57));
+    }
     @FXML
     public void showChatView(){
         contentController.displayView(contentController.chatView);
