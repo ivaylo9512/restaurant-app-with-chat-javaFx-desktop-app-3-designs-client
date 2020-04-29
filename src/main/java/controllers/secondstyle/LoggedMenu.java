@@ -7,11 +7,9 @@ import controllers.base.Controller;
 import controllers.base.ControllerLogged;
 import javafx.animation.*;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Paint;
@@ -19,6 +17,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -36,7 +35,8 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private AtomicReference<Button> currentContentButton = new AtomicReference<>();
     private AtomicReference<Button> currentMenuButton = new AtomicReference<>();
 
-    LoggedSecond contentController;
+    private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
+    private Stage secondLoggedMenuStage = stageManager.secondLoggedMenuStage;
 
     @FXML
     public void initialize(){
@@ -49,10 +49,9 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         setUserFields();
         notificationsList.setItems(notificationManager.notifications);
 
-        MoveRoot.moveStage(menuButton, stageManager.secondLoggedMenuStage);
+        MoveRoot.moveStage(menuButton, secondLoggedMenuStage);
 
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
-        contentController = (LoggedSecond) stageManager.secondLoggedController;
     }
 
     private void setClips() {
@@ -76,7 +75,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     public void resetStage() {
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 
-        stageManager.secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
+        secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
         reverseMenuContent();
         reverseMenu();
 
@@ -92,11 +91,11 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     @Override
     public void setStage() throws Exception {
-        stageManager.secondLoggedMenuStage.setWidth(menuRoot.getPrefWidth());
-        stageManager.secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
+        secondLoggedMenuStage.setWidth(menuRoot.getPrefWidth());
+        secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
 
-        stageManager.secondLoggedMenuStage.setX((primaryScreenBounds.getWidth() - stageManager.secondLoggedMenuStage.getWidth()) / 2);
-        stageManager.secondLoggedMenuStage.setY(contentController.contentRoot.getLayoutY() - 60);
+        secondLoggedMenuStage.setX((primaryScreenBounds.getWidth() - secondLoggedMenuStage.getWidth()) / 2);
+        secondLoggedMenuStage.setY(contentController.contentRoot.getLayoutY() - 60);
 
         menuRoot.setLayoutX((menuRoot.getPrefWidth() - menu.getPrefWidth()) / 2);
     }
@@ -107,14 +106,14 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     }
 
     private void expandMenuContent(){
-        stageManager.secondLoggedMenuStage.setHeight(menuRoot.getMaxHeight());
+        secondLoggedMenuStage.setHeight(menuRoot.getMaxHeight());
 
         TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
         expand.play();
     }
     private void reverseMenuContent(){
         Timeline reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> {
-            stageManager.secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
+            secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
         }));
         reverseStageHeight.play();
 
@@ -123,15 +122,24 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     }
 
     @FXML public void expandMenu(){
-        if(menuButtonsContainer.getChildren().size() == 1){
-            menuButtonsContainer.getChildren().add(0, menuButtons);
+        if(secondLoggedMenuStage.getHeight() != menuRoot.getPrefWidth()) {
+            if (menuButtonsContainer.getChildren().size() == 1) {
+                menuButtonsContainer.getChildren().add(0, menuButtons);
+            }
+            secondLoggedMenuStage.setWidth(menuRoot.getPrefWidth());
+
+            TransitionResizeWidth expand = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMaxWidth());
+            expand.play();
         }
-        TransitionResizeWidth expand = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMaxWidth());
-        expand.play();
     }
     @FXML
     public void reverseMenu(){
         if(currentMenuView == null) {
+            Timeline reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(800), event -> {
+                secondLoggedMenuStage.setWidth(65);
+            }));
+            reverseStageWidth.play();
+
             TransitionResizeWidth reverse = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
             reverse.play();
             menuButtonsContainer.getChildren().remove(menuButtons);

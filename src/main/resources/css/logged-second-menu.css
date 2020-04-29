@@ -1,7 +1,7 @@
 .root{
     -fx-pref-height: 70px;
     -fx-max-height: 328px;
-    -fx-pref-width: 530px;
+    -fx-pref-width: 540px;
     -fx-background-color: transparent;
 }
 .list-view .scroll-bar:vertical .increment-arrow,
