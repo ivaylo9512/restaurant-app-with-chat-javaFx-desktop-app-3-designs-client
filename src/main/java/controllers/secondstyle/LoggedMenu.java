@@ -38,6 +38,10 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
     private Stage secondLoggedMenuStage = stageManager.secondLoggedMenuStage;
 
+    private Timeline reverseStageHeight, reverseStageWidth;
+    private TransitionResizeWidth reverseMenu, expandMenu;
+    private TransitionResizeHeight reverseMenuContent, expandMenuContent;
+
     @FXML
     public void initialize(){
         setNotificationIcon();
@@ -47,6 +51,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         setNotificationsListeners();
         setNotificationsFactories();
         setUserFields();
+        setMenuTransitions();
         notificationsList.setItems(notificationManager.notifications);
 
         MoveRoot.moveStage(menuButton, secondLoggedMenuStage);
@@ -69,6 +74,15 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         notificationClip.heightProperty().bind(notificationsList.heightProperty());
         notificationClip.widthProperty().bind(notificationsList.widthProperty());
         notificationsList.setClip(notificationClip);
+    }
+
+    private void setMenuTransitions() {
+        expandMenu = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMaxWidth());
+        reverseMenu = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
+        reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(800), event -> secondLoggedMenuStage.setWidth(65)));
+        reverseMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
+        reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight())));
+        expandMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
     }
 
     @Override
@@ -106,19 +120,16 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     }
 
     private void expandMenuContent(){
+        reverseStageHeight.stop();
         secondLoggedMenuStage.setHeight(menuRoot.getMaxHeight());
 
-        TransitionResizeHeight expand = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
-        expand.play();
+        reverseMenuContent.stop();
+        expandMenuContent.play();
     }
     private void reverseMenuContent(){
-        Timeline reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> {
-            secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
-        }));
         reverseStageHeight.play();
-
-        TransitionResizeHeight reverse = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
-        reverse.play();
+        expandMenuContent.stop();
+        reverseMenuContent.play();
     }
 
     @FXML public void expandMenu(){
@@ -126,22 +137,19 @@ public class LoggedMenu extends ControllerLogged implements Controller {
             if (menuButtonsContainer.getChildren().size() == 1) {
                 menuButtonsContainer.getChildren().add(0, menuButtons);
             }
+            reverseStageWidth.stop();
             secondLoggedMenuStage.setWidth(menuRoot.getPrefWidth());
 
-            TransitionResizeWidth expand = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMaxWidth());
-            expand.play();
+            reverseMenu.stop();
+            expandMenu.play();
         }
     }
     @FXML
     public void reverseMenu(){
         if(currentMenuView == null) {
-            Timeline reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(800), event -> {
-                secondLoggedMenuStage.setWidth(65);
-            }));
             reverseStageWidth.play();
-
-            TransitionResizeWidth reverse = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
-            reverse.play();
+            expandMenu.stop();
+            reverseMenu.play();
             menuButtonsContainer.getChildren().remove(menuButtons);
         }
     }
