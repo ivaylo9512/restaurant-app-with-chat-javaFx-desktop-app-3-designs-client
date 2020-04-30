@@ -38,7 +38,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
     private Stage secondLoggedMenuStage = stageManager.secondLoggedMenuStage;
 
-    private Timeline reverseStageHeight, reverseStageWidth;
+    private Timeline reverseStageHeight, reverseStageWidth, reverseDelay;
     private TransitionResizeWidth reverseMenu, expandMenu;
     private TransitionResizeHeight reverseMenuContent, expandMenuContent;
 
@@ -51,13 +51,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         setClips();
 
         notificationMenuIcon.opacityProperty().bind(notificationBox.opacityProperty());
+        notificationsList.setItems(notificationManager.notifications);
 
         setUserGraphicIndicator();
         setNotificationsListeners();
         setNotificationsFactories();
         setUserFields();
         setMenuTransitions();
-        notificationsList.setItems(notificationManager.notifications);
 
         MoveRoot.moveStage(menuButton, secondLoggedMenuStage);
 
@@ -84,10 +84,12 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private void setMenuTransitions() {
         expandMenu = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMaxWidth());
         reverseMenu = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
-        reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(800), event -> secondLoggedMenuStage.setWidth(65)));
         reverseMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
-        reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight())));
         expandMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
+
+        reverseDelay = new Timeline();
+        reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight())));
+        reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(800), event -> secondLoggedMenuStage.setWidth(75)));
     }
 
     @Override
@@ -95,8 +97,6 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 
         secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
-        reverseMenuContent();
-        reverseMenu();
 
         menuContent.setDisable(true);
         notificationsView.setOpacity(0);
@@ -114,7 +114,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
 
         secondLoggedMenuStage.setX((primaryScreenBounds.getWidth() - secondLoggedMenuStage.getWidth()) / 2);
-        secondLoggedMenuStage.setY(contentController.contentRoot.getLayoutY() - 60);
+        secondLoggedMenuStage.setY(contentController.contentRoot.getLayoutY() - 75);
 
         menuRoot.setLayoutX((menuRoot.getPrefWidth() - menu.getPrefWidth()) / 2);
     }
@@ -129,11 +129,15 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         secondLoggedMenuStage.setHeight(menuRoot.getMaxHeight());
 
         reverseMenuContent.stop();
+
+        expandMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
         expandMenuContent.play();
     }
     private void reverseMenuContent(){
         reverseStageHeight.play();
         expandMenuContent.stop();
+
+        reverseMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
         reverseMenuContent.play();
     }
 
@@ -145,20 +149,31 @@ public class LoggedMenu extends ControllerLogged implements Controller {
             }
             reverseStageWidth.stop();
             secondLoggedMenuStage.setWidth(menuRoot.getPrefWidth());
-
+            reverseDelay.stop();
             reverseMenu.stop();
+
+            expandMenu = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMaxWidth());
             expandMenu.play();
         }
     }
     @FXML
     public void reverseMenu(){
-        if(currentMenuView == null) {
-            notificationMenuIcon.setVisible(true);
+        if(currentMenuView == null || reverseMenuContent.getCurrentRate() != 0 ) {
+            Duration delay = reverseMenuContent.getCurrentRate() == 1 ?
+                    reverseMenuContent.getCycleDuration().subtract(reverseMenuContent.getCurrentTime()) : Duration.millis(1);
 
-            reverseStageWidth.play();
-            expandMenu.stop();
-            reverseMenu.play();
-            menuButtonsContainer.getChildren().remove(menuButtons);
+            reverseDelay = new Timeline(new KeyFrame(delay, event -> {
+                notificationMenuIcon.setVisible(true);
+
+                expandMenu.stop();
+                reverseStageWidth.play();
+
+
+                reverseMenu = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
+                reverseMenu.play();
+                menuButtonsContainer.getChildren().remove(menuButtons);
+            }));
+            reverseDelay.play();
         }
     }
 
@@ -192,7 +207,6 @@ public class LoggedMenu extends ControllerLogged implements Controller {
             Timeline removeView = new Timeline(new KeyFrame(Duration.millis(800), event -> {
                 menuContent.setDisable(true);
                 currentMenuView = null;
-                reverseMenu();
             }));
             removeView.play();
         }
@@ -224,7 +238,6 @@ public class LoggedMenu extends ControllerLogged implements Controller {
                 currentMenuView.setDisable(true);
                 currentMenuView.setOpacity(0);
                 currentMenuView = null;
-                reverseMenu();
             }));
             removeView.play();
         }

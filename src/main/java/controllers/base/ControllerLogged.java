@@ -90,6 +90,7 @@ public class ControllerLogged {
                 notificationIcon.setOpacity(1);
                 return;
             }
+            isNewNotificationChecked.setValue(true);
             notificationIcon.setOpacity(0);
         });
     }
@@ -556,7 +557,6 @@ public class ControllerLogged {
     private void addNotification() {
         notificationsInfo.setOpacity(0);
         notificationsInfo.setDisable(true);
-
         isNewNotificationChecked.set(false);
     }
 

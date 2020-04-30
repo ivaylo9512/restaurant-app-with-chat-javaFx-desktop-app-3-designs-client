@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="menuRoot" styleClass="root" fx:controller="controllers.secondstyle.LoggedMenu" layoutY="15.0" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="menuRoot" styleClass="root" fx:controller="controllers.secondstyle.LoggedMenu" layoutY="20.0" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu">
 <children>
     <AnchorPane fx:id="menu" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="518.0" maxWidth="518" style="-fx-border-color: #1a1a1a; -fx-border-radius: 180; -fx-border-width: 1;" styleClass="shadow" AnchorPane.leftAnchor="0.0">
         <children>
@@ -55,7 +55,7 @@
                                         <Image url="/images/menu.png" />
                                     </image>
                                 </ImageView>
-                                <HBox fx:id="notificationMenuIcon" translateX="14" translateY="-12" styleClass="notification-icon">
+                                <HBox fx:id="notificationMenuIcon" styleClass="notification-icon">
                                 </HBox>
                             </StackPane>
                         </graphic>
