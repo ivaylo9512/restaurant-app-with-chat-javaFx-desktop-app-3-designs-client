@@ -3,6 +3,7 @@ package controllers.base;
 import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import models.*;
 import models.Menu;
@@ -222,65 +223,8 @@ public class ControllerLogged {
             orderManager.sendOrder();
         }
     }
-    private void appendChats(List<Chat> chats) {
-        chats.forEach(chat -> {
-            InputStream in;
-            Image profilePicture;
-            int userId;
-            if (chat.getFirstUser().getId() == loggedUser.getId()) {
-                try {
-                    in = new BufferedInputStream(
-                            new URL(chat.getSecondUser().getProfilePicture()).openStream());
-                    profilePicture = new Image(in);
-                    in.close();
-                }catch(Exception e){
-                    profilePicture = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
-                }
-                userId = chat.getSecondUser().getId();
-            } else {
-                try {
-                    in = new BufferedInputStream(
-                            new URL(chat.getFirstUser().getProfilePicture()).openStream());
-                    profilePicture = new Image(in);
-                    in.close();
-                }catch(Exception e){
-                    profilePicture = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
-                }
-                userId = chat.getFirstUser().getId();
-            }
-            ChatValue chatValue = new ChatValue(chat.getId(), userId, profilePicture);
-            chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
 
-            ImageView imageView = new ImageView(profilePicture);
-            imageView.setFitHeight(44);
-            imageView.setFitWidth(44);
-            imageView.setLayoutX(3);
-            imageView.setLayoutY(6);
-
-            Pane imageContainer = new Pane(imageView);
-            Circle clip = new Circle(25, 25, 25);
-            imageContainer.setClip(clip);
-            imageContainer.setMinHeight(50);
-            imageContainer.setMinWidth(50);
-            imageContainer.setMaxHeight(50);
-            imageContainer.setMaxWidth(50);
-
-
-            Pane shadow = new Pane(imageContainer);
-            shadow.setMinHeight(50);
-            shadow.setMinWidth(50);
-            shadow.setMaxHeight(50);
-            shadow.setMaxWidth(50);
-            shadow.getStyleClass().add("imageShadow");
-            shadow.setOnMouseClicked(this::setMainChat);
-            shadow.setId(String.valueOf(chat.getId()));
-
-
-            chatUsers.getChildren().add(shadow);
-            chatsMap.put(chat.getId(), chatValue);
-        });
-    }
-    private void setMainChat(MouseEvent event) {
+    public void setMainChat(MouseEvent event) {
         Pane container = (Pane) event.getSource();
         container.getStyleClass().set(0, "imageShadowPressed");
         chatInfo.setOpacity(0);
