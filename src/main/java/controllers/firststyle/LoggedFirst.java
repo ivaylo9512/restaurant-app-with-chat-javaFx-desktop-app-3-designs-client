@@ -11,7 +11,6 @@ import javafx.animation.*;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -31,8 +30,6 @@ import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged implements Controller{
     @FXML ScrollPane menuScroll, userInfoScroll, mainChatScroll;
-    @FXML VBox mainChatBlock;
-    @FXML FlowPane chatInfo;
     @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, profileRoot;
     @FXML TextArea mainChatTextArea;
@@ -41,7 +38,6 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     @FXML GridPane dates;
 
     private ScrollBar ordersScrollBar;
-    private ChatValue mainChatValue;
 
     private Image chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
     private Image waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
@@ -217,6 +213,24 @@ public class LoggedFirst extends ControllerLogged implements Controller{
 
         if(isButtonExpanded.get()){
             ExpandOrderPane.reverseOrder();
+        }
+    }
+
+    @Override
+    public void setMainChat(ChatValue chat){
+        if(chat == mainChatValue){
+            mainChat.setOpacity(0);
+            mainChat.setDisable(true);
+            mainChatValue = null;
+            chatUsersList.getSelectionModel().clearSelection();
+        }else{
+            mainChat.setDisable(false);
+            mainChat.setOpacity(0);
+
+            Timeline opacity = new Timeline(new KeyFrame(Duration.millis(200), event1 -> mainChat.setOpacity(1)));
+            opacity.play();
+
+            super.setMainChat(chat);
         }
     }
 

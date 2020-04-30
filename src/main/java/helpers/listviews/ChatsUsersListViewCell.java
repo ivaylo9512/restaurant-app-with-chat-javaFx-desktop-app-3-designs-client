@@ -1,5 +1,7 @@
 package helpers.listviews;
 
+import controllers.base.ControllerLogged;
+import controllers.firststyle.LoggedFirst;
 import models.ChatValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+
+import static application.RestaurantApplication.stageManager;
 
 public class ChatsUsersListViewCell extends ListCell<ChatValue> {
 
@@ -48,5 +52,13 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
             setText(null);
             setGraphic(container);
         }
+    }
+
+    {
+        setOnMouseClicked(event -> {
+            if(stageManager.currentController instanceof LoggedFirst && stageManager.firstLoggedStage.isShowing()){
+                ((ControllerLogged)stageManager.firstLoggedController).setMainChat(getItem());
+            }
+        });
     }
 }
