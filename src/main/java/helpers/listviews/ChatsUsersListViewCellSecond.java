@@ -27,6 +27,7 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
     @FXML
     private GridPane grid;
 
+    private Circle clip = new Circle(23.5, 23.5, 23.5);
     private FXMLLoader mLLoader;
 
     @Override
@@ -40,7 +41,7 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
 
         } else {
             if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-cell.fxml"));
+                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-user-cell-second.fxml"));
                 mLLoader.setController(this);
                 try {
                     mLLoader.load();
@@ -64,7 +65,6 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
             name.setText(user.getFirstName().get() + " " + user.getLastName().get());
 
             profileImage.setImage(chat.getSecondUserPicture());
-            Circle clip = new Circle(23.5, 23.5, 23.5);
             profileImageClip.setClip(clip);
 
             setText(null);

@@ -200,21 +200,25 @@ TextFlow {
     -fx-pref-height: 212.5px;
     -fx-max-height: 212.5px;
 }
+.chat-users HBox{
+    -fx-padding: 5 0 5 0;
+    -fx-alignment: center;
+}
 .chat-users Pane{
     -fx-pref-width: 50px;
     -fx-pref-height: 50px;
+    -fx-min-height: 50px;
+    -fx-min-width: 50px;
+    -fx-max-height: 50px;
+    -fx-max-width: 50px;
     -fx-border-radius: 180px;
     -fx-background-radius: 180px;
 }
-.chat-users .imageShadow{
+.chat-users .chat-shadow{
     -fx-background-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6, 0.0 , 0 , 0 );
 }
-.chat-users imageShadow:pressed{
-    -fx-background-color: #363b41;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
-}
-.chat-users .list-cell:selected .imageShadow{
+.chat-users .list-cell:selected .chat-shadow{
     -fx-background-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
