@@ -49,4 +49,9 @@ public class ChatManager {
             chats.put(chat.getId(), chatValue);
         });
     }
+
+    public void resetChats(){
+        chats.clear();
+        chatsList.clear();
+    }
 }

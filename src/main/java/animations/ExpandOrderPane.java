@@ -10,7 +10,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -27,21 +26,24 @@ public class ExpandOrderPane {
     public static OrderListViewCell cell;
     public static Button button;
     public static ListView orderList;
-    public static ScrollBar scrollBar;
     public static Order currentOrder;
 
     public static double cellLayoutX, cellWidth;
 
     public static BooleanProperty isButtonExpanded = new SimpleBooleanProperty(false);
     public static BooleanProperty action = new SimpleBooleanProperty(false);
+    public static Boolean isOrderListScrolling;
 
     private static FadeTransition showDates;
     private static TranslateTransition transitionPane, transitionButton;
     private static TransitionResizeHeight heightPane;
     private static TransitionResizeWidth widthPane;
 
+    private static Timeline expandedDelay = new Timeline();
+
     public static void setCurrentOrder(MouseEvent event){
         action.setValue(true);
+        expandedDelay.stop();
 
         orderList.setDisable(true);
         currentPane.setOpacity(0);
@@ -115,10 +117,12 @@ public class ExpandOrderPane {
     }
 
     private static void buttonPress(MouseEvent event){
-        if(isButtonExpanded.get()){
-            reverseOrder();
-        }else{
-            expandOrderOnClick();
+        if(!action.get() || isButtonExpanded.get()) {
+            if (isButtonExpanded.get()) {
+                reverseOrder();
+            } else {
+                expandOrderOnClick();
+            }
         }
     }
 
@@ -148,7 +152,8 @@ public class ExpandOrderPane {
     }
 
     public static void expandOrderOnClick(){
-        isButtonExpanded.setValue(true);
+        expandedDelay = new Timeline(new KeyFrame(Duration.millis(750), event -> isButtonExpanded.setValue(true)));
+        expandedDelay.play();
 
         TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750), orderPane, maxOrderWidth);
         heightPane.play();

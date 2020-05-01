@@ -174,8 +174,9 @@ public class LoginManager {
 
         userPreference.remove("jwt");
         resetUser();
-        orderManager.resetRestaurant();
 
+        chatManager.resetChats();
+        orderManager.resetRestaurant();
         stageManager.changeToOwner();
     }
 

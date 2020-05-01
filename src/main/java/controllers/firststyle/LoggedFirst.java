@@ -6,6 +6,8 @@ import helpers.listviews.ChatsUsersListViewCell;
 import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;
 import helpers.Scrolls;
+import javafx.event.Event;
+import javafx.scene.input.*;
 import models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
@@ -18,7 +20,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -44,7 +45,6 @@ public class LoggedFirst extends ControllerLogged implements Controller{
 
     @FXML
     public void initialize() {
-        addListeners();
         setClips();
         setListsItems();
         setNotificationsListeners();
@@ -52,10 +52,12 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         setListsFactories();
         setUserFields();
         setOrderPane();
+        addOrdersListListeners();
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
                 mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsFirstStyle();
+
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
@@ -82,7 +84,16 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         notificationsList.setCellFactory(menuCell -> new NotificationListViewCell());
     }
 
-    private void addListeners() {
+    private void addOrdersListListeners() {
+        ordersList.addEventHandler(TouchEvent.TOUCH_PRESSED, event -> {
+            System.out.println(event.getTarget().getClass());
+            if(event.getTarget() instanceof AnchorPane){
+                Event.fireEvent(event.getTarget(), new MouseEvent(MouseEvent.MOUSE_PRESSED,
+                        event.getTouchPoint().getSceneX(), event.getTouchPoint().getSceneY(), event.getTouchPoint().getScreenX(), event.getTouchPoint().getScreenY(), MouseButton.PRIMARY, 1,
+                        true, true, true, true, true, true, true, true, true, true, null));
+                ordersList.setDisable(true);
+            }
+        });
         ordersList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::expandOrder);
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node: ordersList.lookupAll(".scroll-bar")) {
@@ -109,7 +120,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
             ordersList.scrollTo(currentOrder);
             double zeroIndexScroll = (currentOrder.getIndex() * (cellWidth + 0.40)) / (ordersList.getItems().size() * cellWidth + 1);
             double scrollPosition = zeroIndexScroll - (cellLayoutX / (ordersList.getItems().size() * cellWidth + 1));
-            scrollBar.setValue(scrollPosition);
+            ordersScrollBar.setValue(scrollPosition);
         }
     }
 
@@ -166,6 +177,8 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         userMenu.setAll(orderManager.userMenu.values());
 
         setContentRoot();
+        if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
+        if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 
         if (roleField.getText().equals("Chef")) {
             roleImage.setImage(chefImage);
@@ -298,7 +311,6 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         ExpandOrderPane.orderPane = orderContainer;
         ExpandOrderPane.button = expandButton;
         ExpandOrderPane.contentPane = contentPane;
-        ExpandOrderPane.scrollBar = ordersScrollBar;
         ExpandOrderPane.orderList = ordersList;
         ExpandOrderPane.dates = dates;
 
@@ -307,10 +319,11 @@ public class LoggedFirst extends ControllerLogged implements Controller{
 
     private void expandOrder(MouseEvent event) {
         Node intersectedNode = event.getPickResult().getIntersectedNode();
-        String type = intersectedNode.getTypeSelector();
-        if(type.equals("Button") || (!ExpandOrderPane.action.get() && type.equals("AnchorPane"))){
+        intersectedNode = intersectedNode == null ? (Node)event.getTarget() : intersectedNode;
 
-            currentPane = type.equals("AnchorPane") ? (AnchorPane) intersectedNode
+        if(intersectedNode instanceof Button || (!ExpandOrderPane.action.get() && intersectedNode instanceof AnchorPane)){
+
+            currentPane = intersectedNode instanceof AnchorPane ? (AnchorPane) intersectedNode
                     : (AnchorPane) intersectedNode.getParent();
             currentContainer = (Pane)currentPane.getParent();
             cell =  (OrderListViewCell) currentContainer.getParent();
@@ -319,7 +332,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
             currentOrder = cell.order;
             bindOrderProperties(currentOrder);
 
-            if(intersectedNode.getTypeSelector().equals("Button"))
+            if(intersectedNode instanceof Button)
                 expandOrderOnClick();
 
         }
