@@ -26,7 +26,7 @@ public class OrderListViewCellSecond extends ListCell<Order> {
     @FXML
     private Label orderId, createdDate, createdTime, updatedDate, updatedTime;
 
-    private FXMLLoader mLLoader;
+    private FXMLLoader fxmlLoader;
 
     @Override
     protected void updateItem(Order order, boolean empty) {
@@ -38,11 +38,11 @@ public class OrderListViewCellSecond extends ListCell<Order> {
             setGraphic(null);
 
         } else {
-            if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell-second.fxml"));
-                mLLoader.setController(this);
+            if (fxmlLoader == null) {
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell-second.fxml"));
+                fxmlLoader.setController(this);
                 try {
-                    mLLoader.load();
+                    fxmlLoader.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

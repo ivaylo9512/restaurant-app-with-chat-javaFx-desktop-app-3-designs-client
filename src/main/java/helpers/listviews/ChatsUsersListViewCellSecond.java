@@ -28,7 +28,7 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
     private GridPane grid;
 
     private Circle clip = new Circle(23.5, 23.5, 23.5);
-    private FXMLLoader mLLoader;
+    private FXMLLoader fxmlLoader;
 
     @Override
     protected void updateItem(ChatValue chat, boolean empty) {
@@ -40,11 +40,11 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
             setGraphic(null);
 
         } else {
-            if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-user-cell-second.fxml"));
-                mLLoader.setController(this);
+            if (fxmlLoader == null) {
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-user-cell-second.fxml"));
+                fxmlLoader.setController(this);
                 try {
-                    mLLoader.load();
+                    fxmlLoader.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

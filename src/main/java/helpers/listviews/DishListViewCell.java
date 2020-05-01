@@ -24,7 +24,7 @@ public class DishListViewCell extends ListCell<Dish> {
     @FXML
     private GridPane grid;
 
-    private FXMLLoader mLLoader;
+    private FXMLLoader fxmlLoader;
 
     @Override
     protected void updateItem(Dish dish, boolean empty) {
@@ -36,11 +36,11 @@ public class DishListViewCell extends ListCell<Dish> {
             setGraphic(null);
 
         } else {
-            if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/dish-cell.fxml"));
-                mLLoader.setController(this);
+            if (fxmlLoader == null) {
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/dish-cell.fxml"));
+                fxmlLoader.setController(this);
                 try {
-                    mLLoader.load();
+                    fxmlLoader.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -18,7 +18,7 @@ public class MenuListViewCell extends ListCell<Menu> {
     @FXML
     private GridPane grid;
 
-    private FXMLLoader mLLoader;
+    private FXMLLoader fxmlLoader;
 
     @Override
     protected void updateItem(Menu menu, boolean empty) {
@@ -30,11 +30,11 @@ public class MenuListViewCell extends ListCell<Menu> {
             setGraphic(null);
 
         } else {
-            if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/menu-cell.fxml"));
-                mLLoader.setController(this);
+            if (fxmlLoader == null) {
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/menu-cell.fxml"));
+                fxmlLoader.setController(this);
                 try {
-                    mLLoader.load();
+                    fxmlLoader.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

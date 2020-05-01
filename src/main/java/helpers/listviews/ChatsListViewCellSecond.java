@@ -31,7 +31,7 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
     @FXML
     private VBox nameContainer;
 
-    private FXMLLoader mLLoader;
+    private FXMLLoader fxmlLoader;
 
     @Override
     protected void updateItem(Chat chat, boolean empty) {
@@ -43,11 +43,11 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
             setGraphic(null);
 
         } else {
-            if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-cell-second.fxml"));
-                mLLoader.setController(this);
+            if (fxmlLoader == null) {
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-cell-second.fxml"));
+                fxmlLoader.setController(this);
                 try {
-                    mLLoader.load();
+                    fxmlLoader.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

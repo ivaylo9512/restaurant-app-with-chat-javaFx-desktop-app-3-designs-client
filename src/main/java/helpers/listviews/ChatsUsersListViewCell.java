@@ -26,7 +26,7 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
     private HBox container;
 
     private Circle clip = new Circle(25, 25, 25);
-    private FXMLLoader mLLoader;
+    private FXMLLoader fxmlLoader;
 
     @Override
     protected void updateItem(ChatValue chat, boolean empty) {
@@ -35,11 +35,11 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
             setGraphic(null);
             setText(null);
         }else{
-            if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-user-cell.fxml"));
-                mLLoader.setController(this);
+            if (fxmlLoader == null) {
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-user-cell.fxml"));
+                fxmlLoader.setController(this);
                 try {
-                    mLLoader.load();
+                    fxmlLoader.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

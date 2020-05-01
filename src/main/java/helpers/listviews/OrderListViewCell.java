@@ -38,7 +38,7 @@ public class OrderListViewCell extends ListCell<Order> {
     @FXML
     private Button button;
 
-    private FXMLLoader mLLoader;
+    private FXMLLoader fxmlLoader;
 
     public Order order;
 
@@ -53,11 +53,11 @@ public class OrderListViewCell extends ListCell<Order> {
             setGraphic(null);
 
         } else {
-            if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell.fxml"));
-                mLLoader.setController(this);
+            if (fxmlLoader == null) {
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell.fxml"));
+                fxmlLoader.setController(this);
                 try {
-                    mLLoader.load();
+                    fxmlLoader.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
