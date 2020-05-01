@@ -39,8 +39,9 @@ public class NotificationListViewCell extends ListCell<Notification> {
             setGraphic(null);
 
         }else{
+
             if(fxmlLoader == null){
-                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/notification-cell.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/notification-cell.fxml"));
                 fxmlLoader.setController(this);
                 try {
                     fxmlLoader.load();
@@ -52,7 +53,6 @@ public class NotificationListViewCell extends ListCell<Notification> {
 
             setText(null);
             setGraphic(container);
-
         }
     }
 
@@ -69,20 +69,29 @@ public class NotificationListViewCell extends ListCell<Notification> {
     @FXML
     public void translateRemove(){
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), hBox);
-        translateTransition.setToY(-10);
+        translateTransition.setToY(-3);
         translateTransition.setFromY(0);
         translateTransition.play();
     }
 
     {
         this.setOnMouseClicked(event -> {
-            TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), hBox);
-            translateTransition.setToY(-3);
-            translateTransition.setFromY(0);
-            translateTransition.play();
+            if(!this.isEmpty()){
+                translateRemove();
+                Timeline remove = new Timeline(new KeyFrame(Duration.millis(200), e -> notificationManager.removeNotification(getItem())));
+                remove.play();
+            }
+        });
 
-            Timeline remove = new Timeline(new KeyFrame(Duration.millis(200), e -> notificationManager.removeNotification(getItem())));
-            remove.play();
+        this.setOnMouseEntered(event -> {
+            if(!this.isEmpty()) {
+                expandHeight();
+            }
+        });
+        this.setOnMouseExited(event -> {
+            if(!this.isEmpty()) {
+                reverseHeight();
+            }
         });
     }
 }

@@ -35,6 +35,7 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
             setGraphic(null);
             setText(null);
         }else{
+
             if (fxmlLoader == null) {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/chat-user-cell.fxml"));
                 fxmlLoader.setController(this);
@@ -45,6 +46,7 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
                 }
 
             }
+
             imageView.setImage(chat.getSecondUserPicture());
             imageContainer.setClip(clip);
 

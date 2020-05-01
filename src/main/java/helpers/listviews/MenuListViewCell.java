@@ -30,6 +30,7 @@ public class MenuListViewCell extends ListCell<Menu> {
             setGraphic(null);
 
         } else {
+
             if (fxmlLoader == null) {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/menu-cell.fxml"));
                 fxmlLoader.setController(this);
@@ -40,9 +41,11 @@ public class MenuListViewCell extends ListCell<Menu> {
                 }
 
             }
+
             price.setText(String.valueOf(menu.getId()));
             name.setText(menu.getName());
             grid.prefWidthProperty().bind(widthProperty().subtract(13));
+
             setText(null);
             setGraphic(grid);
         }

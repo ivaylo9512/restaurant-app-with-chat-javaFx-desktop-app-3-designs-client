@@ -148,9 +148,6 @@ TextFlow {
      -fx-background-color: transparent;
      -fx-padding: 0;
 }
-.notification-list AnchorPane{
-    -fx-pref-height: 48px;
-}
 .order ScrollPane ScrollBar{
     -fx-background-color: transparent;
 }
@@ -429,7 +426,6 @@ TextFlow {
 .notifications{
     -fx-background-color: #2A2E37;
 }
-.notifications HBox,
 .notification HBox{
     -fx-pref-height: 38;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );

@@ -1,7 +1,11 @@
 package helpers.listviews;
 
 import animations.TransitionResizeWidth;
+import controllers.base.ControllerLogged;
+import controllers.secondstyle.LoggedSecond;
+import controllers.thirdstyle.LoggedThird;
 import models.Chat;
+import models.ChatValue;
 import models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,9 +21,10 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 import static application.LoginManager.userId;
+import static application.RestaurantApplication.stageManager;
 
 
-public class ChatsListViewCellSecond extends ListCell<Chat> {
+public class ChatsListViewCellSecond extends ListCell<ChatValue> {
     @FXML
     private Label name;
     @FXML
@@ -31,10 +36,11 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
     @FXML
     private VBox nameContainer;
 
+    private Circle clip = new Circle(23.5, 23.5, 23.5);
     private FXMLLoader fxmlLoader;
 
     @Override
-    protected void updateItem(Chat chat, boolean empty) {
+    protected void updateItem(ChatValue chat, boolean empty) {
         super.updateItem(chat, empty);
 
         if(empty || chat == null) {
@@ -60,15 +66,9 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
                 user = chat.getFirstUser();
             }
 
-            widthAnimation();
-
-            grid.setOnMouseClicked(event -> LoggedThirdStyle.controller.setChat(event));
             grid.setId(String.valueOf(chat.getId()));
-
             name.setText(user.getFirstName() + " " + user.getLastName());
-
             profileImage.setImage(user.getImage());
-            Circle clip = new Circle(23.5, 23.5, 23.5);
             profileImageClip.setClip(clip);
 
             setText(null);
@@ -77,17 +77,25 @@ public class ChatsListViewCellSecond extends ListCell<Chat> {
 
     }
 
-    private void widthAnimation() {
-        grid.setOnMouseEntered(event -> {
-            if(nameContainer.getPrefWidth() >= 100) {
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(250), nameContainer, 100);
-                resizeWidth.play();
-            }
-        });
-        grid.setOnMouseExited(event -> {
-            if(nameContainer.getPrefWidth() >= 100) {
-                TransitionResizeWidth resizeWidth = new TransitionResizeWidth(Duration.millis(250), nameContainer, 133);
-                resizeWidth.play();
+    @FXML
+    public void expandWidth(){
+        if(nameContainer.getPrefWidth() >= 100) {
+            TransitionResizeWidth resize = new TransitionResizeWidth(Duration.millis(250), nameContainer, 100);
+            resize.play();
+        }
+    }
+    @FXML
+    private void reverseWidth() {
+        if(nameContainer.getPrefWidth() >= 100) {
+            TransitionResizeWidth reverse = new TransitionResizeWidth(Duration.millis(250), nameContainer, 133);
+            reverse.play();
+        }
+    }
+
+    {
+        this.selectedProperty().addListener(observable -> {
+            if(stageManager.currentController instanceof LoggedThird && stageManager.thirdLoggedStage.isShowing()){
+                ((ControllerLogged)stageManager.thirdLoggedController).setMainChat(getItem());
             }
         });
     }

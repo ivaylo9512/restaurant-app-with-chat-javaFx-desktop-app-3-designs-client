@@ -1,5 +1,8 @@
 package helpers.listviews;
 
+import controllers.base.ControllerLogged;
+import controllers.firststyle.LoggedFirst;
+import controllers.secondstyle.LoggedSecond;
 import models.ChatValue;
 import models.Message;
 import models.User;
@@ -13,6 +16,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import java.io.IOException;
 import java.util.List;
+
+import static application.RestaurantApplication.stageManager;
 
 
 public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
@@ -51,7 +56,6 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
 
             }
 
-
             if(chat.getSessions().size() > 0) {
                 List<Message> lastSessionMessages = chat.getSessions().getValue(0).getMessages();
                 if (lastSessionMessages.size() > 0) {
@@ -70,6 +74,13 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
             setText(null);
             setGraphic(grid);
         }
+    }
 
+    {
+        this.selectedProperty().addListener(observable -> {
+            if(stageManager.currentController instanceof LoggedSecond && stageManager.secondLoggedStage.isShowing()){
+                ((ControllerLogged)stageManager.secondLoggedController).setMainChat(getItem());
+            }
+        });
     }
 }

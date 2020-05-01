@@ -11,7 +11,7 @@
       <AnchorPane fx:id="infoContainer" opacity="0.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="49.0" layoutY="14.0" text="Info" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="49.0" />
-            <Pane fx:id="createdContainer" layoutX="36.0" layoutY="12.0">
+            <Pane fx:id="createdContainer" onMouseEntered="translateCreated" onMouseExited="reverseCreated" layoutX="36.0" layoutY="12.0">
                <children>
                   <Label fx:id="createdTime" alignment="CENTER" layoutX="3.0" layoutY="3.0" maxHeight="35.0" maxWidth="33.0" minHeight="35.0" minWidth="33.0" prefHeight="35.0" prefWidth="33.0" text="14:20" textFill="WHITE">
                      <effect>
@@ -31,7 +31,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane fx:id="updatedContainer" layoutX="36.0" layoutY="53.0">
+            <Pane fx:id="updatedContainer" onMouseEntered="translateUpdated" onMouseExited="reverseUpdated" layoutX="36.0" layoutY="53.0">
                <children>
                   <Label fx:id="updatedTime" alignment="CENTER" layoutX="3.0" layoutY="3.0" maxHeight="35.0" maxWidth="33.0" minHeight="35.0" minWidth="33.0" prefHeight="35.0" prefWidth="33.0" text="14:20" textFill="WHITE">
                      <effect>

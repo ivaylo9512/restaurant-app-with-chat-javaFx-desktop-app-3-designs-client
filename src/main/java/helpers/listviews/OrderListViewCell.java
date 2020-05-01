@@ -53,6 +53,7 @@ public class OrderListViewCell extends ListCell<Order> {
             setGraphic(null);
 
         } else {
+
             if (fxmlLoader == null) {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell.fxml"));
                 fxmlLoader.setController(this);
@@ -64,9 +65,7 @@ public class OrderListViewCell extends ListCell<Order> {
             }
 
             orderPane.setId(String.valueOf(order.getId().get()));
-
             orderId.setText(String.valueOf(order.getId().get()));
-
             container.setClip(new Rectangle(container.getPrefWidth(), container.getPrefHeight()));
 
             setText(null);
@@ -86,8 +85,5 @@ public class OrderListViewCell extends ListCell<Order> {
             }
             order.setIndex(getIndex());
         }
-
     }
-
-
 }
