@@ -45,15 +45,16 @@ public class StageManager {
         initializeFirstLoggedStyle(new Stage());
         initializeSecondLoggedStyle(new Stage());
         initializeSecondLoggedMenuStyle(new Stage());
-//        initializeThirdLoggedStyle(new Stage());
+        initializeThirdLoggedStyle(new Stage());
 
         secondLoggedMenuStage.setAlwaysOnTop(true);
 
-        firstLoggedStage.initOwner(firstLoginStage);
-        secondLoginStage.initOwner(secondLoggedStage);
-        secondLoggedStage.initOwner(secondLoginStage);
-//        thirdLoginStage.initOwner(thirdLoggedStage);
-//        thirdLoggedStage.initOwner(thirdLoginStage);
+        firstLoginStage.setUserData(firstLoggedStage);
+        firstLoggedStage.setUserData(firstLoginStage);
+        secondLoginStage.setUserData(secondLoggedStage);
+        secondLoggedStage.setUserData(secondLoginStage);
+        thirdLoginStage.setUserData(thirdLoggedStage);
+        thirdLoggedStage.setUserData(thirdLoginStage);
 
         currentStage.show();
         if(currentStageMenu != null) {
@@ -66,9 +67,7 @@ public class StageManager {
     }
 
     void changeToOwner(){
-        Stage stage = currentStage == primaryStage ? firstLoggedStage
-                : (Stage)currentStage.getOwner();
-        changeStage(stage);
+        changeStage((Stage)currentStage.getUserData());
     }
 
     public void changeStage(Stage stage){
