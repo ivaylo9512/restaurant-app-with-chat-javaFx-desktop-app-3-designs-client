@@ -20,7 +20,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-import static application.LoginManager.userId;
 import static application.RestaurantApplication.stageManager;
 
 
@@ -59,16 +58,11 @@ public class ChatsListViewCellSecond extends ListCell<ChatValue> {
                 }
 
             }
-            User user;
-            if(chat.getFirstUser().getId() == userId.get()){
-                user = chat.getSecondUser();
-            }else{
-                user = chat.getFirstUser();
-            }
+            User user = chat.getSecondUser();
 
-            grid.setId(String.valueOf(chat.getId()));
+            grid.setId(String.valueOf(chat.getChatId()));
             name.setText(user.getFirstName() + " " + user.getLastName());
-            profileImage.setImage(user.getImage());
+            profileImage.setImage(user.getImage().get());
             profileImageClip.setClip(clip);
 
             setText(null);

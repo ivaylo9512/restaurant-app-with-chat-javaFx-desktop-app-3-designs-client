@@ -14,8 +14,8 @@ import java.time.format.DateTimeFormatter;
 
 
 public class OrderListViewCellSecond extends ListCell<Order> {
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     @FXML
     private AnchorPane container, infoContainer;
@@ -47,10 +47,10 @@ public class OrderListViewCellSecond extends ListCell<Order> {
                     e.printStackTrace();
                 }
             }
-            createdDate.setText(dateFormatter.format(order.getCreated()));
-            createdTime.setText(timeFormatter.format(order.getCreated()));
-            updatedDate.setText(dateFormatter.format(order.getUpdated()));
-            updatedTime.setText(timeFormatter.format(order.getUpdated()));
+            createdDate.setText(dateFormatter.format(order.getCreated().get()));
+            createdTime.setText(timeFormatter.format(order.getCreated().get()));
+            updatedDate.setText(dateFormatter.format(order.getUpdated().get()));
+            updatedTime.setText(timeFormatter.format(order.getUpdated().get()));
             orderId.setText(String.valueOf(order.getId()));
 
             setText(null);
@@ -68,7 +68,7 @@ public class OrderListViewCellSecond extends ListCell<Order> {
 
     @FXML
     public void reverseCreated(){
-        createdDate.setText(dateFormatter.format(order.getCreated()));
+        createdDate.setText(dateFormatter.format(getItem().getCreated().get()));
         TranslateTransition translate = new TranslateTransition(Duration.millis(400), createdDate);
         translate.setToX(0);
         translate.play();
@@ -84,7 +84,7 @@ public class OrderListViewCellSecond extends ListCell<Order> {
 
     @FXML
     public void translateUpdated() {
-        updatedDate.setText(dateFormatter.format(order.getUpdated()));
+        updatedDate.setText(dateFormatter.format(getItem().getUpdated().get()));
         TranslateTransition translate = new TranslateTransition(Duration.millis(400), updatedDate);
         translate.setToX(0);
         translate.play();
