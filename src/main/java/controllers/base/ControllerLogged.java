@@ -74,7 +74,7 @@ public class ControllerLogged {
 
     private Node editButtonGraphic, createButtonGraphic;
     private String createButtonText;
-    protected Order currentOrder;
+    public Order currentOrder;
     protected ChatValue mainChatValue;
 
     protected void setNotificationsListeners() {

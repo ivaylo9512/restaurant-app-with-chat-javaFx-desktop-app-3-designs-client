@@ -1,6 +1,7 @@
 package helpers.listviews;
 
 import animations.ExpandOrderPane;
+import controllers.base.ControllerLogged;
 import models.Order;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,8 +72,9 @@ public class OrderListViewCell extends ListCell<Order> {
             setText(null);
             setGraphic(container);
 
+            LoggedFirst controller = ((LoggedFirst)stageManager.currentController);
             orderPane.setOpacity(1);
-            if(ExpandOrderPane.currentOrder == order){
+            if(controller.currentOrder == order){
                 ExpandOrderPane.currentPane = orderPane;
                 ExpandOrderPane.currentContainer = container;
                 ExpandOrderPane.cell = this;
@@ -80,7 +82,7 @@ public class OrderListViewCell extends ListCell<Order> {
                 orderPane.setOpacity(0);
                 if(order.getIndex() != getIndex()){
                     order.setIndex(getIndex());
-                    ((LoggedFirst)stageManager.currentController).updateListScroll();
+                    controller.updateListScroll();
                 }
             }
             order.setIndex(getIndex());

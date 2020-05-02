@@ -1,6 +1,8 @@
 package animations;
 
+import controllers.base.ControllerLogged;
 import helpers.listviews.OrderListViewCell;
+import javafx.collections.ObservableList;
 import models.Order;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -15,6 +17,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+import static application.RestaurantApplication.stageManager;
+
 public class ExpandOrderPane {
 
     private static double orderWidth, orderHeight, maxOrderWidth, buttonX, buttonY, mouseY, mouseX,
@@ -26,7 +30,6 @@ public class ExpandOrderPane {
     public static OrderListViewCell cell;
     public static Button button;
     public static ListView orderList;
-    public static Order currentOrder;
 
     public static double cellLayoutX, cellWidth;
 
@@ -74,16 +77,8 @@ public class ExpandOrderPane {
 
         translatePaneX = cellLayoutX + orderX + currentContainer.getLayoutX() + 1;
 
-        double newLayoutX = translatePaneX + contentPane.getLayoutX();
-        double newLayoutY = currentPane.getLayoutY() + contentPane.getLayoutY() + 1;
-
-        if(currentOrder != null){
-            orderPane.setTranslateY(orderPane.getTranslateY() + orderPane.getLayoutY() - newLayoutY);
-            orderPane.setTranslateX(orderPane.getTranslateX() + orderPane.getLayoutX() - newLayoutX);
-        }
-
-        orderPane.setLayoutX(newLayoutX);
-        orderPane.setLayoutY(newLayoutY);
+        orderPane.setLayoutX(translatePaneX + contentPane.getLayoutX());
+        orderPane.setLayoutY(currentPane.getLayoutY() + contentPane.getLayoutY() + 1);
     }
 
     public static void setListeners(){
@@ -140,7 +135,7 @@ public class ExpandOrderPane {
         }
     }
     private static void paneReleased(MouseEvent event) {
-        if(!isButtonExpanded.get() && currentOrder != null) {
+        if(!isButtonExpanded.get() && ((ControllerLogged)stageManager.firstLoggedController).currentOrder != null) {
             reverseOrder();
         }
     }
@@ -246,7 +241,7 @@ public class ExpandOrderPane {
         widthPane.setAndPlay(delay, orderWidth);
 
         Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(delay, actionEvent -> {
-            currentOrder = null;
+            ((ControllerLogged)stageManager.firstLoggedController).currentOrder = null;
             orderList.setDisable(false);
             currentPane.setOpacity(1);
             action.setValue(false);
