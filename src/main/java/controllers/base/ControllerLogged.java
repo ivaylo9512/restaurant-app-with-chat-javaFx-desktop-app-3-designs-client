@@ -2,9 +2,13 @@ package controllers.base;
 
 import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 import models.*;
 import models.Menu;
@@ -18,14 +22,17 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import org.apache.commons.collections4.map.ListOrderedMap;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.SortedMap;
 
 import static application.RestaurantApplication.*;
+import static application.ServerRequests.pageSize;
 
 public class ControllerLogged {
     @FXML
@@ -59,6 +66,12 @@ public class ControllerLogged {
     protected ListView<ChatValue> chatUsersList;
     @FXML
     protected Node notificationIcon;
+    @FXML
+    protected ScrollPane mainChatScroll;
+    @FXML
+    protected TextArea mainChatTextArea;
+
+
 
 
     protected static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -241,7 +254,7 @@ public class ControllerLogged {
             ListOrderedMap<LocalDate, Session> sessionsMap = mainChatValue.getSessions();
             List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
             List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
-//
+
             if (lastSessions.size() == pageSize) {
                 info.setText("Scroll for more history");
                 mainChatValue.setDisplayedSessions(pageSize);
@@ -308,8 +321,7 @@ public class ControllerLogged {
 
         if (messageText.length() > 0){
             Message message = sendMessage(messageText, chatId, receiverId);
-            ChatValue chat = chatsMap.get(chatId);
-            ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+            ListOrderedMap<LocalDate, Session> sessions = mainChatValue.getSessions();
 
             mainChatBlock.setId("new-message");
             Session session = sessions.get(LocalDate.now());

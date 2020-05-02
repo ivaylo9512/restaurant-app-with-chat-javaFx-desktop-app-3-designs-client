@@ -26,13 +26,9 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     @FXML AnchorPane  orderInfo, orderView,
             chatView, userChatsClip, createView, dishesContainer, chatContainer;
     @FXML Pane contentBar;
-    @FXML TextArea chatTextArea;
-    @FXML ScrollPane chatScroll;
-    @FXML VBox chatBlock;
 
     private AnchorPane currentView, currentMenuView;
 
-    private ChatValue chatValue;
 
     @FXML
     public void initialize() {
@@ -42,7 +38,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         setListsItems();
         focusCurrentOrderOnListUpdate();
 
-        Scrolls scrolls = new Scrolls(chatScroll, chatTextArea);
+        Scrolls scrolls = new Scrolls(mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsSecondStyle();
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
@@ -51,7 +47,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         MoveRoot.move(contentBar, contentRoot);
         ResizeRoot.addListeners(contentRoot);
 
-        chatBlock.prefWidthProperty().bind(chatScroll.widthProperty().subtract(25));
+        mainChatBlock.prefWidthProperty().bind(mainChatScroll.widthProperty().subtract(25));
     }
 
     private void focusCurrentOrderOnListUpdate() {
@@ -134,11 +130,11 @@ public class LoggedSecond extends ControllerLogged implements Controller {
 
         orderView.getStyleClass().add("inactive");
 
-        chatValue = null;
-        chatTextArea.setText(null);
+        mainChatValue = null;
+        mainChatTextArea.setText(null);
         menuSearch.setText("");
 
-        chatBlock.getChildren().remove(1,chatBlock.getChildren().size());
+        mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
 
         chatContainer.setDisable(true);
         chatContainer.setOpacity(0);

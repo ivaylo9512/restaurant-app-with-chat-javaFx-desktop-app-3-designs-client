@@ -30,10 +30,9 @@ import static animations.ExpandOrderPane.*;
 import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged implements Controller{
-    @FXML ScrollPane menuScroll, userInfoScroll, mainChatScroll;
+    @FXML ScrollPane menuScroll, userInfoScroll;
     @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, profileRoot;
-    @FXML TextArea mainChatTextArea;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
     @FXML GridPane dates;
