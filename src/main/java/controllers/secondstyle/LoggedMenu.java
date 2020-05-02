@@ -98,14 +98,28 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
         secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
 
+        if(currentMenuView != null){
+            currentMenuView.setDisable(true);
+            currentMenuView.setOpacity(0);
+            currentMenuView = null;
+        }
+        expandMenu();
+        reverseMenuContent();
+
+        if(currentMenuButton.get() != null){
+            currentMenuButton.get().getStyleClass().add("shadow");
+            currentMenuButton.set(null);
+        }
+
+        if(currentContentButton.get() != null){
+            currentContentButton.get().getStyleClass().add("shadow");
+            currentContentButton.set(null);
+        }
+
+        profileImageContainer.setOpacity(0);
         menuContent.setDisable(true);
         notificationsView.setOpacity(0);
         notificationsView.setDisable(true);
-
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(600), profileImageContainer);
-        fadeOut.setFromValue(1);
-        fadeOut.setToValue(0);
-        fadeOut.play();
     }
 
     @Override
@@ -168,7 +182,6 @@ public class LoggedMenu extends ControllerLogged implements Controller {
                 expandMenu.stop();
                 reverseStageWidth.play();
 
-
                 reverseMenu = new TransitionResizeWidth(Duration.millis(700), menu, 38.5);
                 reverseMenu.play();
                 menuButtonsContainer.getChildren().remove(menuButtons);
@@ -182,6 +195,8 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         if(menuContent.isDisabled()) {
             expandMenuContent();
             currentMenuView = profileView;
+            currentMenuView.setDisable(false);
+            currentMenuView.setOpacity(1);
 
             menuContent.setDisable(false);
 
@@ -194,7 +209,9 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         }else if(!currentMenuView.equals(profileView) && menuContent.getPrefHeight() == menuContent.getMaxHeight()){
             currentMenuView.setOpacity(0);
             currentMenuView.setDisable(true);
+
             currentMenuView = profileView;
+            currentMenuView.setDisable(false);
 
             profileImageContainer.setOpacity(1);
         }else if(menuContent.getPrefHeight() == menuContent.getMaxHeight()){
