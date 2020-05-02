@@ -32,7 +32,7 @@ public class ExpandOrderPane {
 
     public static BooleanProperty isButtonExpanded = new SimpleBooleanProperty(false);
     public static BooleanProperty action = new SimpleBooleanProperty(false);
-    public static Boolean isOrderListScrolling;
+    public static boolean isOrderListScrolling;
 
     private static FadeTransition showDates;
     private static TranslateTransition transitionPane, transitionButton;
@@ -84,7 +84,6 @@ public class ExpandOrderPane {
 
         orderPane.setLayoutX(newLayoutX);
         orderPane.setLayoutY(newLayoutY);
-
     }
 
     public static void setListeners(){
@@ -93,10 +92,12 @@ public class ExpandOrderPane {
         orderPane.setOnMouseEntered(event -> ResizeRoot.resize = false);
         orderPane.setOnMouseExited(event -> ResizeRoot.resize = true);
         orderPane.addEventFilter(MouseEvent.MOUSE_PRESSED, ExpandOrderPane::panePress);
-        orderPane.addEventFilter(MouseEvent.MOUSE_DRAGGED, ExpandOrderPane::moveOrder);
+        orderPane.addEventFilter(MouseEvent.MOUSE_DRAGGED, ExpandOrderPane::paneDrag);
 
         orderList.setOnMouseReleased(ExpandOrderPane::paneReleased);
         orderList.setOnMouseDragged(ExpandOrderPane::listDrag);
+        orderList.getParent().setOnMouseReleased(ExpandOrderPane::paneReleased);
+        orderList.getParent().setOnMouseDragged(ExpandOrderPane::listDrag);
 
         showDates = new FadeTransition(Duration.millis(500), dates);
         showDates.setFromValue(0);
@@ -113,7 +114,7 @@ public class ExpandOrderPane {
     }
 
     private static void listDrag(MouseEvent event) {
-        if(action.get()) paneDrag(event);
+        if(action.get() && !isOrderListScrolling) paneDrag(event);
     }
 
     private static void buttonPress(MouseEvent event){
@@ -139,7 +140,7 @@ public class ExpandOrderPane {
         }
     }
     private static void paneReleased(MouseEvent event) {
-        if(!isButtonExpanded.get()) {
+        if(!isButtonExpanded.get() && currentOrder != null) {
             reverseOrder();
         }
     }
@@ -181,7 +182,6 @@ public class ExpandOrderPane {
     }
 
     private static void expandOrderOnDrag(MouseEvent eventDrag){
-
         double fasterExpand = 1.8;
         double expand = (initialMouseX - eventDrag.getScreenX()) * fasterExpand;
         if(initialOffsetX < orderWidth / 2){

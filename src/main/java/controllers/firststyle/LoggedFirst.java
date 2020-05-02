@@ -86,14 +86,19 @@ public class LoggedFirst extends ControllerLogged implements Controller{
 
     private void addOrdersListListeners() {
         ordersList.addEventHandler(TouchEvent.TOUCH_PRESSED, event -> {
-            System.out.println(event.getTarget().getClass());
             if(event.getTarget() instanceof AnchorPane){
                 Event.fireEvent(event.getTarget(), new MouseEvent(MouseEvent.MOUSE_PRESSED,
                         event.getTouchPoint().getSceneX(), event.getTouchPoint().getSceneY(), event.getTouchPoint().getScreenX(), event.getTouchPoint().getScreenY(), MouseButton.PRIMARY, 1,
                         true, true, true, true, true, true, true, true, true, true, null));
+                Event.fireEvent(ordersPane, new MouseEvent(MouseEvent.MOUSE_PRESSED,
+                        event.getTouchPoint().getSceneX(), event.getTouchPoint().getSceneY(), event.getTouchPoint().getScreenX(), event.getTouchPoint().getScreenY(), MouseButton.PRIMARY, 1,
+                        true, true, true, true, true, true, true, true, true, true, null));
                 ordersList.setDisable(true);
+            }else{
+                isOrderListScrolling = true;
             }
         });
+        ordersList.addEventHandler(TouchEvent.TOUCH_RELEASED, event -> isOrderListScrolling = false);
         ordersList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::expandOrder);
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node: ordersList.lookupAll(".scroll-bar")) {
@@ -240,7 +245,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
             mainChat.setDisable(false);
             mainChat.setOpacity(0);
 
-            Timeline opacity = new Timeline(new KeyFrame(Duration.millis(200), event1 -> mainChat.setOpacity(1)));
+            Timeline opacity = new Timeline(new KeyFrame(Duration.millis(200), event -> mainChat.setOpacity(1)));
             opacity.play();
 
             super.setMainChat(chat);
@@ -321,7 +326,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         Node intersectedNode = event.getPickResult().getIntersectedNode();
         intersectedNode = intersectedNode == null ? (Node)event.getTarget() : intersectedNode;
 
-        if(intersectedNode instanceof Button || (!ExpandOrderPane.action.get() && intersectedNode instanceof AnchorPane)){
+        if(!isOrderListScrolling && !ExpandOrderPane.action.get() && (intersectedNode instanceof Button || intersectedNode instanceof AnchorPane)){
 
             currentPane = intersectedNode instanceof AnchorPane ? (AnchorPane) intersectedNode
                     : (AnchorPane) intersectedNode.getParent();
