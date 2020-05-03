@@ -72,7 +72,7 @@ public class OrderListViewCell extends ListCell<Order> {
             setText(null);
             setGraphic(container);
 
-            LoggedFirst controller = ((LoggedFirst)stageManager.currentController);
+            LoggedFirst controller = ((LoggedFirst)stageManager.firstLoggedController);
             orderPane.setOpacity(1);
             if(controller.currentOrder == order){
                 ExpandOrderPane.currentPane = orderPane;

@@ -305,6 +305,12 @@ public class LoggedMenu extends ControllerLogged implements Controller {
             currentButton.getParent().getStyleClass().add("shadow");
         }
         if(newButton != currentButton){
+            Node container = newButton.getParent();
+            container.getStyleClass().remove("shadow");
+
+            AnchorPane.setTopAnchor(container, 0.0);
+            AnchorPane.setBottomAnchor(container, 0.0);
+
             currentButtonOptional.set(newButton);
         }else{
             currentButtonOptional.set(null);
@@ -314,15 +320,19 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     public void menuButtonFocus(MouseEvent event){
         Node buttonContainer = ((Button) event.getSource()).getParent();
 
-        AnchorPane.setTopAnchor(buttonContainer, -4.5);
-        AnchorPane.setBottomAnchor(buttonContainer, -4.0);
+        if(buttonContainer.getStyleClass().contains("shadow")) {
+            AnchorPane.setTopAnchor(buttonContainer, -4.5);
+            AnchorPane.setBottomAnchor(buttonContainer, -4.0);
+        }
     }
     @FXML
     public void menuButtonUnFocus(MouseEvent event){
         Node buttonContainer = ((Button) event.getSource()).getParent();
 
-        AnchorPane.setTopAnchor(buttonContainer, 0.0);
-        AnchorPane.setBottomAnchor(buttonContainer, 0.0);
+        if(buttonContainer.getStyleClass().contains("shadow")) {
+            AnchorPane.setTopAnchor(buttonContainer, 0.0);
+            AnchorPane.setBottomAnchor(buttonContainer, 0.0);
+        }
     }
 
 

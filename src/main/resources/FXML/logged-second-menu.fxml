@@ -16,19 +16,19 @@
                 <children>
                     <AnchorPane fx:id="menuButtons" AnchorPane.topAnchor="-2.5" AnchorPane.bottomAnchor="-1" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <children>
-                            <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="0">
                                 <Button fx:id="createButton" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Create">
                                 </Button>
                             </AnchorPane>
-                            <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="0">
                                 <Button fx:id="orderButton" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Orders">
                                 </Button>
                             </AnchorPane>
-                            <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="408.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0">
                                 <Button fx:id="chatButton" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"  mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Chats">
                                 </Button>
                             </AnchorPane>
-                            <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="0">
                                 <Button fx:id="notificationButton" contentDisplay="CENTER" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"  mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Updates">
                                     <graphic>
                                     </graphic>
@@ -36,7 +36,7 @@
                             </AnchorPane>
                             <HBox fx:id="notificationIcon" disable="true" mouseTransparent="true" AnchorPane.leftAnchor="382.5" opacity="0" AnchorPane.topAnchor="-8" styleClass="notification-icon">
                             </HBox>
-                            <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
                                 <Button fx:id="profileButton" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus"  text="Profile">
                                 </Button>
                             </AnchorPane>

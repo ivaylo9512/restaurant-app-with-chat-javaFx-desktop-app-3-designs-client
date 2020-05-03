@@ -24,6 +24,15 @@
     -fx-border-radius: 180;
     -fx-background-color: #1a1a1a;
 }
+.menu > AnchorPane AnchorPane.shadow:hover {
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+}
+.menu Button{
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-text-fill: #bcbcbc;
+    -fx-font-size: 12px;
+}
 .menu-button{
     -fx-pref-height: 31px;
     -fx-pref-width: 31px;
@@ -116,7 +125,6 @@
     -fx-pref-width: 25px;
     -fx-background-radius: 5em;
     -fx-background-color: #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6.5, 0.4 , 0 , 0 );
 }
 .notification-icon Region{
     -fx-pref-height: 14px;
@@ -125,4 +133,7 @@
     -fx-max-width: 14px;
     -fx-background-color: #FC3903;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+}
+.menu > AnchorPane .notification-icon{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6.5, 0.4 , 0 , 0 );
 }
