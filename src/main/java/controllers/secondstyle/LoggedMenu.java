@@ -7,6 +7,7 @@ import controllers.base.Controller;
 import controllers.base.ControllerLogged;
 import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -301,10 +302,9 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private void changeButtonStyle(Button newButton, AtomicReference<Button> currentButtonOptional){
         Button currentButton = currentButtonOptional.get();
         if(currentButton != null){
-            currentButton.getStyleClass().add("shadow");
+            currentButton.getParent().getStyleClass().add("shadow");
         }
         if(newButton != currentButton){
-            newButton.getStyleClass().remove("shadow");
             currentButtonOptional.set(newButton);
         }else{
             currentButtonOptional.set(null);
@@ -312,15 +312,17 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     }
     @FXML
     public void menuButtonFocus(MouseEvent event){
-        Button button = (Button) event.getSource();
-        AnchorPane.setTopAnchor(button, -5.5);
-        AnchorPane.setBottomAnchor(button, -4.0);
+        Node buttonContainer = ((Button) event.getSource()).getParent();
+
+        AnchorPane.setTopAnchor(buttonContainer, -4.5);
+        AnchorPane.setBottomAnchor(buttonContainer, -4.0);
     }
     @FXML
     public void menuButtonUnFocus(MouseEvent event){
-        Button button = (Button) event.getSource();
-        AnchorPane.setTopAnchor(button, -1.0);
-        AnchorPane.setBottomAnchor(button, 0.0);
+        Node buttonContainer = ((Button) event.getSource()).getParent();
+
+        AnchorPane.setTopAnchor(buttonContainer, 0.0);
+        AnchorPane.setBottomAnchor(buttonContainer, 0.0);
     }
 
 

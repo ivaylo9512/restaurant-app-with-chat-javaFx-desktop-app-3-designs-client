@@ -19,6 +19,11 @@
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
 }
+.menu > AnchorPane AnchorPane{
+    -fx-background-radius: 180;
+    -fx-border-radius: 180;
+    -fx-background-color: #1a1a1a;
+}
 .menu-button{
     -fx-pref-height: 31px;
     -fx-pref-width: 31px;
