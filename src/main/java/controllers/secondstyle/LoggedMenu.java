@@ -36,7 +36,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private AtomicReference<Button> currentMenuButton = new AtomicReference<>();
 
     private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
-    private Stage secondLoggedMenuStage = stageManager.secondLoggedMenuStage;
+    private Stage stage = stageManager.secondLoggedMenuStage;
 
     private Timeline reverseStageHeight, reverseStageWidth, reverseDelay;
     private TransitionResizeWidth reverseMenu, expandMenu;
@@ -59,7 +59,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         setUserFields();
         setMenuTransitions();
 
-        MoveRoot.moveStage(menuButton, secondLoggedMenuStage);
+        MoveRoot.moveStage(menuButton, stage);
 
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
     }
@@ -88,15 +88,15 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         expandMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
 
         reverseDelay = new Timeline();
-        reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight())));
-        reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(800), event -> secondLoggedMenuStage.setWidth(75)));
+        reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> stage.setHeight(menuRoot.getPrefHeight())));
+        reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(800), event -> stage.setWidth(75)));
     }
 
     @Override
     public void resetStage() {
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 
-        secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
+        stage.setHeight(menuRoot.getPrefHeight());
 
         if(currentMenuView != null){
             currentMenuView.setDisable(true);
@@ -124,11 +124,11 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     @Override
     public void setStage() throws Exception {
-        secondLoggedMenuStage.setWidth(menuRoot.getPrefWidth());
-        secondLoggedMenuStage.setHeight(menuRoot.getPrefHeight());
+        stage.setWidth(menuRoot.getPrefWidth());
+        stage.setHeight(menuRoot.getPrefHeight());
 
-        secondLoggedMenuStage.setX((primaryScreenBounds.getWidth() - secondLoggedMenuStage.getWidth()) / 2);
-        secondLoggedMenuStage.setY(contentController.contentRoot.getLayoutY() - 75);
+        stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY(contentController.contentRoot.getLayoutY() - 75);
 
         menuRoot.setLayoutX((menuRoot.getPrefWidth() - menu.getPrefWidth()) / 2);
     }
@@ -140,7 +140,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     private void expandMenuContent(){
         reverseStageHeight.stop();
-        secondLoggedMenuStage.setHeight(menuRoot.getMaxHeight());
+        stage.setHeight(menuRoot.getMaxHeight());
 
         reverseMenuContent.stop();
 
@@ -156,13 +156,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     }
 
     @FXML public void expandMenu(){
-        if(secondLoggedMenuStage.getHeight() != menuRoot.getPrefWidth()) {
+        if(stage.getHeight() != menuRoot.getPrefWidth()) {
             notificationMenuIcon.setVisible(false);
             if (menuButtonsContainer.getChildren().size() == 1) {
                 menuButtonsContainer.getChildren().add(0, menuButtons);
             }
             reverseStageWidth.stop();
-            secondLoggedMenuStage.setWidth(menuRoot.getPrefWidth());
+            stage.setWidth(menuRoot.getPrefWidth());
             reverseDelay.stop();
             reverseMenu.stop();
 
@@ -286,15 +286,15 @@ public class LoggedMenu extends ControllerLogged implements Controller {
                 break;
             case "orderButton":
                 changeButtonStyle(button, currentContentButton);
-                showOrderView();
+                contentController.displayView(contentController.orderView);
                 break;
             case "chatButton":
-                showChatView();
                 changeButtonStyle(button, currentContentButton);
+                contentController.displayView(contentController.chatView);
                 break;
             case "createButton":
-                showCreateView();
                 changeButtonStyle(button, currentContentButton);
+                contentController.displayView(contentController.createView);
                 break;
         }
     }
@@ -357,17 +357,5 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
         notificationBox.prefWidthProperty().bind(notificationButton.widthProperty().subtract(57));
         notificationBox.prefHeightProperty().bind(notificationButton.widthProperty().subtract(57));
-    }
-    @FXML
-    public void showChatView(){
-        contentController.displayView(contentController.chatView);
-    }
-    @FXML
-    public void showOrderView(){
-        contentController.displayView(contentController.orderView);
-    }
-    @FXML
-    public void showCreateView(){
-        contentController.displayView(contentController.createView);
     }
 }

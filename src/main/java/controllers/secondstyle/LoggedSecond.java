@@ -5,6 +5,7 @@ import animations.ResizeRoot;
 import controllers.base.Controller;
 import helpers.listviews.ChatsUsersListViewCellSecond;
 import helpers.Scrolls;
+import javafx.stage.Stage;
 import models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
@@ -27,6 +28,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
             chatView, userChatsClip, createView, dishesContainer, chatContainer;
     @FXML Pane contentBar;
 
+    private Stage stage = stageManager.secondLoggedStage;
     private AnchorPane currentView, currentMenuView;
 
 
@@ -103,6 +105,8 @@ public class LoggedSecond extends ControllerLogged implements Controller {
             contentRoot.setOpacity(1);
             contentRoot.setDisable(false);
             currentView = requestedView;
+
+            stage.toFront();
         }else{
             requestedView.setDisable(false);
             requestedView.setOpacity(1);
@@ -110,6 +114,8 @@ public class LoggedSecond extends ControllerLogged implements Controller {
             currentView.setDisable(true);
             currentView.setOpacity(0);
             currentView = requestedView;
+
+            stage.toFront();
         }
     }
 
