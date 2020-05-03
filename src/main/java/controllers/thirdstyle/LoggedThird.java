@@ -10,7 +10,6 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
@@ -18,35 +17,20 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import controllers.base.ControllerLogged;
-import java.util.*;
-
-import static application.RestaurantApplication.*;
 
 public class LoggedThird extends ControllerLogged {
-    @FXML public ListView<Order> ordersList;
-    @FXML public ListView<TextField> notificationsList;
-    @FXML public ListView<Chat> chatsList;
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot, menuBar, mainChatContainer, secondChatContainer;
     @FXML public Pane profileImageContainer, profileImageClip;
     @FXML VBox chatsContainer, mainChatBlock, secondChatBlock;
-    @FXML ScrollPane mainChatScroll, secondChatScroll;
-    @FXML TextArea mainChatTextArea, secondChatTextArea;
     @FXML HBox notificationsInfo;
     @FXML Text chatsBtn;
-
-    private Map<Integer, ChatValue> chatsMap = new HashMap<>();
 
     private AnchorPane currentView, currentMenu;
     private Text currentText;
     private Order currentOrder;
 
-    private ChatValue mainChat;
-    private ChatValue secondChat;
-
     @Override
     public void initialize(){
-        super.initialize();
-
         Scrolls scrolls = new Scrolls(mainChatScroll, secondChatScroll, mainChatTextArea, secondChatTextArea);
         scrolls.manageScrollsThirdStyle();
 
@@ -188,26 +172,6 @@ public class LoggedThird extends ControllerLogged {
 
             dishesList.setItems(FXCollections.observableArrayList(currentOrder.getDishes()));
 
-        }
-    }
-
-    private void addNotification(String notification) {
-        notificationsInfo.setOpacity(0);
-        notificationsInfo.setDisable(true);
-
-        TextField textField = new TextField(notification);
-        textField.setEditable(false);
-        textField.setDisable(true);
-
-        notificationsList.getItems().add(0, textField);
-        notificationSound.play();
-    }
-    @FXML
-    public void removeNotification(){
-        notificationsList.getItems().remove(notificationsList.getFocusModel().getFocusedItem());
-        if(notificationsList.getItems().size() == 0){
-            notificationsInfo.setOpacity(1);
-            notificationsInfo.setDisable(false);
         }
     }
 }
