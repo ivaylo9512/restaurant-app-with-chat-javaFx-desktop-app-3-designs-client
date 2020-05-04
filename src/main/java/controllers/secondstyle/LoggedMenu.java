@@ -159,9 +159,6 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     @FXML public void expandMenu(){
         if(stage.getHeight() != menuRoot.getPrefWidth()) {
             notificationMenuIcon.setVisible(false);
-            if (menuButtonsContainer.getChildren().size() == 1) {
-                menuButtonsContainer.getChildren().add(0, menuButtons);
-            }
             reverseDelay.stop();
             reverseMenu.stop();
 
@@ -182,7 +179,6 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
                 reverseMenu = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMinWidth());
                 reverseMenu.play();
-                menuButtonsContainer.getChildren().remove(menuButtons);
             }));
             reverseDelay.play();
         }

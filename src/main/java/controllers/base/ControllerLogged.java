@@ -242,8 +242,6 @@ public class ControllerLogged {
     public void setMainChat(ChatValue chat) {
         mainChatValue = chat;
 
-        int chatId = chat.getChatId();
-
         HBox sessionInfo = (HBox) mainChatBlock.getChildren().get(0);
         Text info = (Text) sessionInfo.lookup("Text");
         if (mainChatValue != chat) {
@@ -264,7 +262,7 @@ public class ControllerLogged {
                 mainChatValue.setDisplayedSessions(lastSessions.size());
             }
 
-//            lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
+            lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
         }
     }
 

@@ -2,8 +2,6 @@ package animations;
 
 import controllers.base.ControllerLogged;
 import helpers.listviews.OrderListViewCell;
-import javafx.collections.ObservableList;
-import models.Order;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
