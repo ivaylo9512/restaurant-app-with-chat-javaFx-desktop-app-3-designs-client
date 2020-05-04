@@ -178,6 +178,11 @@ TextFlow {
 .order > Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
+.loading{
+    -fx-pref-height: 12px;
+    -fx-pref-width: 12px;
+    -fx-text-fill: #bcbcbc;
+}
 .dishes-container {
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );

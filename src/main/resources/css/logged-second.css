@@ -89,6 +89,11 @@ TextFlow {
     -fx-alignment: center;
     -fx-text-fill: #bcbcbc;
 }
+.loading{
+    -fx-pref-height: 12px;
+    -fx-pref-width: 12px;
+    -fx-text-fill: #bcbcbc;
+}
 .order-list .list-cell{
     -fx-pref-height: 24px;
     -fx-background-color: #1a1a1a;

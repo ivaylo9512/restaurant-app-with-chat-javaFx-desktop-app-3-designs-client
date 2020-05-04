@@ -1,6 +1,7 @@
 package helpers.listviews;
 
 import animations.TransitionResizeHeight;
+import javafx.scene.control.ProgressIndicator;
 import models.Dish;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +21,8 @@ public class DishListViewCell extends ListCell<Dish> {
     private Label name;
     @FXML
     private Label ready;
-
+    @FXML
+    private  ProgressIndicator progressIndicator;
     @FXML
     private GridPane grid;
 
@@ -50,10 +52,15 @@ public class DishListViewCell extends ListCell<Dish> {
             name.setText(dish.getName());
 
             if(dish.isLoading()){
-                ready.setText("...");
+                progressIndicator.setOpacity(1);
+                ready.setOpacity(0);
             } else if (dish.isReady()) {
+                progressIndicator.setOpacity(0);
+                ready.setOpacity(1);
                 ready.setText("O");
             } else {
+                progressIndicator.setOpacity(0);
+                ready.setOpacity(1);
                 ready.setText("X");
             }
 
@@ -78,7 +85,9 @@ public class DishListViewCell extends ListCell<Dish> {
 
             Dish dish = getItem();
             if (!dish.isLoading() && !dish.isReady()) {
-                ready.setText("...");
+                progressIndicator.setOpacity(1);
+                ready.setOpacity(0);
+
                 dish.setLoading(true);
                 orderManager.updateDishState(dish);
             }
