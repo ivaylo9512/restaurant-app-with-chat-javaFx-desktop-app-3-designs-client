@@ -269,7 +269,6 @@ public class ControllerLogged {
     private void loadOlderHistory(ChatValue chatValue, VBox chatBlock) {
         int displayedSessions = chatValue.getDisplayedSessions();
         int loadedSessions = chatValue.getSessions().size();
-        int nextPage = loadedSessions / pageSize;
 
         HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
         Text info = (Text) sessionInfo.lookup("Text");
@@ -290,21 +289,7 @@ public class ControllerLogged {
             nextSessions.forEach(session -> appendSession(session, chatBlock, chatValue, 1));
 
         } else if (chatValue.isMoreSessions()) {
-            nextSessions = getNextSessions(chatValue.getChatId(), nextPage, pageSize);
-            if (nextSessions.size() < pageSize) {
-                chatValue.setMoreSessions(false);
-                info.setText("Beginning of the chat");
-            }
-            chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
-            nextSessions.forEach(session -> {
-
-                if (!sessionsMap.containsKey(session.getDate())) {
-                    sessionsMap.put(session.getDate(), session);
-
-                    appendSession(session, chatBlock, chatValue, 1);
-                }
-
-            });
+            getNextSessions(chatValue.getChatId(), nextPage, pageSize);
         } else {
             info.setText("Beginning of the chat");
         }

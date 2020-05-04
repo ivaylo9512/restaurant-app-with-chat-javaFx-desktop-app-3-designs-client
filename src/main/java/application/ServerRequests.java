@@ -16,6 +16,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,15 +35,21 @@ public class ServerRequests {
 
     static ExecutorService tasks = Executors.newFixedThreadPool(10);
 
-    public static HttpRequestBase getNextSessions(int id, int page) throws Exception{
-        URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
-        builder
-                .setParameter("chatId", String.valueOf(id))
-                .setParameter("page", String.valueOf(page))
-                .setParameter("pageSize", String.valueOf(pageSize));
-        HttpGet get = new HttpGet(builder.build());
-        get.setHeader("Authorization", userPreference.get("jwt", null));
+    public static HttpRequestBase getNextSessions(int id, int page) {
+        HttpGet get = null;
+        try {
 
+            URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
+            builder
+                    .setParameter("chatId", String.valueOf(id))
+                    .setParameter("page", String.valueOf(page))
+                    .setParameter("pageSize", String.valueOf(pageSize));
+            get = new HttpGet(builder.build());
+            get.setHeader("Authorization", userPreference.get("jwt", null));
+
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         return get;
     }
 
@@ -132,7 +139,7 @@ public class ServerRequests {
         return post;
     }
 
-        public static HttpRequestBase longPollingRequest(){
+    public static HttpRequestBase longPollingRequest(){
         HttpGet httpGet = new HttpGet( base + "/api/users/auth/waitData");
         httpGet.setHeader("Authorization", userPreference.get("jwt", null));
         return httpGet;

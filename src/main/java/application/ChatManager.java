@@ -1,10 +1,15 @@
 package application;
 
+import helpers.RequestEnum;
+import helpers.RequestTask;
+import com.fasterxml.jackson.databind.JavaType;
 import models.Chat;
 import models.ChatValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
+
+import models.Session;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -14,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 import static application.RestaurantApplication.loginManager;
+import static application.ServerRequests.mapper;
+import static application.ServerRequests.pageSize;
 
 
 public class ChatManager {
@@ -47,6 +54,19 @@ public class ChatManager {
 
             this.chatsList.add(chatValue);
             chats.put(chat.getId(), chatValue);
+        });
+    }
+
+    JavaType sessionType = mapper.getTypeFactory().
+    constructCollectionType(List.class, Session.class);
+    public void getNextSessions(ChatValue chat){
+        int chatId = chat.getChatId();
+        int nextPage = chat.getSessions().size() / pageSize;
+
+        RequestTask task = new RequestTask(sessionType, ServerRequests.getNextSessions(chatId, nextPage));
+        task.setOnSucceeded(event -> {
+            if (nextSessions.size() < pageSize) chat.setMoreSessions(false);
+
         });
     }
 
