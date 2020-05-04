@@ -264,6 +264,28 @@ public class ControllerLogged {
 
             lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
         }
+        chat.getSessions().addListener((ListChangeListener<String>) c -> {
+            c.next();
+            newSessions(c);
+        });
+    }
+
+    private void newSessions(ListChangeListener.Change<? extends String> c) {
+        c.next();
+        if (nextSessions.size() < pageSize) {
+            info.setText("Beginning of the chat");
+        }
+        chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
+        nextSessions.forEach(session -> {
+
+            if (!sessionsMap.containsKey(session.getDate())) {
+                sessionsMap.put(session.getDate(), session);
+
+                appendSession(session, chatBlock, chatValue, 1);
+            }
+
+        });
+
     }
 
     private void loadOlderHistory(ChatValue chatValue, VBox chatBlock) {
