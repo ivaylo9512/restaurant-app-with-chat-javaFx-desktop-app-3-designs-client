@@ -28,8 +28,10 @@ public class LoginManager {
     private User savedUserInfo;
 
     User loggedUser = new User();
-    public IntegerProperty userId;
-    public StringProperty role;
+    public IntegerProperty userId = loggedUser.getId();
+    public ObjectProperty<Image> profileImage = loggedUser.getImage();
+    public StringProperty role = loggedUser.getRole();
+
     public BooleanProperty loading = new SimpleBooleanProperty(false);
     public RequestService currentService;
 
@@ -41,9 +43,6 @@ public class LoginManager {
     StringProperty repeatPassword = new SimpleStringProperty();
 
     private LoginManager(){
-        userId = loggedUser.getId();
-        role = loggedUser.getRole();
-
         loginService.setOnSucceeded(eventSuccess -> onSuccessfulService(loginService));
         loginService.setOnFailed(eventFail -> updateError(loginService));
 

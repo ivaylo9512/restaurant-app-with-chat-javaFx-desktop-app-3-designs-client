@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
@@ -249,8 +250,7 @@ public class ControllerLogged {
             mainChatValue = chat;
             mainChatBlock.setId("beginning");
             mainChatBlock.getChildren().remove(1, mainChatBlock.getChildren().size());
-//
-//
+
             ListOrderedMap<LocalDate, Session> sessionsMap = mainChatValue.getSessions();
             List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
             List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
@@ -264,7 +264,7 @@ public class ControllerLogged {
                 mainChatValue.setDisplayedSessions(lastSessions.size());
             }
 
-            lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
+//            lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
         }
     }
 
@@ -398,7 +398,7 @@ public class ControllerLogged {
 
         HBox.setMargin(imageShadow, new Insets(-20, 0, 0, 0));
 
-        if (message.getReceiverId() == loggedUser.getId()) {
+        if (message.getReceiverId() == loginManager.userId.get()) {
             imageView.setImage(chat.getSecondUserPicture());
             text.setText(message.getMessage());
             time.setText("  " + timeFormatter.format(message.getTime()));
@@ -406,7 +406,7 @@ public class ControllerLogged {
             hBox.setAlignment(Pos.TOP_LEFT);
 
         } else {
-            imageView.setImage(userProfileImage);
+            imageView.setImage(loginManager.profileImage.get());
             text.setText(message.getMessage());
             time.setText(timeFormatter.format(message.getTime()) + "  ");
             textFlow.getChildren().addAll(time, text);
@@ -428,7 +428,7 @@ public class ControllerLogged {
 
             timeElapsed = java.time.Duration.between(lastBlockStartedDate, message.getTime()).toMinutes() > timeToElapse;
 
-            if (message.getReceiverId() == loggedUser.getId()) {
+            if (message.getReceiverId() == loginManager.userId.get()) {
                 if (!timeElapsed && lastMessage.getStyleClass().get(0).startsWith("second-user-message")) {
 
                     hBox.getStyleClass().add("second-user-message");
@@ -461,7 +461,7 @@ public class ControllerLogged {
             }
         } else {
 
-            if (message.getReceiverId() == loggedUser.getId()) {
+            if (message.getReceiverId() == loginManager.userId.get()) {
                 hBox.getStyleClass().add("second-user-message-first");
                 hBox.getChildren().addAll(imageShadow, textFlow);
                 newBlock.getChildren().add(hBox);

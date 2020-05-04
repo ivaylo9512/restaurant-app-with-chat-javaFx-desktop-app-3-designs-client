@@ -21,7 +21,7 @@ public class User {
     private Restaurant restaurant;
     private List<Chat> chats = new ArrayList<>();
 
-    public ObjectProperty<Image> image = new SimpleObjectProperty<>();
+    private ObjectProperty<Image> image = new SimpleObjectProperty<>();
 
     private static Image defaultImage = new Image(User.class.getResourceAsStream("/images/default-picture.png"));
 
