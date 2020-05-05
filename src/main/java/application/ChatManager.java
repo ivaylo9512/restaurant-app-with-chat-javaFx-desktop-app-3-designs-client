@@ -3,6 +3,7 @@ package application;
 import helpers.RequestEnum;
 import helpers.RequestTask;
 import com.fasterxml.jackson.databind.JavaType;
+import jdk.nashorn.internal.objects.LinkedMap;
 import models.Chat;
 import models.ChatValue;
 import javafx.collections.FXCollections;
@@ -10,11 +11,14 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
 import models.Session;
+import org.apache.commons.collections4.map.ListOrderedMap;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,10 +67,17 @@ public class ChatManager {
         int chatId = chat.getChatId();
         int nextPage = chat.getSessions().size() / pageSize;
 
-        RequestTask task = new RequestTask(sessionType, ServerRequests.getNextSessions(chatId, nextPage));
+        RequestTask<List<Session>> task = new RequestTask<>(sessionType, ServerRequests.getNextSessions(chatId, nextPage));
         task.setOnSucceeded(event -> {
+            List<Session> nextSessions = task.getValue();
             if (nextSessions.size() < pageSize) chat.setMoreSessions(false);
 
+            nextSessions.forEach(session -> {
+                ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+                if (!sessions.containsKey(session.getDate())) {
+                    sessions.put(session.getDate(), session);
+                }
+            });
         });
     }
 

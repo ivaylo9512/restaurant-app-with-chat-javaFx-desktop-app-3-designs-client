@@ -264,26 +264,20 @@ public class ControllerLogged {
 
             lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
         }
-        chat.getSessions().addListener((ListChangeListener<String>) c -> {
+        chat.getSessions().addListener((ListChangeListener<Session>) c -> {
             c.next();
             newSessions(c);
         });
     }
 
-    private void newSessions(ListChangeListener.Change<? extends String> c) {
-        c.next();
-        if (nextSessions.size() < pageSize) {
+    private void newSessions(ListChangeListener.Change<Session> c) {
+        ObservableList<Session> nextSessions = c.getList();
+        if (c.getFrom() == 0 && nextSessions.size() < pageSize) {
             info.setText("Beginning of the chat");
         }
-        chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
+        mainChatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
         nextSessions.forEach(session -> {
-
-            if (!sessionsMap.containsKey(session.getDate())) {
-                sessionsMap.put(session.getDate(), session);
-
-                appendSession(session, chatBlock, chatValue, 1);
-            }
-
+        appendSession(session, chatBlock, chatValue, 1);
         });
 
     }
