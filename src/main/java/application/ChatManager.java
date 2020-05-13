@@ -1,9 +1,7 @@
 package application;
 
-import helpers.RequestEnum;
 import helpers.RequestTask;
 import com.fasterxml.jackson.databind.JavaType;
-import jdk.nashorn.internal.objects.LinkedMap;
 import models.Chat;
 import models.ChatValue;
 import javafx.collections.FXCollections;
@@ -18,7 +16,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 

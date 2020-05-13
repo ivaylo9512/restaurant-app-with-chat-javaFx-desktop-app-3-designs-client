@@ -1,5 +1,7 @@
 package models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.scene.image.Image;
 import org.apache.commons.collections4.map.ListOrderedMap;
 
@@ -15,6 +17,7 @@ public class ChatValue {
     private Image secondUserPicture;
     private User secondUser;
     private ListOrderedMap<LocalDate, Session> sessions = new ListOrderedMap<>();
+    private ObservableMap<LocalDate, Session> sessionsObservable = FXCollections.observableMap(sessions);
 
     public ChatValue(int chatId, int userId, Image profilePicture, User secondUser) {
         this.chatId = chatId;
@@ -47,12 +50,12 @@ public class ChatValue {
         this.secondUserPicture = profilePicture;
     }
 
-    public ListOrderedMap<LocalDate, Session> getSessions() {
-        return sessions;
+    public ObservableMap<LocalDate, Session> getSessionsObservable() {
+        return sessionsObservable;
     }
 
-    public void setSessions(ListOrderedMap<LocalDate, Session> sessions) {
-        this.sessions = sessions;
+    public void setSessionsObservable(ObservableMap<LocalDate, Session> sessions) {
+        this.sessionsObservable = sessions;
     }
 
     public boolean isMoreSessions() {
@@ -77,5 +80,13 @@ public class ChatValue {
 
     public void setSecondUser(User secondUser) {
         this.secondUser = secondUser;
+    }
+
+    public ListOrderedMap<LocalDate, Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(ListOrderedMap<LocalDate, Session> sessions) {
+        this.sessions = sessions;
     }
 }

@@ -2,6 +2,7 @@ package controllers.base;
 
 import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
+import javafx.collections.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -16,9 +17,6 @@ import models.Menu;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -264,22 +262,20 @@ public class ControllerLogged {
 
             lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
         }
-        chat.getSessions().addListener((ListChangeListener<Session>) c -> {
-            c.next();
-            newSessions(c);
+        chat.getSessionsObservable().addListener((MapChangeListener<LocalDate, Session>) c -> {
+            LocalDate sessionDate = c.getKey();
+            int index = chat.getSessions().indexOf(sessionDate);
+            newSessions(c.getValueAdded(), index);
         });
     }
 
-    private void newSessions(ListChangeListener.Change<Session> c) {
-        ObservableList<Session> nextSessions = c.getList();
-        if (c.getFrom() == 0 && nextSessions.size() < pageSize) {
-            info.setText("Beginning of the chat");
+    private void newSessions(Session session, int index) {
+        if (index == 0 && !mainChatValue.isMoreSessions()) {
+            mainChatTextArea.setText("Beginning of the chat");
         }
-        mainChatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
-        nextSessions.forEach(session -> {
-        appendSession(session, chatBlock, chatValue, 1);
-        });
 
+        mainChatValue.setDisplayedSessions(mainChatValue.getDisplayedSessions() + 1);
+            appendSession(session, mainChatBlock, mainChatValue, 1);
     }
 
     private void loadOlderHistory(ChatValue chatValue, VBox chatBlock) {
@@ -305,11 +301,12 @@ public class ControllerLogged {
             nextSessions.forEach(session -> appendSession(session, chatBlock, chatValue, 1));
 
         } else if (chatValue.isMoreSessions()) {
-            getNextSessions(chatValue.getChatId(), nextPage, pageSize);
+            chatManager.getNextSessions(chatValue);
         } else {
             info.setText("Beginning of the chat");
         }
     }
+
     @FXML
     public void addNewMessage(){
         String messageText = mainChatTextArea.getText();
@@ -339,7 +336,7 @@ public class ControllerLogged {
             } else {
                 session.getMessages().add(message);
                 if (mainChatValue.getChatId() == message.getChatId()) {
-                    appendMessage(message, mainChatValue, (VBox) mainChatBlock.getChildren().get(index - 1));
+                    appendMessage(message, mainChatValue, mainChatBlock);
                 }
             }
         }
@@ -364,6 +361,8 @@ public class ControllerLogged {
     }
 
     private void appendMessage(Message message, ChatValue chat, VBox chatBlock) {
+        VBox sessionBlock = (VBox) chatBlock.lookup("#" + message.getSession().toString());
+
         HBox hBox = new HBox();
         VBox newBlock = new VBox();
         Text text = new Text();
@@ -416,7 +415,7 @@ public class ControllerLogged {
         boolean timeElapsed;
         int timeToElapse = 10;
 
-        List<Node> messageBlocks = chatBlock.getChildren();
+        List<Node> messageBlocks = sessionBlock.getChildren();
         if (messageBlocks.size() > 0 && messageBlocks.get(messageBlocks.size() - 1) instanceof VBox) {
             VBox lastBlock = (VBox) messageBlocks.get(messageBlocks.size() - 1);
             HBox lastMessage = (HBox) lastBlock.getChildren().get(lastBlock.getChildren().size() - 1);
@@ -439,7 +438,7 @@ public class ControllerLogged {
                     hBox.getStyleClass().add("second-user-message-first");
                     hBox.getChildren().addAll(imageShadow, textFlow);
                     newBlock.getChildren().add(hBox);
-                    chatBlock.getChildren().add(newBlock);
+                    sessionBlock.getChildren().add(newBlock);
 
                 }
             } else {
@@ -454,7 +453,7 @@ public class ControllerLogged {
                     hBox.getStyleClass().add("user-message-first");
                     hBox.getChildren().addAll(textFlow, imageShadow);
                     newBlock.getChildren().add(hBox);
-                    chatBlock.getChildren().add(newBlock);
+                    sessionBlock.getChildren().add(newBlock);
 
                 }
             }
@@ -469,7 +468,7 @@ public class ControllerLogged {
                 hBox.getChildren().addAll(textFlow, imageShadow);
                 newBlock.getChildren().add(hBox);
             }
-            chatBlock.getChildren().add(newBlock);
+            sessionBlock.getChildren().add(newBlock);
         }
     }
 
