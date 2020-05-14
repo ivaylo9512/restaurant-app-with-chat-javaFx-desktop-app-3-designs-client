@@ -4,6 +4,7 @@ import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
 import javafx.collections.*;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
@@ -415,13 +416,14 @@ public class ControllerLogged {
             textFlow.getChildren().addAll(text, time);
             hBox.setAlignment(Pos.TOP_LEFT);
 
+            imageView.setViewOrder(3);
+            textFlow.setViewOrder(1);
         } else {
             imageView.setImage(loginManager.profileImage.get());
             text.setText(message.getMessage());
             time.setText(timeFormatter.format(message.getTime()) + "  ");
             textFlow.getChildren().addAll(time, text);
             hBox.setAlignment(Pos.TOP_RIGHT);
-
         }
 
         boolean timeElapsed;
