@@ -29,7 +29,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     @FXML Pane contentBar;
 
     private Stage stage = stageManager.secondLoggedStage;
-    private AnchorPane currentView, currentMenuView;
+    private AnchorPane currentView;
 
 
     @FXML
@@ -131,13 +131,13 @@ public class LoggedSecond extends ControllerLogged implements Controller {
 
     @Override
     public void resetStage(){
+        if(currentOrder != null) orderView.getStyleClass().add("inactive");
         unbindOrderProperties();
 
         menuList.getItems().clear();
         if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
         ordersList.getSelectionModel().clearSelection();
 
-        orderView.getStyleClass().add("inactive");
 
         mainChatValue = null;
         mainChatTextArea.setText(null);
@@ -151,13 +151,10 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         contentRoot.setOpacity(0);
         contentRoot.setDisable(true);
 
-
         if(currentView != null){
             currentView.setOpacity(0);
             currentView.setDisable(true);
         }
-
-        currentMenuView = null;
         currentView = null;
     }
 
@@ -188,7 +185,6 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     public void bindOrderProperties(Order currentOrder) {
         super.bindOrderProperties(currentOrder);
 
-        dishesCountLabel.textProperty().unbind();
         dishesCountLabel.textProperty().bind(Bindings.concat("Dishes ")
                 .concat(Bindings.size(currentDishList.getItems()).asString()));
     }

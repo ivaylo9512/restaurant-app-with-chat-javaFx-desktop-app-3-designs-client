@@ -39,7 +39,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
     private Stage stage = stageManager.secondLoggedMenuStage;
 
-    private Timeline reverseStageHeight, reverseStageWidth, reverseDelay;
+    private Timeline reverseDelay;
     private TransitionResizeWidth reverseMenu, expandMenu;
     private TransitionResizeHeight reverseMenuContent, expandMenuContent;
 
@@ -95,15 +95,11 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         expandMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
 
         reverseDelay = new Timeline();
-        reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> stage.setHeight(menuRoot.getMinHeight())));
-        reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(800), event -> stage.setWidth(menuRoot.getMinWidth())));
     }
 
     @Override
     public void resetStage() {
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
-
-        stage.setHeight(menuRoot.getPrefHeight());
 
         if(currentMenuView != null){
             currentMenuView.setDisable(true);
@@ -114,12 +110,12 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         reverseMenuContent();
 
         if(currentMenuButton.get() != null){
-            currentMenuButton.get().getStyleClass().add("shadow");
+            currentMenuButton.get().getParent().getStyleClass().add("shadow");
             currentMenuButton.set(null);
         }
 
         if(currentContentButton.get() != null){
-            currentContentButton.get().getStyleClass().add("shadow");
+            currentContentButton.get().getParent().getStyleClass().add("shadow");
             currentContentButton.set(null);
         }
 
@@ -131,7 +127,6 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     @Override
     public void setStage() throws Exception {
-
         stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY(contentController.contentRoot.getLayoutY() - 75);
 
