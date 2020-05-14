@@ -1,12 +1,13 @@
 package controllers.base;
 
-import application.ServerRequests;
 import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
 import javafx.collections.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -244,10 +245,16 @@ public class ControllerLogged {
             }
         });
     }
+    public void setChatAreaListener(TextArea chatTextArea){
+        chatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+                addNewMessage();
+                event.consume();
+            }
+        });
+    }
 
     public void setMainChat(ChatValue chat) {
-        mainChatValue = chat;
-
         if (mainChatValue != chat) {
             mainChatValue = chat;
             mainChatBlock.setId("beginning");
@@ -319,15 +326,16 @@ public class ControllerLogged {
         String messageText = mainChatTextArea.getText();
         mainChatTextArea.clear();
 
-        Message message = new Message(receiverId, LocalTime.now(), messageText, chatId);
         if (messageText.length() > 0){
-            ServerRequests.sendMessage(messageText, chatId, receiverId);
+            Message message = new Message(receiverId, LocalTime.now(),LocalDate.now(), messageText, chatId);
+            chatManager.sendMessage(messageText, chatId, receiverId);
+
             ListOrderedMap<LocalDate, Session> sessions = mainChatValue.getSessions();
 
             mainChatBlock.setId("new-message");
-            Session session = sessions.get(LocalDate.now());
+            Session session = sessions.get(message.getSession());
             if (session == null) {
-                LocalDate sessionDate = LocalDate.now();
+                LocalDate sessionDate = message.getSession();
 
                 session = new Session();
                 session.setDate(sessionDate);

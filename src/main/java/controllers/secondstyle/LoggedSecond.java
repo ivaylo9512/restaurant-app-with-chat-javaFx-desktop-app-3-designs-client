@@ -39,7 +39,9 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         setCreateGraphicIndicators();
         setListsItems();
         focusCurrentOrderOnListUpdate();
+
         setHistoryListener(mainChatValue, mainChatBlock, mainChatInfo);
+        setChatAreaListener(mainChatTextArea);
 
         Scrolls scrolls = new Scrolls(mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsSecondStyle();

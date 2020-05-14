@@ -19,9 +19,10 @@ public class Message {
     public Message() {
     }
 
-    public Message(int receiverId, LocalTime time, String message, int chatId) {
+    public Message(int receiverId, LocalTime time,LocalDate session, String message, int chatId) {
         this.receiverId = receiverId;
         this.time = time;
+        this.session = session;
         this.message = message;
         this.chatId = chatId;
     }

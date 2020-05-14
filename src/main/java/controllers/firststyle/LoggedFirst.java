@@ -52,7 +52,9 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         setUserFields();
         setOrderPane();
         addOrdersListListeners();
+
         setHistoryListener(mainChatValue, mainChatBlock, mainChatInfo);
+        setChatAreaListener(mainChatTextArea);
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
                 mainChatScroll, mainChatTextArea);
