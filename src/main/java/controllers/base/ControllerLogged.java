@@ -69,9 +69,8 @@ public class ControllerLogged {
     protected ScrollPane mainChatScroll;
     @FXML
     protected TextArea mainChatTextArea;
-
-
-
+    @FXML
+    protected Text mainChatInfo;
 
     protected static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     protected static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
@@ -237,11 +236,17 @@ public class ControllerLogged {
         }
     }
 
+    public void setHistoryListener(ChatValue chatValue, VBox chatBlock, Text textInfo){
+        chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
+            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue != null) {
+                loadOlderHistory(chatValue, chatBlock, textInfo);
+            }
+        });
+    }
+
     public void setMainChat(ChatValue chat) {
         mainChatValue = chat;
 
-        HBox sessionInfo = (HBox) mainChatBlock.getChildren().get(0);
-        Text info = (Text) sessionInfo.lookup("Text");
         if (mainChatValue != chat) {
             mainChatValue = chat;
             mainChatBlock.setId("beginning");
@@ -252,10 +257,10 @@ public class ControllerLogged {
             List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
 
             if (lastSessions.size() == pageSize) {
-                info.setText("Scroll for more history");
+                mainChatInfo.setText("Scroll for more history");
                 mainChatValue.setDisplayedSessions(pageSize);
             } else {
-                info.setText("Beginning of the chat");
+                mainChatInfo.setText("Beginning of the chat");
                 mainChatValue.setMoreSessions(false);
                 mainChatValue.setDisplayedSessions(lastSessions.size());
             }
@@ -278,12 +283,9 @@ public class ControllerLogged {
             appendSession(session, mainChatBlock, mainChatValue, 1);
     }
 
-    private void loadOlderHistory(ChatValue chatValue, VBox chatBlock) {
+    private void loadOlderHistory(ChatValue chatValue, VBox chatBlock, Text chatInfo) {
         int displayedSessions = chatValue.getDisplayedSessions();
         int loadedSessions = chatValue.getSessions().size();
-
-        HBox sessionInfo = (HBox) chatBlock.getChildren().get(0);
-        Text info = (Text) sessionInfo.lookup("Text");
 
         ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.getSessions();
         List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
@@ -294,7 +296,7 @@ public class ControllerLogged {
                     Math.min(displayedSessions + pageSize, loadedSessions));
 
             if (displayedSessions + nextSessions.size() == loadedSessions && !chatValue.isMoreSessions()) {
-                info.setText("Beginning of the chat");
+                chatInfo.setText("Beginning of the chat");
             }
             chatValue.setDisplayedSessions(displayedSessions + nextSessions.size());
 
@@ -303,7 +305,7 @@ public class ControllerLogged {
         } else if (chatValue.isMoreSessions()) {
             chatManager.getNextSessions(chatValue);
         } else {
-            info.setText("Beginning of the chat");
+            chatInfo.setText("Beginning of the chat");
         }
     }
 
