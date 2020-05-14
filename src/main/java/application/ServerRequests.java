@@ -121,12 +121,11 @@ public class ServerRequests {
         return post;
     }
 
-    public static HttpRequestBase sendMessage(){
-        Message message = null;
+    public static HttpRequestBase sendMessage(String messageText, int chatId, int receiverId){
         Map<String, Object> jsonValues = new HashMap<>();
-//        jsonValues.put("message", messageText);
-//        jsonValues.put("chatId", chatId);
-//        jsonValues.put("receiverId", receiverId);
+        jsonValues.put("message", messageText);
+        jsonValues.put("chatId", chatId);
+        jsonValues.put("receiverId", receiverId);
 
         JSONObject jsonObject = new JSONObject(jsonValues);
         StringEntity postEntity = new StringEntity(jsonObject.toString(), "UTF8");

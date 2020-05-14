@@ -19,10 +19,11 @@ public class Message {
     public Message() {
     }
 
-    public Message(int receiver, LocalTime time, String message) {
-        this.receiverId = receiver;
+    public Message(int receiverId, LocalTime time, String message, int chatId) {
+        this.receiverId = receiverId;
         this.time = time;
         this.message = message;
+        this.chatId = chatId;
     }
 
     public int getReceiverId() {

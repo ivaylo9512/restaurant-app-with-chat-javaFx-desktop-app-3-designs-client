@@ -8,8 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
+import models.Message;
 import models.Session;
 import org.apache.commons.collections4.map.ListOrderedMap;
+import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -20,11 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 import static application.RestaurantApplication.loginManager;
-import static application.ServerRequests.mapper;
-import static application.ServerRequests.pageSize;
+import static application.ServerRequests.*;
 
 
 public class ChatManager {
+
+    private JavaType sessionType = mapper.getTypeFactory().constructCollectionType(List.class, Session.class);
+    private JavaType messageType = mapper.getTypeFactory().constructType(Message.class);
 
     public Map<Integer, ChatValue> chats = new HashMap<>();
     public ObservableList<ChatValue> chatsList = FXCollections.observableArrayList();
@@ -58,8 +62,6 @@ public class ChatManager {
         });
     }
 
-    JavaType sessionType = mapper.getTypeFactory().
-    constructCollectionType(List.class, Session.class);
     public void getNextSessions(ChatValue chat){
         int chatId = chat.getChatId();
         int nextPage = chat.getSessions().size() / pageSize;
@@ -76,6 +78,12 @@ public class ChatManager {
                 }
             });
         });
+    }
+
+    public void sendMessage(String messageText, int chatId, int receiverId){
+        HttpRequestBase request = ServerRequests.sendMessage(messageText, chatId, receiverId);
+        RequestTask task = new RequestTask(messageType, request);
+        tasks.execute(task);
     }
 
     public void resetChats(){

@@ -1,5 +1,6 @@
 package controllers.base;
 
+import application.ServerRequests;
 import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
 import javafx.collections.*;
@@ -311,14 +312,16 @@ public class ControllerLogged {
 
     @FXML
     public void addNewMessage(){
-        String messageText = mainChatTextArea.getText();
         int chatId = mainChatValue.getChatId();
         int receiverId = mainChatValue.getUserId();
         int index = mainChatBlock.getChildren().size();
+
+        String messageText = mainChatTextArea.getText();
         mainChatTextArea.clear();
 
+        Message message = new Message(receiverId, LocalTime.now(), messageText, chatId);
         if (messageText.length() > 0){
-            Message message = sendMessage(messageText, chatId, receiverId);
+            ServerRequests.sendMessage(messageText, chatId, receiverId);
             ListOrderedMap<LocalDate, Session> sessions = mainChatValue.getSessions();
 
             mainChatBlock.setId("new-message");
@@ -342,7 +345,6 @@ public class ControllerLogged {
                 }
             }
         }
-
     }
 
     private void appendSession(Session session, VBox chatBlock, ChatValue chatValue, int index) {
