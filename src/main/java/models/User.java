@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class User {
@@ -20,6 +21,7 @@ public class User {
     private StringProperty profilePicture = new SimpleStringProperty();
     private Restaurant restaurant;
     private List<Chat> chats = new ArrayList<>();
+    private LocalDateTime lastCheck;
 
     private ObjectProperty<Image> image = new SimpleObjectProperty<>();
 
@@ -162,5 +164,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(username.get(), firstName.get(), lastName.get(), age.get(), country.get());
+    }
+
+    public LocalDateTime getLastCheck() {
+        return lastCheck;
+    }
+
+    public void setLastCheck(LocalDateTime lastCheck) {
+        this.lastCheck = lastCheck;
     }
 }

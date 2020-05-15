@@ -64,9 +64,7 @@ public class LoginManager {
             RequestTask<User> task = new RequestTask<>(type, request);
             tasks.execute(task);
 
-            task.setOnSucceeded(event -> {
-                setLoggedUser((User)event.getSource().getValue());
-            });
+            task.setOnSucceeded(event -> setLoggedUser((User)event.getSource().getValue()));
             task.setOnFailed(event -> {
                 userPreference.remove("jwt");
                 loading.setValue(false);
@@ -80,6 +78,8 @@ public class LoginManager {
         UserRequest userRequest = longPollingService.getValue();
         userRequest.getDishes().forEach(orderManager::updateDish);
         userRequest.getOrders().forEach(orderManager::addOrder);
+
+        loggedUser.setLastCheck(userRequest.getLastCheck());
 
         longPollingService.restart();
     };
@@ -146,6 +146,7 @@ public class LoginManager {
 
         savedUserInfo = new User(loggedUser);
         setUserFields(loggedUser);
+        this.loggedUser.setLastCheck(loggedUser.getLastCheck());
 
         chatManager.setChats(loggedUser.getChats());
         orderManager.setRestaurant(loggedUser.getRestaurant());

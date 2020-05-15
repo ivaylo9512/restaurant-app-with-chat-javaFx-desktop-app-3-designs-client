@@ -139,9 +139,17 @@ public class ServerRequests {
     }
 
     public static HttpRequestBase longPollingRequest(){
-        HttpGet httpGet = new HttpGet( base + "/api/users/auth/waitData");
-        httpGet.setHeader("Authorization", userPreference.get("jwt", null));
-        return httpGet;
+        Map<String, Object> jsonValues = new HashMap<>(
+                Map.of("lastCheck", loginManager.loggedUser.getLastCheck().toString()));
+        JSONObject json = new JSONObject(jsonValues);
+
+        StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
+        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        HttpPost httpPost = new HttpPost( base + "/api/users/auth/waitData");
+        httpPost.setHeader("Authorization", userPreference.get("jwt", null));
+        httpPost.setEntity(postEntity);
+        return httpPost;
     }
 
     public static HttpRequestBase updateDishState(int orderId, int dishId) {
