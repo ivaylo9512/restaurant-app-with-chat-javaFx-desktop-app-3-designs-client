@@ -78,7 +78,7 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
 
     {
         this.selectedProperty().addListener(observable -> {
-            if(stageManager.currentController instanceof LoggedSecond && stageManager.secondLoggedStage.isShowing()){
+            if(isSelected() && stageManager.currentController instanceof LoggedSecond && stageManager.secondLoggedStage.isShowing()){
                 ((ControllerLogged)stageManager.secondLoggedController).setMainChat(getItem());
             }
         });
