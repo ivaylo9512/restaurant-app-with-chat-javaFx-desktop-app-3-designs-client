@@ -1,6 +1,7 @@
 .root{
     -fx-pref-height: 80px;
-    -fx-max-height: 328px;
+    -fx-max-height: 528px;
+    -fx-min-width: 80;
     -fx-pref-width: 540px;
     -fx-max-width: 580px;
     -fx-background-color: transparent;
