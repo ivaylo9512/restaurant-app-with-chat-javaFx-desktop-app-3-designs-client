@@ -2,6 +2,7 @@
     -fx-pref-height: 80px;
     -fx-max-height: 328px;
     -fx-pref-width: 540px;
+    -fx-max-width: 580px;
     -fx-background-color: transparent;
 }
 .list-view .scroll-bar:vertical .increment-arrow,

@@ -60,13 +60,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         setUserFields();
         setMenuTransitions();
 
-        MoveRoot.moveStage(menuButton, stage);
-
-        stage.maxWidthProperty().bind(menu.widthProperty().add(22));
-        stage.minWidthProperty().bind(menu.widthProperty().add(22));
-
-        stage.maxWidthProperty().bind(menu.widthProperty().add(40));
-        stage.minWidthProperty().bind(menu.widthProperty().add(40));
+        MoveRoot.move(menuButton, menuRoot);
 
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
     }
@@ -86,6 +80,14 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         notificationClip.heightProperty().bind(notificationsList.heightProperty());
         notificationClip.widthProperty().bind(notificationsList.widthProperty());
         notificationsList.setClip(notificationClip);
+
+        Rectangle menuClip = new Rectangle();
+        menuClip.heightProperty().bind(menu.heightProperty().add(30));
+        menuClip.widthProperty().bind(menu.widthProperty().add(30));
+        menuClip.setX(-15);
+        menuClip.setY(-15);
+
+        menu.setClip(menuClip);
     }
 
     private void setMenuTransitions() {
@@ -127,10 +129,10 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     @Override
     public void setStage() throws Exception {
-        stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
-        stage.setY(contentController.contentRoot.getLayoutY() - 75);
+        menuRoot.setLayoutX((primaryScreenBounds.getWidth() - menuRoot.getPrefWidth()) / 2);
+        menuRoot.setLayoutY((primaryScreenBounds.getHeight() * 0.1));
 
-        menuRoot.setLayoutX((menuRoot.getPrefWidth() - menu.getPrefWidth()) / 2);
+        expandMenu();
     }
 
     @FXML
