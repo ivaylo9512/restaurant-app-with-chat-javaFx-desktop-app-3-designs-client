@@ -2,6 +2,7 @@ package helpers;
 
 import application.ServerRequests;
 import com.fasterxml.jackson.databind.JavaType;
+import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -11,6 +12,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.util.Collection;
 
+import static application.RestaurantApplication.stageManager;
 import static application.ServerRequests.mapper;
 
 public class RequestService<T> extends Service<T> {
@@ -30,7 +32,7 @@ public class RequestService<T> extends Service<T> {
             function = MethodHandles.lookup()
                     .findStatic(ServerRequests.class, requestType.name(), methodType);
         } catch (Exception e) {
-            e.printStackTrace();
+            showAlert(e.getMessage());
         }
     }
 
@@ -40,8 +42,13 @@ public class RequestService<T> extends Service<T> {
         try {
             request = (HttpRequestBase) function.invokeExact();
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            showAlert(throwable.getMessage());
+            return null;
         }
         return new RequestTask<>(t, request);
+    }
+
+    private void showAlert(String message) {
+        Platform.runLater(() -> stageManager.showAlert(message));
     }
 }
