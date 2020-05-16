@@ -1,5 +1,8 @@
 package models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.List;
 public class Session{
 
     private LocalDate date;
-    private List<Message> messages = new ArrayList<>();
+    private ObservableList<Message> messages = FXCollections.observableArrayList();
 
     public Session() {
     }
@@ -15,7 +18,10 @@ public class Session{
     public Session(LocalDate date) {
         this.date = date;
     }
-
+    public Session(LocalDate date, Message message) {
+        this.date = date;
+        messages.add(message);
+    }
     public LocalDate getDate() {
         return date;
     }
@@ -24,11 +30,11 @@ public class Session{
         this.date = date;
     }
 
-    public List<Message> getMessages() {
+    public ObservableList<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Message> messages) {
+    public void setMessages(ObservableList<Message> messages) {
         this.messages = messages;
     }
 }

@@ -2,6 +2,7 @@ package application;
 
 import helpers.RequestTask;
 import com.fasterxml.jackson.databind.JavaType;
+import javafx.beans.Observable;
 import models.Chat;
 import models.ChatValue;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,6 +91,17 @@ public class ChatManager {
         HttpRequestBase request = ServerRequests.sendMessage(messageText, chatId, receiverId);
         RequestTask task = new RequestTask(messageType, request);
         tasks.execute(task);
+    }
+
+    public void appendMessage(Message message){
+        ChatValue chat = chats.get(message.getChatId());
+        Session session = chat.getSessions().get(message.getSession());
+        if(session == null){
+            chat.getSessionsObservable().put(message.getSession(),
+                    new Session(message.getSession(), message));
+        }else{
+            session.getMessages().add(message);
+        }
     }
 
     public void resetChats(){

@@ -78,6 +78,7 @@ public class LoginManager {
         UserRequest userRequest = longPollingService.getValue();
         userRequest.getDishes().forEach(orderManager::updateDish);
         userRequest.getOrders().forEach(orderManager::addOrder);
+        userRequest.getMessages().forEach(chatManager::appendMessage);
 
         loggedUser.setLastCheck(userRequest.getLastCheck());
 
