@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import static application.RestaurantApplication.loginManager;
+import static application.RestaurantApplication.stageManager;
 import static application.ServerRequests.*;
 
 
@@ -66,18 +67,22 @@ public class ChatManager {
         int chatId = chat.getChatId();
         int nextPage = chat.getSessions().size() / pageSize;
 
-        RequestTask<List<Session>> task = new RequestTask<>(sessionType, ServerRequests.getNextSessions(chatId, nextPage));
-        task.setOnSucceeded(event -> {
-            List<Session> nextSessions = task.getValue();
-            if (nextSessions.size() < pageSize) chat.setMoreSessions(false);
+        try {
+            RequestTask<List<Session>> task = new RequestTask<>(sessionType, ServerRequests.getNextSessions(chatId, nextPage));
+            task.setOnSucceeded(event -> {
+                List<Session> nextSessions = task.getValue();
+                if (nextSessions.size() < pageSize) chat.setMoreSessions(false);
 
-            nextSessions.forEach(session -> {
-                ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
-                if (!sessions.containsKey(session.getDate())) {
-                    sessions.put(session.getDate(), session);
-                }
+                nextSessions.forEach(session -> {
+                    ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+                    if (!sessions.containsKey(session.getDate())) {
+                        sessions.put(session.getDate(), session);
+                    }
+                });
             });
-        });
+        }catch (Exception e){
+            stageManager.showAlert(e.getMessage());
+        }
     }
 
     public void sendMessage(String messageText, int chatId, int receiverId){

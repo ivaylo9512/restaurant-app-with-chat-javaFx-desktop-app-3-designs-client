@@ -16,6 +16,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -27,7 +28,6 @@ import static application.RestaurantApplication.orderManager;
 
 public class ServerRequests {
     public static CloseableHttpClient httpClient = HttpClients.createDefault();
-    public static CloseableHttpClient httpClientLongPolling = HttpClients.createDefault();
     public static Preferences userPreference = Preferences.userRoot();
     public static ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     public static int pageSize = 3;
@@ -35,21 +35,15 @@ public class ServerRequests {
 
     static ExecutorService tasks = Executors.newFixedThreadPool(10);
 
-    public static HttpRequestBase getNextSessions(int id, int page) {
-        HttpGet get = null;
-        try {
+    public static HttpRequestBase getNextSessions(int id, int page) throws Exception {
+        URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
+        builder
+                .setParameter("chatId", String.valueOf(id))
+                .setParameter("page", String.valueOf(page))
+                .setParameter("pageSize", String.valueOf(pageSize));
+        HttpGet get = new HttpGet(builder.build());
+        get.setHeader("Authorization", userPreference.get("jwt", null));
 
-            URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
-            builder
-                    .setParameter("chatId", String.valueOf(id))
-                    .setParameter("page", String.valueOf(page))
-                    .setParameter("pageSize", String.valueOf(pageSize));
-            get = new HttpGet(builder.build());
-            get.setHeader("Authorization", userPreference.get("jwt", null));
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
         return get;
     }
 
@@ -138,20 +132,15 @@ public class ServerRequests {
         return post;
     }
 
-    public static HttpRequestBase longPollingRequest(){
-        HttpPost httpPost = null;
-        try {
-            String timeJson = mapper.writeValueAsString(loginManager.loggedUser.getLastCheck());
+    public static HttpRequestBase longPollingRequest() throws Exception{
+        String timeJson = mapper.writeValueAsString(loginManager.loggedUser.getLastCheck());
 
-            StringEntity postEntity = new StringEntity(timeJson, "UTF8");
-            postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        StringEntity postEntity = new StringEntity(timeJson, "UTF8");
+        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-            httpPost = new HttpPost( base + "/api/users/auth/waitData");
-            httpPost.setHeader("Authorization", userPreference.get("jwt", null));
-            httpPost.setEntity(postEntity);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        HttpPost httpPost = new HttpPost( base + "/api/users/auth/waitData");
+        httpPost.setHeader("Authorization", userPreference.get("jwt", null));
+        httpPost.setEntity(postEntity);
 
         return httpPost;
     }
