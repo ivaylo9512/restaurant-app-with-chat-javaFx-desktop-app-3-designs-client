@@ -1,6 +1,6 @@
 package application;
 
-import models.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.http.Header;
@@ -139,16 +139,20 @@ public class ServerRequests {
     }
 
     public static HttpRequestBase longPollingRequest(){
-        Map<String, Object> jsonValues = new HashMap<>(
-                Map.of("lastCheck", loginManager.loggedUser.getLastCheck().toString()));
-        JSONObject json = new JSONObject(jsonValues);
+        HttpPost httpPost = null;
+        try {
+            String timeJson = mapper.writeValueAsString(loginManager.loggedUser.getLastCheck());
 
-        StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
-        postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            StringEntity postEntity = new StringEntity(timeJson, "UTF8");
+            postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        HttpPost httpPost = new HttpPost( base + "/api/users/auth/waitData");
-        httpPost.setHeader("Authorization", userPreference.get("jwt", null));
-        httpPost.setEntity(postEntity);
+            httpPost = new HttpPost( base + "/api/users/auth/waitData");
+            httpPost.setHeader("Authorization", userPreference.get("jwt", null));
+            httpPost.setEntity(postEntity);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
         return httpPost;
     }
 
