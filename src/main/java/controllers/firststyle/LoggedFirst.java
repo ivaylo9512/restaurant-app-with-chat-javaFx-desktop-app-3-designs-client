@@ -234,15 +234,16 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         }
     }
 
-    protected void setChatValue(ChatValue value){
+    public void setChatValue(ChatValue chat){
         ObjectProperty<ChatValue> valueProperty = secondChatValue;
-        if(mainChatValue.get() == null || mainChatValue.get() == value){
+        if(mainChatValue.get() == null || mainChatValue.get() == chat){
             valueProperty = mainChatValue;
         }
 
-        valueProperty.set(value);
-        if(valueProperty.get() == value){
+        valueProperty.set(chat);
+        if(valueProperty.get() == chat){
             valueProperty.set(null);
+            chatUsersList.getSelectionModel().getSelectedItems().remove(chat);
         }
 
     }
@@ -253,7 +254,6 @@ public class LoggedFirst extends ControllerLogged implements Controller{
             mainChat.setOpacity(0);
             mainChat.setDisable(true);
             mainChatValue = null;
-            chatUsersList.getSelectionModel().clearSelection();
         }else{
             mainChat.setDisable(false);
             mainChat.setOpacity(0);

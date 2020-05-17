@@ -93,6 +93,10 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         userChatsClip.setClip(chatsClip);
     }
 
+    public void setChatValue(ChatValue chat){
+        mainChatValue.set(chat);
+    }
+
     void displayView(AnchorPane requestedView){
         if(requestedView.equals(currentView)){
             contentRoot.setOpacity(0);
