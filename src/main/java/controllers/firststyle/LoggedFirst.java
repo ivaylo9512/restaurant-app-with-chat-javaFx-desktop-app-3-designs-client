@@ -6,6 +6,7 @@ import helpers.listviews.ChatsUsersListViewCell;
 import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;
 import helpers.Scrolls;
+import javafx.beans.property.ObjectProperty;
 import javafx.event.Event;
 import javafx.scene.input.*;
 import models.*;
@@ -17,7 +18,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -31,7 +31,7 @@ import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged implements Controller{
     @FXML ScrollPane menuScroll, userInfoScroll;
-    @FXML AnchorPane contentPane, mainChat, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
+    @FXML AnchorPane contentPane, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, profileRoot;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
@@ -208,8 +208,6 @@ public class LoggedFirst extends ControllerLogged implements Controller{
 
         mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
 
-        mainChat.setDisable(true);
-        mainChat.setOpacity(0);
         mainChat.setLayoutX(217);
         mainChat.setLayoutY(231);
         mainChat.setPrefHeight(189);
@@ -236,8 +234,21 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         }
     }
 
+    protected void setChatValue(ChatValue value){
+        ObjectProperty<ChatValue> valueProperty = secondChatValue;
+        if(mainChatValue.get() == null || mainChatValue.get() == value){
+            valueProperty = mainChatValue;
+        }
+
+        valueProperty.set(value);
+        if(valueProperty.get() == value){
+            valueProperty.set(null);
+        }
+
+    }
+
     @Override
-    public void setMainChat(ChatValue chat){
+    public void setMainChatValue(ChatValue chat){
         if(chat == mainChatValue){
             mainChat.setOpacity(0);
             mainChat.setDisable(true);

@@ -2,6 +2,7 @@ package controllers.base;
 
 import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.*;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
@@ -55,7 +56,7 @@ public class ControllerLogged {
     @FXML
     protected Pane userInfo;
     @FXML
-    protected AnchorPane orderPane, notificationsView;
+    protected AnchorPane mainChat, orderPane, notificationsView;
     @FXML
     protected ListView<Order> ordersList;
     @FXML
@@ -89,7 +90,9 @@ public class ControllerLogged {
     private Node editButtonGraphic, createButtonGraphic;
     private String createButtonText;
     public Order currentOrder;
-    protected ChatValue mainChatValue;
+
+    protected ObjectProperty<ChatValue> mainChatValue = chatManager.mainChatValue;
+    protected ObjectProperty<ChatValue> secondChatValue = chatManager.secondChatValue;
 
     protected void setNotificationsListeners() {
         notificationsList.getItems().addListener((ListChangeListener<Notification>)c -> {
@@ -109,6 +112,17 @@ public class ControllerLogged {
             isNewNotificationChecked.setValue(true);
             notificationIcon.setOpacity(0);
         });
+    }
+
+    protected void bindChat(AnchorPane chat, ObjectProperty<ChatValue> chatValue){
+        chat.disableProperty().bind(chatValue.isNotNull());
+        chat.opacityProperty().bind(Bindings.createDoubleBinding(()-> {
+            if(chatValue.isNull().get()) return 0.0;
+
+            return 1.0;
+        }, chatValue.isNotNull()));
+
+        chatValue.addListener(observable -> setMainChat(chatValue.get()));
     }
 
     protected void setUserGraphicIndicator(){
@@ -239,10 +253,10 @@ public class ControllerLogged {
         }
     }
 
-    public void setHistoryListener(ChatValue chatValue, VBox chatBlock, Text textInfo){
+    public void setHistoryListener(ObjectProperty<ChatValue> chatValue, VBox chatBlock, Text textInfo){
         chatBlock.idProperty().addListener((observable1, oldValue1, newValue1) -> {
-            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue != null) {
-                loadOlderHistory(chatValue, chatBlock, textInfo);
+            if ((newValue1.equals("append") || newValue1.equals("beginning-append")) && chatValue.get() != null) {
+                loadOlderHistory(chatValue.get(), chatBlock, textInfo);
             }
         });
     }

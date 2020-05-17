@@ -2,6 +2,7 @@ package helpers.listviews;
 
 import controllers.base.ControllerLogged;
 import controllers.firststyle.LoggedFirst;
+import controllers.secondstyle.LoggedSecond;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import models.ChatValue;
@@ -58,7 +59,7 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
     {
         setOnMouseClicked(event -> {
             if(stageManager.currentController instanceof LoggedFirst && stageManager.firstLoggedStage.isShowing()){
-                ((ControllerLogged)stageManager.firstLoggedController).setMainChat(getItem());
+                ((LoggedSecond)stageManager.firstLoggedController).setChatValue(getItem());
             }
         });
     }

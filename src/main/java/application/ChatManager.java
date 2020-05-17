@@ -2,7 +2,7 @@ package application;
 
 import helpers.RequestTask;
 import com.fasterxml.jackson.databind.JavaType;
-import javafx.beans.Observable;
+import javafx.beans.property.ObjectProperty;
 import models.Chat;
 import models.ChatValue;
 import javafx.collections.FXCollections;
@@ -18,7 +18,6 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +34,10 @@ public class ChatManager {
 
     public Map<Integer, ChatValue> chats = new HashMap<>();
     public ObservableList<ChatValue> chatsList = FXCollections.observableArrayList();
+
+    public ObjectProperty<ChatValue> mainChatValue;
+    public ObjectProperty<ChatValue> secondChatValue;
+
     private ChatManager() {
     }
 
@@ -107,5 +110,8 @@ public class ChatManager {
     public void resetChats(){
         chats.clear();
         chatsList.clear();
+
+        mainChatValue.set(null);
+        secondChatValue.set(null);
     }
 }

@@ -25,7 +25,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     @FXML Label dishesCountLabel;
 
     @FXML AnchorPane  orderInfo, orderView,
-            chatView, userChatsClip, createView, dishesContainer, mainChat;
+            chatView, userChatsClip, createView, dishesContainer;
     @FXML Pane contentBar;
 
     private Stage stage = stageManager.secondLoggedStage;
@@ -179,13 +179,6 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         fadeIn.setFromValue(0.36);
         fadeIn.setToValue(1);
         fadeIn.play();
-    }
-
-    @Override
-    public void setMainChat(ChatValue chat) {
-        mainChat.setDisable(false);
-        mainChat.setOpacity(1);
-        super.setMainChat(chat);
     }
 
     @Override
