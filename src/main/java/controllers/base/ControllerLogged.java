@@ -114,7 +114,8 @@ public class ControllerLogged {
         });
     }
 
-    protected void bindChat(AnchorPane chat, ObjectProperty<ChatValue> chatValue){
+    protected void bindChat(AnchorPane chat, ObjectProperty<ChatValue> chatValue,
+                            VBox chatBlock, Text textInfo, TextArea chatTextArea){
         chat.disableProperty().bind(chatValue.isNotNull());
         chat.opacityProperty().bind(Bindings.createDoubleBinding(()-> {
             if(chatValue.isNull().get()) return 0.0;
@@ -122,7 +123,7 @@ public class ControllerLogged {
             return 1.0;
         }, chatValue.isNotNull()));
 
-        chatValue.addListener(observable -> setMainChat(chatValue.get()));
+        chatValue.addListener(observable -> setChat(chatValue.get(), chatBlock, textInfo, chatTextArea));
     }
 
     protected void setUserGraphicIndicator(){
@@ -260,50 +261,48 @@ public class ControllerLogged {
             }
         });
     }
-    public void setChatAreaListener(TextArea chatTextArea){
+    public void setChatAreaListener(ObjectProperty<ChatValue> chat, VBox chatBlock, TextArea chatTextArea){
         chatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if(event.getCode().equals(KeyCode.ENTER)) {
-                addNewMessage();
+                addNewMessage(chat.get(), chatBlock, chatTextArea);
                 event.consume();
             }
         });
     }
 
-    public void setMainChat(ChatValue chat) {
-        if (mainChatValue != chat) {
-            mainChatValue = chat;
-            mainChatBlock.setId("beginning");
-            mainChatBlock.getChildren().remove(1, mainChatBlock.getChildren().size());
+    public void setChat(ChatValue chat, VBox chatBlock, Text chatInfo, TextArea chatTextArea){
+        chatBlock.setId("beginning");
+        chatBlock.getChildren().remove(1, chatBlock.getChildren().size());
 
-            ListOrderedMap<LocalDate, Session> sessionsMap = mainChatValue.getSessions();
-            List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
-            List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
+        ListOrderedMap<LocalDate, Session> sessionsMap = chat.getSessions();
+        List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
+        List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
 
-            if (lastSessions.size() == pageSize) {
-                mainChatInfo.setText("Scroll for more history");
-                mainChatValue.setDisplayedSessions(pageSize);
-            } else {
-                mainChatInfo.setText("Beginning of the chat");
-                mainChatValue.setMoreSessions(false);
-                mainChatValue.setDisplayedSessions(lastSessions.size());
-            }
-
-            lastSessions.forEach(session -> appendSession(session, mainChatBlock, mainChatValue, 1));
+        if (lastSessions.size() == pageSize) {
+            chatInfo.setText("Scroll for more history");
+            chat.setDisplayedSessions(pageSize);
+        } else {
+            chatInfo.setText("Beginning of the chat");
+            chat.setMoreSessions(false);
+            chat.setDisplayedSessions(lastSessions.size());
         }
+
+        lastSessions.forEach(session -> appendSession(session, chatBlock, chat, 1));
+
         chat.getSessionsObservable().addListener((MapChangeListener<LocalDate, Session>) c -> {
             LocalDate sessionDate = c.getKey();
             int index = chat.getSessions().indexOf(sessionDate);
-            newSessions(c.getValueAdded(), index);
+            newSessions(c.getValueAdded(), index, chat, chatTextArea, chatBlock);
         });
     }
 
-    private void newSessions(Session session, int index) {
-        if (index == 0 && !mainChatValue.isMoreSessions()) {
-            mainChatTextArea.setText("Beginning of the chat");
+    private void newSessions(Session session, int index, ChatValue chat, TextArea chatTextArea, VBox chatBlock) {
+        if (index == 0 && !chat.isMoreSessions()) {
+            chatTextArea.setText("Beginning of the chat");
         }
 
-        mainChatValue.setDisplayedSessions(mainChatValue.getDisplayedSessions() + 1);
-            appendSession(session, mainChatBlock, mainChatValue, 1);
+        chat.setDisplayedSessions(chat.getDisplayedSessions() + 1);
+        appendSession(session, chatBlock, chat, 1);
     }
 
     private void loadOlderHistory(ChatValue chatValue, VBox chatBlock, Text chatInfo) {
@@ -333,21 +332,21 @@ public class ControllerLogged {
     }
 
     @FXML
-    public void addNewMessage(){
-        int chatId = mainChatValue.getChatId();
-        int receiverId = mainChatValue.getUserId();
-        int index = mainChatBlock.getChildren().size();
+    public void addNewMessage(ChatValue chat, VBox chatBlock, TextArea textArea){
+        int chatId = chat.getChatId();
+        int receiverId = chat.getUserId();
+        int index = chatBlock.getChildren().size();
 
-        String messageText = mainChatTextArea.getText();
-        mainChatTextArea.clear();
+        String messageText = textArea.getText();
+        textArea.clear();
 
         if (messageText.length() > 0){
             Message message = new Message(receiverId, LocalTime.now(),LocalDate.now(), messageText, chatId);
             chatManager.sendMessage(messageText, chatId, receiverId);
 
-            ListOrderedMap<LocalDate, Session> sessions = mainChatValue.getSessions();
+            ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
 
-            mainChatBlock.setId("new-message");
+            chatBlock.setId("new-message");
             Session session = sessions.get(message.getSession());
             if (session == null) {
                 LocalDate sessionDate = message.getSession();
@@ -357,14 +356,14 @@ public class ControllerLogged {
                 sessions.put(0, sessionDate, session);
                 session.getMessages().add(message);
 
-                if (mainChatValue.getChatId() == message.getChatId()) {
-                    mainChatValue.setDisplayedSessions(mainChatValue.getDisplayedSessions() + 1);
-                    appendSession(session, mainChatBlock, mainChatValue, index);
+                if (chat.getChatId() == message.getChatId()) {
+                    chat.setDisplayedSessions(chat.getDisplayedSessions() + 1);
+                    appendSession(session, chatBlock, chat, index);
                 }
             } else {
                 session.getMessages().add(message);
-                if (mainChatValue.getChatId() == message.getChatId()) {
-                    appendMessage(message, mainChatValue, mainChatBlock);
+                if (chat.getChatId() == message.getChatId()) {
+                    appendMessage(message, chat, chatBlock);
                 }
             }
         }

@@ -9,6 +9,7 @@ import helpers.Scrolls;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.Event;
 import javafx.scene.input.*;
+import javafx.scene.text.Text;
 import models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
@@ -54,7 +55,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         addOrdersListListeners();
 
         setHistoryListener(mainChatValue, mainChatBlock, mainChatInfo);
-        setChatAreaListener(mainChatTextArea);
+        setChatAreaListener(mainChatValue, mainChatBlock, mainChatTextArea);
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
                 mainChatScroll, mainChatTextArea);
@@ -249,20 +250,11 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     }
 
     @Override
-    public void setMainChatValue(ChatValue chat){
-        if(chat == mainChatValue){
-            mainChat.setOpacity(0);
-            mainChat.setDisable(true);
-            mainChatValue = null;
-        }else{
-            mainChat.setDisable(false);
-            mainChat.setOpacity(0);
+    public void setChat(ChatValue chat, VBox chatBlock, Text chatInfo, TextArea chatTextArea){
+        Timeline opacity = new Timeline(new KeyFrame(Duration.millis(200), event -> mainChat.setOpacity(1)));
+        opacity.play();
 
-            Timeline opacity = new Timeline(new KeyFrame(Duration.millis(200), event -> mainChat.setOpacity(1)));
-            opacity.play();
-
-            super.setMainChat(chat);
-        }
+        super.setChat(chat, chatBlock, chatInfo, chatTextArea);
     }
 
     public void setOrderPane(){
