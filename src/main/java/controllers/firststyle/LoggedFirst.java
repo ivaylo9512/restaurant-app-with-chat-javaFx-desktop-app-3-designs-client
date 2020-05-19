@@ -61,6 +61,8 @@ public class LoggedFirst extends ControllerLogged implements Controller{
                 mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsFirstStyle();
 
+        bindChat(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
+        chatUsersList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
@@ -214,7 +216,8 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         mainChat.setPrefHeight(189);
 
         mainChatTextArea.setText(null);
-        mainChatValue = null;
+        mainChatValue.set(null);
+        secondChatValue.set(null);
 
         userInfoScroll.setVvalue(0);
         menuScroll.setVvalue(0);
@@ -241,19 +244,17 @@ public class LoggedFirst extends ControllerLogged implements Controller{
             valueProperty = mainChatValue;
         }
 
-        valueProperty.set(chat);
         if(valueProperty.get() == chat){
+            chatUsersList.getSelectionModel().clearSelection(chatUsersList.getSelectionModel().getSelectedItems().indexOf(chat));
             valueProperty.set(null);
-            chatUsersList.getSelectionModel().getSelectedItems().remove(chat);
+        }else{
+            valueProperty.set(chat);
         }
 
     }
 
     @Override
     public void setChat(ChatValue chat, VBox chatBlock, Text chatInfo, TextArea chatTextArea){
-        Timeline opacity = new Timeline(new KeyFrame(Duration.millis(200), event -> mainChat.setOpacity(1)));
-        opacity.play();
-
         super.setChat(chat, chatBlock, chatInfo, chatTextArea);
     }
 

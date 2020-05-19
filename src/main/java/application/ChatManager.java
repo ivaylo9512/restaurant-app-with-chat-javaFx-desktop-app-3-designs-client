@@ -3,6 +3,7 @@ package application;
 import helpers.RequestTask;
 import com.fasterxml.jackson.databind.JavaType;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import models.Chat;
 import models.ChatValue;
 import javafx.collections.FXCollections;
@@ -35,8 +36,8 @@ public class ChatManager {
     public Map<Integer, ChatValue> chats = new HashMap<>();
     public ObservableList<ChatValue> chatsList = FXCollections.observableArrayList();
 
-    public ObjectProperty<ChatValue> mainChatValue;
-    public ObjectProperty<ChatValue> secondChatValue;
+    public ObjectProperty<ChatValue> mainChatValue = new SimpleObjectProperty<>();
+    public ObjectProperty<ChatValue> secondChatValue = new SimpleObjectProperty<>();
 
     private ChatManager() {
     }

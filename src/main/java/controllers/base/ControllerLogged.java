@@ -5,7 +5,6 @@ import helpers.listviews.MenuListViewCell;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.*;
 import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
@@ -116,14 +115,16 @@ public class ControllerLogged {
 
     protected void bindChat(AnchorPane chat, ObjectProperty<ChatValue> chatValue,
                             VBox chatBlock, Text textInfo, TextArea chatTextArea){
-        chat.disableProperty().bind(chatValue.isNotNull());
+        chat.disableProperty().bind(chatValue.isNull());
         chat.opacityProperty().bind(Bindings.createDoubleBinding(()-> {
             if(chatValue.isNull().get()) return 0.0;
 
             return 1.0;
-        }, chatValue.isNotNull()));
+        }, chatValue));
 
-        chatValue.addListener(observable -> setChat(chatValue.get(), chatBlock, textInfo, chatTextArea));
+        chatValue.addListener(observable -> {
+            if(chatValue.get() != null) setChat(chatValue.get(), chatBlock, textInfo, chatTextArea);
+        });
     }
 
     protected void setUserGraphicIndicator(){
@@ -271,6 +272,7 @@ public class ControllerLogged {
     }
 
     public void setChat(ChatValue chat, VBox chatBlock, Text chatInfo, TextArea chatTextArea){
+
         chatBlock.setId("beginning");
         chatBlock.getChildren().remove(1, chatBlock.getChildren().size());
 

@@ -34,7 +34,7 @@ public class Session{
         return messages;
     }
 
-    public void setMessages(ObservableList<Message> messages) {
-        this.messages = messages;
+    public void setMessages(ArrayList<Message> messages) {
+        this.messages.addAll(messages);
     }
 }

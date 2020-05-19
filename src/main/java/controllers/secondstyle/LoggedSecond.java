@@ -41,7 +41,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         focusCurrentOrderOnListUpdate();
 
         setHistoryListener(mainChatValue, mainChatBlock, mainChatInfo);
-        setChatAreaListener(mainChatTextArea);
+        setChatAreaListener(mainChatValue, mainChatBlock, mainChatTextArea);
 
         Scrolls scrolls = new Scrolls(mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsSecondStyle();
@@ -143,7 +143,8 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         ordersList.getSelectionModel().clearSelection();
 
 
-        mainChatValue = null;
+        mainChatValue.set(null);
+
         mainChatTextArea.setText(null);
         menuSearch.setText("");
 
