@@ -1,13 +1,9 @@
 package helpers.listviews;
 
-import controllers.base.ControllerLogged;
 import controllers.firststyle.LoggedFirst;
-import controllers.secondstyle.LoggedSecond;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import models.ChatValue;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;

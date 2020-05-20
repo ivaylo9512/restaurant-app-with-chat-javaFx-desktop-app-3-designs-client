@@ -40,7 +40,7 @@ public class ControllerLogged {
     @FXML
     public AnchorPane contentRoot;
     @FXML
-    protected VBox mainChatBlock;
+    protected VBox mainChatBlock, secondChatBlock;
     @FXML
     ImageView profileImage;
     @FXML
@@ -55,7 +55,7 @@ public class ControllerLogged {
     @FXML
     protected Pane userInfo;
     @FXML
-    protected AnchorPane mainChat, orderPane, notificationsView;
+    protected AnchorPane mainChat, secondChat, orderPane, notificationsView;
     @FXML
     protected ListView<Order> ordersList;
     @FXML
@@ -69,11 +69,11 @@ public class ControllerLogged {
     @FXML
     protected Node notificationIcon;
     @FXML
-    protected ScrollPane mainChatScroll;
+    protected ScrollPane mainChatScroll, secondChatScroll;
     @FXML
-    protected TextArea mainChatTextArea;
+    protected TextArea mainChatTextArea, secondChatTextArea;
     @FXML
-    protected Text mainChatInfo;
+    protected Text mainChatInfo, secondChatInfo;
 
     protected static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     protected static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");

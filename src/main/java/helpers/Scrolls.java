@@ -19,23 +19,20 @@ import java.util.List;
 
 
 public class Scrolls {
-    private ScrollPane menuScroll, userInfoScroll;
-    private TextArea mainChatTextArea;
-    private TextArea secondChatTextArea;
-    private ScrollPane mainChatScroll;
-    private ScrollPane secondChatScroll;
-    private double heightDiff;
-    private double offsetY;
+    private ScrollPane menuScroll, userInfoScroll, mainChatScroll, secondChatScroll;
+    private TextArea mainChatTextArea, secondChatTextArea;
+    private double heightDiff, offsetY;
     private ListView chatUsersList;
     private ScrollBar chatUsersScrollBar;
 
-    public Scrolls(ScrollPane menuScroll, ScrollPane userInfoScroll, ListView chatUsersList, ScrollPane mainChatScroll, TextArea mainChatTextArea) {
+    public Scrolls(ScrollPane menuScroll, ScrollPane userInfoScroll, ListView chatUsersList, ScrollPane mainChatScroll, TextArea mainChatTextArea, ScrollPane secondChatScroll, TextArea secondChatTextArea) {
         this.menuScroll = menuScroll;
         this.userInfoScroll = userInfoScroll;
         this.chatUsersList = chatUsersList;
         this.mainChatScroll = mainChatScroll;
         this.mainChatTextArea = mainChatTextArea;
-
+        this.secondChatScroll = secondChatScroll;
+        this.secondChatTextArea = secondChatTextArea;
     }
     public Scrolls(ScrollPane mainChatScroll, TextArea mainChatTextArea) {
         this.mainChatScroll = mainChatScroll;
@@ -48,10 +45,11 @@ public class Scrolls {
         this.secondChatTextArea = secondChatTextArea;
     }
     public void manageScrollsFirstStyle(){
-        fixBlurryContent(List.of(mainChatTextArea),
-                List.of(menuScroll, mainChatScroll, userInfoScroll));
+        fixBlurryContent(List.of(mainChatTextArea, secondChatTextArea),
+                List.of(menuScroll, mainChatScroll, secondChatScroll, userInfoScroll));
 
         listenForHistoryRequest(mainChatScroll);
+        listenForHistoryRequest(secondChatScroll);
 
         chatUsersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node : chatUsersList.lookupAll(".scroll-bar")) {

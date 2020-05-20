@@ -57,17 +57,23 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         setHistoryListener(mainChatValue, mainChatBlock, mainChatInfo);
         setChatAreaListener(mainChatValue, mainChatBlock, mainChatTextArea);
 
+        setHistoryListener(secondChatValue, secondChatBlock, secondChatInfo);
+        setChatAreaListener(secondChatValue, secondChatBlock, secondChatTextArea);
+
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
-                mainChatScroll, mainChatTextArea);
+                mainChatScroll, mainChatTextArea, secondChatScroll, secondChatTextArea);
         scrolls.manageScrollsFirstStyle();
 
         bindChat(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
+        bindChat(secondChat, secondChatValue, secondChatBlock, secondChatInfo, secondChatTextArea);
         chatUsersList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
 
         ResizeMainChat.addListeners(mainChat);
+        ResizeMainChat.addListeners(secondChat);
+
         ResizeRoot.addListeners(contentRoot);
         MoveRoot.move(moveBar, contentRoot);
     }
@@ -250,12 +256,6 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         }else{
             valueProperty.set(chat);
         }
-
-    }
-
-    @Override
-    public void setChat(ChatValue chat, VBox chatBlock, Text chatInfo, TextArea chatTextArea){
-        super.setChat(chat, chatBlock, chatInfo, chatTextArea);
     }
 
     public void setOrderPane(){
