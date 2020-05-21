@@ -42,6 +42,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
 
         setHistoryListener(mainChatValue, mainChatBlock, mainChatInfo);
         setChatAreaListener(mainChatValue, mainChatBlock, mainChatTextArea);
+        bindChat(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
 
         Scrolls scrolls = new Scrolls(mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsSecondStyle();

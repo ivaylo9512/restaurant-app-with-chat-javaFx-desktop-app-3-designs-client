@@ -51,12 +51,4 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
             setGraphic(container);
         }
     }
-
-    {
-        setOnMouseClicked(event -> {
-            if(stageManager.currentController instanceof LoggedFirst && stageManager.firstLoggedStage.isShowing()){
-                ((LoggedFirst)stageManager.firstLoggedController).setChatValue(getItem());
-            }
-        });
-    }
 }

@@ -7,9 +7,9 @@ import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;
 import helpers.Scrolls;
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.ListChangeListener;
 import javafx.event.Event;
 import javafx.scene.input.*;
-import javafx.scene.text.Text;
 import models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
@@ -39,6 +39,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     @FXML GridPane dates;
 
     private ScrollBar ordersScrollBar;
+    private boolean valueSet = true;
 
     private Image chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
     private Image waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
@@ -60,13 +61,13 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         setHistoryListener(secondChatValue, secondChatBlock, secondChatInfo);
         setChatAreaListener(secondChatValue, secondChatBlock, secondChatTextArea);
 
-        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
-                mainChatScroll, mainChatTextArea, secondChatScroll, secondChatTextArea);
-        scrolls.manageScrollsFirstStyle();
-
         bindChat(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
         bindChat(secondChat, secondChatValue, secondChatBlock, secondChatInfo, secondChatTextArea);
         chatUsersList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
+                mainChatScroll, mainChatTextArea, secondChatScroll, secondChatTextArea);
+        scrolls.manageScrollsFirstStyle();
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
@@ -76,6 +77,18 @@ public class LoggedFirst extends ControllerLogged implements Controller{
 
         ResizeRoot.addListeners(contentRoot);
         MoveRoot.move(moveBar, contentRoot);
+
+
+        chatUsersList.getSelectionModel().getSelectedItems().addListener((ListChangeListener<ChatValue>) c-> {
+            if(mainChatValue.get() != null && valueSet && !chatUsersList.getSelectionModel().getSelectedItems().contains(mainChatValue.get())) {
+                chatUsersList.getSelectionModel().select(mainChatValue.get());
+            }
+        });
+        chatUsersList.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            Node intersectedNode = event.getPickResult().getIntersectedNode();
+            if(intersectedNode instanceof ChatsUsersListViewCell)
+                setChatValue(((ChatsUsersListViewCell)intersectedNode).getItem());
+        });
     }
 
     private void setListsItems() {
@@ -245,17 +258,30 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     }
 
     public void setChatValue(ChatValue chat){
-        ObjectProperty<ChatValue> valueProperty = secondChatValue;
-        if(mainChatValue.get() == null || mainChatValue.get() == chat){
-            valueProperty = mainChatValue;
+        valueSet = false;
+        MultipleSelectionModel<ChatValue> model = chatUsersList.getSelectionModel();
+        model.getSelectedIndices().forEach(integer -> {
+            ChatValue value = chatUsersList.getItems().get(integer);
+            if(value != mainChatValue.get() && value != secondChatValue.get()){
+                model.clearSelection(integer);
+            }
+        });
+        model.select(chat);
+
+        ObjectProperty<ChatValue> valueProperty = mainChatValue;
+        if(mainChatValue.get() != null && mainChatValue.get() != chat){
+            valueProperty = secondChatValue;
+        }else if(mainChatValue.get() != null && mainChatValue.get() == chat && secondChatValue.get() != null){
+            model.select(secondChatValue.get());
         }
 
         if(valueProperty.get() == chat){
-            chatUsersList.getSelectionModel().clearSelection(chatUsersList.getSelectionModel().getSelectedItems().indexOf(chat));
+            model.clearSelection(chatUsersList.getItems().indexOf(valueProperty.get()));
             valueProperty.set(null);
         }else{
             valueProperty.set(chat);
         }
+        valueSet = true;
     }
 
     public void setOrderPane(){

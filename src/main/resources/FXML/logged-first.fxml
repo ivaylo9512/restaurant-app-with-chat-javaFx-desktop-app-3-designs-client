@@ -64,7 +64,7 @@
                                              <Pane layoutY="68.5" styleClass="info-line" />
                                        </children>
                                     </Pane>
-                                    <ListView disable="true" focusTraversable="false" fx:id="chatUsersList" styleClass="chat-users" layoutY="211.0">
+                                    <ListView disable="true" fx:id="chatUsersList" styleClass="chat-users" layoutY="211.0">
                                     </ListView>
                                     <Pane layoutX="12.0" layoutY="209.0" styleClass="info-line" />
                               </children>
