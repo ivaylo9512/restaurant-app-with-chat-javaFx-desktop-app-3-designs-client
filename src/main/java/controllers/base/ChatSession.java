@@ -38,12 +38,20 @@ public class ChatSession {
     private TextArea chatTextArea;
     private Node chatContainer;
 
+    private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
+    private static DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
     public ChatSession(Node chatContainer, ObjectProperty<ChatValue> chatValue, VBox chatBlock, Text chatInfo, TextArea chatTextArea) {
         this.chatValue = chatValue;
         this.chatBlock = chatBlock;
         this.chatInfo = chatInfo;
         this.chatTextArea = chatTextArea;
         this.chatContainer = chatContainer;
+
+        setHistoryListener();
+        setChatAreaListener();
+        bindChat();
     }
 
     public void setHistoryListener(){
