@@ -1,5 +1,6 @@
 package controllers.base;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
@@ -10,10 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -38,12 +36,14 @@ public class ChatSession {
     private VBox chatBlock;
     private Text chatInfo;
     private TextArea chatTextArea;
-    
-    public ChatSession(ObjectProperty<ChatValue> chatValue, VBox chatBlock, Text chatInfo, TextArea chatTextArea) {
+    private Node chatContainer;
+
+    public ChatSession(Node chatContainer, ObjectProperty<ChatValue> chatValue, VBox chatBlock, Text chatInfo, TextArea chatTextArea) {
         this.chatValue = chatValue;
         this.chatBlock = chatBlock;
         this.chatInfo = chatInfo;
         this.chatTextArea = chatTextArea;
+        this.chatContainer = chatContainer;
     }
 
     public void setHistoryListener(){
@@ -53,7 +53,8 @@ public class ChatSession {
             }
         });
     }
-    public void setChatAreaListener(ObjectProperty<ChatValue> chat, VBox chatBlock, TextArea chatTextArea){
+
+    public void setChatAreaListener(){
         chatTextArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if(event.getCode().equals(KeyCode.ENTER)) {
                 addNewMessage();
@@ -174,9 +175,9 @@ public class ChatSession {
 
         VBox sessionBlock = new VBox(sessionDate);
         sessionBlock.setId(session.getDate().toString());
+        chatBlock.getChildren().add(index, sessionBlock);
         session.getMessages()
                 .forEach(this::appendMessage);
-        chatBlock.getChildren().add(index, sessionBlock);
     }
 
     private void appendMessage(Message message) {
@@ -290,6 +291,19 @@ public class ChatSession {
             }
             sessionBlock.getChildren().add(newBlock);
         }
+    }
+
+    protected void bindChat(){
+        chatContainer.disableProperty().bind(chatValue.isNull());
+        chatContainer.opacityProperty().bind(Bindings.createDoubleBinding(()-> {
+            if(chatValue.isNull().get()) return 0.0;
+
+            return 1.0;
+        }, chatValue));
+
+        chatValue.addListener(observable -> {
+            if(chatValue.get() != null) setChat();
+        });
     }
 
 }

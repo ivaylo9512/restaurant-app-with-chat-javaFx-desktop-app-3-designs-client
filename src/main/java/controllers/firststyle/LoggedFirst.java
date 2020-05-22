@@ -1,6 +1,7 @@
 package controllers.firststyle;
 
 import animations.*;
+import controllers.base.ChatSession;
 import controllers.base.Controller;
 import helpers.listviews.ChatsUsersListViewCell;
 import helpers.listviews.NotificationListViewCell;
@@ -8,7 +9,6 @@ import helpers.listviews.OrderListViewCell;
 import helpers.Scrolls;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ListChangeListener;
 import javafx.event.Event;
 import javafx.scene.input.*;
 import models.*;
@@ -58,14 +58,9 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         setOrderPane();
         addOrdersListListeners();
 
-        setHistoryListener(mainChatValue, mainChatBlock, mainChatInfo);
-        setChatAreaListener(mainChatValue, mainChatBlock, mainChatTextArea);
+        ChatSession mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
+        ChatSession secondChatSession = new ChatSession(secondChat, secondChatValue, secondChatBlock, secondChatInfo, secondChatTextArea);
 
-        setHistoryListener(secondChatValue, secondChatBlock, secondChatInfo);
-        setChatAreaListener(secondChatValue, secondChatBlock, secondChatTextArea);
-
-        bindChat(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
-        bindChat(secondChat, secondChatValue, secondChatBlock, secondChatInfo, secondChatTextArea);
         chatUsersList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,

@@ -2,6 +2,7 @@ package controllers.secondstyle;
 
 import animations.MoveRoot;
 import animations.ResizeRoot;
+import controllers.base.ChatSession;
 import controllers.base.Controller;
 import helpers.listviews.ChatsUsersListViewCellSecond;
 import helpers.Scrolls;
@@ -40,9 +41,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         setListsItems();
         focusCurrentOrderOnListUpdate();
 
-        setHistoryListener(mainChatValue, mainChatBlock, mainChatInfo);
-        setChatAreaListener(mainChatValue, mainChatBlock, mainChatTextArea);
-        bindChat(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
+        ChatSession mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
 
         Scrolls scrolls = new Scrolls(mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsSecondStyle();
