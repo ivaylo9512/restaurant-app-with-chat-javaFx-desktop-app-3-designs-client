@@ -42,6 +42,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         focusCurrentOrderOnListUpdate();
 
         ChatSession mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
+        mainChatSession.init();
 
         Scrolls scrolls = new Scrolls(mainChatScroll, mainChatTextArea);
         scrolls.manageScrollsSecondStyle();

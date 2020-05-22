@@ -61,6 +61,9 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         ChatSession mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
         ChatSession secondChatSession = new ChatSession(secondChat, secondChatValue, secondChatBlock, secondChatInfo, secondChatTextArea);
 
+        mainChatSession.init();
+        secondChatSession.init();
+
         chatUsersList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
