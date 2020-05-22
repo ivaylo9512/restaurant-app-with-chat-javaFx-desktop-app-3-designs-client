@@ -7,6 +7,7 @@ import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;
 import helpers.Scrolls;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.event.Event;
 import javafx.scene.input.*;
@@ -39,10 +40,12 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     @FXML GridPane dates;
 
     private ScrollBar ordersScrollBar;
-    private boolean valueSet = true;
 
     private Image chefImage = new Image(getClass().getResourceAsStream("/images/chef-second.png"));
     private Image waiterImage = new Image(getClass().getResourceAsStream("/images/waiter-second.png"));
+
+    private ObjectProperty<ChatsUsersListViewCell> mainUserChatCell = new SimpleObjectProperty<>();
+    private ObjectProperty<ChatsUsersListViewCell> secondUserChatCell = new SimpleObjectProperty<>();
 
     @FXML
     public void initialize() {
@@ -77,18 +80,6 @@ public class LoggedFirst extends ControllerLogged implements Controller{
 
         ResizeRoot.addListeners(contentRoot);
         MoveRoot.move(moveBar, contentRoot);
-
-
-        chatUsersList.getSelectionModel().getSelectedItems().addListener((ListChangeListener<ChatValue>) c-> {
-            if(mainChatValue.get() != null && valueSet && !chatUsersList.getSelectionModel().getSelectedItems().contains(mainChatValue.get())) {
-                chatUsersList.getSelectionModel().select(mainChatValue.get());
-            }
-        });
-        chatUsersList.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            Node intersectedNode = event.getPickResult().getIntersectedNode();
-            if(intersectedNode instanceof ChatsUsersListViewCell)
-                setChatValue(((ChatsUsersListViewCell)intersectedNode).getItem());
-        });
     }
 
     private void setListsItems() {
@@ -257,31 +248,25 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         }
     }
 
-    public void setChatValue(ChatValue chat){
-        valueSet = false;
-        MultipleSelectionModel<ChatValue> model = chatUsersList.getSelectionModel();
-        model.getSelectedIndices().forEach(integer -> {
-            ChatValue value = chatUsersList.getItems().get(integer);
-            if(value != mainChatValue.get() && value != secondChatValue.get()){
-                model.clearSelection(integer);
-            }
-        });
-        model.select(chat);
-
+    public void setChatValue(ChatValue chat, ChatsUsersListViewCell cell){
         ObjectProperty<ChatValue> valueProperty = mainChatValue;
-        if(mainChatValue.get() != null && mainChatValue.get() != chat){
+        ObjectProperty<ChatsUsersListViewCell> userChatCell = mainUserChatCell;
+        if((chat == secondChatValue.get()) || mainChatValue.get() != null && mainChatValue.get() != chat){
             valueProperty = secondChatValue;
-        }else if(mainChatValue.get() != null && mainChatValue.get() == chat && secondChatValue.get() != null){
-            model.select(secondChatValue.get());
+            userChatCell = secondUserChatCell;
+            if(secondChatValue.get() != null && chat != secondChatValue.get())
+                secondUserChatCell.get().getStyleClass().remove("selected");
         }
 
         if(valueProperty.get() == chat){
-            model.clearSelection(chatUsersList.getItems().indexOf(valueProperty.get()));
+            userChatCell.get().getStyleClass().remove("selected");
+            userChatCell.set(null);
             valueProperty.set(null);
         }else{
+            cell.getStyleClass().add("selected");
+            userChatCell.set(cell);
             valueProperty.set(chat);
         }
-        valueSet = true;
     }
 
     public void setOrderPane(){

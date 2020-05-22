@@ -223,7 +223,7 @@ TextFlow {
     -fx-background-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6, 0.0 , 0 , 0 );
 }
-.chat-users .list-cell:selected .chat-shadow{
+.chat-users .selected .chat-shadow{
     -fx-background-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
