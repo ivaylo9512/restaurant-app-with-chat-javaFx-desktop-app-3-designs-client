@@ -2,10 +2,7 @@ package controllers.base;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,6 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import javafx.util.Duration;
 import models.ChatValue;
 import models.Message;
 import models.Session;
@@ -96,10 +94,9 @@ public class ChatSession {
             chatValue.get().setDisplayedSessions(lastSessions.size());
         }
 
-        lastSessions.forEach(session -> appendSession(session, 1));
-
+        lastSessions.forEach(session -> appendSession(session, 0));
         chatValue.get().getSessionsObservable().addListener((MapChangeListener<LocalDate, Session>) c -> {
-            LocalDate sessionDate = c.getKey();
+            LocalDate sessionDate = c.getValueAdded().getDate();
             int index = chatValue.get().getSessions().indexOf(sessionDate);
             addNewSession(c.getValueAdded(), index);
         });
@@ -131,7 +128,7 @@ public class ChatSession {
             }
             chatValue.get().setDisplayedSessions(displayedSessions + nextSessions.size());
 
-            nextSessions.forEach(session -> appendSession(session, 1));
+            nextSessions.forEach(session -> appendSession(session, 0));
 
         } else if (chatValue.get().isMoreSessions()) {
             chatManager.getNextSessions(chatValue.get());
@@ -144,7 +141,6 @@ public class ChatSession {
     public void addNewMessage(){
         int chatId = chatValue.get().getChatId();
         int receiverId = chatValue.get().getUserId();
-        int index = chatBlock.getChildren().size();
 
         String messageText = chatTextArea.getText();
         chatTextArea.clear();
@@ -153,7 +149,7 @@ public class ChatSession {
             Message message = new Message(receiverId, LocalTime.now(),LocalDate.now(), messageText, chatId);
             chatManager.sendMessage(messageText, chatId, receiverId);
 
-            ListOrderedMap<LocalDate, Session> sessions = chatValue.get().getSessions();
+            ObservableMap<LocalDate, Session> sessions = chatValue.get().getSessionsObservable();
 
             chatBlock.setId("new-message");
             Session session = sessions.get(message.getSession());
@@ -162,18 +158,10 @@ public class ChatSession {
 
                 session = new Session();
                 session.setDate(sessionDate);
-                sessions.put(0, sessionDate, session);
                 session.getMessages().add(message);
-
-                if (chatValue.get().getChatId() == message.getChatId()) {
-                    chatValue.get().setDisplayedSessions(chatValue.get().getDisplayedSessions() + 1);
-                    appendSession(session, index);
-                }
+                sessions.put(sessionDate, session);
             } else {
                 session.getMessages().add(message);
-                if (chatValue.get().getChatId() == message.getChatId()) {
-                    appendMessage(message);
-                }
             }
         }
     }
