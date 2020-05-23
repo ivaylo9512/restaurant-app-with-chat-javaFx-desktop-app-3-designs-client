@@ -2,7 +2,10 @@ package controllers.base;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,6 +40,9 @@ public class ChatSession {
     private Text chatInfo;
     private TextArea chatTextArea;
     private Node chatContainer;
+
+    private ObservableList<Message> chatCurrentSession;
+    private ObservableList<Message> chatLastSession;
 
     private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
@@ -95,17 +101,17 @@ public class ChatSession {
         chatValue.get().getSessionsObservable().addListener((MapChangeListener<LocalDate, Session>) c -> {
             LocalDate sessionDate = c.getKey();
             int index = chatValue.get().getSessions().indexOf(sessionDate);
-            newSessions(c.getValueAdded(), index);
+            addNewSession(c.getValueAdded(), index);
         });
     }
 
-    private void newSessions(Session session, int index) {
+    private void addNewSession(Session session, int index) {
         if (index == 0 && !chatValue.get().isMoreSessions()) {
             chatTextArea.setText("Beginning of the chat");
         }
 
         chatValue.get().setDisplayedSessions(chatValue.get().getDisplayedSessions() + 1);
-        appendSession(session, 1);
+        appendSession(session, index);
     }
 
     private void loadOlderHistory() {
@@ -174,6 +180,15 @@ public class ChatSession {
 
     private void appendSession(Session session, int index) {
 
+        if(index + 1 == chatBlock.getChildren().size() - 1){
+            chatLastSession = chatCurrentSession;
+            chatCurrentSession = session.getMessages();
+            chatCurrentSession.addListener((ListChangeListener<Message>) c -> {
+                c.next();
+                c.getAddedSubList().forEach(this::appendMessage);
+            });
+        }
+
         Text date = new Text(dateFormatter.format(session.getDate()));
         TextFlow dateFlow = new TextFlow(date);
         dateFlow.setTextAlignment(TextAlignment.CENTER);
@@ -184,7 +199,7 @@ public class ChatSession {
 
         VBox sessionBlock = new VBox(sessionDate);
         sessionBlock.setId(session.getDate().toString());
-        chatBlock.getChildren().add(index, sessionBlock);
+        chatBlock.getChildren().add(index + 1, sessionBlock);
         session.getMessages()
                 .forEach(this::appendMessage);
     }
