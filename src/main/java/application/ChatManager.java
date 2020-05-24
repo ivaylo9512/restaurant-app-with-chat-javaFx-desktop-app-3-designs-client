@@ -101,7 +101,7 @@ public class ChatManager {
         ChatValue chat = chats.get(message.getChatId());
         Session session = chat.getSessions().get(message.getSession());
         if(session == null){
-            chat.getSessionsObservable().put(message.getSession(),
+            chat.getSessions().put(message.getSession(),
                     new Session(message.getSession(), message));
         }else{
             session.getMessages().add(message);

@@ -95,7 +95,7 @@ public class ChatSession {
         }
 
         lastSessions.forEach(session -> appendSession(session, 0));
-        chatValue.get().getSessionsObservable().addListener((MapChangeListener<LocalDate, Session>) c -> {
+        chatValue.get().getSessions().addListener((MapChangeListener<LocalDate, Session>) c -> {
             LocalDate sessionDate = c.getValueAdded().getDate();
             int index = chatValue.get().getSessions().indexOf(sessionDate);
             addNewSession(c.getValueAdded(), index);
@@ -149,7 +149,7 @@ public class ChatSession {
             Message message = new Message(receiverId, LocalTime.now(),LocalDate.now(), messageText, chatId);
             chatManager.sendMessage(messageText, chatId, receiverId);
 
-            ObservableMap<LocalDate, Session> sessions = chatValue.get().getSessionsObservable();
+            ObservableMap<LocalDate, Session> sessions = chatValue.get().getSessions();
 
             chatBlock.setId("new-message");
             Session session = sessions.get(message.getSession());
