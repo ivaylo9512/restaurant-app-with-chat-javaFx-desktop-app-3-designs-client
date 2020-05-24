@@ -1,5 +1,6 @@
 package controllers.base;
 
+import helpers.ObservableOrderedMapChange;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.*;
@@ -16,7 +17,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import javafx.util.Duration;
 import models.ChatValue;
 import models.Message;
 import models.Session;
@@ -25,8 +25,7 @@ import org.apache.commons.collections4.map.ListOrderedMap;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static application.RestaurantApplication.chatManager;
 import static application.RestaurantApplication.loginManager;
@@ -83,7 +82,7 @@ public class ChatSession {
 
         ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.get().getSessions();
         List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
-        List<Session> lastSessions = chatSessions.subList(0, Math.min(pageSize, chatSessions.size()));
+        List<Session> lastSessions = chatSessions.subList(chatSessions.size() - Math.min(pageSize, chatSessions.size()), chatSessions.size());
 
         if (lastSessions.size() == pageSize) {
             chatInfo.setText("Scroll for more history");
@@ -94,17 +93,16 @@ public class ChatSession {
             chatValue.get().setDisplayedSessions(lastSessions.size());
         }
 
-        lastSessions.forEach(session -> appendSession(session, 0));
+        lastSessions.forEach(session -> appendSession(session, chatBlock.getChildren().size()));
         chatValue.get().getSessions().addListener((MapChangeListener<LocalDate, Session>) c -> {
-            LocalDate sessionDate = c.getValueAdded().getDate();
-            int index = chatValue.get().getSessions().indexOf(sessionDate);
-            addNewSession(c.getValueAdded(), index);
+            int index = ((ObservableOrderedMapChange)c).getIndex();
+            addNewSession(c.getValueAdded(), index + 1);
         });
     }
 
     private void addNewSession(Session session, int index) {
-        if (index == 0 && !chatValue.get().isMoreSessions()) {
-            chatTextArea.setText("Beginning of the chat");
+        if (!chatValue.get().isMoreSessions()) {
+            chatInfo.setText("Beginning of the chat");
         }
 
         chatValue.get().setDisplayedSessions(chatValue.get().getDisplayedSessions() + 1);
@@ -115,20 +113,18 @@ public class ChatSession {
         int displayedSessions = chatValue.get().getDisplayedSessions();
         int loadedSessions = chatValue.get().getSessions().size();
 
-        ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.get().getSessions();
-        List<Session> chatSessions = new ArrayList<>(sessionsMap.values());
-        List<Session> nextSessions;
         if (loadedSessions > displayedSessions) {
-
-            nextSessions = chatSessions.subList(displayedSessions,
-                    Math.min(displayedSessions + pageSize, loadedSessions));
+            ListOrderedMap<LocalDate, Session> sessionsMap = chatValue.get().getSessions();
+            Deque<Session> nextSessions = new ArrayDeque<>(
+                    sessionsMap.valueList().subList(loadedSessions - displayedSessions - Math.min(pageSize, loadedSessions - displayedSessions),
+                    loadedSessions - displayedSessions));
 
             if (displayedSessions + nextSessions.size() == loadedSessions && !chatValue.get().isMoreSessions()) {
                 chatInfo.setText("Beginning of the chat");
             }
             chatValue.get().setDisplayedSessions(displayedSessions + nextSessions.size());
 
-            nextSessions.forEach(session -> appendSession(session, 0));
+            while (!nextSessions.isEmpty()) appendSession(nextSessions.removeLast(), 1);
 
         } else if (chatValue.get().isMoreSessions()) {
             chatManager.getNextSessions(chatValue.get());
@@ -167,8 +163,7 @@ public class ChatSession {
     }
 
     private void appendSession(Session session, int index) {
-
-        if(index + 1 == chatBlock.getChildren().size() - 1){
+        if(index == chatBlock.getChildren().size()){
             chatLastSession = chatCurrentSession;
             chatCurrentSession = session.getMessages();
             chatCurrentSession.addListener((ListChangeListener<Message>) c -> {
@@ -187,7 +182,7 @@ public class ChatSession {
 
         VBox sessionBlock = new VBox(sessionDate);
         sessionBlock.setId(session.getDate().toString());
-        chatBlock.getChildren().add(index + 1, sessionBlock);
+        chatBlock.getChildren().add(index, sessionBlock);
         session.getMessages()
                 .forEach(this::appendMessage);
     }
