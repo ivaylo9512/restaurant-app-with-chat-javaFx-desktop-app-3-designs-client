@@ -1,8 +1,10 @@
 package controllers.base;
 
 import helpers.ObservableOrderedMapChange;
+import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -94,11 +96,13 @@ public class ChatSession {
         }
 
         lastSessions.forEach(session -> appendSession(session, chatBlock.getChildren().size()));
-        chatValue.get().getSessions().addListener((MapChangeListener<LocalDate, Session>) c -> {
-            int index = ((ObservableOrderedMapChange)c).getIndex();
-            addNewSession(c.getValueAdded(), index + 1);
-        });
+        chatValue.get().getSessions().addListener(sessionChange);
     }
+
+    MapChangeListener<LocalDate, Session> sessionChange = c -> {
+        int index = ((ObservableOrderedMapChange)c).getIndex();
+        addNewSession(c.getValueAdded(), index + 1);
+    };
 
     private void addNewSession(Session session, int index) {
         if (!chatValue.get().isMoreSessions()) {
@@ -308,9 +312,16 @@ public class ChatSession {
             return 1.0;
         }, chatValue));
 
-        chatValue.addListener(observable -> {
-            if(chatValue.get() != null) setChat();
-        });
+        chatValue.addListener(valueListener);
     }
 
+    ChangeListener<ChatValue> valueListener = (observable, oldValue, newValue) -> {
+        if(oldValue != null){
+            oldValue.getSessions().removeListener(sessionChange);
+        }
+        if(chatValue.get() != null)
+            setChat();
+        else
+            chatBlock.getChildren().remove(1, chatBlock.getChildren().size());
+    };
 }
