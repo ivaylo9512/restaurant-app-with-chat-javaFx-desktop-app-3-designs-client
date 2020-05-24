@@ -1,5 +1,6 @@
 package application;
 
+import helpers.ObservableOrderedMap;
 import helpers.RequestTask;
 import com.fasterxml.jackson.databind.JavaType;
 import javafx.beans.property.ObjectProperty;
@@ -12,7 +13,6 @@ import javafx.scene.image.Image;
 
 import models.Message;
 import models.Session;
-import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.BufferedInputStream;
@@ -23,8 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static application.RestaurantApplication.loginManager;
-import static application.RestaurantApplication.stageManager;
+import static application.RestaurantApplication.*;
 import static application.ServerRequests.*;
 
 
@@ -62,7 +61,7 @@ public class ChatManager {
                 profilePicture = new Image(getClass().getResourceAsStream("/images/default-picture.png"));
             }
             ChatValue chatValue = new ChatValue(chat.getId(), userId, profilePicture, chat.getSecondUser());
-            chat.getSessions().forEach(session -> chatValue.getSessions().put(session.getDate(), session));
+            chat.getSessions().forEach(session -> chatValue.getSessions().put(0, session.getDate(), session));
 
             this.chatsList.add(chatValue);
             chats.put(chat.getId(), chatValue);
@@ -75,14 +74,15 @@ public class ChatManager {
 
         try {
             RequestTask<List<Session>> task = new RequestTask<>(sessionType, ServerRequests.getNextSessions(chatId, nextPage));
+            tasks.execute(task);
             task.setOnSucceeded(event -> {
                 List<Session> nextSessions = task.getValue();
                 if (nextSessions.size() < pageSize) chat.setMoreSessions(false);
 
                 nextSessions.forEach(session -> {
-                    ListOrderedMap<LocalDate, Session> sessions = chat.getSessions();
+                    ObservableOrderedMap<LocalDate, Session> sessions = chat.getSessions();
                     if (!sessions.containsKey(session.getDate())) {
-                        sessions.put(session.getDate(), session);
+                       sessions.put(0, session.getDate(), session);
                     }
                 });
             });
@@ -101,7 +101,7 @@ public class ChatManager {
         ChatValue chat = chats.get(message.getChatId());
         Session session = chat.getSessions().get(message.getSession());
         if(session == null){
-            chat.getSessions().put(message.getSession(),
+            chat.getSessions().put(0, message.getSession(),
                     new Session(message.getSession(), message));
         }else{
             session.getMessages().add(message);
