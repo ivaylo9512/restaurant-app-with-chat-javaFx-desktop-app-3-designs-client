@@ -1,12 +1,10 @@
 package controllers.base;
 
 import helpers.ObservableOrderedMapChange;
-import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.*;
-import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -40,8 +38,10 @@ public class ChatSession {
     private TextArea chatTextArea;
     private Node chatContainer;
 
-    private ObservableList<Message> chatCurrentSession;
-    private ObservableList<Message> chatLastSession;
+    private ObservableList<Message> chatCurrentSession, chatLastSession;
+
+    private ListChangeListener<Message> currentMessageListener = createMessageListener();
+    private ListChangeListener<Message> lastMessageListener  = createMessageListener();
 
     private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
@@ -57,7 +57,6 @@ public class ChatSession {
     public void init(){
         setHistoryListener();
         setChatAreaListener();
-        bindChat();
     }
 
     public void setHistoryListener(){
@@ -99,7 +98,7 @@ public class ChatSession {
         chatValue.get().getSessions().addListener(sessionChange);
     }
 
-    MapChangeListener<LocalDate, Session> sessionChange = c -> {
+    private MapChangeListener<LocalDate, Session> sessionChange = c -> {
         int index = ((ObservableOrderedMapChange)c).getIndex();
         addNewSession(c.getValueAdded(), index + 1);
     };
@@ -137,7 +136,6 @@ public class ChatSession {
         }
     }
 
-    @FXML
     public void addNewMessage(){
         int chatId = chatValue.get().getChatId();
         int receiverId = chatValue.get().getUserId();
@@ -168,12 +166,15 @@ public class ChatSession {
 
     private void appendSession(Session session, int index) {
         if(index == chatBlock.getChildren().size()){
+            if(chatLastSession != null){
+                chatLastSession.removeListener(lastMessageListener);
+            }
+            chatCurrentSession.removeListener(currentMessageListener);
+            chatCurrentSession.addListener(lastMessageListener);
             chatLastSession = chatCurrentSession;
+
             chatCurrentSession = session.getMessages();
-            chatCurrentSession.addListener((ListChangeListener<Message>) c -> {
-                c.next();
-                c.getAddedSubList().forEach(this::appendMessage);
-            });
+            chatCurrentSession.addListener(currentMessageListener);
         }
 
         Text date = new Text(dateFormatter.format(session.getDate()));
@@ -189,6 +190,13 @@ public class ChatSession {
         chatBlock.getChildren().add(index, sessionBlock);
         session.getMessages()
                 .forEach(this::appendMessage);
+    }
+
+    private ListChangeListener<Message> createMessageListener() {
+        return c -> {
+            c.next();
+            c.getAddedSubList().forEach(this::appendMessage);
+        };
     }
 
     private void appendMessage(Message message) {
@@ -304,7 +312,7 @@ public class ChatSession {
         }
     }
 
-    protected void bindChat(){
+    public void bindChat(){
         chatContainer.disableProperty().bind(chatValue.isNull());
         chatContainer.opacityProperty().bind(Bindings.createDoubleBinding(()-> {
             if(chatValue.isNull().get()) return 0.0;
@@ -315,13 +323,42 @@ public class ChatSession {
         chatValue.addListener(valueListener);
     }
 
-    ChangeListener<ChatValue> valueListener = (observable, oldValue, newValue) -> {
+    public void unBindChat() {
+        chatContainer.setOpacity(0);
+        chatContainer.setDisable(true);
+
+        chatContainer.disableProperty().unbind();
+        chatContainer.opacityProperty().unbind();
+
+        chatValue.removeListener(valueListener);
+
+        chatBlock.getChildren().remove(1, chatBlock.getChildren().size());
+        chatValue.set(null);
+        chatTextArea.setText(null);
+
+        resetSessions();
+    }
+
+    private void resetSessions() {
+        if(chatCurrentSession != null) chatCurrentSession.removeListener(currentMessageListener);
+        if(chatLastSession != null) chatLastSession.removeListener(lastMessageListener);
+
+        chatCurrentSession = null;
+        chatLastSession = null;
+    }
+
+    private ChangeListener<ChatValue> valueListener = (observable, oldValue, newValue) -> {
         if(oldValue != null){
             oldValue.getSessions().removeListener(sessionChange);
+            resetSessions();
         }
-        if(chatValue.get() != null)
+
+        if(newValue != null) {
             setChat();
-        else
+        }else {
             chatBlock.getChildren().remove(1, chatBlock.getChildren().size());
+            chatTextArea.setText(null);
+
+        }
     };
 }

@@ -47,6 +47,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     private ObjectProperty<ChatsUsersListViewCell> mainUserChatCell = new SimpleObjectProperty<>();
     private ObjectProperty<ChatsUsersListViewCell> secondUserChatCell = new SimpleObjectProperty<>();
 
+    private ChatSession mainChatSession, secondChatSession;
     @FXML
     public void initialize() {
         setClips();
@@ -58,8 +59,8 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         setOrderPane();
         addOrdersListListeners();
 
-        ChatSession mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
-        ChatSession secondChatSession = new ChatSession(secondChat, secondChatValue, secondChatBlock, secondChatInfo, secondChatTextArea);
+        mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
+        secondChatSession = new ChatSession(secondChat, secondChatValue, secondChatBlock, secondChatInfo, secondChatTextArea);
 
         mainChatSession.init();
         secondChatSession.init();
@@ -194,6 +195,9 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     public void setStage() throws Exception{
         userMenu.setAll(orderManager.userMenu.values());
 
+        mainChatSession.bindChat();
+        secondChatSession.bindChat();
+
         setContentRoot();
         if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
@@ -217,15 +221,16 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         notificationsView.setOpacity(0);
         notificationsView.setDisable(true);
 
-        mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
+        mainChatSession.unBindChat();
+        secondChatSession.unBindChat();
 
         mainChat.setLayoutX(217);
         mainChat.setLayoutY(231);
         mainChat.setPrefHeight(189);
 
-        mainChatTextArea.setText(null);
-        mainChatValue.set(null);
-        secondChatValue.set(null);
+        secondChat.setLayoutX(217);
+        secondChat.setLayoutY(231);
+        secondChat.setPrefHeight(189);
 
         userInfoScroll.setVvalue(0);
         menuScroll.setVvalue(0);

@@ -32,6 +32,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     private Stage stage = stageManager.secondLoggedStage;
     private AnchorPane currentView;
 
+    ChatSession mainChatSession;
 
     @FXML
     public void initialize() {
@@ -41,7 +42,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         setListsItems();
         focusCurrentOrderOnListUpdate();
 
-        ChatSession mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
+        mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
         mainChatSession.init();
 
         Scrolls scrolls = new Scrolls(mainChatScroll, mainChatTextArea);
@@ -130,6 +131,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     @Override
     public void setStage() {
         userMenu.setAll(orderManager.userMenu.values());
+        mainChatSession.bindChat();
 
         setContentRoot();
     }
@@ -139,20 +141,13 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         if(currentOrder != null) orderView.getStyleClass().add("inactive");
         unbindOrderProperties();
 
+        mainChatSession.unBindChat();
+
         menuList.getItems().clear();
         if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
         ordersList.getSelectionModel().clearSelection();
 
-
-        mainChatValue.set(null);
-
-        mainChatTextArea.setText(null);
         menuSearch.setText("");
-
-        mainChatBlock.getChildren().remove(1,mainChatBlock.getChildren().size());
-
-        mainChat.setDisable(true);
-        mainChat.setOpacity(0);
 
         contentRoot.setOpacity(0);
         contentRoot.setDisable(true);
