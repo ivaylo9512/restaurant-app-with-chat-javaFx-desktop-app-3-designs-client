@@ -1,5 +1,8 @@
 package application;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -9,6 +12,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -17,6 +21,7 @@ import controllers.base.Controller;
 
 import java.io.IOException;
 
+import static application.RestaurantApplication.alertManager;
 import static application.RestaurantApplication.loginManager;
 
 public class StageManager {
@@ -44,7 +49,7 @@ public class StageManager {
         initializeFirstLoggedStyle(new Stage());
         initializeSecondLoggedStyle(new Stage());
         initializeSecondLoggedMenuStyle(new Stage());
-        initializeThirdLoggedStyle(new Stage());
+//        initializeThirdLoggedStyle(new Stage());
 
         secondLoggedMenuStage.setAlwaysOnTop(true);
 
@@ -52,8 +57,8 @@ public class StageManager {
         firstLoggedStage.setUserData(firstLoginStage);
         secondLoginStage.setUserData(secondLoggedStage);
         secondLoggedStage.setUserData(secondLoginStage);
-        thirdLoginStage.setUserData(thirdLoggedStage);
-        thirdLoggedStage.setUserData(thirdLoginStage);
+//        thirdLoginStage.setUserData(thirdLoggedStage);
+//        thirdLoggedStage.setUserData(thirdLoginStage);
 
         currentStage.show();
         if(currentStageMenu != null) {
@@ -101,13 +106,21 @@ public class StageManager {
         }
     }
 
-    public void showAlert(String exception) {
-        currentStage.getScene().getRoot().setEffect(boxBlur);
+    public void createAlertStage(Stage stage, Stage owner){
+        Pane root = new Pane();
+        stage.setScene(new Scene(root));
+        stage.initOwner(owner);
+        alertManager.currentAlert.addListener((observable, oldValue, newValue) -> {
+            if(newValue != null){
+                ((Text)root.getChildren().get(0)).setText(newValue);
+                stage.show();
+                stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
+                stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
+            }else{
+                stage.close();
+            }
+        });
 
-        Alert alert = createAlert(currentStage);
-        alert.getDialogPane().setContentText(exception);
-        alert.setOnHiding(event -> currentStage.getScene().getRoot().setEffect(null));
-        alert.showAndWait();
     }
 
     private void initializeFirstLoginStyle(Stage stage) throws IOException {
@@ -218,7 +231,7 @@ public class StageManager {
                     controller.setStage();
                 } catch (Exception e) {
                     loginManager.logout();
-                    showAlert(e.getMessage());
+                    alertManager.addLoginAlert(e.getMessage());
                 }
             }
         });
