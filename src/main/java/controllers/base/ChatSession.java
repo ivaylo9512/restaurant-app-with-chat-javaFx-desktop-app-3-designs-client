@@ -168,10 +168,12 @@ public class ChatSession {
         if(index == chatBlock.getChildren().size()){
             if(chatLastSession != null){
                 chatLastSession.removeListener(lastMessageListener);
+                chatCurrentSession.removeListener(currentMessageListener);
+            }else if(chatCurrentSession != null){
+                chatCurrentSession.removeListener(currentMessageListener);
+                chatCurrentSession.addListener(lastMessageListener);
+                chatLastSession = chatCurrentSession;
             }
-            chatCurrentSession.removeListener(currentMessageListener);
-            chatCurrentSession.addListener(lastMessageListener);
-            chatLastSession = chatCurrentSession;
 
             chatCurrentSession = session.getMessages();
             chatCurrentSession.addListener(currentMessageListener);
@@ -324,11 +326,11 @@ public class ChatSession {
     }
 
     public void unBindChat() {
-        chatContainer.setOpacity(0);
-        chatContainer.setDisable(true);
-
         chatContainer.disableProperty().unbind();
         chatContainer.opacityProperty().unbind();
+
+        chatContainer.setOpacity(0);
+        chatContainer.setDisable(true);
 
         chatValue.removeListener(valueListener);
 
