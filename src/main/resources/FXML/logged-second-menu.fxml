@@ -10,9 +10,9 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="menuRoot" layoutY="20" styleClass="root" fx:controller="controllers.secondstyle.LoggedMenu">
 <children>
-    <AnchorPane fx:id="menu" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="518.0" maxWidth="518" style="-fx-border-color: #1a1a1a; -fx-border-radius: 180; -fx-border-width: 1;" styleClass="menu-container" AnchorPane.leftAnchor="0.0">
+    <AnchorPane fx:id="menu" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" minHeight="-Infinity" minWidth="-Infinity" styleClass="menu-container" AnchorPane.leftAnchor="0.0">
         <children>
-            <AnchorPane fx:id="menuButtonsContainer" style="-fx-background-radius: 180; -fx-border-radius: 180; -fx-background-color: #1a1a1a;" styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="menuButtonsContainer" styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <children>
                     <AnchorPane fx:id="menuButtons" AnchorPane.topAnchor="-2.5" AnchorPane.bottomAnchor="-1" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                         <children>
@@ -30,14 +30,12 @@
                             </AnchorPane>
                             <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="314.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="0">
                                 <Button fx:id="notificationButton" contentDisplay="CENTER" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"  mnemonicParsing="false" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Updates">
-                                    <graphic>
-                                    </graphic>
                                 </Button>
                             </AnchorPane>
                             <HBox fx:id="notificationIcon" disable="true" mouseTransparent="true" AnchorPane.leftAnchor="382.5" opacity="0" AnchorPane.topAnchor="-8" styleClass="notification-icon">
                             </HBox>
                             <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
-                                <Button fx:id="profileButton" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus"  text="Profile">
+                                <Button fx:id="profileButton" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" onMouseClicked="#menuButtonAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Profile">
                                 </Button>
                             </AnchorPane>
                         </children>
@@ -62,16 +60,16 @@
             </AnchorPane>
         </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuContent" disable="true" layoutY="44.0" maxHeight="255.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="518.0" style="-fx-border-color: #1a1a1a; -fx-border-radius: 15; -fx-border-width: 1;" styleClass="shadow">
+    <AnchorPane fx:id="menuContent" disable="true" layoutY="44.0" minHeight="-Infinity" minWidth="-Infinity" styleClass="menu-content">
         <children>
-            <AnchorPane fx:id="profileView" layoutX="3.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="398.0" styleClass="profile-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="profileView" layoutX="3.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="profile-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <effect>
                     <InnerShadow />
                 </effect>
                 <children>
-                    <Pane fx:id="profileImageContainer" layoutX="24.0" layoutY="14.0" opacity="0.0" prefHeight="61.0" prefWidth="61.0" style="-fx-background-color: white; -fx-background-radius: 180; -fx-border-radius: 180;" styleClass="shadow">
+                    <Pane fx:id="profileImageContainer" layoutX="24.0" layoutY="14.0" opacity="0.0" styleClass="profile-image-container">
                         <children>
-                            <Pane fx:id="profileImageClip" prefHeight="61.0" prefWidth="61.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
+                            <Pane fx:id="profileImageClip" styleClass="profile-image-clip">
                                 <children>
                                     <ImageView fx:id="profileImage" fitHeight="51.0" fitWidth="51.0" layoutX="5.0" layoutY="10.3">
                                     </ImageView>
@@ -79,77 +77,59 @@
                             </Pane>
                         </children>
                     </Pane>
-                    <AnchorPane fx:id="userInfo" layoutX="103.0" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <AnchorPane fx:id="userInfo" styleClass="user-info" layoutX="103.0" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                            <TextField fx:id="firstNameField" alignment="CENTER" layoutX="7.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
-                            <TextField fx:id="lastNameField" alignment="CENTER" layoutX="137.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
-                            <TextField fx:id="roleField" alignment="CENTER" layoutX="269.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
-                            <TextField fx:id="usernameField" alignment="CENTER" layoutX="269.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
-                            <TextField fx:id="countryField" alignment="CENTER" layoutX="7.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
-                            <TextField fx:id="ageField" alignment="CENTER" layoutX="137.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
+                            <TextField fx:id="firstNameField" layoutX="7.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
+                            <TextField fx:id="lastNameField" layoutX="137.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
+                            <TextField fx:id="roleField" layoutX="269.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
+                            <TextField fx:id="usernameField" layoutX="269.0" AnchorPane.bottomAnchor="184.0" AnchorPane.topAnchor="13.0" />
+                            <TextField fx:id="countryField" layoutX="7.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
+                            <TextField fx:id="ageField" layoutX="137.0" AnchorPane.bottomAnchor="131.0" AnchorPane.topAnchor="66.0" />
                         </children>
                     </AnchorPane>
                     <AnchorPane layoutX="12.0" layoutY="115.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="104.0" AnchorPane.topAnchor="114.0">
                         <children>
-                            <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editUserInfo" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Edit" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <font>
-                                    <Font size="10.0" />
-                                </font>
+                            <Button fx:id="editButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editUserInfo" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Edit" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                             </Button>
-                            <Button fx:id="saveButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#saveUserInfo" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Save" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <font>
-                                    <Font size="10.0" />
-                                </font>
+                            <Button fx:id="saveButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#saveUserInfo" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Save" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                             </Button>
                         </children>
                     </AnchorPane>
                     <AnchorPane layoutX="12.0" layoutY="145.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="71.0" AnchorPane.topAnchor="147.0">
                         <children>
-                            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Style 1" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <font>
-                                    <Font size="10.0" />
-                                </font>
+                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Style 1" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                             </Button>
                         </children>
                     </AnchorPane>
                     <AnchorPane layoutX="12.0" layoutY="125.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="38.0" AnchorPane.topAnchor="180.0">
                         <children>
-                            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Style 3" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <font>
-                                    <Font size="10.0" />
-                                </font>
+                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Style 3" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                             </Button>
                         </children>
                     </AnchorPane>
                     <AnchorPane layoutX="12.0" layoutY="81.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="137.0" AnchorPane.topAnchor="81.0">
                         <children>
-                            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Change" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <font>
-                                    <Font size="10.0" />
-                                </font>
+                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Change" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                             </Button>
                         </children>
                     </AnchorPane>
                     <AnchorPane layoutX="12.0" layoutY="171.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="213.0">
                         <children>
-                            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" prefHeight="33.0" prefWidth="86.0" text="Log out" textAlignment="CENTER" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <font>
-                                    <Font size="10.0" />
-                                </font>
+                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                             </Button>
                         </children>
                     </AnchorPane>
                 </children>
             </AnchorPane>
-            <AnchorPane fx:id="notificationsView" disable="true" layoutX="13.0" layoutY="13.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="0.0" prefWidth="398.0" styleClass="notifications-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="notificationsView" disable="true" layoutX="13.0" layoutY="13.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" styleClass="notifications-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <effect>
                     <InnerShadow />
                 </effect>
                 <children>
-                    <ListView fx:id="notificationsList" onMouseClicked="#onNotificationClick" prefHeight="200.0" prefWidth="200.0" styleClass="notifications-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0" />
-                    <HBox fx:id="notificationsInfo" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="notifications-info" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <ListView fx:id="notificationsList" onMouseClicked="#onNotificationClick" styleClass="notifications-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0" />
+                    <HBox fx:id="notificationsInfo" styleClass="notifications-info" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                            <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no notifications to show" />
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="There are no notifications to show" />
                         </children>
                     </HBox>
                 </children>

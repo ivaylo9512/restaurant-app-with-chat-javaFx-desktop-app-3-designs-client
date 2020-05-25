@@ -26,10 +26,15 @@
     -fx-min-width: 38.5;
     -fx-max-width: 518px;
     -fx-pref-width: 518px;
-    -fx-border-color: #1a1a1a;
     -fx-border-radius: 180;
-    -fx-border-width: 1;
+    -fx-border-color: #1a1a1a;
+    -fx-border-width: 1.5;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+}
+.menu{
+    -fx-background-radius: 180;
+    -fx-border-radius: 180;
+    -fx-background-color: #1a1a1a;
 }
 .menu > AnchorPane AnchorPane{
     -fx-background-radius: 180;
@@ -59,6 +64,16 @@
     -fx-min-height: 25px;
     -fx-min-width: 25px;
 }
+.menu-content{
+    -fx-max-height: 255.0px;
+    -fx-pref-height: 0.0px;
+    -fx-pref-width: 518.0px;
+    -fx-border-color: #1a1a1a;
+    -fx-border-radius: 15px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+
+}
 .profile-view{
     -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
     -fx-background-radius: 15px;
@@ -79,6 +94,12 @@
     -fx-border-radius: 180px;
     -fx-background-color: #1a1a1a;
 }
+.profile-button-shadow Button{
+    -fx-pref-width:86;
+    -fx-text-alignment: center;
+    -fx-text-fill: #bcbcbc;
+    -fx-font-size: 10px;
+}
 .profile-button-hovered{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
@@ -96,6 +117,23 @@
 .profile-view TextField:readonly{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 1 );
 }
+.profile-image-container{
+    -fx-pref-width: 61px;
+    -fx-pref-height: 61px;
+    -fx-background-color: white;
+    -fx-background-radius: 180px;
+    -fx-border-radius: 180px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+}
+.profile-image-clip{
+    -fx-pref-width: 61px;
+    -fx-pref-height: 61px;
+    -fx-background-radius: 180px;
+    -fx-border-radius: 180px;
+}
+.user-info TextField{
+    -fx-alignment: center;
+}
 .notifications-view{
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
@@ -105,7 +143,7 @@
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
 }
-.notifications-list .list-view{
+.notifications-list{
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
 }
@@ -126,6 +164,10 @@
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
     -fx-background-color: #1a1a1a;
+    -fx-alignment: center;
+}
+.notifications-info Text {
+    -fx-text-fill: #bcbcbc;
 }
 .notification-icon{
     -fx-pref-height: 100px;

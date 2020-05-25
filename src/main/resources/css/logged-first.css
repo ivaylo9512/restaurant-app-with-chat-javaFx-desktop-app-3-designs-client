@@ -490,7 +490,6 @@ TextFlow {
     -fx-background-color: #2A2E37;
     -fx-border-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 2 );
-
 }
 .alert-box > *.button-bar > *.container{
     -fx-background-color: #2A2E37;
@@ -503,7 +502,7 @@ TextFlow {
 .alert-box:header *.header-panel *.label{
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-pref-height: 25;
+    -fx-min-height: 25;
     -fx-text-fill: transparent;
     -fx-alignment: center;
     -fx-background-color: transparent;
@@ -513,7 +512,7 @@ TextFlow {
     -fx-font-size: 12px;
     -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
-    -fx-pref-height: 50;
+    -fx-min-height: 50;
     -fx-padding: 0,0,10,0;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 2 );
     -fx-background-color: transparent;

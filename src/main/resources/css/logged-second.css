@@ -283,9 +283,11 @@ TextFlow {
     -fx-fill: #bcbcbc;
 }
 .alert-box{
+    -fx-border-color: #1a1a1a;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
     -fx-background-color: #1a1a1a;
-    -fx-border-color: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 2 );
+
 
 }
 .alert-box > *.button-bar > *.container{
