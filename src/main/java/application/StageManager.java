@@ -1,8 +1,6 @@
 package application;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -26,7 +24,6 @@ import static application.RestaurantApplication.loginManager;
 
 public class StageManager {
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-    private BoxBlur boxBlur = new BoxBlur(3, 3, 3);
 
     private Stage primaryStage;
 
@@ -50,6 +47,13 @@ public class StageManager {
         initializeSecondLoggedStyle(new Stage());
         initializeSecondLoggedMenuStyle(new Stage());
 //        initializeThirdLoggedStyle(new Stage());
+
+        createAlertStage(new Stage(), firstLoginStage, true);
+        createAlertStage(new Stage(), secondLoginStage, true);
+//        createAlertStage(new Stage(), thirdLoginStage, true);
+        createAlertStage(new Stage(), firstLoggedStage, false);
+        createAlertStage(new Stage(), secondLoggedStage, false);
+//        createAlertStage(new Stage(), thirdLoggedStage, false);
 
         secondLoggedMenuStage.setAlwaysOnTop(true);
 
@@ -106,14 +110,20 @@ public class StageManager {
         }
     }
 
-    public void createAlertStage(Stage stage, Stage owner){
+    public void createAlertStage(Stage stage, Stage owner, boolean isLoginStage){
         Pane root = new Pane();
         stage.setScene(new Scene(root));
         stage.initOwner(owner);
-        alertManager.currentAlert.addListener((observable, oldValue, newValue) -> {
+
+        ObjectProperty<String> alertValue = alertManager.currentLoggedAlert;
+            if(isLoginStage){
+                alertValue = alertManager.currentLoginAlert;
+            }
+            alertValue.addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
+                if(!stage.isShowing()) stage.show();
+
                 ((Text)root.getChildren().get(0)).setText(newValue);
-                stage.show();
                 stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
                 stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
             }else{

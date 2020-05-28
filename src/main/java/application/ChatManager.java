@@ -87,7 +87,7 @@ public class ChatManager {
                 });
             });
         }catch (Exception e){
-            stageManager.showAlert(e.getMessage());
+            alertManager.addLoggedAlert(e.getMessage());
         }
     }
 

@@ -93,7 +93,7 @@ public class DishListViewCell extends ListCell<Dish> {
             }
 
         }else{
-            stageManager.showAlert("You must be a chef to update the dish status.");
+            alertManager.addLoggedAlert("You must be a chef to update the dish status.");
         }
     }
 }

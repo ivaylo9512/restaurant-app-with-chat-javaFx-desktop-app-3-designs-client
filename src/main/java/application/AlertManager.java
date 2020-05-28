@@ -7,10 +7,10 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class AlertManager {
-    public Deque<String> loginAlerts = new ArrayDeque<>();
-    public Deque<String> loggedAlerts = new ArrayDeque<>();
-    public ObjectProperty<String> currentLoginAlert = new SimpleObjectProperty<>();
-    public ObjectProperty<String> currentLoggedAlert = new SimpleObjectProperty<>();
+    private Deque<String> loginAlerts = new ArrayDeque<>();
+    private Deque<String> loggedAlerts = new ArrayDeque<>();
+    ObjectProperty<String> currentLoginAlert = new SimpleObjectProperty<>();
+    ObjectProperty<String> currentLoggedAlert = new SimpleObjectProperty<>();
 
     private AlertManager() {
     }
@@ -20,10 +20,19 @@ public class AlertManager {
     }
 
     public void addLoginAlert(String alert){
-        loginAlerts.push(alert);
+        if(currentLoginAlert.get() != null) {
+            currentLoginAlert.set(alert);
+        }else {
+            loginAlerts.push(alert);
+        }
+
     }
     public void addLoggedAlert(String alert){
-        loginAlerts.push(alert);
+        if(currentLoggedAlert.get() != null) {
+            currentLoginAlert.set(alert);
+        }else{
+            loginAlerts.push(alert);
+        }
     }
     public void nextLoginAlert(){
         currentLoginAlert.set(loginAlerts.peekLast());
@@ -32,10 +41,12 @@ public class AlertManager {
         currentLoggedAlert.set(loggedAlerts.peekLast());
 
     }
-    public void resetAlerts(){
-        loggedAlerts = new ArrayDeque<>();
+    public void resetLoginAlerts(){
         loginAlerts = new ArrayDeque<>();
         currentLoginAlert.set(null);
+    }
+    public void resetLoggedAlerts(){
+        loggedAlerts = new ArrayDeque<>();
         currentLoggedAlert.set(null);
     }
 }

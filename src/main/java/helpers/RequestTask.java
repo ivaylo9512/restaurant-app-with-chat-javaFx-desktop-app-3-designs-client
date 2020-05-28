@@ -8,8 +8,8 @@ import controllers.base.ControllerLogged;
 import controllers.base.ControllerLogin;
 
 import java.io.IOException;
-import static application.RestaurantApplication.loginManager;
-import static application.RestaurantApplication.stageManager;
+
+import static application.RestaurantApplication.*;
 import static application.ServerRequests.executeRequest;
 import static application.ServerRequests.mapper;
 
@@ -55,12 +55,8 @@ public class RequestTask<T> extends Task<T> {
             if(stageManager.currentController instanceof ControllerLogged){
                 Platform.runLater(() -> loginManager.logout());
             }
-            message = "Session has expired.";
+            alertManager.addLoginAlert("Session has expired.");
         }
-        showAlert(message);
-    }
-
-    private void showAlert(String message) {
-        Platform.runLater(() -> stageManager.showAlert(message));
+        alertManager.addLoginAlert(message);
     }
 }

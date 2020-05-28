@@ -86,10 +86,10 @@ public class OrderManager {
                 sendOrder.start();
 
             }else{
-                stageManager.showAlert("Order must have at least one dish.");
+                alertManager.addLoggedAlert("Order must have at least one dish.");
             }
         } else {
-            stageManager.showAlert("You must be a server to create orders.");
+            alertManager.addLoggedAlert("You must be a server to create orders.");
         }
     }
 
