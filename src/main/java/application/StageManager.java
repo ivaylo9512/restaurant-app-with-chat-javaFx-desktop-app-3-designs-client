@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -49,7 +48,7 @@ public class StageManager {
 //        initializeThirdLoggedStyle(new Stage());
 
         createAlertStage(new Stage(), firstLoginStage, true);
-        createAlertStage(new Stage(), secondLoginStage, true);
+        createAlertStage(new Stage(), secondLoginStage, true, "/FXML/logged-second-alert.fxml");
 //        createAlertStage(new Stage(), thirdLoginStage, true);
         createAlertStage(new Stage(), firstLoggedStage, false);
         createAlertStage(new Stage(), secondLoggedStage, false);
@@ -110,8 +109,10 @@ public class StageManager {
         }
     }
 
-    public void createAlertStage(Stage stage, Stage owner, boolean isLoginStage){
-        Pane root = new Pane();
+    public void createAlertStage(Stage stage, Stage owner, boolean isLoginStage, String fxmlLocation)throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlLocation));
+        Pane root = loader.load();
+
         stage.setScene(new Scene(root));
         stage.initOwner(owner);
 
@@ -123,7 +124,6 @@ public class StageManager {
             if(newValue != null){
                 if(!stage.isShowing()) stage.show();
 
-                ((Text)root.getChildren().get(0)).setText(newValue);
                 stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
                 stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
             }else{

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="FXML.SecondFirstAlert">
+    <Label fx:id="alertsCount"></Label>
+    <Button fx:id="close"></Button>
+    <Text fx:id="alertMessage"></Text>
+    <Button fx:id="okButton"></Button>
+</AnchorPane>

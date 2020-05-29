@@ -32,7 +32,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     private Stage stage = stageManager.secondLoggedStage;
     private AnchorPane currentView;
 
-    ChatSession mainChatSession;
+    private ChatSession mainChatSession;
 
     @FXML
     public void initialize() {
