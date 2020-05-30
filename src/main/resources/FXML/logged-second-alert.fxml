@@ -3,12 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.text.Text?>
-<AnchorPane xmlns="http://javafx.com/javafx"
+<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="FXML.SecondFirstAlert">
-    <Label fx:id="alertsCount"></Label>
-    <Button fx:id="close"></Button>
-    <Text fx:id="alertMessage"></Text>
-    <Button fx:id="okButton"></Button>
+            fx:controller="controllers.base.ControllerAlert">
+    <Label fx:id="alertsCount"/>
+    <Button fx:id="closeButton" onMouseClicked="#closeAlerts"/>
+    <Label fx:id="alertMessage"/>
+    <Button fx:id="nextButton" onMouseClicked="#nextAlert">Ok</Button>
 </AnchorPane>
