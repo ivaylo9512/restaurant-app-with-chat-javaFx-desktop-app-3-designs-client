@@ -1,14 +1,15 @@
 package application;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
+import javafx.collections.FXCollections;
 
 public class AlertManager {
-    private Deque<String> loginAlerts = new ArrayDeque<>();
-    private Deque<String> loggedAlerts = new ArrayDeque<>();
+
+    SimpleListProperty<String> loginAlerts = new SimpleListProperty<>(FXCollections.observableArrayList());
+    SimpleListProperty<String> loggedAlerts = new SimpleListProperty<>(FXCollections.observableArrayList());
+
     ObjectProperty<String> currentLoginAlert = new SimpleObjectProperty<>();
     ObjectProperty<String> currentLoggedAlert = new SimpleObjectProperty<>();
 
@@ -20,33 +21,24 @@ public class AlertManager {
     }
 
     public void addLoginAlert(String alert){
-        if(currentLoginAlert.get() != null) {
+        if(currentLoginAlert.get() == null) {
             currentLoginAlert.set(alert);
-        }else {
-            loginAlerts.push(alert);
         }
+        loginAlerts.add(alert);
 
     }
     public void addLoggedAlert(String alert){
-        if(currentLoggedAlert.get() != null) {
-            currentLoginAlert.set(alert);
-        }else{
-            loginAlerts.push(alert);
+        if(currentLoggedAlert.get() == null) {
+            currentLoggedAlert.set(alert);
         }
-    }
-    public void nextLoginAlert(){
-        currentLoginAlert.set(loginAlerts.peekLast());
-    }
-    public void nextLoggedAlert(){
-        currentLoggedAlert.set(loggedAlerts.peekLast());
-
+        loggedAlerts.add(alert);
     }
     public void resetLoginAlerts(){
-        loginAlerts = new ArrayDeque<>();
+        loginAlerts.clear();
         currentLoginAlert.set(null);
     }
     public void resetLoggedAlerts(){
-        loggedAlerts = new ArrayDeque<>();
+        loggedAlerts.clear();
         currentLoggedAlert.set(null);
     }
 }
