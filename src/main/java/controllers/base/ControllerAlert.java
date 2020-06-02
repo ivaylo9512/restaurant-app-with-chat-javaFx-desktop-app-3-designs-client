@@ -24,7 +24,6 @@ public class ControllerAlert {
     public SimpleListProperty<String> alerts;
 
     public void bind(){
-
         content.widthProperty().addListener((observable, oldValue, newValue) -> {
             root.setPrefWidth(newValue.doubleValue());
             stage.sizeToScene();
@@ -40,7 +39,6 @@ public class ControllerAlert {
             if(currentAlert.get() != null) alerts.remove(0);
 
             nextAlert = alerts.get(0);
-            System.out.println(nextAlert);
         }
         currentAlert.set(nextAlert);
     }

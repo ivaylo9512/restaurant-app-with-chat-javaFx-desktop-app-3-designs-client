@@ -1,6 +1,8 @@
 package application;
 
+import controllers.base.ControllerAlert;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -9,7 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -28,8 +29,8 @@ public class StageManager {
 
     public Controller currentController, firstLoggedController, secondLoggedController, secondLoggedMenuController,
             thirdLoggedController, firstLoginController, secondLoginController, thirdLoginController;
-    public Stage currentStage, currentStageMenu, firstLoggedStage, secondLoggedStage, secondLoggedMenuStage, thirdLoggedStage,
-            firstLoginStage, secondLoginStage, thirdLoginStage;
+    public Stage currentStage, currentStageMenu, currentAlertStage, firstLoggedStage, secondLoggedStage, secondLoggedMenuStage, thirdLoggedStage,
+            firstLoginStage, secondLoginStage, thirdLoginStage, firstLoginAlert, firstLoggedAlert, secondLoginAlert, secondLoggedAlert, thirdLoginAlert, thirdLoggedAlert;
 
     void initializeStages(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
@@ -47,11 +48,12 @@ public class StageManager {
         initializeSecondLoggedMenuStyle(new Stage());
 //        initializeThirdLoggedStyle(new Stage());
 
-        createAlertStage(new Stage(), firstLoginStage, true);
-        createAlertStage(new Stage(), secondLoginStage, true, "/FXML/logged-second-alert.fxml");
+//        createAlertStage(new Stage(), firstLoginStage, true);
+//        createAlertStage(new Stage(), secondLoginStage, false);
 //        createAlertStage(new Stage(), thirdLoginStage, true);
-        createAlertStage(new Stage(), firstLoggedStage, false);
-        createAlertStage(new Stage(), secondLoggedStage, false);
+//        createAlertStage(new Stage(), firstLoggedStage, false);
+        secondLoggedAlert = new Stage();
+        createAlertStage(secondLoggedAlert, secondLoggedStage, false, "logged-second-alert");
 //        createAlertStage(new Stage(), thirdLoggedStage, false);
 
         secondLoggedMenuStage.setAlwaysOnTop(true);
@@ -80,7 +82,9 @@ public class StageManager {
     public void changeStage(Stage stage){
         currentStage.close();
         if(currentStageMenu != null) ((Stage)currentStageMenu.getOwner()).close();
+        if(currentAlertStage != null)currentAlertStage.close();
         currentStageMenu = null;
+        currentAlertStage = null;
 
         if(stage == firstLoginStage){
             currentStage = firstLoginStage;
@@ -98,6 +102,7 @@ public class StageManager {
             currentStage = secondLoggedStage;
             currentController = secondLoggedController;
             currentStageMenu = secondLoggedMenuStage;
+            currentAlertStage = secondLoggedAlert;
         }else {
             currentStage = thirdLoggedStage;
             currentController = thirdLoggedController;
@@ -107,30 +112,48 @@ public class StageManager {
             ((Stage)currentStageMenu.getOwner()).show();
             currentStageMenu.show();
         }
+
+        if(currentAlertStage != null && currentAlertStage.getUserData() != null && currentAlertStage.getUserData().equals("active")){
+            currentAlertStage.show();
+        }
     }
 
-    public void createAlertStage(Stage stage, Stage owner, boolean isLoginStage, String fxmlLocation)throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlLocation));
+    public void createAlertStage(Stage stage, Stage owner, boolean isLoginStage, String fileName)throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/" + fileName + ".fxml"));
         Pane root = loader.load();
 
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/" + fileName + ".css").toString());
+        scene.setFill(Color.TRANSPARENT);
+
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.initOwner(owner);
+        stage.setScene(scene);
 
         ObjectProperty<String> alertValue = alertManager.currentLoggedAlert;
-            if(isLoginStage){
-                alertValue = alertManager.currentLoginAlert;
-            }
-            alertValue.addListener((observable, oldValue, newValue) -> {
-            if(newValue != null){
-                if(!stage.isShowing()) stage.show();
+        SimpleListProperty<String> alerts = alertManager.loggedAlerts;
+        if(isLoginStage){
+            alertValue = alertManager.currentLoginAlert;
+            alerts = alertManager.loginAlerts;
+        }
 
-                stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
-                stage.setY((primaryScreenBounds.getHeight() - stage.getHeight()) / 2);
+        ControllerAlert controller = loader.getController();
+        controller.currentAlert = alertValue;
+        controller.alerts = alerts;
+        controller.stage = stage;
+        controller.bind();
+
+        alertValue.addListener((observable, oldValue, newValue) -> {
+            if(newValue != null){
+                stage.setUserData("active");
+                if(!stage.isShowing() && stage.getOwner().isShowing()){
+                    stage.show();
+                }
             }else{
+                stage.setUserData("inactive");
                 stage.close();
             }
         });
-
     }
 
     private void initializeFirstLoginStyle(Stage stage) throws IOException {
