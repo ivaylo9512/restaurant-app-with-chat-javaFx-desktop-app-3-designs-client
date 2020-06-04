@@ -1,5 +1,5 @@
 Button,
-.content HBox Label{
+StackPane Label{
     -fx-text-fill: white;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 0);
     -fx-background-color: #1a1a1a;
@@ -18,21 +18,35 @@ Button:pressed{
     -fx-background-color: transparent;
 }
 .shadow-container{
-    -fx-background-color: transparent;
+}
+.content{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
     -fx-translate-x: 2em;
     -fx-translate-y: 2em;
-    -fx-border-color: #1a1a1a;
-    -fx-border-width: 4px;
-}
-.content{
     -fx-min-width: 17em;
-    -fx-min-height: 9em;
+    -fx-min-height: 7em;
+    -fx-max-height: 7em;
+    -fx-pref-height: 7em;
     -fx-background-color: #1a1a1a;
 }
-.close-button{
+.close-button,
+StackPane Label{
+    -fx-background-color: #FC3903;
+    -fx-font-weight: bold;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
+}
+.close-button{
+    -fx-pref-width: 2em;
+    -fx-max-width: 2em;
+    -fx-min-width: 2em;
+    -fx-max-height: 2em;
+    -fx-pref-height: 2em;
+    -fx-min-height: 2em;
+    -fx-translate-y: -0.6em;
+    -fx-translate-x: 1em;
+}
+StackPane Label{
     -fx-pref-width: 2em;
     -fx-max-width: 2em;
     -fx-min-width: 2em;
@@ -40,14 +54,16 @@ Button:pressed{
     -fx-pref-height: 2em;
     -fx-min-height: 2em;
     -fx-translate-y: -1.5em;
-    -fx-translate-x: 1em;
-    -fx-background-color: #FC3903;
-    -fx-font-weight: bold;
+    -fx-border-radius: 5em;
+    -fx-background-radius: 5em;
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: white;
 }
 .content > Label {
     -fx-padding: 0em 3em;
     -fx-text-fill: white;
 }
 .next-button{
-    -fx-padding: 0.3em 1em;
+    -fx-padding: 0.5em 1em;
+    -fx-translate-x: -1.5em;
 }
