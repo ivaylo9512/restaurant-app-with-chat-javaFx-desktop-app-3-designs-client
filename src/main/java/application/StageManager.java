@@ -51,9 +51,10 @@ public class StageManager {
 //        createAlertStage(new Stage(), firstLoginStage, true);
 //        createAlertStage(new Stage(), secondLoginStage, false);
 //        createAlertStage(new Stage(), thirdLoginStage, true);
-//        createAlertStage(new Stage(), firstLoggedStage, false);
+        secondLoginStage = new Stage();
+        createAlertStage(secondLoginAlert, secondLoginStage, true, "second-alert");
         secondLoggedAlert = new Stage();
-        createAlertStage(secondLoggedAlert, secondLoggedStage, false, "logged-second-alert");
+        createAlertStage(secondLoggedAlert, secondLoggedStage, false, "second-alert");
 //        createAlertStage(new Stage(), thirdLoggedStage, false);
 
         secondLoggedMenuStage.setAlwaysOnTop(true);

@@ -29,7 +29,7 @@
     -fx-border-radius: 180;
     -fx-border-color: #1a1a1a;
     -fx-border-width: 1.5;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 0 );
 }
 .menu{
     -fx-background-radius: 180;

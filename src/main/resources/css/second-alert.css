@@ -17,17 +17,46 @@ Button:pressed{
     -fx-padding: 4em;
     -fx-background-color: transparent;
 }
-.shadow-container{
-}
 .content{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.3 , 0 , 0 );
     -fx-translate-x: 2em;
     -fx-translate-y: 2em;
-    -fx-min-width: 17em;
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #1a1a1a;
+    -fx-border-width: 2.5;
+}
+.inner-shadow{
+    -fx-background-color: #1a1a1a;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+
+}
+.alert-icon{
+    -fx-padding: 0 1em;
+}
+.alert-icon AnchorPane{
+    -fx-background-color: #1a1a1a;
+    -fx-pref-width: 5em;
+    -fx-pref-height: 5em;
+    -fx-border-radius: 5em;
+    -fx-background-radius: 5em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.5 , 0 , 0 );
+
+}
+.alert-icon AnchorPane:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0 , 0 , 0 );
+}
+.alert-icon Region{
+    -fx-background-color: #FC3903;
+    -fx-pref-width: 2em;
+    -fx-max-width: 2em;
+    -fx-pref-height: 2em;
+    -fx-max-height: 2em;
+}
+.content GridPane{
+    -fx-min-width: 15em;
     -fx-min-height: 7em;
     -fx-max-height: 7em;
     -fx-pref-height: 7em;
-    -fx-background-color: #1a1a1a;
 }
 .close-button,
 StackPane Label{
@@ -35,32 +64,26 @@ StackPane Label{
     -fx-font-weight: bold;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
-}
-.close-button{
     -fx-pref-width: 2em;
     -fx-max-width: 2em;
     -fx-min-width: 2em;
     -fx-max-height: 2em;
     -fx-pref-height: 2em;
     -fx-min-height: 2em;
+}
+.close-button{
     -fx-translate-y: -0.6em;
     -fx-translate-x: 1em;
 }
 StackPane Label{
-    -fx-pref-width: 2em;
-    -fx-max-width: 2em;
-    -fx-min-width: 2em;
-    -fx-max-height: 2em;
-    -fx-pref-height: 2em;
-    -fx-min-height: 2em;
     -fx-translate-y: -1.5em;
     -fx-border-radius: 5em;
     -fx-background-radius: 5em;
     -fx-background-color: #1a1a1a;
     -fx-text-fill: white;
 }
-.content > Label {
-    -fx-padding: 0em 3em;
+.content GridPane > Label {
+    -fx-padding: 0 3em 0 0;
     -fx-text-fill: white;
 }
 .next-button{
