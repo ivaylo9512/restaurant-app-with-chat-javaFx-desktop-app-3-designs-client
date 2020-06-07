@@ -17,6 +17,8 @@ public class RequestTask<T> extends Task<T> {
 
     private HttpRequestBase request;
     private JavaType type;
+    private String errorMessage;
+
     public RequestTask(JavaType type, HttpRequestBase request) {
         this.type = type;
         this.request = request;
@@ -50,13 +52,13 @@ public class RequestTask<T> extends Task<T> {
     @Override
     protected void failed() {
         super.failed();
-        String message = getException().getMessage();
-        if(message.equals("Jwt token has expired.")) {
+        errorMessage = getException().getMessage();
+        if(errorMessage.equals("Jwt token has expired.")) {
             if(stageManager.currentController instanceof ControllerLogged){
                 Platform.runLater(() -> loginManager.logout());
             }
-            alertManager.addLoginAlert("Session has expired.");
+            errorMessage = "Session has expired.";
         }
-        alertManager.addLoginAlert(message);
+        Platform.runLater(() -> alertManager.addAlert(errorMessage));
     }
 }

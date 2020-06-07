@@ -51,7 +51,7 @@ public class StageManager {
 //        createAlertStage(new Stage(), firstLoginStage, true);
 //        createAlertStage(new Stage(), secondLoginStage, false);
 //        createAlertStage(new Stage(), thirdLoginStage, true);
-        secondLoginStage = new Stage();
+        secondLoginAlert = new Stage();
         createAlertStage(secondLoginAlert, secondLoginStage, true, "second-alert");
         secondLoggedAlert = new Stage();
         createAlertStage(secondLoggedAlert, secondLoggedStage, false, "second-alert");
@@ -93,6 +93,7 @@ public class StageManager {
         }else if(stage == secondLoginStage){
             currentStage = secondLoginStage;
             currentController = secondLoginController;
+            currentAlertStage = secondLoginAlert;
         }else if(stage == thirdLoginStage){
             currentStage = thirdLoginStage;
             currentController = thirdLoginController;

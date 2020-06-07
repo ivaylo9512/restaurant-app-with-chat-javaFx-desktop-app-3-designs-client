@@ -131,6 +131,8 @@ public class LoginManager {
     }
 
     private void onSuccessfulService(Service service) {
+        alertManager.resetLoginAlerts();
+
         User loggedUser = (User) service.getValue();
         setLoggedUser(loggedUser);
 
@@ -176,6 +178,7 @@ public class LoginManager {
         userPreference.remove("jwt");
         resetUser();
 
+        alertManager.resetLoggedAlerts();
         chatManager.resetChats();
         orderManager.resetRestaurant();
         stageManager.changeToOwner();

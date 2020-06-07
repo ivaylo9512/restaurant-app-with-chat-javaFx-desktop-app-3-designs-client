@@ -59,11 +59,9 @@ public class ControllerAlert {
     public void nextAlert(){
         String nextAlert = null;
 
-        if(alerts.size() > 1){
-            if(currentAlert.get() != null) alerts.remove(0);
+        if(currentAlert.get() != null && alerts.size() > 0) alerts.remove(0);
+        if(alerts.size() > 0) nextAlert = alerts.get(0);
 
-            nextAlert = alerts.get(0);
-        }
         currentAlert.set(nextAlert);
     }
     @FXML
