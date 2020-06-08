@@ -5,43 +5,45 @@
 
 <?import javafx.scene.effect.InnerShadow?>
 <AnchorPane fx:id="root" styleClass="alert-box" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.base.ControllerAlert">
-    <AnchorPane fx:id="content" styleClass="content">
-        <AnchorPane styleClass="inner-shadow" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <effect><InnerShadow/></effect>
-        </AnchorPane>
+    <AnchorPane styleClass="centered-container">
+        <AnchorPane fx:id="content" styleClass="content, translate-content">
+            <AnchorPane styleClass="inner-shadow" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+                <effect><InnerShadow/></effect>
+            </AnchorPane>
 
-        <GridPane>
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <GridPane GridPane.columnIndex="1">
+            <GridPane>
                 <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES"/>
                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints fillHeight="false" maxHeight="-Infinity" percentHeight="20.0"
-                                    valignment="CENTER" vgrow="NEVER"/>
-                    <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
-                    <RowConstraints percentHeight="55.0" vgrow="NEVER"/>
+                    <RowConstraints vgrow="SOMETIMES"/>
                 </rowConstraints>
-                <Label fx:id="alertMessage" alignment="CENTER" maxHeight="1.7976931348623157E308"
-                       maxWidth="1.7976931348623157E308" text="h" GridPane.rowIndex="1"/>
-                <StackPane maxHeight="-Infinity" maxWidth="-Infinity" GridPane.halignment="RIGHT"
-                           GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
-                    <Button fx:id="nextButton" onMouseClicked="#nextAlert" styleClass="next-button" text="ok"/>
-                    <Label fx:id="alertsCount" alignment="CENTER" contentDisplay="CENTER" text="Label"/>
+                <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints fillHeight="false" maxHeight="-Infinity" percentHeight="20.0"
+                                        valignment="CENTER" vgrow="NEVER"/>
+                        <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
+                        <RowConstraints percentHeight="55.0" vgrow="NEVER"/>
+                    </rowConstraints>
+                    <Label fx:id="alertMessage" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                           maxWidth="1.7976931348623157E308" text="h" GridPane.rowIndex="1"/>
+                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" GridPane.halignment="RIGHT"
+                               GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <Button fx:id="nextButton" onMouseClicked="#nextAlert" styleClass="next-button" text="ok"/>
+                        <Label fx:id="alertsCount" alignment="CENTER" contentDisplay="CENTER" text="Label"/>
+                    </StackPane>
+                    <Button fx:id="closeButton" onMouseClicked="#closeAlerts" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity"
+                            mnemonicParsing="false" styleClass="close-button" text="x" GridPane.halignment="RIGHT"
+                            GridPane.rowIndex="0"/>
+                </GridPane>
+                <StackPane fx:id="alertIcon" maxHeight="-Infinity" styleClass="alert-icon" GridPane.columnIndex="0">
+                    <AnchorPane/>
                 </StackPane>
-                <Button fx:id="closeButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity"
-                        mnemonicParsing="false" styleClass="close-button" text="x" GridPane.halignment="RIGHT"
-                        GridPane.rowIndex="0"/>
             </GridPane>
-            <StackPane fx:id="alertIcon" maxHeight="-Infinity" styleClass="alert-icon" GridPane.columnIndex="0">
-                <AnchorPane></AnchorPane>
-            </StackPane>
-        </GridPane>
+        </AnchorPane>
     </AnchorPane>
 </AnchorPane>

@@ -14,16 +14,21 @@ Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0);
 }
 .alert-box{
-    -fx-padding: 4em;
+    -fx-padding: 1.5em;
     -fx-background-color: transparent;
 }
 .content{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.3 , 0 , 0 );
-    -fx-translate-x: 2em;
-    -fx-translate-y: 2em;
     -fx-background-color: #1a1a1a;
     -fx-border-color: #1a1a1a;
     -fx-border-width: 2.5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 0.4em, 0.3 , 0 , 0 );
+}
+.translate-content{
+    -fx-translate-y: -9.5em;
+}
+.centered-container{
+    -fx-translate-x: 1.5em;
+    -fx-translate-y: 1.5em;
 }
 .inner-shadow{
     -fx-background-color: #1a1a1a;
@@ -33,24 +38,30 @@ Button:pressed{
 .alert-icon{
     -fx-padding: 0 1em;
 }
-.alert-icon AnchorPane{
-    -fx-background-color: #1a1a1a;
+.alert-icon AnchorPane,
+.alert-icon VBox{
     -fx-pref-width: 5em;
     -fx-pref-height: 5em;
+}
+.alert-icon VBox{
+    -fx-alignment: center;
+}
+.alert-icon Rectangle{
+    -fx-arc-height: 0.5em;
+    -fx-arc-width: 0.5em;
+    -fx-fill: #FC3903;
+}
+.alert-icon Circle{
+    -fx-fill: #FC3903;
+}
+.alert-icon AnchorPane{
     -fx-border-radius: 5em;
     -fx-background-radius: 5em;
+    -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.5 , 0 , 0 );
-
 }
 .alert-icon AnchorPane:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0 , 0 , 0 );
-}
-.alert-icon Region{
-    -fx-background-color: #FC3903;
-    -fx-pref-width: 2em;
-    -fx-max-width: 2em;
-    -fx-pref-height: 2em;
-    -fx-max-height: 2em;
 }
 .content GridPane{
     -fx-min-width: 15em;

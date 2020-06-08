@@ -1,6 +1,11 @@
 package application;
 
 import controllers.base.ControllerAlert;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +16,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import controllers.base.Controller;
+import javafx.util.Duration;
 
 
 import java.io.IOException;
@@ -128,9 +135,12 @@ public class StageManager {
         scene.getStylesheets().add(getClass().getResource("/css/" + fileName + ".css").toString());
         scene.setFill(Color.TRANSPARENT);
 
-        stage.initStyle(StageStyle.TRANSPARENT);
         stage.initOwner(owner);
         stage.setScene(scene);
+
+        double stageHeight = Font.getDefault().getSize() * 23;
+        stage.setHeight(stageHeight);
+        stage.setY(-stageHeight / 2);
 
         ObjectProperty<String> alertValue = alertManager.currentLoggedAlert;
         SimpleListProperty<String> alerts = alertManager.loggedAlerts;
@@ -151,7 +161,11 @@ public class StageManager {
                 if(!stage.isShowing() && stage.getOwner().isShowing()){
                     stage.show();
                 }
+                TranslateTransition translateTransition = new TranslateTransition(Duration.millis(500), root);
+                translateTransition.setToY(stageHeight / 2);
+                translateTransition.play();
             }else{
+                root.setTranslateY(0);
                 stage.setUserData("inactive");
                 stage.close();
             }
