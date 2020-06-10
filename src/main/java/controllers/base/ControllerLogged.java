@@ -4,16 +4,9 @@ import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.*;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 import models.*;
 import models.Menu;
@@ -24,17 +17,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import org.apache.commons.collections4.map.ListOrderedMap;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.SortedMap;
-
 import static application.RestaurantApplication.*;
-import static application.ServerRequests.pageSize;
 
 public class ControllerLogged {
     @FXML

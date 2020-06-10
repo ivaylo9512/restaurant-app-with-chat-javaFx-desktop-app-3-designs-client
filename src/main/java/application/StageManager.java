@@ -5,7 +5,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -44,7 +43,7 @@ public class StageManager {
 
         secondLoggedStage = new Stage();
         secondLoggedController = createStage("logged-second", secondLoggedStage);
-        
+
         secondLoggedMenuStage = new Stage();
         secondLoggedMenuStage.initOwner(createTransparentUtilityStage());
         secondLoggedMenuController = createStage("logged-second-menu", secondLoggedMenuStage);
