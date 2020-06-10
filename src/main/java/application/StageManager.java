@@ -31,15 +31,26 @@ public class StageManager {
 
     StageManager(Stage primaryStage) throws Exception{
         firstLoginStage = primaryStage;
-        initializeFirstLoginStyle(primaryStage);
+        firstLoginController = createStage("login-first", firstLoginStage);
 
-        initializeSecondLoginStyle(new Stage());
-//        initializeThirdLoginStyle(new Stage());
+        secondLoginStage = new Stage();
+        secondLoginController = createStage("login-second", secondLoginStage);
 
-        initializeFirstLoggedStyle(new Stage());
-        initializeSecondLoggedStyle(new Stage());
-        initializeSecondLoggedMenuStyle(new Stage());
-//        initializeThirdLoggedStyle(new Stage());
+        thirdLoginStage = new Stage();
+        thirdLoginController = createStage("login-third", thirdLoginStage);
+
+        firstLoggedStage = new Stage();
+        firstLoggedController = createStage("logged-first", firstLoginStage);
+
+        secondLoggedStage = new Stage();
+        secondLoggedController = createStage("logged-second", secondLoggedStage);
+        
+        secondLoggedMenuStage = new Stage();
+        secondLoggedMenuStage.initOwner(createTransparentUtilityStage());
+        secondLoggedMenuController = createStage("logged-second-menu", secondLoggedMenuStage);
+
+        thirdLoggedStage = new Stage();
+        thirdLoggedController = createStage("logged-third", thirdLoggedStage);
 
 //        createAlertStage(new Stage(), firstLoginStage, true);
 //        createAlertStage(new Stage(), secondLoginStage, false);
@@ -149,77 +160,6 @@ public class StageManager {
         return controller;
     }
 
-    private void initializeFirstLoginStyle(Stage stage) throws IOException {
-        firstLoginStage = stage;
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-first.fxml"));
-        Pane root = loader.load();
-
-        firstLoginController = loader.getController();
-        createStage(root, "/css/login-first.css", stage , firstLoginController);
-    }
-
-    private void initializeSecondLoginStyle(Stage stage) throws IOException {
-        secondLoginStage = stage;
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-second.fxml"));
-        Pane root = loader.load();
-
-        secondLoginController = loader.getController();
-        createStage(root, "/css/login-second.css", stage , secondLoginController);
-    }
-
-    private void initializeThirdLoginStyle(Stage stage) throws IOException {
-        thirdLoginStage = stage;
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/login-third.fxml"));
-        Pane root = loader.load();
-
-        thirdLoginController = loader.getController();
-        createStage(root, "/css/login-third.css", stage , thirdLoginController);
-    }
-
-    private void initializeFirstLoggedStyle(Stage stage) throws IOException {
-        firstLoggedStage = stage;
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-first.fxml"));
-        Pane root = loader.load();
-
-        firstLoggedController = loader.getController();
-        createStage(root, "/css/logged-first.css", stage , firstLoggedController);
-    }
-
-    private void initializeSecondLoggedStyle(Stage stage) throws IOException {
-        secondLoggedStage = stage;
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-second.fxml"));
-        Pane root = loader.load();
-
-        secondLoggedController = loader.getController();
-        createStage(root, "/css/logged-second.css", stage , secondLoggedController);
-    }
-
-    private void initializeSecondLoggedMenuStyle(Stage stage) throws IOException {
-        secondLoggedMenuStage = stage;
-        stage.initOwner(createTransparentUtilityStage());
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-second-menu.fxml"));
-        Pane root = loader.load();
-
-        secondLoggedMenuController = loader.getController();
-        createStage(root, "/css/logged-second-menu.css", stage , secondLoggedMenuController);
-    }
-
-    private void initializeThirdLoggedStyle(Stage stage) throws IOException {
-        thirdLoggedStage = stage;
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/logged-third.fxml"));
-        Pane root = loader.load();
-
-        thirdLoggedController = loader.getController();
-        createStage(root, "/css/logged-third.css", stage , thirdLoggedController);
-    }
-
     private Stage createTransparentUtilityStage() {
         Stage utilityStage = new Stage();
         utilityStage.initStyle(StageStyle.UTILITY);
@@ -232,9 +172,14 @@ public class StageManager {
         return utilityStage;
     }
 
-    private Stage createStage(Parent root, String rootCss, Stage stage, Controller controller) {
+    private Controller createStage(String fileName, Stage stage) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/" + fileName + ".fxml"));
+        Pane root = loader.load();
+
+        Controller controller = loader.getController();
+
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource(rootCss).toString());
+        scene.getStylesheets().add(getClass().getResource("css/" + fileName + ".css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
@@ -257,6 +202,6 @@ public class StageManager {
         stage.setX(primaryScreenBounds.getMinX());
         stage.setY(primaryScreenBounds.getMinY());
 
-        return stage;
+        return controller;
     }
 }
