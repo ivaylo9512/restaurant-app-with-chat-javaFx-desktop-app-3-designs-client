@@ -1,14 +1,12 @@
 package application;
 
 import controllers.base.ControllerAlert;
-    import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -25,21 +23,15 @@ import static application.RestaurantApplication.loginManager;
 public class StageManager {
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    private Stage primaryStage;
-
     public ControllerAlert currentAlertController, secondLoggedAlertController, secondLoginAlertController;
     public Controller currentController, firstLoggedController, secondLoggedController, secondLoggedMenuController,
             thirdLoggedController, firstLoginController, secondLoginController, thirdLoginController;
     public Stage currentStage, currentStageMenu, currentAlertStage, firstLoggedStage, secondLoggedStage, secondLoggedMenuStage, thirdLoggedStage,
             firstLoginStage, secondLoginStage, thirdLoginStage, firstLoginAlert, firstLoggedAlert, secondLoginAlert, secondLoggedAlert, thirdLoginAlert, thirdLoggedAlert;
 
-    void initializeStages(Stage primaryStage) throws Exception{
-        this.primaryStage = primaryStage;
-
+    StageManager(Stage primaryStage) throws Exception{
+        firstLoginStage = primaryStage;
         initializeFirstLoginStyle(primaryStage);
-
-        currentStage = primaryStage;
-        currentController = firstLoginController;
 
         initializeSecondLoginStyle(new Stage());
 //        initializeThirdLoginStyle(new Stage());
@@ -68,14 +60,11 @@ public class StageManager {
 //        thirdLoginStage.setUserData(thirdLoggedStage);
 //        thirdLoggedStage.setUserData(thirdLoginStage);
 
-        currentStage.show();
-        if(currentStageMenu != null) {
-            ((Stage)currentStageMenu.getOwner()).show();
-            currentStageMenu.show();
-        }
+        changeStage(primaryStage);
     }
-    static StageManager initialize() throws Exception {
-        return new StageManager();
+
+    static StageManager initialize(Stage primaryStage) throws Exception {
+        return new StageManager(primaryStage);
     }
 
     void changeToOwner(){
@@ -83,11 +72,7 @@ public class StageManager {
     }
 
     public void changeStage(Stage stage){
-        currentStage.close();
-        if(currentStageMenu != null) ((Stage)currentStageMenu.getOwner()).close();
-        if(currentAlertStage != null)currentAlertStage.close();
-        currentStageMenu = null;
-        currentAlertStage = null;
+        closeCurrentStage();
 
         if(stage == firstLoginStage){
             currentStage = firstLoginStage;
@@ -122,6 +107,16 @@ public class StageManager {
         if(currentAlertStage != null && currentAlertStage.getUserData() != null && currentAlertStage.getUserData().equals("active")){
             currentAlertStage.show();
             currentAlertController.fadeInAlert();
+        }
+    }
+
+    private void closeCurrentStage() {
+        if(currentStage != null){
+            currentStage.close();
+            if(currentStageMenu != null) ((Stage)currentStageMenu.getOwner()).close();
+            if(currentAlertStage != null)currentAlertStage.close();
+            currentStageMenu = null;
+            currentAlertStage = null;
         }
     }
 
@@ -223,18 +218,6 @@ public class StageManager {
 
         thirdLoggedController = loader.getController();
         createStage(root, "/css/logged-third.css", stage , thirdLoggedController);
-    }
-
-    private Alert createAlert(Stage stage) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.initOwner(stage);
-        alert.initStyle(StageStyle.TRANSPARENT);
-
-        DialogPane dialog = alert.getDialogPane();
-        dialog.setGraphic(null);
-        dialog.getStyleClass().add("alert-box");
-
-        return alert;
     }
 
     private Stage createTransparentUtilityStage() {
