@@ -28,18 +28,18 @@ public class StageManager {
     public Stage currentStage, currentStageMenu, currentAlertStage, firstLoggedStage, secondLoggedStage, secondLoggedMenuStage, thirdLoggedStage,
             firstLoginStage, secondLoginStage, thirdLoginStage, firstLoginAlert, firstLoggedAlert, secondLoginAlert, secondLoggedAlert, thirdLoginAlert, thirdLoggedAlert;
 
-    StageManager(Stage primaryStage) throws Exception{
+    void initializeStages(Stage primaryStage) throws Exception{
         firstLoginStage = primaryStage;
         firstLoginController = createStage("login-first", firstLoginStage);
 
         secondLoginStage = new Stage();
         secondLoginController = createStage("login-second", secondLoginStage);
 
-        thirdLoginStage = new Stage();
-        thirdLoginController = createStage("login-third", thirdLoginStage);
+//        thirdLoginStage = new Stage();
+//        thirdLoginController = createStage("login-third", thirdLoginStage);
 
         firstLoggedStage = new Stage();
-        firstLoggedController = createStage("logged-first", firstLoginStage);
+        firstLoggedController = createStage("logged-first", firstLoggedStage);
 
         secondLoggedStage = new Stage();
         secondLoggedController = createStage("logged-second", secondLoggedStage);
@@ -48,8 +48,8 @@ public class StageManager {
         secondLoggedMenuStage.initOwner(createTransparentUtilityStage());
         secondLoggedMenuController = createStage("logged-second-menu", secondLoggedMenuStage);
 
-        thirdLoggedStage = new Stage();
-        thirdLoggedController = createStage("logged-third", thirdLoggedStage);
+//        thirdLoggedStage = new Stage();
+//        thirdLoggedController = createStage("logged-third", thirdLoggedStage);
 
 //        createAlertStage(new Stage(), firstLoginStage, true);
 //        createAlertStage(new Stage(), secondLoginStage, false);
@@ -73,8 +73,8 @@ public class StageManager {
         changeStage(primaryStage);
     }
 
-    static StageManager initialize(Stage primaryStage) throws Exception {
-        return new StageManager(primaryStage);
+    static StageManager initialize() throws Exception {
+        return new StageManager();
     }
 
     void changeToOwner(){
@@ -108,10 +108,11 @@ public class StageManager {
             currentStage = thirdLoggedStage;
             currentController = thirdLoggedController;
         }
-        currentStage.show();
         if(currentStageMenu != null){
             ((Stage)currentStageMenu.getOwner()).show();
             currentStageMenu.show();
+        }else{
+            currentStage.show();
         }
 
         if(currentAlertStage != null && currentAlertStage.getUserData() != null && currentAlertStage.getUserData().equals("active")){
@@ -178,7 +179,7 @@ public class StageManager {
         Controller controller = loader.getController();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("css/" + fileName + ".css").toString());
+        scene.getStylesheets().add(getClass().getResource("/css/" + fileName + ".css").toString());
         scene.setFill(Color.TRANSPARENT);
 
         stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
