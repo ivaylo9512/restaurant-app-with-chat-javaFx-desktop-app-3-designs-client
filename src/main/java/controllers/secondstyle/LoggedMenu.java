@@ -31,10 +31,11 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     @FXML Pane profileImageContainer, profileImageClip;
     @FXML HBox notificationMenuIcon;
 
+    ObjectProperty<Button> currentContentButton = new SimpleObjectProperty<>();
+    ObjectProperty<Button> currentMenuButton = new SimpleObjectProperty<>();
+
     private HBox notificationBox;
     private AnchorPane currentMenuView;
-    private ObjectProperty<Button> currentContentButton = new SimpleObjectProperty<>();
-    private ObjectProperty<Button> currentMenuButton = new SimpleObjectProperty<>();
 
     private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
     private Stage stage = stageManager.secondLoggedMenuStage;
@@ -51,7 +52,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         bindNotificationIconSize();
         setClips();
 
-        contentController.bindToMenu(currentContentButton);
+        contentController.bindToMenu(this);
 
         notificationMenuIcon.opacityProperty().bind(notificationBox.opacityProperty());
         notificationsList.setItems(notificationManager.notifications);
@@ -277,10 +278,17 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         shadowContainer.getStyleClass().remove("profile-button-hovered");
     }
     @FXML
-    public void menuButtonAction(MouseEvent event){
+    public void onMenuAction(MouseEvent event){
         Button button = (Button) event.getSource();
+        setView(button.getId(), button);
+    }
 
-        switch (button.getId()){
+    void setView(String buttonId, Button button) {
+        if(button == null){
+            button = (Button)menuRoot.lookup("#" + buttonId);
+        }
+
+        switch (buttonId){
             case "profileButton":
                 showProfile();
                 if(menuContent.getPrefHeight() == 0 || menuContent.getPrefHeight() == menuContent.getMaxHeight())
@@ -305,6 +313,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
                 break;
         }
     }
+
     private void changeButtonStyle(Button newButton, ObjectProperty<Button> currentButtonProperty){
         Button currentButton = currentButtonProperty.get();
         if(currentButton != null){

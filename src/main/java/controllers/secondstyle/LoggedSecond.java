@@ -35,6 +35,8 @@ public class LoggedSecond extends ControllerLogged implements Controller {
 
     private ChatSession mainChatSession;
 
+    private LoggedMenu menuController;
+
     @FXML
     public void initialize() {
         setClips();
@@ -101,6 +103,8 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     }
 
     void displayView(AnchorPane requestedView){
+        if(currentOrder != null) unbindOrderProperties();
+
         if(requestedView.equals(currentView)){
             requestedView.setOpacity(0);
             requestedView.setDisable(true);
@@ -120,9 +124,10 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         }
     }
 
-    void bindToMenu(ObjectProperty<Button> menuButton){
-        menuButton.addListener(observable -> {
-            if(menuButton.get() == null){
+    void bindToMenu(LoggedMenu menuController){
+        this.menuController = menuController;
+        menuController.currentContentButton.addListener((observable, oldValue, newValue) -> {
+            if(newValue == null){
                 stage.close();
             }else{
                 stage.show();
@@ -150,7 +155,6 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         ordersList.getSelectionModel().clearSelection();
 
         menuSearch.setText("");
-
     }
 
     @FXML
@@ -159,16 +163,12 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         if(currentOrder == null){
             orderView.getStyleClass().remove("inactive");
         }
-        bindOrderProperties(order);
 
         if(!currentView.equals(orderView)){
-            currentView.setOpacity(0);
-            currentView.setDisable(true);
-
-            orderView.setOpacity(1);
-            orderView.setDisable(false);
-            currentView = orderView;
+            menuController.setView("orderButton", null);
         }
+
+        bindOrderProperties(order);
 
         FadeTransition fadeIn = new FadeTransition(Duration.millis(450), orderInfo);
         fadeIn.setFromValue(0.36);
