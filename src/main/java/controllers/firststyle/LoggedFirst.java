@@ -110,10 +110,10 @@ public class LoggedFirst extends ControllerLogged implements Controller{
                         true, true, true, true, true, true, true, true, true, true, null));
                 ordersList.setDisable(true);
             }else{
-                isOrderListScrolling = true;
+                expandOrderPane.isOrderListScrolling = true;
             }
         });
-        ordersList.addEventHandler(TouchEvent.TOUCH_RELEASED, event -> isOrderListScrolling = false);
+        ordersList.addEventHandler(TouchEvent.TOUCH_RELEASED, event -> expandOrderPane.isOrderListScrolling = false);
         ordersList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::expandOrder);
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node: ordersList.lookupAll(".scroll-bar")) {
@@ -138,8 +138,8 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     public void updateListScroll() {
         if(currentOrder != null && ordersList.isDisabled()) {
             ordersList.scrollTo(currentOrder);
-            double zeroIndexScroll = (currentOrder.getIndex() * (cellWidth + 0.40)) / (ordersList.getItems().size() * cellWidth + 1);
-            double scrollPosition = zeroIndexScroll - (cellLayoutX / (ordersList.getItems().size() * cellWidth + 1));
+            double zeroIndexScroll = (currentOrder.getIndex() * (expandOrderPane.cellWidth + 0.40)) / (ordersList.getItems().size() * expandOrderPane.cellWidth + 1);
+            double scrollPosition = zeroIndexScroll - (expandOrderPane.cellLayoutX / (ordersList.getItems().size() * expandOrderPane.cellWidth + 1));
             ordersScrollBar.setValue(scrollPosition);
         }
     }
@@ -295,13 +295,13 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         dishesClip.heightProperty().bind(dishesAnchor.heightProperty());
         currentDishList.setClip(dishesClip);
 
-        orderContainer.disableProperty().bind(isButtonExpanded.not());
+        orderContainer.disableProperty().bind(expandOrderPane.isButtonExpanded.not());
         orderContainer.opacityProperty().bind(Bindings.createIntegerBinding(()->{
-            if(action.get()){
+            if(expandOrderPane.action.get()){
                 return 1;
             }
             return 0;
-        },action));
+        },expandOrderPane.action));
     }
 
     @FXML
@@ -343,19 +343,19 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         Node intersectedNode = event.getPickResult().getIntersectedNode();
         intersectedNode = intersectedNode == null ? (Node)event.getTarget() : intersectedNode;
 
-        if(!isOrderListScrolling && !ExpandOrderPane.action.get() && (intersectedNode instanceof Button || intersectedNode instanceof AnchorPane)){
+        if(!expandOrderPane.isOrderListScrolling && !expandOrderPane.action.get() && (intersectedNode instanceof Button || intersectedNode instanceof AnchorPane)){
 
-            currentPane = intersectedNode instanceof AnchorPane ? (AnchorPane) intersectedNode
+            expandOrderPane.currentPane = intersectedNode instanceof AnchorPane ? (AnchorPane) intersectedNode
                     : (AnchorPane) intersectedNode.getParent();
-            currentContainer = (Pane)currentPane.getParent();
-            cell =  (OrderListViewCell) currentContainer.getParent();
+            expandOrderPane.currentContainer = (Pane)expandOrderPane.currentPane.getParent();
+            expandOrderPane.cell =  (OrderListViewCell) expandOrderPane.currentContainer.getParent();
 
-            ExpandOrderPane.setCurrentOrder(event);
-            currentOrder = cell.order;
+            expandOrderPane.setCurrentOrder(event);
+            currentOrder = expandOrderPane.cell.order;
             bindOrderProperties(currentOrder);
 
             if(intersectedNode instanceof Button)
-                expandOrderOnClick();
+                expandOrderPane.expandOrderOnClick();
 
         }
     }
