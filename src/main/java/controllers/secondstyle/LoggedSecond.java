@@ -6,6 +6,7 @@ import controllers.base.ChatSession;
 import controllers.base.Controller;
 import helpers.listviews.ChatsUsersListViewCellSecond;
 import helpers.Scrolls;
+import javafx.beans.property.ObjectProperty;
 import javafx.stage.Stage;
 import models.*;
 import javafx.animation.*;
@@ -101,8 +102,6 @@ public class LoggedSecond extends ControllerLogged implements Controller {
 
     void displayView(AnchorPane requestedView){
         if(requestedView.equals(currentView)){
-            contentRoot.setOpacity(0);
-            contentRoot.setDisable(true);
             requestedView.setOpacity(0);
             requestedView.setDisable(true);
 
@@ -110,12 +109,7 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         }else if(currentView == null) {
             requestedView.setDisable(false);
             requestedView.setOpacity(1);
-
-            contentRoot.setOpacity(1);
-            contentRoot.setDisable(false);
             currentView = requestedView;
-
-            stage.toFront();
         }else{
             requestedView.setDisable(false);
             requestedView.setOpacity(1);
@@ -123,9 +117,17 @@ public class LoggedSecond extends ControllerLogged implements Controller {
             currentView.setDisable(true);
             currentView.setOpacity(0);
             currentView = requestedView;
-
-            stage.toFront();
         }
+    }
+
+    void bindToMenu(ObjectProperty<Button> menuButton){
+        menuButton.addListener(observable -> {
+            if(menuButton.get() == null){
+                stage.close();
+            }else{
+                stage.show();
+            }
+        });
     }
 
     @Override
@@ -149,14 +151,6 @@ public class LoggedSecond extends ControllerLogged implements Controller {
 
         menuSearch.setText("");
 
-        contentRoot.setOpacity(0);
-        contentRoot.setDisable(true);
-
-        if(currentView != null){
-            currentView.setOpacity(0);
-            currentView.setDisable(true);
-        }
-        currentView = null;
     }
 
     @FXML

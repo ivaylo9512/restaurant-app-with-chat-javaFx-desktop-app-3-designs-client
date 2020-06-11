@@ -6,6 +6,8 @@ import animations.TransitionResizeWidth;
 import controllers.base.Controller;
 import controllers.base.ControllerLogged;
 import javafx.animation.*;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -21,8 +23,6 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 import static application.RestaurantApplication.*;
 
 public class LoggedMenu extends ControllerLogged implements Controller {
@@ -33,8 +33,8 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
     private HBox notificationBox;
     private AnchorPane currentMenuView;
-    private AtomicReference<Button> currentContentButton = new AtomicReference<>();
-    private AtomicReference<Button> currentMenuButton = new AtomicReference<>();
+    private ObjectProperty<Button> currentContentButton = new SimpleObjectProperty<>();
+    private ObjectProperty<Button> currentMenuButton = new SimpleObjectProperty<>();
 
     private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
     private Stage stage = stageManager.secondLoggedMenuStage;
@@ -50,6 +50,8 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         setNotificationBox(notificationMenuIcon);
         bindNotificationIconSize();
         setClips();
+
+        contentController.bindToMenu(currentContentButton);
 
         notificationMenuIcon.opacityProperty().bind(notificationBox.opacityProperty());
         notificationsList.setItems(notificationManager.notifications);
@@ -303,8 +305,8 @@ public class LoggedMenu extends ControllerLogged implements Controller {
                 break;
         }
     }
-    private void changeButtonStyle(Button newButton, AtomicReference<Button> currentButtonOptional){
-        Button currentButton = currentButtonOptional.get();
+    private void changeButtonStyle(Button newButton, ObjectProperty<Button> currentButtonProperty){
+        Button currentButton = currentButtonProperty.get();
         if(currentButton != null){
             currentButton.getParent().getStyleClass().add("shadow");
         }
@@ -315,9 +317,9 @@ public class LoggedMenu extends ControllerLogged implements Controller {
             AnchorPane.setTopAnchor(container, 0.0);
             AnchorPane.setBottomAnchor(container, 0.0);
 
-            currentButtonOptional.set(newButton);
+            currentButtonProperty.set(newButton);
         }else{
-            currentButtonOptional.set(null);
+            currentButtonProperty.set(null);
         }
     }
     @FXML
