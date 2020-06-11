@@ -19,7 +19,7 @@ import java.io.IOException;
 import static application.RestaurantApplication.*;
 import static application.ServerRequests.*;
 
-public class LoginManager {
+class LoginManager {
     private RequestService<User> loginService = new RequestService<>(User.class, null, RequestEnum.login);
     private RequestService<User> registerService = new RequestService<>(User.class, null, RequestEnum.register);
 
@@ -42,7 +42,7 @@ public class LoginManager {
     StringProperty regPassword = new SimpleStringProperty();
     StringProperty repeatPassword = new SimpleStringProperty();
 
-    private LoginManager(){
+    LoginManager(){
         loginService.setOnSucceeded(eventSuccess -> onSuccessfulService(loginService));
         loginService.setOnFailed(eventFail -> updateError(loginService));
 
@@ -84,10 +84,6 @@ public class LoginManager {
 
         longPollingService.restart();
     };
-
-    static LoginManager initialize(){
-        return new LoginManager();
-    }
 
     public void bindLoginFields(StringProperty username, StringProperty password){
         this.username.bind(username);

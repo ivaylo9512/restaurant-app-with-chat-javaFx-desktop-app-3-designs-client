@@ -19,7 +19,7 @@ import java.io.IOException;
 import static application.RestaurantApplication.alertManager;
 import static application.RestaurantApplication.loginManager;
 
-public class StageManager {
+class StageManager {
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     public ControllerAlert currentAlertController, secondLoggedAlertController, secondLoginAlertController;
@@ -71,10 +71,6 @@ public class StageManager {
 //        thirdLoggedStage.setUserData(thirdLoginStage);
 
         changeStage(primaryStage);
-    }
-
-    static StageManager initialize() throws Exception {
-        return new StageManager();
     }
 
     void changeToOwner(){

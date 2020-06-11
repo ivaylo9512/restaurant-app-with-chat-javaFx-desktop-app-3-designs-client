@@ -28,12 +28,12 @@ public class RestaurantApplication extends Application{
         notificationSound = new MediaPlayer(sound);
         notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
-        notificationManager = NotificationManager.initialize();
-        orderManager = OrderManager.initialize();
-        loginManager = LoginManager.initialize();
-        chatManager = ChatManager.initialize();
-        alertManager = AlertManager.initialize();
-        stageManager = StageManager.initialize();
+        notificationManager = new NotificationManager();
+        orderManager = new OrderManager();
+        loginManager = new LoginManager();
+        chatManager = new ChatManager();
+        alertManager = new AlertManager();
+        stageManager = new StageManager();
         stageManager.initializeStages(primaryStage);
 
         loginManager.checkIfLogged();

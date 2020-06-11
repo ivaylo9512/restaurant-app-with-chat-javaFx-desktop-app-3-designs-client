@@ -27,7 +27,7 @@ import static application.RestaurantApplication.*;
 import static application.ServerRequests.*;
 
 
-public class ChatManager {
+class ChatManager {
 
     private JavaType sessionType = mapper.getTypeFactory().constructCollectionType(List.class, Session.class);
     private JavaType messageType = mapper.getTypeFactory().constructType(Message.class);
@@ -38,11 +38,7 @@ public class ChatManager {
     public ObjectProperty<ChatValue> mainChatValue = new SimpleObjectProperty<>();
     public ObjectProperty<ChatValue> secondChatValue = new SimpleObjectProperty<>();
 
-    private ChatManager() {
-    }
-
-    static ChatManager initialize(){
-        return new ChatManager();
+    ChatManager() {
     }
 
     void setChats(List<Chat> chatsList){

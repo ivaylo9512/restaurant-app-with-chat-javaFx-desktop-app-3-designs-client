@@ -8,7 +8,7 @@ import javafx.collections.FXCollections;
 
 import static application.RestaurantApplication.stageManager;
 
-public class AlertManager {
+class AlertManager {
 
     SimpleListProperty<String> loginAlerts = new SimpleListProperty<>(FXCollections.observableArrayList());
     SimpleListProperty<String> loggedAlerts = new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -16,11 +16,7 @@ public class AlertManager {
     ObjectProperty<String> currentLoginAlert = new SimpleObjectProperty<>();
     ObjectProperty<String> currentLoggedAlert = new SimpleObjectProperty<>();
 
-    private AlertManager() {
-    }
-
-    static AlertManager initialize(){
-        return new AlertManager();
+    AlertManager() {
     }
 
     public void addAlert(String alert){

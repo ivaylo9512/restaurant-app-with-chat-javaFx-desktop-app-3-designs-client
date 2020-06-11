@@ -23,7 +23,7 @@ import static application.RestaurantApplication.*;
 import static application.ServerRequests.mapper;
 import static application.ServerRequests.tasks;
 
-public class OrderManager {
+class OrderManager {
     public Restaurant userRestaurant;
     public TreeMap<String, Menu> userMenu = new TreeMap<>();
     public ObservableList<Order> orders = FXCollections.observableArrayList();
@@ -33,7 +33,7 @@ public class OrderManager {
 
     public RequestService<Order> sendOrder = new RequestService<>(Order.class, null, RequestEnum.sendOrder);
 
-    private OrderManager() {
+    OrderManager() {
         sendOrder.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
         sendOrder.setOnFailed(event -> sendOrder.reset());
     }
@@ -43,10 +43,6 @@ public class OrderManager {
         newOrderList.clear();
         sendOrder.reset();
     };
-
-    static OrderManager initialize(){
-        return new OrderManager();
-    }
 
     void setRestaurant(Restaurant restaurant) {
         sendOrder.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
