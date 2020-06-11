@@ -48,6 +48,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     private ObjectProperty<ChatsUsersListViewCell> secondUserChatCell = new SimpleObjectProperty<>();
 
     private ChatSession mainChatSession, secondChatSession;
+    private ExpandOrderPane expandOrderPane;
     @FXML
     public void initialize() {
         setClips();
@@ -120,7 +121,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
                     ScrollBar bar = (ScrollBar) node;
                     if(bar.getOrientation().equals(Orientation.HORIZONTAL)) {
                         ordersScrollBar = (ScrollBar) node;
-                        ExpandOrderListeners();
+                        setExpandOrder();
                     }
                 }
             }
@@ -247,7 +248,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         ResizeRoot.resize = true;
 
         if(isButtonExpanded.get()){
-            ExpandOrderPane.reverseOrder();
+            expandOrderPane.reverseOrder();
         }
     }
 
@@ -331,15 +332,11 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         translate.play();
     }
 
-    private void ExpandOrderListeners() {
-        ExpandOrderPane.contentRoot = contentRoot;
-        ExpandOrderPane.orderPane = orderContainer;
-        ExpandOrderPane.button = expandButton;
-        ExpandOrderPane.contentPane = contentPane;
-        ExpandOrderPane.orderList = ordersList;
-        ExpandOrderPane.dates = dates;
+    private void setExpandOrder() {
+        expandOrderPane = new ExpandOrderPane(contentRoot, orderContainer,
+                expandButton, contentPane, ordersList, dates);
 
-        ExpandOrderPane.setListeners();
+        expandOrderPane.setListeners();
     }
 
     private void expandOrder(MouseEvent event) {
