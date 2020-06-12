@@ -6,7 +6,6 @@ import controllers.base.ChatSession;
 import controllers.base.Controller;
 import helpers.listviews.ChatsUsersListViewCellSecond;
 import helpers.Scrolls;
-import javafx.beans.property.ObjectProperty;
 import javafx.stage.Stage;
 import models.*;
 import javafx.animation.*;
@@ -103,7 +102,10 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     }
 
     void displayView(AnchorPane requestedView){
-        if(currentOrder != null) unbindOrderProperties();
+        if(currentOrder != null) {
+            unbindOrderProperties();
+            orderView.getStyleClass().add("inactive");
+        }
 
         if(requestedView.equals(currentView)){
             requestedView.setOpacity(0);
@@ -114,6 +116,8 @@ public class LoggedSecond extends ControllerLogged implements Controller {
             requestedView.setDisable(false);
             requestedView.setOpacity(1);
             currentView = requestedView;
+
+            stage.toFront();
         }else{
             requestedView.setDisable(false);
             requestedView.setOpacity(1);
@@ -121,6 +125,8 @@ public class LoggedSecond extends ControllerLogged implements Controller {
             currentView.setDisable(true);
             currentView.setOpacity(0);
             currentView = requestedView;
+
+            stage.toFront();
         }
     }
 
@@ -145,7 +151,9 @@ public class LoggedSecond extends ControllerLogged implements Controller {
 
     @Override
     public void resetStage(){
-        if(currentOrder != null) orderView.getStyleClass().add("inactive");
+        if(currentOrder != null) {
+            orderView.getStyleClass().add("inactive");
+        }
         unbindOrderProperties();
 
         mainChatSession.unBindChat();

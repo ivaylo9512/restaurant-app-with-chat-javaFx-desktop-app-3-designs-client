@@ -33,7 +33,6 @@ Button:pressed{
 .inner-shadow{
     -fx-background-color: #1a1a1a;
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
-
 }
 .alert-icon{
     -fx-padding: 0 1em;
@@ -45,6 +44,7 @@ Button:pressed{
 }
 .alert-icon VBox{
     -fx-alignment: center;
+    -fx-spacing: 0.1em;
 }
 .alert-icon Rectangle{
     -fx-arc-height: 0.5em;
@@ -85,6 +85,7 @@ StackPane Label{
 .close-button{
     -fx-translate-y: -0.6em;
     -fx-translate-x: 1em;
+    -fx-effect: none;
 }
 StackPane Label{
     -fx-translate-y: -1.5em;

@@ -190,7 +190,7 @@ public class ControllerLogged {
     }
 
     public void unbindOrderProperties() {
-        this.currentOrder = null;
+        currentOrder = null;
 
         orderId.textProperty().unbind();
         createdDate.textProperty().unbind();
