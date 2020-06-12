@@ -1,5 +1,6 @@
 package application;
 
+import helpers.FontIndicator;
 import javafx.application.Application;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -13,6 +14,7 @@ public class RestaurantApplication extends Application{
     public static NotificationManager notificationManager;
     public static ChatManager chatManager;
     public static AlertManager alertManager;
+    public static FontIndicator fontIndicator;
 
     public static MediaPlayer notificationSound;
 
@@ -34,6 +36,8 @@ public class RestaurantApplication extends Application{
         chatManager = new ChatManager();
         alertManager = new AlertManager();
         stageManager = new StageManager();
+        fontIndicator = new FontIndicator();
+
         stageManager.initializeStages(primaryStage);
 
         loginManager.checkIfLogged();

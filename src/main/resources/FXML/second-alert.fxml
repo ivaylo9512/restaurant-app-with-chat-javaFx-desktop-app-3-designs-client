@@ -3,7 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
 <AnchorPane fx:id="root" styleClass="alert-box" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.base.ControllerAlert">
     <AnchorPane styleClass="centered-container">
         <AnchorPane fx:id="content" styleClass="content, translate-content">
@@ -42,6 +46,10 @@
                 </GridPane>
                 <StackPane fx:id="alertIcon" maxHeight="-Infinity" styleClass="alert-icon" GridPane.columnIndex="0">
                     <AnchorPane/>
+                    <VBox>
+                        <Rectangle width="${controller.fontIndicator.fontPt * 1.6}" height="${controller.fontIndicator.fontPt * 3.5}"/>
+                        <Circle radius="${controller.fontIndicator.fontPt * 0.8}"/>
+                    </VBox>
                 </StackPane>
             </GridPane>
         </AnchorPane>

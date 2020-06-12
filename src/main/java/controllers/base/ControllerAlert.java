@@ -1,5 +1,7 @@
 package controllers.base;
 
+import application.RestaurantApplication;
+import helpers.FontIndicator;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -8,9 +10,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,21 +26,18 @@ public class ControllerAlert {
     @FXML
     StackPane alertIcon;
 
+    public FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
+
+    public FontIndicator getFontIndicator() {
+        return fontIndicator;
+    }
+
     public Stage stage;
     public ObjectProperty<String> currentAlert;
     public SimpleListProperty<String> alerts;
 
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    public void initialize(){
-        Rectangle rectangle = new Rectangle();
-        rectangle.setWidth(Font.getDefault().getSize());
-        rectangle.setHeight(Font.getDefault().getSize() * 2);
-        Circle circle = new Circle(Font.getDefault().getSize() / 2);
-        VBox vBox = new VBox(rectangle, circle);
-
-        alertIcon.getChildren().add(vBox);
-    }
     public void bind(){
         content.widthProperty().addListener((observable, oldValue, newValue) -> {
             root.setPrefWidth(newValue.doubleValue());
