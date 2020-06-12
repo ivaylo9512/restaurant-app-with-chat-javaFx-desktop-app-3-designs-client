@@ -47,7 +47,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     private ObjectProperty<ChatsUsersListViewCell> secondUserChatCell = new SimpleObjectProperty<>();
 
     private ChatSession mainChatSession, secondChatSession;
-    private ExpandOrderPane expandOrderPane;
+    private ExpandOrderPane expandOrderPane = new ExpandOrderPane();
     @FXML
     public void initialize() {
         setClips();
@@ -332,7 +332,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     }
 
     private void setExpandOrderPane() {
-        expandOrderPane = new ExpandOrderPane(this, contentRoot, orderContainer,
+        expandOrderPane.setControllerFields(this, contentRoot, orderContainer,
                 expandButton, contentPane, ordersList, dates);
 
         expandOrderPane.setListeners();

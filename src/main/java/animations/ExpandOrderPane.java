@@ -47,7 +47,7 @@ public class ExpandOrderPane {
 
     private Timeline expandedDelay = new Timeline();
 
-    public ExpandOrderPane(LoggedFirst controller, AnchorPane contentRoot, AnchorPane orderContainer, Button expandButton, AnchorPane contentPane, ListView<Order> ordersList, GridPane dates) {
+    public void setControllerFields(LoggedFirst controller, AnchorPane contentRoot, AnchorPane orderContainer, Button expandButton, AnchorPane contentPane, ListView<Order> ordersList, GridPane dates) {
         this.controller = controller;
         this.contentRoot = contentRoot;
         this.orderPane = orderContainer;
