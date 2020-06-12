@@ -75,9 +75,7 @@ public class OrderListViewCell extends ListCell<Order> {
             LoggedFirst controller = ((LoggedFirst)stageManager.firstLoggedController);
             orderPane.setOpacity(1);
             if(controller.currentOrder == order){
-                ExpandOrderPane.currentPane = orderPane;
-                ExpandOrderPane.currentContainer = container;
-                ExpandOrderPane.cell = this;
+                controller.updateExpandOrder(orderPane, container, this);
 
                 orderPane.setOpacity(0);
                 if(order.getIndex() != getIndex()){

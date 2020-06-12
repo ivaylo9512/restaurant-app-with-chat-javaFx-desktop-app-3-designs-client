@@ -342,4 +342,11 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         currentOrder = order;
         bindOrderProperties(currentOrder);
     }
+
+    public void updateExpandOrder(AnchorPane orderPane, Pane container, OrderListViewCell orderCell) {
+        expandOrderPane.currentPane = orderPane;
+        expandOrderPane.currentContainer = container;
+        expandOrderPane.cell = orderCell;
+
+    }
 }
