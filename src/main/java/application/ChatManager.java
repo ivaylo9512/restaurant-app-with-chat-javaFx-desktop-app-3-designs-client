@@ -27,7 +27,7 @@ import static application.RestaurantApplication.*;
 import static application.ServerRequests.*;
 
 
-class ChatManager {
+public class ChatManager {
 
     private JavaType sessionType = mapper.getTypeFactory().constructCollectionType(List.class, Session.class);
     private JavaType messageType = mapper.getTypeFactory().constructType(Message.class);

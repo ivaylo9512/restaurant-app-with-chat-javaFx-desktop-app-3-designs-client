@@ -19,7 +19,7 @@ import java.io.IOException;
 import static application.RestaurantApplication.*;
 import static application.ServerRequests.*;
 
-class LoginManager {
+public class LoginManager {
     private RequestService<User> loginService = new RequestService<>(User.class, null, RequestEnum.login);
     private RequestService<User> registerService = new RequestService<>(User.class, null, RequestEnum.register);
 

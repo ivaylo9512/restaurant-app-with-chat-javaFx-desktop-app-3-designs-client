@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 import static application.RestaurantApplication.notificationSound;
 
-class NotificationManager {
+public class NotificationManager {
     public ObservableList<Notification> notifications = FXCollections.observableArrayList();
 
     NotificationManager(){

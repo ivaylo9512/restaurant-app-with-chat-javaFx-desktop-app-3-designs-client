@@ -1,6 +1,7 @@
 package animations;
 
 import controllers.base.ControllerLogged;
+import controllers.firststyle.LoggedFirst;
 import helpers.listviews.OrderListViewCell;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -8,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -37,6 +39,7 @@ public class ExpandOrderPane {
     public BooleanProperty action = new SimpleBooleanProperty(false);
     public boolean isOrderListScrolling;
 
+    private LoggedFirst controller;
     private FadeTransition showDates;
     private TranslateTransition transitionPane, transitionButton;
     private TransitionResizeHeight heightPane;
@@ -44,7 +47,8 @@ public class ExpandOrderPane {
 
     private Timeline expandedDelay = new Timeline();
 
-    public ExpandOrderPane(AnchorPane contentRoot, AnchorPane orderContainer, Button expandButton, AnchorPane contentPane, ListView<Order> ordersList, GridPane dates) {
+    public ExpandOrderPane(LoggedFirst controller, AnchorPane contentRoot, AnchorPane orderContainer, Button expandButton, AnchorPane contentPane, ListView<Order> ordersList, GridPane dates) {
+        this.controller = controller;
         this.contentRoot = contentRoot;
         this.orderPane = orderContainer;
         this.button = expandButton;
@@ -115,6 +119,26 @@ public class ExpandOrderPane {
         transitionButton.setToY(0);
         heightPane = new TransitionResizeHeight(orderPane);
         widthPane = new TransitionResizeWidth(orderPane);
+    }
+
+    public void expandOrder(MouseEvent event) {
+        Node intersectedNode = event.getPickResult().getIntersectedNode();
+        intersectedNode = intersectedNode == null ? (Node)event.getTarget() : intersectedNode;
+
+        if(!isOrderListScrolling && !action.get() && (intersectedNode instanceof Button || intersectedNode instanceof AnchorPane)){
+
+            currentPane = intersectedNode instanceof AnchorPane ? (AnchorPane) intersectedNode
+                    : (AnchorPane) intersectedNode.getParent();
+            currentContainer = (Pane)currentPane.getParent();
+            cell =  (OrderListViewCell) currentContainer.getParent();
+
+            setCurrentOrder(event);
+            controller.setOrder(cell.order);
+
+            if(intersectedNode instanceof Button)
+                expandOrderOnClick();
+
+        }
     }
 
     private void listDrag(MouseEvent event) {

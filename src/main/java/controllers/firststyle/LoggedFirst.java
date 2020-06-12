@@ -28,7 +28,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import controllers.base.ControllerLogged;
 
-import static animations.ExpandOrderPane.*;
 import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged implements Controller{
@@ -114,14 +113,14 @@ public class LoggedFirst extends ControllerLogged implements Controller{
             }
         });
         ordersList.addEventHandler(TouchEvent.TOUCH_RELEASED, event -> expandOrderPane.isOrderListScrolling = false);
-        ordersList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::expandOrder);
+        ordersList.addEventFilter(MouseEvent.MOUSE_PRESSED, expandOrderPane::expandOrder);
         ordersList.skinProperty().addListener((observable, oldValue, newValue) -> {
             for (Node node: ordersList.lookupAll(".scroll-bar")) {
                 if (node instanceof ScrollBar) {
                     ScrollBar bar = (ScrollBar) node;
                     if(bar.getOrientation().equals(Orientation.HORIZONTAL)) {
                         ordersScrollBar = (ScrollBar) node;
-                        setExpandOrder();
+                        setExpandOrderPane();
                     }
                 }
             }
@@ -247,7 +246,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
 
         ResizeRoot.resize = true;
 
-        if(isButtonExpanded.get()){
+        if(expandOrderPane.isButtonExpanded.get()){
             expandOrderPane.reverseOrder();
         }
     }
@@ -332,31 +331,15 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         translate.play();
     }
 
-    private void setExpandOrder() {
-        expandOrderPane = new ExpandOrderPane(contentRoot, orderContainer,
+    private void setExpandOrderPane() {
+        expandOrderPane = new ExpandOrderPane(this, contentRoot, orderContainer,
                 expandButton, contentPane, ordersList, dates);
 
         expandOrderPane.setListeners();
     }
 
-    private void expandOrder(MouseEvent event) {
-        Node intersectedNode = event.getPickResult().getIntersectedNode();
-        intersectedNode = intersectedNode == null ? (Node)event.getTarget() : intersectedNode;
-
-        if(!expandOrderPane.isOrderListScrolling && !expandOrderPane.action.get() && (intersectedNode instanceof Button || intersectedNode instanceof AnchorPane)){
-
-            expandOrderPane.currentPane = intersectedNode instanceof AnchorPane ? (AnchorPane) intersectedNode
-                    : (AnchorPane) intersectedNode.getParent();
-            expandOrderPane.currentContainer = (Pane)expandOrderPane.currentPane.getParent();
-            expandOrderPane.cell =  (OrderListViewCell) expandOrderPane.currentContainer.getParent();
-
-            expandOrderPane.setCurrentOrder(event);
-            currentOrder = expandOrderPane.cell.order;
-            bindOrderProperties(currentOrder);
-
-            if(intersectedNode instanceof Button)
-                expandOrderPane.expandOrderOnClick();
-
-        }
+    public void setOrder(Order order) {
+        currentOrder = order;
+        bindOrderProperties(currentOrder);
     }
 }

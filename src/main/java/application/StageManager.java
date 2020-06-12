@@ -19,7 +19,7 @@ import java.io.IOException;
 import static application.RestaurantApplication.alertManager;
 import static application.RestaurantApplication.loginManager;
 
-class StageManager {
+public class StageManager {
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     public ControllerAlert currentAlertController, secondLoggedAlertController, secondLoginAlertController;

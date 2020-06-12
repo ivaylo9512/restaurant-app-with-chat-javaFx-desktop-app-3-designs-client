@@ -23,7 +23,7 @@ import static application.RestaurantApplication.*;
 import static application.ServerRequests.mapper;
 import static application.ServerRequests.tasks;
 
-class OrderManager {
+public class OrderManager {
     public Restaurant userRestaurant;
     public TreeMap<String, Menu> userMenu = new TreeMap<>();
     public ObservableList<Order> orders = FXCollections.observableArrayList();
