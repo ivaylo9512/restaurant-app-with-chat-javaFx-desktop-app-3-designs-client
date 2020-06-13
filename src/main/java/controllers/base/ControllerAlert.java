@@ -2,14 +2,19 @@ package controllers.base;
 
 import application.RestaurantApplication;
 import helpers.FontIndicator;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,10 +33,6 @@ public class ControllerAlert {
 
     public FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
 
-    public FontIndicator getFontIndicator() {
-        return fontIndicator;
-    }
-
     public Stage stage;
     public ObjectProperty<String> currentAlert;
     public SimpleListProperty<String> alerts;
@@ -43,9 +44,17 @@ public class ControllerAlert {
             root.setPrefWidth(newValue.doubleValue());
             stage.sizeToScene();
             stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY(0);
         });
         alertMessage.textProperty().bind(currentAlert);
         alertsCount.textProperty().bind(alerts.sizeProperty().asString());
+        root.setStyle("-fx-font-size: " + Font.getDefault().getSize() + "pt;");
+
+        root.paddingProperty().bind(Bindings.createObjectBinding(()->
+                new Insets(fontIndicator.getFontPt() * 1.5),fontIndicator.getFontPtProperty()));
+        fontIndicator.getFontPtProperty().addListener((observable, oldValue, newValue) -> {
+            root.setStyle("-fx-font-size: " + newValue.doubleValue() + "pt;");
+        });
 
         currentAlert.addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
@@ -57,6 +66,7 @@ public class ControllerAlert {
                     fadeInAlert();
                 }
             }else{
+                content.getStyleClass().add("translate-content");
                 stage.setUserData("inactive");
                 stage.close();
             }
@@ -66,6 +76,10 @@ public class ControllerAlert {
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000), content);
         translateTransition.setToY(0);
         translateTransition.play();
+        Timeline removeStyle = new Timeline(new KeyFrame(new Duration(1000), event -> {
+            content.getStyleClass().remove("translate-content");
+        }));
+        removeStyle.play();
     }
     @FXML
     public void nextAlert(){
@@ -81,4 +95,9 @@ public class ControllerAlert {
         currentAlert.set(null);
         alerts.clear();
     }
+
+    public FontIndicator getFontIndicator() {
+        return fontIndicator;
+    }
+
 }

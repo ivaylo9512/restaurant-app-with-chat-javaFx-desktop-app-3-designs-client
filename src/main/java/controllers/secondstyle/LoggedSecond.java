@@ -108,20 +108,17 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         if(requestedView.equals(currentView)){
             requestedView.setOpacity(0);
             requestedView.setDisable(true);
-            System.out.println("1");
 
             currentView = null;
         }else if(currentView == null) {
             requestedView.setDisable(false);
             requestedView.setOpacity(1);
             currentView = requestedView;
-            System.out.println("2");
 
             stage.toFront();
         }else{
             requestedView.setDisable(false);
             requestedView.setOpacity(1);
-            System.out.println("3");
 
             currentView.setDisable(true);
             currentView.setOpacity(0);
