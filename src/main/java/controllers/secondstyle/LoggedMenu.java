@@ -300,16 +300,18 @@ public class LoggedMenu extends ControllerLogged implements Controller {
                 showNotifications();
                 break;
             case "orderButton":
-                changeButtonStyle(button, currentContentButton);
                 contentController.displayView(contentController.orderView);
+                changeButtonStyle(button, currentContentButton);
                 break;
             case "chatButton":
-                changeButtonStyle(button, currentContentButton);
+                contentController.resetOrder();
                 contentController.displayView(contentController.chatView);
+                changeButtonStyle(button, currentContentButton);
                 break;
             case "createButton":
-                changeButtonStyle(button, currentContentButton);
+                contentController.resetOrder();
                 contentController.displayView(contentController.createView);
+                changeButtonStyle(button, currentContentButton);
                 break;
         }
     }

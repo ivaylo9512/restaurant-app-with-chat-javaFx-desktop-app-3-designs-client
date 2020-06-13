@@ -2,7 +2,7 @@ package controllers.base;
 
 import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.*;
 import javafx.collections.*;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.*;
@@ -11,8 +11,6 @@ import javafx.stage.Screen;
 import models.*;
 import models.Menu;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -71,12 +69,13 @@ public class ControllerLogged {
     protected ProgressIndicator editIndicator = new ProgressIndicator();
     protected ProgressIndicator createIndicator = new ProgressIndicator();
 
-    private Node editButtonGraphic, createButtonGraphic;
-    private String createButtonText;
-    public Order currentOrder;
-
     protected ObjectProperty<ChatValue> mainChatValue = chatManager.mainChatValue;
     protected ObjectProperty<ChatValue> secondChatValue = chatManager.secondChatValue;
+
+    private Node editButtonGraphic, createButtonGraphic;
+    private String createButtonText;
+
+    public ReadOnlyObjectProperty<Order> currentOrder;
 
     protected void setNotificationsListeners() {
         notificationsList.getItems().addListener((ListChangeListener<Notification>)c -> {
@@ -175,7 +174,6 @@ public class ControllerLogged {
     }
 
     public void bindOrderProperties(Order currentOrder) {
-        this.currentOrder = currentOrder;
         currentDishList.setItems(currentOrder.getDishes());
 
         orderId.textProperty().bind(currentOrder.getId().asString());
@@ -190,13 +188,19 @@ public class ControllerLogged {
     }
 
     public void unbindOrderProperties() {
-        currentOrder = null;
-
         orderId.textProperty().unbind();
         createdDate.textProperty().unbind();
         createdTime.textProperty().unbind();
         updatedDate.textProperty().unbind();
         updatedTime.textProperty().unbind();
+    }
+
+    public void resetOrderFields(){
+        orderId.setText(null);
+        createdDate.setText(null);
+        createdTime.setText(null);
+        updatedDate.setText(null);
+        updatedTime.setText(null);
     }
 
     protected SortedMap<String, Menu> searchMenu(String prefix) {

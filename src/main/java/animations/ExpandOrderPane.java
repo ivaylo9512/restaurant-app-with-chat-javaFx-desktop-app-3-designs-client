@@ -19,8 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import models.Order;
 
-import static application.RestaurantApplication.stageManager;
-
 public class ExpandOrderPane {
 
     private double orderWidth, orderHeight, maxOrderWidth, buttonX, buttonY, mouseY, mouseX,
@@ -168,7 +166,7 @@ public class ExpandOrderPane {
         }
     }
     private void paneReleased(MouseEvent event) {
-        if(!isButtonExpanded.get() && ((ControllerLogged)stageManager.firstLoggedController).currentOrder != null) {
+        if(!isButtonExpanded.get() && controller.currentOrder.get() != null) {
             reverseOrder();
         }
     }
@@ -274,7 +272,7 @@ public class ExpandOrderPane {
         widthPane.setAndPlay(delay, orderWidth);
 
         Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(delay, actionEvent -> {
-            ((ControllerLogged)stageManager.firstLoggedController).currentOrder = null;
+            orderList.getSelectionModel().clearSelection();
             orderList.setDisable(false);
             currentPane.setOpacity(1);
             action.setValue(false);

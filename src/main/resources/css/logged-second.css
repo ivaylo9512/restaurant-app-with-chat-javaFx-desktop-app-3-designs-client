@@ -60,7 +60,7 @@ TextFlow {
 .order-view{
     -fx-background-color: #1a1a1a;
 }
-.order-view.inactive AnchorPane{
+.order-view > AnchorPane:disabled{
     -fx-opacity: 0;
 }
 .dishes-list .list-cell{

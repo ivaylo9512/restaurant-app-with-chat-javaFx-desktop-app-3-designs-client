@@ -59,6 +59,8 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         setOrderPane();
         addOrdersListListeners();
 
+        currentOrder = ordersList.getSelectionModel().selectedItemProperty();
+
         mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
         secondChatSession = new ChatSession(secondChat, secondChatValue, secondChatBlock, secondChatInfo, secondChatTextArea);
 
@@ -135,9 +137,9 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     }
 
     public void updateListScroll() {
-        if(currentOrder != null && ordersList.isDisabled()) {
-            ordersList.scrollTo(currentOrder);
-            double zeroIndexScroll = (currentOrder.getIndex() * (expandOrderPane.cellWidth + 0.40)) / (ordersList.getItems().size() * expandOrderPane.cellWidth + 1);
+        if(currentOrder.get() != null && ordersList.isDisabled()) {
+            ordersList.scrollTo(currentOrder.get());
+            double zeroIndexScroll = (currentOrder.get().getIndex() * (expandOrderPane.cellWidth + 0.40)) / (ordersList.getItems().size() * expandOrderPane.cellWidth + 1);
             double scrollPosition = zeroIndexScroll - (expandOrderPane.cellLayoutX / (ordersList.getItems().size() * expandOrderPane.cellWidth + 1));
             ordersScrollBar.setValue(scrollPosition);
         }
@@ -212,6 +214,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     @Override
     public void resetStage(){
         unbindOrderProperties();
+        resetOrderFields();
 
         menuList.getItems().clear();
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
@@ -339,8 +342,7 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     }
 
     public void setOrder(Order order) {
-        currentOrder = order;
-        bindOrderProperties(currentOrder);
+        bindOrderProperties(order);
     }
 
     public void updateExpandOrder(AnchorPane orderPane, Pane container, OrderListViewCell orderCell) {

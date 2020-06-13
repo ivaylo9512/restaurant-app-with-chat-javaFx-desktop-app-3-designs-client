@@ -70,6 +70,8 @@ public class StageManager {
 //        thirdLoginStage.setUserData(thirdLoggedStage);
 //        thirdLoggedStage.setUserData(thirdLoginStage);
 
+        alertManager.addLoggedAlert("hey");
+
         changeStage(primaryStage);
     }
 

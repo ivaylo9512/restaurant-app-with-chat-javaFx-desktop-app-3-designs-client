@@ -25,7 +25,7 @@ import static application.RestaurantApplication.*;
 public class LoggedSecond extends ControllerLogged implements Controller {
     @FXML Label dishesCountLabel;
 
-    @FXML AnchorPane  orderInfo, orderView,
+    @FXML AnchorPane  orderInfo, orderView, orderContainer,
             chatView, userChatsClip, createView, dishesContainer;
     @FXML Pane contentBar;
 
@@ -44,6 +44,9 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         setListsItems();
         focusCurrentOrderOnListUpdate();
 
+        currentOrder = ordersList.getSelectionModel().selectedItemProperty();
+        orderContainer.disableProperty().bind(currentOrder.isNull());
+
         mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
         mainChatSession.init();
 
@@ -61,8 +64,8 @@ public class LoggedSecond extends ControllerLogged implements Controller {
 
     private void focusCurrentOrderOnListUpdate() {
         ordersList.getItems().addListener((ListChangeListener<Order>)c -> {
-            if(currentOrder != null){
-                ordersList.getSelectionModel().select(currentOrder);
+            if(currentOrder.get() != null){
+                ordersList.getSelectionModel().select(currentOrder.get());
             }
         });
     }
@@ -102,31 +105,37 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     }
 
     void displayView(AnchorPane requestedView){
-        if(currentOrder != null) {
-            unbindOrderProperties();
-            orderView.getStyleClass().add("inactive");
-        }
-
         if(requestedView.equals(currentView)){
             requestedView.setOpacity(0);
             requestedView.setDisable(true);
+            System.out.println("1");
 
             currentView = null;
         }else if(currentView == null) {
             requestedView.setDisable(false);
             requestedView.setOpacity(1);
             currentView = requestedView;
+            System.out.println("2");
 
             stage.toFront();
         }else{
             requestedView.setDisable(false);
             requestedView.setOpacity(1);
+            System.out.println("3");
 
             currentView.setDisable(true);
             currentView.setOpacity(0);
             currentView = requestedView;
 
             stage.toFront();
+        }
+    }
+
+    void resetOrder(){
+        if(currentOrder.get() != null) {
+            unbindOrderProperties();
+            resetOrderFields();
+            ordersList.getSelectionModel().clearSelection();
         }
     }
 
@@ -151,15 +160,21 @@ public class LoggedSecond extends ControllerLogged implements Controller {
 
     @Override
     public void resetStage(){
-        if(currentOrder != null) {
-            orderView.getStyleClass().add("inactive");
-        }
         unbindOrderProperties();
+        resetOrderFields();
+
+        if(currentView != null){
+            currentView.setDisable(true);
+            currentView.setOpacity(0);
+            currentView = null;
+        }
 
         mainChatSession.unBindChat();
 
         menuList.getItems().clear();
-        if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
+        if(ordersList.getItems().size() > 0) {
+            ordersList.scrollTo(0);
+        }
         ordersList.getSelectionModel().clearSelection();
 
         menuSearch.setText("");
@@ -168,9 +183,6 @@ public class LoggedSecond extends ControllerLogged implements Controller {
     @FXML
     private void showOrder(){
         Order order = ordersList.getSelectionModel().getSelectedItem();
-        if(currentOrder == null){
-            orderView.getStyleClass().remove("inactive");
-        }
 
         if(!currentView.equals(orderView)){
             menuController.setView("orderButton", null);
