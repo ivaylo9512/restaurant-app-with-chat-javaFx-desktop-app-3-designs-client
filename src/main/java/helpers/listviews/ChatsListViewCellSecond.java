@@ -2,9 +2,7 @@ package helpers.listviews;
 
 import animations.TransitionResizeWidth;
 import controllers.base.ControllerLogged;
-import controllers.secondstyle.LoggedSecond;
 import controllers.thirdstyle.LoggedThird;
-import models.Chat;
 import models.ChatValue;
 import models.User;
 import javafx.fxml.FXML;

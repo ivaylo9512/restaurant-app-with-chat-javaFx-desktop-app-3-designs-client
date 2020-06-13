@@ -52,15 +52,8 @@ public class Scrolls {
         listenForHistoryRequest(secondChatScroll);
 
         chatUsersList.skinProperty().addListener((observable, oldValue, newValue) -> {
-            for (Node node : chatUsersList.lookupAll(".scroll-bar")) {
-                if (node instanceof ScrollBar) {
-                    ScrollBar bar = (ScrollBar) node;
-                    if (bar.getOrientation().equals(Orientation.VERTICAL)) {
-                        chatUsersScrollBar = (ScrollBar) node;
-                        changeMenuScrollBehaviour();
-                    }
-                }
-            }
+            chatUsersScrollBar = findVerticalScrollBar(chatUsersList);
+            changeMenuScrollBehaviour();
         });
     }
     public void manageScrollsSecondStyle(){

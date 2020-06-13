@@ -1,7 +1,5 @@
 package helpers.listviews;
 
-import animations.ExpandOrderPane;
-import controllers.base.ControllerLogged;
 import models.Order;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

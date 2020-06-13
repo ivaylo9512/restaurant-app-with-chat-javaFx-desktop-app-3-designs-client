@@ -1,6 +1,5 @@
 package animations;
 
-import controllers.base.ControllerLogged;
 import controllers.firststyle.LoggedFirst;
 import helpers.listviews.OrderListViewCell;
 import javafx.animation.FadeTransition;

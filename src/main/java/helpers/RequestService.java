@@ -3,7 +3,6 @@ package helpers;
 import application.ServerRequests;
 import com.fasterxml.jackson.databind.JavaType;
 import controllers.base.ControllerLogin;
-import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import org.apache.http.client.methods.HttpRequestBase;

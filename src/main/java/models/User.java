@@ -1,6 +1,5 @@
 package models;
 
-
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
 

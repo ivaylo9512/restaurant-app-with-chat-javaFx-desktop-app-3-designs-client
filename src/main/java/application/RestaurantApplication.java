@@ -8,13 +8,13 @@ import javafx.stage.Stage;
 
 
 public class RestaurantApplication extends Application{
-    public static LoginManager loginManager;
-    public static StageManager stageManager;
-    public static OrderManager orderManager;
-    public static NotificationManager notificationManager;
-    public static ChatManager chatManager;
-    public static AlertManager alertManager;
-    public static FontIndicator fontIndicator;
+    public static NotificationManager notificationManager = new NotificationManager();
+    public static OrderManager orderManager = new OrderManager();
+    public static LoginManager loginManager = new LoginManager();
+    public static ChatManager chatManager = new ChatManager();
+    public static AlertManager alertManager = new AlertManager();
+    public static StageManager stageManager = new StageManager();
+    public static FontIndicator fontIndicator = new FontIndicator();
 
     public static MediaPlayer notificationSound;
 
@@ -30,16 +30,7 @@ public class RestaurantApplication extends Application{
         notificationSound = new MediaPlayer(sound);
         notificationSound.setOnEndOfMedia(() -> notificationSound.stop());
 
-        notificationManager = new NotificationManager();
-        orderManager = new OrderManager();
-        loginManager = new LoginManager();
-        chatManager = new ChatManager();
-        alertManager = new AlertManager();
-        stageManager = new StageManager();
-        fontIndicator = new FontIndicator();
-
         stageManager.initializeStages(primaryStage);
-
         loginManager.checkIfLogged();
     }
 }

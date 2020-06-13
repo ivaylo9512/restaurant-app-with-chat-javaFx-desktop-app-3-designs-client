@@ -3,7 +3,6 @@ package helpers.listviews;
 import animations.TransitionResizeHeight;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TextArea;
 import models.Notification;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

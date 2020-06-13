@@ -1,7 +1,5 @@
 package helpers.listviews;
 
-import controllers.base.ControllerLogged;
-import controllers.firststyle.LoggedFirst;
 import controllers.secondstyle.LoggedSecond;
 import models.ChatValue;
 import models.Message;
