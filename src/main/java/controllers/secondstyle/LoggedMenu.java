@@ -3,8 +3,10 @@ package controllers.secondstyle;
 import animations.MoveRoot;
 import animations.TransitionResizeHeight;
 import animations.TransitionResizeWidth;
+import application.RestaurantApplication;
 import controllers.base.Controller;
 import controllers.base.ControllerLogged;
+import helpers.FontIndicator;
 import javafx.animation.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -37,6 +39,8 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private HBox notificationBox;
     private AnchorPane currentMenuView;
 
+    private FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
+
     private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
     private Stage stage = stageManager.secondLoggedMenuStage;
 
@@ -57,6 +61,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         notificationMenuIcon.opacityProperty().bind(notificationBox.opacityProperty());
         notificationsList.setItems(notificationManager.notifications);
 
+        updateButtonsAnchors();
+        menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPt());
+
+        fontIndicator.getFontPtProperty().addListener((observable, oldValue, newValue) -> {
+            menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPt());
+            updateButtonsAnchors();
+        });
         setUserGraphicIndicator();
         setNotificationsListeners();
         setNotificationsFactories();
@@ -66,6 +77,18 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         MoveRoot.moveStage(menuButton, stage);
 
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
+    }
+
+    private void updateButtonsAnchors() {
+        double fontSize = fontIndicator.getFontPt();
+        int anchorCount = 0;
+        for (Node node : menuButtons.getChildren()) {
+            if (node instanceof AnchorPane) {
+                AnchorPane.setLeftAnchor(node, fontSize * 3.2 + anchorCount * 7.6 * fontSize);
+                AnchorPane.setRightAnchor(node, fontSize * 1.3 + (menuButtons.getChildren().size() - 2 - anchorCount) * 7.6 * fontSize);
+                anchorCount++;
+            }
+        }
     }
 
     private void setClips() {
@@ -386,5 +409,9 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
         notificationBox.prefWidthProperty().bind(notificationButton.widthProperty().subtract(57));
         notificationBox.prefHeightProperty().bind(notificationButton.widthProperty().subtract(57));
+    }
+
+    public FontIndicator getFontIndicator() {
+        return fontIndicator;
     }
 }

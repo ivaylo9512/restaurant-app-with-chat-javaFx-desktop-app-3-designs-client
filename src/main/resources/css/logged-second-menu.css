@@ -1,9 +1,9 @@
 .root{
-    -fx-pref-height: 80px;
-    -fx-max-height: 528px;
-    -fx-min-width: 80;
-    -fx-pref-width: 540px;
-    -fx-max-width: 580px;
+    -fx-pref-height: 6.7em;
+    -fx-max-height: 44em;
+    -fx-min-width: 6.7em;
+    -fx-pref-width: 45em;
+    -fx-max-width: 46.7em;
     -fx-background-color: transparent;
 }
 .list-view .scroll-bar:vertical .increment-arrow,
@@ -22,13 +22,13 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
 }
 .menu-container{
-    -fx-pref-height: 40px;
-    -fx-min-width: 38.5;
-    -fx-max-width: 518px;
-    -fx-pref-width: 518px;
+    -fx-pref-height: 3.3em;
+    -fx-min-width: 3.3em;
+    -fx-max-width: 43.2em;
+    -fx-pref-width: 43.2em;
     -fx-border-radius: 180;
     -fx-border-color: #1a1a1a;
-    -fx-border-width: 1.5;
+    -fx-border-width: 0.2em;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 0 );
 }
 .menu{
@@ -48,13 +48,14 @@
     -fx-background-color: transparent;
     -fx-alignment: center;
     -fx-text-fill: #bcbcbc;
-    -fx-font-size: 12px;
 }
 .menu-button{
-    -fx-pref-height: 31px;
-    -fx-pref-width: 31px;
+    -fx-pref-height: 2.5em;
+    -fx-pref-width: 2.5em;
     -fx-background-radius: 180;
     -fx-border-radius: 180;
+    -fx-translate-y: 0.2em;
+    -fx-translate-x: 0.2em;
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
 }

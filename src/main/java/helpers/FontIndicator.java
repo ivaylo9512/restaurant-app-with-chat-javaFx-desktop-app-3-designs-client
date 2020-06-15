@@ -34,10 +34,6 @@ public class FontIndicator {
         return fontPt.get();
     }
 
-    public DoubleProperty fontPtProperty() {
-        return fontPt;
-    }
-
     public void setFontPt(double fontPt) {
         this.fontPt.setValue(fontPt);
     }

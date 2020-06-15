@@ -57,7 +57,7 @@ public class StageManager {
         secondLoginAlert = new Stage();
         secondLoginAlertController = createAlertStage(secondLoginAlert, secondLoginStage, true, "second-alert");
         secondLoggedAlert = new Stage();
-        secondLoggedAlertController = createAlertStage(secondLoggedAlert, secondLoggedStage, false, "second-alert");
+        secondLoggedAlertController = createAlertStage(secondLoggedAlert, secondLoggedMenuStage, false, "second-alert");
 //        createAlertStage(new Stage(), thirdLoggedStage, false);
 
 
