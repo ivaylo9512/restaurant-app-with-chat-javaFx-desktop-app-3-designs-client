@@ -62,12 +62,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         notificationsList.setItems(notificationManager.notifications);
 
         updateButtonsAnchors();
-        menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPt());
+        menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
 
-        fontIndicator.getFontPtProperty().addListener((observable, oldValue, newValue) -> {
-            menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPt());
+        fontIndicator.getFontPxProperty().addListener((observable, oldValue, newValue) -> {
+            menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
             updateButtonsAnchors();
         });
+
         setUserGraphicIndicator();
         setNotificationsListeners();
         setNotificationsFactories();
@@ -80,7 +81,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     }
 
     private void updateButtonsAnchors() {
-        double fontSize = fontIndicator.getFontPt();
+        double fontSize = fontIndicator.getFontPx();
         int anchorCount = 0;
         for (Node node : menuButtons.getChildren()) {
             if (node instanceof AnchorPane) {

@@ -47,8 +47,8 @@
                 <StackPane fx:id="alertIcon" maxHeight="-Infinity" styleClass="alert-icon" GridPane.columnIndex="0">
                     <AnchorPane/>
                     <VBox>
-                        <Rectangle width="${1.6 * controller.fontIndicator.fontPt}" height="${3.5 * controller.fontIndicator.fontPt}"/>
-                        <Circle radius="${0.8 * controller.fontIndicator.fontPt}"/>
+                        <Rectangle fx:id="iconRectangle" width="${controller.fontIndicator.fontPx * 1.5}" height="${3 * controller.fontIndicator.fontPx}"/>
+                        <Circle radius="${0.75 * controller.fontIndicator.fontPx}"/>
                     </VBox>
                 </StackPane>
             </GridPane>

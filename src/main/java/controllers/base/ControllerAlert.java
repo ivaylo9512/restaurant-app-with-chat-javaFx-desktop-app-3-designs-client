@@ -14,7 +14,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -48,12 +48,12 @@ public class ControllerAlert {
         });
         alertMessage.textProperty().bind(currentAlert);
         alertsCount.textProperty().bind(alerts.sizeProperty().asString());
-        root.setStyle("-fx-font-size: " + Font.getDefault().getSize() + "pt;");
+        root.setStyle("-fx-font-size: " + fontIndicator.getFontPx() + ";");
 
         root.paddingProperty().bind(Bindings.createObjectBinding(()->
-                new Insets(fontIndicator.getFontPt() * 1.5),fontIndicator.getFontPtProperty()));
-        fontIndicator.getFontPtProperty().addListener((observable, oldValue, newValue) -> {
-            root.setStyle("-fx-font-size: " + newValue.doubleValue() + "pt;");
+                new Insets(fontIndicator.getFontPx() * 1.5),fontIndicator.getFontPxProperty()));
+        fontIndicator.getFontPxProperty().addListener((observable, oldValue, newValue) -> {
+            root.setStyle("-fx-font-size: " + newValue.doubleValue() + ";");
         });
 
         currentAlert.addListener((observable, oldValue, newValue) -> {
