@@ -120,7 +120,7 @@
     -fx-text-fill: #bcbcbc;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
-HBox{
+.profile-view HBox{
     -fx-spacing: 0.7em;
     -fx-translate-x: 9.5em;
     -fx-pref-width: 32em;
@@ -162,7 +162,7 @@ HBox{
 .notifications-list .list-cell{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
     -fx-background-color: #1a1a1a;
-    -fx-pref-height: 50px;
+    -fx-pref-height: 4.2em;
     -fx-alignment: center;
     -fx-text-fill: #bcbcbc;
 }
@@ -179,7 +179,7 @@ HBox{
     -fx-alignment: center;
 }
 .notifications-info Text {
-    -fx-text-fill: #bcbcbc;
+    -fx-fill: #bcbcbc;
 }
 .notification-icon{
     -fx-pref-height: 100px;
