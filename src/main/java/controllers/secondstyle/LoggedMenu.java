@@ -25,6 +25,9 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static application.RestaurantApplication.*;
 
 public class LoggedMenu extends ControllerLogged implements Controller {
@@ -47,10 +50,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private Timeline reverseDelay, reverseStageWidth, reverseStageHeight;
     private TransitionResizeWidth reverseMenu, expandMenu;
     private TransitionResizeHeight reverseMenuContent, expandMenuContent;
+    private List<Node> userInfoContainers;
 
     @FXML
     public void initialize(){
         notificationBox = (HBox)notificationIcon;
+        userInfoContainers = new ArrayList<>(profileView.lookupAll("HBox"));
+
         setNotificationBox(notificationBox);
         setNotificationBox(notificationMenuIcon);
         bindNotificationIconSize();
@@ -62,11 +68,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         notificationsList.setItems(notificationManager.notifications);
 
         updateButtonsAnchors();
+        updateInfoContainersAnchors();
         menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
 
         fontIndicator.getFontPxProperty().addListener((observable, oldValue, newValue) -> {
             menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
             updateButtonsAnchors();
+            updateInfoContainersAnchors();
         });
 
         setUserGraphicIndicator();
@@ -78,6 +86,14 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         MoveRoot.moveStage(menuButton, stage);
 
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
+    }
+
+    private void updateInfoContainersAnchors() {
+        AnchorPane.setTopAnchor(userInfoContainers.get(0), fontIndicator.getFontPx() * 1.1);
+        AnchorPane.setBottomAnchor(userInfoContainers.get(0), fontIndicator.getFontPx() * 15.3);
+
+        AnchorPane.setTopAnchor(userInfoContainers.get(1), fontIndicator.getFontPx() * 5.5);
+        AnchorPane.setBottomAnchor(userInfoContainers.get(1), fontIndicator.getFontPx() * 11.0);
     }
 
     private void updateButtonsAnchors() {
@@ -99,6 +115,9 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         profileView.setClip(profileViewClip);
 
         Circle clip = new Circle(30.8, 30.8, 30.8);
+        clip.centerXProperty().bind(profileImageClip.widthProperty().divide(2));
+        clip.centerYProperty().bind(profileImageClip.widthProperty().divide(2));
+        clip.radiusProperty().bind(profileImageClip.widthProperty().divide(2));
         profileImageClip.setClip(clip);
 
         Rectangle notificationClip = new Rectangle();

@@ -114,6 +114,12 @@
     -fx-text-fill: #bcbcbc;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
+HBox{
+    -fx-spacing: 0.7em;
+    -fx-translate-x: 9.5em;
+    -fx-pref-width: 32em;
+    -fx-pref-height: 0.0;
+}
 .profile-view TextField:readonly{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 1 );
 }
@@ -122,14 +128,16 @@
     -fx-background-radius: 180px;
     -fx-border-radius: 180px;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+    -fx-translate-x: 2em;
+    -fx-translate-y: 1.2em;
 }
 .profile-image-clip{
-    -fx-pref-width: 61px;
-    -fx-pref-height: 61px;
+    -fx-pref-width: 5em;
+    -fx-pref-height: 5em;
     -fx-background-radius: 180px;
     -fx-border-radius: 180px;
 }
-.user-info TextField{
+.profile-view TextField{
     -fx-alignment: center;
 }
 .notifications-view{
