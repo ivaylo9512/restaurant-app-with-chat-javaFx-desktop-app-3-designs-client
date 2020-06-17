@@ -87,6 +87,11 @@ TextFlow {
     -fx-pref-width: 103px;
     -fx-background-color: #363b41;
 }
+.menu VBox{
+    -fx-pref-height:182.0;
+    -fx-pref-width:121.0;
+    -fx-spacing: 0.8em;
+}
 .menu Button{
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
