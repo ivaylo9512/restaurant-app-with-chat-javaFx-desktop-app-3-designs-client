@@ -12,29 +12,29 @@
 <children>
     <AnchorPane fx:id="menu" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" styleClass="menu-container" AnchorPane.leftAnchor="0.0">
         <children>
-            <AnchorPane fx:id="menuButtonsContainer" styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <children>
-                    <AnchorPane fx:id="menuButtons" AnchorPane.bottomAnchor="-1" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.5">
+                    <AnchorPane fx:id="menuButtonsContainer" AnchorPane.bottomAnchor="-1" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.5">
                         <children>
-                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="-1.0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="-1.0">
                                <children>
                                    <Button fx:id="profileButton" onMouseClicked="#onMenuAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Profile" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                    </Button>
                                </children>
                             </AnchorPane>
-                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="289.0" AnchorPane.topAnchor="0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                                <children>
                                    <Button fx:id="orderButton" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMenuAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Orders" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                    </Button>
                                </children>
                             </AnchorPane>
-                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                                <children>
                                    <Button fx:id="createButton" mnemonicParsing="false" onMouseClicked="#onMenuAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Create" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                    </Button>
                                </children>
                             </AnchorPane>
-                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="311.0" AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                                <children>
                                    <Button fx:id="notificationButton" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMenuAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Updates" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                    </Button>
@@ -42,7 +42,7 @@
                             </AnchorPane>
                             <HBox fx:id="notificationIcon" disable="true" mouseTransparent="true" opacity="0" styleClass="notification-icon" AnchorPane.leftAnchor="382.5" AnchorPane.topAnchor="-8">
                             </HBox>
-                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="402.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0">
+                            <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                                <children>
                                    <Button fx:id="chatButton" mnemonicParsing="false" onMouseClicked="#onMenuAction" onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus" text="Chats" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                    </Button>
@@ -147,7 +147,7 @@
                     <ListView fx:id="notificationsList" onMouseClicked="#onNotificationClick" styleClass="notifications-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0" />
                     <HBox fx:id="notificationsInfo" styleClass="notifications-info" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                            <Text fill="azure" text="There are no notifications to show" />
+                            <Text text="There are no notifications to show" />
                         </children>
                     </HBox>
                 </children>

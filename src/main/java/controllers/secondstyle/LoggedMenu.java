@@ -31,7 +31,7 @@ import java.util.List;
 import static application.RestaurantApplication.*;
 
 public class LoggedMenu extends ControllerLogged implements Controller {
-    @FXML AnchorPane menuRoot, menu, menuButtons, menuButtonsContainer, profileView, profileButtonsContainer, menuContent;
+    @FXML AnchorPane menuRoot, menu, menuButtonsContainer, profileView, profileButtonsContainer, menuContent;
     @FXML Button menuButton, notificationButton;
     @FXML Pane profileImageContainer, profileImageClip;
     @FXML HBox notificationMenuIcon;
@@ -50,14 +50,17 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private Timeline reverseDelay, reverseStageWidth, reverseStageHeight;
     private TransitionResizeWidth reverseMenu, expandMenu;
     private TransitionResizeHeight reverseMenuContent, expandMenuContent;
+
     private List<Node> userInfoContainers;
     private List<Node> profileButtons;
+    private List<Node> menuButtons;
 
     @FXML
     public void initialize(){
         notificationBox = (HBox)notificationIcon;
         userInfoContainers = new ArrayList<>(profileView.lookupAll("HBox"));
         profileButtons = profileButtonsContainer.getChildren();
+        menuButtons = new ArrayList<>(menuButtonsContainer.lookupAll("Button"));
 
         setNotificationBox(notificationBox);
         setNotificationBox(notificationMenuIcon);
@@ -69,16 +72,9 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         notificationMenuIcon.opacityProperty().bind(notificationBox.opacityProperty());
         notificationsList.setItems(notificationManager.notifications);
 
-        menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
-        updateMenuButtonsAnchors();
-        updateInfoContainersAnchors();
-        updateProfileButtonsAnchors();
-
+        scaleFontNodes();
         fontIndicator.getFontPxProperty().addListener((observable, oldValue, newValue) -> {
-            menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
-            updateMenuButtonsAnchors();
-            updateInfoContainersAnchors();
-            updateProfileButtonsAnchors();
+            scaleFontNodes();
         });
 
         setUserGraphicIndicator();
@@ -90,6 +86,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         MoveRoot.moveStage(menuButton, stage);
 
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
+    }
+
+    private void scaleFontNodes() {
+        menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
+        updateMenuButtonsAnchors();
+        updateInfoContainersAnchors();
+        updateProfileButtonsAnchors();
     }
 
     private void updateProfileButtonsAnchors() {
@@ -108,15 +111,23 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         AnchorPane.setBottomAnchor(userInfoContainers.get(1), fontIndicator.getFontPx() * 11.0);
     }
 
+//    private void updateMenuButtonsAnchors() {
+//        double fontSize = fontIndicator.getFontPx();
+//        int anchorCount = 0;
+//        for (Node node : menuButtonsContainer.getChildren()) {
+//            if (node instanceof AnchorPane) {
+//                AnchorPane.setLeftAnchor(node, fontSize * 3.2 + anchorCount * 7.6 * fontSize);
+//                AnchorPane.setRightAnchor(node, fontSize * 1.3 + (menuButtonsContainer.getChildren().size() - 2 - anchorCount) * 7.6 * fontSize);
+//                anchorCount++;
+//            }
+//        }
+//    }
     private void updateMenuButtonsAnchors() {
         double fontSize = fontIndicator.getFontPx();
-        int anchorCount = 0;
-        for (Node node : menuButtons.getChildren()) {
-            if (node instanceof AnchorPane) {
-                AnchorPane.setLeftAnchor(node, fontSize * 3.2 + anchorCount * 7.6 * fontSize);
-                AnchorPane.setRightAnchor(node, fontSize * 1.3 + (menuButtons.getChildren().size() - 2 - anchorCount) * 7.6 * fontSize);
-                anchorCount++;
-            }
+        for (int i = 0; i < menuButtons.size(); i++) {
+            Node container = menuButtons.get(i).getParent();
+            AnchorPane.setLeftAnchor(container, fontSize * 3.2 + i * 7.6 * fontSize);
+            AnchorPane.setRightAnchor(container, fontSize * 1.3 + (menuButtons.size() - 1 - i) * 7.6 * fontSize);
         }
     }
 
