@@ -31,7 +31,7 @@ import java.util.List;
 import static application.RestaurantApplication.*;
 
 public class LoggedMenu extends ControllerLogged implements Controller {
-    @FXML AnchorPane menuRoot, menu, menuButtons, menuButtonsContainer, profileView, menuContent;
+    @FXML AnchorPane menuRoot, menu, menuButtons, menuButtonsContainer, profileView, profileButtonsContainer, menuContent;
     @FXML Button menuButton, notificationButton;
     @FXML Pane profileImageContainer, profileImageClip;
     @FXML HBox notificationMenuIcon;
@@ -51,11 +51,13 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     private TransitionResizeWidth reverseMenu, expandMenu;
     private TransitionResizeHeight reverseMenuContent, expandMenuContent;
     private List<Node> userInfoContainers;
+    private List<Node> profileButtons;
 
     @FXML
     public void initialize(){
         notificationBox = (HBox)notificationIcon;
         userInfoContainers = new ArrayList<>(profileView.lookupAll("HBox"));
+        profileButtons = profileButtonsContainer.getChildren();
 
         setNotificationBox(notificationBox);
         setNotificationBox(notificationMenuIcon);
@@ -67,14 +69,16 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         notificationMenuIcon.opacityProperty().bind(notificationBox.opacityProperty());
         notificationsList.setItems(notificationManager.notifications);
 
-        updateButtonsAnchors();
-        updateInfoContainersAnchors();
         menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
+        updateMenuButtonsAnchors();
+        updateInfoContainersAnchors();
+        updateProfileButtonsAnchors();
 
         fontIndicator.getFontPxProperty().addListener((observable, oldValue, newValue) -> {
             menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
-            updateButtonsAnchors();
+            updateMenuButtonsAnchors();
             updateInfoContainersAnchors();
+            updateProfileButtonsAnchors();
         });
 
         setUserGraphicIndicator();
@@ -88,6 +92,14 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
     }
 
+    private void updateProfileButtonsAnchors() {
+        double fontSize = fontIndicator.getFontPx();
+        for (int i = 0; i < profileButtons.size(); i++) {
+            AnchorPane.setTopAnchor(profileButtons.get(i), fontSize * 6.8 + i * fontSize * 2.75);
+            AnchorPane.setBottomAnchor(profileButtons.get(i), fontSize * 0.5 + (profileButtons.size() - 1 - i) * fontSize * 2.75);
+        }
+    }
+
     private void updateInfoContainersAnchors() {
         AnchorPane.setTopAnchor(userInfoContainers.get(0), fontIndicator.getFontPx() * 1.1);
         AnchorPane.setBottomAnchor(userInfoContainers.get(0), fontIndicator.getFontPx() * 15.3);
@@ -96,7 +108,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
         AnchorPane.setBottomAnchor(userInfoContainers.get(1), fontIndicator.getFontPx() * 11.0);
     }
 
-    private void updateButtonsAnchors() {
+    private void updateMenuButtonsAnchors() {
         double fontSize = fontIndicator.getFontPx();
         int anchorCount = 0;
         for (Node node : menuButtons.getChildren()) {

@@ -76,7 +76,7 @@
     </AnchorPane>
     <AnchorPane fx:id="menuContent" disable="true" minHeight="-Infinity" minWidth="-Infinity" styleClass="menu-content">
         <children>
-            <AnchorPane fx:id="profileView" layoutX="3.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="profile-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="profileView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="profile-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <effect>
                     <InnerShadow />
                 </effect>
@@ -105,37 +105,39 @@
                           <TextField fx:id="roleField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
                        </children>
                     </HBox>
-                    <AnchorPane layoutX="12.0" layoutY="115.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="104.0" AnchorPane.topAnchor="114.0">
-                        <children>
-                            <Button fx:id="editButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editUserInfo" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Edit" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            </Button>
-                            <Button fx:id="saveButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#saveUserInfo" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Save" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            </Button>
-                        </children>
-                    </AnchorPane>
-                    <AnchorPane layoutX="12.0" layoutY="145.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="71.0" AnchorPane.topAnchor="147.0">
-                        <children>
-                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Style 1" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            </Button>
-                        </children>
-                    </AnchorPane>
-                    <AnchorPane layoutX="12.0" layoutY="125.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="38.0" AnchorPane.topAnchor="180.0">
-                        <children>
-                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Style 3" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            </Button>
-                        </children>
-                    </AnchorPane>
-                    <AnchorPane layoutX="12.0" layoutY="81.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="137.0" AnchorPane.topAnchor="81.0">
-                        <children>
-                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Change" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            </Button>
-                        </children>
-                    </AnchorPane>
-                    <AnchorPane layoutX="12.0" layoutY="171.0" styleClass="profile-button-shadow" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="213.0">
-                        <children>
-                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            </Button>
-                        </children>
+                    <AnchorPane fx:id="profileButtonsContainer" styleClass="profile-buttons-container" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+                        <AnchorPane styleClass="profile-button-shadow">
+                            <children>
+                                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Change" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane styleClass="profile-button-shadow">
+                            <children>
+                                <Button fx:id="editButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editUserInfo" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Edit" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                </Button>
+                                <Button fx:id="saveButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#saveUserInfo" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Save" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane styleClass="profile-button-shadow">
+                            <children>
+                                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedFirstStyle" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Style 1" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane styleClass="profile-button-shadow">
+                            <children>
+                                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Style 3" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane styleClass="profile-button-shadow">
+                            <children>
+                                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                </Button>
+                            </children>
+                        </AnchorPane>
                     </AnchorPane>
                 </children>
             </AnchorPane>
