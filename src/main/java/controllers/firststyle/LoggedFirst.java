@@ -3,6 +3,7 @@ package controllers.firststyle;
 import animations.*;
 import controllers.base.ChatSession;
 import controllers.base.Controller;
+import controllers.base.ControllerAdjustable;
 import helpers.listviews.ChatsUsersListViewCell;
 import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;
@@ -11,6 +12,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.scene.input.*;
+import javafx.stage.Stage;
 import models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
@@ -30,7 +32,7 @@ import controllers.base.ControllerLogged;
 
 import static application.RestaurantApplication.*;
 
-public class LoggedFirst extends ControllerLogged implements Controller{
+public class LoggedFirst extends ControllerLogged implements ControllerAdjustable {
     @FXML ScrollPane menuScroll, userInfoScroll;
     @FXML AnchorPane contentPane, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, profileRoot;
@@ -252,6 +254,11 @@ public class LoggedFirst extends ControllerLogged implements Controller{
         if(expandOrderPane.isButtonExpanded.get()){
             expandOrderPane.reverseOrder();
         }
+    }
+
+    @Override
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 
     public void setChatValue(ChatValue chat, ChatsUsersListViewCell cell){

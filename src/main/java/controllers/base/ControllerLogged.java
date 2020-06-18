@@ -267,10 +267,6 @@ public class ControllerLogged {
         stage.sizeToScene();
     }
 
-    public void setStage(Stage stage){
-        this.stage = stage;
-    }
-
     @FXML
     public void showLoggedFirstStyle(){
         stageManager.changeStage(stageManager.firstLoggedStage);

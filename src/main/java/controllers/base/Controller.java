@@ -1,9 +1,7 @@
 package controllers.base;
 
+import javafx.stage.Stage;
+
 public interface Controller {
-    void resetStage();
-
-    void adjustStage() throws Exception;
-
-    void setStage();
+    void setStage(Stage stage);
 }

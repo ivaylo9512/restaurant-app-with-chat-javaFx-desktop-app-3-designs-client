@@ -4,7 +4,7 @@ import animations.MoveRoot;
 import animations.TransitionResizeHeight;
 import animations.TransitionResizeWidth;
 import application.RestaurantApplication;
-import controllers.base.Controller;
+import controllers.base.ControllerAdjustable;
 import controllers.base.ControllerLogged;
 import helpers.FontIndicator;
 import javafx.animation.*;
@@ -30,7 +30,7 @@ import java.util.List;
 
 import static application.RestaurantApplication.*;
 
-public class LoggedMenu extends ControllerLogged implements Controller {
+public class LoggedMenu extends ControllerLogged implements ControllerAdjustable {
     @FXML AnchorPane menuRoot, menu, menuButtonsContainer, profileView, profileButtonsContainer, menuContent;
     @FXML Button menuButton, notificationButton;
     @FXML Pane profileImageContainer, profileImageClip;
@@ -207,6 +207,11 @@ public class LoggedMenu extends ControllerLogged implements Controller {
 
         menuRoot.setLayoutX((menuRoot.getMaxWidth() - menuRoot.getPrefWidth()) / 2);
         expandMenu();
+    }
+
+    @Override
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 
     @FXML

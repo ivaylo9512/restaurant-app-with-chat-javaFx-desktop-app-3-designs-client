@@ -2,7 +2,10 @@ package controllers.thirdstyle;
 
 import animations.MoveRoot;
 import animations.ResizeRoot;
+import controllers.base.Controller;
+import controllers.base.ControllerAdjustable;
 import helpers.Scrolls;
+import javafx.stage.Stage;
 import models.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -18,7 +21,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import controllers.base.ControllerLogged;
 
-public class LoggedThird extends ControllerLogged {
+public class LoggedThird extends ControllerLogged implements ControllerAdjustable {
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot, menuBar, mainChatContainer, secondChatContainer;
     @FXML public Pane profileImageContainer, profileImageClip;
     @FXML VBox chatsContainer, mainChatBlock, secondChatBlock;
@@ -92,6 +95,11 @@ public class LoggedThird extends ControllerLogged {
 
         currentView = null;
         currentMenu= null;
+    }
+
+    @Override
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 
     private void loginAnimation() {

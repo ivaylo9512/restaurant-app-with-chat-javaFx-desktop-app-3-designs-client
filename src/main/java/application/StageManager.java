@@ -1,5 +1,6 @@
 package application;
 
+import controllers.base.ControllerAdjustable;
 import controllers.base.ControllerAlert;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -30,23 +31,23 @@ public class StageManager {
 
     void initializeStages(Stage primaryStage) throws Exception{
         firstLoginStage = primaryStage;
-        firstLoginController = createStage("login-first", firstLoginStage);
+        firstLoginController = createAdjustableStage("login-first", firstLoginStage);
 
         secondLoginStage = new Stage();
-        secondLoginController = createStage("login-second", secondLoginStage);
+        secondLoginController = createAdjustableStage("login-second", secondLoginStage);
 
 //        thirdLoginStage = new Stage();
 //        thirdLoginController = createStage("login-third", thirdLoginStage);
 
         firstLoggedStage = new Stage();
-        firstLoggedController = createStage("logged-first", firstLoggedStage);
+        firstLoggedController = createAdjustableStage("logged-first", firstLoggedStage);
 
         secondLoggedStage = new Stage();
-        secondLoggedController = createStage("logged-second", secondLoggedStage);
+        secondLoggedController = createAdjustableStage("logged-second", secondLoggedStage);
 
         secondLoggedMenuStage = new Stage();
         secondLoggedMenuStage.initOwner(createTransparentUtilityStage());
-        secondLoggedMenuController = createStage("logged-second-menu", secondLoggedMenuStage);
+        secondLoggedMenuController = createAdjustableStage("logged-second-menu", secondLoggedMenuStage);
 
 //        thirdLoggedStage = new Stage();
 //        thirdLoggedController = createStage("logged-third", thirdLoggedStage);
@@ -127,18 +128,11 @@ public class StageManager {
         }
     }
 
-    private ControllerAlert createAlertStage(Stage stage, Stage owner, boolean isLoginStage, String fileName)throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/" + fileName + ".fxml"));
-        Pane root = loader.load();
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/" + fileName + ".css").toString());
-        scene.setFill(Color.TRANSPARENT);
-
+    private ControllerAlert createAlertStage(Stage stage, Stage owner, boolean isLoginStage, String fileName)throws  Exception{
         stage.initOwner(owner);
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setY(0);
+
+        ControllerAlert controller = (ControllerAlert) createStage(fileName, stage);
 
         ObjectProperty<String> alertValue = alertManager.currentLoggedAlert;
         SimpleListProperty<String> alerts = alertManager.loggedAlerts;
@@ -147,12 +141,27 @@ public class StageManager {
             alerts = alertManager.loginAlerts;
         }
 
-        ControllerAlert controller = loader.getController();
         controller.currentAlert = alertValue;
         controller.alerts = alerts;
-        controller.stage = stage;
         controller.bind();
 
+        return controller;
+    }
+
+    private ControllerAdjustable createAdjustableStage(String fileName, Stage stage) throws Exception{
+        ControllerAdjustable controller = (ControllerAdjustable) createStage(fileName, stage);
+        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
+            if(!isShowing){
+                controller.resetStage();
+            }else{
+                try {
+                    controller.adjustStage();
+                } catch (Exception e) {
+                    loginManager.logout();
+                    alertManager.addLoginAlert(e.getMessage());
+                }
+            }
+        });
         return controller;
     }
 
@@ -173,30 +182,14 @@ public class StageManager {
         Pane root = loader.load();
 
         Controller controller = loader.getController();
+        controller.setStage(stage);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/" + fileName + ".css").toString());
         scene.setFill(Color.TRANSPARENT);
 
-        stage.showingProperty().addListener((observable, oldValue, isShowing) -> {
-            if(!isShowing){
-                controller.resetStage();
-            }else{
-                try {
-                    controller.adjustStage();
-                } catch (Exception e) {
-                    loginManager.logout();
-                    alertManager.addLoginAlert(e.getMessage());
-                }
-            }
-        });
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
-
-        stage.setWidth(primaryScreenBounds.getWidth());
-        stage.setHeight(primaryScreenBounds.getHeight());
-        stage.setX(primaryScreenBounds.getMinX());
-        stage.setY(primaryScreenBounds.getMinY());
 
         return controller;
     }

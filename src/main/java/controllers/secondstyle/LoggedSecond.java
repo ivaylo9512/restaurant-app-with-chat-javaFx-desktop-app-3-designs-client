@@ -3,7 +3,7 @@ package controllers.secondstyle;
 import animations.MoveRoot;
 import animations.ResizeRoot;
 import controllers.base.ChatSession;
-import controllers.base.Controller;
+import controllers.base.ControllerAdjustable;
 import helpers.listviews.ChatsUsersListViewCellSecond;
 import helpers.Scrolls;
 import javafx.stage.Stage;
@@ -22,7 +22,7 @@ import controllers.base.ControllerLogged;
 import static application.RestaurantApplication.*;
 
 
-public class LoggedSecond extends ControllerLogged implements Controller {
+public class LoggedSecond extends ControllerLogged implements ControllerAdjustable {
     @FXML Label dishesCountLabel;
 
     @FXML AnchorPane  orderInfo, orderView, orderContainer,
@@ -175,6 +175,11 @@ public class LoggedSecond extends ControllerLogged implements Controller {
         ordersList.getSelectionModel().clearSelection();
 
         menuSearch.setText("");
+    }
+
+    @Override
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 
     @FXML
