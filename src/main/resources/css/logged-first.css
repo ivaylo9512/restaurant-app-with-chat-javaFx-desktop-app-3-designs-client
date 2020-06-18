@@ -230,6 +230,7 @@ TextFlow {
     -fx-background-color: #2A2E37;
     -fx-border-width: 0 0 1 0;
     -fx-border-color: #363b41;
+    -fx-pref-height: 2.3em
 }
 .program-bar Button{
     -fx-background-color: transparent;
@@ -248,6 +249,22 @@ TextFlow {
 .menu-buttons-container VBox{
     -fx-spacing: 0.8em;
     -fx-padding: 0;
+}
+.menu-buttons-container VBox StackPane{
+    -fx-pref-width: 1.3em;
+    -fx-pref-height: 1.3em;
+    -fx-background-color: #d62127;
+    -fx-border-radius: 5em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+    -fx-background-radius: 5em;
+    -fx-translate-y: -0.5em;
+    -fx-translate-x: 0.7em;
+}
+.menu-buttons-container VBox StackPane Text{
+    -fx-fill:#2a2e37;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+    -fx-font-size: 1.3em;
+    -fx-font-weight: bold;
 }
 .menu-buttons-container Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );

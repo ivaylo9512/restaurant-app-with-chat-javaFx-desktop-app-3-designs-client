@@ -104,16 +104,6 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Pane fx:id="notificationIcon" disable="true" layoutX="81.0" layoutY="110.0" opacity="0.0">
-                     <children>
-                        <Circle fill="#d62127" layoutX="8.0" layoutY="8.0" radius="8.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" styleClass="shadow" />
-                        <Text fill="#2a2e37" layoutX="5.5" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="shadow" text="!">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
                </children>
             </Pane>
             <Pane fx:id="profileRoot" disable="true" layoutY="38.0" opacity="0.0" styleClass="menu" AnchorPane.topAnchor="28.0">
@@ -450,8 +440,8 @@
             <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Pane prefHeight="28.0" styleClass="program-bar" />
-            <HBox prefHeight="28.0" styleClass="program-bar" GridPane.columnIndex="1" />
+            <Pane styleClass="program-bar" />
+            <HBox styleClass="program-bar" GridPane.columnIndex="1" />
             <GridPane alignment="CENTER" styleClass="menu-buttons-container" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" percentWidth="70.0" />
@@ -462,14 +452,22 @@
                <children>
                   <VBox>
                      <children>
-                        <Button fx:id="profileButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" prefHeight="0.0" prefWidth="0.0" text="Profile" VBox.vgrow="ALWAYS">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" prefHeight="0.0" prefWidth="0.0" text="Profile" VBox.vgrow="ALWAYS">
                         </Button>
                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToChats" prefHeight="0.0" prefWidth="0.0" text="Chat" VBox.vgrow="ALWAYS">
                         </Button>
                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" text="Create" VBox.vgrow="ALWAYS">
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotifications" prefHeight="0.0" prefWidth="0.0" text="Updates" VBox.vgrow="ALWAYS">
-                        </Button>
+                        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
+                           <children>
+                               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotifications" prefHeight="0.0" prefWidth="0.0" text="Updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                               </Button>
+                               <StackPane fx:id="notificationIcon" disable="true" opacity="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.rightAnchor="0">
+                                   <Text text="!">
+                                   </Text>
+                               </StackPane>
+                           </children>
+                        </AnchorPane>
                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrders" prefHeight="0.0" prefWidth="0.0" text="Orders" VBox.vgrow="ALWAYS">
                         </Button>
                      </children>
