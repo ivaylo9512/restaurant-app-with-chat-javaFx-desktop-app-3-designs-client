@@ -79,7 +79,7 @@
             </AnchorPane>
             <Pane layoutY="28.0" styleClass="menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
                <children>
-                  <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" text="Profile">
+                  <Button fx:id="profileButton2" layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" text="Profile">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -447,12 +447,35 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" vgrow="NEVER" />
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="190.0" vgrow="ALWAYS" />
-          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <HBox prefHeight="28.0" styleClass="program-bar" />
+            <Pane prefHeight="28.0" styleClass="program-bar" />
             <HBox prefHeight="28.0" styleClass="program-bar" GridPane.columnIndex="1" />
-            <VBox GridPane.rowIndex="1" />
+            <GridPane alignment="CENTER" styleClass="menu-buttons-container" GridPane.rowIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="70.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints percentHeight="79.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox>
+                     <children>
+                        <Button fx:id="profileButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" prefHeight="0.0" prefWidth="0.0" text="Profile" VBox.vgrow="ALWAYS">
+                        </Button>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToChats" prefHeight="0.0" prefWidth="0.0" text="Chat" VBox.vgrow="ALWAYS">
+                        </Button>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" text="Create" VBox.vgrow="ALWAYS">
+                        </Button>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotifications" prefHeight="0.0" prefWidth="0.0" text="Updates" VBox.vgrow="ALWAYS">
+                        </Button>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrders" prefHeight="0.0" prefWidth="0.0" text="Orders" VBox.vgrow="ALWAYS">
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
          </children>
       </GridPane>
    </children>

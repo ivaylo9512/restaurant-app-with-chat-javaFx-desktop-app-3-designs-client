@@ -87,21 +87,6 @@ TextFlow {
     -fx-pref-width: 103px;
     -fx-background-color: #363b41;
 }
-.menu VBox{
-    -fx-pref-height:182.0;
-    -fx-pref-width:121.0;
-    -fx-spacing: 0.8em;
-}
-.menu Button{
-    -fx-border-radius: 0px;
-    -fx-background-radius: 0px;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
-    -fx-background-color: #2A2E37;
-}
-.menu Button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-    -fx-border-width: 0;
-}
 .profile-picture{
     -fx-background-radius: 180;
     -fx-border-radius: 180;
@@ -249,18 +234,24 @@ TextFlow {
 .program-bar Button{
     -fx-background-color: transparent;
 }
-.menu{
+.menu-buttons-container{
     -fx-background-color: #2A2E37;
-    -fx-min-height: 190px;
-    -fx-pref-height: 190px;
-    -fx-pref-width: 103px;
 }
-.menu Button{
-    -fx-max-height: 22px;
-    -fx-max-width: 72px;
-    -fx-pref-height: 22px;
-    -fx-pref-width: 72px;
+.menu-buttons-container Button{
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-background-color: #2A2E37;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
     -fx-text-fill: #bcbcbc;
+    -fx-font-size: 0.83em;
+}
+.menu-buttons-container VBox{
+    -fx-spacing: 0.8em;
+    -fx-padding: 0;
+}
+.menu-buttons-container Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+    -fx-border-width: 0;
 }
 .menu-scroll{
     -fx-pref-height: 211px;
