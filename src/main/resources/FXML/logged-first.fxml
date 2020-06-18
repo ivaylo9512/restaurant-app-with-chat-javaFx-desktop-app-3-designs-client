@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
@@ -12,13 +13,13 @@
    <children>
       <AnchorPane fx:id="contentRoot" styleClass="content-root">
          <children>
-            <AnchorPane styleClass="menu-scroll-container" layoutY="218.0" snapToPixel="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="217.0">
+            <AnchorPane layoutY="218.0" snapToPixel="false" styleClass="menu-scroll-container" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="217.0">
                <children>
                   <ScrollPane fx:id="menuScroll" styleClass="menu-scroll" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
                      <content>
                            <AnchorPane>
                               <children>
-                                    <ScrollPane fx:id="userInfoScroll" styleClass="user-info-scroll" layoutY="77.0" prefViewportHeight="130.0" prefViewportWidth="95.0">
+                                    <ScrollPane fx:id="userInfoScroll" layoutY="77.0" prefViewportHeight="130.0" prefViewportWidth="95.0" styleClass="user-info-scroll">
                                        <content>
                                           <FlowPane fx:id="userInfo" layoutX="517.0" layoutY="-219.0" styleClass="user-info" vgap="6.0">
                                              <children>
@@ -57,14 +58,14 @@
                                           </FlowPane>
                                        </content>
                                     </ScrollPane>
-                                    <Pane styleClass="role-image-container" layoutX="11.0" layoutY="8.0">
+                                    <Pane layoutX="11.0" layoutY="8.0" styleClass="role-image-container">
                                        <children>
                                              <ImageView fx:id="roleImage" layoutX="10.5" styleClass="shadow">
                                                    </ImageView>
                                              <Pane layoutY="68.5" styleClass="info-line" />
                                        </children>
                                     </Pane>
-                                    <ListView disable="true" fx:id="chatUsersList" styleClass="chat-users" layoutY="211.0">
+                                    <ListView fx:id="chatUsersList" disable="true" layoutY="211.0" styleClass="chat-users">
                                     </ListView>
                                     <Pane layoutX="12.0" layoutY="209.0" styleClass="info-line" />
                               </children>
@@ -103,7 +104,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Pane fx:id="notificationIcon" opacity="0.0" disable="true" layoutX="81.0" layoutY="110.0">
+                  <Pane fx:id="notificationIcon" disable="true" layoutX="81.0" layoutY="110.0" opacity="0.0">
                      <children>
                         <Circle fill="#d62127" layoutX="8.0" layoutY="8.0" radius="8.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" styleClass="shadow" />
                         <Text fill="#2a2e37" layoutX="5.5" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="shadow" text="!">
@@ -438,5 +439,21 @@
             <TextField prefHeight="67.0" prefWidth="218.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" />
          </children>
       </HBox>
+      <GridPane hgap="3.0" layoutX="100.0" layoutY="60.0" prefHeight="428.0" prefWidth="742.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="103.0" />
+          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="190.0" vgrow="ALWAYS" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+            <HBox prefHeight="28.0" styleClass="program-bar" />
+            <HBox prefHeight="28.0" styleClass="program-bar" GridPane.columnIndex="1" />
+            <VBox GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

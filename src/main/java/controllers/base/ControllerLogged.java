@@ -8,6 +8,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 import models.*;
 import models.Menu;
 import javafx.beans.binding.Bindings;
@@ -76,6 +77,7 @@ public class ControllerLogged {
     private String createButtonText;
 
     public ReadOnlyObjectProperty<Order> currentOrder;
+    public Stage stage;
 
     protected void setNotificationsListeners() {
         notificationsList.getItems().addListener((ListChangeListener<Notification>)c -> {
@@ -255,6 +257,14 @@ public class ControllerLogged {
         }
     }
 
+    protected void resetStageDimensions(){
+        contentRoot.setPrefWidth(contentRoot.getMinWidth());
+        contentRoot.setPrefHeight(contentRoot.getMinHeight());
+
+        stage.setY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
+        stage.setX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
+
+    }
     protected void setContentRoot(){
         contentRoot.setPrefWidth(contentRoot.getMinWidth());
         contentRoot.setPrefHeight(contentRoot.getMinHeight());
