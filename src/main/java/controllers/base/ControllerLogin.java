@@ -47,7 +47,7 @@ public abstract class ControllerLogin implements Controller {
         regRepeatPassword.setText(null);
     }
 
-    public void setStage(){
+    public void adjustStage(){
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);

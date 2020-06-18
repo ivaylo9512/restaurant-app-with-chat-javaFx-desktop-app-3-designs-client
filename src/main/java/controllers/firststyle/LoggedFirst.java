@@ -194,13 +194,13 @@ public class LoggedFirst extends ControllerLogged implements Controller{
     }
 
     @Override
-    public void setStage() throws Exception{
+    public void adjustStage() throws Exception{
         userMenu.setAll(orderManager.userMenu.values());
 
         mainChatSession.bindChat();
         secondChatSession.bindChat();
 
-        setContentRoot();
+        resetStageDimensions();
         if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 

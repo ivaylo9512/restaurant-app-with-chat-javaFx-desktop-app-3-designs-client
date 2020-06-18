@@ -183,7 +183,7 @@ public class StageManager {
                 controller.resetStage();
             }else{
                 try {
-                    controller.setStage();
+                    controller.adjustStage();
                 } catch (Exception e) {
                     loginManager.logout();
                     alertManager.addLoginAlert(e.getMessage());

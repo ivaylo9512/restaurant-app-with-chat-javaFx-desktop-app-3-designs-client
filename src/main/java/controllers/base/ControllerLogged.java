@@ -264,13 +264,11 @@ public class ControllerLogged {
         stage.setY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
         stage.setX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
 
+        stage.sizeToScene();
     }
-    protected void setContentRoot(){
-        contentRoot.setPrefWidth(contentRoot.getMinWidth());
-        contentRoot.setPrefHeight(contentRoot.getMinHeight());
 
-        contentRoot.setLayoutY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
-        contentRoot.setLayoutX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 
     @FXML

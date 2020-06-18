@@ -199,7 +199,7 @@ public class LoggedMenu extends ControllerLogged implements Controller {
     }
 
     @Override
-    public void setStage() throws Exception {
+    public void adjustStage() throws Exception {
         stage.setWidth(menuRoot.getMaxWidth());
         stage.setHeight(menuRoot.getPrefHeight());
         stage.setY(primaryScreenBounds.getHeight() * 0.05);

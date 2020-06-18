@@ -53,8 +53,8 @@ public class LoggedThird extends ControllerLogged {
     }
 
     @Override
-    public void setStage() throws Exception{
-        super.setStage();
+    public void adjustStage() throws Exception{
+        super.adjustStage();
 
         loginAnimation();
     }
