@@ -56,8 +56,8 @@ public class LoggedSecond extends ControllerLogged implements ControllerAdjustab
         menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
 
-        MoveRoot.move(contentBar, contentRoot);
-        ResizeRoot.addListeners(contentRoot);
+        MoveRoot.move(contentBar, root);
+        ResizeRoot.addListeners(root);
 
         mainChatBlock.prefWidthProperty().bind(mainChatScroll.widthProperty().subtract(25));
     }

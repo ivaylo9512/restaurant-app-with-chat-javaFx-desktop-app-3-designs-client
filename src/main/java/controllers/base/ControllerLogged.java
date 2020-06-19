@@ -22,7 +22,7 @@ import static application.RestaurantApplication.*;
 
 public class ControllerLogged {
     @FXML
-    public AnchorPane contentRoot;
+    public AnchorPane root, contentRoot;
     @FXML
     protected VBox mainChatBlock, secondChatBlock;
     @FXML
@@ -258,11 +258,11 @@ public class ControllerLogged {
     }
 
     protected void resetStageDimensions(){
-        contentRoot.setPrefWidth(contentRoot.getMinWidth());
-        contentRoot.setPrefHeight(contentRoot.getMinHeight());
+        root.setPrefWidth(root.getMinWidth());
+        root.setPrefHeight(root.getMinHeight());
 
-        stage.setY((primaryScreenBounds.getHeight() - contentRoot.getPrefHeight()) / 2);
-        stage.setX((primaryScreenBounds.getWidth() - contentRoot.getPrefWidth()) / 2);
+        stage.setY((primaryScreenBounds.getHeight() - root.getPrefHeight()) / 2);
+        stage.setX((primaryScreenBounds.getWidth() - root.getPrefWidth()) / 2);
 
         stage.sizeToScene();
     }

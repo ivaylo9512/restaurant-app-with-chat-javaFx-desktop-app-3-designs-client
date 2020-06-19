@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" maxWidth="-Infinity" prefHeight="431.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.thirdstyle.LoginThird">
+<AnchorPane fx:id="contentRoot" maxWidth="-Infinity" prefHeight="431.0" prefWidth="621.0" style="-fx-background-color: transparent;" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.thirdstyle.LoginThird">
    <children>
       <AnchorPane fx:id="loginPane" layoutX="134.6999969482422" minWidth="-Infinity">
          <children>
@@ -32,7 +32,7 @@
                   </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="contentRoot" layoutX="35.30000305175781" maxHeight="1.7976931348623157E308" minWidth="161.0" prefHeight="452.0" prefWidth="296.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2px;">
+            <AnchorPane fx:id="root" layoutX="35.30000305175781" maxHeight="1.7976931348623157E308" minWidth="161.0" prefHeight="452.0" prefWidth="296.0" style="-fx-background-color: #E6353A; -fx-border-color: white; -fx-border-width: 2px;">
                <children>
                   <AnchorPane fx:id="loginFields" layoutX="38.0" layoutY="226.0" prefHeight="169.0" prefWidth="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0">
                      <children>

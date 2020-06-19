@@ -14,9 +14,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import controllers.base.Controller;
 
-
-import java.io.IOException;
-
 import static application.RestaurantApplication.alertManager;
 import static application.RestaurantApplication.loginManager;
 
@@ -24,7 +21,7 @@ public class StageManager {
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     public ControllerAlert currentAlertController, secondLoggedAlertController, secondLoginAlertController;
-    public Controller currentController, firstLoggedController, secondLoggedController, secondLoggedMenuController,
+    public ControllerAdjustable currentController, firstLoggedController, secondLoggedController, secondLoggedMenuController,
             thirdLoggedController, firstLoginController, secondLoginController, thirdLoginController;
     public Stage currentStage, currentStageMenu, currentAlertStage, firstLoggedStage, secondLoggedStage, secondLoggedMenuStage, thirdLoggedStage,
             firstLoginStage, secondLoginStage, thirdLoginStage, firstLoginAlert, firstLoggedAlert, secondLoginAlert, secondLoggedAlert, thirdLoginAlert, thirdLoggedAlert;

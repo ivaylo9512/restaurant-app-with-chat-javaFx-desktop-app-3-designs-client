@@ -47,7 +47,7 @@ public class LoginFirst extends ControllerLogin {
 
     @Override
     public void adjustStage() {
-        super.adjustStage();
+        super.adjustStage(primaryScreenBounds.getHeight(), primaryScreenBounds.getWidth());
 
         background.setPrefHeight(primaryScreenBounds.getHeight());
         background.setPrefWidth(primaryScreenBounds.getWidth());

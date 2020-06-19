@@ -50,13 +50,14 @@ public abstract class ControllerLogin implements ControllerAdjustable {
         regRepeatPassword.setText(null);
     }
 
-    public void adjustStage(){
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    public void adjustStage(double height, double width){
+        root.setPrefWidth(width);
+        root.setPrefHeight(height);
 
-        loginPane.setLayoutY((primaryScreenBounds.getHeight() - loginPane.getHeight()) / 2);
-        loginPane.setLayoutX((primaryScreenBounds.getWidth() - loginPane.getWidth()) / 2);
+        stage.sizeToScene();
+        stage.setY((primaryScreenBounds.getHeight() - height) / 2);
+        stage.setX((primaryScreenBounds.getWidth() - width) / 2);
 
-        loginManager.bindLoginFields(username.textProperty(), password.textProperty());
         loginManager.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 
@@ -88,7 +89,7 @@ public abstract class ControllerLogin implements ControllerAdjustable {
     protected void disableFields(boolean login){
         if(login)loginFields.setDisable(true);
         else nextRegisterFields.setDisable(true);
-    };
+    }
 
     @FXML
     public void showLoginThirdStyle(){

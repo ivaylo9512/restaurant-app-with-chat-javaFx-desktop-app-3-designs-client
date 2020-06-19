@@ -24,10 +24,13 @@ Button:hover{
 ImageView{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
 }
-.stage-root{
+.root{
     -fx-background-color: transparent;
+    -fx-min-height: 84px;
+    -fx-min-width: 621px;
     -fx-pref-height: 84px;
     -fx-pref-width: 621px;
+
 }
 .action-btn{
     -fx-pref-height: 29px;

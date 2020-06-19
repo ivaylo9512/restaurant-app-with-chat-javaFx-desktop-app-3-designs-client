@@ -81,8 +81,8 @@ public class LoggedFirst extends ControllerLogged implements ControllerAdjustabl
         ResizeMainChat.addListeners(mainChat);
         ResizeMainChat.addListeners(secondChat);
 
-        ResizeRoot.addListeners(contentRoot);
-        MoveRoot.move(moveBar, contentRoot);
+        ResizeRoot.addListeners(root);
+        MoveRoot.move(moveBar, root);
     }
 
     private void setListsItems() {
