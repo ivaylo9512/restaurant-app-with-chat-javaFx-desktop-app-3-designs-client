@@ -3,7 +3,6 @@ package controllers.secondstyle;
 import animations.MoveRoot;
 import animations.ResizeRoot;
 import controllers.base.ChatSession;
-import controllers.base.ControllerAdjustable;
 import helpers.listviews.ChatsUsersListViewCellSecond;
 import helpers.Scrolls;
 import javafx.stage.Stage;
@@ -175,11 +174,6 @@ public class LoggedSecond extends ControllerLogged {
         ordersList.getSelectionModel().clearSelection();
 
         menuSearch.setText("");
-    }
-
-    @Override
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 
     @FXML

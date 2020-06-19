@@ -2,10 +2,7 @@ package controllers.thirdstyle;
 
 import animations.MoveRoot;
 import animations.ResizeRoot;
-import controllers.base.Controller;
-import controllers.base.ControllerAdjustable;
 import helpers.Scrolls;
-import javafx.stage.Stage;
 import models.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -21,7 +18,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import controllers.base.ControllerLogged;
 
-public class LoggedThird extends ControllerLogged implements ControllerAdjustable {
+public class LoggedThird extends ControllerLogged {
     @FXML public AnchorPane profileView, ordersView, chatsView, ordersMenu, chatsMenu, createRoot, menuBar, mainChatContainer, secondChatContainer;
     @FXML public Pane profileImageContainer, profileImageClip;
     @FXML VBox chatsContainer, mainChatBlock, secondChatBlock;
@@ -32,7 +29,7 @@ public class LoggedThird extends ControllerLogged implements ControllerAdjustabl
     private Text currentText;
     private Order currentOrder;
 
-    @Override
+    @FXML
     public void initialize(){
         Scrolls scrolls = new Scrolls(mainChatScroll, secondChatScroll, mainChatTextArea, secondChatTextArea);
         scrolls.manageScrollsThirdStyle();
@@ -56,15 +53,14 @@ public class LoggedThird extends ControllerLogged implements ControllerAdjustabl
     }
 
     @Override
-    public void adjustStage() throws Exception{
-        super.adjustStage();
+    public void adjustStage(double height, double width) throws Exception{
+        super.adjustStage(height, width);
 
         loginAnimation();
     }
 
     @Override
     public void resetStage(){
-        super.resetStage();
 
         mainChat = null;
         secondChat = null;
@@ -95,11 +91,6 @@ public class LoggedThird extends ControllerLogged implements ControllerAdjustabl
 
         currentView = null;
         currentMenu= null;
-    }
-
-    @Override
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 
     private void loginAnimation() {

@@ -2,7 +2,7 @@ package helpers.listviews;
 
 import animations.TransitionResizeWidth;
 import controllers.base.ControllerLogged;
-import controllers.thirdstyle.LoggedThird;
+//import controllers.thirdstyle.LoggedThird;
 import models.ChatValue;
 import models.User;
 import javafx.fxml.FXML;
@@ -86,9 +86,9 @@ public class ChatsListViewCellSecond extends ListCell<ChatValue> {
 
     {
         this.selectedProperty().addListener(observable -> {
-            if(stageManager.currentController instanceof LoggedThird && stageManager.thirdLoggedStage.isShowing()){
-                ((ControllerLogged)stageManager.thirdLoggedController).setMainChat(getItem());
-            }
+//            if(stageManager.currentController instanceof LoggedThird && stageManager.thirdLoggedStage.isShowing()){
+//                ((ControllerLogged)stageManager.thirdLoggedController).setMainChat(getItem());
+//            }
         });
     }
 }

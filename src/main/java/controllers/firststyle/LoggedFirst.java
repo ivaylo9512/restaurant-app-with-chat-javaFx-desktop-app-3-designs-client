@@ -2,8 +2,6 @@ package controllers.firststyle;
 
 import animations.*;
 import controllers.base.ChatSession;
-import controllers.base.Controller;
-import controllers.base.ControllerAdjustable;
 import helpers.listviews.ChatsUsersListViewCell;
 import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;
@@ -50,6 +48,7 @@ public class LoggedFirst extends ControllerLogged {
 
     private ChatSession mainChatSession, secondChatSession;
     private ExpandOrderPane expandOrderPane = new ExpandOrderPane();
+
     @FXML
     public void initialize() {
         setClips();

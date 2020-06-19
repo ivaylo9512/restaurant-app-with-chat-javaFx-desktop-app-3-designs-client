@@ -4,7 +4,6 @@ import animations.MoveRoot;
 import animations.TransitionResizeHeight;
 import animations.TransitionResizeWidth;
 import application.RestaurantApplication;
-import controllers.base.ControllerAdjustable;
 import controllers.base.ControllerLogged;
 import helpers.FontIndicator;
 import javafx.animation.*;
@@ -111,17 +110,6 @@ public class LoggedMenu extends ControllerLogged {
         AnchorPane.setBottomAnchor(userInfoContainers.get(1), fontIndicator.getFontPx() * 11.0);
     }
 
-//    private void updateMenuButtonsAnchors() {
-//        double fontSize = fontIndicator.getFontPx();
-//        int anchorCount = 0;
-//        for (Node node : menuButtonsContainer.getChildren()) {
-//            if (node instanceof AnchorPane) {
-//                AnchorPane.setLeftAnchor(node, fontSize * 3.2 + anchorCount * 7.6 * fontSize);
-//                AnchorPane.setRightAnchor(node, fontSize * 1.3 + (menuButtonsContainer.getChildren().size() - 2 - anchorCount) * 7.6 * fontSize);
-//                anchorCount++;
-//            }
-//        }
-//    }
     private void updateMenuButtonsAnchors() {
         double fontSize = fontIndicator.getFontPx();
         for (int i = 0; i < menuButtons.size(); i++) {

@@ -4,10 +4,8 @@ import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
 import javafx.beans.property.*;
 import javafx.collections.*;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import models.*;
 import models.Menu;
@@ -76,7 +74,6 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     private String createButtonText;
 
     public ReadOnlyObjectProperty<Order> currentOrder;
-    public Stage stage;
 
     protected void setNotificationsListeners() {
         notificationsList.getItems().addListener((ListChangeListener<Notification>)c -> {
