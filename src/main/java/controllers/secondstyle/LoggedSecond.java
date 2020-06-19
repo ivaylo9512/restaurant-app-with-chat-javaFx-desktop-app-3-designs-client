@@ -148,11 +148,11 @@ public class LoggedSecond extends ControllerLogged implements ControllerAdjustab
     }
 
     @Override
-    public void adjustStage() {
+    public void adjustStage(double height, double width) {
         userMenu.setAll(orderManager.userMenu.values());
         mainChatSession.bindChat();
 
-        resetStageDimensions();
+        resetStageDimensions(root.getMinHeight() / 2, root.getMinWidth());
     }
 
     @Override

@@ -257,12 +257,12 @@ public class ControllerLogged {
         }
     }
 
-    protected void resetStageDimensions(){
+    protected void resetStageDimensions(double height, double width){
         root.setPrefWidth(root.getMinWidth());
         root.setPrefHeight(root.getMinHeight());
 
-        stage.setY((primaryScreenBounds.getHeight() - root.getPrefHeight()) / 2);
-        stage.setX((primaryScreenBounds.getWidth() - root.getPrefWidth()) / 2);
+        stage.setY((primaryScreenBounds.getHeight() - height) / 2);
+        stage.setX((primaryScreenBounds.getWidth() - width) / 2);
 
         stage.sizeToScene();
     }
