@@ -32,7 +32,7 @@ import controllers.base.ControllerLogged;
 
 import static application.RestaurantApplication.*;
 
-public class LoggedFirst extends ControllerLogged implements ControllerAdjustable {
+public class LoggedFirst extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll;
     @FXML AnchorPane contentPane, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, profileRoot;
@@ -197,12 +197,12 @@ public class LoggedFirst extends ControllerLogged implements ControllerAdjustabl
 
     @Override
     public void adjustStage(double height, double width) throws Exception{
+        super.adjustStage(height, width);
         userMenu.setAll(orderManager.userMenu.values());
 
         mainChatSession.bindChat();
         secondChatSession.bindChat();
 
-        resetStageDimensions(root.getMinHeight() / 2, root.getMinWidth());
         if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
 

@@ -13,9 +13,9 @@ public abstract class ControllerAdjustable implements Controller{
 
     protected static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    abstract void resetStage();
+    public abstract void resetStage();
 
-    void adjustStage(double height, double width){
+    public void adjustStage(double height, double width) throws Exception{
         root.setPrefWidth(root.getMinWidth());
         root.setPrefHeight(root.getMinHeight());
 

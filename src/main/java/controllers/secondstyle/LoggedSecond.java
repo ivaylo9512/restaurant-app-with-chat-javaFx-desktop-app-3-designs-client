@@ -22,7 +22,7 @@ import controllers.base.ControllerLogged;
 import static application.RestaurantApplication.*;
 
 
-public class LoggedSecond extends ControllerLogged implements ControllerAdjustable {
+public class LoggedSecond extends ControllerLogged {
     @FXML Label dishesCountLabel;
 
     @FXML AnchorPane  orderInfo, orderView, orderContainer,
@@ -148,11 +148,11 @@ public class LoggedSecond extends ControllerLogged implements ControllerAdjustab
     }
 
     @Override
-    public void adjustStage(double height, double width) {
+    public void adjustStage(double height, double width) throws Exception{
+        super.adjustStage(height, width);
+
         userMenu.setAll(orderManager.userMenu.values());
         mainChatSession.bindChat();
-
-        resetStageDimensions(root.getMinHeight() / 2, root.getMinWidth());
     }
 
     @Override

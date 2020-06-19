@@ -5,7 +5,6 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -18,20 +17,18 @@ import javafx.stage.Stage;
 import static application.RestaurantApplication.loginManager;
 import static application.RestaurantApplication.stageManager;
 
-public abstract class ControllerLogin implements ControllerAdjustable {
+public abstract class ControllerLogin extends ControllerAdjustable {
     @FXML
     HBox loadingPane;
     @FXML
     protected TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML
-    protected AnchorPane root, loginPane, loginFields, registerFields, nextRegisterFields, styleButtons;
+    protected AnchorPane loginPane, loginFields, registerFields, nextRegisterFields, styleButtons;
 
     protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     protected Pane currentMenu;
     protected boolean loading;
-
-    public Stage stage;
 
     @FXML
     public void initialize(){
@@ -51,14 +48,10 @@ public abstract class ControllerLogin implements ControllerAdjustable {
         regRepeatPassword.setText(null);
     }
 
-    public void adjustStage(double height, double width){
-        root.setPrefWidth(width);
-        root.setPrefHeight(height);
+    public void adjustStage(double height, double width) throws Exception{
+        super.adjustStage(height, width);
 
-        stage.sizeToScene();
-        stage.setY((primaryScreenBounds.getHeight() - height) / 2);
-        stage.setX((primaryScreenBounds.getWidth() - width) / 2);
-
+        loginManager.bindLoginFields(username.textProperty(), password.textProperty());
         loginManager.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
     }
 

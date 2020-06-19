@@ -30,7 +30,7 @@ import java.util.List;
 
 import static application.RestaurantApplication.*;
 
-public class LoggedMenu extends ControllerLogged implements ControllerAdjustable {
+public class LoggedMenu extends ControllerLogged {
     @FXML AnchorPane menuRoot, menu, menuButtonsContainer, profileView, profileButtonsContainer, menuContent;
     @FXML Button menuButton, notificationButton;
     @FXML Pane profileImageContainer, profileImageClip;

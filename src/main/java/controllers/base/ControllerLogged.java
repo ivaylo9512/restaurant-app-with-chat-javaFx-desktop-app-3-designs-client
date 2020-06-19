@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.SortedMap;
 import static application.RestaurantApplication.*;
 
-public class ControllerLogged {
+public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
     public AnchorPane root, contentRoot;
     @FXML
@@ -254,16 +254,6 @@ public class ControllerLogged {
             notificationsInfo.setOpacity(1);
             notificationsInfo.setDisable(false);
         }
-    }
-
-    protected void resetStageDimensions(double height, double width){
-        root.setPrefWidth(root.getMinWidth());
-        root.setPrefHeight(root.getMinHeight());
-
-        stage.setY((primaryScreenBounds.getHeight() - height) / 2);
-        stage.setX((primaryScreenBounds.getWidth() - width) / 2);
-
-        stage.sizeToScene();
     }
 
     @FXML
