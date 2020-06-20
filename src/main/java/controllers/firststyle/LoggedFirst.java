@@ -35,10 +35,10 @@ import static application.RestaurantApplication.*;
 public class LoggedFirst extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll;
     @FXML AnchorPane contentPane, ordersPane, orderContainer, dishesAnchor, createdContainer, updatedContainer;
-    @FXML Pane moveBar, profileRoot;
+    @FXML Pane moveBar;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
-    @FXML GridPane dates;
+    @FXML GridPane dates, profileRoot;
     @FXML StackPane profileImageContainer;
 
     private ScrollBar ordersScrollBar;

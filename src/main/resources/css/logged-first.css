@@ -71,12 +71,12 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .root{
-    -fx-max-height: 641px;
-    -fx-max-width: 1100px;
-    -fx-min-height: 430px;
-    -fx-min-width: 742px;
-    -fx-pref-height: 430px;
-    -fx-pref-width: 742px;
+    -fx-max-height: 53.5em;
+    -fx-max-width: 91.5em;
+    -fx-min-height: 36em;
+    -fx-min-width: 62em;
+    -fx-pref-height: 36em;
+    -fx-pref-width: 62em;
     -fx-background-color: transparent;
 }
 .menu-scroll-container{
@@ -225,7 +225,19 @@ TextFlow {
     -fx-pref-height: 2.3em
 }
 .program-bar Button{
+    -fx-min-width: 2.3em;
+    -fx-pref-width: 2.3em;
+    -fx-max-width: 2.3em;
+    -fx-padding: 0;
+    -fx-text-fill: #bcbcbc;
+    -fx-font-weight: bold;
     -fx-background-color: transparent;
+}
+.close-button{
+    -fx-font-size: 0.65em;
+}
+.minimize-button{
+    -fx-font-size: 1.1em;
 }
 .menu-buttons-container{
     -fx-background-color: #2A2E37;
@@ -237,10 +249,6 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
     -fx-text-fill: #bcbcbc;
     -fx-font-size: 0.83em;
-}
-.menu-buttons-container VBox{
-    -fx-spacing: 0.8em;
-    -fx-padding: 0;
 }
 .menu-buttons-container VBox StackPane{
     -fx-pref-width: 1.3em;
@@ -261,6 +269,14 @@ TextFlow {
 .menu-buttons-container Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-border-width: 0;
+}
+.menu-buttons{
+    -fx-spacing: 0.8em;
+    -fx-padding: 0;
+}
+.profile-buttons{
+    -fx-spacing: 0.6em;
+    -fx-padding: 0.3em 0em 0.6em 0;
 }
 .menu-scroll{
     -fx-pref-height: 211px;
