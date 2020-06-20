@@ -23,7 +23,7 @@ public class ExpandOrderPane {
     private double orderWidth, orderHeight, maxOrderWidth, buttonX, buttonY, mouseY, mouseX,
             initialOffsetX, xButtonRation, initialMouseX, translatePaneX;
 
-    public Pane currentContainer, currentPane, contentRoot, contentPane, orderPane;
+    public Pane currentContainer, currentPane, contentPane, orderPane;
 
     public GridPane dates;
     public OrderListViewCell cell;
@@ -44,9 +44,8 @@ public class ExpandOrderPane {
 
     private Timeline expandedDelay = new Timeline();
 
-    public void setControllerFields(LoggedFirst controller, AnchorPane contentRoot, AnchorPane orderContainer, Button expandButton, AnchorPane contentPane, ListView<Order> ordersList, GridPane dates) {
+    public void setControllerFields(LoggedFirst controller, AnchorPane orderContainer, Button expandButton, AnchorPane contentPane, ListView<Order> ordersList, GridPane dates) {
         this.controller = controller;
-        this.contentRoot = contentRoot;
         this.orderPane = orderContainer;
         this.button = expandButton;
         this.contentPane = contentPane;

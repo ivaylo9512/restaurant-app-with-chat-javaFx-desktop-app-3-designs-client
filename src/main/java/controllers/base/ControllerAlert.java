@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class ControllerAlert extends Controller{
@@ -32,7 +31,6 @@ public class ControllerAlert extends Controller{
 
     public FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
 
-    public Stage stage;
     public ObjectProperty<String> currentAlert;
     public SimpleListProperty<String> alerts;
 

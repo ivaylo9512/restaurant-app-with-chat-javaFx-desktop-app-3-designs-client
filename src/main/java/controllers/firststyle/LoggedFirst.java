@@ -1,11 +1,14 @@
 package controllers.firststyle;
 
 import animations.*;
+import application.RestaurantApplication;
 import controllers.base.ChatSession;
+import helpers.FontIndicator;
 import helpers.listviews.ChatsUsersListViewCell;
 import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;
 import helpers.Scrolls;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
@@ -31,11 +34,12 @@ import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll;
-    @FXML AnchorPane contentPane, ordersPane, profileImageContainer, orderContainer, dishesAnchor, createdContainer, updatedContainer;
+    @FXML AnchorPane contentPane, ordersPane, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML Pane moveBar, profileRoot;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
     @FXML GridPane dates;
+    @FXML StackPane profileImageContainer;
 
     private ScrollBar ordersScrollBar;
 
@@ -47,6 +51,7 @@ public class LoggedFirst extends ControllerLogged {
 
     private ChatSession mainChatSession, secondChatSession;
     private ExpandOrderPane expandOrderPane = new ExpandOrderPane();
+    private FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
 
     @FXML
     public void initialize() {
@@ -66,6 +71,11 @@ public class LoggedFirst extends ControllerLogged {
 
         mainChatSession.init();
         secondChatSession.init();
+
+        root.setStyle("-fx-font-size: " + fontIndicator.getFontPx() + ";");
+        fontIndicator.getFontPxProperty().addListener((observable, oldValue, newValue) -> {
+            root.setStyle("-fx-font-size: " + fontIndicator.getFontPx() + ";");
+        });
 
         chatUsersList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -130,9 +140,13 @@ public class LoggedFirst extends ControllerLogged {
     }
 
     private void setClips() {
-        Circle clip = new Circle(0, 0, 30);
-        clip.setLayoutX(30);
-        clip.setLayoutY(30);
+        Circle clip = new Circle();
+
+        DoubleBinding circleCenterProperty = profileImageContainer.heightProperty().divide(2);
+        clip.radiusProperty().bind(circleCenterProperty);
+        clip.centerXProperty().bind(circleCenterProperty);
+        clip.centerYProperty().bind(circleCenterProperty);
+
         profileImageContainer.setClip(clip);
     }
 
@@ -335,7 +349,7 @@ public class LoggedFirst extends ControllerLogged {
     }
 
     private void setExpandOrderPane() {
-        expandOrderPane.setControllerFields(this, contentRoot, orderContainer,
+        expandOrderPane.setControllerFields(this, orderContainer,
                 expandButton, contentPane, ordersList, dates);
 
         expandOrderPane.setListeners();
