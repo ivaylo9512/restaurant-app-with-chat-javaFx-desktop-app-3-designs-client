@@ -6,7 +6,6 @@ import javafx.beans.property.*;
 import javafx.collections.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import models.*;
 import models.Menu;
 import javafx.beans.binding.Bindings;

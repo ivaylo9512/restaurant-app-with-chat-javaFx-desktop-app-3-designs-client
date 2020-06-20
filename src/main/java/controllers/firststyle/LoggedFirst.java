@@ -10,7 +10,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.scene.input.*;
-import javafx.stage.Stage;
 import models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
@@ -253,11 +252,6 @@ public class LoggedFirst extends ControllerLogged {
         if(expandOrderPane.isButtonExpanded.get()){
             expandOrderPane.reverseOrder();
         }
-    }
-
-    @Override
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 
     public void setChatValue(ChatValue chat, ChatsUsersListViewCell cell){

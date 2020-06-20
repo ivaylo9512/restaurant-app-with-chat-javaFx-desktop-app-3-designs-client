@@ -4,28 +4,26 @@ import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 
-public abstract class ControllerAdjustable implements Controller{
+public abstract class ControllerAdjustable extends Controller{
     @FXML
     public AnchorPane root;
-    public Stage stage;
 
     protected static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     public abstract void resetStage();
 
     public void adjustStage(double height, double width) throws Exception{
-        root.setPrefWidth(root.getMinWidth());
-        root.setPrefHeight(root.getMinHeight());
+        if(root.getMinHeight() > 0 ){
+            height = root.getMinHeight();
+            width = root.getMinWidth();
+        }
+        root.setPrefHeight(height);
+        root.setPrefWidth(width);
 
         stage.setY((primaryScreenBounds.getHeight() - height) / 2);
         stage.setX((primaryScreenBounds.getWidth() - width) / 2);
 
         stage.sizeToScene();
-    }
-
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 }

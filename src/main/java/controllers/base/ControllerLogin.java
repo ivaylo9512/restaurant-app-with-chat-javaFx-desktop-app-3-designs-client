@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 
 import static application.RestaurantApplication.loginManager;
 import static application.RestaurantApplication.stageManager;
@@ -53,11 +52,6 @@ public abstract class ControllerLogin extends ControllerAdjustable {
 
         loginManager.bindLoginFields(username.textProperty(), password.textProperty());
         loginManager.bindRegisterFields(regUsername.textProperty(), regPassword.textProperty(), regRepeatPassword.textProperty());
-    }
-
-    @Override
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 
     @FXML

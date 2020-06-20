@@ -197,11 +197,6 @@ public class LoggedMenu extends ControllerLogged {
         expandMenu();
     }
 
-    @Override
-    public void setStage(Stage stage){
-        this.stage = stage;
-    }
-
     @FXML
     public void onNotificationClick(){
         notificationsList.getItems().remove(notificationsList.getFocusModel().getFocusedItem());

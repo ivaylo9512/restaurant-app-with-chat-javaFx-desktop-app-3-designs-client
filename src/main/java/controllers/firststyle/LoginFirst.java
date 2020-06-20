@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import controllers.base.ControllerLogin;
 
@@ -68,11 +67,6 @@ public class LoginFirst extends ControllerLogin {
             resetFields();
         }
         root.setCursor(Cursor.DEFAULT);
-    }
-
-    @Override
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 
     @FXML

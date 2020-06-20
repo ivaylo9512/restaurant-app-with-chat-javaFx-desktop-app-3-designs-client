@@ -18,7 +18,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class ControllerAlert implements Controller{
+public class ControllerAlert extends Controller{
     @FXML
     Button closeButton, nextButton;
     @FXML
@@ -97,10 +97,5 @@ public class ControllerAlert implements Controller{
 
     public FontIndicator getFontIndicator() {
         return fontIndicator;
-    }
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 }
