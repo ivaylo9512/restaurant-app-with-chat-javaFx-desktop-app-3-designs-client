@@ -74,86 +74,6 @@
               </ScrollPane>
            </children>
         </AnchorPane>
-        <Pane layoutY="28.0" styleClass="menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0">
-           <children>
-              <Button layoutX="16.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" text="Profile">
-                 <font>
-                    <Font size="10.0" />
-                 </font>
-              </Button>
-              <Button layoutX="16.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToChats" text="Chat">
-                 <font>
-                    <Font size="10.0" />
-                 </font>
-              </Button>
-              <Button layoutX="16.0" layoutY="84.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Create">
-                 <font>
-                    <Font size="10.0" />
-                 </font>
-              </Button>
-              <Button layoutX="16.0" layoutY="115.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotifications" text="Updates">
-                 <font>
-                    <Font size="10.0" />
-                 </font>
-              </Button>
-              <Button layoutX="16.0" layoutY="147.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrders" text="Orders">
-                 <font>
-                    <Font size="10.0" />
-                 </font>
-              </Button>
-           </children>
-        </Pane>
-        <Pane disable="true" layoutY="38.0" opacity="0.0" styleClass="menu" AnchorPane.topAnchor="28.0">
-           <children>
-              <Button layoutX="16.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedSecondStyle" text="Style 2">
-                 <font>
-                    <Font size="10.0" />
-                 </font>
-              </Button>
-              <Button layoutX="16.0" layoutY="130.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" text="Style 3">
-                 <font>
-                    <Font size="10.0" />
-                 </font>
-              </Button>
-              <Button layoutX="16.0" layoutY="160.0" maxHeight="22.0" maxWidth="72.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" text="Log out">
-                 <font>
-                    <Font size="10.0" />
-                 </font>
-              </Button>
-              <AnchorPane layoutX="22.0" layoutY="5.0" styleClass="profile-picture-shadow">
-                 <children>
-                    <AnchorPane styleClass="profile-picture">
-                       <children>
-                          <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="4.0" layoutY="10.0">
-                          </ImageView>
-                       </children>
-                    </AnchorPane>
-                 </children>
-              </AnchorPane>
-              <Button layoutX="16.0" layoutY="71.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showMenu" text="Menu">
-                 <font>
-                    <Font size="10.0" />
-                 </font>
-              </Button>
-           </children>
-        </Pane>
-        <AnchorPane fx:id="moveBar" prefHeight="28.0" prefWidth="743.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-           <children>
-              <Pane prefHeight="28.0" prefWidth="103.0" styleClass="program-bar" AnchorPane.leftAnchor="0.0" />
-              <AnchorPane layoutX="106.0" minHeight="28.0" prefHeight="28.0" prefWidth="637.0" styleClass="program-bar" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0">
-                 <children>
-                    <Button layoutX="611.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#close" text="X" textFill="#bcbcbc" AnchorPane.rightAnchor="8.0">
-                       <font>
-                          <Font name="System Bold" size="8.0" />
-                       </font>
-                    </Button>
-                    <Button layoutX="586.0" mnemonicParsing="false" onMouseClicked="#minimize" text="-" textFill="#bcbcbc" AnchorPane.rightAnchor="27.0">
-                       <font>
-                          <Font name="System Bold" size="13.0" />
-                       </font>
-                    </Button>
-                 </children></AnchorPane>
-           </children></AnchorPane>
         <AnchorPane fx:id="contentPane" layoutX="106.0" layoutY="28.0" prefHeight="400.0" prefWidth="637.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
            <children>
               <AnchorPane layoutY="189.0" prefHeight="212.0" prefWidth="637.0" styleClass="create-order" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="189.0">
@@ -426,17 +346,17 @@
       </HBox>
       <GridPane hgap="3.0" layoutX="100.0" layoutY="60.0" prefHeight="428.0" prefWidth="742.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="102.0" />
-          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="${controller.fontIndicator.fontPx * 18.5}" />
+          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="192.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="${controller.fontIndicator.fontPx * 17.5}" vgrow="ALWAYS" />
             <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Pane styleClass="program-bar" />
-            <HBox alignment="CENTER_RIGHT" prefHeight="16.0" styleClass="program-bar" GridPane.columnIndex="1">
+            <Pane fx:id="moveBarMenu" styleClass="program-bar" />
+            <HBox fx:id="moveBar" alignment="CENTER_RIGHT" prefHeight="16.0" styleClass="program-bar" GridPane.columnIndex="1">
                <children>
                    <Button styleClass="minimize-button" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#minimize" text="-">
                    </Button>
@@ -444,7 +364,7 @@
                    </Button>
                </children>
             </HBox>
-            <GridPane alignment="CENTER" styleClass="menu-buttons-container" GridPane.rowIndex="1">
+            <GridPane styleClass="menu-buttons-container" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" percentWidth="70.0" />
               </columnConstraints>
@@ -478,7 +398,7 @@
                   </VBox>
                </children>
             </GridPane>
-            <GridPane fx:id="profileRoot" alignment="CENTER" styleClass="menu-buttons-container" GridPane.rowIndex="1">
+            <GridPane fx:id="profileRoot" opacity="0" disable="true" styleClass="menu-buttons-container" GridPane.rowIndex="1">
                <children>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" styleClass="profile-buttons" GridPane.rowIndex="1">
                      <children>
@@ -491,12 +411,12 @@
                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" text="Log out" VBox.vgrow="ALWAYS">
                         </Button>
                      </children></VBox>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" styleClass="profile-image">
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="profile-image">
                      <children>
-                        <StackPane fx:id="profileImageContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0">
+                        <StackPane fx:id="profileImageContainer" maxHeight="-Infinity" maxWidth="-Infinity">
                            <children>
                                <Circle radius="30.0" />
-                               <ImageView fx:id="profileImage" fitHeight="50.0" fitWidth="50.0" styleClass="profileImage">
+                               <ImageView fx:id="profileImage" fitHeight="${controller.fontIndicator.fontPx * 4.15}" fitWidth="${controller.fontIndicator.fontPx * 4.15}" styleClass="profileImage">
                                </ImageView>
                            </children>
                         </StackPane>

@@ -241,6 +241,7 @@ TextFlow {
 }
 .menu-buttons-container{
     -fx-background-color: #2A2E37;
+    -fx-alignment: center;
 }
 .menu-buttons-container Button{
     -fx-border-radius: 0px;

@@ -30,12 +30,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import controllers.base.ControllerLogged;
 
+import java.awt.*;
+
 import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll;
     @FXML AnchorPane contentPane, ordersPane, orderContainer, dishesAnchor, createdContainer, updatedContainer;
-    @FXML Pane moveBar;
+    @FXML HBox moveBar;
+    @FXML Pane moveBarMenu;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
     @FXML GridPane dates, profileRoot;
@@ -91,6 +94,7 @@ public class LoggedFirst extends ControllerLogged {
 
         ResizeRoot.addListeners(root);
         MoveRoot.move(moveBar, root);
+        MoveRoot.move(moveBarMenu, root);
     }
 
     private void setListsItems() {
@@ -364,5 +368,9 @@ public class LoggedFirst extends ControllerLogged {
         expandOrderPane.currentContainer = container;
         expandOrderPane.cell = orderCell;
 
+    }
+
+    public FontIndicator getFontIndicator(){
+        return fontIndicator;
     }
 }

@@ -12,7 +12,8 @@ public class MoveRoot {
 
     public static void move(Node moveNode, AnchorPane root) {
         root.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            if(moveNode.getId().equals("moveBar") || moveNode.getId().equals("menuButton")){
+            if(moveNode.getId().equals("moveBar") || moveNode.getId().equals("menuButton")
+                    || moveNode.getId().equals("moveBarMenu")){
                 offsetX = event.getX();
                 offsetY = event.getY();
             }else{
