@@ -82,7 +82,7 @@
                        <children>
                           <AnchorPane AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS">
                              <children>
-                                <ListView fx:id="menuList" layoutY="46.0" onMouseClicked="#addMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                                <ListView layoutY="46.0" onMouseClicked="#addMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                                    <effect>
                                       <DropShadow height="10.0" radius="4.5" width="10.0" />
                                    </effect>
@@ -90,7 +90,7 @@
                                       <Insets bottom="5.0" />
                                    </padding>
                                 </ListView>
-                                <TextField fx:id="menuSearch" layoutX="-287.0" layoutY="20.0" promptText="Search" styleClass="menu-search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <TextField layoutX="-287.0" layoutY="20.0" promptText="Search" styleClass="menu-search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                    <effect>
                                       <DropShadow height="10.0" radius="4.5" width="10.0" />
                                    </effect>
@@ -114,7 +114,7 @@
                           </VBox>
                           <AnchorPane AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="9.5" HBox.hgrow="ALWAYS">
                              <children>
-                                <ListView fx:id="newOrderList" layoutY="46.0" onMouseClicked="#removeMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <ListView layoutY="46.0" onMouseClicked="#removeMenuItem" prefHeight="151.0" prefWidth="214.0" style="-fx-background-color: #363b41;" AnchorPane.bottomAnchor="39.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                    <effect>
                                       <DropShadow height="10.0" radius="4.5" width="10.0" />
                                    </effect>
@@ -122,7 +122,7 @@
                                       <Insets bottom="5.0" />
                                    </padding>
                                 </ListView>
-                                <Button fx:id="createButton" layoutY="154.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#createNewOrder" styleClass="create-button" text="Create" textFill="#bcbcbc" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
+                                <Button layoutY="154.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#createNewOrder" styleClass="create-button" text="Create" textFill="#bcbcbc" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" HBox.hgrow="ALWAYS">
                                    <HBox.margin>
                                       <Insets />
                                    </HBox.margin>
@@ -443,12 +443,12 @@
                      <ColumnConstraints prefWidth="0.0" hgrow="ALWAYS"/>
                  </columnConstraints>
                  <VBox>
-                     <TextField viewOrder="5" minHeight="-Infinity" maxHeight="1.7976931348623157E308" promptText="Search">
+                     <TextField viewOrder="1" fx:id="menuSearch" minHeight="-Infinity" maxHeight="1.7976931348623157E308" promptText="Search">
                          <effect>
                              <DropShadow height="10.0" radius="4.5" width="10.0"/>
                          </effect>
                      </TextField>
-                     <ListView viewOrder="-1" HBox.hgrow="ALWAYS" maxWidth="Infinity" onMouseClicked="#addMenuItem" GridPane.rowIndex="1">
+                     <ListView viewOrder="9" fx:id="menuList" HBox.hgrow="ALWAYS" maxWidth="Infinity" onMouseClicked="#addMenuItem" GridPane.rowIndex="1">
                          <effect>
                              <DropShadow height="10.0" radius="4.5" width="10.0"/>
                          </effect>
@@ -458,12 +458,12 @@
                      <Image url="/images/left-arrow.png"/>
                  </ImageView>
                  <VBox GridPane.columnIndex="2">
-                     <ListView onMouseClicked="#removeMenuItem">
+                     <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem">
                          <effect>
                              <DropShadow height="10.0" radius="4.5" width="10.0" />
                          </effect>
                      </ListView>
-                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" GridPane.rowIndex="1" onMouseClicked="#createNewOrder" text="Create">
+                     <Button fx:id="createButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" GridPane.rowIndex="1" onMouseClicked="#createNewOrder" text="Create">
                          <effect>
                              <DropShadow height="10.0" radius="4.5" width="10.0" />
                          </effect>
