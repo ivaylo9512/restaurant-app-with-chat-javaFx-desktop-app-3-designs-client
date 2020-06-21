@@ -21,11 +21,9 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
     public AnchorPane root, contentRoot;
     @FXML
-    protected VBox mainChatBlock, secondChatBlock;
-    @FXML
     ImageView profileImage;
     @FXML
-    HBox notificationsInfo;
+    Node notificationsInfo;
 
     @FXML
     protected Label orderId, updatedDate, createdDate, createdTime, updatedTime;
@@ -36,7 +34,7 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
     protected Pane userInfo;
     @FXML
-    protected AnchorPane mainChat, secondChat, orderPane, notificationsView;
+    protected AnchorPane mainChat, secondChat, orderPane;
     @FXML
     protected ListView<Order> ordersList;
     @FXML
@@ -48,13 +46,15 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
     protected ListView<ChatValue> chatUsersList;
     @FXML
-    protected Node notificationIcon;
+    protected Node notificationIcon, notificationsView;
     @FXML
     protected ScrollPane mainChatScroll, secondChatScroll;
     @FXML
     protected TextArea mainChatTextArea, secondChatTextArea;
     @FXML
     protected Text mainChatInfo, secondChatInfo;
+    @FXML
+    protected VBox mainChatBlock, secondChatBlock;
 
     protected static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     protected static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");

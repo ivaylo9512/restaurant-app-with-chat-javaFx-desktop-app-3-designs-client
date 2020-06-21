@@ -96,9 +96,11 @@ TextFlow {
 .profile-image ImageView{
     -fx-translate-y: 0.4em;
 }
-.order-list,
-.notification-list{
-    -fx-background-color: transparent;
+.order-list{
+    -fx-background-color: #2A2E37;
+}
+.order-list {
+    -fx-background-color: #2A2E37;
 }
 .order-list .list-cell{
     -fx-background-color: transparent;
@@ -450,18 +452,21 @@ TextFlow {
 .session-date Text{
     -fx-fill: #bcbcbc;
 }
-.notifications{
+.upper-content{
     -fx-background-color: #2A2E37;
 }
-.notification HBox{
+.upper-content Text{
+    -fx-fill: #bcbcbc;
+    -fx-text-alignment: center;
+}
+.notification-list{
+    -fx-background-color: transparent
+}
+.notification-list HBox{
     -fx-pref-height: 38;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-background-color:  #2A2E37;
     -fx-alignment: center;
-}
-.notifications HBox Text{
-    -fx-alignment: center;
-    -fx-fill: #bcbcbc;
 }
 .price{
     -fx-pref-Height: 64px;

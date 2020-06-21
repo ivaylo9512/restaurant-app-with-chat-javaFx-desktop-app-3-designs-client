@@ -295,7 +295,7 @@ public class LoggedMenu extends ControllerLogged {
         if(menuContent.isDisabled()) {
             expandMenuContent();
 
-            currentMenuView = notificationsView;
+            currentMenuView = (AnchorPane) notificationsView;
             currentMenuView.setOpacity(1);
             currentMenuView.setDisable(false);
             menuContent.setDisable(false);
@@ -304,7 +304,7 @@ public class LoggedMenu extends ControllerLogged {
         }else if(!currentMenuView.equals(notificationsView) && menuContent.getPrefHeight() == menuContent.getMaxHeight()){
             profileImageContainer.setOpacity(0);
 
-            currentMenuView = notificationsView;
+            currentMenuView = (AnchorPane) notificationsView;
             currentMenuView.setDisable(false);
             currentMenuView.setOpacity(1);
 

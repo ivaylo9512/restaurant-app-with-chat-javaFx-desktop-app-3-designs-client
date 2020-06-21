@@ -139,9 +139,9 @@
                     </HBox>
                  </children>
               </AnchorPane>
-              <AnchorPane fx:id="notificationsView" disable="true" prefHeight="190.0" prefWidth="637.0" styleClass="notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <AnchorPane disable="true" prefHeight="190.0" prefWidth="637.0" styleClass="notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                  <children>
-                    <ListView fx:id="notificationsList" prefHeight="200.0" prefWidth="200.0" styleClass="notification-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <ListView prefHeight="200.0" prefWidth="200.0" styleClass="notification-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     </ListView>
                  </children>
               </AnchorPane>
@@ -150,11 +150,6 @@
                     <Text fill="#bcbcbc" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no notifications to show." textAlignment="CENTER" />
                  </children>
               </HBox>
-              <AnchorPane fx:id="ordersPane" minHeight="-Infinity" prefHeight="190.0" prefWidth="637.0" style="-fx-background-color: #2A2E37;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                 <children>
-                    <ListView fx:id="ordersList" orientation="HORIZONTAL" prefHeight="200.0" prefWidth="200.0" styleClass="order-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                 </children>
-              </AnchorPane>
            </children>
         </AnchorPane>
         <AnchorPane fx:id="mainChat" disable="true" layoutX="217.0" layoutY="231.0" maxHeight="428.0" minHeight="189.0" minWidth="423.0" opacity="0.0" prefHeight="189.0" prefWidth="423.0" styleClass="main-chat">
@@ -346,91 +341,99 @@
       </HBox>
       <GridPane hgap="3.0" layoutX="100.0" layoutY="60.0" prefHeight="428.0" prefWidth="742.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="${controller.fontIndicator.fontPx * 18.5}" />
-          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="${controller.fontIndicator.fontPx * 8.5}"  />
+            <ColumnConstraints hgrow="ALWAYS"/>
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="${controller.fontIndicator.fontPx * 17.5}" vgrow="ALWAYS" />
+            <RowConstraints minHeight="10.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="${controller.fontIndicator.fontPx * 16}" vgrow="ALWAYS" />
             <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Pane fx:id="moveBarMenu" styleClass="program-bar" />
-            <HBox fx:id="moveBar" alignment="CENTER_RIGHT" prefHeight="16.0" styleClass="program-bar" GridPane.columnIndex="1">
-               <children>
-                   <Button styleClass="minimize-button" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#minimize" text="-">
-                   </Button>
-                   <Button styleClass="close-button" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#close" text="X">
-                   </Button>
-               </children>
-            </HBox>
-            <GridPane styleClass="menu-buttons-container" GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" percentWidth="70.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints percentHeight="80.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <VBox styleClass="menu-buttons">
-                     <children>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" text="Profile" VBox.vgrow="ALWAYS">
-                        </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToChats" text="Chat" VBox.vgrow="ALWAYS">
-                        </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Create" VBox.vgrow="ALWAYS">
-                        </Button>
-                        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
-                           <children>
-                               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotifications" text="Updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
-                               </Button>
-                               <StackPane fx:id="notificationIcon" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" AnchorPane.rightAnchor="0">
-                                  <children>
-                                      <Text text="!">
-                                   </Text>
-                                  </children>
-                               </StackPane>
-                           </children>
-                        </AnchorPane>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrders" text="Orders" VBox.vgrow="ALWAYS">
-                        </Button>
-                     </children>
-                  </VBox>
-               </children>
-            </GridPane>
-            <GridPane fx:id="profileRoot" opacity="0" disable="true" styleClass="menu-buttons-container" GridPane.rowIndex="1">
-               <children>
-                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" styleClass="profile-buttons" GridPane.rowIndex="1">
-                     <children>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showMenu" text="Menu" VBox.vgrow="ALWAYS">
-                        </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedSecondStyle" text="Style 2" VBox.vgrow="ALWAYS">
-                        </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" text="Style 3" VBox.vgrow="ALWAYS">
-                        </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" text="Log out" VBox.vgrow="ALWAYS">
-                        </Button>
-                     </children></VBox>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="profile-image">
-                     <children>
-                        <StackPane fx:id="profileImageContainer" maxHeight="-Infinity" maxWidth="-Infinity">
-                           <children>
-                               <Circle radius="30.0" />
-                               <ImageView fx:id="profileImage" fitHeight="${controller.fontIndicator.fontPx * 4.15}" fitWidth="${controller.fontIndicator.fontPx * 4.15}" styleClass="profileImage">
-                               </ImageView>
-                           </children>
-                        </StackPane>
-                     </children>
-                  </AnchorPane>
-               </children>
+             <Pane fx:id="moveBarMenu" styleClass="program-bar" />
+             <HBox fx:id="moveBar" alignment="CENTER_RIGHT" prefHeight="16.0" styleClass="program-bar" GridPane.columnIndex="1">
+                <children>
+                    <Button styleClass="minimize-button" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#minimize" text="-">
+                    </Button>
+                    <Button styleClass="close-button" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#close" text="X">
+                    </Button>
+                </children>
+             </HBox>
+             <GridPane styleClass="menu-buttons-container" GridPane.rowIndex="1">
                <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" percentWidth="70.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" percentWidth="70.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints percentHeight="33.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="64.0" vgrow="ALWAYS" />
+                 <RowConstraints percentHeight="80.0" vgrow="SOMETIMES" />
                </rowConstraints>
-            </GridPane>
+                <children>
+                   <VBox styleClass="menu-buttons">
+                      <children>
+                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showProfile" text="Profile" VBox.vgrow="ALWAYS">
+                         </Button>
+                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#scrollToChats" text="Chat" VBox.vgrow="ALWAYS">
+                         </Button>
+                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Create" VBox.vgrow="ALWAYS">
+                         </Button>
+                         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showNotifications" text="Updates" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                                </Button>
+                                <StackPane fx:id="notificationIcon" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" AnchorPane.rightAnchor="0">
+                                   <children>
+                                       <Text text="!">
+                                    </Text>
+                                   </children>
+                                </StackPane>
+                            </children>
+                         </AnchorPane>
+                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showOrders" text="Orders" VBox.vgrow="ALWAYS">
+                         </Button>
+                      </children>
+                   </VBox>
+                </children>
+             </GridPane>
+             <GridPane fx:id="profileRoot" opacity="0" disable="true" styleClass="menu-buttons-container" GridPane.rowIndex="1">
+                <children>
+                   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" styleClass="profile-buttons" GridPane.rowIndex="1">
+                      <children>
+                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showMenu" text="Menu" VBox.vgrow="ALWAYS">
+                         </Button>
+                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedSecondStyle" text="Style 2" VBox.vgrow="ALWAYS">
+                         </Button>
+                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showLoggedThirdStyle" text="Style 3" VBox.vgrow="ALWAYS">
+                         </Button>
+                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" text="Log out" VBox.vgrow="ALWAYS">
+                         </Button>
+                      </children></VBox>
+                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="profile-image">
+                      <children>
+                         <StackPane fx:id="profileImageContainer" maxHeight="-Infinity" maxWidth="-Infinity">
+                            <children>
+                                <Circle radius="30.0" />
+                                <ImageView fx:id="profileImage" fitHeight="${controller.fontIndicator.fontPx * 4.15}" fitWidth="${controller.fontIndicator.fontPx * 4.15}" styleClass="profileImage">
+                                </ImageView>
+                            </children>
+                         </StackPane>
+                      </children>
+                   </AnchorPane>
+                </children>
+                <columnConstraints>
+                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" percentWidth="70.0" />
+                </columnConstraints>
+                <rowConstraints>
+                   <RowConstraints percentHeight="33.0" valignment="CENTER" vgrow="SOMETIMES" />
+                   <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="64.0" vgrow="ALWAYS" />
+                </rowConstraints>
+             </GridPane>
+             <StackPane styleClass="upper-content" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                 <StackPane disable="true" opacity="0" fx:id="notificationsView">
+                     <ListView fx:id="notificationsList" styleClass="notification-list">
+                     </ListView>
+                     <Text disable="true" text="There are no notifications to show." />
+                 </StackPane>
+                 <ListView fx:id="ordersList" orientation="HORIZONTAL" styleClass="order-list" />
+             </StackPane>
          </children>
       </GridPane>
    </children>

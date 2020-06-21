@@ -30,13 +30,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import controllers.base.ControllerLogged;
 
-import java.awt.*;
-
 import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll;
-    @FXML AnchorPane contentPane, ordersPane, orderContainer, dishesAnchor, createdContainer, updatedContainer;
+    @FXML AnchorPane contentPane, orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML HBox moveBar;
     @FXML Pane moveBarMenu;
     @FXML ImageView roleImage;
@@ -120,7 +118,7 @@ public class LoggedFirst extends ControllerLogged {
                 Event.fireEvent(event.getTarget(), new MouseEvent(MouseEvent.MOUSE_PRESSED,
                         event.getTouchPoint().getSceneX(), event.getTouchPoint().getSceneY(), event.getTouchPoint().getScreenX(), event.getTouchPoint().getScreenY(), MouseButton.PRIMARY, 1,
                         true, true, true, true, true, true, true, true, true, true, null));
-                Event.fireEvent(ordersPane, new MouseEvent(MouseEvent.MOUSE_PRESSED,
+                Event.fireEvent(ordersList, new MouseEvent(MouseEvent.MOUSE_PRESSED,
                         event.getTouchPoint().getSceneX(), event.getTouchPoint().getSceneY(), event.getTouchPoint().getScreenX(), event.getTouchPoint().getScreenY(), MouseButton.PRIMARY, 1,
                         true, true, true, true, true, true, true, true, true, true, null));
                 ordersList.setDisable(true);
@@ -170,8 +168,8 @@ public class LoggedFirst extends ControllerLogged {
 
         isNewNotificationChecked.set(true);
 
-        ordersPane.setDisable(true);
-        ordersPane.setOpacity(0);
+        ordersList.setDisable(true);
+        ordersList.setOpacity(0);
     }
 
     @FXML
@@ -179,8 +177,8 @@ public class LoggedFirst extends ControllerLogged {
         notificationsView.setDisable(true);
         notificationsView.setOpacity(0);
 
-        ordersPane.setDisable(false);
-        ordersPane.setOpacity(1);
+        ordersList.setDisable(false);
+        ordersList.setOpacity(1);
     }
 
     @FXML
@@ -262,8 +260,8 @@ public class LoggedFirst extends ControllerLogged {
         profileRoot.setOpacity(0);
         profileRoot.setDisable(true);
 
-        ordersPane.setDisable(false);
-        ordersPane.setOpacity(1);
+        ordersList.setDisable(false);
+        ordersList.setOpacity(1);
 
         ResizeRoot.resize = true;
 
