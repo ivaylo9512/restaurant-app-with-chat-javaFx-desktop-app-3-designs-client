@@ -144,7 +144,11 @@ public class ExpandOrderPane {
     private void buttonPress(MouseEvent event){
         if(!action.get() || isButtonExpanded.get()) {
             if (isButtonExpanded.get()) {
-                reverseOrder();
+                if(orderList.getOpacity() == 0){
+                    resetOrder();
+                }else {
+                    reverseOrder();
+                }
             } else {
                 expandOrderOnClick();
             }
@@ -165,7 +169,11 @@ public class ExpandOrderPane {
     }
     private void paneReleased(MouseEvent event) {
         if(!isButtonExpanded.get() && controller.currentOrder.get() != null) {
-            reverseOrder();
+            if(orderList.getOpacity() == 0){
+                resetOrder();
+            }else{
+                reverseOrder();
+            }
         }
     }
 
@@ -276,5 +284,25 @@ public class ExpandOrderPane {
             action.setValue(false);
         }));
         reAppendOrderInFlow.play();
+    }
+
+    public void resetOrder(){
+        isButtonExpanded.setValue(false);
+        showDates.stop();
+        dates.setOpacity(0);
+
+        transitionPane.setToX(0);
+        transitionPane.setToY(0);
+
+        transitionButton.setToX(0);
+        transitionButton.setToY(0);
+
+        orderPane.setPrefHeight(orderHeight);
+        orderPane.setPrefWidth(orderWidth);
+
+        orderList.getSelectionModel().clearSelection();
+        orderList.setDisable(false);
+        currentPane.setOpacity(1);
+        action.setValue(false);
     }
 }

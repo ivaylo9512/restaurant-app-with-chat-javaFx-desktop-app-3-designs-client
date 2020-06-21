@@ -266,7 +266,11 @@ public class LoggedFirst extends ControllerLogged {
         ResizeRoot.resize = true;
 
         if(expandOrderPane.isButtonExpanded.get()){
-            expandOrderPane.reverseOrder();
+            if(ordersList.getOpacity() == 0){
+                expandOrderPane.resetOrder();
+            }else{
+                expandOrderPane.reverseOrder();
+            }
         }
     }
 
