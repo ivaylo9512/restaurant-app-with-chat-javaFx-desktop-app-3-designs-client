@@ -474,6 +474,7 @@ TextFlow {
 }
 .create-order{
     -fx-background-color: #363b41;
+    -fx-alignment: center;
 }
 .create-order .menu-cell{
     -fx-background-color: #363b41;
@@ -486,7 +487,35 @@ TextFlow {
     -fx-background-color: #363b41;
     -fx-pref-height: 195px;
     -fx-pref-width: 275px;
+}
+.create-order VBox{
+    -fx-padding: 1em;
+}
+.create-order TextField{
+    -fx-background-color: #363b41;
+    -fx-text-fill: #bcbcbc;
+    -fx-background-radius: 2 2 0 0;
+    -fx-pref-height: 3.25em;
+    -fx-pref-width: 339px;
+    -fx-alignment: center;
+}
+.create-order ListView{
+    -fx-background-color: #363b41;
+}
+.create-order Button{
+    -fx-background-color: #363b41;
+    -fx-text-fill: #bcbcbc;
+    -fx-pref-height: 3.2em;
+}
+.create-order Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 0 );
+}
 
+.create-order Button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+}
+.create-order Button ProgressIndicator{
+    -fx-max-height: 22;
 }
 .menu-search{
     -fx-background-color: #363b41;

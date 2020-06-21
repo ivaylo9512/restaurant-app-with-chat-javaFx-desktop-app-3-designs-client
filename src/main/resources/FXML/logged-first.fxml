@@ -339,7 +339,7 @@
             <TextField prefHeight="67.0" prefWidth="218.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" />
          </children>
       </HBox>
-      <GridPane hgap="3.0" layoutX="100.0" layoutY="60.0" prefHeight="428.0" prefWidth="742.0">
+      <GridPane hgap="3.0" layoutY="-220.0" prefHeight="428.0" prefWidth="742.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" prefWidth="${controller.fontIndicator.fontPx * 8.5}"  />
             <ColumnConstraints hgrow="ALWAYS"/>
@@ -428,12 +428,48 @@
              </GridPane>
              <StackPane styleClass="upper-content" GridPane.columnIndex="1" GridPane.rowIndex="1">
                  <StackPane disable="true" opacity="0" fx:id="notificationsView">
-                     <ListView fx:id="notificationsList" styleClass="notification-list">
-                     </ListView>
+                     <ListView fx:id="notificationsList" styleClass="notification-list"/>
                      <Text disable="true" text="There are no notifications to show." />
                  </StackPane>
-                 <ListView fx:id="ordersList" orientation="HORIZONTAL" styleClass="order-list" />
+                 <ListView fx:id="ordersList" orientation="HORIZONTAL" styleClass="order-list"/>
              </StackPane>
+             <GridPane styleClass="create-order" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                 <rowConstraints>
+                     <RowConstraints vgrow="ALWAYS" valignment="CENTER" prefHeight="0"/>
+                 </rowConstraints>
+                 <columnConstraints>
+                     <ColumnConstraints prefWidth="0.0" hgrow="ALWAYS"/>
+                     <ColumnConstraints halignment="CENTER"/>
+                     <ColumnConstraints prefWidth="0.0" hgrow="ALWAYS"/>
+                 </columnConstraints>
+                 <VBox>
+                     <TextField viewOrder="5" minHeight="-Infinity" maxHeight="1.7976931348623157E308" promptText="Search">
+                         <effect>
+                             <DropShadow height="10.0" radius="4.5" width="10.0"/>
+                         </effect>
+                     </TextField>
+                     <ListView viewOrder="-1" HBox.hgrow="ALWAYS" maxWidth="Infinity" onMouseClicked="#addMenuItem" GridPane.rowIndex="1">
+                         <effect>
+                             <DropShadow height="10.0" radius="4.5" width="10.0"/>
+                         </effect>
+                     </ListView>
+                 </VBox>
+                 <ImageView fitHeight="30.0" fitWidth="30.0" rotate="180.0" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                     <Image url="/images/left-arrow.png"/>
+                 </ImageView>
+                 <VBox GridPane.columnIndex="2">
+                     <ListView onMouseClicked="#removeMenuItem">
+                         <effect>
+                             <DropShadow height="10.0" radius="4.5" width="10.0" />
+                         </effect>
+                     </ListView>
+                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" GridPane.rowIndex="1" onMouseClicked="#createNewOrder" text="Create">
+                         <effect>
+                             <DropShadow height="10.0" radius="4.5" width="10.0" />
+                         </effect>
+                     </Button>
+                 </VBox>
+             </GridPane>
          </children>
       </GridPane>
    </children>
