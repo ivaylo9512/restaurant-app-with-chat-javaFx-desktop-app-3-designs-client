@@ -32,8 +32,6 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
     protected Button saveButton, editButton, createButton;
     @FXML
-    protected Pane userInfo;
-    @FXML
     protected AnchorPane mainChat, secondChat, orderPane;
     @FXML
     protected ListView<Order> ordersList;

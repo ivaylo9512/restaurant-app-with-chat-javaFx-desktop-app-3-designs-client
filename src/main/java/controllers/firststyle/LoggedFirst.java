@@ -143,14 +143,18 @@ public class LoggedFirst extends ControllerLogged {
     }
 
     private void setClips() {
-        Circle clip = new Circle();
-
         DoubleBinding circleCenterProperty = profileImageContainer.heightProperty().divide(2);
+        Circle clip = new Circle();
         clip.radiusProperty().bind(circleCenterProperty);
         clip.centerXProperty().bind(circleCenterProperty);
         clip.centerYProperty().bind(circleCenterProperty);
-
         profileImageContainer.setClip(clip);
+
+        GridPane menuContent = (GridPane) menuScroll.getContent();
+        Rectangle rect = new Rectangle();
+        rect.heightProperty().bind(menuContent.heightProperty());
+        rect.widthProperty().bind(menuContent.widthProperty());
+        menuScroll.setClip(rect);
     }
 
     public void updateListScroll() {

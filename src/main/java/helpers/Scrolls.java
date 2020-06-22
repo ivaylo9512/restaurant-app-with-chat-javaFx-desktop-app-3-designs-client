@@ -11,7 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.skin.TextAreaSkin;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -122,7 +122,7 @@ public class Scrolls {
     }
 
     private void changeMenuScrollBehaviour() {
-        AnchorPane anchorPane = (AnchorPane) menuScroll.getContent();
+        GridPane anchorPane = (GridPane) menuScroll.getContent();
         menuScroll.addEventFilter(ScrollEvent.SCROLL, event -> {
             if (event.getDeltaY() != 0) {
 
