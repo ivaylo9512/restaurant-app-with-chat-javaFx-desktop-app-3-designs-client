@@ -34,13 +34,14 @@ import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll;
-    @FXML AnchorPane contentPane, orderContainer, dishesAnchor, createdContainer, updatedContainer;
+    @FXML AnchorPane ordersPane,orderContainer, dishesAnchor, createdContainer, updatedContainer;
     @FXML HBox moveBar;
     @FXML Pane moveBarMenu;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
     @FXML GridPane dates, profileRoot;
     @FXML StackPane profileImageContainer;
+    @FXML StackPane upperContent;
 
     private ScrollBar ordersScrollBar;
 
@@ -115,10 +116,11 @@ public class LoggedFirst extends ControllerLogged {
     private void addOrdersListListeners() {
         ordersList.addEventHandler(TouchEvent.TOUCH_PRESSED, event -> {
             if(event.getTarget() instanceof AnchorPane){
+                System.out.println("hey");
                 Event.fireEvent(event.getTarget(), new MouseEvent(MouseEvent.MOUSE_PRESSED,
                         event.getTouchPoint().getSceneX(), event.getTouchPoint().getSceneY(), event.getTouchPoint().getScreenX(), event.getTouchPoint().getScreenY(), MouseButton.PRIMARY, 1,
                         true, true, true, true, true, true, true, true, true, true, null));
-                Event.fireEvent(ordersList, new MouseEvent(MouseEvent.MOUSE_PRESSED,
+                Event.fireEvent(ordersPane, new MouseEvent(MouseEvent.MOUSE_PRESSED,
                         event.getTouchPoint().getSceneX(), event.getTouchPoint().getSceneY(), event.getTouchPoint().getScreenX(), event.getTouchPoint().getScreenY(), MouseButton.PRIMARY, 1,
                         true, true, true, true, true, true, true, true, true, true, null));
                 ordersList.setDisable(true);
@@ -177,8 +179,12 @@ public class LoggedFirst extends ControllerLogged {
         notificationsView.setDisable(true);
         notificationsView.setOpacity(0);
 
-        ordersList.setDisable(false);
-        ordersList.setOpacity(1);
+        if(currentOrder.get() == null){
+            ordersList.setDisable(false);
+            ordersList.setOpacity(1);
+        }else{
+            ordersList.setOpacity(0.4);
+        }
     }
 
     @FXML
@@ -356,7 +362,7 @@ public class LoggedFirst extends ControllerLogged {
 
     private void setExpandOrderPane() {
         expandOrderPane.setControllerFields(this, orderContainer,
-                expandButton, contentPane, ordersList, dates);
+                expandButton, upperContent, ordersList, dates);
 
         expandOrderPane.setListeners();
     }

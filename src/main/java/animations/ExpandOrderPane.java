@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import models.Order;
 
@@ -23,7 +24,8 @@ public class ExpandOrderPane {
     private double orderWidth, orderHeight, maxOrderWidth, buttonX, buttonY, mouseY, mouseX,
             initialOffsetX, xButtonRation, initialMouseX, translatePaneX;
 
-    public Pane currentContainer, currentPane, contentPane, orderPane;
+    public Pane currentContainer, currentPane, orderPane;
+    public StackPane contentPane;
 
     public GridPane dates;
     public OrderListViewCell cell;
@@ -44,7 +46,7 @@ public class ExpandOrderPane {
 
     private Timeline expandedDelay = new Timeline();
 
-    public void setControllerFields(LoggedFirst controller, AnchorPane orderContainer, Button expandButton, AnchorPane contentPane, ListView<Order> ordersList, GridPane dates) {
+    public void setControllerFields(LoggedFirst controller, AnchorPane orderContainer, Button expandButton, StackPane contentPane, ListView<Order> ordersList, GridPane dates) {
         this.controller = controller;
         this.orderPane = orderContainer;
         this.button = expandButton;
@@ -87,7 +89,7 @@ public class ExpandOrderPane {
         translatePaneX = cellLayoutX + orderX + currentContainer.getLayoutX() + 1;
 
         orderPane.setLayoutX(translatePaneX + contentPane.getLayoutX());
-        orderPane.setLayoutY(currentPane.getLayoutY() + contentPane.getLayoutY() + 1);
+        orderPane.setLayoutY(currentPane.getLayoutY() + contentPane.getLayoutY() + 2);
     }
 
     public void setListeners(){
