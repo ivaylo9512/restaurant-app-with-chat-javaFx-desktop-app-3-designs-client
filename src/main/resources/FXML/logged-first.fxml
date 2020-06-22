@@ -10,72 +10,6 @@
 
 <AnchorPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.firststyle.LoggedFirst">
     <children>
-        <AnchorPane layoutY="218.0" snapToPixel="false" styleClass="menu-scroll-container" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="217.0">
-            <children>
-                <ScrollPane styleClass="menu-scroll" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                        <AnchorPane>
-                            <children>
-                                <ScrollPane layoutY="77.0" prefViewportHeight="130.0" prefViewportWidth="95.0" styleClass="user-info-scroll">
-                                    <content>
-                                        <FlowPane layoutX="517.0" layoutY="-219.0" styleClass="user-info" vgap="6.0">
-                                            <children>
-                                                <TextField>
-                                                </TextField>
-                                                <TextField>
-                                                </TextField>
-                                                <TextField>
-                                                </TextField>
-                                                <TextField>
-                                                </TextField>
-                                                <TextField focusTraversable="false">
-                                                </TextField>
-                                                <Button contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
-                                                    <graphic>
-                                                        <ImageView fitHeight="15.0" fitWidth="15.0">
-                                                            <image>
-                                                                <Image url="/images/edit.png" />
-                                                            </image>
-                                                        </ImageView>
-                                                    </graphic>
-                                                </Button>
-                                                <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#editUserInfo" text="Edit">
-                                                    <graphic>
-                                                        <ImageView fitHeight="15.0" fitWidth="15.0">
-                                                            <image>
-                                                                <Image url="/images/edit.png" />
-                                                            </image>
-                                                        </ImageView>
-                                                    </graphic>
-                                                </Button>
-                                            </children>
-                                            <padding>
-                                                <Insets bottom="8.0" left="15.5" top="9.5" />
-                                            </padding>
-                                        </FlowPane>
-                                    </content>
-                                </ScrollPane>
-                                <Pane layoutX="11.0" layoutY="8.0" styleClass="role-image-container">
-                                    <children>
-                                        <ImageView layoutX="10.5" styleClass="shadow">
-                                        </ImageView>
-                                        <Pane layoutY="68.5" styleClass="info-line" />
-                                    </children>
-                                </Pane>
-                                <ListView disable="true" layoutY="211.0" styleClass="chat-users">
-                                </ListView>
-                                <Pane layoutX="12.0" layoutY="209.0" styleClass="info-line" />
-                            </children>
-                        </AnchorPane>
-                    </content>
-                    <padding>
-                        <Insets bottom="10.0" />
-                    </padding>
-                </ScrollPane>
-            </children>
-        </AnchorPane>
-        <AnchorPane fx:id="contentPane" layoutX="106.0" layoutY="28.0" prefHeight="400.0" prefWidth="637.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="106.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
-        </AnchorPane>
         <AnchorPane fx:id="mainChat" disable="true" layoutX="217.0" layoutY="231.0" maxHeight="428.0" minHeight="189.0" minWidth="423.0" opacity="0.0" prefHeight="189.0" prefWidth="423.0" styleClass="main-chat">
             <children>
                 <ScrollPane fx:id="mainChatScroll" layoutX="3.0" layoutY="1.0" prefHeight="143.0" prefWidth="418.0" AnchorPane.bottomAnchor="45.0" AnchorPane.topAnchor="1.0">
@@ -174,21 +108,6 @@
                 <DropShadow />
             </effect>
         </AnchorPane>
-        <HBox layoutX="-17.0" layoutY="-171.0" prefHeight="46.0" prefWidth="290.0" style="-fx-background-color: #2A2E37;">
-            <children>
-                <Label alignment="CENTER" prefHeight="46.0" prefWidth="43.0" style="-fx-background-color: #2A2E37;" text="X" textAlignment="CENTER" textFill="#bcbcbc">
-                    <effect>
-                        <DropShadow />
-                    </effect>
-                </Label>
-                <Label alignment="CENTER" prefHeight="46.0" prefWidth="43.0" style="-fx-background-color: #2A2E37;" text="3" textAlignment="CENTER" textFill="#bcbcbc">
-                    <effect>
-                        <InnerShadow height="11.0" radius="5.0" width="11.0" />
-                    </effect>
-                </Label>
-                <TextField prefHeight="67.0" prefWidth="218.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" />
-            </children>
-        </HBox>
         <AnchorPane prefHeight="418.0" prefWidth="742.0" layoutX="200">
             <GridPane hgap="3.0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
                 <columnConstraints>

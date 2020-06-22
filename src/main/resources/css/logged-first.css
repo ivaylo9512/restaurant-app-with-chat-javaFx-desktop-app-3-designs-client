@@ -173,6 +173,12 @@ TextFlow {
     -fx-background-radius: 0 0 0 0;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
+.chat-users{
+    -fx-background-color: transparent;
+}
+.chat-users .list-cell{
+    -fx-background-color: transparent;
+}
 .chat-users HBox{
     -fx-padding: 5 0 5 0;
     -fx-alignment: center;

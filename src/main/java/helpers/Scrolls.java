@@ -21,7 +21,7 @@ import java.util.List;
 public class Scrolls {
     private ScrollPane menuScroll, userInfoScroll, mainChatScroll, secondChatScroll;
     private TextArea mainChatTextArea, secondChatTextArea;
-    private double heightDiff, offsetY;
+    public double heightDiff, offsetY, initialMenuScrollHeight;
     private ListView chatUsersList;
     private ScrollBar chatUsersScrollBar;
 
@@ -125,8 +125,7 @@ public class Scrolls {
         GridPane anchorPane = (GridPane) menuScroll.getContent();
         menuScroll.addEventFilter(ScrollEvent.SCROLL, event -> {
             if (event.getDeltaY() != 0) {
-
-                if (menuScroll.getHeight() <= 212) {
+                if (menuScroll.getHeight() == initialMenuScrollHeight) {
                     if(menuScroll.getVvalue() == 0 || menuScroll.getVvalue() == 1) {
                         chatUsersList.setDisable(false);
                         userInfoScroll.setDisable(false);

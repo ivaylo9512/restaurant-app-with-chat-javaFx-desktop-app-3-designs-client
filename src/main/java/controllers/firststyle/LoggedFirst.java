@@ -54,6 +54,7 @@ public class LoggedFirst extends ControllerLogged {
     private ChatSession mainChatSession, secondChatSession;
     private FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
     public ExpandOrderPane expandOrderPane = new ExpandOrderPane();
+    private Scrolls scrolls;
 
     @FXML
     public void initialize() {
@@ -81,7 +82,7 @@ public class LoggedFirst extends ControllerLogged {
 
         chatUsersList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
+        scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
                 mainChatScroll, mainChatTextArea, secondChatScroll, secondChatTextArea);
         scrolls.manageScrollsFirstStyle();
 
@@ -225,6 +226,7 @@ public class LoggedFirst extends ControllerLogged {
 
         mainChatSession.bindChat();
         secondChatSession.bindChat();
+        scrolls.initialMenuScrollHeight = menuScroll.getHeight();
 
         if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
