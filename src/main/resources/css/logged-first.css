@@ -279,60 +279,57 @@ TextFlow {
     -fx-padding: 0.3em 0em 0.6em 0;
 }
 .menu-scroll{
-    -fx-pref-height: 211px;
-    -fx-pref-width: 125px;
+    -fx-background-color: #363b41;
 }
-.menu-scroll ListView{
-    -fx-background-color:transparent;
+.menu-grid{
+    -fx-pref-height: 35.3em;
+    -fx-pref-width: 8.5em;
+
 }
-.menu-scroll .list-cell{
-    -fx-background-color:transparent;
+.user-info-container{
+    -fx-alignment: center;
+    -fx-padding: 0 1em;
 }
-.menu-scroll > AnchorPane{
-    -fx-pref-height: 212px;
-    -fx-pref-width: 10px;
-}
-.menu-scroll > AnchorPane ScrollPane{
-    -fx-pref-height: 132px;
-    -fx-pref-width: 105px;
-}
-.user-info-scroll .scroll-bar .track {
+.user-info .scroll-bar .track {
     -fx-scale-x: 0px;
     -fx-padding: 0px;
 }
-.user-info-scroll .scroll-bar .thumb {
+.user-info .scroll-bar .thumb {
     -fx-scale-x: 0px;
     -fx-padding: 0px;
+}
+.user-info VBox{
+    -fx-padding: 0.5em 0.25em;
+    -fx-alignment: center;
+    -fx-spacing: 0.5em;
 }
 .user-info{
-    -fx-pref-height: 115px;
-    -fx-pref-width: 90px;
+    -fx-pref-width: 11.5em;
 }
-.user-info Label{
+.user-info TextField,
+.user-info Button{
+    -fx-padding: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-font-size: 0.85em;
+    -fx-text-fill: #bcbcbc;
+    -fx-padding: 0;
+    -fx-pref-width: 6em;
+    -fx-max-width: 6em;
+    -fx-pref-height:1.85em;
     -fx-background-color: #363b41;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
     -fx-opacity: 1.0;
 }
 .user-info TextField {
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
-    -fx-background-color: #363b41;
-    -fx-opacity: 1.0;
     -fx-border-radius: 0;
     -fx-background-insets: 0, 0, 0, 0;
     -fx-background-radius: 0, 0, 0, 0;
-    -fx-text-fill: #bcbcbc;
-    -fx-font-size: 10px;
-    -fx-padding: 0;
-    -fx-pref-width: 72px;
-    -fx-pref-height: 22px;
-    -fx-min-height: 22px;
     -fx-alignment: center;
 }
 .user-info Button{
-    -fx-pref-width: 72px;
-    -fx-pref-height: 22px;
-    -fx-font-size: 10px;
-    -fx-text-fill: #bcbcbc;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .user-info Button:disabled{
     -fx-opacity: 0.5;
@@ -341,30 +338,19 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0 , 0 , 0 );
     -fx-cursor: pointer;
 }
-.user-info Button{
-    -fx-background-color: #363b41;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-    -fx-opacity: 1.0;
-}
 .user-info ProgressIndicator{
-    -fx-max-height: 12;
+    -fx-max-height: 1em;
 }
 .user-info:disabled Button{
     -fx-opacity: 0.9;
 }
-.role-image-container{
-    -fx-max-width: 6px;
-    -fx-pref-height: 39px;
-    -fx-pref-width: 6px;
+.role-image{
+    -fx-padding: 0.5em;
 }
-.role-image Pane {
-    -fx-pref-height: 2px;
-    -fx-pref-width: 80px;
-    -fx-background-color: #363B41;
+.role-image ImageView{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .info-line{
-    -fx-pref-height: 2px;
-    -fx-pref-width: 80px;
     -fx-background-color: #363B41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }

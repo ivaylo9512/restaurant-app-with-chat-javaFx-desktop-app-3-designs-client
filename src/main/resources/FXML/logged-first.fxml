@@ -20,17 +20,17 @@
                                     <content>
                                         <FlowPane fx:id="userInfo" layoutX="517.0" layoutY="-219.0" styleClass="user-info" vgap="6.0">
                                             <children>
-                                                <TextField fx:id="firstNameField">
+                                                <TextField>
                                                 </TextField>
-                                                <TextField fx:id="lastNameField">
+                                                <TextField>
                                                 </TextField>
-                                                <TextField fx:id="countryField">
+                                                <TextField>
                                                 </TextField>
-                                                <TextField fx:id="ageField">
+                                                <TextField>
                                                 </TextField>
-                                                <TextField fx:id="roleField" focusTraversable="false">
+                                                <TextField focusTraversable="false">
                                                 </TextField>
-                                                <Button fx:id="saveButton" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
+                                                <Button contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
                                                     <graphic>
                                                         <ImageView fitHeight="15.0" fitWidth="15.0">
                                                             <image>
@@ -39,7 +39,7 @@
                                                         </ImageView>
                                                     </graphic>
                                                 </Button>
-                                                <Button fx:id="editButton" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#editUserInfo" text="Edit">
+                                                <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#editUserInfo" text="Edit">
                                                     <graphic>
                                                         <ImageView fitHeight="15.0" fitWidth="15.0">
                                                             <image>
@@ -57,7 +57,7 @@
                                 </ScrollPane>
                                 <Pane layoutX="11.0" layoutY="8.0" styleClass="role-image-container">
                                     <children>
-                                        <ImageView fx:id="roleImage" layoutX="10.5" styleClass="shadow">
+                                        <ImageView layoutX="10.5" styleClass="shadow">
                                         </ImageView>
                                         <Pane layoutY="68.5" styleClass="info-line" />
                                     </children>
@@ -189,16 +189,16 @@
                 <TextField prefHeight="67.0" prefWidth="218.0" style="-fx-background-color: transparent; -fx-text-fill: #bcbcbc;" text="Banica" />
             </children>
         </HBox>
-        <AnchorPane prefHeight="428.0" prefWidth="742.0">
+        <AnchorPane prefHeight="428.0" prefWidth="742.0" layoutX="200">
             <GridPane hgap="3.0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="${controller.fontIndicator.fontPx * 8.5}"  />
+                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="${controller.fontIndicator.fontPx * 8.5}"  maxWidth="${controller.fontIndicator.fontPx * 8.5}" />
                     <ColumnConstraints hgrow="ALWAYS"/>
                 </columnConstraints>
                 <rowConstraints>
                     <RowConstraints minHeight="10.0" vgrow="NEVER" />
-                    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="${controller.fontIndicator.fontPx * 16}" vgrow="ALWAYS" />
-                    <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+                    <RowConstraints prefHeight="${controller.fontIndicator.fontPx * 16}"/>
+                    <RowConstraints vgrow="ALWAYS" />
                 </rowConstraints>
                 <children>
                     <Pane fx:id="moveBarMenu" styleClass="program-bar" />
@@ -245,6 +245,13 @@
                         </children>
                     </GridPane>
                     <GridPane fx:id="profileRoot" opacity="0" disable="true" styleClass="menu-buttons-container" GridPane.rowIndex="1">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" percentWidth="70.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints percentHeight="33.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="64.0" vgrow="ALWAYS" />
+                        </rowConstraints>
                         <children>
                             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" styleClass="profile-buttons" GridPane.rowIndex="1">
                                 <children>
@@ -269,13 +276,6 @@
                                 </children>
                             </AnchorPane>
                         </children>
-                        <columnConstraints>
-                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" percentWidth="70.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints percentHeight="33.0" valignment="CENTER" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="64.0" vgrow="ALWAYS" />
-                        </rowConstraints>
                     </GridPane>
                     <StackPane fx:id="upperContent" styleClass="upper-content" GridPane.columnIndex="1" GridPane.rowIndex="1">
                         <StackPane disable="true" opacity="0" fx:id="notificationsView">
@@ -321,6 +321,60 @@
                             </Button>
                         </VBox>
                     </GridPane>
+                    <ScrollPane styleClass="menu-scroll" GridPane.rowIndex="2">
+                        <GridPane styleClass="menu-grid">
+                            <rowConstraints>
+                                <RowConstraints valignment="CENTER" />
+                                <RowConstraints percentHeight="32" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" />
+                            </columnConstraints>
+                            <StackPane styleClass="role-image">
+                                <ImageView fx:id="roleImage"/>
+                            </StackPane>
+                            <GridPane styleClass="user-info-container" GridPane.rowIndex="1">
+                                <rowConstraints>
+                                    <RowConstraints percentHeight="1.5" valignment="CENTER" />
+                                    <RowConstraints vgrow="ALWAYS" />
+                                    <RowConstraints percentHeight="1.5" valignment="CENTER"/>
+                                </rowConstraints>
+                                <columnConstraints>
+                                    <ColumnConstraints maxWidth="100.0" minWidth="10.0" hgrow="SOMETIMES"/>
+                                </columnConstraints>
+                                <Pane fx:id="line" viewOrder="2" styleClass="info-line" />
+                                <ScrollPane fx:id="userInfoScroll2" maxWidth="-Infinity" minWidth="-Infinity" styleClass="user-info" viewOrder="3" GridPane.rowIndex="1">
+                                    <VBox>
+                                        <TextField fx:id="firstNameField"/>
+                                        <TextField fx:id="lastNameField"/>
+                                        <TextField fx:id="countryField"/>
+                                        <TextField fx:id="ageField"/>
+                                        <TextField fx:id="roleField" focusTraversable="false"/>
+                                        <Button fx:id="saveButton" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
+                                            <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                    <image>
+                                                        <Image url="/images/edit.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                        <Button fx:id="editButton" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#editUserInfo" text="Edit">
+                                            <graphic>
+                                                <ImageView fitHeight="15.0" fitWidth="15.0">
+                                                    <image>
+                                                        <Image url="/images/edit.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </VBox>
+                                </ScrollPane>
+                                <Pane viewOrder="1" styleClass="info-line" GridPane.rowIndex="2"/>
+                            </GridPane>
+                        </GridPane>
+                    </ScrollPane>
                 </children>
             </GridPane>
             <AnchorPane fx:id="orderContainer" layoutX="20.6" layoutY="51.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="order-container">
