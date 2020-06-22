@@ -280,10 +280,9 @@
                     <StackPane fx:id="upperContent" styleClass="upper-content" GridPane.columnIndex="1" GridPane.rowIndex="1">
                         <StackPane disable="true" opacity="0" fx:id="notificationsView">
                             <ListView fx:id="notificationsList" styleClass="notification-list"/>
-                            <Text disable="true" text="There are no notifications to show." />
+                            <Text fx:id="notificationsInfo" disable="true" text="There are no notifications to show." />
                         </StackPane>
-                        <ListView fx:id="ordersList" orientation="HORIZONTAL" styleClass="order-list" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
-
+                        <ListView fx:id="ordersList" orientation="HORIZONTAL" styleClass="order-list"/>
                     </StackPane>
                     <GridPane styleClass="create-order" GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <rowConstraints>

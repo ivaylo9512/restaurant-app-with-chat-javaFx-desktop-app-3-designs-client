@@ -60,6 +60,7 @@ public class ExpandOrderPane {
         expandedDelay.stop();
 
         orderList.setDisable(true);
+        orderList.setOpacity(0.4);
         currentPane.setOpacity(0);
 
         mouseX = event.getScreenX();
@@ -170,7 +171,7 @@ public class ExpandOrderPane {
         }
     }
     private void paneReleased(MouseEvent event) {
-        if(!isButtonExpanded.get() && controller.currentOrder.get() != null) {
+        if(!isButtonExpanded.get() && action.get()) {
             if(orderList.getOpacity() == 0){
                 resetOrder();
             }else{
@@ -282,6 +283,7 @@ public class ExpandOrderPane {
         Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(delay, actionEvent -> {
             orderList.getSelectionModel().clearSelection();
             orderList.setDisable(false);
+            orderList.setOpacity(1);
             currentPane.setOpacity(1);
             action.setValue(false);
         }));
@@ -293,11 +295,11 @@ public class ExpandOrderPane {
         showDates.stop();
         dates.setOpacity(0);
 
-        transitionPane.setToX(0);
-        transitionPane.setToY(0);
+        orderPane.setTranslateX(0);
+        orderPane.setTranslateY(0);
 
-        transitionButton.setToX(0);
-        transitionButton.setToY(0);
+        button.setTranslateX(0);
+        button.setTranslateY(0);
 
         orderPane.setPrefHeight(orderHeight);
         orderPane.setPrefWidth(orderWidth);
