@@ -13,10 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
@@ -32,8 +29,9 @@ import static application.RestaurantApplication.*;
 public class LoggedMenu extends ControllerLogged {
     @FXML AnchorPane menuRoot, menu, menuButtonsContainer, profileView, profileButtonsContainer, menuContent;
     @FXML Button menuButton, notificationButton;
-    @FXML Pane profileImageContainer, profileImageClip;
+    @FXML Pane profileImageContainer;
     @FXML HBox notificationMenuIcon;
+    @FXML StackPane profileImageClip;
 
     ObjectProperty<Button> currentContentButton = new SimpleObjectProperty<>();
     ObjectProperty<Button> currentMenuButton = new SimpleObjectProperty<>();

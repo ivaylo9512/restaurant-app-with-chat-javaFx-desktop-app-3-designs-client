@@ -7,6 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
 
 <AnchorPane fx:id="menuRoot" layoutY="20" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.secondstyle.LoggedMenu">
 <children>
@@ -79,16 +80,16 @@
                     <InnerShadow />
                 </effect>
                 <children>
-                    <Pane fx:id="profileImageContainer" opacity="0.0" styleClass="profile-image-container">
+                    <AnchorPane fx:id="profileImageContainer" opacity="0.0" styleClass="profile-image">
                         <children>
-                            <Pane fx:id="profileImageClip" styleClass="profile-image-clip">
+                            <StackPane fx:id="profileImageClip" maxHeight="-Infinity" maxWidth="-Infinity">
                                 <children>
-                                    <ImageView fx:id="profileImage" fitWidth="${controller.fontIndicator.fontPx * 4.2}" fitHeight="${controller.fontIndicator.fontPx * 4.2}" layoutX="${controller.fontIndicator.fontPx * 0.4}" layoutY="${controller.fontIndicator.fontPx * 0.8}" >
-                                    </ImageView>
+                                    <Circle radius="${controller.fontIndicator.fontPx * 2.5}" />
+                                    <ImageView fx:id="profileImage" fitWidth="${controller.fontIndicator.fontPx * 4.2}" fitHeight="${controller.fontIndicator.fontPx * 4.2}" />
                                 </children>
-                            </Pane>
+                            </StackPane>
                         </children>
-                    </Pane>
+                    </AnchorPane>
                     <HBox minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
                        <children>
                           <TextField fx:id="firstNameField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />

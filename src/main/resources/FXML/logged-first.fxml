@@ -187,8 +187,8 @@
                                 <children>
                                     <StackPane fx:id="profileImageContainer" maxHeight="-Infinity" maxWidth="-Infinity">
                                         <children>
-                                            <Circle radius="30.0" />
-                                            <ImageView fx:id="profileImage" fitHeight="${controller.fontIndicator.fontPx * 4.15}" fitWidth="${controller.fontIndicator.fontPx * 4.15}" styleClass="profileImage">
+                                            <Circle radius="${controller.fontIndicator.fontPx * 2.5}" />
+                                            <ImageView fx:id="profileImage" fitHeight="${controller.fontIndicator.fontPx * 4.15}" fitWidth="${controller.fontIndicator.fontPx * 4.15}">
                                             </ImageView>
                                         </children>
                                     </StackPane>

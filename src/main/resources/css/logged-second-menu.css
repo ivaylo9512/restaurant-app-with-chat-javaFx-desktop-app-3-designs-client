@@ -129,19 +129,16 @@
 .profile-view TextField:readonly{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 9, 0.0 , 0 , 1 );
 }
-.profile-image-container{
-    -fx-background-color: white;
-    -fx-background-radius: 180px;
-    -fx-border-radius: 180px;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+.profile-image{
     -fx-translate-x: 2em;
     -fx-translate-y: 1.2em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
 }
-.profile-image-clip{
-    -fx-pref-width: 5em;
-    -fx-pref-height: 5em;
-    -fx-background-radius: 180px;
-    -fx-border-radius: 180px;
+.profile-image Circle{
+    -fx-fill: white;
+}
+.profile-image ImageView{
+    -fx-translate-y: 0.4em;
 }
 .profile-view TextField{
     -fx-alignment: center;
