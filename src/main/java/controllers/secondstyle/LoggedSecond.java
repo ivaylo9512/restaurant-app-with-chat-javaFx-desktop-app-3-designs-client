@@ -56,7 +56,6 @@ public class LoggedSecond extends ControllerLogged {
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
 
         MoveRoot.move(contentBar, root);
-        ResizeRoot.addListeners(root);
 
         mainChatBlock.prefWidthProperty().bind(mainChatScroll.widthProperty().subtract(25));
     }
@@ -174,6 +173,17 @@ public class LoggedSecond extends ControllerLogged {
         ordersList.getSelectionModel().clearSelection();
 
         menuSearch.setText("");
+    }
+
+    @Override
+    public void setStage(Stage stage){
+        super.setStage(stage);
+        ResizeRoot.addListeners(root, stage);
+
+        stage.setHeight(root.getMinHeight());
+        stage.setWidth(root.getMinWidth());
+        root.prefWidthProperty().bind(stage.widthProperty());
+        root.prefHeightProperty().bind(stage.heightProperty());
     }
 
     @FXML

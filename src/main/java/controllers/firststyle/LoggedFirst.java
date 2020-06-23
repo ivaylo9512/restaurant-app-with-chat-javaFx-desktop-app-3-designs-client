@@ -13,6 +13,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.Event;
 import javafx.scene.input.*;
+import javafx.stage.Stage;
 import models.*;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
@@ -92,7 +93,6 @@ public class LoggedFirst extends ControllerLogged {
         ResizeMainChat.addListeners(mainChat);
         ResizeMainChat.addListeners(secondChat);
 
-        ResizeRoot.addListeners(root);
         MoveRoot.move(moveBar, root);
         MoveRoot.move(moveBarMenu, root);
     }
@@ -236,6 +236,19 @@ public class LoggedFirst extends ControllerLogged {
         } else {
             roleImage.setImage(waiterImage);
         }
+        System.out.println(moveBarMenu.getHeight());
+        System.out.println(moveBar.getHeight());
+    }
+    @Override
+    public void setStage(Stage stage){
+        super.setStage(stage);
+        ResizeRoot.addListeners(root, stage);
+
+        stage.setHeight(root.getMinHeight());
+        stage.setWidth(root.getMinWidth());
+        root.prefWidthProperty().bind(stage.widthProperty());
+        root.prefHeightProperty().bind(stage.heightProperty());
+
     }
 
     @Override

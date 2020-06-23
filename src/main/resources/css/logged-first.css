@@ -73,10 +73,10 @@ TextFlow {
 .root{
     -fx-max-height: 53.5em;
     -fx-max-width: 91.5em;
-    -fx-min-height: 36em;
-    -fx-min-width: 62em;
-    -fx-pref-height: 36em;
-    -fx-pref-width: 62em;
+    -fx-min-height: 34.8em;
+    -fx-min-width: 61.8em;
+    -fx-pref-height: 34.8em;
+    -fx-pref-width: 61.8em;
     -fx-background-color: transparent;
 }
 .profile-image{

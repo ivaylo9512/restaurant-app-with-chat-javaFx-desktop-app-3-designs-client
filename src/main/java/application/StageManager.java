@@ -154,6 +154,7 @@ public class StageManager {
                 try {
                     controller.adjustStage(primaryScreenBounds.getHeight(), primaryScreenBounds.getWidth());
                 } catch (Exception e) {
+                    e.printStackTrace();
                     loginManager.logout();
                     alertManager.addLoginAlert(e.getMessage());
                 }

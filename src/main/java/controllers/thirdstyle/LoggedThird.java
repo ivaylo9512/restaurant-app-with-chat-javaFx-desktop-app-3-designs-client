@@ -3,6 +3,7 @@ package controllers.thirdstyle;
 import animations.MoveRoot;
 import animations.ResizeRoot;
 import helpers.Scrolls;
+import javafx.stage.Stage;
 import models.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -49,7 +50,6 @@ public class LoggedThird extends ControllerLogged {
         secondChatBlock.prefWidthProperty().bind(secondChatScroll.widthProperty().subtract(16));
 
         MoveRoot.move(menuBar, contentRoot);
-        ResizeRoot.addListeners(contentRoot);
     }
 
     @Override
@@ -91,6 +91,17 @@ public class LoggedThird extends ControllerLogged {
 
         currentView = null;
         currentMenu= null;
+    }
+
+    @Override
+    public void setStage(Stage stage){
+        super.setStage(stage);
+        ResizeRoot.addListeners(root, stage);
+
+        stage.setHeight(root.getMinHeight());
+        stage.setWidth(root.getMinWidth());
+        root.prefWidthProperty().bind(stage.widthProperty());
+        root.prefHeightProperty().bind(stage.heightProperty());
     }
 
     private void loginAnimation() {

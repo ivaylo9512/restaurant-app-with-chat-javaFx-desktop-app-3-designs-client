@@ -18,12 +18,10 @@ public abstract class ControllerAdjustable extends Controller{
             height = root.getMinHeight();
             width = root.getMinWidth();
         }
-        root.setPrefHeight(height);
-        root.setPrefWidth(width);
+        stage.setHeight(height);
+        stage.setWidth(width);
 
         stage.setY((primaryScreenBounds.getHeight() - height) / 2);
         stage.setX((primaryScreenBounds.getWidth() - width) / 2);
-
-        stage.sizeToScene();
     }
 }
