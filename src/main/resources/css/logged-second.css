@@ -117,6 +117,12 @@ TextFlow {
     -fx-background-color: #1a1a1a;
         -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 0, 0, 0, 2 );
 }
+.menu-cell{
+    -fx-pref-Height: 5.35em;
+}
+.menu-cell Label{
+    -fx-text-fill: #bcbcbc;
+}
 .menu-container .list-view .list-cell{
     -fx-padding: 0;
     -fx-background-color: transparent;
@@ -124,11 +130,6 @@ TextFlow {
 .menu-container .list-view .list-cell GridPane{
     -fx-background-color: #1a1a1a;
 }
-.menu-container .list-view .price{
-    -fx-pref-Height: 64px;
-    -fx-background-color: transparent;
-}
-
 .add-button{
     -fx-border-radius: 180px;
     -fx-background-radius: 180px;

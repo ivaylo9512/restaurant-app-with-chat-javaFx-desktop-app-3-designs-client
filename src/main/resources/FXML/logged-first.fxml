@@ -7,6 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
 
 <AnchorPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.firststyle.LoggedFirst">
     <GridPane hgap="3.0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
@@ -164,7 +165,7 @@
                         </columnConstraints>
                         <Pane styleClass="info-line" />
                         <ScrollPane fx:id="userInfoScroll" maxWidth="-Infinity" minWidth="-Infinity" styleClass="user-info" viewOrder="3" GridPane.rowIndex="1">
-                            <VBox>
+                            <VBox style="-fx-background-color: red;">
                                 <TextField fx:id="firstNameField"/>
                                 <TextField fx:id="lastNameField"/>
                                 <TextField fx:id="countryField"/>
@@ -367,4 +368,8 @@
             <DropShadow />
         </effect>
     </AnchorPane>
+    <cursor>
+        <Cursor fx:constant="DEFAULT" />
+    </cursor>
 </AnchorPane>
+

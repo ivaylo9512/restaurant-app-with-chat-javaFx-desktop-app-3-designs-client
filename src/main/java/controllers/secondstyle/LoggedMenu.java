@@ -27,7 +27,7 @@ import java.util.List;
 import static application.RestaurantApplication.*;
 
 public class LoggedMenu extends ControllerLogged {
-    @FXML AnchorPane menuRoot, menu, menuButtonsContainer, profileView, profileButtonsContainer, menuContent;
+    @FXML AnchorPane root, menu, menuButtonsContainer, profileView, profileButtonsContainer, menuContent;
     @FXML Button menuButton, notificationButton;
     @FXML Pane profileImageContainer;
     @FXML HBox notificationMenuIcon;
@@ -86,7 +86,7 @@ public class LoggedMenu extends ControllerLogged {
     }
 
     private void scaleFontNodes() {
-        menuRoot.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
+        root.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
         updateMenuButtonsAnchors();
         updateInfoContainersAnchors();
         updateProfileButtonsAnchors();
@@ -152,8 +152,8 @@ public class LoggedMenu extends ControllerLogged {
         expandMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
 
         reverseDelay = new Timeline();
-        reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(700), event -> stage.setWidth(menuRoot.getMinWidth())));
-        reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> stage.setHeight(menuRoot.getPrefHeight())));
+        reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(700), event -> stage.setWidth(root.getMinWidth())));
+        reverseStageHeight = new Timeline(new KeyFrame(Duration.millis(800), event -> stage.setHeight(root.getPrefHeight())));
     }
 
     @Override
@@ -186,12 +186,12 @@ public class LoggedMenu extends ControllerLogged {
 
     @Override
     public void adjustStage(double height, double width) throws Exception {
-        stage.setWidth(menuRoot.getMaxWidth());
-        stage.setHeight(menuRoot.getPrefHeight());
+        stage.setWidth(root.getMaxWidth());
+        stage.setHeight(root.getPrefHeight());
         stage.setY(primaryScreenBounds.getHeight() * 0.05);
-        stage.setX((primaryScreenBounds.getWidth() - menuRoot.getMaxWidth()) / 2);
+        stage.setX((primaryScreenBounds.getWidth() - root.getMaxWidth()) / 2);
 
-        menuRoot.setLayoutX((menuRoot.getMaxWidth() - menuRoot.getPrefWidth()) / 2);
+        root.setLayoutX((root.getMaxWidth() - root.getPrefWidth()) / 2);
         expandMenu();
     }
 
@@ -204,7 +204,7 @@ public class LoggedMenu extends ControllerLogged {
         reverseStageHeight.stop();
         reverseMenuContent.stop();
 
-        stage.setHeight(menuRoot.getMaxHeight());
+        stage.setHeight(root.getMaxHeight());
 
         expandMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
         expandMenuContent.play();
@@ -218,9 +218,9 @@ public class LoggedMenu extends ControllerLogged {
     }
 
     @FXML public void expandMenu(){
-        if(stage.getHeight() != menuRoot.getPrefWidth()) {
+        if(stage.getHeight() != root.getPrefWidth()) {
             reverseStageWidth.stop();
-            stage.setWidth(menuRoot.getMaxWidth());
+            stage.setWidth(root.getMaxWidth());
 
             notificationMenuIcon.setVisible(false);
             reverseDelay.stop();
@@ -337,7 +337,7 @@ public class LoggedMenu extends ControllerLogged {
 
     void setView(String buttonId, Button button) {
         if(button == null){
-            button = (Button)menuRoot.lookup("#" + buttonId);
+            button = (Button)root.lookup("#" + buttonId);
         }
 
         switch (buttonId){
