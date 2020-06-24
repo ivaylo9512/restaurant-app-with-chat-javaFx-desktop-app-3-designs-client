@@ -14,6 +14,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.List;
 
@@ -21,9 +22,11 @@ import java.util.List;
 public class Scrolls {
     private ScrollPane menuScroll, userInfoScroll, mainChatScroll, secondChatScroll;
     private TextArea mainChatTextArea, secondChatTextArea;
-    public double heightDiff, offsetY, initialMenuScrollHeight;
+    private double heightDiff, offsetY;
     private ListView chatUsersList;
     private ScrollBar chatUsersScrollBar;
+
+    public Stage stage;
 
     public Scrolls(ScrollPane menuScroll, ScrollPane userInfoScroll, ListView chatUsersList, ScrollPane mainChatScroll, TextArea mainChatTextArea, ScrollPane secondChatScroll, TextArea secondChatTextArea) {
         this.menuScroll = menuScroll;
@@ -125,7 +128,7 @@ public class Scrolls {
         GridPane anchorPane = (GridPane) menuScroll.getContent();
         menuScroll.addEventFilter(ScrollEvent.SCROLL, event -> {
             if (event.getDeltaY() != 0) {
-                if (menuScroll.getHeight() == initialMenuScrollHeight) {
+                if (stage.getHeight() == stage.getMinHeight()) {
                     if(menuScroll.getVvalue() == 0 || menuScroll.getVvalue() == 1) {
                         chatUsersList.setDisable(false);
                         userInfoScroll.setDisable(false);

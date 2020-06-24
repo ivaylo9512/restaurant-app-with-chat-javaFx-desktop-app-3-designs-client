@@ -140,7 +140,7 @@
                     </Button>
                 </VBox>
             </GridPane>
-            <ScrollPane fx:id="menuScroll" styleClass="menu-scroll" maxWidth="-Infinity" minWidth="-Infinity" GridPane.rowIndex="2">
+            <ScrollPane fx:id="menuScroll" styleClass="menu-scroll" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="0.0" GridPane.rowIndex="2">
                 <GridPane styleClass="menu-grid">
                     <rowConstraints>
                         <RowConstraints valignment="CENTER" />

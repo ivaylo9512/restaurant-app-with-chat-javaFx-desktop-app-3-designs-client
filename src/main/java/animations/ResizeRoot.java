@@ -3,35 +3,21 @@ package animations;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ResizeRoot {
-    private static double minWidth;
-    private static double minHeight;
-    private static double maxWidth;
-    private static double maxHeight;
+    private static double minWidth, minHeight, maxWidth, maxHeight, height, width;
+    private static double offsetX, offsetY, mouseX, mouseY;
 
     private static Cursor cursor;
     private static int border = 5;
-
-    private static double height;
-    private static double width;
-
-    private static double offsetX;
-    private static double offsetY;
-
     public static boolean resize = true;
 
-    private static AnchorPane root;
-    private static Stage stage;
-
     public static void addListeners(AnchorPane root, Stage stage) {
-        ResizeRoot.root = root;
-        ResizeRoot.stage = stage;
-
         root.setOnMouseEntered(event -> {
             height = root.getPrefHeight();
             width = root.getPrefWidth();
@@ -83,19 +69,19 @@ public class ResizeRoot {
             }
         });
         root.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
-            double mouseX = event.getScreenX();
-            double mouseY = event.getScreenY();
+            mouseX = event.getScreenX();
+            mouseY = event.getScreenY();
             if (stage == null) {
-                resizeRoot(mouseX, mouseY);
+                resizeRoot(root);
             }else{
-                resizeStage(mouseX, mouseY);
+                resizeStage(root, stage);
             }
         });
 
 
     }
 
-    private static void resizeStage(double mouseX, double mouseY) {
+    private static void resizeStage(AnchorPane root, Stage stage) {
         double newHeight;
         double newWidth;
         if (Cursor.W_RESIZE.equals(cursor)) {
@@ -139,7 +125,7 @@ public class ResizeRoot {
         }
     }
 
-    private static void resizeRoot(double mouseX, double mouseY) {
+    private static void resizeRoot(AnchorPane root) {
         double newHeight;
         double newWidth;
         if (Cursor.W_RESIZE.equals(cursor)) {

@@ -226,7 +226,6 @@ public class LoggedFirst extends ControllerLogged {
 
         mainChatSession.bindChat();
         secondChatSession.bindChat();
-        scrolls.initialMenuScrollHeight = menuScroll.getHeight();
 
         if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
         if(notificationsList.getItems().size() > 0) notificationsList.scrollTo(0);
@@ -236,19 +235,15 @@ public class LoggedFirst extends ControllerLogged {
         } else {
             roleImage.setImage(waiterImage);
         }
-        System.out.println(moveBarMenu.getHeight());
-        System.out.println(moveBar.getHeight());
     }
     @Override
     public void setStage(Stage stage){
         super.setStage(stage);
         ResizeRoot.addListeners(root, stage);
+        scrolls.stage = stage;
 
-        stage.setHeight(root.getMinHeight());
-        stage.setWidth(root.getMinWidth());
         root.prefWidthProperty().bind(stage.widthProperty());
         root.prefHeightProperty().bind(stage.heightProperty());
-
     }
 
     @Override
