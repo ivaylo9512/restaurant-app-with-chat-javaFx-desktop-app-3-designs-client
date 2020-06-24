@@ -27,4 +27,14 @@ public abstract class ControllerAdjustable extends Controller{
         stage.setY((primaryScreenBounds.getHeight() - height) / 2);
         stage.setX((primaryScreenBounds.getWidth() - width) / 2);
     }
+
+    @FXML
+    public void minimize(){
+        stage.setIconified(true);
+    }
+
+    @FXML
+    public void close(){
+        stage.close();
+    }
 }

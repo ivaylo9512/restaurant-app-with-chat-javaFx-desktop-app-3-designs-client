@@ -151,7 +151,7 @@
                         <ColumnConstraints hgrow="SOMETIMES"  halignment="CENTER" />
                     </columnConstraints>
                     <StackPane styleClass="role-image">
-                        <ImageView fx:id="roleImage"/>
+                        <ImageView fitHeight="${controller.fontIndicator.fontPx * 5.15}" fitWidth="${controller.fontIndicator.fontPx * 5.15}" fx:id="roleImage"/>
                     </StackPane>
                     <GridPane styleClass="user-info-container" GridPane.rowIndex="1">
                         <rowConstraints>

@@ -266,16 +266,6 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     }
 
     @FXML
-    public void minimize(){
-        stageManager.currentStage.setIconified(true);
-    }
-
-    @FXML
-    public void close(){
-        stageManager.currentStage.close();
-    }
-
-    @FXML
     protected void logout(){
         loginManager.logout();
     }

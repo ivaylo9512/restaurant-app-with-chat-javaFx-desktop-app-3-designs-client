@@ -92,14 +92,4 @@ public abstract class ControllerLogin extends ControllerAdjustable {
     public void showLoginSecondStyle(){
         stageManager.changeStage(stageManager.secondLoginStage);
     }
-
-    @FXML
-    public void minimize(){
-        stageManager.currentStage.setIconified(true);
-    }
-
-    @FXML
-    public void close(){
-        stageManager.currentStage.close();
-    }
 }
