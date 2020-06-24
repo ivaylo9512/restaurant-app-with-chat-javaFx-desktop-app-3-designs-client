@@ -1,11 +1,11 @@
 package helpers.listviews;
 
+import javafx.scene.layout.StackPane;
 import models.Menu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public class MenuListViewCell extends ListCell<Menu> {
     private Label name;
 
     @FXML
-    private GridPane grid;
+    private StackPane stackPane;
 
     private FXMLLoader fxmlLoader;
 
@@ -44,10 +44,9 @@ public class MenuListViewCell extends ListCell<Menu> {
 
             price.setText(String.valueOf(menu.getId()));
             name.setText(menu.getName());
-            grid.prefWidthProperty().bind(widthProperty().subtract(13));
 
             setText(null);
-            setGraphic(grid);
+            setGraphic(stackPane);
         }
 
     }

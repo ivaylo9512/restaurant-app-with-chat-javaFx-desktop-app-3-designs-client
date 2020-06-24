@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
 
-<GridPane fx:id="grid" styleClass="menu-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints halignment="CENTER" minWidth="10.0" />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-   </rowConstraints>
+<StackPane fx:id="stackPane" styleClass="menu-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="price" styleClass="price" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity"  prefWidth="50.0"  text="Label" textAlignment="CENTER" textFill="#bcbcbc" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
-      <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" text="Label" textAlignment="CENTER" textFill="#bcbcbc" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="price" maxWidth="-Infinity" minWidth="-Infinity" text="Label" GridPane.hgrow="NEVER" />
+         </children>
+      </GridPane>
+      <Label fx:id="name" text="Label" />
    </children>
-   <padding>
-      <Insets right="50.0" />
-   </padding>
    <effect>
       <DropShadow height="10.0" radius="4.5" width="10.0" />
    </effect>
-</GridPane>
+</StackPane>

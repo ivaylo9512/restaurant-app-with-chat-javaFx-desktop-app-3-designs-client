@@ -348,6 +348,8 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .info-line{
+    -fx-pref-height: 0.15em;
+    -fx-min-height: 0.15em;
     -fx-background-color: #363B41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
@@ -448,21 +450,21 @@ TextFlow {
     -fx-background-color:  #2A2E37;
     -fx-alignment: center;
 }
-.price{
-    -fx-pref-Height: 64px;
-    -fx-background-color: transparent;
-}
 .create-order{
     -fx-background-color: #363b41;
     -fx-alignment: center;
 }
 .create-order .menu-cell{
     -fx-background-color: #363b41;
+    -fx-pref-height: 5.35em;
+}
+.create-order .menu-cell Label{
+    -fx-text-fill: #bcbcbc;
 }
 .create-order ListView .list-cell{
-   -fx-padding: 0;
-   -fx-background-insets: 0;
-   -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
 }
 .create-order ListView{
    -fx-padding: 0;
@@ -481,7 +483,6 @@ TextFlow {
     -fx-text-fill: #bcbcbc;
     -fx-background-radius: 2 2 0 0;
     -fx-pref-height: 3.25em;
-    -fx-pref-width: 339px;
     -fx-alignment: center;
 }
 .create-order ListView{

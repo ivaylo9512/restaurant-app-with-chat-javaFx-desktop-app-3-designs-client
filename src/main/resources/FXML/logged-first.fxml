@@ -155,14 +155,14 @@
                     </StackPane>
                     <GridPane styleClass="user-info-container" GridPane.rowIndex="1">
                         <rowConstraints>
-                            <RowConstraints percentHeight="1.5" valignment="CENTER" />
+                            <RowConstraints valignment="CENTER" />
                             <RowConstraints vgrow="ALWAYS" />
-                            <RowConstraints percentHeight="1.5" valignment="CENTER"/>
+                            <RowConstraints valignment="CENTER"/>
                         </rowConstraints>
                         <columnConstraints>
                             <ColumnConstraints minWidth="10.0" hgrow="SOMETIMES"/>
                         </columnConstraints>
-                        <Pane viewOrder="2" styleClass="info-line" />
+                        <Pane styleClass="info-line" />
                         <ScrollPane fx:id="userInfoScroll" maxWidth="-Infinity" minWidth="-Infinity" styleClass="user-info" viewOrder="3" GridPane.rowIndex="1">
                             <VBox>
                                 <TextField fx:id="firstNameField"/>
@@ -190,7 +190,7 @@
                                 </Button>
                             </VBox>
                         </ScrollPane>
-                        <Pane viewOrder="1" styleClass="info-line" GridPane.rowIndex="2"/>
+                        <Pane styleClass="info-line" GridPane.rowIndex="2"/>
                     </GridPane>
                     <ListView fx:id="chatUsersList" disable="true" styleClass="chat-users" GridPane.rowIndex="2">
                     </ListView>
@@ -232,9 +232,6 @@
                                         </font>
                                     </Label>
                                 </children>
-                                <GridPane.margin>
-                                    <Insets />
-                                </GridPane.margin>
                             </AnchorPane>
                             <AnchorPane fx:id="updatedContainer" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0" onMouseEntered="#showUpdated" onMouseExited="#hideUpdated" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                 <children>
