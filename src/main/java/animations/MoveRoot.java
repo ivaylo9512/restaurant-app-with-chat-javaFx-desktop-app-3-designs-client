@@ -12,15 +12,8 @@ public class MoveRoot {
 
     public static void move(Node moveNode, AnchorPane root) {
         root.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            if(moveNode.getId().equals("moveBar") || moveNode.getId().equals("menuButton")
-                    || moveNode.getId().equals("moveBarMenu")){
-                offsetX = event.getX();
-                offsetY = event.getY();
-            }else{
-                AnchorPane parent = (AnchorPane) root.getParent();
-                offsetX = parent.getLayoutX() + event.getX();
-                offsetY = parent.getLayoutY() + event.getY();
-            }
+            offsetX = event.getX();
+            offsetY = event.getY();
         });
 
         moveNode.setOnMouseDragged(event -> {
@@ -31,15 +24,17 @@ public class MoveRoot {
         });
     }
 
-    public static void moveStage(Node moveNode, Stage stage) {
+    public static void moveStage(Node moveNode, Stage stage, AnchorPane root) {
         stage.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             offsetX = event.getX();
             offsetY = event.getY();
         });
 
         moveNode.setOnMouseDragged(event -> {
+            if(Cursor.DEFAULT.equals(root.getCursor())) {
                 stage.setX(event.getScreenX() - offsetX);
                 stage.setY(event.getScreenY() - offsetY);
+            }
         });
     }
 

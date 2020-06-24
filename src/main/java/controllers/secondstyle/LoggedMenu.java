@@ -80,7 +80,7 @@ public class LoggedMenu extends ControllerLogged {
         setUserFields();
         setMenuTransitions();
 
-        MoveRoot.moveStage(menuButton, stage);
+        MoveRoot.moveStage(menuButton, stage, root);
 
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
     }

@@ -19,7 +19,7 @@ public abstract class ControllerAdjustable extends Controller{
             width = root.getMinWidth();
 
             stage.setMinHeight(height);
-            stage.setMinHeight(width);
+            stage.setMinWidth(width);
         }
         stage.setHeight(height);
         stage.setWidth(width);

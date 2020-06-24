@@ -3,7 +3,6 @@ package animations;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -28,7 +27,7 @@ public class ResizeRoot {
             maxHeight = root.getMaxHeight();
         });
 
-        EventHandler<MouseEvent> mousePosition = event -> {
+        EventHandler<MouseEvent> checkMousePosition = event -> {
             EventType eventType = event.getEventType();
             if (MouseEvent.MOUSE_MOVED.equals(eventType) || MouseButton.PRIMARY.equals(event.getButton())) {
                 double mouseX = event.getX();
@@ -56,8 +55,8 @@ public class ResizeRoot {
             }
         };
 
-        root.addEventFilter(MouseEvent.MOUSE_MOVED, mousePosition);
-        root.addEventFilter(MouseEvent.MOUSE_RELEASED, mousePosition);
+        root.addEventFilter(MouseEvent.MOUSE_MOVED, checkMousePosition);
+        root.addEventFilter(MouseEvent.MOUSE_RELEASED, checkMousePosition);
         root.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             cursor = root.getCursor();
             if (stage == null) {
@@ -92,7 +91,7 @@ public class ResizeRoot {
                 stage.setX(mouseX);
             } else {
                 newWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
-                stage.setX(root.getLayoutX() + root.getPrefWidth() - newWidth);
+                stage.setX(stage.getX() + root.getPrefWidth() - newWidth);
                 stage.setWidth(newWidth);
             }
         } else if (Cursor.E_RESIZE.equals(cursor)) {
@@ -119,7 +118,7 @@ public class ResizeRoot {
                 stage.setY(mouseY);
             } else {
                 newHeight = Math.min(Math.max(newHeight, minHeight), maxHeight);
-                stage.setY(root.getLayoutY() + root.getPrefHeight() - newHeight);
+                stage.setY(stage.getY() + root.getPrefHeight() - newHeight);
                 stage.setHeight(newHeight);
             }
         }

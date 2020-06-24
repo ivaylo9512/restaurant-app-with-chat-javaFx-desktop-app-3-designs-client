@@ -92,9 +92,6 @@ public class LoggedFirst extends ControllerLogged {
 
         ResizeMainChat.addListeners(mainChat);
         ResizeMainChat.addListeners(secondChat);
-
-        MoveRoot.move(moveBar, root);
-        MoveRoot.move(moveBarMenu, root);
     }
 
     private void setListsItems() {
@@ -239,7 +236,11 @@ public class LoggedFirst extends ControllerLogged {
     @Override
     public void setStage(Stage stage){
         super.setStage(stage);
+
         ResizeRoot.addListeners(root, stage);
+        MoveRoot.moveStage(moveBar, stage, root);
+        MoveRoot.moveStage(moveBarMenu, stage, root);
+
         scrolls.stage = stage;
 
         root.prefWidthProperty().bind(stage.widthProperty());
