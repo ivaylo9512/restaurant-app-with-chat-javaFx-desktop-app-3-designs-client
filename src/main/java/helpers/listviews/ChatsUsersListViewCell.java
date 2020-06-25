@@ -3,6 +3,7 @@ package helpers.listviews;
 import controllers.firststyle.LoggedFirst;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.StackPane;
 import models.ChatValue;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
@@ -18,11 +19,9 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
     @FXML
     private ImageView imageView;
     @FXML
-    private Pane imageContainer, shadow;
+    private Pane imageContainer;
     @FXML
     private HBox container;
-
-    private Circle clip = new Circle(25, 25, 25);
     private FXMLLoader fxmlLoader;
 
     @Override
@@ -45,7 +44,6 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
             }
 
             imageView.setImage(chat.getSecondUserPicture());
-            imageContainer.setClip(clip);
 
             setText(null);
             setGraphic(container);
