@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.text.Font;
 
 public class FontIndicator {
-    private DoubleProperty fontPx = new SimpleDoubleProperty(Font.getDefault().getSize());
+    private static DoubleProperty fontPx = new SimpleDoubleProperty(Font.getDefault().getSize());
     private KeyCombination  combination = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
 
     public void setSliderBinding(Node root, Slider slider){
@@ -34,7 +34,7 @@ public class FontIndicator {
         return fontPx.get();
     }
 
-    public void setFontPx(double fontPx) {
-        this.fontPx.setValue(fontPx);
+    public void setFontPx(double px) {
+        fontPx.setValue(px);
     }
 }

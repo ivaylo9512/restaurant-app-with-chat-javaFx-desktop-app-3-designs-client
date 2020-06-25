@@ -4,18 +4,18 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.shape.Circle?>
-<?import application.RestaurantApplication?>
+<?import helpers.FontIndicator?>
 <HBox fx:id="container" styleClass="chat-user" disable="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <fx:define>
-        <RestaurantApplication fx:id="rest"/>
+        <FontIndicator fx:id="rest"/>
     </fx:define>
     <Pane fx:id="shadow">
         <StackPane fx:id="imageContainer">
             <clip>
-                <Circle styleClass="chat-clip" radius="${rest.fontIndicator.fontPx * 2.1}" translateX="${rest.fontIndicator.fontPx * 2.1}" translateY="${rest.fontIndicator.fontPx * 2.1}"/>
+                <Circle styleClass="chat-clip" radius="${rest.fontPx * 2.1}" translateX="${rest.fontPx * 2.1}" translateY="${rest.fontPx * 2.1}"/>
             </clip>
-            <Circle radius="${rest.fontIndicator.fontPx * 2.1}"/>
-            <ImageView fx:id="imageView" fitHeight="${rest.fontIndicator.fontPx * 3.65}" fitWidth="${rest.fontIndicator.fontPx * 3.65}">
+            <Circle radius="${rest.fontPx * 2.1}"/>
+            <ImageView fx:id="imageView" fitHeight="${rest.fontPx * 3.65}" fitWidth="${rest.fontPx * 3.65}">
             </ImageView>
         </StackPane>
     </Pane>

@@ -33,9 +33,4 @@ public class RestaurantApplication extends Application{
         stageManager.initializeStages(primaryStage);
         loginManager.checkIfLogged();
     }
-
-    public FontIndicator getFontIndicator(){
-        return fontIndicator;
-    }
-
 }

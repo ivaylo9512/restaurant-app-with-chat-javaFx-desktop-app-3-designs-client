@@ -22,6 +22,7 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
     private Pane imageContainer;
     @FXML
     private HBox container;
+
     private FXMLLoader fxmlLoader;
 
     @Override
