@@ -96,48 +96,38 @@ TextFlow {
     -fx-background-color: transparent;
     -fx-padding: 0;
 }
-.order-cell{
-    -fx-pref-height: 188.0px;
-    -fx-pref-width: 127.35px;
-    -fx-border-width: 0 0 0 0;
-    -fx-border-color: #363b41;
+.order-list .order-cell{
+
 }
-.order,
 .order-container{
+    -fx-pref-height: 15.53em;
+    -fx-pref-width: 10.55em;
+    -fx-border-width: 0 0 0 0;
+    -fx-alignment: center;
+}
+.order-container > AnchorPane{
+    -fx-pref-height: 7.2em;
+    -fx-pref-width: 7.2em;
     -fx-background-color: #2A2E37;
     -fx-background-radius: 10px;
 }
-.order-container{
-    -fx-pref-height: 86.5;
-    -fx-pref-width: 86.5;
-    -fx-min-height: 86.5;
-    -fx-min-width: 86.5;
-}
-.order:hover,
-.order-container{
+.order-list .order-container > AnchorPane:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+}
+.order-list .order-container{
+    -fx-background-color: transparent;
 }
 .order-container .list-cell,
 .notification-list .list-cell{
      -fx-background-color: transparent;
      -fx-padding: 0;
 }
-.order ScrollPane ScrollBar{
-    -fx-background-color: transparent;
-}
-.order ListView{
-    -fx-background-color: transparent;
-}
-.order ScrollPane ScrollBar .thumb{
-    -fx-background-color: transparent;
-}
-.order > Label,
 .order > GridPane Label{
     -fx-background-color: #2A2E37;
     -fx-border-radius: 2 2 0 0;
     -fx-background-radius: 2 2 0 0;
-    -fx-pref-height: 30.0;
-    -fx-pref-width: 30.0;
+    -fx-pref-height: 2.5em;
+    -fx-pref-width: 2.5em;
     -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
     -fx-font-size: 10;

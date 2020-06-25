@@ -14,26 +14,20 @@ import java.time.format.DateTimeFormatter;
 import static application.RestaurantApplication.stageManager;
 
 public class OrderListViewCell extends ListCell<Order> {
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
     @FXML
     private Label orderId, updatedDate, createdDate, createdTime, updatedTime;
-
     @FXML
     private AnchorPane orderPane;
-
     @FXML
-    private Pane container, updatedContainer;
-
+    private Pane updatedContainer;
     @FXML
     private AnchorPane dishesAnchor, createdContainer;
-
     @FXML
     private ScrollPane dishesScroll;
-
     @FXML
     private VBox dishesBox;
+    @FXML
+    private HBox container;
     @FXML
     private Button button;
 
