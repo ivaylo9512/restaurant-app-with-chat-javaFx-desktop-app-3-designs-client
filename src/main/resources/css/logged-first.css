@@ -90,6 +90,7 @@ TextFlow {
 }
 .order-list{
     -fx-background-color: #2A2E37;
+    -fx-padding: 0;
 }
 .order-list .list-cell{
     -fx-background-color: transparent;
@@ -105,10 +106,10 @@ TextFlow {
 .order-container{
     -fx-background-color: #2A2E37;
     -fx-background-radius: 10px;
-    -fx-pref-height: 86.5;
-    -fx-pref-width: 86.5;
 }
 .order-container{
+    -fx-pref-height: 86.5;
+    -fx-pref-width: 86.5;
     -fx-min-height: 86.5;
     -fx-min-width: 86.5;
 }

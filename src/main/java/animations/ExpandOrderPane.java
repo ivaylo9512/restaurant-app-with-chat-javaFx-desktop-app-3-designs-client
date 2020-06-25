@@ -22,7 +22,7 @@ import models.Order;
 public class ExpandOrderPane {
 
     private double orderWidth, orderHeight, maxOrderWidth, buttonX, buttonY, mouseY, mouseX,
-            initialOffsetX, xButtonRation, initialMouseX, translatePaneX;
+            initialOffsetX, xButtonRation, initialMouseX;
 
     public Pane currentContainer, currentPane, orderPane;
     public StackPane contentPane;
@@ -69,28 +69,25 @@ public class ExpandOrderPane {
         buttonX = button.getLayoutX();
         buttonY = button.getLayoutY();
 
-        setOrderDimension();
+        setOrderDimension(event);
 
-        initialOffsetX = event.getX() - translatePaneX;
         initialMouseX = event.getScreenX();
-
         maxOrderWidth = orderWidth * 4;
         xButtonRation = currentPane.getWidth() / (button.getLayoutX() + button.getWidth() / 2);
     }
 
-    public void setOrderDimension() {
-
-        double orderX = currentPane.getLayoutX();
+    public void setOrderDimension(MouseEvent event) {
         orderWidth = currentPane.getWidth();
         orderHeight = currentPane.getHeight();
 
         cellLayoutX = cell.getLayoutX();
         cellWidth = cell.getWidth();
 
-        translatePaneX = cellLayoutX + orderX + currentContainer.getLayoutX() + 1;
+        initialOffsetX = event.getX() - cellLayoutX - currentPane.getLayoutX();
+        double initialOffsetY = event.getY() - currentPane.getLayoutY();
 
-        orderPane.setLayoutX(translatePaneX + contentPane.getLayoutX());
-        orderPane.setLayoutY(currentPane.getLayoutY() + contentPane.getLayoutY() + 2);
+        orderPane.setLayoutX(event.getSceneX() - initialOffsetX);
+        orderPane.setLayoutY(event.getSceneY() - initialOffsetY + 2);
     }
 
     public void setListeners(){
