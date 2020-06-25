@@ -1,6 +1,9 @@
 package helpers.listviews;
 
 import animations.TransitionResizeHeight;
+import application.RestaurantApplication;
+import helpers.FontIndicator;
+import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import models.Notification;
@@ -27,6 +30,8 @@ public class NotificationListViewCell extends ListCell<Notification> {
     private Text text;
 
     private FXMLLoader fxmlLoader;
+
+    private static DoubleProperty fontPxProperty = RestaurantApplication.fontIndicator.getFontPxProperty();
 
     @Override
     protected void updateItem(Notification notification, boolean empty) {
@@ -57,12 +62,12 @@ public class NotificationListViewCell extends ListCell<Notification> {
 
     @FXML
     public void expandHeight(){
-        TransitionResizeHeight resize = new TransitionResizeHeight(Duration.millis(100), container, 58);
+        TransitionResizeHeight resize = new TransitionResizeHeight(Duration.millis(100), container, fontPxProperty.get() * 4.8);
         resize.play();
     }
     @FXML
     public void reverseHeight(){
-        TransitionResizeHeight resize = new TransitionResizeHeight(Duration.millis(100), container, 48);
+        TransitionResizeHeight resize = new TransitionResizeHeight(Duration.millis(100), container, fontPxProperty.get() * 4);
         resize.play();
     }
     @FXML

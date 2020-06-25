@@ -299,22 +299,17 @@ TextFlow {
     -fx-padding: 0.5em 0.25em 0.9em 0.25em;
     -fx-alignment: center;
     -fx-spacing: 0.5em;
+    -fx-pref-height: 14.1em;
+    -fx-pref-width: 6.5em;
 }
 .user-info{
     -fx-pref-width: 11.5em;
 }
 .user-info TextField,
 .user-info Button{
-    -fx-font-size: 0.85em;
     -fx-text-fill: #bcbcbc;
-    -fx-padding: 0;
-    -fx-min-width: 6em;
-    -fx-pref-width: 0;
-    -fx-max-width: 0;
-    -fx-min-height:1.85em;
-    -fx-pref-height:1.85em;
-    -fx-max-height:1.85em;
     -fx-background-color: #363b41;
+    -fx-font-size: 0.85em;
     -fx-opacity: 1.0;
 }
 .user-info TextField {
@@ -444,7 +439,7 @@ TextFlow {
     -fx-background-color: transparent
 }
 .notification-list HBox{
-    -fx-pref-height: 38;
+    -fx-pref-height: 4em;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-background-color:  #2A2E37;
     -fx-alignment: center;
