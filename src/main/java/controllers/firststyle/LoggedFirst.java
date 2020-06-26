@@ -2,7 +2,6 @@ package controllers.firststyle;
 
 import animations.*;
 import controllers.base.ChatSession;
-import helpers.FontIndicator;
 import helpers.listviews.ChatsUsersListViewCell;
 import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;

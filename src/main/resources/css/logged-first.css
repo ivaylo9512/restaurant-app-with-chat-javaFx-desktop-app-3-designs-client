@@ -158,12 +158,6 @@ TextFlow {
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
-.dishes-container ListView{
-    -fx-pref-height: 200px;
-    -fx-pref-width: 200px;
-    -fx-min-height: 0px;
-    -fx-min-width: 0px;
-}
 .dish-time{
     -fx-border-radius: 0 0 0 0;
     -fx-background-radius: 0 0 0 0;

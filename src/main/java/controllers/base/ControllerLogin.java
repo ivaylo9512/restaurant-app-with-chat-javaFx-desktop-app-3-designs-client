@@ -3,7 +3,6 @@ package controllers.base;
 import javafx.beans.binding.Bindings;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -11,7 +10,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 
 import static application.RestaurantApplication.loginManager;
 import static application.RestaurantApplication.stageManager;
@@ -23,8 +21,6 @@ public abstract class ControllerLogin extends ControllerAdjustable {
     protected TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML
     protected AnchorPane loginPane, loginFields, registerFields, nextRegisterFields, styleButtons;
-
-    protected Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     protected Pane currentMenu;
     protected boolean loading;

@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import java.time.format.DateTimeFormatter;
 import java.util.SortedMap;
 import static application.RestaurantApplication.*;
 
@@ -53,10 +52,6 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     protected Text mainChatInfo, secondChatInfo;
     @FXML
     protected VBox mainChatBlock, secondChatBlock;
-
-    protected static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    protected static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
-    protected static DateTimeFormatter dateFormatterSimple = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
     protected static BooleanProperty isNewNotificationChecked = new SimpleBooleanProperty(true);
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();

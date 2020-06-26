@@ -9,8 +9,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
 
+<?import helpers.FontIndicator?>
 <AnchorPane fx:id="root" layoutY="20" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.secondstyle.LoggedMenu">
-<children>
+    <fx:define>
+        <FontIndicator fx:id="font"/>
+    </fx:define>
     <AnchorPane fx:id="menu" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#expandMenu" onMouseExited="#reverseMenu" styleClass="menu-container" AnchorPane.leftAnchor="0.0">
         <children>
             <AnchorPane styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -84,8 +87,8 @@
                         <children>
                             <StackPane fx:id="profileImageClip" maxHeight="-Infinity" maxWidth="-Infinity">
                                 <children>
-                                    <Circle radius="${controller.fontIndicator.fontPx * 2.5}" />
-                                    <ImageView fx:id="profileImage" fitWidth="${controller.fontIndicator.fontPx * 4.2}" fitHeight="${controller.fontIndicator.fontPx * 4.2}" />
+                                    <Circle radius="${font.fontPx * 2.5}" />
+                                    <ImageView fx:id="profileImage" fitWidth="${font.fontPx * 4.2}" fitHeight="${font.fontPx * 4.2}" />
                                 </children>
                             </StackPane>
                         </children>
@@ -155,7 +158,6 @@
             </AnchorPane>
         </children>
     </AnchorPane>
-</children>
 <cursor>
     <Cursor fx:constant="DEFAULT" />
 </cursor>

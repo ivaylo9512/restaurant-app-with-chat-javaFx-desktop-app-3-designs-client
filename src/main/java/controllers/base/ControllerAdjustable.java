@@ -1,15 +1,11 @@
 package controllers.base;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 
 public abstract class ControllerAdjustable extends Controller{
     @FXML
     public AnchorPane root;
-
-    protected static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     public abstract void resetStage();
 

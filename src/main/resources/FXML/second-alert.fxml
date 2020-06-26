@@ -8,7 +8,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import helpers.FontIndicator?>
 <AnchorPane fx:id="root" styleClass="alert-box" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.base.ControllerAlert">
+    <fx:define>
+        <FontIndicator fx:id="font"/>
+    </fx:define>
     <HBox styleClass="centered-container">
         <AnchorPane fx:id="content" styleClass="content, translate-content">
             <AnchorPane styleClass="inner-shadow" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
@@ -47,8 +51,8 @@
                 <StackPane fx:id="alertIcon" maxHeight="-Infinity" styleClass="alert-icon" GridPane.columnIndex="0">
                     <AnchorPane/>
                     <VBox>
-                        <Rectangle fx:id="iconRectangle" width="${controller.fontIndicator.fontPx * 1.5}" height="${3 * controller.fontIndicator.fontPx}"/>
-                        <Circle radius="${0.75 * controller.fontIndicator.fontPx}"/>
+                        <Rectangle width="${font.fontPx * 1.5}" height="${3 * font.fontPx}"/>
+                        <Circle radius="${0.75 * font.fontPx}"/>
                     </VBox>
                 </StackPane>
             </GridPane>

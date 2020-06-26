@@ -8,11 +8,9 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.stage.Screen;
 import javafx.util.Duration;
 
 public class ControllerAlert extends Controller{
@@ -29,8 +27,6 @@ public class ControllerAlert extends Controller{
 
     public ObjectProperty<String> currentAlert;
     public SimpleListProperty<String> alerts;
-
-    private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     public void bind(){
         content.widthProperty().addListener((observable, oldValue, newValue) -> {
