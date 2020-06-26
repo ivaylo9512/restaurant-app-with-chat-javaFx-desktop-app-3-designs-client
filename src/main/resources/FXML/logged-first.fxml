@@ -201,7 +201,7 @@
     </GridPane>
         <AnchorPane fx:id="orderContainer" minHeight="-Infinity" minWidth="-Infinity" styleClass="order-container">
             <children>
-                <AnchorPane fx:id="dishesAnchor" styleClass="dishes-container" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="41.0">
+                <AnchorPane fx:id="dishesAnchor" styleClass="dishes-container">
                     <children>
                         <ListView fx:id="currentDishList" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="-1" AnchorPane.rightAnchor="-1" AnchorPane.topAnchor="0.0" />
                     </children>
@@ -251,16 +251,16 @@
                         </AnchorPane>
                     </children>
                 </GridPane>
-                <Button fx:id="expandButton" layoutX="29.0" layoutY="48.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+                <Button fx:id="expandButton">
                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="${controller.fontIndicator.fontPx * 1.25}" fitWidth="${controller.fontIndicator.fontPx * 1.25}" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/cloud-down.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Label fx:id="orderId" disable="true" layoutX="22.0" layoutY="14.0" text="Label" AnchorPane.leftAnchor="27.5" AnchorPane.rightAnchor="27.5" />
+                <Label fx:id="orderId" disable="true" text="Label" />
             </children>
         </AnchorPane>
     <AnchorPane fx:id="mainChat" disable="true" layoutX="217.0" layoutY="231.0" maxHeight="428.0" minHeight="189.0" minWidth="423.0" opacity="0.0" prefHeight="189.0" prefWidth="423.0" styleClass="main-chat">

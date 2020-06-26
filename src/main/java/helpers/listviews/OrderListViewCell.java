@@ -1,5 +1,7 @@
 package helpers.listviews;
 
+import application.RestaurantApplication;
+import helpers.FontIndicator;
 import models.Order;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +32,7 @@ public class OrderListViewCell extends ListCell<Order> {
     private Button button;
 
     private FXMLLoader fxmlLoader;
+    private FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
 
     public Order order;
 
@@ -57,6 +60,11 @@ public class OrderListViewCell extends ListCell<Order> {
 
             orderPane.setId(String.valueOf(order.getId().get()));
             orderId.setText(String.valueOf(order.getId().get()));
+
+            AnchorPane.setLeftAnchor(orderId, fontIndicator.getFontPx() * 2.3);
+            AnchorPane.setRightAnchor(orderId, fontIndicator.getFontPx() * 2.3);
+            AnchorPane.setLeftAnchor(button, fontIndicator.getFontPx() * 2.3);
+            AnchorPane.setTopAnchor(button, fontIndicator.getFontPx() * 4);
 
             setText(null);
             setGraphic(container);

@@ -103,7 +103,6 @@ TextFlow {
     -fx-border-width: 0;
     -fx-alignment: center;
 }
-.order-container,
 .order-container{
     -fx-pref-height: 7.2em;
     -fx-pref-width: 7.2em;
@@ -135,10 +134,17 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
 }
+.order-container > Label{
+    -fx-translate-y: 1.17em;
+}
 .order-container > Button{
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
+    -fx-pref-height: 2.3em;
+    -fx-pref-width: 2.3em;
+    -fx-min-height: 2.3em;
+    -fx-min-width: 2.3em;
 }
 .order-container > Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
@@ -151,8 +157,6 @@ TextFlow {
 .dishes-container {
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-    -fx-pref-height: 35px;
-    -fx-pref-width: 31px;
 }
 .dishes-container ListView{
     -fx-pref-height: 200px;

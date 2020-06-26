@@ -3,21 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import helpers.FontIndicator?>
 
 <HBox fx:id="container" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <fx:define>
+      <FontIndicator fx:id="font"/>
+   </fx:define>
    <children>
       <AnchorPane styleClass="order-container" maxHeight="-Infinity" minHeight="-Infinity" fx:id="orderPane" >
          <children>
-            <Button fx:id="button" layoutX="29.0" layoutY="48.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
+            <Button fx:id="button">
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="${font.fontPx * 1.25}" fitWidth="${font.fontPx * 1.25}" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/cloud-down.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="orderId" disable="true" layoutX="22.0" layoutY="14.0" text="Label" AnchorPane.leftAnchor="27.5" AnchorPane.rightAnchor="27.5" />
+            <Label fx:id="orderId" disable="true" text="Label" />
          </children>
       </AnchorPane>
    </children>

@@ -330,6 +330,17 @@ public class LoggedFirst extends ControllerLogged {
         dishesClip.heightProperty().bind(dishesAnchor.heightProperty());
         currentDishList.setClip(dishesClip);
 
+        AnchorPane.setLeftAnchor(dishesAnchor, fontPx * 2.35);
+        AnchorPane.setRightAnchor(dishesAnchor, fontPx * 2.35);
+        AnchorPane.setTopAnchor(dishesAnchor, fontPx * 3.5);
+        AnchorPane.setBottomAnchor(dishesAnchor, fontPx * 4.85);
+
+        AnchorPane.setLeftAnchor(orderId, fontPx * 2.3);
+        AnchorPane.setRightAnchor(orderId, fontPx * 2.3);
+
+        AnchorPane.setLeftAnchor(expandButton, fontPx * 2.3);
+        AnchorPane.setTopAnchor(expandButton, fontPx * 4);
+
         orderContainer.disableProperty().bind(expandOrderPane.isButtonExpanded.not());
         orderContainer.opacityProperty().bind(Bindings.createIntegerBinding(()->{
             if(expandOrderPane.action.get()){
