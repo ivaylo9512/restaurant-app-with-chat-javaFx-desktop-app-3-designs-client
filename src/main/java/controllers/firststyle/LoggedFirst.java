@@ -1,7 +1,6 @@
 package controllers.firststyle;
 
 import animations.*;
-import application.RestaurantApplication;
 import controllers.base.ChatSession;
 import helpers.FontIndicator;
 import helpers.listviews.ChatsUsersListViewCell;
@@ -53,7 +52,6 @@ public class LoggedFirst extends ControllerLogged {
     private ObjectProperty<ChatsUsersListViewCell> secondUserChatCell = new SimpleObjectProperty<>();
 
     private ChatSession mainChatSession, secondChatSession;
-    private FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
     public ExpandOrderPane expandOrderPane = new ExpandOrderPane();
     private Scrolls scrolls;
 
@@ -76,9 +74,9 @@ public class LoggedFirst extends ControllerLogged {
         mainChatSession.init();
         secondChatSession.init();
 
-        root.setStyle("-fx-font-size: " + fontIndicator.getFontPx() + ";");
-        fontIndicator.getFontPxProperty().addListener((observable, oldValue, newValue) -> {
-            root.setStyle("-fx-font-size: " + fontIndicator.getFontPx() + ";");
+        root.setStyle("-fx-font-size: " + fontPxProperty.get() + ";");
+        fontPxProperty.addListener((observable, oldValue, newValue) -> {
+            root.setStyle("-fx-font-size: " + fontPxProperty.get() + ";");
         });
 
         chatUsersList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -316,7 +314,7 @@ public class LoggedFirst extends ControllerLogged {
     }
 
     public void setOrderPane(){
-        double fontPx = fontIndicator.getFontPx();
+        double fontPx = fontPxProperty.get();
         expandButton.prefWidthProperty().bind(((orderContainer.prefWidthProperty()
                 .subtract(fontPx * 6.8))
                 .divide(fontPx * 1.25))
@@ -394,9 +392,5 @@ public class LoggedFirst extends ControllerLogged {
         expandOrderPane.currentContainer = container;
         expandOrderPane.cell = orderCell;
 
-    }
-
-    public FontIndicator getFontIndicator(){
-        return fontIndicator;
     }
 }

@@ -9,15 +9,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.Cursor?>
 
+<?import helpers.FontIndicator?>
 <AnchorPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.firststyle.LoggedFirst">
+    <fx:define>
+        <FontIndicator fx:id="font"/>
+    </fx:define>
     <GridPane AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" prefWidth="${controller.fontIndicator.fontPx * 8.5}"  maxWidth="${controller.fontIndicator.fontPx * 8.5}" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="${font.fontPx * 8.5}"  maxWidth="${font.fontPx * 8.5}" />
             <ColumnConstraints hgrow="ALWAYS"/>
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" vgrow="NEVER" />
-            <RowConstraints prefHeight="${controller.fontIndicator.fontPx * 16}"/>
+            <RowConstraints prefHeight="${font.fontPx * 16}"/>
             <RowConstraints vgrow="ALWAYS" />
         </rowConstraints>
         <children>
@@ -88,8 +92,8 @@
                         <children>
                             <StackPane fx:id="profileImageContainer" maxHeight="-Infinity" maxWidth="-Infinity">
                                 <children>
-                                    <Circle radius="${controller.fontIndicator.fontPx * 2.5}" />
-                                    <ImageView fx:id="profileImage" fitHeight="${controller.fontIndicator.fontPx * 4.15}" fitWidth="${controller.fontIndicator.fontPx * 4.15}">
+                                    <Circle radius="${font.fontPx * 2.5}" />
+                                    <ImageView fx:id="profileImage" fitHeight="${font.fontPx * 4.15}" fitWidth="${font.fontPx * 4.15}">
                                     </ImageView>
                                 </children>
                             </StackPane>
@@ -152,7 +156,7 @@
                         <ColumnConstraints hgrow="SOMETIMES"  halignment="CENTER" />
                     </columnConstraints>
                     <StackPane styleClass="role-image">
-                        <ImageView fitHeight="${controller.fontIndicator.fontPx * 5.15}" fitWidth="${controller.fontIndicator.fontPx * 5.15}" fx:id="roleImage"/>
+                        <ImageView fitHeight="${font.fontPx * 5.15}" fitWidth="${font.fontPx * 5.15}" fx:id="roleImage"/>
                     </StackPane>
                     <GridPane styleClass="user-info-container" GridPane.rowIndex="1">
                         <rowConstraints>
@@ -253,7 +257,7 @@
                 </GridPane>
                 <Button fx:id="expandButton">
                     <graphic>
-                        <ImageView fitHeight="${controller.fontIndicator.fontPx * 1.25}" fitWidth="${controller.fontIndicator.fontPx * 1.25}" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="${font.fontPx * 1.25}" fitWidth="${font.fontPx * 1.25}" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/cloud-down.png" />
                             </image>

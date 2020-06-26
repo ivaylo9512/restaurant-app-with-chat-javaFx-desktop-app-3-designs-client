@@ -39,8 +39,6 @@ public class LoggedMenu extends ControllerLogged {
     private HBox notificationBox;
     private AnchorPane currentMenuView;
 
-    private FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
-
     private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
     private Stage stage = stageManager.secondLoggedMenuStage;
 
@@ -51,6 +49,7 @@ public class LoggedMenu extends ControllerLogged {
     private List<Node> userInfoContainers;
     private List<Node> profileButtons;
     private List<Node> menuButtons;
+    private double fontPx = fontPxProperty.get();
 
     @FXML
     public void initialize(){
@@ -70,7 +69,8 @@ public class LoggedMenu extends ControllerLogged {
         notificationsList.setItems(notificationManager.notifications);
 
         scaleFontNodes();
-        fontIndicator.getFontPxProperty().addListener((observable, oldValue, newValue) -> {
+        fontPxProperty.addListener((observable, oldValue, newValue) -> {
+            fontPx = newValue.doubleValue();
             scaleFontNodes();
         });
 
@@ -86,30 +86,29 @@ public class LoggedMenu extends ControllerLogged {
     }
 
     private void scaleFontNodes() {
-        root.setStyle("-fx-font-size:" + fontIndicator.getFontPx() + ";");
+        root.setStyle("-fx-font-size:" + fontPx + ";");
         updateMenuButtonsAnchors();
         updateInfoContainersAnchors();
         updateProfileButtonsAnchors();
     }
 
     private void updateProfileButtonsAnchors() {
-        double fontSize = fontIndicator.getFontPx();
         for (int i = 0; i < profileButtons.size(); i++) {
-            AnchorPane.setTopAnchor(profileButtons.get(i), fontSize * 6.8 + i * fontSize * 2.75);
-            AnchorPane.setBottomAnchor(profileButtons.get(i), fontSize * 0.5 + (profileButtons.size() - 1 - i) * fontSize * 2.75);
+            AnchorPane.setTopAnchor(profileButtons.get(i), fontPx * 6.8 + i * fontPx * 2.75);
+            AnchorPane.setBottomAnchor(profileButtons.get(i), fontPx * 0.5 + (profileButtons.size() - 1 - i) * fontPx * 2.75);
         }
     }
 
     private void updateInfoContainersAnchors() {
-        AnchorPane.setTopAnchor(userInfoContainers.get(0), fontIndicator.getFontPx() * 1.1);
-        AnchorPane.setBottomAnchor(userInfoContainers.get(0), fontIndicator.getFontPx() * 15.3);
+        AnchorPane.setTopAnchor(userInfoContainers.get(0), fontPx * 1.1);
+        AnchorPane.setBottomAnchor(userInfoContainers.get(0), fontPx * 15.3);
 
-        AnchorPane.setTopAnchor(userInfoContainers.get(1), fontIndicator.getFontPx() * 5.5);
-        AnchorPane.setBottomAnchor(userInfoContainers.get(1), fontIndicator.getFontPx() * 11.0);
+        AnchorPane.setTopAnchor(userInfoContainers.get(1), fontPx * 5.5);
+        AnchorPane.setBottomAnchor(userInfoContainers.get(1), fontPx * 11.0);
     }
 
     private void updateMenuButtonsAnchors() {
-        double fontSize = fontIndicator.getFontPx();
+        double fontSize = fontPx;
         for (int i = 0; i < menuButtons.size(); i++) {
             Node container = menuButtons.get(i).getParent();
             AnchorPane.setLeftAnchor(container, fontSize * 3.2 + i * 7.6 * fontSize);
@@ -438,9 +437,5 @@ public class LoggedMenu extends ControllerLogged {
 
         notificationBox.prefWidthProperty().bind(notificationButton.widthProperty().subtract(57));
         notificationBox.prefHeightProperty().bind(notificationButton.widthProperty().subtract(57));
-    }
-
-    public FontIndicator getFontIndicator() {
-        return fontIndicator;
     }
 }

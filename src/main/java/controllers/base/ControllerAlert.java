@@ -1,7 +1,5 @@
 package controllers.base;
 
-import application.RestaurantApplication;
-import helpers.FontIndicator;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -29,8 +27,6 @@ public class ControllerAlert extends Controller{
     @FXML
     StackPane alertIcon;
 
-    public FontIndicator fontIndicator = RestaurantApplication.fontIndicator;
-
     public ObjectProperty<String> currentAlert;
     public SimpleListProperty<String> alerts;
 
@@ -45,11 +41,11 @@ public class ControllerAlert extends Controller{
         });
         alertMessage.textProperty().bind(currentAlert);
         alertsCount.textProperty().bind(alerts.sizeProperty().asString());
-        root.setStyle("-fx-font-size: " + fontIndicator.getFontPx() + ";");
+        root.setStyle("-fx-font-size: " + fontPxProperty.get() + ";");
 
         root.paddingProperty().bind(Bindings.createObjectBinding(()->
-                new Insets(fontIndicator.getFontPx() * 1.5),fontIndicator.getFontPxProperty()));
-        fontIndicator.getFontPxProperty().addListener((observable, oldValue, newValue) -> {
+                new Insets(fontPxProperty.get() * 1.5),fontPxProperty));
+        fontPxProperty.addListener((observable, oldValue, newValue) -> {
             root.setStyle("-fx-font-size: " + newValue.doubleValue() + ";");
         });
 
@@ -91,9 +87,5 @@ public class ControllerAlert extends Controller{
     public void closeAlerts(){
         currentAlert.set(null);
         alerts.clear();
-    }
-
-    public FontIndicator getFontIndicator() {
-        return fontIndicator;
     }
 }

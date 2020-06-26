@@ -10,8 +10,8 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.text.Font;
 
 public class FontIndicator {
-    private static DoubleProperty fontPx = new SimpleDoubleProperty(Font.getDefault().getSize());
-    private KeyCombination  combination = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
+    public static DoubleProperty fontPx = new SimpleDoubleProperty(Font.getDefault().getSize());
+    private static KeyCombination  combination = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
 
     public void setSliderBinding(Node root, Slider slider){
         root.setOnKeyPressed(event -> {
