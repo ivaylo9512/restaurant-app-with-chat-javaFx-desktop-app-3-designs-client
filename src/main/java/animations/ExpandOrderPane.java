@@ -87,7 +87,7 @@ public class ExpandOrderPane {
         double initialOffsetY = event.getY() - currentPane.getLayoutY();
 
         orderPane.setLayoutX(event.getSceneX() - initialOffsetX);
-        orderPane.setLayoutY(event.getSceneY() - initialOffsetY + 2);
+        orderPane.setLayoutY(event.getSceneY() - initialOffsetY);
     }
 
     public void setListeners(){

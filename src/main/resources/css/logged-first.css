@@ -95,14 +95,12 @@ TextFlow {
 .order-list .list-cell{
     -fx-background-color: transparent;
     -fx-padding: 0;
-}
-.order-list .order-cell{
-
+    -fx-border-width: 0;
+    -fx-border-color: #363b41;
+    -fx-pref-width: 10.55em;
 }
 .order-container{
-    -fx-pref-height: 15.53em;
-    -fx-pref-width: 10.55em;
-    -fx-border-width: 0 0 0 0;
+    -fx-border-width: 0;
     -fx-alignment: center;
 }
 .order-container > AnchorPane{
@@ -111,18 +109,17 @@ TextFlow {
     -fx-background-color: #2A2E37;
     -fx-background-radius: 10px;
 }
-.order-list .order-container > AnchorPane:hover{
+.order-list .order-container > AnchorPane:hover,
+.root > .order-container{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-}
-.order-list .order-container{
-    -fx-background-color: transparent;
 }
 .order-container .list-cell,
 .notification-list .list-cell{
      -fx-background-color: transparent;
      -fx-padding: 0;
 }
-.order > GridPane Label{
+.order > GridPane Label,
+.order-container > AnchorPane > Label {
     -fx-background-color: #2A2E37;
     -fx-border-radius: 2 2 0 0;
     -fx-background-radius: 2 2 0 0;
@@ -130,16 +127,16 @@ TextFlow {
     -fx-pref-width: 2.5em;
     -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
-    -fx-font-size: 10;
+    -fx-font-size: 0.835em;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
 }
-.order > Button{
+.order-container > AnchorPane > Button{
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
 }
-.order > Button:hover{
+.order-container > AnchorPane > Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
 .loading{
@@ -187,13 +184,13 @@ TextFlow {
 .chat-users .selected Pane{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
-.order > Button:pressed{
+.order-container > AnchorPane > Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
-.order .menu-cell{
+.order-container .menu-cell{
     -fx-background-color: #2A2E37;
 }
-.order ListView:disabled{
+.order-container ListView:disabled{
     -fx-opacity: 1;
 }
 .program-bar{

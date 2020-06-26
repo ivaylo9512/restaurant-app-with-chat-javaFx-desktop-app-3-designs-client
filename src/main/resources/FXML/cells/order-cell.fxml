@@ -6,7 +6,7 @@
 
 <HBox fx:id="container" styleClass="order-container" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" fx:id="orderPane" styleClass="order" >
+      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" fx:id="orderPane" >
          <children>
             <Button fx:id="button" layoutX="29.0" layoutY="48.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
                <graphic>

@@ -5,11 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
 import controllers.firststyle.LoggedFirst;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 
 import static application.RestaurantApplication.stageManager;
 
@@ -59,7 +57,6 @@ public class OrderListViewCell extends ListCell<Order> {
 
             orderPane.setId(String.valueOf(order.getId().get()));
             orderId.setText(String.valueOf(order.getId().get()));
-            container.setClip(new Rectangle(container.getPrefWidth(), container.getPrefHeight()));
 
             setText(null);
             setGraphic(container);
