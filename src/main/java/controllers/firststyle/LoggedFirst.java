@@ -316,22 +316,15 @@ public class LoggedFirst extends ControllerLogged {
     }
 
     public void setOrderPane(){
-        Rectangle rect = new Rectangle(orderContainer.getWidth(), orderContainer.getHeight());
-        rect.heightProperty().bind(orderContainer.prefHeightProperty());
-        rect.widthProperty().bind(orderContainer.prefWidthProperty());
-        rect.setArcWidth(20);
-        rect.setArcHeight(20);
-        rect.getStyleClass().add("shadow");
-        orderPane.setClip(rect);
-
+        double fontPx = fontIndicator.getFontPx();
         expandButton.prefWidthProperty().bind(((orderContainer.prefWidthProperty()
-                .subtract(81.6))
-                .divide(15))
-                .add(28));
+                .subtract(fontPx * 6.8))
+                .divide(fontPx * 1.25))
+                .add(fontPx * 2.25));
         expandButton.prefHeightProperty().bind(((orderContainer.prefHeightProperty()
-                .subtract(81.6))
-                .divide(30))
-                .add(28));
+                .subtract(fontPx * 6.8))
+                .divide(fontPx * 1.25))
+                .add(fontPx * 2.25));
         Rectangle dishesClip = new Rectangle();
         dishesClip.widthProperty().bind(dishesAnchor.widthProperty());
         dishesClip.heightProperty().bind(dishesAnchor.heightProperty());

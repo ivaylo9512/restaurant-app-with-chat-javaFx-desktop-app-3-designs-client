@@ -99,27 +99,31 @@ TextFlow {
     -fx-border-color: #363b41;
     -fx-pref-width: 10.55em;
 }
-.order-container{
+.order-list .list-cell HBox{
     -fx-border-width: 0;
     -fx-alignment: center;
 }
-.order-container > AnchorPane{
+.order-container,
+.order-container{
     -fx-pref-height: 7.2em;
     -fx-pref-width: 7.2em;
     -fx-background-color: #2A2E37;
     -fx-background-radius: 10px;
 }
-.order-list .order-container > AnchorPane:hover,
+.order-list .order-container:hover,
 .root > .order-container{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+}
+.order-container ListView{
+    -fx-background-color: transparent;
 }
 .order-container .list-cell,
 .notification-list .list-cell{
      -fx-background-color: transparent;
      -fx-padding: 0;
 }
-.order > GridPane Label,
-.order-container > AnchorPane > Label {
+.order-container > GridPane Label,
+.order-container > Label {
     -fx-background-color: #2A2E37;
     -fx-border-radius: 2 2 0 0;
     -fx-background-radius: 2 2 0 0;
@@ -131,12 +135,12 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
 }
-.order-container > AnchorPane > Button{
+.order-container > Button{
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
 }
-.order-container > AnchorPane > Button:hover{
+.order-container > Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
 .loading{

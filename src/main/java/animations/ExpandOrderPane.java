@@ -225,8 +225,7 @@ public class ExpandOrderPane {
             }
         }
         if(expand >= 0){
-            orderPane.setPrefWidth(orderWidth);
-            orderPane.setPrefHeight(orderHeight);
+            orderPane.setPrefSize(orderWidth, orderHeight);
             button.setTranslateY(0);
             button.setTranslateX(0);
             orderPane.setTranslateX(0);
@@ -234,13 +233,11 @@ public class ExpandOrderPane {
 
         if(orderWidth - expand > orderWidth) {
 
-            orderPane.setPrefWidth(orderWidth - expand);
-            orderPane.setPrefHeight(orderHeight - expand);
+            orderPane.setPrefSize(orderWidth - expand, orderHeight - expand);
 
             if (orderPane.getPrefWidth() >= maxOrderWidth) {
                 isButtonExpanded.setValue(true);
-                orderPane.setPrefWidth(maxOrderWidth);
-                orderPane.setPrefHeight(maxOrderWidth);
+                orderPane.setPrefSize(maxOrderWidth, maxOrderWidth);
 
                 mouseX = eventDrag.getScreenX();
                 mouseY = eventDrag.getScreenY();
@@ -298,8 +295,7 @@ public class ExpandOrderPane {
         button.setTranslateX(0);
         button.setTranslateY(0);
 
-        orderPane.setPrefHeight(orderHeight);
-        orderPane.setPrefWidth(orderWidth);
+        orderPane.setPrefSize(orderWidth, orderHeight);
 
         orderList.getSelectionModel().clearSelection();
         orderList.setDisable(false);
