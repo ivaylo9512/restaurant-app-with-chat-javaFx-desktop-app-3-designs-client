@@ -12,17 +12,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 import models.Order;
 
 public class ExpandOrderPane {
 
-    private double orderWidth, orderHeight, maxOrderWidth, buttonX, buttonY, mouseY, mouseX,
-            initialOffsetX, xButtonRation, initialMouseX;
+    private double orderWidth, orderHeight, maxOrderWidth, mouseY, mouseX,
+            initialOffsetX, initialMouseX;
 
     public Pane currentContainer, currentPane, orderPane;
     public StackPane contentPane;
@@ -40,13 +37,13 @@ public class ExpandOrderPane {
 
     private LoggedFirst controller;
     private FadeTransition showDates;
-    private TranslateTransition transitionPane, transitionButton;
+    private TranslateTransition transitionPane;
     private TransitionResizeHeight heightPane;
     private TransitionResizeWidth widthPane;
 
     private Timeline expandedDelay = new Timeline();
 
-    public void setControllerFields(LoggedFirst controller, AnchorPane orderContainer, Button expandButton, StackPane contentPane, ListView<Order> ordersList, GridPane dates) {
+    public void setControllerFields(LoggedFirst controller, Pane orderContainer, Button expandButton, StackPane contentPane, ListView<Order> ordersList, GridPane dates) {
         this.controller = controller;
         this.orderPane = orderContainer;
         this.button = expandButton;
@@ -66,14 +63,10 @@ public class ExpandOrderPane {
         mouseX = event.getScreenX();
         mouseY = event.getScreenY();
 
-        buttonX = button.getLayoutX();
-        buttonY = button.getLayoutY();
-
         setOrderDimension(event);
 
         initialMouseX = event.getScreenX();
         maxOrderWidth = orderWidth * 4;
-        xButtonRation = currentPane.getWidth() / (button.getLayoutX() + button.getWidth() / 2);
     }
 
     public void setOrderDimension(MouseEvent event) {
@@ -110,9 +103,6 @@ public class ExpandOrderPane {
         transitionPane = new TranslateTransition(Duration.millis(750), orderPane);
         transitionPane.setToX(0);
         transitionPane.setToY(0);
-        transitionButton = new TranslateTransition(Duration.millis(750), button);
-        transitionButton.setToX(0);
-        transitionButton.setToY(0);
         heightPane = new TransitionResizeHeight(orderPane);
         widthPane = new TransitionResizeWidth(orderPane);
     }
@@ -121,10 +111,10 @@ public class ExpandOrderPane {
         Node intersectedNode = event.getPickResult().getIntersectedNode();
         intersectedNode = intersectedNode == null ? (Node)event.getTarget() : intersectedNode;
 
-        if(!isOrderListScrolling && !action.get() && (intersectedNode instanceof Button || intersectedNode instanceof AnchorPane)){
+        if(!isOrderListScrolling && !action.get() && (intersectedNode instanceof Button || intersectedNode instanceof VBox)){
 
-            currentPane = intersectedNode instanceof AnchorPane ? (AnchorPane) intersectedNode
-                    : (AnchorPane) intersectedNode.getParent();
+            currentPane = intersectedNode instanceof VBox ? (VBox) intersectedNode
+                    : (VBox) intersectedNode.getParent();
             currentContainer = (Pane)currentPane.getParent();
             cell =  (OrderListViewCell) currentContainer.getParent();
 
@@ -193,17 +183,6 @@ public class ExpandOrderPane {
         TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750), orderPane, maxOrderWidth);
         widthPane.play();
 
-        double expandButtonX = button.getPrefHeight() + (maxOrderWidth - orderWidth) / 15;
-        double expandButtonY = button.getPrefWidth() + (maxOrderWidth - orderWidth) / 30;
-
-        double translateButtonX = (maxOrderWidth - expandButtonX) / xButtonRation - buttonX;
-        double translateButtonY = maxOrderWidth - expandButtonY - 10.5 - buttonY;
-
-        TranslateTransition translateButton = new TranslateTransition(Duration.millis(750), button);
-        translateButton.setToX(translateButtonX);
-        translateButton.setToY(translateButtonY);
-        translateButton.play();
-
         TranslateTransition translatePane = new TranslateTransition(Duration.millis(750),orderPane);
         translatePane.setToX(-(maxOrderWidth - orderPane.getWidth()) / 2);
         translatePane.setToY(0);
@@ -226,8 +205,6 @@ public class ExpandOrderPane {
         }
         if(expand >= 0){
             orderPane.setPrefSize(orderWidth, orderHeight);
-            button.setTranslateY(0);
-            button.setTranslateX(0);
             orderPane.setTranslateX(0);
         }
 
@@ -245,13 +222,6 @@ public class ExpandOrderPane {
                 showDates.setDelay(Duration.ZERO);
                 showDates.play();
             }
-
-            double translateButtonY = orderPane.getPrefHeight() - button.getPrefHeight() - 10.5 - buttonY;
-            double translateButtonX = (orderPane.getPrefWidth() - button.getPrefWidth()) / xButtonRation - buttonX;
-
-            button.setTranslateX(translateButtonX);
-            button.setTranslateY(translateButtonY);
-
         }
 
     }
@@ -267,9 +237,6 @@ public class ExpandOrderPane {
 
         transitionPane.setDuration(delay);
         transitionPane.play();
-
-        transitionButton.setDuration(delay);
-        transitionButton.play();
 
         heightPane.setAndPlay(delay, orderHeight);
         widthPane.setAndPlay(delay, orderWidth);
@@ -291,9 +258,6 @@ public class ExpandOrderPane {
 
         orderPane.setTranslateX(0);
         orderPane.setTranslateY(0);
-
-        button.setTranslateX(0);
-        button.setTranslateY(0);
 
         orderPane.setPrefSize(orderWidth, orderHeight);
 
