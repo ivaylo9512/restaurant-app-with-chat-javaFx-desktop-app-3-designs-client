@@ -205,7 +205,9 @@
     </GridPane>
     <VBox fx:id="orderContainer" minHeight="-Infinity" minWidth="-Infinity" styleClass="order-container">
         <children>
-            <Label fx:id="orderId" viewOrder="1" disable="true" text="Label" maxWidth="Infinity"/>
+            <HBox viewOrder="1" disable="true" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+                <Label fx:id="orderId" text="Label" maxWidth="Infinity" maxHeight="Infinity"/>
+            </HBox>
             <AnchorPane fx:id="dishesAnchor" viewOrder="3" minWidth="-Infinity" VBox.vgrow="SOMETIMES" styleClass="dishes-container">
                 <children>
                     <ListView fx:id="currentDishList" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="-1" AnchorPane.rightAnchor="-1" AnchorPane.topAnchor="0.0" />

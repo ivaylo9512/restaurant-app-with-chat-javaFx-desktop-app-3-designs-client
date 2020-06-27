@@ -12,7 +12,9 @@
    <children>
       <VBox fx:id="orderPane" styleClass="order-container" maxHeight="-Infinity" minHeight="-Infinity">
          <children>
-            <Label fx:id="orderId" viewOrder="1" disable="true" text="Label" maxWidth="Infinity"/>
+            <HBox viewOrder="1" disable="true" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+               <Label fx:id="orderId" text="Label" maxWidth="Infinity" maxHeight="Infinity"/>
+            </HBox>
             <Button fx:id="button" viewOrder="2" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="${font.fontPx * 1.25}" fitWidth="${font.fontPx * 1.25}" pickOnBounds="true" preserveRatio="true">

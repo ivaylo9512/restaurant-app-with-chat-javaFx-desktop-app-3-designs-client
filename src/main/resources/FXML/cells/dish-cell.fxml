@@ -4,20 +4,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="grid" onMouseClicked="#updateDishState" onMouseMoved="#shrink" onMouseExited="#expand" maxHeight="80" minHeight="64" maxWidth="1.7976931348623157E308" prefWidth="169.0" styleClass="menu-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="grid" onMouseClicked="#updateDishState" onMouseMoved="#shrink" onMouseExited="#expand" styleClass="dish-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
-      <ColumnConstraints hgrow="ALWAYS" maxWidth="34.0" minWidth="9.0" prefWidth="34.0" />
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="96.0" />
+      <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" maxWidth="34.0" minWidth="9.0" prefWidth="34.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
       <ColumnConstraints maxWidth="34.0" minWidth="37.0" prefWidth="34.0" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints />
-      <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+      <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
    </rowConstraints>
    <children>
-      <Label fx:id="price" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="34.0" styleClass="price" text="Label" textAlignment="CENTER" textFill="#bcbcbc" GridPane.rowIndex="1" />
-      <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="65.0" styleClass="name" text="Label" textAlignment="CENTER" textFill="#bcbcbc" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-      <StackPane prefHeight="27.0" prefWidth="34.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Label fx:id="price" style="-fx-background-color: red;" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" styleClass="price" text="Label"/>
+      <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Label" GridPane.columnIndex="1"/>
+      <StackPane prefHeight="27.0" prefWidth="34.0" GridPane.columnIndex="2">
          <Label fx:id="ready" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="34.0" styleClass="ready" text="Label" textAlignment="CENTER" textFill="#bcbcbc" />
          <ProgressIndicator fx:id="progressIndicator" prefHeight="12.0" prefWidth="12.0" maxWidth="12" maxHeight="12" styleClass="loading" />
       </StackPane>

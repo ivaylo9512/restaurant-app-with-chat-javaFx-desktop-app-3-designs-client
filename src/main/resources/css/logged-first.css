@@ -125,17 +125,23 @@ TextFlow {
      -fx-background-color: transparent;
      -fx-padding: 0;
 }
-.order-container > GridPane Label,
-.order-container > Label {
+.order-container > HBox {
     -fx-background-color: #2A2E37;
     -fx-border-radius: 2 2 0 0;
     -fx-background-radius: 2 2 0 0;
     -fx-pref-height: 2.6em;
-    -fx-text-fill: #bcbcbc;
+    -fx-min-height: 2.6em;
+    -fx-max-height: 2.6em;
+    -fx-padding: 0;
     -fx-alignment: center;
-    -fx-font-size: 0.835em;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
+}
+.order-container > HBox > Label{
+    -fx-opacity: 1.0;
+    -fx-text-fill: #bcbcbc;
+    -fx-font-size: 0.835em;
+
 }
 .order-container > Button{
     -fx-background-color: #2A2E37;
@@ -196,8 +202,21 @@ TextFlow {
 .order-container > AnchorPane > Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
-.order-container .menu-cell{
+.dish-cell{
     -fx-background-color: #2A2E37;
+    -fx-max-height: 6.7em;
+    -fx-min-height: 5.35em;
+}
+.dish-cell Label{
+    -fx-text-fill: #bcbcbc;
+}
+.menu-cell{
+    -fx-background-color: #2A2E37;
+    -fx-max-height: 6.7em;
+    -fx-min-height: 5.35em;
+}
+.menu-cell Label{
+    -fx-fill: #bcbcbc;
 }
 .order-container ListView:disabled{
     -fx-opacity: 1;

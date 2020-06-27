@@ -117,10 +117,10 @@ TextFlow {
     -fx-background-color: #1a1a1a;
         -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 0, 0, 0, 2 );
 }
-.menu-cell{
+.dish-cell{
     -fx-pref-Height: 5.35em;
 }
-.menu-cell Label{
+.dish-cell Label{
     -fx-text-fill: #bcbcbc;
 }
 .menu-container .list-view .list-cell{
