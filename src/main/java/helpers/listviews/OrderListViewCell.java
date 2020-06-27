@@ -62,7 +62,7 @@ public class OrderListViewCell extends ListCell<Order> {
             double fontPx = FontIndicator.fontPx.get();
             AnchorPane.setLeftAnchor(orderId, fontPx * 2.3);
             AnchorPane.setRightAnchor(orderId, fontPx * 2.3);
-            AnchorPane.setLeftAnchor(button, fontPx * 2.3);
+            AnchorPane.setLeftAnchor(button, fontPx * 2.4);
             AnchorPane.setTopAnchor(button, fontPx * 4);
 
             setText(null);

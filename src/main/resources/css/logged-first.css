@@ -122,12 +122,11 @@ TextFlow {
      -fx-padding: 0;
 }
 .order-container > GridPane Label,
-.order-container > Label {
+.order-container > VBox > Label {
     -fx-background-color: #2A2E37;
     -fx-border-radius: 2 2 0 0;
     -fx-background-radius: 2 2 0 0;
-    -fx-pref-height: 2.5em;
-    -fx-pref-width: 2.5em;
+    -fx-pref-height: 2.6em;
     -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
     -fx-font-size: 0.835em;
@@ -137,14 +136,17 @@ TextFlow {
 .order-container > Label{
     -fx-translate-y: 1.17em;
 }
-.order-container > Button{
+.order-container VBox{
+    -fx-padding: 1.17em 2.3em 1em 2.3em;
+}
+.order-container > VBox > Button{
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-opacity: 1.0;
+    -fx-max-height: 3em;
     -fx-pref-height: 2.3em;
     -fx-pref-width: 2.3em;
-    -fx-min-height: 2.3em;
-    -fx-min-width: 2.3em;
+    -fx-background-radius: 0 0 3px 3px;
 }
 .order-container > Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
@@ -155,6 +157,9 @@ TextFlow {
     -fx-text-fill: #bcbcbc;
 }
 .dishes-container {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-min-height: 0.3em;
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }

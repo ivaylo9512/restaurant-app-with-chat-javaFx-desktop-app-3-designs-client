@@ -313,30 +313,10 @@ public class LoggedFirst extends ControllerLogged {
     }
 
     public void setOrderPane(){
-        double fontPx = fontPxProperty.get();
-        expandButton.prefWidthProperty().bind(((orderContainer.prefWidthProperty()
-                .subtract(fontPx * 6.8))
-                .divide(fontPx * 1.25))
-                .add(fontPx * 2.25));
-        expandButton.prefHeightProperty().bind(((orderContainer.prefHeightProperty()
-                .subtract(fontPx * 6.8))
-                .divide(fontPx * 1.25))
-                .add(fontPx * 2.25));
         Rectangle dishesClip = new Rectangle();
         dishesClip.widthProperty().bind(dishesAnchor.widthProperty());
         dishesClip.heightProperty().bind(dishesAnchor.heightProperty());
         currentDishList.setClip(dishesClip);
-
-        AnchorPane.setLeftAnchor(dishesAnchor, fontPx * 2.35);
-        AnchorPane.setRightAnchor(dishesAnchor, fontPx * 2.35);
-        AnchorPane.setTopAnchor(dishesAnchor, fontPx * 3.5);
-        AnchorPane.setBottomAnchor(dishesAnchor, fontPx * 4.85);
-
-        AnchorPane.setLeftAnchor(orderId, fontPx * 2.3);
-        AnchorPane.setRightAnchor(orderId, fontPx * 2.3);
-
-        AnchorPane.setLeftAnchor(expandButton, fontPx * 2.3);
-        AnchorPane.setTopAnchor(expandButton, fontPx * 4);
 
         orderContainer.disableProperty().bind(expandOrderPane.isButtonExpanded.not());
         orderContainer.opacityProperty().bind(Bindings.createIntegerBinding(()->{
