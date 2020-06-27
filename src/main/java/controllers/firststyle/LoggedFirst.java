@@ -33,7 +33,7 @@ import static application.RestaurantApplication.*;
 
 public class LoggedFirst extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll;
-    @FXML AnchorPane orderContainer, dishesAnchor, createdContainer, updatedContainer;
+    @FXML AnchorPane dishesAnchor, createdContainer, updatedContainer;
     @FXML HBox moveBar;
     @FXML Pane moveBarMenu;
     @FXML ImageView roleImage;
@@ -41,6 +41,7 @@ public class LoggedFirst extends ControllerLogged {
     @FXML GridPane dates, profileRoot;
     @FXML StackPane profileImageContainer;
     @FXML StackPane upperContent;
+    @FXML VBox orderContainer;
 
     private ScrollBar ordersScrollBar;
 
@@ -366,7 +367,7 @@ public class LoggedFirst extends ControllerLogged {
         bindOrderProperties(order);
     }
 
-    public void updateExpandOrder(AnchorPane orderPane, Pane container, OrderListViewCell orderCell) {
+    public void updateExpandOrder(VBox orderPane, Pane container, OrderListViewCell orderCell) {
         expandOrderPane.currentPane = orderPane;
         expandOrderPane.currentContainer = container;
         expandOrderPane.cell = orderCell;
