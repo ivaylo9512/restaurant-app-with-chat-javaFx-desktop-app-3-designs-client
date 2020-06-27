@@ -10,9 +10,10 @@
       <FontIndicator fx:id="font"/>
    </fx:define>
    <children>
-      <AnchorPane styleClass="order-container" maxHeight="-Infinity" minHeight="-Infinity" fx:id="orderPane" >
+      <VBox fx:id="orderPane" styleClass="order-container" maxHeight="-Infinity" minHeight="-Infinity">
          <children>
-            <Button fx:id="button">
+            <Label fx:id="orderId" viewOrder="1" disable="true" text="Label" maxWidth="Infinity"/>
+            <Button fx:id="button" viewOrder="2" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <graphic>
                   <ImageView fitHeight="${font.fontPx * 1.25}" fitWidth="${font.fontPx * 1.25}" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -21,8 +22,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="orderId" disable="true" text="Label" />
          </children>
-      </AnchorPane>
+      </VBox>
    </children>
 </HBox>
