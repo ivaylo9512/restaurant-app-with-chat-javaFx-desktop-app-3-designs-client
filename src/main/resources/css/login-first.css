@@ -4,6 +4,10 @@ PasswordField{
     -fx-text-fill: #bcbcbc;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+    -fx-alignment: center;
+    -fx-font-size: 0.85em;
+    -fx-background-radius: 0 0 0 0;
 }
 Label{
     -fx-background-color: #2A2E37;
@@ -14,9 +18,12 @@ Button{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
+    -fx-background-insets: none;
+    -fx-text-fill: #bfbfbf;
+    -fx-padding: 0;
 }
 Button:focused{
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-insets: none;
 }
 Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
@@ -26,11 +33,6 @@ ImageView{
 }
 .root{
     -fx-background-color: transparent;
-    -fx-min-height: 84px;
-    -fx-min-width: 621px;
-    -fx-pref-height: 84px;
-    -fx-pref-width: 621px;
-
 }
 .action-btn{
     -fx-pref-height: 29px;
@@ -44,94 +46,48 @@ ImageView{
 }
 .login-pane{
     -fx-background-color: #2A2E37;
-    -fx-max-width: 835px;
-    -fx-max-height: 79px;
-    -fx-pref-height: 79px;
-    -fx-pref-width: 419px;
-}
-.login-pane > Pane{
-    -fx-opacity: 1;
-    -fx-background-color: #2A2E37;
+    -fx-pref-height: 6.5em;
+    -fx-pref-width: 35em;
 }
 .fields-container{
-    -fx-background-color:  #2A2E37;
-    -fx-pref-height: 77px;
-    -fx-pref-width: 417px;
-}
-.fields-container AnchorPane{
-    -fx-pref-height: 33px;
-    -fx-pref-width: 345px;
-}
-.fields-container TextField,
-.fields-container PasswordField{
-    -fx-pref-height: 32px;
-    -fx-pref-width: 162px;
-}
-.fields-container TextField{
-    -fx-font-size: 11px;
-    -fx-background-radius: 0 0 0 0;
-}
-.menu{
     -fx-background-color: #2A2E37;
-    -fx-pref-height: 78px;
-    -fx-pref-width: 417px;
+    -fx-padding: 0.2em 0.2em 0.2em 0;
 }
-.menu Button{
-    -fx-pref-height: 78px;
-    -fx-pref-width: 140px;
-    -fx-text-fill: #bfbfbf;
-    -fx-font-size: 9px;
+.fields-container GridPane{
+    -fx-alignment: center;
 }
-.loading-pane {
-    -fx-background-color: #2A2E37;
-    -fx-pref-height: 100px;
-    -fx-pref-width: 200px;
-}
-.loading-indicator {
-    -fx-accent: #bcbcbc;
+.style-buttons HBox{
+    -fx-spacing: 1em;
 }
 .style-buttons:disabled Button{
     -fx-opacity: 1;
 }
 .style-buttons Button {
-    -fx-text-fill: #bfbfbf;
-    -fx-pref-height: 39px;
-    -fx-pref-width: 70px;
-    -fx-font-size: 10px;
+    -fx-font-size: 0.85em;
 }
-.alert-box{
+.fields-inner-shadow{
     -fx-background-color: #2A2E37;
-    -fx-border-width:1.5px;
-    -fx-border-color: black;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
-.alert-box > *.button-bar > *.container{
+.user-input{
+    -fx-alignment: center-right;
+}
+.user-input HBox{
+    -fx-spacing: 0.5em;
+}
+.menu-buttons{
     -fx-background-color: #2A2E37;
-    -fx-pref-height: 50px;
-}
-
-.alert-box:header *.header-panel{
-    -fx-background-color: #2A2E37;
-}
-.alert-box:header *.header-panel *.label{
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-pref-height: 25;
-    -fx-text-fill: #2A2E37;
     -fx-alignment: center;
+}
+.menu-buttons Button{
+    -fx-font-size: 0.75em;
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+}
+.loading-pane {
     -fx-background-color: #2A2E37;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
-}
-.alert-box > *.label.content{
-    -fx-font-size: 12px;
-    -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
-    -fx-pref-height: 50;
-    -fx-padding: 0,0,10,0;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
-    -fx-background-color: #363b41;
-    -fx-border-width: 1 0 1 0;
-    -fx-border-color: black;
 }
-.alert-box Button{
-    -fx-text-fill: #bcbcbc;
+.loading-indicator {
+    -fx-accent: #bcbcbc;
 }
