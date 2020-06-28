@@ -20,7 +20,7 @@ public abstract class ControllerLogin extends ControllerAdjustable {
     @FXML
     protected TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML
-    protected AnchorPane loginPane, loginFields, registerFields, nextRegisterFields, styleButtons;
+    protected Pane loginPane, styleButtons, loginFields, registerFields, nextRegisterFields;
 
     protected Pane currentMenu;
     protected boolean loading;

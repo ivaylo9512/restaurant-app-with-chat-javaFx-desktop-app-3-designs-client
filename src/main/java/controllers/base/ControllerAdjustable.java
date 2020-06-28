@@ -1,11 +1,11 @@
 package controllers.base;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public abstract class ControllerAdjustable extends Controller{
     @FXML
-    public AnchorPane root;
+    public Pane root;
 
     public abstract void resetStage();
 
