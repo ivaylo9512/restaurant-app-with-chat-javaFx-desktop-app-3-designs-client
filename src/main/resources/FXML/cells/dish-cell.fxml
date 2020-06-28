@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="grid" onMouseClicked="#updateDishState" onMouseMoved="#shrink" onMouseExited="#expand" styleClass="dish-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="grid" onMouseClicked="#updateDishState" onMouseMoved="#expand" onMouseExited="#shrink" styleClass="dish-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
-      <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" maxWidth="34.0" minWidth="9.0" prefWidth="34.0" />
+      <ColumnConstraints percentWidth="20" hgrow="ALWAYS" halignment="CENTER"/>
       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
-      <ColumnConstraints maxWidth="34.0" minWidth="37.0" prefWidth="34.0" />
+      <ColumnConstraints percentWidth="20" hgrow="ALWAYS" halignment="CENTER"/>
    </columnConstraints>
    <rowConstraints>
       <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
    </rowConstraints>
    <children>
-      <Label fx:id="price" style="-fx-background-color: red;" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" styleClass="price" text="Label"/>
+      <Label fx:id="price" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" styleClass="price" text="Label"/>
       <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Label" GridPane.columnIndex="1"/>
-      <StackPane prefHeight="27.0" prefWidth="34.0" GridPane.columnIndex="2">
-         <Label fx:id="ready" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="34.0" styleClass="ready" text="Label" textAlignment="CENTER" textFill="#bcbcbc" />
-         <ProgressIndicator fx:id="progressIndicator" prefHeight="12.0" prefWidth="12.0" maxWidth="12" maxHeight="12" styleClass="loading" />
+      <StackPane GridPane.columnIndex="2">
+         <Label fx:id="ready" alignment="CENTER" contentDisplay="CENTER" text="Label"/>
+         <ProgressIndicator fx:id="progressIndicator" styleClass="loading" />
       </StackPane>
    </children>
-   <effect>
-      <DropShadow height="10.0" radius="4.5" width="10.0" />
-   </effect>
 </GridPane>

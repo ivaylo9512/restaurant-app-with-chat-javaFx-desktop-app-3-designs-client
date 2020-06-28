@@ -111,7 +111,7 @@ public class LoggedFirst extends ControllerLogged {
 
     private void addOrdersListListeners() {
         ordersList.addEventHandler(TouchEvent.TOUCH_PRESSED, event -> {
-            if(event.getTarget() instanceof AnchorPane){
+            if(event.getTarget() instanceof VBox){
                 Event.fireEvent(event.getTarget(), new MouseEvent(MouseEvent.MOUSE_PRESSED,
                         event.getTouchPoint().getSceneX(), event.getTouchPoint().getSceneY(), event.getTouchPoint().getScreenX(), event.getTouchPoint().getScreenY(), MouseButton.PRIMARY, 1,
                         true, true, true, true, true, true, true, true, true, true, null));

@@ -70,23 +70,13 @@ TextFlow {
 .dishes-list GridPane{
     -fx-background-color:  #1a1a1a;
 }
-
-.dishes-list .price{
-    -fx-pref-height: 52px;
-    -fx-pref-width: 34px;
-    -fx-alignment: center;
-    -fx-text-fill: #bcbcbc;
+.dish-cell{
+    -fx-max-height: 6.7em;
+    -fx-min-height: 5.35em;
+    -fx-pref-height: 5.35em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
-.dishes-list .name{
-    -fx-pref-height: 52px;
-    -fx-text-fill: #bcbcbc;
-    -fx-alignment: center;
-    -fx-max-width: Infinity;
-}
-.dishes-list .ready{
-    -fx-pref-height: 52px;
-    -fx-pref-width: 34px;
-    -fx-alignment: center;
+.dish-cell Label{
     -fx-text-fill: #bcbcbc;
 }
 .loading{
