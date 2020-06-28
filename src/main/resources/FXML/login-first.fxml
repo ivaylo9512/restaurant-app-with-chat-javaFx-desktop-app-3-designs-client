@@ -5,8 +5,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import helpers.FontIndicator?>
 <StackPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="controllers.firststyle.LoginFirst">
+    <fx:define>
+        <FontIndicator fx:id="font"/>
+    </fx:define>
     <Pane fx:id="background" styleClass="background"/>
     <StackPane fx:id="loginPane" styleClass="login-pane" maxHeight="-Infinity" maxWidth="-Infinity">
         <StackPane maxWidth="Infinity" maxHeight="Infinity" styleClass="fields-container">
@@ -41,7 +45,7 @@
                     </columnConstraints>
                     <Button fx:id="actionButton" GridPane.halignment="CENTER" mnemonicParsing="false" styleClass="action-btn" GridPane.columnIndex="1">
                         <graphic>
-                            <ImageView fitHeight="17.0" fitWidth="17.0">
+                            <ImageView fitHeight="${font.fontPx * 1.42}" fitWidth="${font.fontPx * 1.42}">
                                 <Image url="/images/login-arrow.png"/>
                             </ImageView>
                         </graphic>

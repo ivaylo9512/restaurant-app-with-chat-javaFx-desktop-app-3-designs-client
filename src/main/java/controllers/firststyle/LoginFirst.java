@@ -1,5 +1,6 @@
 package controllers.firststyle;
 
+import helpers.FontIndicator;
 import javafx.animation.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import controllers.base.ControllerLogin;
@@ -21,21 +23,32 @@ public class LoginFirst extends ControllerLogin {
     private ParallelTransition expand, reverse;
     private SequentialTransition changeTransition;
 
+    @FXML
+    HBox loadingPane;
+
     @Override
     public void initialize(){
         super.initialize();
 
         TranslateTransition translateMenu = new TranslateTransition(Duration.millis(1300), menu);
-        translateMenu.setToX(-417);
+        translateMenu.setToX(-FontIndicator.fontPx.get() * 35);
         TranslateTransition translateRoot = new TranslateTransition(Duration.millis(1300), loginPane);
-        translateRoot.setToX(209);
+        translateRoot.setToX(FontIndicator.fontPx.get() * 17.5);
 
         TranslateTransition reverseMenu = new TranslateTransition(Duration.millis(800), menu);
-        reverseMenu.setFromX(-417);
+        reverseMenu.setFromX(-FontIndicator.fontPx.get() * 35);
         reverseMenu.setToX(0);
         TranslateTransition reverseRoot = new TranslateTransition(Duration.millis(800), loginPane);
-        reverseRoot.setFromX(209);
+        reverseRoot.setFromX(FontIndicator.fontPx.get() * 17.5);
         reverseRoot.setToX(0);
+
+        root.setStyle("-fx-font-size: " + fontPxProperty.get() + ";");
+        fontPxProperty.addListener((observable, oldValue, newValue) -> {
+            root.setStyle("-fx-font-size: " + fontPxProperty.get() + ";");
+            translateMenu.setToX(-FontIndicator.fontPx.get() * 35);
+            reverseMenu.setFromX(-FontIndicator.fontPx.get() * 35);
+            reverseRoot.setFromX(FontIndicator.fontPx.get() * 17.5);
+        });
 
         reverse = new ParallelTransition(reverseMenu, reverseRoot);
         expand = new ParallelTransition(translateMenu, translateRoot);
