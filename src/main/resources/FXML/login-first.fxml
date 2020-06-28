@@ -14,27 +14,7 @@
     <Pane fx:id="background" styleClass="background"/>
     <StackPane fx:id="loginPane" styleClass="login-pane" maxHeight="-Infinity" maxWidth="-Infinity">
         <StackPane maxWidth="Infinity" maxHeight="Infinity" styleClass="fields-container">
-        </StackPane>
-        <StackPane maxWidth="Infinity" maxHeight="Infinity" styleClass="fields-container">
             <StackPane maxWidth="Infinity" maxHeight="Infinity" styleClass="fields-inner-shadow">
-                <GridPane fx:id="styleButtons" opacity="0" styleClass="style-buttons">
-                    <rowConstraints>
-                        <RowConstraints percentHeight="65"/>
-                    </rowConstraints>
-                    <columnConstraints>
-                        <ColumnConstraints percentWidth="80"/>
-                    </columnConstraints>
-                    <HBox>
-                        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
-                                mnemonicParsing="false" onMouseClicked="#showLoginSecondStyle" text="Style 2"/>
-                        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
-                                mnemonicParsing="false" onMouseClicked="#showLoginThirdStyle" text="Style 3"/>
-                        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
-                                mnemonicParsing="false" onMouseClicked="#minimize" text="Hide"/>
-                        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
-                                mnemonicParsing="false" onMouseClicked="#close" text="Close"/>
-                    </HBox>
-                </GridPane>
                 <GridPane styleClass="user-input">
                     <rowConstraints>
                         <RowConstraints percentHeight="48"/>
@@ -43,13 +23,21 @@
                         <ColumnConstraints percentWidth="75"/>
                         <ColumnConstraints percentWidth="20"/>
                     </columnConstraints>
-                    <Button fx:id="actionButton" GridPane.halignment="CENTER" mnemonicParsing="false" styleClass="action-btn" GridPane.columnIndex="1">
-                        <graphic>
-                            <ImageView fitHeight="${font.fontPx * 1.42}" fitWidth="${font.fontPx * 1.42}">
-                                <Image url="/images/login-arrow.png"/>
-                            </ImageView>
-                        </graphic>
-                    </Button>
+                    <GridPane GridPane.columnIndex="1">
+                        <rowConstraints>
+                            <RowConstraints percentHeight="95"/>
+                        </rowConstraints>
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="75"/>
+                        </columnConstraints>
+                        <Button fx:id="actionButton" GridPane.halignment="CENTER" maxWidth="Infinity" maxHeight="Infinity" mnemonicParsing="false" styleClass="action-btn">
+                            <graphic>
+                                <ImageView fitHeight="${font.fontPx * 1.42}" fitWidth="${font.fontPx * 1.42}">
+                                    <Image url="/images/login-arrow.png"/>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </GridPane>
                     <HBox fx:id="loginFields" disable="true" maxHeight="Infinity" maxWidth="Infinity" opacity="0.0">
                         <TextField fx:id="username" HBox.hgrow="ALWAYS" maxWidth="Infinity" maxHeight="Infinity"
                                    onKeyReleased="#login" promptText="username"/>
@@ -68,6 +56,24 @@
                         <PasswordField fx:id="regRepeatPassword" HBox.hgrow="ALWAYS" maxWidth="Infinity" maxHeight="Infinity"
                                        onKeyReleased="#register" promptText="password">
                         </PasswordField>
+                    </HBox>
+                </GridPane>
+                <GridPane fx:id="styleButtons" disable="true" opacity="0" styleClass="style-buttons">
+                    <rowConstraints>
+                        <RowConstraints percentHeight="65"/>
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="80"/>
+                    </columnConstraints>
+                    <HBox>
+                        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
+                                mnemonicParsing="false" onMouseClicked="#showLoginSecondStyle" text="Style 2"/>
+                        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
+                                mnemonicParsing="false" onMouseClicked="#showLoginThirdStyle" text="Style 3"/>
+                        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
+                                mnemonicParsing="false" onMouseClicked="#minimize" text="Hide"/>
+                        <Button HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
+                                mnemonicParsing="false" onMouseClicked="#close" text="Close"/>
                     </HBox>
                 </GridPane>
             </StackPane>
