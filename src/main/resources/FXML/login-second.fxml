@@ -1,82 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
-<AnchorPane fx:id="root" maxWidth="-Infinity" styleClass="stage-root" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.secondstyle.LoginSecond">
-   <AnchorPane fx:id="loginPane" layoutX="49.0" layoutY="12.0" styleClass="login-pane">
-      <Pane styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-      <Pane styleClass="background-line" layoutX="-86.0" layoutY="-74.0" AnchorPane.bottomAnchor="20.0"
-            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0"/>
-      <Button styleClass="menu-button" layoutX="18.0" layoutY="10.0" mnemonicParsing="false"
-              onMouseClicked="#showLoginFields" text="login" AnchorPane.bottomAnchor="12.0"
-              AnchorPane.topAnchor="10.0"/>
-      <Button styleClass="menu-button" layoutX="94.0" layoutY="10.0" mnemonicParsing="false"
-              onMouseClicked="#showStyleButtons" text="styles" AnchorPane.bottomAnchor="12.0"
-              AnchorPane.topAnchor="10.0"/>
-      <Button styleClass="menu-button" layoutX="173.0" layoutY="10.0" mnemonicParsing="false"
-              onMouseClicked="#showRegisterFields" text="register" AnchorPane.bottomAnchor="12.0"
-              AnchorPane.topAnchor="10.0"/>
-      <AnchorPane fx:id="loginFields" layoutX="237.0" layoutY="6.0" prefHeight="39.0" prefWidth="206.0"
-                  AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="7.0">
-         <children>
-            <TextField fx:id="username" alignment="CENTER" layoutX="21.0" layoutY="5.0" onKeyReleased="#login"
-                       promptText="username" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
-            </TextField>
-            <PasswordField fx:id="password" alignment="CENTER" layoutX="126.0" layoutY="5.0" onKeyReleased="#login"
-                           promptText="password" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
-            </PasswordField>
-         </children>
-      </AnchorPane>
-      <Button fx:id="actionBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="480.0" layoutY="14.0"
-              mnemonicParsing="false" onMouseClicked="#login" styleClass="action-btn">
-         <font>
-            <Font name="System Bold" size="11.0"/>
-         </font>
-         <graphic>
-            <ImageView fx:id="actionBtnImage" fitHeight="12.0" fitWidth="12.0">
-               <Image fx:id="loginImage" url="/images/arrow.png"/>
-            </ImageView>
-         </graphic>
-      </Button>
-      <AnchorPane fx:id="registerFields" styleClass="register-fields" disable="true" layoutX="237.0" layoutY="8.0"
-                  opacity="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="7.0">
-         <TextField fx:id="regUsername" layoutX="73.5" layoutY="5.0" onKeyReleased="#showNextRegisterFields"
-                    promptText="username" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
-         </TextField>
-      </AnchorPane>
-      <AnchorPane fx:id="nextRegisterFields" disable="true" layoutX="237.0" layoutY="8.0" opacity="0.0"
-                  prefHeight="39.0" prefWidth="206.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="7.0">
-         <PasswordField fx:id="regPassword" alignment="CENTER" layoutX="21.0" layoutY="5.0"
-                        onKeyReleased="#register" promptText="password" AnchorPane.bottomAnchor="5.0"
-                        AnchorPane.topAnchor="5.0">
-         </PasswordField>
-         <PasswordField fx:id="regRepeatPassword" alignment="CENTER" layoutX="126.0" layoutY="5.0"
-                        onKeyReleased="#register" promptText="password" AnchorPane.bottomAnchor="5.0"
-                        AnchorPane.topAnchor="5.0">
-         </PasswordField>
-      </AnchorPane>
-      <AnchorPane fx:id="styleButtons" styleClass="style-buttons" disable="true" layoutX="237.0" layoutY="6.0"
-                  opacity="0.0" prefHeight="39.0" prefWidth="206.0" AnchorPane.bottomAnchor="10.0"
-                  AnchorPane.topAnchor="7.0">
-         <Button alignment="CENTER" layoutX="21.0" layoutY="5.0" onMouseClicked="#showLoginFirstStyle"
-                 text="Style 1" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0"/>
-         <Button alignment="CENTER" layoutX="126.0" layoutY="5.0" onMouseClicked="#showLoginThirdStyle"
-                 text="Style 3" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0"/>
-      </AnchorPane>
-       <HBox fx:id="loadingPane" styleClass="loading-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-           <children>
-               <ProgressIndicator nodeOrientation="LEFT_TO_RIGHT" styleClass="loading-indicator">
-                   <HBox.margin>
-                       <Insets bottom="20.0" top="20.0" />
-                   </HBox.margin>
-               </ProgressIndicator>
-           </children>
-       </HBox>
-   </AnchorPane>
-</AnchorPane>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<StackPane fx:id="root" maxWidth="-Infinity" styleClass="root" xmlns="http://javafx.com/javafx/8"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.secondstyle.LoginSecond">
+    <Pane styleClass="background" maxHeight="Infinity"/>
+    <GridPane>
+        <rowConstraints>
+            <RowConstraints percentHeight="22"/>
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+        <Pane styleClass="background-line" maxHeight="Infinity"/>
+    </GridPane>
+    <GridPane>
+        <rowConstraints>
+            <RowConstraints percentHeight="57"/>
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="45.5"/>
+            <ColumnConstraints percentWidth="42"/>
+            <ColumnConstraints halignment="CENTER" percentWidth="6.2"/>
+        </columnConstraints>
+        <HBox styleClass="menu-buttons">
+            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="menu-button" mnemonicParsing="false"
+                    onMouseClicked="#showLoginFields" text="login"/>
+            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="menu-button" mnemonicParsing="false"
+                    onMouseClicked="#showStyleButtons" text="styles"/>
+            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="menu-button" mnemonicParsing="false"
+                    onMouseClicked="#showRegisterFields" text="register"/>
+        </HBox>
+        <HBox fx:id="loginFields" styleClass="user-inputs" GridPane.columnIndex="1">
+            <TextField fx:id="username" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#login" promptText="username"/>
+            <PasswordField fx:id="password" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#login" promptText="password"/>
+        </HBox>
+        <HBox fx:id="registerFields" styleClass="user-inputs" disable="true" opacity="0.0">
+            <TextField fx:id="regUsername" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#showNextRegisterFields" promptText="username"/>
+        </HBox>
+        <HBox fx:id="nextRegisterFields" styleClass="user-inputs" disable="true" opacity="0.0" GridPane.columnIndex="1">
+            <PasswordField fx:id="regPassword" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#register" promptText="password"/>
+            <PasswordField fx:id="regRepeatPassword" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#register" promptText="password"/>
+        </HBox>
+        <HBox fx:id="styleButtons" styleClass="style-buttons" disable="true" opacity="0.0">
+            <Button maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#showLoginFirstStyle" text="Style 1"/>
+            <Button maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#showLoginThirdStyle" text="Style 3"/>
+        </HBox>
+        <Button fx:id="actionBtn" mnemonicParsing="false" maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#login" styleClass="action-btn" GridPane.columnIndex="2">
+            <graphic>
+                <ImageView fx:id="actionBtnImage" fitHeight="12.0" fitWidth="12.0">
+                    <Image fx:id="loginImage" url="/images/arrow.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </GridPane>
+    <HBox fx:id="loadingPane" styleClass="loading-pane">
+        <ProgressIndicator styleClass="loading-indicator"/>
+    </HBox>
+</StackPane>
