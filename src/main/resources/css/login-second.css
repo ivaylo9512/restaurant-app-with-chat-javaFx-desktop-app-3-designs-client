@@ -3,10 +3,12 @@ TextField,
 PasswordField{
     -fx-background-color: #1a1a1a;
     -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
 }
 TextField,
 PasswordField{
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 10, 0.0 , 0 , 0);
+    -fx-font-size: 0.835em;
 }
 Button{
     -fx-border-color: black;
@@ -21,21 +23,17 @@ Button:focused{
 Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1);
 }
-TextField,
-PasswordField,
 .style-buttons Button{
-    -fx-pref-height: 30px;
-    -fx-pref-width: 100px;
-    -fx-font-size: 10px;
+    -fx-font-size: 0.835em;
 }
 .root{
     -fx-background-color: transparent;
-    -fx-min-height: 55px;
-    -fx-min-width: 528px;
-    -fx-pref-height: 55px;
+    -fx-min-height: 4.6em;
+    -fx-min-width: 44em;
+    -fx-pref-height: 4.6em;
     -fx-border-color: #1a1a1a;
     -fx-border-width: 2;
-    -fx-pref-width: 528px;
+    -fx-pref-width: 44em;
 }
 .root GridPane{
     -fx-alignment: center;
@@ -58,8 +56,6 @@ PasswordField,
 }
 .loading-pane {
     -fx-background-color: #1a1a1a;
-    -fx-pref-height: 100px;
-    -fx-pref-width: 200px;
     -fx-alignment: center;
 }
 .loading-indicator {
@@ -70,47 +66,4 @@ PasswordField,
 }
 .user-inputs{
     -fx-spacing: 0.5em;
-}
-.alert-box{
-    -fx-background-color: #1a1a1a;
-    -fx-border-color: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
-
-}
-.alert-box > *.button-bar > *.container{
-    -fx-background-color: transparent;
-    -fx-pref-height: 50
-}
-
-.alert-box:header *.header-panel{
-    -fx-background-color: transparent;
-}
-.alert-box:header *.header-panel *.label{
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-pref-height: 25;
-    -fx-text-fill: #bcbcbc;
-    -fx-alignment: center;
-    -fx-background-color: transparent;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
-}
-.alert-box > *.label.content{
-    -fx-font-size: 12px;
-    -fx-text-fill: white;
-    -fx-alignment: center;
-    -fx-pref-height: 40;
-    -fx-padding: 0,0,10,0;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 2 );
-    -fx-background-color: #FC3903;
-}
-.alert-box Button{
-    -fx-text-fill: white;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 0);
-    -fx-background-color: #FC3903;
-}
-.alert-box Button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0);
-}
-.alert-box Button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0);
 }

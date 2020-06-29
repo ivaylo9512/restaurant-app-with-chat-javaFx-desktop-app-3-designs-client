@@ -38,28 +38,44 @@
             <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="menu-button" mnemonicParsing="false"
                     onMouseClicked="#showRegisterFields" text="register"/>
         </HBox>
-        <HBox fx:id="loginFields" styleClass="user-inputs" GridPane.columnIndex="1">
-            <TextField fx:id="username" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#login" promptText="username"/>
-            <PasswordField fx:id="password" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#login" promptText="password"/>
-        </HBox>
-        <HBox fx:id="registerFields" styleClass="user-inputs" disable="true" opacity="0.0">
-            <TextField fx:id="regUsername" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#showNextRegisterFields" promptText="username"/>
-        </HBox>
-        <HBox fx:id="nextRegisterFields" styleClass="user-inputs" disable="true" opacity="0.0" GridPane.columnIndex="1">
-            <PasswordField fx:id="regPassword" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#register" promptText="password"/>
-            <PasswordField fx:id="regRepeatPassword" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#register" promptText="password"/>
-        </HBox>
-        <HBox fx:id="styleButtons" styleClass="style-buttons" disable="true" opacity="0.0">
-            <Button maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#showLoginFirstStyle" text="Style 1"/>
-            <Button maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#showLoginThirdStyle" text="Style 3"/>
-        </HBox>
-        <Button fx:id="actionBtn" mnemonicParsing="false" maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#login" styleClass="action-btn" GridPane.columnIndex="2">
-            <graphic>
-                <ImageView fx:id="actionBtnImage" fitHeight="${font.fontPx}" fitWidth="${font.fontPx}">
-                    <Image fx:id="loginImage" url="/images/arrow.png"/>
-                </ImageView>
-            </graphic>
-        </Button>
+        <GridPane GridPane.columnIndex="1">
+            <rowConstraints>
+                <RowConstraints percentHeight="72"/>
+            </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+            <HBox fx:id="loginFields" styleClass="user-inputs">
+                <TextField fx:id="username" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#login" promptText="username"/>
+                <PasswordField fx:id="password" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#login" promptText="password"/>
+            </HBox>
+            <HBox fx:id="registerFields" styleClass="user-inputs" disable="true" opacity="0.0">
+                <TextField fx:id="regUsername" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#showNextRegisterFields" promptText="username"/>
+            </HBox>
+            <HBox fx:id="nextRegisterFields" styleClass="user-inputs" disable="true" opacity="0.0">
+                <PasswordField fx:id="regPassword" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#register" promptText="password"/>
+                <PasswordField fx:id="regRepeatPassword" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#register" promptText="password"/>
+            </HBox>
+            <HBox fx:id="styleButtons" styleClass="style-buttons" disable="true" opacity="0.0">
+                <Button maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#showLoginFirstStyle" text="Style 1"/>
+                <Button maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#showLoginThirdStyle" text="Style 3"/>
+            </HBox>
+        </GridPane>
+        <GridPane GridPane.columnIndex="2">
+            <rowConstraints>
+                <RowConstraints percentHeight="77"/>
+            </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+            <Button fx:id="actionBtn" mnemonicParsing="false" maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#login" styleClass="action-btn">
+                <graphic>
+                    <ImageView fx:id="actionBtnImage" fitHeight="${font.fontPx}" fitWidth="${font.fontPx}">
+                        <Image fx:id="loginImage" url="/images/arrow.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </GridPane>
     </GridPane>
     <HBox fx:id="loadingPane" styleClass="loading-pane">
         <ProgressIndicator styleClass="loading-indicator"/>
