@@ -31,24 +31,16 @@ public class LoginFirst extends ControllerLogin {
         super.initialize();
 
         TranslateTransition translateMenu = new TranslateTransition(Duration.millis(1300), menu);
-        translateMenu.setToX(-FontIndicator.fontPx.get() * 35);
+        translateMenu.toXProperty().bind(FontIndicator.fontPx.multiply(35).negate());
         TranslateTransition translateRoot = new TranslateTransition(Duration.millis(1300), loginPane);
-        translateRoot.setToX(FontIndicator.fontPx.get() * 17.5);
+        translateRoot.toXProperty().bind(FontIndicator.fontPx.multiply(17.5));
 
         TranslateTransition reverseMenu = new TranslateTransition(Duration.millis(800), menu);
-        reverseMenu.setFromX(-FontIndicator.fontPx.get() * 35);
+        reverseMenu.fromXProperty().bind(FontIndicator.fontPx.multiply(35).negate());
         reverseMenu.setToX(0);
         TranslateTransition reverseRoot = new TranslateTransition(Duration.millis(800), loginPane);
-        reverseRoot.setFromX(FontIndicator.fontPx.get() * 17.5);
+        reverseRoot.fromXProperty().bind(FontIndicator.fontPx.multiply(17.5));
         reverseRoot.setToX(0);
-
-        root.setStyle("-fx-font-size: " + fontPxProperty.get() + ";");
-        fontPxProperty.addListener((observable, oldValue, newValue) -> {
-            root.setStyle("-fx-font-size: " + fontPxProperty.get() + ";");
-            translateMenu.setToX(-FontIndicator.fontPx.get() * 35);
-            reverseMenu.setFromX(-FontIndicator.fontPx.get() * 35);
-            reverseRoot.setFromX(FontIndicator.fontPx.get() * 17.5);
-        });
 
         reverse = new ParallelTransition(reverseMenu, reverseRoot);
         expand = new ParallelTransition(translateMenu, translateRoot);

@@ -7,7 +7,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -34,6 +33,7 @@ public abstract class ControllerLogin extends ControllerAdjustable {
             return 0.0;
         }, loginManager.loading));
         loadingPane.disableProperty().bind(loginManager.loading.not());
+        root.setStyle("-fx-font-size: " + fontPxProperty.get() + ";");
     }
     protected void resetFields() {
         username.setText(null);

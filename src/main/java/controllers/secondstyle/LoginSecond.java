@@ -23,6 +23,9 @@ public class LoginSecond extends ControllerLogin {
     public void initialize(){
         super.initialize();
         currentMenu = loginFields;
+        fontPxProperty.addListener((observable, oldValue, newValue) -> {
+            root.setStyle("-fx-font-size: " + fontPxProperty.get() + ";");
+        });
     }
 
     public void resetStage(){

@@ -5,8 +5,12 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import helpers.FontIndicator?>
 <StackPane fx:id="root" maxWidth="-Infinity" styleClass="root" xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.secondstyle.LoginSecond">
+    <fx:define>
+        <FontIndicator fx:id="font"/>
+    </fx:define>
     <Pane styleClass="background" maxHeight="Infinity"/>
     <GridPane>
         <rowConstraints>
@@ -51,7 +55,7 @@
         </HBox>
         <Button fx:id="actionBtn" mnemonicParsing="false" maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#login" styleClass="action-btn" GridPane.columnIndex="2">
             <graphic>
-                <ImageView fx:id="actionBtnImage" fitHeight="12.0" fitWidth="12.0">
+                <ImageView fx:id="actionBtnImage" fitHeight="${font.fontPx}" fitWidth="${font.fontPx}">
                     <Image fx:id="loginImage" url="/images/arrow.png"/>
                 </ImageView>
             </graphic>
