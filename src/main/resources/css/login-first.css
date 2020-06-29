@@ -35,10 +35,8 @@ ImageView{
     -fx-background-color: transparent;
 }
 .action-btn{
-    -fx-pref-height: 29px;
-    -fx-pref-width: 40px;
     -fx-text-fill: #bfbfbf;
-    -fx-font-size: 10px;
+    -fx-font-size: 0.83em;
 }
 .background{
     -fx-background-color: black;

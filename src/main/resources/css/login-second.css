@@ -4,16 +4,22 @@ PasswordField{
     -fx-background-color: #1a1a1a;
     -fx-text-fill: #bcbcbc;
 }
-
+TextField,
+PasswordField{
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 10, 0.0 , 0 , 0);
+}
 Button{
     -fx-border-color: black;
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0);
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
 }
 Button:focused{
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
 Button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 5, 0.0 , 0 , 1);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1);
 }
 TextField,
 PasswordField,
@@ -22,47 +28,33 @@ PasswordField,
     -fx-pref-width: 100px;
     -fx-font-size: 10px;
 }
-.stage-root{
+.root{
     -fx-background-color: transparent;
-    -fx-pref-height: 84px;
-    -fx-pref-width: 621px;
-}
-.login-pane{
+    -fx-min-height: 55px;
+    -fx-min-width: 528px;
     -fx-pref-height: 55px;
-    -fx-pref-width: 528px;
-    -fx-background-color: transparent;
     -fx-border-color: #1a1a1a;
     -fx-border-width: 2;
+    -fx-pref-width: 528px;
+}
+.root GridPane{
+    -fx-alignment: center;
+    -fx-hgap: 1.4em;
 }
 .background{
     -fx-background-color: #1a1a1a;
-    -fx-opacity:0.8;
+    -fx-opacity: 0.8;
 }
 .background-line{
-    -fx-pref-height: 200px;
-    -fx-pref-width: 200px;
     -fx-background-color: #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(252,57,3,1.6) , 45, 0.0 , 0 , 6 );
-}
-.menu-button{
-    -fx-pref-height: 35px;
-    -fx-pref-width: 70px;
-    -fx-font-size: 12px;
-}
-.register-fields{
-    -fx-pref-height: 39px;
-    -fx-pref-width: 206px;
+    -fx-effect: dropshadow( three-pass-box , rgba(252,57,3,1) , 45, 0.0 , 0 , 6 );
 }
 .action-btn{
     -fx-background-color: #FC3903;
     -fx-border-color: transparent;
     -fx-text-fill: white;
-    -fx-pref-height: 25px;
-    -fx-pref-width: 30px;
-    -fx-max-height: 25px;
-    -fx-max-width: 30px;
-    -fx-min-height: 25px;
-    -fx-min-width: 25px;
+    -fx-font-weight: bold;
+    -fx-font-size: 0.91em
 }
 .loading-pane {
     -fx-background-color: #1a1a1a;
@@ -72,6 +64,12 @@ PasswordField,
 }
 .loading-indicator {
     -fx-accent: #FC3903;
+}
+.menu-buttons{
+    -fx-spacing: 0.58em
+}
+.user-inputs{
+    -fx-spacing: 0.5em;
 }
 .alert-box{
     -fx-background-color: #1a1a1a;
