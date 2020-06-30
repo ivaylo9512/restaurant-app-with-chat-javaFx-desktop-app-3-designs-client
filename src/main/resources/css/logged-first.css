@@ -249,6 +249,7 @@ TextFlow {
 .menu-buttons-container{
     -fx-background-color: #2A2E37;
     -fx-alignment: center;
+    -fX-padding: 1.6em 1.275em;
 }
 .menu-buttons-container Button{
     -fx-border-radius: 0px;
@@ -300,6 +301,7 @@ TextFlow {
 }
 .user-info-container{
     -fx-alignment: center;
+    -fx-pref-width: 11.5em;
     -fx-padding: 0 1em 0.2em 1em;
 }
 .user-info .scroll-bar .track {
@@ -463,6 +465,10 @@ TextFlow {
     -fx-background-color: #363b41;
     -fx-alignment: center;
 }
+.create-order VBox{
+    -fx-pref-height: 0;
+    -fx-padding: 1em 1em 0.7em 1em;
+}
 .create-order .menu-cell{
     -fx-background-color: #363b41;
     -fx-pref-height: 5.35em;
@@ -483,9 +489,6 @@ TextFlow {
     -fx-background-color: #363b41;
     -fx-pref-height: 195px;
     -fx-pref-width: 275px;
-}
-.create-order VBox{
-    -fx-padding: 1em;
 }
 .create-order TextField{
     -fx-background-color: #363b41;
