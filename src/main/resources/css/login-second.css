@@ -52,10 +52,16 @@ Button:pressed{
     -fx-opacity: 0.8;
 }
 .background-line{
+    -fx-padding: 1.7em 0;
+}
+.background-line Pane{
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(252, 57, 3, 1) , 45, 0.0 , 0 , 6 );
 }
 .action-btn{
+    -fx-padding: 0.28em 0;
+}
+.action-btn Button{
     -fx-background-color: #FC3903;
     -fx-border-color: transparent;
     -fx-text-fill: white;
@@ -74,8 +80,9 @@ Button:pressed{
 .menu-buttons{
     -fx-spacing: 0.58em
 }
-.user-inputs HBox{
+.user-inputs{
     -fx-spacing: 0.5em;
+    -fx-padding: 0.35em 0;
 }
 .user-inputs Button{
     -fx-font-size: 0.835em;

@@ -12,15 +12,9 @@
         <FontIndicator fx:id="font"/>
     </fx:define>
     <Pane styleClass="background"/>
-    <GridPane>
-        <rowConstraints>
-            <RowConstraints percentHeight="22"/>
-        </rowConstraints>
-        <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS"/>
-        </columnConstraints>
-        <Pane styleClass="background-line"/>
-    </GridPane>
+    <HBox styleClass="background-line">
+        <Pane HBox.hgrow="ALWAYS"/>
+    </HBox>
     <GridPane>
         <rowConstraints>
             <RowConstraints vgrow="ALWAYS" percentHeight="60"/>
@@ -38,44 +32,30 @@
             <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" mnemonicParsing="false"
                     onMouseClicked="#showRegisterFields" text="register"/>
         </HBox>
-        <GridPane styleClass="user-inputs" GridPane.columnIndex="1">
-            <rowConstraints>
-                <RowConstraints percentHeight="75"/>
-            </rowConstraints>
-            <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS"/>
-            </columnConstraints>
-            <HBox fx:id="loginFields">
-                <TextField fx:id="username" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#login" promptText="username"/>
-                <PasswordField fx:id="password" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#login" promptText="password"/>
-            </HBox>
-            <HBox fx:id="registerFields" disable="true" opacity="0.0">
-                <TextField fx:id="regUsername" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#showNextRegisterFields" promptText="username"/>
-            </HBox>
-            <HBox fx:id="nextRegisterFields" disable="true" opacity="0.0">
-                <PasswordField fx:id="regPassword" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#register" promptText="password"/>
-                <PasswordField fx:id="regRepeatPassword" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#register" promptText="password"/>
-            </HBox>
-            <HBox fx:id="styleButtons" disable="true" opacity="0.0">
-                <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onMouseClicked="#showLoginFirstStyle" text="Style 1"/>
-                <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onMouseClicked="#showLoginThirdStyle" text="Style 3"/>
-            </HBox>
-        </GridPane>
-        <GridPane GridPane.columnIndex="2">
-            <rowConstraints>
-                <RowConstraints percentHeight="80"/>
-            </rowConstraints>
-            <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS"/>
-            </columnConstraints>
-            <Button fx:id="actionBtn" contentDisplay="CENTER" mnemonicParsing="false" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onMouseClicked="#login" styleClass="action-btn">
+        <HBox fx:id="loginFields" styleClass="user-inputs" GridPane.columnIndex="1">
+            <TextField fx:id="username" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#login" promptText="username"/>
+            <PasswordField fx:id="password" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#login" promptText="password"/>
+        </HBox>
+        <HBox fx:id="registerFields" styleClass="user-inputs" disable="true" opacity="0.0" GridPane.columnIndex="1">
+            <TextField fx:id="regUsername" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#showNextRegisterFields" promptText="username"/>
+        </HBox>
+        <HBox fx:id="nextRegisterFields" styleClass="user-inputs" disable="true" opacity="0.0" GridPane.columnIndex="1">
+            <PasswordField fx:id="regPassword" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#register" promptText="password"/>
+            <PasswordField fx:id="regRepeatPassword" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#register" promptText="password"/>
+        </HBox>
+        <HBox fx:id="styleButtons" styleClass="user-inputs" disable="true" opacity="0.0" GridPane.columnIndex="1">
+            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onMouseClicked="#showLoginFirstStyle" text="Style 1"/>
+            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onMouseClicked="#showLoginThirdStyle" text="Style 3"/>
+        </HBox>
+        <HBox styleClass="action-btn" GridPane.columnIndex="2">
+            <Button fx:id="actionBtn" contentDisplay="CENTER" mnemonicParsing="false" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onMouseClicked="#login">
                 <graphic>
                     <ImageView fx:id="actionBtnImage" fitHeight="${font.fontPx}" fitWidth="${font.fontPx}">
                         <Image fx:id="loginImage" url="/images/arrow.png"/>
                     </ImageView>
                 </graphic>
             </Button>
-        </GridPane>
+        </HBox>
     </GridPane>
     <HBox fx:id="loadingPane" styleClass="loading-pane">
         <ProgressIndicator styleClass="loading-indicator"/>
