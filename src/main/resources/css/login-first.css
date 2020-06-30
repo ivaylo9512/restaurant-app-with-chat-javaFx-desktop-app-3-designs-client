@@ -1,35 +1,36 @@
 TextField,
-PasswordField{
-    -fx-background-color: #363b41;
-    -fx-text-fill: #bcbcbc;
+PasswordField,
+Button{
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
-    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
-    -fx-alignment: center;
-    -fx-font-size: 0.85em;
-    -fx-background-radius: 0 0 0 0;
-}
-Label{
-    -fx-background-color: #2A2E37;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
-}
-Button{
-    -fx-background-color: #2A2E37;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 1, 0.0 , 0 , 0 );
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
     -fx-background-insets: none;
-    -fx-text-fill: #bfbfbf;
     -fx-padding: 0;
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+}
+TextField,
+PasswordField{
+    -fx-background-color: #363b41;
+    -fx-text-fill: #bcbcbc;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+    -fx-alignment: center;
+    -fx-font-size: 0.85em;
+}
+Button{
+    -fx-background-color: #2A2E37;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
+    -fx-text-fill: #bfbfbf;
 }
 Button:focused{
     -fx-background-insets: none;
 }
 Button:hover{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 ImageView{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1.6) , 2, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0.0 , 0 , 0 );
 }
 .root{
     -fx-background-color: transparent;
@@ -67,20 +68,19 @@ ImageView{
     -fx-background-color: #2A2E37;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
-.user-input{
+.user-inputs{
     -fx-alignment: center-right;
 }
-.user-input HBox{
+.user-inputs HBox{
     -fx-spacing: 0.5em;
 }
 .menu-buttons{
     -fx-background-color: #2A2E37;
     -fx-alignment: center;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
 }
 .menu-buttons Button{
     -fx-font-size: 0.75em;
-    -fx-min-width: 0;
-    -fx-pref-width: 0;
 }
 .loading-pane {
     -fx-background-color: #2A2E37;

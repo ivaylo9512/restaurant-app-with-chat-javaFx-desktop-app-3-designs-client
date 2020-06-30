@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -15,7 +14,7 @@
     <StackPane fx:id="loginPane" styleClass="login-pane" maxHeight="-Infinity" maxWidth="-Infinity">
         <StackPane maxWidth="Infinity" maxHeight="Infinity" styleClass="fields-container">
             <StackPane maxWidth="Infinity" maxHeight="Infinity" styleClass="fields-inner-shadow">
-                <GridPane styleClass="user-input">
+                <GridPane styleClass="user-inputs">
                     <rowConstraints>
                         <RowConstraints percentHeight="48"/>
                     </rowConstraints>
@@ -79,9 +78,6 @@
             </StackPane>
         </StackPane>
         <HBox fx:id="menu" nodeOrientation="RIGHT_TO_LEFT" styleClass="menu-buttons">
-            <effect>
-                <DropShadow/>
-            </effect>
             <Button fx:id="registerButton" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS"
                     onMouseClicked="#animateRegisterFields" text="Sign" mnemonicParsing="false"/>
             <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS"
@@ -90,7 +86,7 @@
                     onMouseClicked="#animateLoginFields" text="Login" mnemonicParsing="false"/>
         </HBox>
         <HBox fx:id="loadingPane" styleClass="loading-pane">
-            <ProgressIndicator nodeOrientation="LEFT_TO_RIGHT" styleClass="loading-indicator"/>
+            <ProgressIndicator styleClass="loading-indicator"/>
         </HBox>
     </StackPane>
 </StackPane>

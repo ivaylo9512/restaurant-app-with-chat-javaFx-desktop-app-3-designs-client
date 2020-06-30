@@ -2,16 +2,16 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import helpers.FontIndicator?>
+
 <StackPane fx:id="root" maxWidth="-Infinity" styleClass="root" xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.secondstyle.LoginSecond">
     <fx:define>
         <FontIndicator fx:id="font"/>
     </fx:define>
-    <Pane styleClass="background" maxHeight="Infinity"/>
+    <Pane styleClass="background"/>
     <GridPane>
         <rowConstraints>
             <RowConstraints percentHeight="22"/>
@@ -19,11 +19,11 @@
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS"/>
         </columnConstraints>
-        <Pane styleClass="background-line" maxHeight="Infinity"/>
+        <Pane styleClass="background-line"/>
     </GridPane>
     <GridPane>
         <rowConstraints>
-            <RowConstraints percentHeight="57"/>
+            <RowConstraints vgrow="ALWAYS" percentHeight="60"/>
         </rowConstraints>
         <columnConstraints>
             <ColumnConstraints percentWidth="45.5"/>
@@ -31,44 +31,44 @@
             <ColumnConstraints halignment="CENTER" percentWidth="6.2"/>
         </columnConstraints>
         <HBox styleClass="menu-buttons">
-            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="menu-button" mnemonicParsing="false"
+            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" mnemonicParsing="false"
                     onMouseClicked="#showLoginFields" text="login"/>
-            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="menu-button" mnemonicParsing="false"
+            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" mnemonicParsing="false"
                     onMouseClicked="#showStyleButtons" text="styles"/>
-            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="menu-button" mnemonicParsing="false"
+            <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" mnemonicParsing="false"
                     onMouseClicked="#showRegisterFields" text="register"/>
         </HBox>
-        <GridPane GridPane.columnIndex="1">
+        <GridPane styleClass="user-inputs" GridPane.columnIndex="1">
             <rowConstraints>
-                <RowConstraints percentHeight="72"/>
+                <RowConstraints percentHeight="75"/>
             </rowConstraints>
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS"/>
             </columnConstraints>
-            <HBox fx:id="loginFields" styleClass="user-inputs">
-                <TextField fx:id="username" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#login" promptText="username"/>
-                <PasswordField fx:id="password" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#login" promptText="password"/>
+            <HBox fx:id="loginFields">
+                <TextField fx:id="username" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#login" promptText="username"/>
+                <PasswordField fx:id="password" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#login" promptText="password"/>
             </HBox>
-            <HBox fx:id="registerFields" styleClass="user-inputs" disable="true" opacity="0.0">
-                <TextField fx:id="regUsername" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#showNextRegisterFields" promptText="username"/>
+            <HBox fx:id="registerFields" disable="true" opacity="0.0">
+                <TextField fx:id="regUsername" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#showNextRegisterFields" promptText="username"/>
             </HBox>
-            <HBox fx:id="nextRegisterFields" styleClass="user-inputs" disable="true" opacity="0.0">
-                <PasswordField fx:id="regPassword" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#register" promptText="password"/>
-                <PasswordField fx:id="regRepeatPassword" maxHeight="Infinity" maxWidth="Infinity" onKeyReleased="#register" promptText="password"/>
+            <HBox fx:id="nextRegisterFields" disable="true" opacity="0.0">
+                <PasswordField fx:id="regPassword" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#register" promptText="password"/>
+                <PasswordField fx:id="regRepeatPassword" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onKeyReleased="#register" promptText="password"/>
             </HBox>
-            <HBox fx:id="styleButtons" styleClass="style-buttons" disable="true" opacity="0.0">
-                <Button maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#showLoginFirstStyle" text="Style 1"/>
-                <Button maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#showLoginThirdStyle" text="Style 3"/>
+            <HBox fx:id="styleButtons" disable="true" opacity="0.0">
+                <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onMouseClicked="#showLoginFirstStyle" text="Style 1"/>
+                <Button maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onMouseClicked="#showLoginThirdStyle" text="Style 3"/>
             </HBox>
         </GridPane>
         <GridPane GridPane.columnIndex="2">
             <rowConstraints>
-                <RowConstraints percentHeight="77"/>
+                <RowConstraints percentHeight="80"/>
             </rowConstraints>
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS"/>
             </columnConstraints>
-            <Button fx:id="actionBtn" mnemonicParsing="false" maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#login" styleClass="action-btn">
+            <Button fx:id="actionBtn" contentDisplay="CENTER" mnemonicParsing="false" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" onMouseClicked="#login" styleClass="action-btn">
                 <graphic>
                     <ImageView fx:id="actionBtnImage" fitHeight="${font.fontPx}" fitWidth="${font.fontPx}">
                         <Image fx:id="loginImage" url="/images/arrow.png"/>

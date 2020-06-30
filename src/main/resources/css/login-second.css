@@ -4,6 +4,17 @@ PasswordField{
     -fx-background-color: #1a1a1a;
     -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
+    -fx-background-insets: none;
+    -fx-padding: 0;
+}
+GridPane,
+Button,
+TextField,
+PasswordField{
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
 }
 TextField,
 PasswordField{
@@ -12,19 +23,16 @@ PasswordField{
 }
 Button{
     -fx-border-color: black;
-    -fx-background-insets: 0 0 0 0, 0, 0, 0;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0);
-    -fx-min-width: 0;
-    -fx-pref-width: 0;
 }
 Button:focused{
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
 }
-Button:pressed{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1);
+Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 0);
 }
-.style-buttons Button{
-    -fx-font-size: 0.835em;
+Button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6, 0.0 , 0 , 1);
 }
 .root{
     -fx-background-color: transparent;
@@ -45,14 +53,16 @@ Button:pressed{
 }
 .background-line{
     -fx-background-color: #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(252,57,3,1) , 45, 0.0 , 0 , 6 );
+    -fx-effect: dropshadow( three-pass-box , rgba(252, 57, 3, 1) , 45, 0.0 , 0 , 6 );
 }
 .action-btn{
     -fx-background-color: #FC3903;
     -fx-border-color: transparent;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 0.91em
+    -fx-font-size: 0.91em;
+    -fx-text-alignment: center;
+    -fx-text-alignment: center;
 }
 .loading-pane {
     -fx-background-color: #1a1a1a;
@@ -64,6 +74,9 @@ Button:pressed{
 .menu-buttons{
     -fx-spacing: 0.58em
 }
-.user-inputs{
+.user-inputs HBox{
     -fx-spacing: 0.5em;
+}
+.user-inputs Button{
+    -fx-font-size: 0.835em;
 }
