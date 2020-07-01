@@ -118,19 +118,18 @@
                             <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="countryField"/>
                             <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="ageField"/>
                             <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="roleField" focusTraversable="false"/>
-                            <Button fx:id="saveButton" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" contentDisplay="RIGHT"
-                                    focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
+                            <Button fx:id="editButton" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" focusTraversable="false"
+                                    mnemonicParsing="false" onMouseClicked="#editUserInfo" text="Edit">
                                 <graphic>
-                                    <ImageView fitHeight="15.0" fitWidth="15.0">
+                                    <ImageView fitHeight="${font.fontPx * 1.5}" fitWidth="${font.fontPx * 1.5}">
                                         <Image url="/images/edit.png"/>
                                     </ImageView>
                                 </graphic>
                             </Button>
-                            <Button fx:id="editButton" maxHeight="1.7976931348623157E308"
-                                    maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" focusTraversable="false"
-                                    mnemonicParsing="false" onMouseClicked="#editUserInfo" text="Edit">
+                            <Button fx:id="saveButton" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" contentDisplay="RIGHT"
+                                    focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
                                 <graphic>
-                                    <ImageView fitHeight="15.0" fitWidth="15.0">
+                                    <ImageView fitHeight="${font.fontPx * 1.5}" fitWidth="${font.fontPx * 1.5}">
                                         <Image url="/images/edit.png"/>
                                     </ImageView>
                                 </graphic>

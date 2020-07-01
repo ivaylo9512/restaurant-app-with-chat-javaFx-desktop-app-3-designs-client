@@ -73,9 +73,11 @@ Button:pressed{
 .loading-pane {
     -fx-background-color: #1a1a1a;
     -fx-alignment: center;
+    -fx-padding: 1em 0;
 }
 .loading-indicator {
     -fx-accent: #FC3903;
+    -fx-font-size: 1em;
 }
 .menu-buttons{
     -fx-spacing: 0.58em
