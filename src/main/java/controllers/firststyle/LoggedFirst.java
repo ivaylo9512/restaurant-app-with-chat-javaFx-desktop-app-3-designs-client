@@ -38,10 +38,10 @@ public class LoggedFirst extends ControllerLogged {
     @FXML Pane moveBarMenu;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
-    @FXML GridPane dates, profileRoot;
+    @FXML GridPane dates;
     @FXML StackPane profileImageContainer;
     @FXML StackPane upperContent;
-    @FXML VBox orderContainer;
+    @FXML VBox orderContainer, profileRoot;
 
     private ScrollBar ordersScrollBar;
 
