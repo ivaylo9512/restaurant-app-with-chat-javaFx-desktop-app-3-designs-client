@@ -78,6 +78,7 @@ TextFlow {
 }
 .dish-cell Label{
     -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
 }
 .loading{
     -fx-pref-height: 12px;
@@ -173,11 +174,32 @@ TextFlow {
     -fx-background-color: transparent;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
 }
-
+.chat-cell{
+    -fx-pref-height: 54.0;
+    -fx-pref-width: 211.0;
+}
+.name{
+    -fx-font-size: 1em;
+    -fx-text-fill: #bcbcbc;
+}
+.profile-image-clip{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+    -fx-pref-height: 3.9em;
+    -fx-pref-width: 3.9em;
+}
+.profile-image-clip Pane{
+    -fx-pref-height: 3.9em;
+    -fx-pref-width: 3.9em;
+    -fx-background-radius: 180;
+    -fx-border-radius: 180;
+}
 .chats-list .list-cell:selected .name{
     -fx-text-fill: white;
 }
-.chats-list .list-cell:selected .lastMessage{
+.last-message{
+    -fx-text-fill: #545454;
+}
+.chats-list .list-cell:selected .last-message{
     -fx-pref-height: 0;
     -fx-text-fill: white;
 }

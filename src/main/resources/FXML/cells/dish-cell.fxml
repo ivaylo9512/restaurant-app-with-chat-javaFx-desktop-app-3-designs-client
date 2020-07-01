@@ -13,10 +13,10 @@
       <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
    </rowConstraints>
    <children>
-      <Label fx:id="price" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" styleClass="price" text="Label"/>
-      <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Label" GridPane.columnIndex="1"/>
+      <Label fx:id="price" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" styleClass="price" text="Label"/>
+      <Label fx:id="name" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Label" GridPane.columnIndex="1"/>
       <StackPane GridPane.columnIndex="2">
-         <Label fx:id="ready" alignment="CENTER" contentDisplay="CENTER" text="Label"/>
+         <Label fx:id="ready" contentDisplay="CENTER" text="Label"/>
          <ProgressIndicator fx:id="progressIndicator" styleClass="loading" />
       </StackPane>
    </children>

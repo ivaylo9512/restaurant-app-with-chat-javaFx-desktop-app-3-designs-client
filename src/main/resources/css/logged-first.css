@@ -226,11 +226,13 @@ TextFlow {
 }
 .dish-cell Label{
     -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
 }
 .menu-cell{
     -fx-background-color: #2A2E37;
     -fx-max-height: 6.7em;
     -fx-min-height: 5.35em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0, 0, 0, 1) , 4.5, 0 , 0 , 0);
 }
 .menu-cell Label{
     -fx-fill: #bcbcbc;

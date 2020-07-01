@@ -1,41 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="grid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="211.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <columnConstraints>
-    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="95.0" />
-    <ColumnConstraints maxWidth="338.0" minWidth="10.0" prefWidth="133.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0" styleClass="shadow">
-         <children>
-            <Pane fx:id="profileImageClip" prefHeight="46.0" prefWidth="46.0" style="-fx-background-radius: 180; -fx-border-radius: 180;">
-               <children>
-                  <ImageView fx:id="profileImage" fitHeight="38.5" fitWidth="38.5" layoutX="3.75" layoutY="8.3">
-                  </ImageView>
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-      <VBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="245.0" GridPane.columnIndex="1">
-         <children>
-            <Label fx:id="name" styleClass="name" text="Ivaylo Aleksandrov" textFill="#bcbcbc">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Label>
-            <Label fx:id="lastMessage" minHeight="-Infinity" styleClass="lastMessage" textFill="#545454" />
-         </children>
-         <padding>
-            <Insets left="8.0" />
-         </padding>
-      </VBox>
-   </children>
+<GridPane fx:id="grid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="chat-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="95.0"/>
+        <ColumnConstraints maxWidth="338.0" minWidth="10.0" prefWidth="133.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="profile-image-clip">
+        <Pane fx:id="profileImageClip" styleClass="profile-image-clip">
+            <ImageView fx:id="profileImage" fitHeight="38.5" fitWidth="38.5" layoutX="3.75" layoutY="8.3">
+            </ImageView>
+        </Pane>
+    </Pane>
+    <VBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="245.0" GridPane.columnIndex="1">
+        <padding>
+            <Insets left="8.0"/>
+        </padding>
+        <Label fx:id="name" styleClass="name"/>
+        <Label fx:id="lastMessage" minHeight="-Infinity" styleClass="last-message"/>
+    </VBox>
 </GridPane>
