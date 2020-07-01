@@ -81,34 +81,18 @@
         <HBox styleClass="create-order" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <VBox HBox.hgrow="ALWAYS">
                 <TextField fx:id="menuSearch" viewOrder="1" focusTraversable="false" minHeight="-Infinity"
-                           maxHeight="1.7976931348623157E308" promptText="Search">
-                    <effect>
-                        <DropShadow height="10.0" radius="4.5" width="10.0"/>
-                    </effect>
-                </TextField>
+                           maxHeight="1.7976931348623157E308" promptText="Search"/>
                 <ListView fx:id="menuList" viewOrder="9" HBox.hgrow="ALWAYS" maxWidth="Infinity"
-                          onMouseClicked="#addMenuItem" GridPane.rowIndex="1">
-                    <effect>
-                        <DropShadow height="10.0" radius="4.5" width="10.0"/>
-                    </effect>
-                </ListView>
+                          onMouseClicked="#addMenuItem" GridPane.rowIndex="1"/>
             </VBox>
             <ImageView fitHeight="30.0" fitWidth="30.0" rotate="180.0" GridPane.rowIndex="0" GridPane.columnIndex="1">
                 <Image url="/images/left-arrow.png"/>
             </ImageView>
             <VBox HBox.hgrow="ALWAYS" GridPane.columnIndex="2">
-                <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem">
-                    <effect>
-                        <DropShadow height="10.0" radius="4.5" width="10.0"/>
-                    </effect>
-                </ListView>
+                <ListView fx:id="newOrderList" onMouseClicked="#removeMenuItem"/>
                 <Button fx:id="createButton" maxHeight="Infinity" maxWidth="Infinity"
                         minHeight="-Infinity" mnemonicParsing="false" GridPane.rowIndex="1"
-                        onMouseClicked="#createNewOrder" text="Create">
-                    <effect>
-                        <DropShadow height="10.0" radius="4.5" width="10.0"/>
-                    </effect>
-                </Button>
+                        onMouseClicked="#createNewOrder" text="Create"/>
             </VBox>
         </HBox>
         <ScrollPane fx:id="menuScroll" styleClass="menu-scroll" maxWidth="-Infinity" minWidth="-Infinity"
@@ -177,7 +161,7 @@
             </graphic>
         </Button>
     </VBox>
-    <GridPane fx:id="dates" layoutY="10.0" opacity="0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0"
+    <GridPane fx:id="dates" layoutY="10.0" styleClass="dates" opacity="0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0"
               AnchorPane.rightAnchor="30.0">
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="0.0" prefWidth="100.0"/>
@@ -186,47 +170,19 @@
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <AnchorPane fx:id="createdContainer" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0"
-                    onMouseEntered="#showCreated" onMouseExited="#hideCreated" prefHeight="30.0" prefWidth="12.0"
-                    GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-            <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER" layoutY="121.0" maxWidth="38.0"
-                   minWidth="30.0" styleClass="dish-time" text="12:40" textFill="#bcbcbc"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <font>
-                    <Font size="16.0"/>
-                </font>
-                <effect>
-                    <InnerShadow height="10.0" radius="4.5" width="10.0"/>
-                </effect>
-            </Label>
-            <Label fx:id="createdDate" alignment="CENTER" contentDisplay="CENTER" layoutY="111.0" minWidth="80.0"
-                   textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <font>
-                    <Font size="16.0"/>
-                </font>
-            </Label>
+        <AnchorPane fx:id="createdContainer" layoutX="20.0" onMouseEntered="#showCreated" onMouseExited="#hideCreated"
+                     GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <Label fx:id="createdTime" layoutY="121.0" styleClass="dish-time" text="12:40" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+            <Label fx:id="createdDate" layoutY="111.0" styleClass="dish-date" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         </AnchorPane>
-        <AnchorPane fx:id="updatedContainer" layoutX="20.0" maxWidth="80.0" minHeight="0.0" minWidth="0.0"
-                    onMouseEntered="#showUpdated" onMouseExited="#hideUpdated" GridPane.columnIndex="1"
+        <AnchorPane fx:id="updatedContainer" layoutX="20.0" onMouseEntered="#showUpdated" onMouseExited="#hideUpdated" GridPane.columnIndex="1"
                     GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-            <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" maxWidth="38.0"
-                   styleClass="dish-time" text="12:40" textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0"
-                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <effect>
-                    <InnerShadow height="10.0" radius="4.5" width="10.0"/>
-                </effect>
-                <font>
-                    <Font size="16.0"/>
-                </font>
-            </Label>
-            <Label fx:id="updatedDate" alignment="CENTER" contentDisplay="CENTER" layoutY="111.0" minWidth="80.0"
-                   textFill="#bcbcbc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <font>
-                    <Font size="16.0"/>
-                </font>
-            </Label>
+            <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER" styleClass="dish-time" text="12:40"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+            <Label fx:id="updatedDate" layoutY="111.0" styleClass="dish-date" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         </AnchorPane>
     </GridPane>
     <AnchorPane fx:id="mainChat" disable="true" layoutX="217.0" layoutY="231.0" maxHeight="428.0" minHeight="189.0"

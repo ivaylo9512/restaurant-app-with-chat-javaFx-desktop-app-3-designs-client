@@ -173,10 +173,23 @@ TextFlow {
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
+.dates Label{
+    -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
+    -fx-font-size: 1.35em;
+}
+.dates > AnchorPane{
+    -fx-max-width: 6.66em;
+    -fx-pref-height: 2.5em;
+}
 .dish-time{
     -fx-border-radius: 0 0 0 0;
     -fx-background-radius: 0 0 0 0;
-    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
+    -fx-max-width: 3.2em;
+}
+.dish-date{
+    -fx-min-width: 6.66em;
 }
 .chat-users{
     -fx-background-color: transparent;
@@ -473,6 +486,9 @@ TextFlow {
 .create-order VBox{
     -fx-pref-height: 0;
     -fx-padding: 1em 1em 0.7em 1em;
+}
+.create-order VBox > *{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
 .create-order .menu-cell{
     -fx-background-color: #363b41;
