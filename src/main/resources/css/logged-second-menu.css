@@ -4,6 +4,7 @@
     -fx-min-width: 6.7em;
     -fx-pref-width: 45em;
     -fx-max-width: 46.7em;
+    -fx-translate-y: 1.65em;
     -fx-background-color: transparent;
 }
 .list-view .scroll-bar:vertical .increment-arrow,
@@ -35,6 +36,7 @@
     -fx-background-radius: 180;
     -fx-border-radius: 180;
     -fx-background-color: #1a1a1a;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 10, 0.0 , 0 , 0);
 }
 .menu > AnchorPane AnchorPane{
     -fx-background-radius: 180;
@@ -81,6 +83,7 @@
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
     -fx-background-color: #1a1a1a;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 10, 0.0 , 0 , 0);
 }
 .profile-buttons-container{
     -fx-translate-x: 1em;
@@ -149,6 +152,7 @@
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
     -fx-background-color: #1a1a1a;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 10, 0.0 , 0 , 0);
 }
 .notifications-view-clip{
     -fx-background-radius: 15px;

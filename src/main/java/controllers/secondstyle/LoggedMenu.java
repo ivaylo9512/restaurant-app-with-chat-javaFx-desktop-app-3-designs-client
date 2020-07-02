@@ -92,7 +92,7 @@ public class LoggedMenu extends ControllerLogged {
 
     private void updateProfileButtonsAnchors() {
         for (int i = 0; i < profileButtons.size(); i++) {
-            AnchorPane.setTopAnchor(profileButtons.get(i), fontPx * 6.8 + i * fontPx * 2.75);
+            AnchorPane.setTopAnchor(profileButtons.get(i), fontPx * 6.6 + i * fontPx * 2.75);
             AnchorPane.setBottomAnchor(profileButtons.get(i), fontPx * 0.5 + (profileButtons.size() - 1 - i) * fontPx * 2.75);
         }
     }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -10,7 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 
 <?import helpers.FontIndicator?>
-<AnchorPane fx:id="root" layoutY="20" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.secondstyle.LoggedMenu">
+<AnchorPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.secondstyle.LoggedMenu">
     <fx:define>
         <FontIndicator fx:id="font"/>
     </fx:define>
@@ -18,9 +17,6 @@
                 onMouseExited="#reverseMenu" styleClass="menu-container" AnchorPane.leftAnchor="0.0">
         <AnchorPane styleClass="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <effect>
-                <InnerShadow/>
-            </effect>
             <AnchorPane fx:id="menuButtonsContainer" AnchorPane.bottomAnchor="-1" AnchorPane.leftAnchor="0.0"
                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.5">
                 <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="-1.0">
@@ -60,7 +56,7 @@
                     mnemonicParsing="false" styleClass="menu-button">
                 <graphic>
                     <StackPane>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" styleClass="shadow">
+                        <ImageView fitHeight="${font.fontPx * 1.35}" fitWidth="${font.fontPx * 1.35}" styleClass="shadow">
                             <Image url="/images/menu.png"/>
                         </ImageView>
                         <HBox fx:id="notificationMenuIcon" styleClass="notification-icon"/>
@@ -72,9 +68,6 @@
     <AnchorPane fx:id="menuContent" disable="true" minHeight="-Infinity" minWidth="-Infinity" styleClass="menu-content">
         <AnchorPane fx:id="profileView" styleClass="profile-view" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <effect>
-                <InnerShadow/>
-            </effect>
             <AnchorPane fx:id="profileImageContainer" opacity="0.0" styleClass="profile-image">
                 <StackPane fx:id="profileImageClip" maxHeight="-Infinity" maxWidth="-Infinity">
                     <Circle radius="${font.fontPx * 2.5}"/>
@@ -140,9 +133,6 @@
         <AnchorPane fx:id="notificationsView" disable="true" maxWidth="Infinity" maxHeight="Infinity" minHeight="-Infinity"
                     minWidth="-Infinity" opacity="0.0" styleClass="notifications-view" AnchorPane.bottomAnchor="0.0"
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <effect>
-                <InnerShadow/>
-            </effect>
             <ListView fx:id="notificationsList" onMouseClicked="#onNotificationClick"
                       styleClass="notifications-list" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0"
                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0"/>

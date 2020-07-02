@@ -51,9 +51,6 @@ TextFlow {
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
 }
-.shadow2{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 10, 0.0 , 0 , 2 );
-}
 .content-bar{
     -fx-background-color: #FC3903;
 }
