@@ -27,39 +27,33 @@
                     <Button fx:id="profileButton" onMouseClicked="#onMenuAction"
                             onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus"
                             text="Profile" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
-                            AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-                    </Button>
+                            AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
                 </AnchorPane>
                 <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                     <Button fx:id="orderButton" contentDisplay="CENTER" mnemonicParsing="false"
                             onMouseClicked="#onMenuAction" onMouseEntered="#menuButtonFocus"
                             onMouseExited="#menuButtonUnFocus" text="Orders" AnchorPane.bottomAnchor="0"
-                            AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-                    </Button>
+                            AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
                 </AnchorPane>
                 <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                     <Button fx:id="createButton" mnemonicParsing="false" onMouseClicked="#onMenuAction"
                             onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus"
                             text="Create" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
-                            AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-                    </Button>
+                            AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
                 </AnchorPane>
                 <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                     <Button fx:id="notificationButton" contentDisplay="CENTER" mnemonicParsing="false"
                             onMouseClicked="#onMenuAction" onMouseEntered="#menuButtonFocus"
                             onMouseExited="#menuButtonUnFocus" text="Updates" AnchorPane.bottomAnchor="0"
-                            AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-                    </Button>
+                            AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
                 </AnchorPane>
                 <HBox fx:id="notificationIcon" disable="true" mouseTransparent="true" opacity="0"
-                      styleClass="notification-icon" AnchorPane.leftAnchor="382.5" AnchorPane.topAnchor="-8">
-                </HBox>
+                      styleClass="notification-icon" AnchorPane.leftAnchor="382.5" AnchorPane.topAnchor="-8"/>
                 <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                     <Button fx:id="chatButton" mnemonicParsing="false" onMouseClicked="#onMenuAction"
                             onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus"
                             text="Chats" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
-                            AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-                    </Button>
+                            AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
                 </AnchorPane>
             </AnchorPane>
             <Button fx:id="menuButton" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity"
@@ -69,48 +63,39 @@
                         <ImageView fitHeight="16.0" fitWidth="16.0" styleClass="shadow">
                             <Image url="/images/menu.png"/>
                         </ImageView>
-                        <HBox fx:id="notificationMenuIcon" styleClass="notification-icon">
-                    </HBox>
+                        <HBox fx:id="notificationMenuIcon" styleClass="notification-icon"/>
                     </StackPane>
                 </graphic>
             </Button>
         </AnchorPane>
     </AnchorPane>
     <AnchorPane fx:id="menuContent" disable="true" minHeight="-Infinity" minWidth="-Infinity" styleClass="menu-content">
-        <AnchorPane fx:id="profileView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                    minHeight="-Infinity" minWidth="-Infinity" styleClass="profile-view" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="profileView" styleClass="profile-view" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <effect>
                 <InnerShadow/>
             </effect>
             <AnchorPane fx:id="profileImageContainer" opacity="0.0" styleClass="profile-image">
                 <StackPane fx:id="profileImageClip" maxHeight="-Infinity" maxWidth="-Infinity">
                     <Circle radius="${font.fontPx * 2.5}"/>
-                    <ImageView fx:id="profileImage" fitWidth="${font.fontPx * 4.2}"
-                               fitHeight="${font.fontPx * 4.2}"/>
+                    <ImageView fx:id="profileImage" fitWidth="${font.fontPx * 4.2}" fitHeight="${font.fontPx * 4.2}"/>
                 </StackPane>
             </AnchorPane>
             <HBox minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
-                <TextField fx:id="firstNameField" maxHeight="1.7976931348623157E308"
-                           maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                           prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
-                <TextField fx:id="lastNameField" maxHeight="1.7976931348623157E308"
-                           maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                           prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
-                <TextField fx:id="usernameField" maxHeight="1.7976931348623157E308"
-                           maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                           prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="firstNameField" maxHeight="Infinity" maxWidth="Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="lastNameField" maxHeight="Infinity" maxWidth="Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="usernameField" maxHeight="Infinity" maxWidth="Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
             </HBox>
             <HBox minHeight="-Infinity" minWidth="-Infinity">
-                <TextField fx:id="countryField" maxHeight="1.7976931348623157E308"
-                           maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                           prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
-                <TextField fx:id="ageField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0"
-                           HBox.hgrow="ALWAYS"/>
-                <TextField fx:id="roleField" maxHeight="1.7976931348623157E308"
-                           maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                           prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="countryField" maxHeight="Infinity" maxWidth="Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="ageField" maxHeight="Infinity" maxWidth="Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="roleField" maxHeight="Infinity" maxWidth="Infinity"
+                           minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS"/>
             </HBox>
             <AnchorPane fx:id="profileButtonsContainer" styleClass="profile-buttons-container"
                         AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
@@ -118,48 +103,41 @@
                     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                             onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut"
                             text="Change" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    </Button>
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                 </AnchorPane>
                 <AnchorPane styleClass="profile-button-shadow">
                     <Button fx:id="editButton" minHeight="-Infinity" minWidth="-Infinity"
                             mnemonicParsing="false" onMouseClicked="#editUserInfo"
                             onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut"
                             text="Edit" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    </Button>
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                     <Button fx:id="saveButton" minHeight="-Infinity" minWidth="-Infinity"
                             mnemonicParsing="false" onMouseClicked="#saveUserInfo"
                             onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut"
                             text="Save" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    </Button>
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                 </AnchorPane>
                 <AnchorPane styleClass="profile-button-shadow">
                     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                             onMouseClicked="#showLoggedFirstStyle" onMouseEntered="#profileButtonHoverOver"
                             onMouseExited="#profileButtonHoverOut" text="Style 1" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    </Button>
+                            AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                 </AnchorPane>
                 <AnchorPane styleClass="profile-button-shadow">
                     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                             onMouseClicked="#showLoggedThirdStyle" onMouseEntered="#profileButtonHoverOver"
                             onMouseExited="#profileButtonHoverOut" text="Style 3" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    </Button>
+                            AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                 </AnchorPane>
                 <AnchorPane styleClass="profile-button-shadow">
                     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                             onMouseClicked="#logout" onMouseEntered="#profileButtonHoverOver"
                             onMouseExited="#profileButtonHoverOut" text="Log out" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    </Button>
+                            AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                 </AnchorPane>
             </AnchorPane>
         </AnchorPane>
-        <AnchorPane fx:id="notificationsView" disable="true" layoutX="13.0" layoutY="13.0"
-                    maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+        <AnchorPane fx:id="notificationsView" disable="true" maxWidth="Infinity" maxHeight="Infinity" minHeight="-Infinity"
                     minWidth="-Infinity" opacity="0.0" styleClass="notifications-view" AnchorPane.bottomAnchor="0.0"
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <effect>

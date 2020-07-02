@@ -118,6 +118,8 @@
     -fx-background-color: #1a1a1a;
     -fx-opacity: 1;
     -fx-text-fill: #bcbcbc;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
 .profile-view HBox{
