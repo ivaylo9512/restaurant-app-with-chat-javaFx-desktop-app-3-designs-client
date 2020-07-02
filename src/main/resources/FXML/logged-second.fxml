@@ -251,9 +251,9 @@
                   </AnchorPane>
                   <AnchorPane minWidth="-Infinity" prefHeight="666.0" prefWidth="212.0" style="-fx-background-color: #1a1a1a; -fx-border-width: 0 0.3 0 0; -fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane fx:id="userChatsClip" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="57.0">
+                        <AnchorPane fx:id="userChatsClip" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="57.0" AnchorPane.rightAnchor="0">
                            <children>
-                              <ListView fx:id="chatUsersList" prefHeight="220.0" prefWidth="250.0" styleClass="chats-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ListView fx:id="chatUsersList" prefHeight="220.0" styleClass="chats-list" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>

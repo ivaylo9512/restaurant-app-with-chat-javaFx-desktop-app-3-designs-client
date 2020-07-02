@@ -57,6 +57,12 @@ public class LoggedMenu extends ControllerLogged {
         profileButtons = profileButtonsContainer.getChildren();
         menuButtons = new ArrayList<>(menuButtonsContainer.lookupAll("Button"));
 
+        scaleFontNodes();
+        fontPxProperty.addListener((observable, oldValue, newValue) -> {
+            fontPx = newValue.doubleValue();
+            scaleFontNodes();
+        });
+
         setNotificationBox(notificationBox);
         setNotificationBox(notificationMenuIcon);
         bindNotificationIconSize();
@@ -66,12 +72,6 @@ public class LoggedMenu extends ControllerLogged {
 
         notificationMenuIcon.opacityProperty().bind(notificationBox.opacityProperty());
         notificationsList.setItems(notificationManager.notifications);
-
-        scaleFontNodes();
-        fontPxProperty.addListener((observable, oldValue, newValue) -> {
-            fontPx = newValue.doubleValue();
-            scaleFontNodes();
-        });
 
         setUserGraphicIndicator();
         setNotificationsListeners();
@@ -435,5 +435,7 @@ public class LoggedMenu extends ControllerLogged {
 
         notificationBox.prefWidthProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(4.75)));
         notificationBox.prefHeightProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(4.75)));
+
+        AnchorPane.setLeftAnchor(notificationBox, AnchorPane.getLeftAnchor(notificationButton.getParent()) + fontPx * 5.875);
     }
 }

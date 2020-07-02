@@ -43,14 +43,14 @@
                             onMouseExited="#menuButtonUnFocus" text="Updates" AnchorPane.bottomAnchor="0"
                             AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
                 </AnchorPane>
-                <HBox fx:id="notificationIcon" disable="true" mouseTransparent="true"
-                      styleClass="notification-icon" AnchorPane.leftAnchor="382.5" AnchorPane.topAnchor="-8"/>
                 <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                     <Button fx:id="chatButton" mnemonicParsing="false" onMouseClicked="#onMenuAction"
                             onMouseEntered="#menuButtonFocus" onMouseExited="#menuButtonUnFocus"
                             text="Chats" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
                             AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
                 </AnchorPane>
+                <HBox fx:id="notificationIcon" disable="true" mouseTransparent="true"
+                      styleClass="notification-icon"/>
             </AnchorPane>
             <Button fx:id="menuButton" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity"
                     mnemonicParsing="false" styleClass="menu-button">
@@ -92,13 +92,13 @@
             </HBox>
             <AnchorPane fx:id="profileButtonsContainer" styleClass="profile-buttons-container"
                         AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
-                <AnchorPane styleClass="profile-button-shadow">
+                <AnchorPane>
                     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                             onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut"
                             text="Change" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0"
                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                 </AnchorPane>
-                <AnchorPane styleClass="profile-button-shadow">
+                <AnchorPane>
                     <Button fx:id="editButton" minHeight="-Infinity" minWidth="-Infinity"
                             mnemonicParsing="false" onMouseClicked="#editUserInfo"
                             onMouseEntered="#profileButtonHoverOver" onMouseExited="#profileButtonHoverOut"
@@ -110,19 +110,19 @@
                             text="Save" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0"
                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                 </AnchorPane>
-                <AnchorPane styleClass="profile-button-shadow">
+                <AnchorPane>
                     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                             onMouseClicked="#showLoggedFirstStyle" onMouseEntered="#profileButtonHoverOver"
                             onMouseExited="#profileButtonHoverOut" text="Style 1" AnchorPane.bottomAnchor="0.0"
                             AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                 </AnchorPane>
-                <AnchorPane styleClass="profile-button-shadow">
+                <AnchorPane>
                     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                             onMouseClicked="#showLoggedThirdStyle" onMouseEntered="#profileButtonHoverOver"
                             onMouseExited="#profileButtonHoverOut" text="Style 3" AnchorPane.bottomAnchor="0.0"
                             AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                 </AnchorPane>
-                <AnchorPane styleClass="profile-button-shadow">
+                <AnchorPane>
                     <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
                             onMouseClicked="#logout" onMouseEntered="#profileButtonHoverOver"
                             onMouseExited="#profileButtonHoverOut" text="Log out" AnchorPane.bottomAnchor="0.0"

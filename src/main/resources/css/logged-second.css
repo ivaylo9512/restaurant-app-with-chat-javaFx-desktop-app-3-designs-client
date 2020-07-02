@@ -149,26 +149,29 @@ TextFlow {
 }
 .chats-list .list-cell{
     -fx-background-color: transparent;
-    -fx-padding: 1.4;
-}
-.chats-list GridPane{
-    -fx-background-color: #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 1 );
-
-}
-.chats-list GridPane:hover{
-    -fx-background-color: rgb(252,57,3,0.1);
+    -fx-padding: 0.33em 0;
 }
 .chats-list .list-cell:selected{
     -fx-background-color: #FC3903;
 }
-.chats-list .list-cell:selected GridPane{
+.chats-list .list-cell:selected HBox{
     -fx-background-color: transparent;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
 }
 .chat-cell{
-    -fx-pref-height: 54.0;
-    -fx-pref-width: 211.0;
+    -fx-padding: 0.2em 0 0.2em 3.3em;
+    -fx-alignment: center;
+    -fx-spacing: 0.55em;
+    -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 1 );
+
+}
+.chat-cell:hover{
+    -fx-background-color: rgb(252,57,3,0.1);
+}
+.chat-cell VBox{
+    -fx-alignment: center-left;
+    -fx-pref-width: 0;
 }
 .name{
     -fx-font-size: 1em;

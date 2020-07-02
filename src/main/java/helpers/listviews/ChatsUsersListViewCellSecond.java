@@ -2,6 +2,7 @@ package helpers.listviews;
 
 import controllers.secondstyle.LoggedSecond;
 import javafx.beans.binding.DoubleBinding;
+import javafx.scene.layout.HBox;
 import models.ChatValue;
 import models.Message;
 import models.User;
@@ -10,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
     @FXML
     private ImageView profileImage;
     @FXML
-    private GridPane grid;
+    private HBox container;
 
     private Circle clip = new Circle();
     private FXMLLoader fxmlLoader;
@@ -75,7 +75,7 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
             profileImageClip.setClip(clip);
 
             setText(null);
-            setGraphic(grid);
+            setGraphic(container);
         }
     }
 

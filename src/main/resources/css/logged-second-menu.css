@@ -98,7 +98,7 @@
 .profile-view Button ProgressIndicator{
     -fx-accent: #bcbcbc;
 }
-.profile-button-shadow {
+profile-buttons-container > AnchorPane {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 1 );
     -fx-background-radius: 180px;
     -fx-border-radius: 180px;
@@ -183,6 +183,9 @@
 }
 .notifications-info Text {
     -fx-fill: #bcbcbc;
+}
+.menu > AnchorPane .notification-icon{
+    -fx-translate-y: -0.67em;
 }
 .notification-icon{
     -fx-alignment: center;
