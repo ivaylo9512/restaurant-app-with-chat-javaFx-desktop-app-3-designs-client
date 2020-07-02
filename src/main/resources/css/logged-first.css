@@ -317,7 +317,7 @@ TextFlow {
 }
 .menu-grid{
     -fx-background-color: #363b41;
-    -fx-pref-height: 36em;
+    -fx-pref-height: 36.5em;
     -fx-pref-width: 8.5em;
 }
 .user-info{
@@ -336,10 +336,10 @@ TextFlow {
     -fx-padding: 0px;
 }
 .user-info VBox{
-    -fx-padding: 0.6em 0.25em 0.8em 2.25em;
+    -fx-padding: 0.5em 0.25em 0.8em 2.25em;
     -fx-alignment: center;
     -fx-spacing: 0.5em;
-    -fx-pref-height: 14.1em;
+    -fx-pref-height: 14em;
     -fx-pref-width: 8.5em;
 }
 .user-info TextField,
@@ -360,14 +360,14 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .user-info Button:disabled{
-    -fx-opacity: 0.5;
+    -fx-opacity: 1;
 }
 .user-info TextField:readonly {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0 , 0 , 0 );
     -fx-cursor: pointer;
 }
 .user-info ProgressIndicator{
-    -fx-max-height: 1em;
+    -fx-max-height: 2em;
 }
 .user-info:disabled Button{
     -fx-opacity: 0.9;

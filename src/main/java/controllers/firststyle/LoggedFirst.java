@@ -65,6 +65,8 @@ public class LoggedFirst extends ControllerLogged {
         setUserFields();
         setOrderPane();
         addOrdersListListeners();
+        setUserGraphicIndicator();
+        setCreateGraphicIndicators();
 
         currentOrder = ordersList.getSelectionModel().selectedItemProperty();
 

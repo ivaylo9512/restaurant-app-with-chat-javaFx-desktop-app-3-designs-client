@@ -67,7 +67,7 @@
                     onMouseClicked="#animateLoginFields" text="Login"/>
         </HBox>
         <HBox fx:id="loadingPane" styleClass="loading-pane">
-            <ProgressIndicator styleClass="loading-indicator"/>
+            <ProgressIndicator maxWidth="Infinity" maxHeight="Infinity" HBox.hgrow="ALWAYS" styleClass="loading-indicator"/>
         </HBox>
     </StackPane>
 </StackPane>

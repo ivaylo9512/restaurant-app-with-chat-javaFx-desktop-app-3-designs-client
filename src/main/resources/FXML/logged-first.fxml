@@ -100,8 +100,8 @@
             <GridPane styleClass="menu-grid">
                 <rowConstraints>
                     <RowConstraints valignment="CENTER"/>
-                    <RowConstraints minHeight="10.0" percentHeight="32.5" vgrow="SOMETIMES"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" percentHeight="32" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="31" vgrow="SOMETIMES"/>
                 </rowConstraints>
                 <columnConstraints>
                     <ColumnConstraints minWidth="10.0" hgrow="SOMETIMES" halignment="CENTER"/>
@@ -113,32 +113,34 @@
                     <Pane styleClass="info-line"/>
                     <ScrollPane fx:id="userInfoScroll" minWidth="-Infinity" maxWidth="-Infinity" viewOrder="3" GridPane.rowIndex="1">
                         <VBox>
-                            <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="firstNameField"/>
-                            <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="lastNameField"/>
-                            <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="countryField"/>
-                            <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="ageField"/>
+                            <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="firstNameField" focusTraversable="false"/>
+                            <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="lastNameField" focusTraversable="false"/>
+                            <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="countryField" focusTraversable="false"/>
+                            <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="ageField" focusTraversable="false"/>
                             <TextField maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" fx:id="roleField" focusTraversable="false"/>
-                            <Button fx:id="editButton" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" focusTraversable="false"
-                                    mnemonicParsing="false" onMouseClicked="#editUserInfo" text="Edit">
-                                <graphic>
-                                    <ImageView fitHeight="${font.fontPx * 1.5}" fitWidth="${font.fontPx * 1.5}">
-                                        <Image url="/images/edit.png"/>
-                                    </ImageView>
-                                </graphic>
-                            </Button>
-                            <Button fx:id="saveButton" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" contentDisplay="RIGHT"
-                                    focusTraversable="false" mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
-                                <graphic>
-                                    <ImageView fitHeight="${font.fontPx * 1.5}" fitWidth="${font.fontPx * 1.5}">
-                                        <Image url="/images/edit.png"/>
-                                    </ImageView>
-                                </graphic>
-                            </Button>
+                            <StackPane maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS">
+                                <Button fx:id="editButton" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS"
+                                        mnemonicParsing="false" onMouseClicked="#editUserInfo" text="Edit">
+                                    <graphic>
+                                        <ImageView fitHeight="${font.fontPx * 1.5}" fitWidth="${font.fontPx * 1.5}">
+                                            <Image url="/images/edit.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="saveButton" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS" contentDisplay="RIGHT"
+                                        mnemonicParsing="false" onMouseClicked="#saveUserInfo" text="Save">
+                                    <graphic>
+                                        <ImageView fitHeight="${font.fontPx * 1.5}" fitWidth="${font.fontPx * 1.5}">
+                                            <Image url="/images/edit.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </StackPane>
                         </VBox>
                     </ScrollPane>
                     <Pane styleClass="info-line" GridPane.rowIndex="2"/>
                 </VBox>
-                <ListView fx:id="chatUsersList" disable="true" styleClass="chat-users" GridPane.rowIndex="2"/>
+                <ListView fx:id="chatUsersList" focusTraversable="false" disable="true" styleClass="chat-users" GridPane.rowIndex="2"/>
             </GridPane>
         </ScrollPane>
     </GridPane>

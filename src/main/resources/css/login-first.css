@@ -90,4 +90,5 @@ ImageView{
 }
 .loading-indicator {
     -fx-accent: #bcbcbc;
+    -fx-max-height: 5em;
 }

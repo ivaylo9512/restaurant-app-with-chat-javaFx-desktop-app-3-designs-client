@@ -39,7 +39,7 @@ public class RequestService<T> extends Service<T> {
 
     @Override
     protected Task<T> createTask() {
-        HttpRequestBase request = null;
+        HttpRequestBase request;
         try {
             request = (HttpRequestBase) function.invokeExact();
         } catch (Throwable throwable) {
