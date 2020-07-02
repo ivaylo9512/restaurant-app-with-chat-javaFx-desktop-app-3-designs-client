@@ -1,6 +1,7 @@
 package helpers.listviews;
 
 import controllers.secondstyle.LoggedSecond;
+import javafx.beans.binding.DoubleBinding;
 import models.ChatValue;
 import models.Message;
 import models.User;
@@ -30,7 +31,7 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
     @FXML
     private GridPane grid;
 
-    private Circle clip = new Circle(23.5, 23.5, 23.5);
+    private Circle clip = new Circle();
     private FXMLLoader fxmlLoader;
 
     @Override
@@ -51,7 +52,6 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
 
             if(chat.getSessions().size() > 0) {
@@ -67,6 +67,11 @@ public class ChatsUsersListViewCellSecond extends ListCell<ChatValue> {
             name.setText(user.getFirstName().get() + " " + user.getLastName().get());
 
             profileImage.setImage(chat.getSecondUserPicture());
+
+            DoubleBinding clipProperty = profileImageClip.widthProperty().divide(2);
+            clip.centerYProperty().bind(clipProperty);
+            clip.centerXProperty().bind(clipProperty);
+            clip.radiusProperty().bind(clipProperty);
             profileImageClip.setClip(clip);
 
             setText(null);

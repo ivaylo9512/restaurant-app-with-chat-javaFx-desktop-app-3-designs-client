@@ -4,6 +4,7 @@ import animations.MoveRoot;
 import animations.TransitionResizeHeight;
 import animations.TransitionResizeWidth;
 import controllers.base.ControllerLogged;
+import helpers.FontIndicator;
 import javafx.animation.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -120,7 +121,7 @@ public class LoggedMenu extends ControllerLogged {
         profileViewClip.heightProperty().bind(profileView.heightProperty());
         profileView.setClip(profileViewClip);
 
-        Circle clip = new Circle(30.8, 30.8, 30.8);
+        Circle clip = new Circle();
         clip.centerXProperty().bind(profileImageClip.widthProperty().divide(2));
         clip.centerYProperty().bind(profileImageClip.widthProperty().divide(2));
         clip.radiusProperty().bind(profileImageClip.widthProperty().divide(2));
@@ -136,9 +137,8 @@ public class LoggedMenu extends ControllerLogged {
         Rectangle menuClip = new Rectangle();
         menuClip.heightProperty().bind(menu.heightProperty().add(45));
         menuClip.widthProperty().bind(menu.widthProperty().add(30));
-        menuClip.setX(-15);
-        menuClip.setY(-20);
-
+        menuClip.setX(FontIndicator.fontPx.get() * -1.25);
+        menuClip.setY(FontIndicator.fontPx.get() * -1.65);
         menu.setClip(menuClip);
     }
 
@@ -428,12 +428,12 @@ public class LoggedMenu extends ControllerLogged {
     }
     void bindNotificationIconSize(){
         Region region = (Region)notificationBox.getChildren().get(0);
-        region.minWidthProperty().bind(notificationButton.widthProperty().subtract(68));
-        region.prefWidthProperty().bind(notificationButton.widthProperty().subtract(68));
+        region.minWidthProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(5.67)));
+        region.prefWidthProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(5.67)));
         region.minHeightProperty().bind(region.widthProperty());
         region.prefHeightProperty().bind(region.widthProperty());
 
-        notificationBox.prefWidthProperty().bind(notificationButton.widthProperty().subtract(57));
-        notificationBox.prefHeightProperty().bind(notificationButton.widthProperty().subtract(57));
+        notificationBox.prefWidthProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(4.75)));
+        notificationBox.prefHeightProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(4.75)));
     }
 }

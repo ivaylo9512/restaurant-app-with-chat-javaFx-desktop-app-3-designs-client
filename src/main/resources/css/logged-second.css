@@ -159,11 +159,6 @@ TextFlow {
 .chats-list GridPane:hover{
     -fx-background-color: rgb(252,57,3,0.1);
 }
-.chats-list GridPane > Pane{
-    -fx-background-color: white;
-    -fx-background-radius: 180;
-    -fx-border-radius: 180;
-}
 .chats-list .list-cell:selected{
     -fx-background-color: #FC3903;
 }
@@ -179,16 +174,14 @@ TextFlow {
     -fx-font-size: 1em;
     -fx-text-fill: #bcbcbc;
 }
-.profile-image-clip{
+.profile-image{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
-    -fx-pref-height: 3.9em;
-    -fx-pref-width: 3.9em;
 }
-.profile-image-clip Pane{
-    -fx-pref-height: 3.9em;
-    -fx-pref-width: 3.9em;
-    -fx-background-radius: 180;
-    -fx-border-radius: 180;
+.profile-image Circle {
+    -fx-fill: white;
+}
+.profile-image ImageView{
+    -fx-translate-y: 4.15;
 }
 .chats-list .list-cell:selected .name{
     -fx-text-fill: white;

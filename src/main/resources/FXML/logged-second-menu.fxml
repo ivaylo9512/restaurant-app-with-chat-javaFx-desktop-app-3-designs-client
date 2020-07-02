@@ -43,7 +43,7 @@
                             onMouseExited="#menuButtonUnFocus" text="Updates" AnchorPane.bottomAnchor="0"
                             AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
                 </AnchorPane>
-                <HBox fx:id="notificationIcon" disable="true" mouseTransparent="true" opacity="0"
+                <HBox fx:id="notificationIcon" disable="true" mouseTransparent="true"
                       styleClass="notification-icon" AnchorPane.leftAnchor="382.5" AnchorPane.topAnchor="-8"/>
                 <AnchorPane styleClass="shadow" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0">
                     <Button fx:id="chatButton" mnemonicParsing="false" onMouseClicked="#onMenuAction"
