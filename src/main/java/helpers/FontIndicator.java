@@ -7,31 +7,43 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class FontIndicator {
-    public static DoubleProperty fontPx = new SimpleDoubleProperty(Font.getDefault().getSize());
-    private static KeyCombination  combination = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
-
-    public void setSliderBinding(Node root, Slider slider){
+    public static DoubleProperty fontPx = new SimpleDoubleProperty(12.5);
+    private static KeyCombination combination = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
+    public static void setSliderBinding(Node root, Slider slider, Stage stage){
         root.setOnKeyPressed(event -> {
             if(combination.match(event)){
-                slider.setValue(fontPx.get());
                 slider.setDisable(false);
+                slider.setManaged(true);
+                slider.setOpacity(1);
             }
         });
-        root.setOnKeyReleased(event -> slider.setDisable(true));
+        root.setOnKeyReleased(event -> {
+            slider.setDisable(true);
+            slider.setManaged(false);
+            slider.setOpacity(0);
+        });
+
+        slider.setValue(fontPx.get());
         slider.valueProperty().addListener(((observable, oldValue, newValue) -> {
-            fontPx.set(newValue.intValue());
+            double maxFont = 24;
+            double minFont = 6;
+            newValue = Math.max(Math.min(newValue.doubleValue(), maxFont), minFont);
+            double diff = newValue.intValue() / oldValue.doubleValue();
+            fontPx.setValue(newValue.intValue());
+            stage.setWidth(stage.getWidth() * diff);
+            stage.setHeight(stage.getHeight() * diff);
         }));
     }
 
-    public DoubleProperty getFontPxProperty() {
+    public DoubleProperty fontPxProperty() {
         return fontPx;
     }
 
     public double getFontPx() {
-        return fontPx.get();
+        return fontPx.getValue();
     }
 
     public void setFontPx(double px) {

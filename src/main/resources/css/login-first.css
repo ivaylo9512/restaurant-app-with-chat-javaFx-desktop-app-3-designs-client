@@ -77,9 +77,9 @@ ImageView{
     -fx-spacing: 0.5em;
 }
 .menu-buttons{
-    -fx-background-color: #2A2E37;
     -fx-alignment: center;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
+    -fx-snap-to-pixel: false;
 }
 .menu-buttons Button{
     -fx-font-size: 0.75em;

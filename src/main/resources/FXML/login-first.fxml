@@ -59,15 +59,15 @@
             </StackPane>
         </StackPane>
         <HBox fx:id="menu" nodeOrientation="RIGHT_TO_LEFT" styleClass="menu-buttons">
-            <Button fx:id="registerButton" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" mnemonicParsing="false"
+            <Button fx:id="registerButton" minWidth="-Infinity" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" mnemonicParsing="false"
                     onMouseClicked="#animateRegisterFields" text="Sign"/>
-            <Button HBox.hgrow="ALWAYS"  maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false"
+            <Button HBox.hgrow="ALWAYS"  minWidth="-Infinity" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false"
                     onMouseClicked="#animateStyleButtons" text="Style"/>
-            <Button fx:id="loginButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false"
+            <Button fx:id="loginButton" HBox.hgrow="ALWAYS" minWidth="-Infinity" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false"
                     onMouseClicked="#animateLoginFields" text="Login"/>
         </HBox>
         <HBox fx:id="loadingPane" styleClass="loading-pane">
-            <ProgressIndicator maxWidth="Infinity" maxHeight="Infinity" HBox.hgrow="ALWAYS" styleClass="loading-indicator"/>
+            <ProgressIndicator styleClass="loading-indicator"/>
         </HBox>
     </StackPane>
 </StackPane>

@@ -77,7 +77,10 @@ TextFlow {
     -fx-min-width: 61.8em;
     -fx-pref-height: 36.5em;
     -fx-pref-width: 61.8em;
-    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.padding-container{
+    -fx-padding: 0 2em 0 0;
 }
 .profile-image{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 3, 0.0 , 0 , 0 );
@@ -540,4 +543,19 @@ TextFlow {
 }
 .clear-button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
+}
+.slider-container{
+    -fx-padding: 0.5em;
+}
+.slider .thumb {
+    -fx-padding: 0.5em;
+    -fx-background-color: #2A2E37;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+    -fx-background-insets: none;
+}
+.slider .track{
+    -fx-background-insets: none;
+    -fx-background-color: #2A2E37;
+    -fx-padding: 0.15em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
