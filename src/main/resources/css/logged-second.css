@@ -138,6 +138,12 @@ TextFlow {
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
 }
+.orders AnchorPane{
+    -fx-pref-width: 212.0px;
+    -fx-background-color: #1a1a1a;
+    -fx-border-width: 0 0.3 0 0;
+    -fx-border-color: white;
+}
 .order-info AnchorPane{
     -fx-background-color: #1a1a1a;
     -fx-background-radius: 15;
@@ -186,6 +192,12 @@ TextFlow {
 .profile-image ImageView{
     -fx-translate-y: 4.15;
 }
+.chats{
+    -fx-background-color: #1a1a1a;
+    -fx-border-width: 0 0.3 0 0;
+    -fx-border-color: white;
+    -fx-pref-width: 212.0px;
+}
 .chats-list .list-cell:selected .name{
     -fx-text-fill: white;
 }
@@ -204,6 +216,9 @@ TextFlow {
     -fx-pref-height: 40.0;
     -fx-border-radius: 180px;
     -fx-background-radius: 180px;
+}
+.main-chat VBox{
+    -fx-pref-width: 396.0px;
 }
 .main-chat .imageShadow{
     -fx-background-color: white;

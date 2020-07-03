@@ -214,11 +214,8 @@
                </AnchorPane>
             </GridPane>
          </AnchorPane>
-         <AnchorPane layoutX="9.0" layoutY="9.0" prefHeight="381.0" prefWidth="213.0"
-                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <AnchorPane layoutX="38.0" minWidth="-Infinity" prefHeight="666.0" prefWidth="212.0"
-                        style="-fx-background-color: #1a1a1a; -fx-border-width: 0 0.3 0 0; -fx-border-color: white;"
-                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <AnchorPane styleClass="orders" layoutX="9.0" layoutY="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="38.0" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <ListView fx:id="ordersList" layoutY="57.0" onMouseClicked="#showOrder" prefHeight="404.0"
                             prefWidth="212.0" styleClass="order-list" AnchorPane.bottomAnchor="0.0"
@@ -230,8 +227,7 @@
       <AnchorPane fx:id="chatView" disable="true" layoutX="1.0" layoutY="1.0" opacity="0.0"
                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                   AnchorPane.topAnchor="0.0">
-         <AnchorPane layoutX="231.0" layoutY="19.0" prefHeight="371.0" prefWidth="469.0"
-                     style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0"
+         <AnchorPane layoutX="231.0" layoutY="19.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0"
                      AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <effect>
                <InnerShadow/>
@@ -239,11 +235,10 @@
             <AnchorPane fx:id="mainChat" disable="true" layoutY="1.0" opacity="0.0" styleClass="main-chat"
                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <ScrollPane fx:id="mainChatScroll" prefHeight="143.0" prefWidth="418.0"
-                           AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0"
+               <ScrollPane fx:id="mainChatScroll" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0"
                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
-                  <VBox fx:id="mainChatBlock" maxHeight="1.7976931348623157E308"
-                        maxWidth="1.7976931348623157E308" prefWidth="396.0">
+                  <VBox fx:id="mainChatBlock" maxHeight="Infinity"
+                        maxWidth="Infinity">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0"/>
                      </padding>
@@ -266,7 +261,7 @@
                      </HBox>
                   </VBox>
                </ScrollPane>
-               <AnchorPane layoutX="4.0" layoutY="433.0" prefHeight="39.0" prefWidth="416.0"
+               <AnchorPane layoutX="4.0" layoutY="433.0" prefHeight="39.0"
                            styleClass="shadow" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0"
                            AnchorPane.rightAnchor="3.0">
                   <Button focusTraversable="false" layoutX="371.0" minWidth="-Infinity"
@@ -278,19 +273,17 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextArea fx:id="mainChatTextArea" layoutX="46.0" layoutY="1.0" maxHeight="-Infinity"
-                            maxWidth="414.0" prefHeight="38.5" prefWidth="365.0" wrapText="true"
+                  <TextArea fx:id="mainChatTextArea" maxHeight="-Infinity" wrapText="true"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                             AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0"/>
                </AnchorPane>
             </AnchorPane>
          </AnchorPane>
-         <AnchorPane minWidth="-Infinity" prefHeight="666.0" prefWidth="212.0"
-                     style="-fx-background-color: #1a1a1a; -fx-border-width: 0 0.3 0 0; -fx-border-color: white;"
+         <AnchorPane minWidth="-Infinity" styleClass="chats"
                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <AnchorPane fx:id="userChatsClip" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                         AnchorPane.topAnchor="57.0" AnchorPane.rightAnchor="0">
-               <ListView fx:id="chatUsersList" prefHeight="220.0" styleClass="chats-list"
+               <ListView fx:id="chatUsersList" styleClass="chats-list"
                          AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0"
                          AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
             </AnchorPane>
