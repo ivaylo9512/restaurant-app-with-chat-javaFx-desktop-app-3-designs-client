@@ -5,7 +5,7 @@ import javafx.event.EventType;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class ResizeRoot {
@@ -13,13 +13,13 @@ public class ResizeRoot {
     private static double offsetX, offsetY, mouseX, mouseY;
 
     private static Cursor cursor;
-    private static int border = 5;
+    private static int border = 7;
     public static boolean resize = true;
 
-    public static void addListeners(AnchorPane root, Stage stage) {
-        root.setOnMouseEntered(event -> {
-            height = root.getPrefHeight();
-            width = root.getPrefWidth();
+    public static void addListeners(Pane root, Pane contentRoot, Stage stage) {
+        contentRoot.setOnMouseEntered(event -> {
+            height = contentRoot.getHeight();
+            width = contentRoot.getWidth();
 
             minWidth = root.getMinWidth();
             minHeight = root.getMinHeight();
@@ -34,18 +34,18 @@ public class ResizeRoot {
                 double mouseY = event.getY();
                 if (resize) {
                     if (mouseY <= border) {
-                        root.setCursor(Cursor.N_RESIZE);
+                        contentRoot.setCursor(Cursor.N_RESIZE);
                     } else if (mouseY >= height - border) {
-                        root.setCursor(Cursor.S_RESIZE);
+                        contentRoot.setCursor(Cursor.S_RESIZE);
                     } else if (mouseX <= border) {
-                        root.setCursor(Cursor.W_RESIZE);
+                        contentRoot.setCursor(Cursor.W_RESIZE);
                     } else if (mouseX >= width - border) {
-                        root.setCursor(Cursor.E_RESIZE);
+                        contentRoot.setCursor(Cursor.E_RESIZE);
                     } else {
-                        root.setCursor(Cursor.DEFAULT);
+                        contentRoot.setCursor(Cursor.DEFAULT);
                     }
                 } else {
-                    root.setCursor(Cursor.DEFAULT);
+                    contentRoot.setCursor(Cursor.DEFAULT);
                 }
                 if (MouseEvent.MOUSE_RELEASED.equals(eventType)) {
                     height = root.getPrefHeight();
@@ -55,10 +55,10 @@ public class ResizeRoot {
             }
         };
 
-        root.addEventFilter(MouseEvent.MOUSE_MOVED, checkMousePosition);
-        root.addEventFilter(MouseEvent.MOUSE_RELEASED, checkMousePosition);
-        root.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            cursor = root.getCursor();
+        contentRoot.addEventFilter(MouseEvent.MOUSE_MOVED, checkMousePosition);
+        contentRoot.addEventFilter(MouseEvent.MOUSE_RELEASED, checkMousePosition);
+        contentRoot.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+            cursor = contentRoot.getCursor();
             if (stage == null) {
                 offsetX = root.getLayoutX();
                 offsetY = root.getLayoutY();
@@ -73,14 +73,14 @@ public class ResizeRoot {
             if (stage == null) {
                 resizeRoot(root);
             }else{
-                resizeStage(root, stage);
+                resizeStage(root, contentRoot, stage);
             }
         });
 
 
     }
 
-    private static void resizeStage(AnchorPane root, Stage stage) {
+    private static void resizeStage(Pane root, Pane contentRoot, Stage stage) {
         double newHeight;
         double newWidth;
         if (Cursor.W_RESIZE.equals(cursor)) {
@@ -124,7 +124,7 @@ public class ResizeRoot {
         }
     }
 
-    private static void resizeRoot(AnchorPane root) {
+    private static void resizeRoot(Pane root) {
         double newHeight;
         double newWidth;
         if (Cursor.W_RESIZE.equals(cursor)) {

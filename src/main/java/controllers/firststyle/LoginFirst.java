@@ -8,7 +8,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import controllers.base.ControllerLogin;
@@ -22,9 +21,6 @@ public class LoginFirst extends ControllerLogin {
 
     private ParallelTransition expand, reverse;
     private SequentialTransition changeTransition;
-
-    @FXML
-    HBox loadingPane;
 
     @Override
     public void initialize(){

@@ -178,7 +178,7 @@ public class LoggedSecond extends ControllerLogged {
     @Override
     public void setStage(Stage stage){
         super.setStage(stage);
-        ResizeRoot.addListeners(root, stage);
+        ResizeRoot.addListeners(root, contentRoot, stage);
 
         stage.setHeight(root.getMinHeight());
         stage.setWidth(root.getMinWidth());

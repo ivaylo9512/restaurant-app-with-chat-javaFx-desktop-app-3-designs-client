@@ -18,7 +18,7 @@ import static application.RestaurantApplication.*;
 
 public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
-    public AnchorPane root, contentRoot;
+    public Pane root, contentRoot;
     @FXML
     ImageView profileImage;
     @FXML
@@ -31,7 +31,7 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
     protected Button saveButton, editButton, createButton;
     @FXML
-    protected AnchorPane mainChat, secondChat, orderPane;
+    protected AnchorPane mainChat, secondChat;
     @FXML
     protected ListView<Order> ordersList;
     @FXML
@@ -52,6 +52,8 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     protected Text mainChatInfo, secondChatInfo;
     @FXML
     protected VBox mainChatBlock, secondChatBlock;
+    @FXML
+    protected Slider fontSizeSlider;
 
     protected static BooleanProperty isNewNotificationChecked = new SimpleBooleanProperty(true);
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();

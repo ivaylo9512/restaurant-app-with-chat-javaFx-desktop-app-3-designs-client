@@ -2,6 +2,7 @@ package controllers.firststyle;
 
 import animations.*;
 import controllers.base.ChatSession;
+import helpers.FontIndicator;
 import helpers.listviews.ChatsUsersListViewCell;
 import helpers.listviews.NotificationListViewCell;
 import helpers.listviews.OrderListViewCell;
@@ -237,7 +238,7 @@ public class LoggedFirst extends ControllerLogged {
     public void setStage(Stage stage){
         super.setStage(stage);
 
-        ResizeRoot.addListeners(root, stage);
+        ResizeRoot.addListeners(root, contentRoot, stage);
         MoveRoot.moveStage(moveBar, stage, root);
         MoveRoot.moveStage(moveBarMenu, stage, root);
 
@@ -245,6 +246,7 @@ public class LoggedFirst extends ControllerLogged {
 
         root.prefWidthProperty().bind(stage.widthProperty());
         root.prefHeightProperty().bind(stage.heightProperty());
+        FontIndicator.setSliderBinding(root, fontSizeSlider, stage);
     }
 
     @Override
