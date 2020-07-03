@@ -3,20 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="stackPane" styleClass="menu-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0" />
-            <ColumnConstraints hgrow="SOMETIMES" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label fx:id="price" maxWidth="-Infinity" minWidth="-Infinity" text="Label" GridPane.hgrow="NEVER" />
-         </children>
-      </GridPane>
-      <Label fx:id="name" text="Label" />
-   </children>
+<StackPane fx:id="stackPane" styleClass="menu-cell" xmlns="http://javafx.com/javafx/8"
+           xmlns:fx="http://javafx.com/fxml/1">
+   <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+      <columnConstraints>
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0"/>
+         <ColumnConstraints hgrow="SOMETIMES"/>
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints vgrow="SOMETIMES"/>
+      </rowConstraints>
+      <Label fx:id="price" maxWidth="-Infinity" minWidth="-Infinity" text="Label" GridPane.hgrow="NEVER"/>
+   </GridPane>
+   <Label fx:id="name" text="Label"/>
 </StackPane>

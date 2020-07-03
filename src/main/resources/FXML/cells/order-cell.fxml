@@ -9,22 +9,17 @@
    <fx:define>
       <FontIndicator fx:id="font"/>
    </fx:define>
-   <children>
-      <VBox fx:id="orderPane" styleClass="order-container" maxHeight="-Infinity" minHeight="-Infinity">
-         <children>
-            <HBox viewOrder="1" disable="true" VBox.vgrow="ALWAYS" maxWidth="Infinity">
-               <Label fx:id="orderId" text="Label" maxWidth="Infinity" maxHeight="Infinity"/>
-            </HBox>
-            <Button fx:id="button" viewOrder="2" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-               <graphic>
-                  <ImageView fitHeight="${font.fontPx * 1.25}" fitWidth="${font.fontPx * 1.25}" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../images/cloud-down.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </VBox>
-   </children>
+   <VBox fx:id="orderPane" styleClass="order-container" maxHeight="-Infinity" minHeight="-Infinity">
+      <HBox viewOrder="1" disable="true" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+         <Label fx:id="orderId" text="Label" maxWidth="Infinity" maxHeight="Infinity"/>
+      </HBox>
+      <Button fx:id="button" viewOrder="2" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <graphic>
+            <ImageView fitHeight="${font.fontPx * 1.25}" fitWidth="${font.fontPx * 1.25}" pickOnBounds="true"
+                       preserveRatio="true">
+               <Image url="@../../images/cloud-down.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+   </VBox>
 </HBox>
