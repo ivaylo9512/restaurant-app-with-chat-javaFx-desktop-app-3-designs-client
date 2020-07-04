@@ -149,16 +149,16 @@
             </ScrollPane>
         </GridPane>
     </AnchorPane>
-    <VBox fx:id="orderContainer" minHeight="-Infinity" minWidth="-Infinity" styleClass="order-container">
-        <HBox viewOrder="1" disable="true" VBox.vgrow="ALWAYS" maxWidth="Infinity">
-            <Label fx:id="orderId" text="Label" maxWidth="Infinity" maxHeight="Infinity"/>
+    <VBox fx:id="orderContainer" snapToPixel="false" minHeight="-Infinity" minWidth="-Infinity" styleClass="order-container">
+        <HBox viewOrder="1" disable="true" snapToPixel="false" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+            <Label fx:id="orderId" text="Label" snapToPixel="false" maxWidth="Infinity" maxHeight="Infinity"/>
         </HBox>
-        <AnchorPane fx:id="dishesAnchor" viewOrder="3" minWidth="-Infinity" VBox.vgrow="SOMETIMES"
+        <AnchorPane fx:id="dishesAnchor" viewOrder="3" snapToPixel="false" minWidth="-Infinity" VBox.vgrow="SOMETIMES"
                     styleClass="dishes-container">
-            <ListView fx:id="currentDishList" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="-1"
+            <ListView fx:id="currentDishList" AnchorPane.bottomAnchor="0" snapToPixel="false" AnchorPane.leftAnchor="-1"
                       AnchorPane.rightAnchor="-1" AnchorPane.topAnchor="0.0"/>
         </AnchorPane>
-        <Button fx:id="expandButton" viewOrder="2" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+        <Button fx:id="expandButton" viewOrder="2" maxWidth="1.7976931348623157E308" snapToPixel="false" VBox.vgrow="ALWAYS">
             <graphic>
                 <ImageView fitHeight="${font.fontPx * 1.25}" fitWidth="${font.fontPx * 1.25}" pickOnBounds="true"
                            preserveRatio="true">

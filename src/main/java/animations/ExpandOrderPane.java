@@ -39,9 +39,9 @@ public class ExpandOrderPane {
 
     private LoggedFirst controller;
     private FadeTransition showDates;
-    private TranslateTransition transitionPane;
-    private TransitionResizeHeight heightPane;
-    private TransitionResizeWidth widthPane;
+    private TranslateTransition translatePane;
+    private TransitionResizeHeight heightTransition;
+    private TransitionResizeWidth widthTransition;
 
     private Timeline expandedDelay = new Timeline();
 
@@ -74,6 +74,12 @@ public class ExpandOrderPane {
         orderWidth = currentPane.minWidthProperty();
         orderHeight = currentPane.minWidthProperty();
 
+        heightTransition.fromHeightProperty().bind(orderWidth);
+        heightTransition.toHeightProperty().bind(orderWidth.multiply(maxOrderWidthRatio));
+
+        widthTransition.fromWidthProperty().bind(orderWidth);
+        widthTransition.toWidthProperty().bind(orderWidth.multiply(maxOrderWidthRatio));
+
         cellLayoutX = cell.getLayoutX();
         cellWidth = cell.getWidth();
 
@@ -101,11 +107,11 @@ public class ExpandOrderPane {
         showDates.setFromValue(0);
         showDates.setToValue(1);
 
-        transitionPane = new TranslateTransition(Duration.millis(750), orderPane);
-        transitionPane.setToX(0);
-        transitionPane.setToY(0);
-        heightPane = new TransitionResizeHeight(orderPane);
-        widthPane = new TransitionResizeWidth(orderPane);
+        translatePane = new TranslateTransition(Duration.millis(750), orderPane);
+        translatePane.setToX(0);
+        translatePane.setToY(0);
+        heightTransition = new TransitionResizeHeight(Duration.millis(750), orderPane);
+        widthTransition = new TransitionResizeWidth(Duration.millis(750), orderPane);
     }
 
     public void expandOrder(MouseEvent event) {
@@ -179,10 +185,13 @@ public class ExpandOrderPane {
         expandedDelay = new Timeline(new KeyFrame(Duration.millis(750), event -> isButtonExpanded.setValue(true)));
         expandedDelay.play();
 
-        TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750), orderPane, orderWidth.get() * maxOrderWidthRatio);
-        heightPane.play();
-        TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750), orderPane, orderWidth.get() * maxOrderWidthRatio);
-        widthPane.play();
+        heightTransition.setRate(1.0);
+        heightTransition.setReverse(false);
+        heightTransition.play();
+
+        widthTransition.setRate(1.0);
+        widthTransition.setReverse(false);
+        widthTransition.play();
 
         TranslateTransition translatePane = new TranslateTransition(Duration.millis(750),orderPane);
         translatePane.setToX(-(orderWidth.get() * maxOrderWidthRatio - orderPane.getWidth()) / 2);
@@ -232,20 +241,18 @@ public class ExpandOrderPane {
         dates.setOpacity(0);
 
         int maxDelay = 750;
-        double widthRatio = orderPane.getWidth() / (orderWidth.get() * maxOrderWidthRatio);
-        Duration delay = Duration.millis(widthRatio * maxDelay);
+        double widthRatio = orderWidth.get() * maxOrderWidthRatio / orderPane.getWidth();
+        Duration delay = Duration.millis(maxDelay / widthRatio);
 
-        System.out.println(orderPane.getWidth());
+        translatePane.setRate(widthRatio);
+        translatePane.play();
 
-        transitionPane.setDuration(delay);
-        transitionPane.play();
-
-        heightPane.setToHeight(orderHeight.get());
-        heightPane.setDuration(delay);
-        heightPane.play();
-        widthPane.setToWidth(orderWidth.get());
-        widthPane.setDuration(delay);
-        widthPane.play();
+        heightTransition.setRate(widthRatio);
+        heightTransition.setReverse(true);
+        heightTransition.play();
+        widthTransition.setRate(widthRatio);
+        widthTransition.setReverse(true);
+        widthTransition.play();
 
         Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(delay, actionEvent -> {
             orderList.getSelectionModel().clearSelection();

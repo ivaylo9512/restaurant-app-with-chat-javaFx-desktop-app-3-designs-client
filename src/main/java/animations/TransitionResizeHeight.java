@@ -2,38 +2,56 @@ package animations;
 
 import javafx.animation.Transition;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 public class TransitionResizeHeight extends Transition {
 
-    private double height, newHeight, heightDifference;
+    private double height, heightDifference;
     private Region region;
+    private DoubleProperty toHeight = new SimpleDoubleProperty();
+    private DoubleProperty fromHeight = new SimpleDoubleProperty();
+    private boolean reverse;
 
-    public TransitionResizeHeight(Duration duration, Region region, double newHeight ) {
+    public TransitionResizeHeight(Duration duration, Region region, double toHeight) {
         this.region = region;
-        this.height = heightDifference;
+        this.toHeight.set(toHeight);
         setCycleDuration(duration);
     }
-    public TransitionResizeHeight(Region region){
+    public TransitionResizeHeight(Duration duration, Region region){
         this.region = region;
-    }
-
-    public void setDuration(Duration duration){
         setCycleDuration(duration);
-    }
-    public void setToHeight(double height) {
-        this.newHeight = height;
     }
     @Override
     public void play() {
         this.height = region.getPrefHeight();
-        this.heightDifference = newHeight - height;
+        this.heightDifference = toHeight.get() - height;
+        if(reverse){
+            heightDifference = fromHeight.get() - height;
+        }
         super.play();
     }
-
     @Override
     protected void interpolate(double frac) {
         region.setPrefHeight(height + (heightDifference * frac));
+    }
+    public void setDuration(Duration duration){
+        setCycleDuration(duration);
+    }
+    public void setToHeight(double toHeight) {
+        this.toHeight.set(toHeight);
+    }
+    public DoubleProperty toHeightProperty() {
+        return toHeight;
+    }
+    public void setFromHeight(double fromHeight) {
+        this.fromHeight.set(fromHeight);
+    }
+    public DoubleProperty fromHeightProperty() {
+        return fromHeight;
+    }
+    public void setReverse(boolean reverse) {
+        this.reverse = reverse;
     }
 }
