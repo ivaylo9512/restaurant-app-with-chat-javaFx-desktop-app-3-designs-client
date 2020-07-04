@@ -6,35 +6,33 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="grid" onMouseEntered="expandWidth" onMouseExited="reverseWidth" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="46.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <columnConstraints>
-    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="46.0" minWidth="10.0" prefWidth="46.0" />
-    <ColumnConstraints maxWidth="338.0" minWidth="0.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="46.0">
-         <children>
-            <Pane fx:id="profileImageClip" prefHeight="46.0" prefWidth="46.0" styleClass="profile-image-container">
-               <children>
-                  <ImageView fx:id="profileImage" fitHeight="38.5" fitWidth="38.5" layoutX="3.75" layoutY="8.3">
-                  </ImageView>
-               </children>
-            </Pane>
-         </children>
-         <effect>
-            <DropShadow />
-         </effect>
-      </Pane>
-      <VBox fx:id="nameContainer" alignment="CENTER" maxHeight="46.0" minHeight="46.0" minWidth="0.0" prefHeight="46.0" prefWidth="133.0" styleClass="chat-name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.vgrow="NEVER">
-         <children>
-            <Label fx:id="name" minWidth="0.0" styleClass="name" text="Ivaylo Aleksandrov" textFill="#bcbcbc">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Label>
-         </children>
-      </VBox>
-   </children>
+<GridPane fx:id="grid" onMouseEntered="expandWidth" onMouseExited="reverseWidth" maxHeight="-Infinity"
+          maxWidth="-Infinity" minHeight="-Infinity" prefHeight="46.0" xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="46.0" minWidth="10.0" prefWidth="46.0"/>
+        <ColumnConstraints maxWidth="338.0" minWidth="0.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0"
+          prefWidth="46.0">
+        <effect>
+            <DropShadow/>
+        </effect>
+        <Pane fx:id="profileImageClip" prefHeight="46.0" prefWidth="46.0" styleClass="profile-image-container">
+            <ImageView fx:id="profileImage" fitHeight="38.5" fitWidth="38.5" layoutX="3.75" layoutY="8.3">
+            </ImageView>
+        </Pane>
+    </Pane>
+    <VBox fx:id="nameContainer" alignment="CENTER" maxHeight="46.0" minHeight="46.0" minWidth="0.0" prefHeight="46.0"
+          prefWidth="133.0" styleClass="chat-name" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+          GridPane.vgrow="NEVER">
+        <Label fx:id="name" minWidth="0.0" styleClass="name" text="Ivaylo Aleksandrov" textFill="#bcbcbc">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Label>
+    </VBox>
 </GridPane>

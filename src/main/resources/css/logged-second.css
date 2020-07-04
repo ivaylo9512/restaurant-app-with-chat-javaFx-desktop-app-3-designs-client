@@ -67,6 +67,29 @@ TextFlow {
 .order-icon > Pane > Pane{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
 }
+.date-container Label{
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-size: 10.5px;
+}
+.date-container .time{
+    -fx-min-width: 33.0px;
+    -fx-min-height: 35.0px;
+    -fx-pref-width: 33.0px;
+    -fx-pref-height: 35.0px;
+    -fx-max-width: 33.0px;
+    -fx-max-height: 35.0px;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+}
+.date-container .date{
+    -fx-min-width: 33.0px;
+    -fx-min-height: 35.0px;
+    -fx-pref-width: 33.0px;
+    -fx-pref-height: 35.0px;
+    -fx-max-width: 33.0px;
+    -fx-max-height: 35.0px;
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+}
 .create-view{
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
