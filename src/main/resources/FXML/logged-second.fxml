@@ -48,102 +48,50 @@
                      <AnchorPane layoutX="147.0" maxHeight="-Infinity" maxWidth="-Infinity"
                                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0"
                                  prefWidth="119.0" GridPane.columnIndex="1">
-                        <Label fx:id="updatedTime" alignment="CENTER" contentDisplay="CENTER"
+                        <Label fx:id="updatedTime" styleClass="date-label" alignment="CENTER" contentDisplay="CENTER"
                                layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0"
-                               textAlignment="CENTER" textFill="#bcbcbc">
-                           <effect>
-                              <DropShadow/>
-                           </effect>
-                           <font>
-                              <Font name="System Bold" size="10.0"/>
-                           </font>
-                        </Label>
-                        <Label fx:id="updatedDate" alignment="CENTER" layoutX="21.0" layoutY="41.0"
+                               textAlignment="CENTER" textFill="#bcbcbc"/>
+                        <Label fx:id="updatedDate" styleClass="date-label" alignment="CENTER" layoutX="21.0"
+                               layoutY="41.0"
                                minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0"
-                               prefWidth="77.0" textFill="#bcbcbc">
-                           <effect>
-                              <DropShadow/>
-                           </effect>
-                           <font>
-                              <Font name="System Bold" size="10.0"/>
-                           </font>
-                        </Label>
-                        <Label layoutX="35.5" layoutY="7.0" styleClass="info-label" text="updated"
-                               textAlignment="CENTER" textFill="#bcbcbc">
-                           <font>
-                              <Font name="System Bold" size="12.0"/>
-                           </font>
-                        </Label>
+                               prefWidth="77.0" textFill="#bcbcbc"/>
+                        <Label layoutX="35.5" layoutY="7.0" styleClass="info-label" text="Updated"
+                               textAlignment="CENTER" textFill="#bcbcbc"/>
                      </AnchorPane>
                      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                                  minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0">
-                        <Label fx:id="createdTime" alignment="CENTER" contentDisplay="CENTER"
+                        <Label fx:id="createdTime" styleClass="date-label" alignment="CENTER" contentDisplay="CENTER"
                                layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0"
-                               textAlignment="CENTER" textFill="#bcbcbc">
-                           <effect>
-                              <DropShadow/>
-                           </effect>
-                           <font>
-                              <Font name="System Bold" size="10.0"/>
-                           </font>
-                        </Label>
-                        <Label fx:id="createdDate" alignment="CENTER" layoutX="21.0" layoutY="41.0"
+                               textAlignment="CENTER" textFill="#bcbcbc"/>
+                        <Label fx:id="createdDate" styleClass="date-label" alignment="CENTER" layoutX="21.0"
+                               layoutY="41.0"
                                minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0"
-                               prefWidth="77.0" textFill="#bcbcbc">
-                           <effect>
-                              <DropShadow/>
-                           </effect>
-                           <font>
-                              <Font name="System Bold" size="10.0"/>
-                           </font>
-                        </Label>
+                               prefWidth="77.0" textFill="#bcbcbc"/>
                         <Label layoutX="37.5" layoutY="7.0" styleClass="info-label" text="Created"
-                               textAlignment="CENTER" textFill="#bcbcbc">
-                           <font>
-                              <Font name="System Bold" size="12.0"/>
-                           </font>
-                        </Label>
+                               textAlignment="CENTER" textFill="#bcbcbc"/>
                      </AnchorPane>
                      <AnchorPane layoutX="294.0" maxHeight="-Infinity" maxWidth="-Infinity"
                                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0"
                                  prefWidth="119.0" GridPane.columnIndex="2">
-                        <Label fx:id="orderId" alignment="CENTER" contentDisplay="CENTER"
+                        <Label fx:id="orderId" styleClass="date-label" alignment="CENTER" contentDisplay="CENTER"
                                layoutX="21.0" layoutY="62.0" prefHeight="21.0" prefWidth="77.0"
-                               textAlignment="CENTER" textFill="#bcbcbc">
-                           <font>
-                              <Font name="System Bold" size="10.0"/>
-                           </font>
-                        </Label>
-                        <Label fx:id="dishesCountLabel" alignment="CENTER" contentDisplay="CENTER"
+                               textAlignment="CENTER" textFill="#bcbcbc"/>
+                        <Label fx:id="dishesCountLabel" styleClass="date-label" alignment="CENTER"
+                               contentDisplay="CENTER"
                                layoutX="21.0" layoutY="41.0" minHeight="-Infinity"
                                minWidth="-Infinity" prefHeight="21.0" prefWidth="77.0"
-                               textAlignment="CENTER" textFill="#bcbcbc">
-                           <font>
-                              <Font name="System Bold" size="10.0"/>
-                           </font>
-                        </Label>
-                        <Label layoutX="44.0" layoutY="7.0" styleClass="info-label" text="order"
-                               textAlignment="CENTER" textFill="#bcbcbc">
-                           <font>
-                              <Font name="System Bold" size="12.0"/>
-                           </font>
-                        </Label>
+                               textAlignment="CENTER" textFill="#bcbcbc"/>
+                        <Label layoutX="44.0" layoutY="7.0" styleClass="info-label" text="Order"
+                               textAlignment="CENTER" textFill="#bcbcbc"/>
                      </AnchorPane>
                   </GridPane>
                </AnchorPane>
             </AnchorPane>
-            <HBox alignment="CENTER" layoutX="196.0" layoutY="182.0" AnchorPane.leftAnchor="0.0"
+            <HBox styleClass="order-icon" alignment="CENTER" layoutX="196.0" layoutY="182.0" AnchorPane.leftAnchor="0.0"
                   AnchorPane.rightAnchor="0.0">
-               <padding>
-                  <Insets top="9.0"/>
-               </padding>
                <Pane layoutX="205.0" layoutY="182.0" maxWidth="61.0" prefHeight="61.0" prefWidth="61.0">
                   <Pane prefHeight="61.0" prefWidth="61.0"
-                        style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #1a1a1a; -fx-border-width: 2px;">
-                     <effect>
-                        <DropShadow/>
-                     </effect>
-                  </Pane>
+                        style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #1a1a1a; -fx-border-width: 2px;"/>
                   <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="14.0" layoutY="14.0">
                      <effect>
                         <DropShadow height="45.0" radius="22.0" width="45.0"/>
@@ -153,13 +101,10 @@
                </Pane>
             </HBox>
          </AnchorPane>
-         <AnchorPane fx:id="createView" disable="true" layoutX="231.0" layoutY="19.0" opacity="0.0"
+         <AnchorPane fx:id="createView" styleClass="create-view" disable="true" layoutX="231.0" layoutY="19.0" opacity="0.0"
                      prefHeight="371.0" prefWidth="469.0" style="-fx-background-color: #1a1a1a;"
                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0"
                      AnchorPane.topAnchor="0.0">
-            <effect>
-               <InnerShadow/>
-            </effect>
             <GridPane alignment="CENTER" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="0.0"
                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
                <columnConstraints>
@@ -212,23 +157,19 @@
             </GridPane>
          </AnchorPane>
          <AnchorPane styleClass="orders" layoutX="9.0" layoutY="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <AnchorPane layoutX="38.0" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ListView fx:id="ordersList" layoutY="57.0" onMouseClicked="#showOrder" prefHeight="404.0"
-                            prefWidth="212.0" styleClass="order-list" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="57.0"/>
-               </children>
+            <AnchorPane layoutX="38.0" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                        AnchorPane.topAnchor="0.0">
+               <ListView fx:id="ordersList" layoutY="57.0" onMouseClicked="#showOrder" prefHeight="404.0"
+                         prefWidth="212.0" styleClass="order-list" AnchorPane.bottomAnchor="0.0"
+                         AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="57.0"/>
             </AnchorPane>
          </AnchorPane>
       </AnchorPane>
-      <AnchorPane fx:id="chatView" disable="true" layoutX="1.0" layoutY="1.0" opacity="0.0"
+      <AnchorPane fx:id="chatView" styleClass="chat-view" disable="true" layoutX="1.0" layoutY="1.0" opacity="0.0"
                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                   AnchorPane.topAnchor="0.0">
          <AnchorPane layoutX="231.0" layoutY="19.0" style="-fx-background-color: #1a1a1a;" AnchorPane.bottomAnchor="0.0"
                      AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <effect>
-               <InnerShadow/>
-            </effect>
             <AnchorPane fx:id="mainChat" disable="true" layoutY="1.0" opacity="0.0" styleClass="main-chat"
                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -240,19 +181,14 @@
                         <Insets bottom="10.0" left="5.0" right="5.0"/>
                      </padding>
                      <HBox alignment="CENTER" styleClass="session-info">
-                        <VBox.margin>
-                           <Insets/>
-                        </VBox.margin>
                         <Pane maxHeight="0.5" HBox.hgrow="ALWAYS"/>
                         <TextFlow maxWidth="-Infinity" minWidth="-Infinity" textAlignment="CENTER"
                                   HBox.hgrow="ALWAYS">
-                           <children>
-                              <Text fx:id="mainChatInfo" fill="WHITE" strokeType="OUTSIDE"
-                                    strokeWidth="0.0"/>
-                           </children>
                            <HBox.margin>
                               <Insets left="5.0" right="5.0"/>
                            </HBox.margin>
+                           <Text fx:id="mainChatInfo" fill="WHITE" strokeType="OUTSIDE"
+                                 strokeWidth="0.0"/>
                         </TextFlow>
                         <Pane maxHeight="0.5" HBox.hgrow="ALWAYS"/>
                      </HBox>

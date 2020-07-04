@@ -61,6 +61,15 @@ TextFlow {
 .order-view > AnchorPane:disabled{
     -fx-opacity: 0;
 }
+.order-icon{
+    -fx-padding: 0 9px 0 0;
+}
+.order-icon > Pane > Pane{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
+}
+.create-view{
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+}
 .dishes-list .list-cell{
     -fx-background-color: transparent;
     -fx-padding: 0;
@@ -150,9 +159,16 @@ TextFlow {
     -fx-background-radius: 15;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
 }
+.date-label{
+    -fx-font-size: 10px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
+    -fx-font-weight: bold;
+}
 .info-label{
     -fx-border-width: 0 0 1 0;
     -fx-border-color: #bcbcbc;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
 }
 .chats-list .list-cell{
     -fx-background-color: transparent;
@@ -208,6 +224,9 @@ TextFlow {
 .chats-list .list-cell:selected .last-message{
     -fx-pref-height: 0;
     -fx-text-fill: white;
+}
+.chat-view > AnchorPane{
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
 .chat-block{
     -fx-padding: 0 0 7 0;
