@@ -58,13 +58,13 @@
                 </HBox>
             </StackPane>
         </StackPane>
-        <HBox fx:id="menu" nodeOrientation="RIGHT_TO_LEFT" styleClass="menu-buttons">
-            <Button fx:id="registerButton" minWidth="-Infinity" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" mnemonicParsing="false"
-                    onMouseClicked="#animateRegisterFields" text="Sign"/>
-            <Button HBox.hgrow="ALWAYS"  minWidth="-Infinity" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false"
-                    onMouseClicked="#animateStyleButtons" text="Style"/>
-            <Button fx:id="loginButton" HBox.hgrow="ALWAYS" minWidth="-Infinity" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false"
+        <HBox fx:id="menu" styleClass="menu-buttons">
+            <Button viewOrder="1" HBox.hgrow="ALWAYS" minWidth="-Infinity" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false"
                     onMouseClicked="#animateLoginFields" text="Login"/>
+            <Button viewOrder="2" HBox.hgrow="ALWAYS" minWidth="-Infinity" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false"
+                    onMouseClicked="#animateStyleButtons" text="Style"/>
+            <Button viewOrder="3" minWidth="-Infinity" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS" mnemonicParsing="false"
+                    onMouseClicked="#animateRegisterFields" text="Sign"/>
         </HBox>
         <HBox fx:id="loadingPane" styleClass="loading-pane">
             <ProgressIndicator styleClass="loading-indicator"/>

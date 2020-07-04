@@ -15,7 +15,7 @@ import static application.RestaurantApplication.stageManager;
 
 public abstract class ControllerLogin extends ControllerAdjustable {
     @FXML
-    HBox loadingPane;
+    protected HBox loadingPane;
     @FXML
     protected TextField username, password, regUsername, regPassword, regRepeatPassword;
     @FXML

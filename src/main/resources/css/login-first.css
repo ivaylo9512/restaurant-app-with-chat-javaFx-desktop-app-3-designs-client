@@ -9,6 +9,7 @@ Button{
     -fx-padding: 0;
     -fx-min-width: 0;
     -fx-pref-width: 0;
+    -fx-alignment: center;
 }
 TextField,
 PasswordField{

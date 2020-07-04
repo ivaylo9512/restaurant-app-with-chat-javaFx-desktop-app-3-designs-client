@@ -17,7 +17,7 @@ import static javafx.concurrent.Worker.State.FAILED;
 
 public class LoginFirst extends ControllerLogin {
     @FXML Pane background, menu;
-    @FXML Button loginButton, registerButton, actionButton;
+    @FXML Button actionButton;
 
     private ParallelTransition expand, reverse;
     private SequentialTransition changeTransition;

@@ -7,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -18,8 +19,9 @@ import models.Order;
 
 public class ExpandOrderPane {
 
-    private double orderWidth, orderHeight, maxOrderWidth, mouseY, mouseX,
-            initialOffsetX, initialMouseX;
+    private double mouseY, mouseX, initialOffsetX, initialMouseX;
+    private DoubleProperty orderWidth, orderHeight;
+    private double maxOrderWidthRatio = 4;
 
     public Pane currentContainer, currentPane, orderPane;
     public StackPane contentPane;
@@ -66,12 +68,11 @@ public class ExpandOrderPane {
         setOrderDimension(event);
 
         initialMouseX = event.getScreenX();
-        maxOrderWidth = orderWidth * 4;
     }
 
     public void setOrderDimension(MouseEvent event) {
-        orderWidth = currentPane.getWidth();
-        orderHeight = currentPane.getHeight();
+        orderWidth = currentPane.minWidthProperty();
+        orderHeight = currentPane.minWidthProperty();
 
         cellLayoutX = cell.getLayoutX();
         cellWidth = cell.getWidth();
@@ -178,13 +179,13 @@ public class ExpandOrderPane {
         expandedDelay = new Timeline(new KeyFrame(Duration.millis(750), event -> isButtonExpanded.setValue(true)));
         expandedDelay.play();
 
-        TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750), orderPane, maxOrderWidth);
+        TransitionResizeHeight heightPane = new TransitionResizeHeight(Duration.millis(750), orderPane, orderWidth.get() * maxOrderWidthRatio);
         heightPane.play();
-        TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750), orderPane, maxOrderWidth);
+        TransitionResizeWidth widthPane = new TransitionResizeWidth(Duration.millis(750), orderPane, orderWidth.get() * maxOrderWidthRatio);
         widthPane.play();
 
         TranslateTransition translatePane = new TranslateTransition(Duration.millis(750),orderPane);
-        translatePane.setToX(-(maxOrderWidth - orderPane.getWidth()) / 2);
+        translatePane.setToX(-(orderWidth.get() * maxOrderWidthRatio - orderPane.getWidth()) / 2);
         translatePane.setToY(0);
         translatePane.play();
 
@@ -195,7 +196,7 @@ public class ExpandOrderPane {
     private void expandOrderOnDrag(MouseEvent eventDrag){
         double fasterExpand = 1.8;
         double expand = (initialMouseX - eventDrag.getScreenX()) * fasterExpand;
-        if(initialOffsetX < orderWidth / 2){
+        if(initialOffsetX < orderWidth.get() / 2){
             if(expand < 0 ){
                 expand = 0;
             }else{
@@ -204,17 +205,17 @@ public class ExpandOrderPane {
             }
         }
         if(expand >= 0){
-            orderPane.setPrefSize(orderWidth, orderHeight);
+            orderPane.setPrefSize(orderWidth.get(), orderHeight.get());
             orderPane.setTranslateX(0);
         }
 
-        if(orderWidth - expand > orderWidth) {
+        if(orderWidth.get() - expand > orderWidth.get()) {
 
-            orderPane.setPrefSize(orderWidth - expand, orderHeight - expand);
+            orderPane.setPrefSize(orderWidth.get() - expand, orderHeight.get() - expand);
 
-            if (orderPane.getPrefWidth() >= maxOrderWidth) {
+            if (orderPane.getPrefWidth() >= orderWidth.get() * maxOrderWidthRatio) {
                 isButtonExpanded.setValue(true);
-                orderPane.setPrefSize(maxOrderWidth, maxOrderWidth);
+                orderPane.setPrefSize(orderWidth.get() * maxOrderWidthRatio, orderWidth.get() * maxOrderWidthRatio);
 
                 mouseX = eventDrag.getScreenX();
                 mouseY = eventDrag.getScreenY();
@@ -231,15 +232,20 @@ public class ExpandOrderPane {
         dates.setOpacity(0);
 
         int maxDelay = 750;
-        double widthRatio = orderPane.getWidth() / maxOrderWidth;
+        double widthRatio = orderPane.getWidth() / (orderWidth.get() * maxOrderWidthRatio);
         Duration delay = Duration.millis(widthRatio * maxDelay);
 
+        System.out.println(orderPane.getWidth());
 
         transitionPane.setDuration(delay);
         transitionPane.play();
 
-        heightPane.setAndPlay(delay, orderHeight);
-        widthPane.setAndPlay(delay, orderWidth);
+        heightPane.setToHeight(orderHeight.get());
+        heightPane.setDuration(delay);
+        heightPane.play();
+        widthPane.setToWidth(orderWidth.get());
+        widthPane.setDuration(delay);
+        widthPane.play();
 
         Timeline reAppendOrderInFlow = new Timeline(new KeyFrame(delay, actionEvent -> {
             orderList.getSelectionModel().clearSelection();
@@ -259,7 +265,7 @@ public class ExpandOrderPane {
         orderPane.setTranslateX(0);
         orderPane.setTranslateY(0);
 
-        orderPane.setPrefSize(orderWidth, orderHeight);
+        orderPane.setPrefSize(orderWidth.get(), orderHeight.get());
 
         orderList.getSelectionModel().clearSelection();
         orderList.setDisable(false);

@@ -112,6 +112,8 @@ TextFlow {
 .order-container{
     -fx-pref-height: 7.2em;
     -fx-pref-width: 7.2em;
+    -fx-min-height: 7.2em;
+    -fx-min-width: 7.2em;
     -fx-background-color: #2A2E37;
     -fx-background-radius: 10px;
     -fx-padding: 0.9em 2.3em 0.9em 2.3em;
@@ -549,7 +551,7 @@ TextFlow {
 }
 .slider .thumb {
     -fx-padding: 0.5em;
-    -fx-background-color: #2A2E37;
+    -fx-background-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-background-insets: none;
 }

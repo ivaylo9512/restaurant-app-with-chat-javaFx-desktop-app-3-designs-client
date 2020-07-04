@@ -6,24 +6,29 @@ import javafx.util.Duration;
 
 public class TransitionResizeWidth extends Transition {
 
-    private double width;
-    private double widthDifference;
+    private double width, newWidth, widthDifference;
     private Region region;
 
-    public TransitionResizeWidth(Duration duration, Region region, double newWidth ) {
-        setCycleDuration(duration);
+    public TransitionResizeWidth(Duration duration, Region region, double newWidth) {
         this.region = region;
-        this.width = region.getWidth();
-        this.widthDifference = newWidth - width;
+        this.newWidth = newWidth;
+        setCycleDuration(duration);
     }
     public TransitionResizeWidth(Region region){
         this.region = region;
     }
-    public void setAndPlay(Duration duration, double newWidth){
+
+    public void setDuration(Duration duration){
         setCycleDuration(duration);
-        this.width = region.getPrefWidth();
+    }
+    public void setToWidth(double width) {
+        this.newWidth = width;
+    }
+    @Override
+    public void play() {
+        this.width = region.getWidth();
         this.widthDifference = newWidth - width;
-        play();
+        super.play();
     }
     @Override
     protected void interpolate(double frac) {
