@@ -5,6 +5,7 @@ import animations.ResizeRoot;
 import controllers.base.ChatSession;
 import helpers.listviews.ChatsUsersListViewCellSecond;
 import helpers.Scrolls;
+import helpers.listviews.OrderListViewCellSecond;
 import javafx.stage.Stage;
 import models.*;
 import javafx.animation.*;
@@ -80,17 +81,7 @@ public class LoggedSecond extends ControllerLogged {
         super.setListsFactories();
 
         chatUsersList.setCellFactory(chatUsersList -> new ChatsUsersListViewCellSecond());
-        ordersList.setCellFactory(param -> new ListCell<Order>(){
-            @Override
-            protected void updateItem(Order item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText("Order" + item.getId().get());
-                }
-            }
-        });
+        ordersList.setCellFactory(orderListCell -> new OrderListViewCellSecond());
     }
 
     private void setClips() {
