@@ -51,11 +51,10 @@ public class ChatsUsersListViewCell extends ListCell<ChatValue> {
         }
     }
 
-    {
-        setOnMouseClicked(event -> {
-            if(stageManager.currentController instanceof LoggedFirst && stageManager.firstLoggedStage.isShowing()){
-                ((LoggedFirst)stageManager.firstLoggedController).setChatValue(getItem(), this);
-            }
-        });
+    @FXML
+    public void openChat(){
+        if(stageManager.currentController instanceof LoggedFirst && stageManager.firstLoggedStage.isShowing()){
+            ((LoggedFirst)stageManager.firstLoggedController).setChatValue(getItem(), this);
+        }
     }
 }

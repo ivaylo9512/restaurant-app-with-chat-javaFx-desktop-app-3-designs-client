@@ -125,8 +125,7 @@ TextFlow {
 .order-container ListView{
     -fx-background-color: transparent;
 }
-.order-container .list-cell,
-.notification-list .list-cell{
+.order-container .list-cell{
      -fx-background-color: transparent;
      -fx-padding: 0;
 }
@@ -178,6 +177,19 @@ TextFlow {
     -fx-background-color: #2A2E37;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
+.dish-cell{
+    -fx-min-height: 5.35em;
+    -fx-max-height: 6.35em;
+}
+.dish-cell GridPane{
+    -fx-background-color: #2A2E37;
+    -fx-pref-height: 5.35em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
+}
+.dish-cell Label{
+    -fx-text-fill: #bcbcbc;
+    -fx-alignment: center;
+}
 .dates Label{
     -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
@@ -214,24 +226,13 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6, 0.0 , 0 , 0 );
 }
 .chat-user ImageView{
-    -fx-translate-y: 0.25em;
+    -fx-translate-y: 0.28em;
 }
 .chat-users .selected Pane{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
 .order-container > AnchorPane > Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
-}
-.dish-cell{
-    -fx-background-color: #2A2E37;
-    -fx-max-height: 6.7em;
-    -fx-min-height: 5.35em;
-    -fx-pref-height: 5.35em;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
-}
-.dish-cell Label{
-    -fx-text-fill: #bcbcbc;
-    -fx-alignment: center;
 }
 .menu-cell{
     -fx-background-color: #2A2E37;
@@ -478,7 +479,16 @@ TextFlow {
     -fx-text-alignment: center;
 }
 .notification-list{
-    -fx-background-color: transparent
+    -fx-background-color: transparent;
+    -fx-padding: 0 0.15em 0 0;
+}
+.notification-list .list-cell{
+    -fx-background-color: transparent;
+    -fx-padding: 0.25em 0.83em;
+}
+.notification{
+    -fx-min-height: 4em;
+    -fx-max-height: 4.8em;
 }
 .notification-list HBox{
     -fx-pref-height: 4em;
@@ -541,7 +551,7 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .create-order Button ProgressIndicator{
-    -fx-max-height: 22;
+    -fx-max-height: 2.8em;
 }
 .clear-button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );

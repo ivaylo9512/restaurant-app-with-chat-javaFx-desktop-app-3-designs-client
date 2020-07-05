@@ -23,9 +23,12 @@ public class TransitionResizeHeight extends Transition {
         this.region = region;
         setCycleDuration(duration);
     }
+    public TransitionResizeHeight(Duration duration){
+        setCycleDuration(duration);
+    }
     @Override
     public void play() {
-        this.height = region.getPrefHeight();
+        this.height = region.getHeight();
         this.heightDifference = toHeight.get() - height;
         if(reverse){
             heightDifference = fromHeight.get() - height;
@@ -56,5 +59,11 @@ public class TransitionResizeHeight extends Transition {
     }
     public boolean getReverse() {
         return reverse;
+    }
+    public Region getRegion() {
+        return region;
+    }
+    public void setRegion(Region region) {
+        this.region = region;
     }
 }

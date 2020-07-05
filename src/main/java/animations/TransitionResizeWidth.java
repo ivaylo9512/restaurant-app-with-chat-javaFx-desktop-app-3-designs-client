@@ -57,4 +57,10 @@ public class TransitionResizeWidth extends Transition {
     public boolean getReverse() {
         return reverse;
     }
+    public Region getRegion() {
+        return region;
+    }
+    public void setRegion(Region region) {
+        this.region = region;
+    }
 }

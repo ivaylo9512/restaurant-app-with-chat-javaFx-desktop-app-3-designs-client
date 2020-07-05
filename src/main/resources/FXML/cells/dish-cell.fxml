@@ -3,20 +3,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="grid" onMouseClicked="#updateDishState" onMouseMoved="#expand" onMouseExited="#shrink"
-          styleClass="dish-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <columnConstraints>
-      <ColumnConstraints percentWidth="20" hgrow="ALWAYS" halignment="CENTER"/>
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
-      <ColumnConstraints percentWidth="20" hgrow="ALWAYS" halignment="CENTER"/>
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints valignment="CENTER" vgrow="ALWAYS"/>
-   </rowConstraints>
-   <Label fx:id="price" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" styleClass="price" text="Label"/>
-   <Label fx:id="name" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Label" GridPane.columnIndex="1"/>
-   <StackPane GridPane.columnIndex="2">
-      <Label fx:id="ready" contentDisplay="CENTER" text="Label"/>
-      <ProgressIndicator fx:id="progressIndicator" styleClass="loading"/>
-   </StackPane>
-</GridPane>
+<AnchorPane fx:id="container" styleClass="dish-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <GridPane AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0"
+             onMouseClicked="#updateDishState" onMouseExited="#resizeHeight" onMouseEntered="#resizeHeight">
+      <columnConstraints>
+         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="20"/>
+         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="20"/>
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints percentHeight="100" valignment="CENTER" vgrow="ALWAYS"/>
+      </rowConstraints>
+      <Label fx:id="price" contentDisplay="CENTER" maxHeight="Infinity" minHeight="-Infinity" prefHeight="0"
+             styleClass="price" text="Label"/>
+      <Label fx:id="name" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Label"
+             GridPane.columnIndex="1"/>
+      <StackPane GridPane.columnIndex="2">
+         <Label fx:id="ready" contentDisplay="CENTER" text="Label"/>
+         <ProgressIndicator fx:id="progressIndicator" styleClass="loading"/>
+      </StackPane>
+   </GridPane>
+</AnchorPane>

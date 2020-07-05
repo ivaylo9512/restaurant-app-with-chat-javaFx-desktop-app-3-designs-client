@@ -27,8 +27,10 @@ public class LoginFirst extends ControllerLogin {
         super.initialize();
 
         TranslateTransition translateMenu = new TranslateTransition(Duration.millis(1300), menu);
+        translateMenu.setFromX(0);
         translateMenu.toXProperty().bind(FontIndicator.fontPx.multiply(35).negate());
         TranslateTransition translateRoot = new TranslateTransition(Duration.millis(1300), loginPane);
+        translateRoot.setFromX(0);
         translateRoot.toXProperty().bind(FontIndicator.fontPx.multiply(17.5));
 
         TranslateTransition reverseMenu = new TranslateTransition(Duration.millis(800), menu);

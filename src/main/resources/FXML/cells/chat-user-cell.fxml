@@ -5,7 +5,7 @@
 
 <?import javafx.scene.shape.Circle?>
 <?import helpers.FontIndicator?>
-<HBox fx:id="container" styleClass="chat-user" disable="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="container" styleClass="chat-user" onMouseClicked="#openChat" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <fx:define>
         <FontIndicator fx:id="rest"/>
     </fx:define>
@@ -15,8 +15,7 @@
                 <Circle styleClass="chat-clip" radius="${rest.fontPx * 2.1}" translateX="${rest.fontPx * 2.1}" translateY="${rest.fontPx * 2.1}"/>
             </clip>
             <Circle radius="${rest.fontPx * 2.1}"/>
-            <ImageView fx:id="imageView" fitHeight="${rest.fontPx * 3.65}" fitWidth="${rest.fontPx * 3.65}">
-            </ImageView>
+            <ImageView fx:id="imageView" fitHeight="${rest.fontPx * 3.65}" fitWidth="${rest.fontPx * 3.65}"/>
         </StackPane>
     </Pane>
 </HBox>

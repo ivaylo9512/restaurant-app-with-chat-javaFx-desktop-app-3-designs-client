@@ -1,15 +1,14 @@
 package helpers.listviews;
 
 import animations.TransitionResizeHeight;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import models.Dish;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
-
 import java.io.IOException;
 
 import static application.RestaurantApplication.*;
@@ -22,11 +21,12 @@ public class DishListViewCell extends ListCell<Dish> {
     @FXML
     private Label ready;
     @FXML
-    private  ProgressIndicator progressIndicator;
+    private ProgressIndicator progressIndicator;
     @FXML
-    private GridPane grid;
+    private StackPane container;
 
     private FXMLLoader fxmlLoader;
+    private TransitionResizeHeight resizeHeight = new TransitionResizeHeight(Duration.millis(250));
 
     @Override
     protected void updateItem(Dish dish, boolean empty) {
@@ -50,6 +50,9 @@ public class DishListViewCell extends ListCell<Dish> {
             }
             price.setText(String.valueOf(dish.getId()));
             name.setText(dish.getName());
+            resizeHeight.fromHeightProperty().bind(container.minHeightProperty());
+            resizeHeight.fromHeightProperty().bind(container.maxHeightProperty());
+            resizeHeight.setRegion(container);
 
             if(dish.isLoading()){
                 progressIndicator.setOpacity(1);
@@ -65,19 +68,14 @@ public class DishListViewCell extends ListCell<Dish> {
             }
 
             setText(null);
-            setGraphic(grid);
+            setGraphic(container);
         }
 
     }
     @FXML
-    public void shrink(){
-        TransitionResizeHeight resizeWidth2 = new TransitionResizeHeight(Duration.millis(250), grid, grid.getMaxHeight());
-        resizeWidth2.play();
-    }
-    @FXML
-    public void expand(){
-        TransitionResizeHeight resizeWidth2 = new TransitionResizeHeight(Duration.millis(250), grid, grid.getMinHeight());
-        resizeWidth2.play();
+    public void resizeHeight(){
+        resizeHeight.play();
+        resizeHeight.setReverse(!resizeHeight.getReverse());
     }
     @FXML
     public void updateDishState() {

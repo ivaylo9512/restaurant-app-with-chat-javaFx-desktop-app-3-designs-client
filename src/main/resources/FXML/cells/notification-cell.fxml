@@ -3,8 +3,8 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
-<AnchorPane fx:id="container" styleClass="notification" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <HBox fx:id="hBox" layoutY="10" AnchorPane.rightAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.bottomAnchor="3.0" AnchorPane.topAnchor="3.0">
+<StackPane fx:id="container" maxHeight="Infinity" minHeight="-Infinity" styleClass="notification" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox fx:id="hBox" onMouseEntered="#resizeHeight" onMouseExited="#resizeHeight" onMouseClicked="#translateRemove">
         <Text fx:id="text"/>
     </HBox>
-</AnchorPane>
+</StackPane>
