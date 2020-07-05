@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 
-public class OrderListViewCellSecond extends ListCell<Order> {
+public class OrderListViewCellThird extends ListCell<Order> {
     private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
@@ -39,7 +39,7 @@ public class OrderListViewCellSecond extends ListCell<Order> {
 
         } else {
             if (fxmlLoader == null) {
-                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell-second.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell-third.fxml"));
                 fxmlLoader.setController(this);
                 try {
                     fxmlLoader.load();
