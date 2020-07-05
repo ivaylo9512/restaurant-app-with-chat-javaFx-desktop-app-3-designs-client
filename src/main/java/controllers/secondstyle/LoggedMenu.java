@@ -42,8 +42,8 @@ public class LoggedMenu extends ControllerLogged {
     private Stage stage = stageManager.secondLoggedMenuStage;
 
     private Timeline reverseDelay, reverseStageWidth, reverseStageHeight;
-    private TransitionResizeWidth reverseMenu, expandMenu;
-    private TransitionResizeHeight reverseMenuContent, expandMenuContent;
+    private TransitionResizeWidth expandMenu;
+    private TransitionResizeHeight expandMenuContent;
 
     private List<Node> userInfoContainers;
     private List<Node> profileButtons;
@@ -143,10 +143,13 @@ public class LoggedMenu extends ControllerLogged {
     }
 
     private void setMenuTransitions() {
-        expandMenu = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMaxWidth());
-        reverseMenu = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMinWidth());
-        reverseMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
+        expandMenu = new TransitionResizeWidth(Duration.millis(700), menu);
+        expandMenu.fromWidthProperty().bind(menu.minWidthProperty());
+        expandMenu.toWidthProperty().bind(menu.maxWidthProperty());
+
         expandMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
+        expandMenuContent.setFromHeight(0);
+        expandMenuContent.toHeightProperty().bind(menuContent.maxHeightProperty());
 
         reverseDelay = new Timeline();
         reverseStageWidth = new Timeline(new KeyFrame(Duration.millis(700), event -> stage.setWidth(root.getMinWidth())));
@@ -189,7 +192,6 @@ public class LoggedMenu extends ControllerLogged {
         stage.setX((primaryScreenBounds.getWidth() - root.getMaxWidth()) / 2);
 
         root.setLayoutX((root.getMaxWidth() - root.getPrefWidth()) / 2);
-        expandMenu();
     }
 
     @FXML
@@ -199,47 +201,41 @@ public class LoggedMenu extends ControllerLogged {
 
     private void expandMenuContent(){
         reverseStageHeight.stop();
-        reverseMenuContent.stop();
-
         stage.setHeight(root.getMaxHeight());
-
-        expandMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, menuContent.getMaxHeight());
+        expandMenuContent.setReverse(false);
         expandMenuContent.play();
     }
     private void reverseMenuContent(){
-        expandMenuContent.stop();
-
-        reverseMenuContent = new TransitionResizeHeight(Duration.millis(800), menuContent, 0);
-        reverseMenuContent.play();
+        expandMenuContent.setReverse(true);
+        expandMenuContent.play();
         reverseStageHeight.play();
     }
 
     @FXML public void expandMenu(){
-        if(stage.getHeight() != root.getPrefWidth()) {
+        if(currentMenuView == null && expandMenu.getReverse()) {
             reverseStageWidth.stop();
             stage.setWidth(root.getMaxWidth());
 
             notificationMenuIcon.setVisible(false);
             reverseDelay.stop();
-            reverseMenu.stop();
 
-            expandMenu = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMaxWidth());
+            expandMenu.stop();
+            expandMenu.setReverse(false);
             expandMenu.play();
         }
     }
     @FXML
     public void reverseMenu(){
-        if(currentMenuView == null || reverseMenuContent.getCurrentRate() != 0 ) {
-            Duration delay = reverseMenuContent.getCurrentRate() == 1 ?
-                    reverseMenuContent.getCycleDuration().subtract(reverseMenuContent.getCurrentTime()) : Duration.millis(1);
+        if(currentMenuView == null || expandMenuContent.getCurrentTime().lessThan(expandMenuContent.getCycleDuration()) && expandMenuContent.getReverse()) {
+            Duration delay = expandMenuContent.getCurrentRate() == 1 ?
+                    expandMenuContent.getCycleDuration().subtract(expandMenuContent.getCurrentTime()) : Duration.millis(1);
 
             reverseDelay = new Timeline(new KeyFrame(delay, event -> {
                 notificationMenuIcon.setVisible(true);
 
                 expandMenu.stop();
-
-                reverseMenu = new TransitionResizeWidth(Duration.millis(700), menu, menu.getMinWidth());
-                reverseMenu.play();
+                expandMenu.setReverse(true);
+                expandMenu.play();
 
                 reverseStageWidth.play();
             }));
@@ -262,7 +258,6 @@ public class LoggedMenu extends ControllerLogged {
             fadeIn.setToValue(1);
             fadeIn.setDelay(Duration.millis(300));
             fadeIn.play();
-
         }else if(!currentMenuView.equals(profileView) && menuContent.getPrefHeight() == menuContent.getMaxHeight()){
             currentMenuView.setOpacity(0);
             currentMenuView.setDisable(true);

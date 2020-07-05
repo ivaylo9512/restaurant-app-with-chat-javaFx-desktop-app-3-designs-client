@@ -25,7 +25,7 @@ public class TransitionResizeWidth extends Transition {
     }
     @Override
     public void play() {
-        this.width = region.getPrefHeight();
+        this.width = region.getPrefWidth();
         this.widthDifference = toWidth.get() - width;
         if(reverse){
             widthDifference = fromWidth.get() - width;
@@ -53,5 +53,8 @@ public class TransitionResizeWidth extends Transition {
     }
     public void setReverse(boolean reverse) {
         this.reverse = reverse;
+    }
+    public boolean getReverse() {
+        return reverse;
     }
 }

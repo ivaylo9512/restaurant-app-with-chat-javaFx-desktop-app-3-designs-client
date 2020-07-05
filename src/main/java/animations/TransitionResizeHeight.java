@@ -54,4 +54,7 @@ public class TransitionResizeHeight extends Transition {
     public void setReverse(boolean reverse) {
         this.reverse = reverse;
     }
+    public boolean getReverse() {
+        return reverse;
+    }
 }
