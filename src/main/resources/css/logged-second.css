@@ -1,7 +1,6 @@
 Button:focused{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
-
 ScrollPane > .corner {
     -fx-background-color: transparent;
 }
@@ -43,26 +42,36 @@ TextFlow {
 .list-view .scroll-bar:vertical{
     -fx-scale-x: 0;
 }
-.stage-root{
+.root{
     -fx-pref-height: 503px;
     -fx-pref-width: 683px;
     -fx-background-color: transparent;
 }
+.padding-container{
+    -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0.42, 0, 0.7, 0);
+}
 .shadow{
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1), 15, 0.0 , 0 , 2 );
 }
 .content-bar{
     -fx-background-color: #FC3903;
+    -fx-pref-width: 38.0px;
 }
 .order-view{
     -fx-background-color: #1a1a1a;
-    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,1), 4.5, 0.0 , 0 , 0);
 }
 .order-view > AnchorPane:disabled{
     -fx-opacity: 0;
 }
 .order-icon{
     -fx-padding: 0 9px 0 0;
+    -fx-alignment: CENTER;
+}
+.order-icon Pane{
+    -fx-max-width: 61px;
+    -fx-pref-height: 61px;
+    -fx-pref-width: 61px
 }
 .order-icon > Pane > Pane{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
@@ -91,6 +100,7 @@ TextFlow {
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
 .create-view{
+    -fx-background-color: #1a1a1a;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
 .dishes-list .list-cell{
@@ -132,11 +142,14 @@ TextFlow {
 .menu-container{
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
+    -fx-pref-height: 147px;
+    -fx-pref-width: 399px;
 }
 .menu-container TextField{
+    -fx-pref-height: 43px;
     -fx-text-fill: #bcbcbc;
     -fx-background-color: #1a1a1a;
-        -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 0, 0, 0, 2 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 0, 0, 0, 2 );
 }
 .dish-cell{
     -fx-pref-Height: 5.35em;
@@ -152,16 +165,26 @@ TextFlow {
     -fx-background-color: #1a1a1a;
 }
 .add-button{
+    -fx-min-height: 61px;
+    -fx-min-width: 61px;
+    -fx-pref-height: 61px;
+    -fx-pref-width: 61px;
+    -fx-max-height: 61px;
+    -fx-max-width: 61px;
+}
+.add-button Button{
+    -fx-pref-height: 61px;
+    -fx-pref-width: 61px;
     -fx-border-radius: 180px;
     -fx-background-radius: 180px;
     -fx-background-color: #1a1a1a;
     -fx-border-width: 2px;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 1 );
 }
-.add-button:hover{
+.add-button Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
-.add-button:pressed{
+.add-button Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
 .add-button ProgressIndicator{
@@ -186,6 +209,8 @@ TextFlow {
     -fx-font-size: 10px;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
     -fx-font-weight: bold;
+    -fx-pref-height: 21.0px;
+    -fx-pref-width: 77.0px
 }
 .info-label{
     -fx-border-width: 0 0 1 0;
@@ -249,6 +274,7 @@ TextFlow {
     -fx-text-fill: white;
 }
 .chat-view > AnchorPane{
+    -fx-background-color: #1a1a1a;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
 .chat-block{
