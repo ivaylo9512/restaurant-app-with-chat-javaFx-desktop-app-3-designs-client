@@ -75,21 +75,14 @@ ListView .list-cell{
 .order-view{
     -fx-background-color: #1a1a1a;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1), 4.5, 0.0 , 0 , 0);
+    -fx-vgap: 5em;
 }
 .order-view > AnchorPane:disabled{
     -fx-opacity: 0;
 }
-.order-icon{
-    -fx-padding: 0 9px 0 0;
-    -fx-alignment: CENTER;
-}
-.order-icon Pane{
-    -fx-max-width: 61px;
-    -fx-pref-height: 61px;
-    -fx-pref-width: 61px
-}
-.order-icon > Pane > Pane{
+.order-icon > Circle{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
+    -fx-fill: #1a1a1a;
 }
 .date-container Label{
     -fx-alignment: center;
@@ -118,6 +111,11 @@ ListView .list-cell{
     -fx-background-color: #1a1a1a;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
+.dishes-list{
+    -fx-background-color: #1a1a1a;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
+}
+
 .dishes-list GridPane{
     -fx-background-color:  #1a1a1a;
 }
@@ -218,14 +216,11 @@ ListView .list-cell{
 .add-button ProgressIndicator{
     -fx-accent: #FC3903;
 }
-.dishes-container{
-    -fx-background-color: #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
-}
-.orders > AnchorPane{
+.orders{
     -fx-background-color: #1a1a1a;
     -fx-border-width: 0 0.3 0 0;
     -fx-border-color: white;
+    -fx-padding: 4.8em 0 0 0;
 }
 .order-info AnchorPane{
     -fx-background-color: #1a1a1a;

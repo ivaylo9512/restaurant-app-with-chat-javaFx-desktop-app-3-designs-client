@@ -25,9 +25,8 @@ import static application.RestaurantApplication.*;
 public class LoggedSecond extends ControllerLogged {
     @FXML Label dishesCountLabel;
 
-    @FXML AnchorPane  orderInfo, orderView, orderContainer,
-            chatView, userChatsClip, createView, dishesContainer;
-    @FXML Pane contentBar;
+    @FXML AnchorPane chatView, userChatsClip, createView;
+    @FXML Pane contentBar, orderInfo, orderContainer, orderView;
 
     private Stage stage = stageManager.secondLoggedStage;
     private AnchorPane currentView;

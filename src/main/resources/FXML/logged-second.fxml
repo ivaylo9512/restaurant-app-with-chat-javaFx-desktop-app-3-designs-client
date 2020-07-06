@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
@@ -9,6 +8,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import helpers.FontIndicator?>
+<?import javafx.scene.shape.Circle?>
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.secondstyle.LoggedSecond">
@@ -18,63 +18,11 @@
     <cursor>
         <Cursor fx:constant="DEFAULT"/>
     </cursor>
+    <Slider fx:id="fontSizeSlider" orientation="VERTICAL" AnchorPane.rightAnchor="0"/>
     <StackPane styleClass="padding-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane fx:id="contentRoot">
             <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <AnchorPane fx:id="orderView" styleClass="order-view" disable="true" opacity="0.0" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <AnchorPane fx:id="orderContainer" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
-                        <AnchorPane fx:id="dishesContainer" minHeight="-Infinity" minWidth="-Infinity" styleClass="dishes-container" AnchorPane.bottomAnchor="20.0"
-                                    AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="50.0">
-                            <ListView fx:id="currentDishList" styleClass="dishes-list" AnchorPane.bottomAnchor="0.0"
-                                      AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0"/>
-                        </AnchorPane>
-                        <AnchorPane fx:id="orderInfo" styleClass="order-info" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                            <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                <columnConstraints>
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                                </rowConstraints>
-                                <AnchorPane layoutX="147.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0"
-                                            prefWidth="119.0" GridPane.columnIndex="1">
-                                    <Label fx:id="updatedTime" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
-                                    <Label fx:id="updatedDate" styleClass="date-label" layoutX="21.0" layoutY="41.0"/>
-                                    <Label styleClass="info-label" layoutX="35.5" layoutY="7.0" text="Updated"/>
-                                </AnchorPane>
-                                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                            minWidth="-Infinity" prefHeight="105.0" prefWidth="119.0">
-                                    <Label fx:id="createdTime" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
-                                    <Label fx:id="createdDate" styleClass="date-label" layoutX="21.0" layoutY="41.0"/>
-                                    <Label styleClass="info-label" layoutX="37.5" layoutY="7.0" text="Created"/>
-                                </AnchorPane>
-                                <AnchorPane layoutX="294.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                                            minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0"
-                                            prefWidth="119.0" GridPane.columnIndex="2">
-                                    <Label fx:id="orderId" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
-                                    <Label fx:id="dishesCountLabel" styleClass="date-label" layoutX="21.0"/>
-                                    <Label styleClass="info-label" layoutX="44.0" layoutY="7.0" text="Order"/>
-                                </AnchorPane>
-                            </GridPane>
-                        </AnchorPane>
-                    </AnchorPane>
-                    <HBox styleClass="order-icon" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                        <Pane layoutX="205.0" layoutY="182.0">
-                            <Pane prefHeight="61.0" prefWidth="61.0"
-                                  style="-fx-border-radius: 180px; -fx-background-radius: 180px; -fx-background-color: #1a1a1a; -fx-border-width: 2px;"/>
-                            <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="14.0" layoutY="14.0">
-                                <effect>
-                                    <DropShadow height="45.0" radius="22.0" width="45.0"/>
-                                </effect>
-                                <Image url="/images/list.png"/>
-                            </ImageView>
-                        </Pane>
-                    </HBox>
-                </AnchorPane>
                 <AnchorPane fx:id="createView" styleClass="create-view" disable="true" opacity="0.0"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0"
                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -121,13 +69,62 @@
                         </AnchorPane>
                     </GridPane>
                 </AnchorPane>
-                <AnchorPane styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    <AnchorPane minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder"
-                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0"/>
-                    </AnchorPane>
-                </AnchorPane>
             </AnchorPane>
+            <GridPane AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS"/>
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="30"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+                <StackPane styleClass="orders">
+                    <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder" maxWidth="Infinity"/>
+                </StackPane>
+                <StackPane fx:id="orderView" styleClass="order-view" GridPane.columnIndex="1">
+                    <GridPane fx:id="orderContainer">
+                        <rowConstraints>
+                            <RowConstraints percentHeight="30"/>
+                            <RowConstraints percentHeight="70"/>
+                        </rowConstraints>
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <GridPane fx:id="orderInfo" styleClass="order-info">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <AnchorPane prefHeight="105.0" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity">
+                                <Label fx:id="createdTime" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
+                                <Label fx:id="createdDate" styleClass="date-label" layoutX="21.0" layoutY="41.0"/>
+                                <Label styleClass="info-label" layoutX="37.5" layoutY="7.0" text="Created"/>
+                            </AnchorPane>
+                            <AnchorPane prefHeight="105.0" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="1">
+                                <Label fx:id="updatedTime" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
+                                <Label fx:id="updatedDate" styleClass="date-label" layoutX="21.0" layoutY="41.0"/>
+                                <Label styleClass="info-label" layoutX="35.5" layoutY="7.0" text="Updated"/>
+                            </AnchorPane>
+                            <AnchorPane prefHeight="105.0" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="2">
+                                <Label fx:id="orderId" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
+                                <Label fx:id="dishesCountLabel" styleClass="date-label" layoutX="21.0"/>
+                                <Label styleClass="info-label" layoutX="44.0" layoutY="7.0" text="Order"/>
+                            </AnchorPane>
+                        </GridPane>
+                        <ListView fx:id="currentDishList" styleClass="dishes-list" GridPane.rowIndex="1"/>
+                    </GridPane>
+                    <StackPane styleClass="order-icon">
+                        <Circle radius="30.5"/>
+                        <ImageView fitHeight="34.0" fitWidth="34.0">
+                            <Image url="/images/list.png"/>
+                        </ImageView>
+                    </StackPane>
+                </StackPane>
+            </GridPane>
             <AnchorPane fx:id="chatView" styleClass="chat-view" disable="true" opacity="0.0"
                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
