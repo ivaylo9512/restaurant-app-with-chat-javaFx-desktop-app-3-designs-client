@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import helpers.FontIndicator?>
+
+<?import javafx.scene.text.Text?>
+<StackPane fx:id="container" styleClass="order-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <FontIndicator fx:id="font"/>
+    </fx:define>
+    <StackPane>
+        <VBox>
+            <Label text="Order"/>
+            <Label fx:id="orderId"/>
+        </VBox>
+        <HBox>
+            <StackPane>
+                <Button fx:id="infoButton"/>
+                <Text text="i"/>
+            </StackPane>
+        </HBox>
+    </StackPane>
+</StackPane>

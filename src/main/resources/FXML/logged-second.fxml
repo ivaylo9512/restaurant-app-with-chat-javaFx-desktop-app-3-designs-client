@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.*?>
 
 <StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.secondstyle.LoggedSecond">
+            styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.secondstyle.LoggedSecond">
    <cursor>
       <Cursor fx:constant="DEFAULT"/>
    </cursor>
@@ -116,9 +115,9 @@
                </AnchorPane>
             </GridPane>
          </AnchorPane>
-         <AnchorPane styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <AnchorPane styleClass="orders" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <AnchorPane minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="57.0"/>
+               <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0"/>
             </AnchorPane>
          </AnchorPane>
       </AnchorPane>

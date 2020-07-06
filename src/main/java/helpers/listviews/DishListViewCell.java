@@ -3,7 +3,7 @@ package helpers.listviews;
 import animations.TransitionResizeHeight;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import models.Dish;
 import javafx.fxml.FXML;
@@ -23,7 +23,7 @@ public class DishListViewCell extends ListCell<Dish> {
     @FXML
     private ProgressIndicator progressIndicator;
     @FXML
-    private StackPane container;
+    private AnchorPane container;
 
     private FXMLLoader fxmlLoader;
     private TransitionResizeHeight resizeHeight = new TransitionResizeHeight(Duration.millis(250));

@@ -125,17 +125,47 @@ TextFlow {
     -fx-pref-width: 12px;
     -fx-text-fill: #bcbcbc;
 }
-.order-list .list-cell{
-    -fx-pref-height: 24px;
-    -fx-background-color: #1a1a1a;
-    -fx-text-fill: #bcbcbc;
-    -fx-alignment: center;
-    -fx-padding: 0;
+.order-cell{
+    -fx-padding: 0.5 0 0.5 3em;
 }
-.order-list .list-cell:hover{
+.order-cell > StackPane{
+    -fx-pref-height: 5em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1), 0.5, 0 , 0 , 0.5 );
+    -fx-background-color: #1a1a1a;
+}
+.order-cell VBox{
+    -fx-alignment: center;
+}
+.order-cell HBox{
+    -fx-alignment: top-right;
+    -fx-padding: 0.5em 0.5em 0 0;
+}
+.order-cell Text{
+    -fx-fill: #bcbcbc;
+}
+.order-cell Button{
+    -fx-effect: dropshadow( three-pass-box, rgba(0,0,0,1), 2, 0, 0.4, 0);
+    -fx-background-color: #1a1a1a;
+    -fx-border-radius: 5em;
+    -fx-background-radius: 5em;
+    -fx-text-fill: #bcbcbc;
+    -fx-min-height: 0;
+    -fx-min-width: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-pref-width: 1.2em;
+    -fx-pref-height: 1.2em;
+}
+.order-cell Label{
+    -fx-text-fill: white;
+}
+.order-list{
+    -fx-padding: 0 3 0 0 0;
+}
+.order-list .list-cell:hover .order-cell StackPane{
     -fx-background-color: rgb(252,57,3,0.1);
 }
-.order-list .list-cell:selected{
+.order-list .list-cell:selected .order-cell StackPane{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-color: rgb(252,57,3,1);
 }
@@ -194,8 +224,7 @@ TextFlow {
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
 }
-.orders AnchorPane{
-    -fx-pref-width: 212.0px;
+.orders > AnchorPane{
     -fx-background-color: #1a1a1a;
     -fx-border-width: 0 0.3 0 0;
     -fx-border-color: white;

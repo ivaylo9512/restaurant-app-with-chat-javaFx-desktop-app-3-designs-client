@@ -9,9 +9,8 @@ import java.io.IOException;
 
 public class OrderListViewCellSecond extends ListCell<Order> {
     @FXML
-    private Label orderId;
-    @FXML
     private StackPane container;
+    @FXML Label orderId;
     private FXMLLoader fxmlLoader;
 
     @Override
@@ -26,7 +25,7 @@ public class OrderListViewCellSecond extends ListCell<Order> {
         } else {
 
             if (fxmlLoader == null) {
-                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/cells/order-cell-second.fxml"));
                 fxmlLoader.setController(this);
                 try {
                     fxmlLoader.load();
@@ -34,8 +33,8 @@ public class OrderListViewCellSecond extends ListCell<Order> {
                     e.printStackTrace();
                 }
             }
-
             orderId.setText(String.valueOf(order.getId().get()));
+
 
             setText(null);
             setGraphic(container);
