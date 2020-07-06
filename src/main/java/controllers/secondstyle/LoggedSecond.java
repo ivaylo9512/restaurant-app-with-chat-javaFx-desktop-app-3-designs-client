@@ -56,8 +56,6 @@ public class LoggedSecond extends ControllerLogged {
         menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
 
-        MoveRoot.move(contentBar, root);
-
         mainChatBlock.prefWidthProperty().bind(mainChatScroll.widthProperty().subtract(25));
     }
 
@@ -170,6 +168,7 @@ public class LoggedSecond extends ControllerLogged {
     public void setStage(Stage stage){
         super.setStage(stage);
         ResizeRoot.addListeners(root, contentRoot, stage);
+        MoveRoot.moveStage(contentBar, stage, root);
 
         stage.setHeight(root.getMinHeight());
         stage.setWidth(root.getMinWidth());

@@ -53,14 +53,17 @@ ListView .list-cell{
     -fx-scale-x: 0;
 }
 .root{
-    -fx-pref-height: 503px;
-    -fx-min-height: 503px;
-    -fx-pref-width: 683px;
-    -fx-min-width: 683px;
+    -fx-pref-height: 526px;
+    -fx-min-height: 526px;
+    -fx-pref-width: 730px;
+    -fx-min-width: 730px;
     -fx-background-color: transparent;
 }
 .padding-container{
-    -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 0.42, 0, 0.7, 0);
+    -fx-padding: 1.5em;
+}
+.padding-container > AnchorPane{
+    -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 10, 0.42, 0.7, 0);
 }
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1), 15, 0.0 , 0 , 2 );
