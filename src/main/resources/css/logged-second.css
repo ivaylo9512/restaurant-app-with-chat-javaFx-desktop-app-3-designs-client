@@ -7,6 +7,9 @@ Label, Button, TextField{
 Text{
     -fx-fill: #bcbcbc;
 }
+GridPane{
+    -fx-alignment: center;
+}
 ScrollPane > .corner {
     -fx-background-color: transparent;
 }
@@ -75,9 +78,8 @@ ListView .list-cell{
 .order-view{
     -fx-background-color: #1a1a1a;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1), 4.5, 0.0 , 0 , 0);
-    -fx-vgap: 5em;
 }
-.order-view > AnchorPane:disabled{
+.order-view > GridPane:disabled{
     -fx-opacity: 0;
 }
 .order-icon > Circle{
@@ -110,12 +112,22 @@ ListView .list-cell{
 .create-view{
     -fx-background-color: #1a1a1a;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+    -fx-padding: 2em;
+}
+.create-view TextField{
+    -fx-pref-height: 3.55em;
+    -fx-min-height: 3.55em;
+    -fx-background-color: #1a1a1a;
+    -fx-alignment: center;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
 }
 .dishes-list{
+    -fx-padding: 0 2em;
+}
+.dishes-list ListView{
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
 }
-
 .dishes-list GridPane{
     -fx-background-color:  #1a1a1a;
 }
@@ -163,9 +175,6 @@ ListView .list-cell{
 .order-cell Label{
     -fx-text-fill: white;
 }
-.order-list{
-    -fx-padding: 0 3 0 0 0;
-}
 .order-list .list-cell:hover .order-cell StackPane{
     -fx-background-color: rgb(252,57,3,0.1);
 }
@@ -179,11 +188,6 @@ ListView .list-cell{
     -fx-pref-height: 147px;
     -fx-pref-width: 399px;
 }
-.menu-container TextField{
-    -fx-pref-height: 43px;
-    -fx-background-color: #1a1a1a;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 0, 0, 0, 2 );
-}
 .dish-cell{
     -fx-pref-Height: 5.35em;
 }
@@ -191,16 +195,10 @@ ListView .list-cell{
     -fx-background-color: #1a1a1a;
 }
 .add-button{
+    -fx-pref-height: 61px;
+    -fx-pref-width: 61px;
     -fx-min-height: 61px;
     -fx-min-width: 61px;
-    -fx-pref-height: 61px;
-    -fx-pref-width: 61px;
-    -fx-max-height: 61px;
-    -fx-max-width: 61px;
-}
-.add-button Button{
-    -fx-pref-height: 61px;
-    -fx-pref-width: 61px;
     -fx-border-radius: 180px;
     -fx-background-radius: 180px;
     -fx-background-color: #1a1a1a;

@@ -25,11 +25,11 @@ import static application.RestaurantApplication.*;
 public class LoggedSecond extends ControllerLogged {
     @FXML Label dishesCountLabel;
 
-    @FXML AnchorPane chatView, userChatsClip, createView;
-    @FXML Pane contentBar, orderInfo, orderContainer, orderView;
+    @FXML AnchorPane chatView, userChatsClip;
+    @FXML Pane contentBar, orderInfo, orderContainer, orderView, createView;
 
     private Stage stage = stageManager.secondLoggedStage;
-    private AnchorPane currentView;
+    private Pane currentView;
 
     private ChatSession mainChatSession;
 
@@ -90,7 +90,7 @@ public class LoggedSecond extends ControllerLogged {
         mainChatValue.set(chat);
     }
 
-    void displayView(AnchorPane requestedView){
+    void displayView(Pane requestedView){
         if(requestedView.equals(currentView)){
             requestedView.setOpacity(0);
             requestedView.setDisable(true);
