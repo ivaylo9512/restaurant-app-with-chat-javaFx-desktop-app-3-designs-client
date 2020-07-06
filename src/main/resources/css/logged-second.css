@@ -1,6 +1,12 @@
 Button:focused{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
+Label, Button, TextField{
+    -fx-text-fill: #bcbcbc;
+}
+Text{
+    -fx-fill: #bcbcbc;
+}
 ScrollPane > .corner {
     -fx-background-color: transparent;
 }
@@ -30,6 +36,10 @@ TextFlow {
     -fx-background-radius: 5;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
+ListView .list-cell{
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
 .list-view .scroll-bar:vertical .increment-arrow,
 .list-view .scroll-bar:vertical .decrement-arrow,
 .list-view .scroll-bar:vertical .increment-button,
@@ -44,7 +54,9 @@ TextFlow {
 }
 .root{
     -fx-pref-height: 503px;
+    -fx-min-height: 503px;
     -fx-pref-width: 683px;
+    -fx-min-width: 683px;
     -fx-background-color: transparent;
 }
 .padding-container{
@@ -103,10 +115,6 @@ TextFlow {
     -fx-background-color: #1a1a1a;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
-.dishes-list .list-cell{
-    -fx-background-color: transparent;
-    -fx-padding: 0;
-}
 .dishes-list GridPane{
     -fx-background-color:  #1a1a1a;
 }
@@ -117,7 +125,6 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
 }
 .dish-cell Label{
-    -fx-text-fill: #bcbcbc;
     -fx-alignment: center;
 }
 .loading{
@@ -140,15 +147,11 @@ TextFlow {
     -fx-alignment: top-right;
     -fx-padding: 0.5em 0.5em 0 0;
 }
-.order-cell Text{
-    -fx-fill: #bcbcbc;
-}
 .order-cell Button{
     -fx-effect: dropshadow( three-pass-box, rgba(0,0,0,1), 2, 0, 0.4, 0);
     -fx-background-color: #1a1a1a;
     -fx-border-radius: 5em;
     -fx-background-radius: 5em;
-    -fx-text-fill: #bcbcbc;
     -fx-min-height: 0;
     -fx-min-width: 0;
     -fx-background-insets: 0;
@@ -177,19 +180,11 @@ TextFlow {
 }
 .menu-container TextField{
     -fx-pref-height: 43px;
-    -fx-text-fill: #bcbcbc;
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 0, 0, 0, 2 );
 }
 .dish-cell{
     -fx-pref-Height: 5.35em;
-}
-.dish-cell Label{
-    -fx-text-fill: #bcbcbc;
-}
-.menu-container .list-view .list-cell{
-    -fx-padding: 0;
-    -fx-background-color: transparent;
 }
 .menu-container .list-view .list-cell GridPane{
     -fx-background-color: #1a1a1a;
@@ -243,12 +238,23 @@ TextFlow {
 }
 .info-label{
     -fx-border-width: 0 0 1 0;
-    -fx-border-color: #bcbcbc;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
+.chats{
+    -fx-background-color: #1a1a1a;
+    -fx-border-width: 0 0.3 0 0;
+    -fx-border-color: white;
+    -fx-pref-width: 212.0px;
+}
+.chats-list .list-cell:selected .name{
+    -fx-text-fill: white;
+}
+.chats-list .list-cell:selected .last-message{
+    -fx-pref-height: 0;
+    -fx-text-fill: white;
+}
 .chats-list .list-cell{
-    -fx-background-color: transparent;
     -fx-padding: 0.33em 0;
 }
 .chats-list .list-cell:selected{
@@ -259,7 +265,7 @@ TextFlow {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
 }
 .chat-cell{
-    -fx-padding: 0.2em 0 0.2em 3.3em;
+    -fx-padding: 0.2em 0 0.2em 3.5em;
     -fx-alignment: center;
     -fx-spacing: 0.55em;
     -fx-background-color: #1a1a1a;
@@ -275,7 +281,6 @@ TextFlow {
 }
 .name{
     -fx-font-size: 1em;
-    -fx-text-fill: #bcbcbc;
 }
 .profile-image{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
@@ -286,21 +291,8 @@ TextFlow {
 .profile-image ImageView{
     -fx-translate-y: 4.15;
 }
-.chats{
-    -fx-background-color: #1a1a1a;
-    -fx-border-width: 0 0.3 0 0;
-    -fx-border-color: white;
-    -fx-pref-width: 212.0px;
-}
-.chats-list .list-cell:selected .name{
-    -fx-text-fill: white;
-}
 .last-message{
     -fx-text-fill: #545454;
-}
-.chats-list .list-cell:selected .last-message{
-    -fx-pref-height: 0;
-    -fx-text-fill: white;
 }
 .chat-view > AnchorPane{
     -fx-background-color: #1a1a1a;
@@ -321,9 +313,6 @@ TextFlow {
 .main-chat .imageShadow{
     -fx-background-color: white;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6, 0.0 , 0 , 0 );
-}
-.main-chat .message{
-    -fx-fill: #bcbcbc;
 }
 .main-chat Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
@@ -350,7 +339,6 @@ TextFlow {
 }
 .main-chat TextArea{
     -fx-background-color: #1a1a1a;
-    -fx-text-fill: #bcbcbc;
     -fx-border-width: 0 1 0 0;
     -fx-border-color: #bcbcbc;
 }
@@ -397,7 +385,4 @@ TextFlow {
 }
 .session-info Text{
     -fx-fill: white;
-}
-.session-date Text{
-    -fx-fill: #bcbcbc;
 }
