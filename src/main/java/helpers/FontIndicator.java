@@ -7,10 +7,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class FontIndicator {
-    public static DoubleProperty fontPx = new SimpleDoubleProperty(12.5);
+    public static DoubleProperty fontPx = new SimpleDoubleProperty(Font.getDefault().getSize());
     private static KeyCombination combination = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
     public static void setSliderBinding(Node root, Slider slider, Stage stage){
         root.setOnKeyPressed(event -> {

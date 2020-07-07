@@ -39,6 +39,9 @@ TextFlow {
     -fx-background-radius: 5;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
+ListView{
+    -fx-padding: 0;
+}
 ListView .list-cell{
     -fx-padding: 0;
     -fx-background-color: transparent;
@@ -77,10 +80,17 @@ ListView .list-cell{
 }
 .order-view{
     -fx-background-color: #1a1a1a;
+    -fx-padding: 2em 0;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1), 4.5, 0.0 , 0 , 0);
 }
-.order-view > GridPane:disabled{
+.order-view > VBox{
+    -fx-spacing: 12.4em;
+}
+.order-view > VBox:disabled{
     -fx-opacity: 0;
+}
+.order-icon{
+    -fx-padding: 0 0 3.5em 0;
 }
 .order-icon > Circle{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5.5, 0.0 , 0 , 0 );
@@ -115,13 +125,14 @@ ListView .list-cell{
     -fx-padding: 2em;
 }
 .create-view TextField{
-    -fx-pref-height: 3.55em;
-    -fx-min-height: 3.55em;
+    -fx-pref-height: 3.5em;
+    -fx-min-height: 3.5em;
     -fx-background-color: #1a1a1a;
     -fx-alignment: center;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
 }
 .dishes-list{
+    -fx-pref-height: 0;
     -fx-padding: 0 2em;
 }
 .dishes-list ListView{
@@ -203,7 +214,6 @@ ListView .list-cell{
     -fx-border-radius: 180px;
     -fx-background-radius: 180px;
     -fx-background-color: #1a1a1a;
-    -fx-border-width: 2px;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5.5, 0.0 , 0 , 0 );
 }
 .add-button:hover{

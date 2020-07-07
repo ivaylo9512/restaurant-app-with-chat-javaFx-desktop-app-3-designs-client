@@ -34,14 +34,7 @@
                     <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder" maxWidth="Infinity"/>
                 </StackPane>
                 <StackPane fx:id="orderView" styleClass="order-view" GridPane.columnIndex="1">
-                    <GridPane fx:id="orderContainer">
-                        <rowConstraints>
-                            <RowConstraints percentHeight="50"/>
-                            <RowConstraints percentHeight="45"/>
-                        </rowConstraints>
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="ALWAYS"/>
-                        </columnConstraints>
+                    <VBox fx:id="orderContainer">
                         <GridPane fx:id="orderInfo" styleClass="order-info">
                             <columnConstraints>
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
@@ -51,28 +44,28 @@
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
-                            <AnchorPane prefHeight="105.0" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity">
+                            <AnchorPane prefHeight="105.0" minHeight="105" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity">
                                 <Label fx:id="createdTime" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
                                 <Label fx:id="createdDate" styleClass="date-label" layoutX="21.0" layoutY="41.0"/>
                                 <Label styleClass="info-label" layoutX="37.5" layoutY="7.0" text="Created"/>
                             </AnchorPane>
-                            <AnchorPane prefHeight="105.0" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="1">
+                            <AnchorPane prefHeight="105.0" minHeight="105" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="1">
                                 <Label fx:id="updatedTime" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
                                 <Label fx:id="updatedDate" styleClass="date-label" layoutX="21.0" layoutY="41.0"/>
                                 <Label styleClass="info-label" layoutX="35.5" layoutY="7.0" text="Updated"/>
                             </AnchorPane>
-                            <AnchorPane prefHeight="105.0" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="2">
+                            <AnchorPane prefHeight="105.0" minHeight="105" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="2">
                                 <Label fx:id="orderId" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
                                 <Label fx:id="dishesCountLabel" styleClass="date-label" layoutX="21.0"/>
                                 <Label styleClass="info-label" layoutX="44.0" layoutY="7.0" text="Order"/>
                             </AnchorPane>
                         </GridPane>
-                        <StackPane styleClass="dishes-list" GridPane.rowIndex="1">
+                        <StackPane styleClass="dishes-list" VBox.vgrow="ALWAYS">
                             <ListView fx:id="currentDishList"/>
                         </StackPane>
-                    </GridPane>
-                    <StackPane styleClass="order-icon">
-                        <Circle radius="30.5"/>
+                    </VBox>
+                    <StackPane VBox.vgrow="ALWAYS" styleClass="order-icon">
+                        <Circle radius="30"/>
                         <ImageView fitHeight="34.0" fitWidth="34.0">
                             <Image url="/images/list.png"/>
                         </ImageView>
