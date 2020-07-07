@@ -59,10 +59,10 @@ ListView .list-cell{
     -fx-scale-x: 0;
 }
 .root{
-    -fx-pref-height: 526px;
-    -fx-min-height: 526px;
-    -fx-pref-width: 730px;
-    -fx-min-width: 730px;
+    -fx-pref-height: 43.83em;
+    -fx-min-height: 43.83em;
+    -fx-pref-width: 60.83em;
+    -fx-min-width: 60.83em;
     -fx-background-color: transparent;
 }
 .padding-container{
@@ -80,11 +80,11 @@ ListView .list-cell{
 }
 .order-view{
     -fx-background-color: #1a1a1a;
-    -fx-padding: 2em 0;
+    -fx-padding: 2em 1em;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1), 4.5, 0.0 , 0 , 0);
 }
 .order-view > VBox{
-    -fx-spacing: 12.4em;
+    -fx-spacing: 11.4em;
 }
 .order-view > VBox:disabled{
     -fx-opacity: 0;
@@ -95,29 +95,6 @@ ListView .list-cell{
 .order-icon > Circle{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5.5, 0.0 , 0 , 0 );
     -fx-fill: #1a1a1a;
-}
-.date-container Label{
-    -fx-alignment: center;
-    -fx-text-fill: white;
-    -fx-font-size: 10.5px;
-}
-.date-container .time{
-    -fx-min-width: 33.0px;
-    -fx-min-height: 35.0px;
-    -fx-pref-width: 33.0px;
-    -fx-pref-height: 35.0px;
-    -fx-max-width: 33.0px;
-    -fx-max-height: 35.0px;
-    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
-}
-.date-container .date{
-    -fx-min-width: 33.0px;
-    -fx-min-height: 35.0px;
-    -fx-pref-width: 33.0px;
-    -fx-pref-height: 35.0px;
-    -fx-max-width: 33.0px;
-    -fx-max-height: 35.0px;
-    -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
 .create-view{
     -fx-background-color: #1a1a1a;
@@ -133,7 +110,7 @@ ListView .list-cell{
 }
 .dishes-list{
     -fx-pref-height: 0;
-    -fx-padding: 0 2em;
+    -fx-padding: 0 1em;
 }
 .dishes-list ListView{
     -fx-background-color: #1a1a1a;
@@ -165,6 +142,7 @@ ListView .list-cell{
     -fx-background-color: #1a1a1a;
 }
 .order-cell VBox{
+    -fx-spacing: 0.6em;
     -fx-alignment: center;
 }
 .order-cell HBox{
@@ -183,13 +161,16 @@ ListView .list-cell{
     -fx-pref-width: 1.2em;
     -fx-pref-height: 1.2em;
 }
-.order-cell Label{
+.order-cell Label,
+.order-cell Text{
     -fx-text-fill: white;
+    -fx-font-family: "Georgia Pro";
+    -fx-font-size: 0.6em;
 }
-.order-list .list-cell:hover .order-cell StackPane{
+.order-list .list-cell:hover .order-cell > StackPane{
     -fx-background-color: rgb(252,57,3,0.1);
 }
-.order-list .list-cell:selected .order-cell StackPane{
+.order-list .list-cell:selected .order-cell > StackPane{
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-color: rgb(252,57,3,1);
 }
@@ -207,12 +188,12 @@ ListView .list-cell{
     -fx-padding: 2em 0;
 }
 .add-button{
-    -fx-pref-height: 61px;
-    -fx-pref-width: 61px;
-    -fx-min-height: 61px;
-    -fx-min-width: 61px;
-    -fx-border-radius: 180px;
-    -fx-background-radius: 180px;
+    -fx-pref-height: 5em;
+    -fx-pref-width: 5em;
+    -fx-min-height: 5em;
+    -fx-min-width: 5em;
+    -fx-border-radius: 5em;
+    -fx-background-radius: 5em;
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5.5, 0.0 , 0 , 0 );
 }
@@ -229,24 +210,34 @@ ListView .list-cell{
     -fx-background-color: #1a1a1a;
     -fx-border-width: 0 0.3 0 0;
     -fx-border-color: white;
-    -fx-padding: 4.8em 0 0 0;
+    -fx-padding: 4.8em 0.6 0 0;
 }
-.order-info AnchorPane{
+.order-info{
+    -fx-padding: 1em 0 0 0;
+}
+.order-info > VBox{
+    -fx-pref-height: 8.75em;
+    -fx-min-height: 8.75em;
+    -fx-pref-width: 10.5em;
+    -fx-padding: 0.5em 0 1em 0;
     -fx-background-color: #1a1a1a;
     -fx-background-radius: 15;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
 }
-.date-label{
-    -fx-font-size: 10px;
+.order-info VBox{
+    -fx-alignment: center;
+}
+.order-info Label{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0 );
     -fx-font-weight: bold;
-    -fx-pref-height: 21.0px;
-    -fx-pref-width: 77.0px
+}
+.date-label{
+    -fx-font-size: 8.3em;
 }
 .info-label{
     -fx-border-width: 0 0 1 0;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-border-color: white;
 }
 .chats{
     -fx-background-color: #1a1a1a;

@@ -71,8 +71,8 @@
                         </StackPane>
                     </VBox>
                     <StackPane VBox.vgrow="ALWAYS" styleClass="order-icon">
-                        <Circle radius="30"/>
-                        <ImageView fitHeight="34.0" fitWidth="34.0">
+                        <Circle radius="${font.fontPx * 2.5}"/>
+                        <ImageView fitHeight="${font.fontPx * 2.84}" fitWidth="${font.fontPx * 2.84}">
                             <Image url="/images/list.png"/>
                         </ImageView>
                     </StackPane>
@@ -84,7 +84,7 @@
                     <StackPane styleClass="add-button-padding">
                         <Button fx:id="createButton" styleClass="add-button" onMouseClicked="#createNewOrder">
                             <graphic>
-                                <ImageView disable="true" fitHeight="34.0" fitWidth="34.0">
+                                <ImageView disable="true" fitHeight="${font.fontPx * 2.84}" fitWidth="${font.fontPx * 2.84}">
                                     <Image url="/images/add.png"/>
                                 </ImageView>
                             </graphic>
@@ -126,7 +126,7 @@
                             <Button focusTraversable="false" minWidth="-Infinity" mnemonicParsing="false"
                                     prefHeight="38.0" prefWidth="52.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
                                 <graphic>
-                                    <ImageView fitHeight="22.0" fitWidth="22.0">
+                                    <ImageView fitHeight="${font.fontPx * 1.83}" fitWidth="${font.fontPx * 1.83}">
                                         <Image url="/images/enter-arrow.png"/>
                                     </ImageView>
                                 </graphic>
