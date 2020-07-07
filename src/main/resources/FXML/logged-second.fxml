@@ -78,31 +78,24 @@
                         </ImageView>
                     </StackPane>
                 </StackPane>
-                <GridPane fx:id="createView" styleClass="create-view" disable="true" opacity="0.0" GridPane.columnIndex="1">
-                    <rowConstraints>
-                        <RowConstraints percentHeight="30"/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints percentHeight="30"/>
-                    </rowConstraints>
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS"/>
-                    </columnConstraints>
-                    <StackPane styleClass="menu-container">
+                <VBox fx:id="createView" styleClass="create-view" disable="true" opacity="0.0" GridPane.columnIndex="1">
+                    <StackPane styleClass="menu-container" VBox.vgrow="ALWAYS">
                         <ListView fx:id="newOrderList" styleClass="new-order-list" onMouseClicked="#removeMenuItem"/>
                     </StackPane>
-                    <Button fx:id="createButton" styleClass="add-button" onMouseClicked="#createNewOrder" GridPane.rowIndex="1">
-                        <graphic>
-                            <ImageView disable="true" fitHeight="34.0" fitWidth="34.0">
-                                <Image url="/images/add.png"/>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                    <TextField fx:id="menuSearch" viewOrder="1" promptText="Search" GridPane.rowIndex="2"/>
-                    <StackPane styleClass="menu-container" viewOrder="2" GridPane.rowIndex="3">
+                    <StackPane styleClass="add-button-padding">
+                        <Button fx:id="createButton" styleClass="add-button" onMouseClicked="#createNewOrder">
+                            <graphic>
+                                <ImageView disable="true" fitHeight="34.0" fitWidth="34.0">
+                                    <Image url="/images/add.png"/>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </StackPane>
+                    <TextField fx:id="menuSearch" viewOrder="1" promptText="Search"/>
+                    <StackPane styleClass="menu-container" viewOrder= "2" VBox.vgrow="ALWAYS">
                         <ListView fx:id="menuList" styleClass="menu-list" onMouseClicked="#addMenuItem"/>
                     </StackPane>
-                </GridPane>
+                </VBox>
             </GridPane>
             <AnchorPane fx:id="chatView" styleClass="chat-view" disable="true" opacity="0.0"
                         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
