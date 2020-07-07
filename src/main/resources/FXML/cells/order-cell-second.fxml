@@ -11,7 +11,7 @@
     </fx:define>
     <StackPane>
         <VBox>
-            <Label text="Order"/>
+            <Label text="O r d e r"/>
             <Label fx:id="orderId"/>
         </VBox>
         <HBox>

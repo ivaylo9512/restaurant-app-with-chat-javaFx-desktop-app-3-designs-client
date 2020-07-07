@@ -37,28 +37,34 @@
                     <VBox fx:id="orderContainer">
                         <GridPane fx:id="orderInfo" styleClass="order-info">
                             <columnConstraints>
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
-                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
-                            <AnchorPane prefHeight="105.0" minHeight="105" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity">
-                                <Label fx:id="createdTime" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
-                                <Label fx:id="createdDate" styleClass="date-label" layoutX="21.0" layoutY="41.0"/>
-                                <Label styleClass="info-label" layoutX="37.5" layoutY="7.0" text="Created"/>
-                            </AnchorPane>
-                            <AnchorPane prefHeight="105.0" minHeight="105" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="1">
-                                <Label fx:id="updatedTime" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
-                                <Label fx:id="updatedDate" styleClass="date-label" layoutX="21.0" layoutY="41.0"/>
-                                <Label styleClass="info-label" layoutX="35.5" layoutY="7.0" text="Updated"/>
-                            </AnchorPane>
-                            <AnchorPane prefHeight="105.0" minHeight="105" prefWidth="119.0" maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="2">
-                                <Label fx:id="orderId" styleClass="date-label" layoutX="21.0" layoutY="62.0"/>
-                                <Label fx:id="dishesCountLabel" styleClass="date-label" layoutX="21.0"/>
-                                <Label styleClass="info-label" layoutX="44.0" layoutY="7.0" text="Order"/>
-                            </AnchorPane>
+                            <VBox maxWidth="-Infinity" maxHeight="-Infinity">
+                                <Label styleClass="info-label" text="Created"/>
+                                <VBox VBox.vgrow="ALWAYS" maxWidth="Infinity">
+                                    <Label fx:id="createdTime" styleClass="date-label"/>
+                                    <Label fx:id="createdDate" styleClass="date-label"/>
+                                </VBox>
+                            </VBox>
+                            <VBox maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="1">
+                                <Label styleClass="info-label" text="Updated"/>
+                                <VBox VBox.vgrow="ALWAYS" maxWidth="Infinity">
+                                    <Label fx:id="updatedTime" styleClass="date-label"/>
+                                    <Label fx:id="updatedDate" styleClass="date-label"/>
+                                </VBox>
+                            </VBox>
+                            <VBox maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="2">
+                                <Label styleClass="info-label" text="Order"/>
+                                <VBox VBox.vgrow="ALWAYS" maxWidth="Infinity">
+                                    <Label fx:id="orderId" styleClass="date-label"/>
+                                    <Label fx:id="dishesCountLabel" styleClass="date-label"/>
+                                </VBox>
+                            </VBox>
                         </GridPane>
                         <StackPane styleClass="dishes-list" VBox.vgrow="ALWAYS">
                             <ListView fx:id="currentDishList"/>

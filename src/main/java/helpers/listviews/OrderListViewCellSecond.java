@@ -33,7 +33,7 @@ public class OrderListViewCellSecond extends ListCell<Order> {
                     e.printStackTrace();
                 }
             }
-            orderId.setText(String.valueOf(order.getId().get()));
+            orderId.setText(String.valueOf(order.getId().get()).replaceAll(".(?!$)", "$0 "));
 
 
             setText(null);
