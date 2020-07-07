@@ -33,6 +33,9 @@
                 <StackPane styleClass="orders">
                     <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder" maxWidth="Infinity"/>
                 </StackPane>
+                <StackPane styleClass="chats">
+                    <ListView fx:id="chatUsersList" styleClass="chats-list"/>
+                </StackPane>
                 <StackPane fx:id="orderView" styleClass="order-view" GridPane.columnIndex="1">
                     <VBox fx:id="orderContainer">
                         <GridPane fx:id="orderInfo" styleClass="order-info">
@@ -95,53 +98,32 @@
                         <ListView fx:id="menuList" styleClass="menu-list" onMouseClicked="#addMenuItem"/>
                     </StackPane>
                 </VBox>
-            </GridPane>
-            <AnchorPane fx:id="chatView" styleClass="chat-view" disable="true" opacity="0.0"
-                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <AnchorPane fx:id="mainChat" styleClass="main-chat" disable="true" opacity="0.0"
-                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <ScrollPane fx:id="mainChatScroll" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
-                            <VBox fx:id="mainChatBlock" maxHeight="Infinity"
-                                  maxWidth="Infinity">
-                                <padding>
-                                    <Insets bottom="10.0" left="5.0" right="5.0"/>
-                                </padding>
-                                <HBox alignment="CENTER" styleClass="session-info">
-                                    <Pane maxHeight="0.5" HBox.hgrow="ALWAYS"/>
-                                    <TextFlow maxWidth="-Infinity" minWidth="-Infinity" textAlignment="CENTER"
-                                              HBox.hgrow="ALWAYS">
-                                        <HBox.margin>
-                                            <Insets left="5.0" right="5.0"/>
-                                        </HBox.margin>
-                                        <Text fx:id="mainChatInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"/>
+                <StackPane fx:id="chatView" styleClass="chat-view" disable="true" opacity="0.0" Gri>
+                    <VBox fx:id="mainChat" styleClass="main-chat" disable="true" opacity="0.0">
+                        <ScrollPane fx:id="mainChatScroll">
+                            <VBox fx:id="mainChatBlock" maxHeight="Infinity" maxWidth="Infinity">
+                                <HBox styleClass="session-info">
+                                    <Pane HBox.hgrow="ALWAYS"/>
+                                    <TextFlow maxWidth="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                                        <Text fx:id="mainChatInfo"/>
                                     </TextFlow>
-                                    <Pane maxHeight="0.5" HBox.hgrow="ALWAYS"/>
+                                    <Pane HBox.hgrow="ALWAYS"/>
                                 </HBox>
                             </VBox>
                         </ScrollPane>
-                        <AnchorPane prefHeight="39.0" styleClass="shadow" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0">
-                            <Button focusTraversable="false" minWidth="-Infinity" mnemonicParsing="false"
-                                    prefHeight="38.0" prefWidth="52.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
+                        <HBox prefHeight="39.0" styleClass="shadow">
+                            <Button focusTraversable="false" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="52.0">
                                 <graphic>
                                     <ImageView fitHeight="${font.fontPx * 1.83}" fitWidth="${font.fontPx * 1.83}">
                                         <Image url="/images/enter-arrow.png"/>
                                     </ImageView>
                                 </graphic>
                             </Button>
-                            <TextArea fx:id="mainChatTextArea" maxHeight="-Infinity" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                      AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0"/>
-                        </AnchorPane>
-                    </AnchorPane>
-                </AnchorPane>
-                <AnchorPane minWidth="-Infinity" styleClass="chats" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <AnchorPane fx:id="userChatsClip" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="57.0" AnchorPane.rightAnchor="0">
-                        <ListView fx:id="chatUsersList" styleClass="chats-list" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-                    </AnchorPane>
-                </AnchorPane>
-            </AnchorPane>
+                            <TextArea fx:id="mainChatTextArea" maxHeight="-Infinity" wrapText="true"/>
+                        </HBox>
+                    </VBox>
+                </StackPane>
+            </GridPane>
             <Pane fx:id="contentBar" styleClass="content-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         </AnchorPane>
     </StackPane>

@@ -14,8 +14,6 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import controllers.base.ControllerLogged;
 
@@ -24,9 +22,7 @@ import static application.RestaurantApplication.*;
 
 public class LoggedSecond extends ControllerLogged {
     @FXML Label dishesCountLabel;
-
-    @FXML AnchorPane chatView, userChatsClip;
-    @FXML Pane contentBar, orderInfo, orderContainer, orderView, createView;
+    @FXML Pane contentBar, orderInfo, orderContainer, orderView, createView, chatView;
 
     private Stage stage = stageManager.secondLoggedStage;
     private Pane currentView;
@@ -37,7 +33,6 @@ public class LoggedSecond extends ControllerLogged {
 
     @FXML
     public void initialize() {
-        setClips();
         setListsFactories();
         setCreateGraphicIndicators();
         setListsItems();
@@ -79,11 +74,6 @@ public class LoggedSecond extends ControllerLogged {
 
         chatUsersList.setCellFactory(chatUsersList -> new ChatsUsersListViewCellSecond());
         ordersList.setCellFactory(orderListCell -> new OrderListViewCellSecond());
-    }
-
-    private void setClips() {
-        Rectangle chatsClip = new Rectangle(211, 421);
-        userChatsClip.setClip(chatsClip);
     }
 
     public void setChatValue(ChatValue chat){
