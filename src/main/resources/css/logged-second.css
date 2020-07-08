@@ -46,6 +46,9 @@ ListView .list-cell{
     -fx-padding: 0;
     -fx-background-color: transparent;
 }
+ProgressIndicator {
+    -fx-accent: #bcbcbc;
+}
 .list-view .scroll-bar:vertical .increment-arrow,
 .list-view .scroll-bar:vertical .decrement-arrow,
 .list-view .scroll-bar:vertical .increment-button,
@@ -65,11 +68,16 @@ ListView .list-cell{
     -fx-min-width: 60.83em;
     -fx-background-color: transparent;
 }
+.content-root{
+    -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 10, 0.42, 0.7, 0);
+}
+.content-root > StackPane:disabled,
+.content-root > VBox:disabled{
+    -fx-opacity: 0;
+}
+
 .padding-container{
     -fx-padding: 1.5em;
-}
-.padding-container > AnchorPane{
-    -fx-effect: dropshadow( gaussian, rgba(0,0,0,1), 10, 0.42, 0.7, 0);
 }
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1), 15, 0.0 , 0 , 2 );
@@ -129,8 +137,10 @@ ListView .list-cell{
     -fx-alignment: center;
 }
 .loading{
-    -fx-pref-height: 12px;
-    -fx-pref-width: 12px;
+    -fx-pref-height: 1em;
+    -fx-pref-width: 1em;
+    -fx-max-height: 1em;
+    -fx-max-width: 1em;
     -fx-text-fill: #bcbcbc;
 }
 .order-cell{
@@ -142,7 +152,7 @@ ListView .list-cell{
     -fx-background-color: #1a1a1a;
 }
 .order-cell VBox{
-    -fx-spacing: 0.6em;
+    -fx-spacing: 0.7em;
     -fx-alignment: center;
 }
 .order-cell HBox{
@@ -177,6 +187,13 @@ ListView .list-cell{
 .menu-container{
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 0 );
+}
+.menu-cell{
+    -fx-background-color: #1a1a1a;
+    -fx-max-height: 6.7em;
+    -fx-pref-height: 5.35em;
+    -fx-min-height: 5.35em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0, 0, 0, 1) , 4.5, 0 , 0 , 0);
 }
 .dish-cell{
     -fx-pref-Height: 5.35em;
@@ -298,14 +315,18 @@ ListView .list-cell{
 .chat-block{
     -fx-padding: 0 0 7 0;
 }
+.main-chat:disabled{
+    -fx-opacity: 0;
+}
 .main-chat Pane{
     -fx-pref-width: 40.0;
     -fx-pref-height: 40.0;
     -fx-border-radius: 180px;
     -fx-background-radius: 180px;
 }
-.main-chat VBox{
+.main-chat ScrollPane > VBox{
     -fx-pref-width: 396.0px;
+    -fx-padding: 0 4.2em 8.3em 4.2em;
 }
 .main-chat .imageShadow{
     -fx-background-color: white;
@@ -324,7 +345,7 @@ ListView .list-cell{
     -fx-fill: #2A2E37;
 }
 .main-chat TextFlow{
-    -fx-padding: 5 0 5 0;
+    -fx-padding: 5 5 5 5;
 }
 .main-chat > HBox{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1), 15, 0.0 , 0 , 2 );
@@ -376,14 +397,14 @@ ListView .list-cell{
 .session-info{
     -fx-opacity: 0.7;
     -fx-padding: 0 0 0 15;
+    -fx-alignment: center;
 }
-
 .chat-info{
     -fx-opacity: 1;
 }
 .session-info > Pane{
     -fx-background-color: white;
-    -fx-pref-height: 0.4em;
+    -fx-max-height: 0.05em;
 }
 .session-info TextFlow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );

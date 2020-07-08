@@ -17,114 +17,112 @@
     <cursor>
         <Cursor fx:constant="DEFAULT"/>
     </cursor>
-    <Slider fx:id="fontSizeSlider" orientation="VERTICAL" AnchorPane.rightAnchor="0"/>
+    <Slider fx:id="fontSizeSlider" opacity="0" orientation="VERTICAL" AnchorPane.rightAnchor="0"/>
     <StackPane styleClass="padding-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <AnchorPane fx:id="contentRoot">
-            <GridPane AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
-                <rowConstraints>
-                    <RowConstraints vgrow="ALWAYS"/>
-                </rowConstraints>
-                <columnConstraints>
-                    <ColumnConstraints maxWidth="Infinity"/>
-                    <ColumnConstraints percentWidth="25.8"/>
-                    <ColumnConstraints prefWidth="0" hgrow="ALWAYS"/>
-                </columnConstraints>
-                <Pane fx:id="contentBar" styleClass="content-bar"/>
-                <StackPane styleClass="orders" GridPane.columnIndex="1">
-                    <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder" maxWidth="Infinity"/>
+        <GridPane fx:id="contentRoot" styleClass="content-root">
+            <rowConstraints>
+                <RowConstraints vgrow="ALWAYS"/>
+            </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints maxWidth="Infinity"/>
+                <ColumnConstraints percentWidth="25.8"/>
+                <ColumnConstraints prefWidth="0" hgrow="ALWAYS"/>
+            </columnConstraints>
+            <Pane fx:id="contentBar" styleClass="content-bar"/>
+            <StackPane styleClass="orders" GridPane.columnIndex="1">
+                <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder" maxWidth="Infinity"/>
+            </StackPane>
+            <StackPane fx:id="chatListView" styleClass="chats" disable="true" GridPane.columnIndex="1">
+                <ListView fx:id="chatUsersList" styleClass="chats-list"/>
+            </StackPane>
+            <StackPane fx:id="orderView" styleClass="order-view" GridPane.columnIndex="2">
+                <StackPane VBox.vgrow="ALWAYS" disable="true" styleClass="order-icon">
+                    <Circle radius="${font.fontPx * 2.5}"/>
+                    <ImageView fitHeight="${font.fontPx * 2.84}" fitWidth="${font.fontPx * 2.84}">
+                        <Image url="/images/list.png"/>
+                    </ImageView>
                 </StackPane>
-                <StackPane fx:id="chatListView" styleClass="chats" opacity="0" disable="true" GridPane.columnIndex="1">
-                    <ListView fx:id="chatUsersList" styleClass="chats-list"/>
-                </StackPane>
-                <StackPane fx:id="orderView" opacity="0" styleClass="order-view" GridPane.columnIndex="2">
-                    <VBox fx:id="orderContainer">
-                        <GridPane fx:id="orderInfo" styleClass="order-info">
-                            <columnConstraints>
-                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
-                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
-                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-                            </rowConstraints>
-                            <VBox maxWidth="-Infinity" maxHeight="-Infinity">
-                                <Label styleClass="info-label" text="Created"/>
-                                <VBox VBox.vgrow="ALWAYS" maxWidth="Infinity">
-                                    <Label fx:id="createdTime" styleClass="date-label"/>
-                                    <Label fx:id="createdDate" styleClass="date-label"/>
-                                </VBox>
+                <VBox fx:id="orderContainer">
+                    <GridPane fx:id="orderInfo" styleClass="order-info">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                        </rowConstraints>
+                        <VBox maxWidth="-Infinity" maxHeight="-Infinity">
+                            <Label styleClass="info-label" text="Created"/>
+                            <VBox VBox.vgrow="ALWAYS" maxWidth="Infinity">
+                                <Label fx:id="createdTime" styleClass="date-label"/>
+                                <Label fx:id="createdDate" styleClass="date-label"/>
                             </VBox>
-                            <VBox maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="1">
-                                <Label styleClass="info-label" text="Updated"/>
-                                <VBox VBox.vgrow="ALWAYS" maxWidth="Infinity">
-                                    <Label fx:id="updatedTime" styleClass="date-label"/>
-                                    <Label fx:id="updatedDate" styleClass="date-label"/>
-                                </VBox>
+                        </VBox>
+                        <VBox maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="1">
+                            <Label styleClass="info-label" text="Updated"/>
+                            <VBox VBox.vgrow="ALWAYS" maxWidth="Infinity">
+                                <Label fx:id="updatedTime" styleClass="date-label"/>
+                                <Label fx:id="updatedDate" styleClass="date-label"/>
                             </VBox>
-                            <VBox maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="2">
-                                <Label styleClass="info-label" text="Order"/>
-                                <VBox VBox.vgrow="ALWAYS" maxWidth="Infinity">
-                                    <Label fx:id="orderId" styleClass="date-label"/>
-                                    <Label fx:id="dishesCountLabel" styleClass="date-label"/>
-                                </VBox>
+                        </VBox>
+                        <VBox maxWidth="-Infinity" maxHeight="-Infinity" GridPane.columnIndex="2">
+                            <Label styleClass="info-label" text="Order"/>
+                            <VBox VBox.vgrow="ALWAYS" maxWidth="Infinity">
+                                <Label fx:id="orderId" styleClass="date-label"/>
+                                <Label fx:id="dishesCountLabel" styleClass="date-label"/>
                             </VBox>
-                        </GridPane>
-                        <StackPane styleClass="dishes-list" VBox.vgrow="ALWAYS">
-                            <ListView fx:id="currentDishList"/>
-                        </StackPane>
-                    </VBox>
-                    <StackPane VBox.vgrow="ALWAYS" styleClass="order-icon">
-                        <Circle radius="${font.fontPx * 2.5}"/>
-                        <ImageView fitHeight="${font.fontPx * 2.84}" fitWidth="${font.fontPx * 2.84}">
-                            <Image url="/images/list.png"/>
-                        </ImageView>
+                        </VBox>
+                    </GridPane>
+                    <StackPane styleClass="dishes-list" VBox.vgrow="ALWAYS">
+                        <ListView fx:id="currentDishList"/>
                     </StackPane>
+                </VBox>
+            </StackPane>
+            <VBox fx:id="createView" styleClass="create-view" disable="true" GridPane.columnIndex="2">
+                <StackPane styleClass="menu-container" VBox.vgrow="ALWAYS">
+                    <ListView fx:id="newOrderList" styleClass="new-order-list" onMouseClicked="#removeMenuItem"/>
                 </StackPane>
-                <VBox fx:id="createView" styleClass="create-view" disable="true" opacity="0.0" GridPane.columnIndex="2">
-                    <StackPane styleClass="menu-container" VBox.vgrow="ALWAYS">
-                        <ListView fx:id="newOrderList" styleClass="new-order-list" onMouseClicked="#removeMenuItem"/>
-                    </StackPane>
-                    <StackPane styleClass="add-button-padding">
-                        <Button fx:id="createButton" styleClass="add-button" onMouseClicked="#createNewOrder">
+                <StackPane styleClass="add-button-padding">
+                    <Button fx:id="createButton" styleClass="add-button" onMouseClicked="#createNewOrder">
+                        <graphic>
+                            <ImageView disable="true" fitHeight="${font.fontPx * 2.84}" fitWidth="${font.fontPx * 2.84}">
+                                <Image url="/images/add.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </StackPane>
+                <TextField fx:id="menuSearch" viewOrder="1" promptText="Search"/>
+                <StackPane styleClass="menu-container" viewOrder= "2" VBox.vgrow="ALWAYS">
+                    <ListView fx:id="menuList" styleClass="menu-list" onMouseClicked="#addMenuItem"/>
+                </StackPane>
+            </VBox>
+            <StackPane fx:id="chatView" styleClass="chat-view" disable="true" GridPane.columnIndex="2">
+                <VBox fx:id="mainChat" styleClass="main-chat" disable="true">
+                    <ScrollPane fx:id="mainChatScroll" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="mainChatBlock" maxHeight="Infinity" maxWidth="Infinity">
+                            <HBox styleClass="session-info">
+                                <Pane HBox.hgrow="ALWAYS"/>
+                                <TextFlow maxWidth="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                                    <Text fx:id="mainChatInfo"/>
+                                </TextFlow>
+                                <Pane HBox.hgrow="ALWAYS"/>
+                            </HBox>
+                        </VBox>
+                    </ScrollPane>
+                    <HBox maxHeight="Infinity">
+                        <TextArea fx:id="mainChatTextArea" maxHeight="Infinity" wrapText="true"/>
+                        <Button focusTraversable="false" minWidth="-Infinity" minHeight="-Infinity" maxHeight="Infinity" mnemonicParsing="false">
                             <graphic>
-                                <ImageView disable="true" fitHeight="${font.fontPx * 2.84}" fitWidth="${font.fontPx * 2.84}">
-                                    <Image url="/images/add.png"/>
+                                <ImageView fitHeight="${font.fontPx * 1.83}" fitWidth="${font.fontPx * 1.83}">
+                                    <Image url="/images/enter-arrow.png"/>
                                 </ImageView>
                             </graphic>
                         </Button>
-                    </StackPane>
-                    <TextField fx:id="menuSearch" viewOrder="1" promptText="Search"/>
-                    <StackPane styleClass="menu-container" viewOrder= "2" VBox.vgrow="ALWAYS">
-                        <ListView fx:id="menuList" styleClass="menu-list" onMouseClicked="#addMenuItem"/>
-                    </StackPane>
+                    </HBox>
                 </VBox>
-                <StackPane fx:id="chatView" styleClass="chat-view" disable="true" opacity="0.0" GridPane.columnIndex="2">
-                    <VBox fx:id="mainChat" styleClass="main-chat" disable="true" opacity="0.0">
-                        <ScrollPane fx:id="mainChatScroll" VBox.vgrow="ALWAYS">
-                            <VBox fx:id="mainChatBlock" maxHeight="Infinity" maxWidth="Infinity">
-                                <HBox styleClass="session-info">
-                                    <Pane HBox.hgrow="ALWAYS"/>
-                                    <TextFlow maxWidth="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
-                                        <Text fx:id="mainChatInfo"/>
-                                    </TextFlow>
-                                    <Pane HBox.hgrow="ALWAYS"/>
-                                </HBox>
-                            </VBox>
-                        </ScrollPane>
-                        <HBox maxHeight="Infinity">
-                            <TextArea fx:id="mainChatTextArea" maxHeight="Infinity" wrapText="true"/>
-                            <Button focusTraversable="false" minWidth="-Infinity" minHeight="-Infinity" maxHeight="Infinity" mnemonicParsing="false">
-                                <graphic>
-                                    <ImageView fitHeight="${font.fontPx * 1.83}" fitWidth="${font.fontPx * 1.83}">
-                                        <Image url="/images/enter-arrow.png"/>
-                                    </ImageView>
-                                </graphic>
-                            </Button>
-                        </HBox>
-                    </VBox>
-                </StackPane>
-            </GridPane>
-        </AnchorPane>
+            </StackPane>
+        </GridPane>
     </StackPane>
 </AnchorPane>
