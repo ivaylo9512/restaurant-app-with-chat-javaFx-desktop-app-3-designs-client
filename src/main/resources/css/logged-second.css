@@ -206,7 +206,8 @@ ListView .list-cell{
 .add-button ProgressIndicator{
     -fx-accent: #FC3903;
 }
-.orders{
+.orders,
+.chats{
     -fx-background-color: #1a1a1a;
     -fx-border-width: 0 0.3 0 0;
     -fx-border-color: white;
@@ -238,12 +239,6 @@ ListView .list-cell{
     -fx-border-width: 0 0 1 0;
     -fx-font-size: 1em;
     -fx-border-color: white;
-}
-.chats{
-    -fx-background-color: #1a1a1a;
-    -fx-border-width: 0 0.3 0 0;
-    -fx-border-color: white;
-    -fx-pref-width: 212.0px;
 }
 .chats-list .list-cell:selected .name{
     -fx-text-fill: white;
@@ -292,7 +287,7 @@ ListView .list-cell{
 .last-message{
     -fx-text-fill: #545454;
 }
-.chat-view > AnchorPane{
+.chat-view {
     -fx-background-color: #1a1a1a;
     -fx-effect: innershadow( gaussian , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
 }
@@ -314,7 +309,6 @@ ListView .list-cell{
 }
 .main-chat Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
-
 }
 .main-chat Button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 0, 0.0 , 0 , 0 );
@@ -328,17 +322,26 @@ ListView .list-cell{
 .main-chat TextFlow{
     -fx-padding: 5 0 5 0;
 }
-
+.main-chat > HBox{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1), 15, 0.0 , 0 , 2 );
+    -fx-padding: 0 0.3em 0.5em 0.3em;
+}
 .main-chat Button{
     -fx-background-color: #1a1a1a;
     -fx-border-width: 0;
     -fx-border-radius: 0;
+    -fx-background-insets: none;
     -fx-background-radius: 0;
+    -fx-padding: 0.8em 1.25em;
 }
 .main-chat TextArea{
     -fx-background-color: #1a1a1a;
     -fx-border-width: 0 1 0 0;
     -fx-border-color: #bcbcbc;
+    -fx-text-fill: #bcbcbc;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-padding: 0;
 }
 .main-chat TextArea .content {
     -fx-background-color: transparent;

@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +21,7 @@ public class ResizeMainChat {
     private static double layoutY;
     private static double layoutX;
 
-    public static void addListeners(AnchorPane mainChat){
+    public static void addListeners(Pane mainChat){
         height = mainChat.getPrefHeight();
 
         EventHandler<MouseEvent> mousePosition = event -> {

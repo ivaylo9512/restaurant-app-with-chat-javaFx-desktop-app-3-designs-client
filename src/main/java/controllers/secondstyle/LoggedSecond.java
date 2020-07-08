@@ -22,7 +22,7 @@ import static application.RestaurantApplication.*;
 
 public class LoggedSecond extends ControllerLogged {
     @FXML Label dishesCountLabel;
-    @FXML Pane contentBar, orderInfo, orderContainer, orderView, createView, chatView;
+    @FXML Pane contentBar, orderInfo, orderContainer, orderView, createView, chatView, chatListView;
 
     private Stage stage = stageManager.secondLoggedStage;
     private Pane currentView;
@@ -51,6 +51,11 @@ public class LoggedSecond extends ControllerLogged {
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
 
         mainChatBlock.prefWidthProperty().bind(mainChatScroll.widthProperty().subtract(25));
+
+        chatView.disabledProperty().addListener((observable, oldValue, newValue )->{
+            chatListView.setDisable(!chatListView.isDisable());
+            chatListView.setOpacity(1 - chatListView.getOpacity());
+        });
     }
 
     private void focusCurrentOrderOnListUpdate() {
