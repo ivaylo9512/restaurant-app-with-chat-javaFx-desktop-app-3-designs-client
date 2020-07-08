@@ -39,7 +39,7 @@ public class LoggedSecond extends ControllerLogged {
         focusCurrentOrderOnListUpdate();
 
         currentOrder = ordersList.getSelectionModel().selectedItemProperty();
-        orderContainer.disableProperty().bind(currentOrder.isNull());
+        orderContainer.disableProperty().bind(currentOrder.isNotNull());
 
         mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
         mainChatSession.init();
@@ -52,10 +52,7 @@ public class LoggedSecond extends ControllerLogged {
 
         mainChatBlock.prefWidthProperty().bind(mainChatScroll.widthProperty().subtract(25));
 
-        chatView.disabledProperty().addListener((observable, oldValue, newValue )->{
-            chatListView.setDisable(!chatListView.isDisable());
-            chatListView.setOpacity(1 - chatListView.getOpacity());
-        });
+        chatListView.disableProperty().bind(chatView.disabledProperty());
     }
 
     private void focusCurrentOrderOnListUpdate() {
@@ -87,22 +84,16 @@ public class LoggedSecond extends ControllerLogged {
 
     void displayView(Pane requestedView){
         if(requestedView.equals(currentView)){
-            requestedView.setOpacity(0);
             requestedView.setDisable(true);
-
             currentView = null;
         }else if(currentView == null) {
             requestedView.setDisable(false);
-            requestedView.setOpacity(1);
             currentView = requestedView;
 
             stage.toFront();
         }else{
             requestedView.setDisable(false);
-            requestedView.setOpacity(1);
-
             currentView.setDisable(true);
-            currentView.setOpacity(0);
             currentView = requestedView;
 
             stage.toFront();

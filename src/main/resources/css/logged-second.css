@@ -213,6 +213,10 @@ ListView .list-cell{
     -fx-border-color: white;
     -fx-padding: 4.8em 0.6 0 0;
 }
+.orders:disabled,
+.chats:disabled{
+    -fx-opacity: 0;
+}
 .order-info{
     -fx-padding: 1em 0 0 0;
 }
@@ -233,7 +237,7 @@ ListView .list-cell{
     -fx-font-weight: bold;
 }
 .date-label{
-    -fx-font-size: 8.3em;
+    -fx-font-size: 1em;
 }
 .info-label{
     -fx-border-width: 0 0 1 0;
@@ -377,8 +381,9 @@ ListView .list-cell{
 .chat-info{
     -fx-opacity: 1;
 }
-.session-info Pane{
+.session-info > Pane{
     -fx-background-color: white;
+    -fx-pref-height: 0.4em;
 }
 .session-info TextFlow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );

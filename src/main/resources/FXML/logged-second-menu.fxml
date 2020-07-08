@@ -49,7 +49,7 @@
                             text="Chats" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
                             AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
                 </AnchorPane>
-                <HBox fx:id="notificationIcon" disable="true" mouseTransparent="true"
+                <HBox fx:id="notificationIcon" opacity="0" disable="true" mouseTransparent="true"
                       styleClass="notification-icon"/>
             </AnchorPane>
             <Button fx:id="menuButton" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity"

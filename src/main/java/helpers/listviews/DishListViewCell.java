@@ -51,7 +51,7 @@ public class DishListViewCell extends ListCell<Dish> {
             price.setText(String.valueOf(dish.getId()));
             name.setText(dish.getName());
             resizeHeight.fromHeightProperty().bind(container.minHeightProperty());
-            resizeHeight.fromHeightProperty().bind(container.maxHeightProperty());
+            resizeHeight.toHeightProperty().bind(container.maxHeightProperty());
             resizeHeight.setRegion(container);
 
             if(dish.isLoading()){
