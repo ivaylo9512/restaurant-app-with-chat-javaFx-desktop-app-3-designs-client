@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -27,16 +26,18 @@
                     <RowConstraints vgrow="ALWAYS"/>
                 </rowConstraints>
                 <columnConstraints>
-                    <ColumnConstraints percentWidth="30"/>
-                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints maxWidth="Infinity"/>
+                    <ColumnConstraints percentWidth="25.8"/>
+                    <ColumnConstraints prefWidth="0" hgrow="ALWAYS"/>
                 </columnConstraints>
-                <StackPane styleClass="orders">
+                <Pane fx:id="contentBar" styleClass="content-bar"/>
+                <StackPane styleClass="orders" GridPane.columnIndex="1">
                     <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder" maxWidth="Infinity"/>
                 </StackPane>
-                <StackPane fx:id="chatListView" styleClass="chats" opacity="0" disable="true">
+                <StackPane fx:id="chatListView" styleClass="chats" opacity="0" disable="true" GridPane.columnIndex="1">
                     <ListView fx:id="chatUsersList" styleClass="chats-list"/>
                 </StackPane>
-                <StackPane fx:id="orderView" opacity="0" styleClass="order-view" GridPane.columnIndex="1">
+                <StackPane fx:id="orderView" opacity="0" styleClass="order-view" GridPane.columnIndex="2">
                     <VBox fx:id="orderContainer">
                         <GridPane fx:id="orderInfo" styleClass="order-info">
                             <columnConstraints>
@@ -80,7 +81,7 @@
                         </ImageView>
                     </StackPane>
                 </StackPane>
-                <VBox fx:id="createView" styleClass="create-view" disable="true" opacity="0.0" GridPane.columnIndex="1">
+                <VBox fx:id="createView" styleClass="create-view" disable="true" opacity="0.0" GridPane.columnIndex="2">
                     <StackPane styleClass="menu-container" VBox.vgrow="ALWAYS">
                         <ListView fx:id="newOrderList" styleClass="new-order-list" onMouseClicked="#removeMenuItem"/>
                     </StackPane>
@@ -98,7 +99,7 @@
                         <ListView fx:id="menuList" styleClass="menu-list" onMouseClicked="#addMenuItem"/>
                     </StackPane>
                 </VBox>
-                <StackPane fx:id="chatView" styleClass="chat-view" disable="true" opacity="0.0" GridPane.columnIndex="1">
+                <StackPane fx:id="chatView" styleClass="chat-view" disable="true" opacity="0.0" GridPane.columnIndex="2">
                     <VBox fx:id="mainChat" styleClass="main-chat" disable="true" opacity="0.0">
                         <ScrollPane fx:id="mainChatScroll" VBox.vgrow="ALWAYS">
                             <VBox fx:id="mainChatBlock" maxHeight="Infinity" maxWidth="Infinity">
@@ -124,7 +125,6 @@
                     </VBox>
                 </StackPane>
             </GridPane>
-            <Pane fx:id="contentBar" styleClass="content-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         </AnchorPane>
     </StackPane>
 </AnchorPane>

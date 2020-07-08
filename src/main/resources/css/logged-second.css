@@ -76,7 +76,7 @@ ListView .list-cell{
 }
 .content-bar{
     -fx-background-color: #FC3903;
-    -fx-pref-width: 38.0px;
+    -fx-pref-width: 1.9em;
 }
 .order-view{
     -fx-background-color: #1a1a1a;
@@ -134,7 +134,7 @@ ListView .list-cell{
     -fx-text-fill: #bcbcbc;
 }
 .order-cell{
-    -fx-padding: 0.5 0 0.5 3em;
+    -fx-padding: 0.5 0 0.5 0;
 }
 .order-cell > StackPane{
     -fx-pref-height: 5em;
@@ -258,7 +258,7 @@ ListView .list-cell{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
 }
 .chat-cell{
-    -fx-padding: 0.2em 0 0.2em 3.5em;
+    -fx-padding: 0.2em 0 0.2em 0.5em;
     -fx-alignment: center;
     -fx-spacing: 0.55em;
     -fx-background-color: #1a1a1a;
