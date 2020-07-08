@@ -282,6 +282,9 @@ TextFlow {
     -fx-alignment: center;
     -fx-padding: 0.28em 1.275em 0 1.275em;
 }
+.profile-buttons-container:disabled{
+    -fx-opacity: 0;
+}
 .menu-buttons Button,
 .profile-buttons-container Button{
     -fx-border-radius: 0px;
@@ -291,8 +294,7 @@ TextFlow {
     -fx-text-fill: #bcbcbc;
     -fx-font-size: 0.83em;
 }
-.menu-buttons VBox StackPane,
-.profile-buttons-container VBox StackPane{
+.menu-buttons AnchorPane StackPane{
     -fx-pref-width: 1.3em;
     -fx-pref-height: 1.3em;
     -fx-background-color: #d62127;
@@ -302,10 +304,9 @@ TextFlow {
     -fx-translate-y: -0.5em;
     -fx-translate-x: 0.7em;
 }
-.menu-buttons VBox StackPane Text,
-.profile-buttons-container StackPane Text{
+.menu-buttons AnchorPane StackPane Text{
     -fx-fill:#2a2e37;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 2, 0.0 , 0 , 0 );
     -fx-font-size: 1.3em;
     -fx-font-weight: bold;
 }
@@ -396,6 +397,9 @@ TextFlow {
 .main-chat {
     -fx-background-color: #363b41;
 }
+.main-chat:disabled{
+    -fx-opacity: 0;
+}
 .main-chat Pane{
     -fx-pref-width: 40.0;
     -fx-pref-height: 40.0;
@@ -474,9 +478,15 @@ TextFlow {
 .upper-content{
     -fx-background-color: #2A2E37;
 }
+.upper-content:disabled{
+    -fx-opacity: 0;
+}
 .upper-content Text{
     -fx-fill: #bcbcbc;
     -fx-text-alignment: center;
+}
+.upper-content Text:disabled{
+    -fx-opacity: 0;
 }
 .notification-list{
     -fx-background-color: transparent;
@@ -556,16 +566,19 @@ TextFlow {
 .clear-button:pressed{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
-.slider-container{
+Slider{
     -fx-padding: 0.5em;
 }
-.slider .thumb {
+Slider:disabled{
+    -fx-opacity: 0;
+}
+Slider .thumb {
     -fx-padding: 0.5em;
     -fx-background-color: #363b41;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0 );
     -fx-background-insets: none;
 }
-.slider .track{
+Slider .track{
     -fx-background-insets: none;
     -fx-background-color: #2A2E37;
     -fx-padding: 0.15em;

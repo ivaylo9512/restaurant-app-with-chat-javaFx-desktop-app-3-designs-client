@@ -17,14 +17,10 @@ public class FontIndicator {
         root.setOnKeyPressed(event -> {
             if(combination.match(event)){
                 slider.setDisable(false);
-                slider.setManaged(true);
-                slider.setOpacity(1);
             }
         });
         root.setOnKeyReleased(event -> {
             slider.setDisable(true);
-            slider.setManaged(false);
-            slider.setOpacity(0);
         });
 
         slider.setValue(fontPx.get());

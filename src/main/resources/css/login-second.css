@@ -47,6 +47,9 @@ Button:pressed{
     -fx-alignment: center;
     -fx-hgap: 1.4em;
 }
+.root GridPane > HBox:disabled{
+    -fx-opacity: 0;
+}
 .background{
     -fx-background-color: #1a1a1a;
     -fx-opacity: 0.8;

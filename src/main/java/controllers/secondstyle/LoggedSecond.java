@@ -39,7 +39,7 @@ public class LoggedSecond extends ControllerLogged {
         focusCurrentOrderOnListUpdate();
 
         currentOrder = ordersList.getSelectionModel().selectedItemProperty();
-        orderContainer.disableProperty().bind(currentOrder.isNotNull());
+        orderContainer.disableProperty().bind(currentOrder.isNull());
 
         mainChatSession = new ChatSession(mainChat, mainChatValue, mainChatBlock, mainChatInfo, mainChatTextArea);
         mainChatSession.init();
@@ -134,7 +134,6 @@ public class LoggedSecond extends ControllerLogged {
 
         if(currentView != null){
             currentView.setDisable(true);
-            currentView.setOpacity(0);
             currentView = null;
         }
 
@@ -145,6 +144,7 @@ public class LoggedSecond extends ControllerLogged {
             ordersList.scrollTo(0);
         }
         ordersList.getSelectionModel().clearSelection();
+        chatUsersList.getSelectionModel().clearSelection();
 
         menuSearch.setText("");
     }

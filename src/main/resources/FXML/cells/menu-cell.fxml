@@ -5,7 +5,7 @@
 
 <StackPane fx:id="stackPane" styleClass="menu-cell" xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1">
-   <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+   <GridPane maxHeight="Infinity" maxWidth="Infinity">
       <columnConstraints>
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0"/>
          <ColumnConstraints hgrow="SOMETIMES"/>

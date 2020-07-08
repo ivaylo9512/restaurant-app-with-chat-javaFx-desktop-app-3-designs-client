@@ -14,10 +14,8 @@
       <rowConstraints>
          <RowConstraints percentHeight="100" valignment="CENTER" vgrow="ALWAYS"/>
       </rowConstraints>
-      <Label fx:id="price" contentDisplay="CENTER" maxHeight="Infinity" minHeight="-Infinity" prefHeight="0"
-             styleClass="price" text="Label"/>
-      <Label fx:id="name" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Label"
-             GridPane.columnIndex="1"/>
+      <Label fx:id="price" contentDisplay="CENTER" text="Label"/>
+      <Label fx:id="name" contentDisplay="CENTER" text="Label" GridPane.columnIndex="1"/>
       <StackPane GridPane.columnIndex="2">
          <Label fx:id="ready" contentDisplay="CENTER" text="Label"/>
          <ProgressIndicator fx:id="progressIndicator" styleClass="loading"/>

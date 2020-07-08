@@ -316,20 +316,12 @@ public class ChatSession {
 
     public void bindChat(){
         chatContainer.disableProperty().bind(chatValue.isNull());
-        chatContainer.opacityProperty().bind(Bindings.createDoubleBinding(()-> {
-            if(chatValue.isNull().get()) return 0.0;
-
-            return 1.0;
-        }, chatValue));
 
         chatValue.addListener(valueListener);
     }
 
     public void unBindChat() {
         chatContainer.disableProperty().unbind();
-        chatContainer.opacityProperty().unbind();
-
-        chatContainer.setOpacity(0);
         chatContainer.setDisable(true);
 
         chatValue.removeListener(valueListener);

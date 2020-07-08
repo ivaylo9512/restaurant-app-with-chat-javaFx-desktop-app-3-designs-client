@@ -168,7 +168,6 @@ public class LoggedFirst extends ControllerLogged {
     @FXML
     private void showNotifications() {
         notificationsView.setDisable(false);
-        notificationsView.setOpacity(1);
 
         isNewNotificationChecked.set(true);
 
@@ -179,7 +178,6 @@ public class LoggedFirst extends ControllerLogged {
     @FXML
     private void showOrders() {
         notificationsView.setDisable(true);
-        notificationsView.setOpacity(0);
 
         if(!expandOrderPane.action.get()){
             ordersList.setDisable(false);
@@ -205,7 +203,6 @@ public class LoggedFirst extends ControllerLogged {
                 new KeyFrame(Duration.millis(1000), new KeyValue(
                         menuScroll.vvalueProperty(), 0)));
         animation.play();
-        profileRoot.setOpacity(1);
         profileRoot.setDisable(false);
         userInfoScroll.setDisable(false);
         chatUsersList.setDisable(true);
@@ -213,7 +210,6 @@ public class LoggedFirst extends ControllerLogged {
 
     @FXML
     public void showMenu(){
-        profileRoot.setOpacity(0);
         profileRoot.setDisable(true);
     }
 
@@ -259,7 +255,6 @@ public class LoggedFirst extends ControllerLogged {
         if(ordersList.getItems().size() > 0) ordersList.scrollTo(0);
         ordersList.getSelectionModel().clearSelection();
 
-        notificationsView.setOpacity(0);
         notificationsView.setDisable(true);
 
         mainChatSession.unBindChat();
@@ -279,7 +274,6 @@ public class LoggedFirst extends ControllerLogged {
         userInfoScroll.setDisable(false);
         ordersList.setDisable(false);
 
-        profileRoot.setOpacity(0);
         profileRoot.setDisable(true);
 
         ordersList.setDisable(false);

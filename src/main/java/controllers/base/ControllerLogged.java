@@ -31,7 +31,7 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
     protected Button saveButton, editButton, createButton;
     @FXML
-    protected Pane mainChat, secondChat;
+    protected Pane mainChat, secondChat, notificationIcon;
     @FXML
     protected ListView<Order> ordersList;
     @FXML
@@ -43,7 +43,7 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
     protected ListView<ChatValue> chatUsersList;
     @FXML
-    protected Node notificationIcon, notificationsView;
+    protected Node notificationsView;
     @FXML
     protected ScrollPane mainChatScroll, secondChatScroll;
     @FXML
@@ -235,14 +235,12 @@ public abstract class ControllerLogged extends ControllerAdjustable{
     }
 
     private void addNotification() {
-        notificationsInfo.setOpacity(0);
         notificationsInfo.setDisable(true);
         isNewNotificationChecked.set(false);
     }
 
     protected void removeNotification() {
         if (notificationsList.getItems().size() == 0) {
-            notificationsInfo.setOpacity(1);
             notificationsInfo.setDisable(false);
         }
     }

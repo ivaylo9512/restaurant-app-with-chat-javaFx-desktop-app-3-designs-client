@@ -158,18 +158,23 @@ public class ExpandOrderPane {
     }
 
     private void paneDrag(MouseEvent event) {
-        if(!isButtonExpanded.getValue()){
-            expandOrderOnDrag(event);
-        }else {
-            moveOrder(event);
+        System.out.println(widthTransition.getCurrentTime());
+        if(widthTransition.getCurrentTime().toMillis() == delay || widthTransition.getCurrentTime().toMillis() == 0){
+            if(!isButtonExpanded.getValue()){
+                expandOrderOnDrag(event);
+            }else {
+                moveOrder(event);
+            }
         }
     }
     private void paneReleased(MouseEvent event) {
-        if(!isButtonExpanded.get() && action.get()) {
-            if(orderList.getOpacity() == 0){
-                resetOrder();
-            }else{
-                reverseOrder();
+        if(widthTransition.getCurrentTime().toMillis() == delay || widthTransition.getCurrentTime().toMillis() == 0){
+            if(!isButtonExpanded.get() && action.get()) {
+                if (orderList.getOpacity() == 0) {
+                    resetOrder();
+                } else {
+                    reverseOrder();
+                }
             }
         }
     }

@@ -68,7 +68,6 @@ public class LoginSecond extends ControllerLogin {
 
     private void showMenu(Pane requestedMenu){
         if(currentMenu != null){
-            currentMenu.setOpacity(0);
             currentMenu.setDisable(true);
         }
         if(requestedMenu.equals(styleButtons)){
@@ -78,7 +77,6 @@ public class LoginSecond extends ControllerLogin {
             actionBtnImage.setImage(loginImage);
             actionBtn.setText(null);
         }
-        requestedMenu.setOpacity(1);
         requestedMenu.setDisable(false);
         currentMenu = requestedMenu;
     }

@@ -1,3 +1,6 @@
+ProgressIndicator{
+    -fx-accent: #bcbcbc;
+}
 .root{
     -fx-pref-height: 6.7em;
     -fx-max-height: 44em;
@@ -54,18 +57,12 @@
 .menu-button{
     -fx-pref-height: 2.5em;
     -fx-pref-width: 2.5em;
-    -fx-background-radius: 180;
-    -fx-border-radius: 180;
+    -fx-background-radius: 5em;
+    -fx-border-radius: 5em;
     -fx-translate-y: 0.3em;
     -fx-translate-x: 0.3em;
     -fx-background-color: #1a1a1a;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 15, 0.0 , 0 , 2 );
-}
-.menu-button StackPane{
-    -fx-pref-height: 25px;
-    -fx-pref-width: 25px;
-    -fx-min-height: 25px;
-    -fx-min-width: 25px;
 }
 .menu-content{
     -fx-translate-y: 3.7em;
@@ -95,17 +92,14 @@
     -fx-text-alignment: center;
     -fx-alignment: center;
 }
-.profile-view Button ProgressIndicator{
-    -fx-accent: #bcbcbc;
-}
 .profile-buttons-container > AnchorPane {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 8, 0.0 , 0 , 1 );
-    -fx-background-radius: 180px;
-    -fx-border-radius: 180px;
+    -fx-background-radius: 5em;
+    -fx-border-radius: 5em;
     -fx-background-color: #1a1a1a;
     -fx-pref-width: 7.2em;
 }
-.profile-button-shadow Button{
+.profile-buttons-container > AnchorPane Button{
     -fx-text-alignment: center;
     -fx-text-fill: #bcbcbc;
     -fx-font-size: 0.83em;
@@ -180,6 +174,9 @@
     -fx-border-radius: 15px;
     -fx-background-color: #1a1a1a;
     -fx-alignment: center;
+}
+.notifications-info:disabled{
+    -fx-opacity: 0;
 }
 .notifications-info Text {
     -fx-fill: #bcbcbc;

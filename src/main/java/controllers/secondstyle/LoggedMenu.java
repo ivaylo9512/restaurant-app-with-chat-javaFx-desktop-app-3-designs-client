@@ -35,7 +35,6 @@ public class LoggedMenu extends ControllerLogged {
     ObjectProperty<Button> currentContentButton = new SimpleObjectProperty<>();
     ObjectProperty<Button> currentMenuButton = new SimpleObjectProperty<>();
 
-    private HBox notificationBox;
     private AnchorPane currentMenuView;
 
     private LoggedSecond contentController = (LoggedSecond) stageManager.secondLoggedController;
@@ -52,7 +51,6 @@ public class LoggedMenu extends ControllerLogged {
 
     @FXML
     public void initialize(){
-        notificationBox = (HBox)notificationIcon;
         userInfoContainers = new ArrayList<>(profileView.lookupAll("HBox"));
         profileButtons = profileButtonsContainer.getChildren();
         menuButtons = new ArrayList<>(menuButtonsContainer.lookupAll("Button"));
@@ -63,14 +61,14 @@ public class LoggedMenu extends ControllerLogged {
             scaleFontNodes();
         });
 
-        setNotificationBox(notificationBox);
+        setNotificationBox(notificationIcon);
         setNotificationBox(notificationMenuIcon);
         bindNotificationIconSize();
         setClips();
 
         contentController.bindToMenu(this);
 
-        notificationMenuIcon.opacityProperty().bind(notificationBox.opacityProperty());
+        notificationMenuIcon.opacityProperty().bind(notificationIcon.opacityProperty());
         notificationsList.setItems(notificationManager.notifications);
 
         setUserGraphicIndicator();
@@ -397,7 +395,7 @@ public class LoggedMenu extends ControllerLogged {
     }
 
 
-    private void setNotificationBox(HBox icon) {
+    private void setNotificationBox(Pane icon) {
         SVGPath usb3 = new SVGPath();
         usb3.setContent("m434.753906 360.8125c-32.257812-27.265625-50.753906-67.117188-50.753906-109.335938v-59.476562c0-75.070312-55.765625-137.214844-128-147.625v-23.042969c0-11.796875-9.558594-21.332031-21.332031-21.332031-11.777344 0-21.335938 9.535156-21.335938 21.332031v23.042969c-72.253906 10.410156-128 72.554688-128 147.625v59.476562c0 42.21875-18.496093 82.070313-50.941406 109.503907-8.300781 7.105469-13.058594 17.429687-13.058594 28.351562 0 20.589844 16.746094 37.335938 37.335938 37.335938h352c20.585937 0 37.332031-16.746094 37.332031-37.335938 0-10.921875-4.757812-21.246093-13.246094-28.519531zm0 0");
 
@@ -422,15 +420,15 @@ public class LoggedMenu extends ControllerLogged {
 
     }
     void bindNotificationIconSize(){
-        Region region = (Region)notificationBox.getChildren().get(0);
+        Region region = (Region)notificationIcon.getChildren().get(0);
         region.minWidthProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(5.67)));
         region.prefWidthProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(5.67)));
         region.minHeightProperty().bind(region.widthProperty());
         region.prefHeightProperty().bind(region.widthProperty());
 
-        notificationBox.prefWidthProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(4.75)));
-        notificationBox.prefHeightProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(4.75)));
+        notificationIcon.prefWidthProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(4.75)));
+        notificationIcon.prefHeightProperty().bind(notificationButton.widthProperty().subtract(FontIndicator.fontPx.multiply(4.75)));
 
-        AnchorPane.setLeftAnchor(notificationBox, AnchorPane.getLeftAnchor(notificationButton.getParent()) + fontPx * 5.875);
+        AnchorPane.setLeftAnchor(notificationIcon, AnchorPane.getLeftAnchor(notificationButton.getParent()) + fontPx * 5.875);
     }
 }
