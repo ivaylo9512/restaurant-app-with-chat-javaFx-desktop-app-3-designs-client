@@ -41,8 +41,6 @@ public class ResizeMainChat {
             }
         };
 
-        mainChat.addEventFilter(MouseEvent.MOUSE_ENTERED, mouseEntered -> ResizeRoot.resize = false);
-        mainChat.addEventFilter(MouseEvent.MOUSE_EXITED, mouseExited -> ResizeRoot.resize = true);
         mainChat.addEventFilter(MouseEvent.MOUSE_MOVED, mousePosition);
         mainChat.addEventFilter(MouseEvent.MOUSE_RELEASED, mousePosition);
         mainChat.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {

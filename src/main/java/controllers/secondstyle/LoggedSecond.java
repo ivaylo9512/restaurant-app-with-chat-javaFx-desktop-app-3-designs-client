@@ -1,7 +1,7 @@
 package controllers.secondstyle;
 
 import animations.MoveRoot;
-import animations.ResizeRoot;
+import animations.ResizeStage;
 import controllers.base.ChatSession;
 import helpers.listviews.ChatsUsersListViewCellSecond;
 import helpers.Scrolls;
@@ -152,8 +152,8 @@ public class LoggedSecond extends ControllerLogged {
     @Override
     public void setStage(Stage stage){
         super.setStage(stage);
-        ResizeRoot.addListeners(root, contentRoot, stage);
-        MoveRoot.moveStage(contentBar, stage, root);
+        ResizeStage.addListeners(root, contentRoot, stage);
+        MoveRoot.moveStage(contentBar, stage, contentRoot);
 
         stage.setHeight(root.getMinHeight());
         stage.setWidth(root.getMinWidth());

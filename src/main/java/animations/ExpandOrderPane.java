@@ -94,8 +94,6 @@ public class ExpandOrderPane {
     public void setListeners(){
         button.setOnMouseClicked(this::buttonPress);
 
-        orderPane.setOnMouseEntered(event -> ResizeRoot.resize = false);
-        orderPane.setOnMouseExited(event -> ResizeRoot.resize = true);
         orderPane.addEventFilter(MouseEvent.MOUSE_PRESSED, this::panePress);
         orderPane.addEventFilter(MouseEvent.MOUSE_DRAGGED, this::paneDrag);
 

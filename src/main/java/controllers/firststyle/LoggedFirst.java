@@ -234,9 +234,9 @@ public class LoggedFirst extends ControllerLogged {
     public void setStage(Stage stage){
         super.setStage(stage);
 
-        ResizeRoot.addListeners(root, contentRoot, stage);
-        MoveRoot.moveStage(moveBar, stage, root);
-        MoveRoot.moveStage(moveBarMenu, stage, root);
+        ResizeStage.addListeners(root, contentRoot, stage);
+        MoveRoot.moveStage(moveBar, stage, contentRoot);
+        MoveRoot.moveStage(moveBarMenu, stage, contentRoot);
 
         scrolls.stage = stage;
 
@@ -278,8 +278,6 @@ public class LoggedFirst extends ControllerLogged {
 
         ordersList.setDisable(false);
         ordersList.setOpacity(1);
-
-        ResizeRoot.resize = true;
 
         if(expandOrderPane.isButtonExpanded.get()){
             if(ordersList.getOpacity() == 0){
