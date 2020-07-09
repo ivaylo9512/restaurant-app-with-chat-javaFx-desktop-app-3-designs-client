@@ -82,7 +82,7 @@ ProgressIndicator {
 .shadow{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1), 15, 0.0 , 0 , 2 );
 }
-.content-bar{
+.move-bar{
     -fx-background-color: #FC3903;
     -fx-pref-width: 1.9em;
 }
@@ -170,6 +170,9 @@ ProgressIndicator {
     -fx-padding: 0;
     -fx-pref-width: 1.2em;
     -fx-pref-height: 1.2em;
+}
+.order-cell HBox Text{
+    -fx-hgap: 0.2em;
 }
 .order-cell Label,
 .order-cell Text{

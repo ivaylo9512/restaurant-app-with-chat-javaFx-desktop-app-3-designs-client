@@ -1,5 +1,6 @@
 package controllers.base;
 
+import animations.ResizeStage;
 import helpers.listviews.DishListViewCell;
 import helpers.listviews.MenuListViewCell;
 import javafx.beans.property.*;
@@ -18,7 +19,7 @@ import static application.RestaurantApplication.*;
 
 public abstract class ControllerLogged extends ControllerAdjustable{
     @FXML
-    public Pane root, contentRoot;
+    public Pane root, contentRoot, moveBar;
     @FXML
     ImageView profileImage;
     @FXML
@@ -57,6 +58,7 @@ public abstract class ControllerLogged extends ControllerAdjustable{
 
     protected static BooleanProperty isNewNotificationChecked = new SimpleBooleanProperty(true);
     protected ObservableList<Menu> userMenu = FXCollections.observableArrayList();
+    protected ResizeStage resizeStage;
 
     protected ProgressIndicator editIndicator = new ProgressIndicator();
     protected ProgressIndicator createIndicator = new ProgressIndicator();

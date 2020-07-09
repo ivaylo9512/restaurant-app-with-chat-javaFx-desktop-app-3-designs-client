@@ -1,16 +1,20 @@
 package helpers.listviews;
 
+import javafx.scene.text.Text;
 import models.Order;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class OrderListViewCellSecond extends ListCell<Order> {
     @FXML
     private StackPane container;
-    @FXML Label orderId;
+    @FXML
+    private HBox orderId;
+
     private FXMLLoader fxmlLoader;
 
     @Override
@@ -33,8 +37,10 @@ public class OrderListViewCellSecond extends ListCell<Order> {
                     e.printStackTrace();
                 }
             }
-            orderId.setText(String.valueOf(order.getId().get()).replaceAll(".(?!$)", "$0 "));
-
+            orderId.getChildren().addAll(String.valueOf(order.getId().get())
+                    .chars()
+                    .mapToObj(c -> new Text(String.valueOf((char)c)))
+                    .collect(Collectors.toList()));
 
             setText(null);
             setGraphic(container);

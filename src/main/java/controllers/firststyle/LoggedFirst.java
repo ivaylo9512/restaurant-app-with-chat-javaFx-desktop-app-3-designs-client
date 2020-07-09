@@ -35,7 +35,6 @@ import static application.RestaurantApplication.*;
 public class LoggedFirst extends ControllerLogged {
     @FXML ScrollPane menuScroll, userInfoScroll;
     @FXML AnchorPane dishesAnchor, createdContainer, updatedContainer;
-    @FXML HBox moveBar;
     @FXML Pane moveBarMenu;
     @FXML ImageView roleImage;
     @FXML Button expandButton;
@@ -54,7 +53,6 @@ public class LoggedFirst extends ControllerLogged {
 
     private ChatSession mainChatSession, secondChatSession;
     public ExpandOrderPane expandOrderPane = new ExpandOrderPane();
-    private Scrolls scrolls;
 
     @FXML
     public void initialize() {
@@ -83,10 +81,6 @@ public class LoggedFirst extends ControllerLogged {
         });
 
         chatUsersList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
-                mainChatScroll, mainChatTextArea, secondChatScroll, secondChatTextArea);
-        scrolls.manageScrollsFirstStyle();
 
         menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
@@ -234,15 +228,19 @@ public class LoggedFirst extends ControllerLogged {
     public void setStage(Stage stage){
         super.setStage(stage);
 
-        ResizeStage.addListeners(root, contentRoot, stage);
+        resizeStage = new ResizeStage(root, contentRoot, stage);
+        resizeStage.addListeners();
+
         MoveRoot.moveStage(moveBar, stage, contentRoot);
         MoveRoot.moveStage(moveBarMenu, stage, contentRoot);
-
-        scrolls.stage = stage;
 
         root.prefWidthProperty().bind(stage.widthProperty());
         root.prefHeightProperty().bind(stage.heightProperty());
         FontIndicator.setSliderBinding(root, fontSizeSlider, stage);
+
+        Scrolls scrolls = new Scrolls(menuScroll, userInfoScroll, chatUsersList,
+                mainChatScroll, mainChatTextArea, secondChatScroll, secondChatTextArea, contentRoot, stage);
+        scrolls.manageScrollsFirstStyle();
     }
 
     @Override

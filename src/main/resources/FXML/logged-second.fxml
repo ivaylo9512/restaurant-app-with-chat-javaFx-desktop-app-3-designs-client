@@ -28,7 +28,7 @@
                 <ColumnConstraints percentWidth="25.8"/>
                 <ColumnConstraints prefWidth="0" hgrow="ALWAYS"/>
             </columnConstraints>
-            <Pane fx:id="contentBar" styleClass="content-bar"/>
+            <Pane fx:id="moveBar" styleClass="move-bar"/>
             <StackPane styleClass="orders" GridPane.columnIndex="1">
                 <ListView fx:id="ordersList" styleClass="order-list" onMouseClicked="#showOrder" maxWidth="Infinity"/>
             </StackPane>

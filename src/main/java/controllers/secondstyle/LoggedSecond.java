@@ -1,6 +1,5 @@
 package controllers.secondstyle;
 
-import animations.MoveRoot;
 import animations.ResizeStage;
 import controllers.base.ChatSession;
 import helpers.listviews.ChatsUsersListViewCellSecond;
@@ -22,7 +21,7 @@ import static application.RestaurantApplication.*;
 
 public class LoggedSecond extends ControllerLogged {
     @FXML Label dishesCountLabel;
-    @FXML Pane contentBar, orderInfo, orderContainer, orderView, createView, chatView, chatListView;
+    @FXML Pane orderInfo, orderContainer, orderView, createView, chatView, chatListView;
 
     private Stage stage = stageManager.secondLoggedStage;
     private Pane currentView;
@@ -152,11 +151,10 @@ public class LoggedSecond extends ControllerLogged {
     @Override
     public void setStage(Stage stage){
         super.setStage(stage);
-        ResizeStage.addListeners(root, contentRoot, stage);
-        MoveRoot.moveStage(contentBar, stage, contentRoot);
 
-        stage.setHeight(root.getMinHeight());
-        stage.setWidth(root.getMinWidth());
+        resizeStage = new ResizeStage(root, contentRoot, stage);
+        resizeStage.addListeners();
+
         root.prefWidthProperty().bind(stage.widthProperty());
         root.prefHeightProperty().bind(stage.heightProperty());
     }

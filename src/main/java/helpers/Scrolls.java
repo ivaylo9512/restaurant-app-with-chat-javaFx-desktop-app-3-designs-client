@@ -25,10 +25,10 @@ public class Scrolls {
     private double heightDiff, offsetY;
     private ListView chatUsersList;
     private ScrollBar chatUsersScrollBar;
+    private Pane contentRoot;
+    private Stage stage;
 
-    public Stage stage;
-
-    public Scrolls(ScrollPane menuScroll, ScrollPane userInfoScroll, ListView chatUsersList, ScrollPane mainChatScroll, TextArea mainChatTextArea, ScrollPane secondChatScroll, TextArea secondChatTextArea) {
+    public Scrolls(ScrollPane menuScroll, ScrollPane userInfoScroll, ListView chatUsersList, ScrollPane mainChatScroll, TextArea mainChatTextArea, ScrollPane secondChatScroll, TextArea secondChatTextArea, Pane contentRoot, Stage stage) {
         this.menuScroll = menuScroll;
         this.userInfoScroll = userInfoScroll;
         this.chatUsersList = chatUsersList;
@@ -36,6 +36,8 @@ public class Scrolls {
         this.mainChatTextArea = mainChatTextArea;
         this.secondChatScroll = secondChatScroll;
         this.secondChatTextArea = secondChatTextArea;
+        this.contentRoot = contentRoot;
+        this.stage = stage;
     }
     public Scrolls(ScrollPane mainChatScroll, TextArea mainChatTextArea) {
         this.mainChatScroll = mainChatScroll;
@@ -128,7 +130,7 @@ public class Scrolls {
         GridPane anchorPane = (GridPane) menuScroll.getContent();
         menuScroll.addEventFilter(ScrollEvent.SCROLL, event -> {
             if (event.getDeltaY() != 0) {
-                if (stage.getHeight() == stage.getMinHeight()) {
+                if (contentRoot.getMinHeight() <= stage.getMinHeight()) {
                     if(menuScroll.getVvalue() == 0 || menuScroll.getVvalue() == 1) {
                         chatUsersList.setDisable(false);
                         userInfoScroll.setDisable(false);
