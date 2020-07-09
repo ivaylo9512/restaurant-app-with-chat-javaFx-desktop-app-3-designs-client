@@ -10,6 +10,10 @@ public abstract class ControllerAdjustable extends Controller{
     public abstract void resetStage();
 
     public void adjustStage(double height, double width) throws Exception{
+        if(root.getMaxHeight() == -1) {
+            root.setMaxHeight(height);
+            root.setMaxWidth(width);
+        }
         if(root.getMinHeight() > 0 ){
             height = root.getMinHeight();
             width = root.getMinWidth();

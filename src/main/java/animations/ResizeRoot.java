@@ -29,6 +29,8 @@ public class ResizeRoot {
 
         EventHandler<MouseEvent> checkMousePosition = event -> {
             EventType eventType = event.getEventType();
+            height = contentRoot.getHeight();
+            width = contentRoot.getWidth();
             if (MouseEvent.MOUSE_MOVED.equals(eventType) || MouseButton.PRIMARY.equals(event.getButton())) {
                 double mouseX = event.getX();
                 double mouseY = event.getY();

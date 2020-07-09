@@ -8,8 +8,7 @@
 
 <?import helpers.FontIndicator?>
 <?import javafx.scene.shape.Circle?>
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.secondstyle.LoggedSecond">
     <fx:define>
         <FontIndicator fx:id="font"/>
