@@ -40,7 +40,7 @@ TextArea .scroll-pane .content{
 TextFlow {
     -fx-background-color: #363b41;
     -fx-border-radius: 5;
-    -fx-background-insets: -2 -6 -2 -8;
+    -fx-background-insets: -0.1em -0.5em -0.2em -0.67em;
     -fx-background-radius: 5;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
 }
@@ -400,15 +400,15 @@ TextFlow {
 .main-chat:disabled{
     -fx-opacity: 0;
 }
-.main-chat Pane{
-    -fx-pref-width: 40.0;
-    -fx-pref-height: 40.0;
-    -fx-border-radius: 180px;
-    -fx-background-radius: 180px;
-}
-.main-chat .imageShadow{
-    -fx-background-color: #363b41;
+.main-chat HBox Pane{
+    -fx-translate-y: -1.67em;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6, 0.0 , 0 , 0 );
+}
+.main-chat HBox Circle{
+    -fx-fill: #363b41;
+}
+.main-chat ImageView{
+    -fx-translate-y: 0.35em;
 }
 .main-chat .message{
     -fx-fill: #bcbcbc;
@@ -440,15 +440,19 @@ TextFlow {
 }
 .user-message-first{
     -fx-padding: 15 0 0 165;
+    -fx-alignment: top-right;
 }
 .user-message{
     -fx-padding: 8 40 0 165;
+    -fx-alignment: top-right;
 }
 .second-user-message-first{
     -fx-padding: 17 165 0 0;
+    -fx-alignment: top-left;
 }
 .second-user-message{
     -fx-padding: 8 165 0 40;
+    -fx-alignment: top-left;
 }
 .session-date{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 3, 0.0 , 0 , 0 );

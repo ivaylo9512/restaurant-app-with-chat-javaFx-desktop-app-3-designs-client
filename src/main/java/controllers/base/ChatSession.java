@@ -1,12 +1,11 @@
 package controllers.base;
 
+import helpers.FontIndicator;
 import helpers.ObservableOrderedMapChange;
-import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.*;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -30,6 +29,7 @@ import java.util.*;
 import static application.RestaurantApplication.chatManager;
 import static application.RestaurantApplication.loginManager;
 import static application.ServerRequests.pageSize;
+import static helpers.FontIndicator.fontPx;
 
 public class ChatSession {
     private ObjectProperty<ChatValue> chatValue;
@@ -210,6 +210,7 @@ public class ChatSession {
         Text time = new Text();
         ImageView imageView = new ImageView();
         TextFlow textFlow = new TextFlow();
+        textFlow.setMaxHeight(Double.NEGATIVE_INFINITY);
 
         time.getStyleClass().add("time");
         text.getStyleClass().add("message");
@@ -217,41 +218,35 @@ public class ChatSession {
 
         imageView.setFitHeight(34);
         imageView.setFitWidth(34);
-        imageView.setLayoutX(3);
-        imageView.setLayoutY(7);
 
-        Circle clip = new Circle(20, 20, 20);
+        DoubleBinding fontPx = FontIndicator.fontPx.multiply(1.67);
+        Circle background = new Circle();
+        Circle clip = new Circle();
+        clip.centerXProperty().bind(fontPx);
+        clip.centerYProperty().bind(fontPx);
+        clip.radiusProperty().bind(fontPx);
+        background.radiusProperty().bind(fontPx);
 
-        Pane imageContainer = new Pane(imageView);
+        StackPane imageContainer = new StackPane(background, imageView);
         imageContainer.setClip(clip);
-        imageContainer.setMaxHeight(40);
-        imageContainer.setMaxWidth(40);
-        imageContainer.setMinWidth(40);
-
 
         Pane imageShadow = new Pane(imageContainer);
-        imageShadow.setMaxHeight(40);
-        imageShadow.setMaxWidth(40);
+        imageShadow.setMaxHeight(Double.NEGATIVE_INFINITY);
         imageShadow.setMinWidth(40);
-        imageShadow.getStyleClass().add("imageShadow");
-
-        HBox.setMargin(imageShadow, new Insets(-20, 0, 0, 0));
 
         if (message.getReceiverId() == loginManager.userId.get()) {
             imageView.setImage(chatValue.get().getSecondUserPicture());
             text.setText(message.getMessage());
             time.setText("  " + timeFormatter.format(message.getTime()));
             textFlow.getChildren().addAll(text, time);
-            hBox.setAlignment(Pos.TOP_LEFT);
 
-            imageView.setViewOrder(3);
-            textFlow.setViewOrder(1);
+            imageShadow.setViewOrder(1);
+            textFlow.setViewOrder(3);
         } else {
             imageView.setImage(loginManager.profileImage.get());
             text.setText(message.getMessage());
             time.setText(timeFormatter.format(message.getTime()) + "  ");
             textFlow.getChildren().addAll(time, text);
-            hBox.setAlignment(Pos.TOP_RIGHT);
         }
 
         boolean timeElapsed;
