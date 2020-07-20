@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ResizeMainChat {
+public class ResizeChat {
     private static double mouseX;
     private static double mouseY;
     private static boolean move;

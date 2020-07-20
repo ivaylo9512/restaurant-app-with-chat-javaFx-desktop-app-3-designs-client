@@ -85,8 +85,8 @@ public class LoggedFirst extends ControllerLogged {
         menuSearch.textProperty().addListener((observable, oldValue, newValue) ->
                 userMenu.setAll(searchMenu(newValue.toLowerCase()).values()));
 
-        ResizeMainChat.addListeners(mainChat);
-        ResizeMainChat.addListeners(secondChat);
+        ResizeChat.addListeners(mainChat);
+        ResizeChat.addListeners(secondChat);
     }
 
     private void setListsItems() {
@@ -231,8 +231,8 @@ public class LoggedFirst extends ControllerLogged {
         resizeStage = new ResizeStage(root, contentRoot, stage);
         resizeStage.addListeners();
 
-        MoveRoot.moveStage(moveBar, stage, contentRoot);
-        MoveRoot.moveStage(moveBarMenu, stage, contentRoot);
+        MoveStage.moveStage(moveBar, stage, contentRoot);
+        MoveStage.moveStage(moveBarMenu, stage, contentRoot);
 
         root.prefWidthProperty().bind(stage.widthProperty());
         root.prefHeightProperty().bind(stage.heightProperty());

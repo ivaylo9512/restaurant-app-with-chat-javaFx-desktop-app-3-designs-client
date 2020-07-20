@@ -1,6 +1,6 @@
 package controllers.secondstyle;
 
-import animations.MoveRoot;
+import animations.MoveStage;
 import animations.TransitionResizeHeight;
 import animations.TransitionResizeWidth;
 import controllers.base.ControllerLogged;
@@ -77,7 +77,7 @@ public class LoggedMenu extends ControllerLogged {
         setUserFields();
         setMenuTransitions();
 
-        MoveRoot.moveStage(menuButton, stage, contentRoot);
+        MoveStage.moveStage(menuButton, stage, contentRoot);
 
         editIndicator.maxHeightProperty().bind(editButton.heightProperty().subtract(15));
     }

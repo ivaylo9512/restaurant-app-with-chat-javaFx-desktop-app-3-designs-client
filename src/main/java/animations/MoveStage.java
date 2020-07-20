@@ -6,23 +6,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class MoveRoot {
+public class MoveStage {
     private static Double offsetX;
     private static Double offsetY;
-
-    public static void move(Node moveNode, Pane root) {
-        root.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            offsetX = event.getX();
-            offsetY = event.getY();
-        });
-
-        moveNode.setOnMouseDragged(event -> {
-            if(Cursor.DEFAULT.equals(root.getCursor())) {
-                root.setLayoutX(event.getScreenX() - offsetX);
-                root.setLayoutY(event.getScreenY() - offsetY);
-            }
-        });
-    }
 
     public static void moveStage(Node moveNode, Stage stage, Pane contentRoot) {
         stage.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
