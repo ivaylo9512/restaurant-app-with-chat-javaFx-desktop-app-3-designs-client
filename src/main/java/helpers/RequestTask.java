@@ -42,6 +42,7 @@ public class RequestTask<T> extends Task<T> {
             return mapper.readValue(content, type);
 
         }catch (IOException e) {
+            System.out.println(e.getMessage());
             if(stageManager.currentController instanceof ControllerLogin){
                 throw new IOException("No connection to the server");
             }

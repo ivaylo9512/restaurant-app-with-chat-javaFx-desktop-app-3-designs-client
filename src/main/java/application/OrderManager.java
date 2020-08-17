@@ -27,7 +27,6 @@ public class OrderManager {
     public Restaurant userRestaurant;
     public TreeMap<String, Menu> userMenu = new TreeMap<>();
     public ObservableList<Order> orders = FXCollections.observableArrayList();
-    public LocalDateTime mostRecentOrderDate;
     public ObservableList<Menu> newOrderList = FXCollections.observableArrayList();
     public Order newOrder;
 
@@ -51,17 +50,12 @@ public class OrderManager {
         restaurant.getMenu().forEach(menu ->
                 userMenu.put(menu.getName().toLowerCase(), menu));
         orders.setAll(restaurant.getOrders());
-
-        Order order = orders.get(0);
-        mostRecentOrderDate = order.getCreated().get().isAfter(order.getUpdated().get())
-                ? order.getCreated().get() : order.getUpdated().get();
     }
 
     void resetRestaurant(){
         sendOrder.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
 
         userRestaurant = null;
-        mostRecentOrderDate = null;
         newOrder = null;
 
         newOrderList.clear();

@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import static application.RestaurantApplication.*;
 import static application.ServerRequests.*;
@@ -56,7 +57,7 @@ public class LoginManager {
     }
 
     private JavaType type = mapper.constructType(User.class);
-    void checkIfLogged() {
+    void checkIfLogged() throws URISyntaxException {
         if(userPreference.get("jwt", null) != null){
             loading.setValue(true);
 

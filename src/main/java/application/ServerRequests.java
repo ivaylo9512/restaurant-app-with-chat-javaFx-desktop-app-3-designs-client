@@ -15,6 +15,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,11 +29,12 @@ public class ServerRequests {
     public static Preferences userPreference = Preferences.userRoot();
     public static ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     public static int pageSize = 3;
-    public static String base = "http://localhost:8080";
+    public static int userPageSize = 20;
+    public static String base = "http://localhost:8095";
 
     static ExecutorService tasks = Executors.newFixedThreadPool(10);
 
-    public static HttpRequestBase getNextSessions(int id, int page) throws Exception {
+    public static HttpRequestBase getNextSessions(int id, int page) throws Exception{
         URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
         builder
                 .setParameter("chatId", String.valueOf(id))
@@ -44,7 +46,7 @@ public class ServerRequests {
         return get;
     }
 
-    public static HttpRequestBase sendOrder() throws Exception {
+    public static HttpRequestBase sendOrder() throws Exception{
         String orderJson = mapper.writeValueAsString(orderManager.newOrder);
 
         StringEntity postEntity = new StringEntity(orderJson, "UTF8");
@@ -57,7 +59,7 @@ public class ServerRequests {
         return httpPost;
     }
 
-    public static HttpRequestBase login(){
+    public static HttpRequestBase login() throws URISyntaxException{
         Map<String, Object> jsonValues = new HashMap<>();
         jsonValues.put("username", loginManager.username.get());
         jsonValues.put("password", loginManager.password.get());
@@ -66,13 +68,18 @@ public class ServerRequests {
         StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        HttpPost httpPost = new HttpPost( base + "/api/users/login");
+        URIBuilder builder = new URIBuilder(base + "/api/users/login");
+        builder.setParameter("pageSize", String.valueOf(userPageSize));
+        HttpPost httpPost = new HttpPost(builder.build());
         httpPost.setEntity(postEntity);
         return httpPost;
     }
 
-    public static HttpRequestBase getLoggedUser(){
+    public static HttpRequestBase getLoggedUser() throws URISyntaxException{
+        URIBuilder builder = new URIBuilder(base + "/api/users/auth/getLoggedUser");
+        builder.setParameter("pageSize", String.valueOf(userPageSize));
         HttpGet httpGet = new HttpGet( base + "/api/users/auth/getLoggedUser");
+
         httpGet.setHeader("Authorization", userPreference.get("jwt", null));
         return httpGet;
     }
@@ -93,7 +100,7 @@ public class ServerRequests {
         return httpPost;
     }
 
-    public static HttpRequestBase sendUserInfo() {
+    public static HttpRequestBase sendUserInfo(){
         Map<String, Object> jsonValues = new HashMap<>();
         jsonValues.put("firstName", loginManager.loggedUser.getFirstName().get());
         jsonValues.put("lastName", loginManager.loggedUser.getLastName().get());
@@ -142,7 +149,7 @@ public class ServerRequests {
         return httpPost;
     }
 
-    public static HttpRequestBase updateDishState(int orderId, int dishId) {
+    public static HttpRequestBase updateDishState(int orderId, int dishId){
         HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
         patch.setHeader("Authorization", userPreference.get("jwt", null));
 
