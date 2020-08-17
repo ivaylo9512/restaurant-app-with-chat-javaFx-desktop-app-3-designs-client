@@ -68,17 +68,15 @@ public class ServerRequests {
         StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        URIBuilder builder = new URIBuilder(base + "/api/users/login");
+        URIBuilder builder = new URIBuilder(base + "/api/users/polling/login");
         builder.setParameter("pageSize", String.valueOf(userPageSize));
         HttpPost httpPost = new HttpPost(builder.build());
         httpPost.setEntity(postEntity);
         return httpPost;
     }
 
-    public static HttpRequestBase getLoggedUser() throws URISyntaxException{
-        URIBuilder builder = new URIBuilder(base + "/api/users/auth/getLoggedUser");
-        builder.setParameter("pageSize", String.valueOf(userPageSize));
-        HttpGet httpGet = new HttpGet( base + "/api/users/auth/getLoggedUser");
+    public static HttpRequestBase getLoggedUser(){
+        HttpGet httpGet = new HttpGet(base + "/api/users/polling/auth/getLoggedUser/" + userPageSize);
 
         httpGet.setHeader("Authorization", userPreference.get("jwt", null));
         return httpGet;
@@ -142,7 +140,7 @@ public class ServerRequests {
         StringEntity postEntity = new StringEntity(timeJson, "UTF8");
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        HttpPost httpPost = new HttpPost( base + "/api/users/auth/waitData");
+        HttpPost httpPost = new HttpPost( base + "/api/users/polling/auth/waitData");
         httpPost.setHeader("Authorization", userPreference.get("jwt", null));
         httpPost.setEntity(postEntity);
 
