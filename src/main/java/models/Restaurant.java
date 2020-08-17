@@ -1,5 +1,7 @@
 package models;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Restaurant {
     private int id;
@@ -69,7 +71,7 @@ public class Restaurant {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrders(Map<Integer, Order> orders) {
+        this.orders = new ArrayList<>(orders.values());
     }
 }

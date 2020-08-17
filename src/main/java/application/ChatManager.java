@@ -41,13 +41,9 @@ public class ChatManager {
     ChatManager() {
     }
 
-    void setChats(List<Chat> chatsList){
-        chatsList.forEach(chat -> {
+    void setChats(Map<Integer, Chat> chatsList){
+        chatsList.values().forEach(chat -> {
             Image profilePicture;
-            if(chat.getSecondUser().getId().get() == loginManager.userId.get()){
-                chat.setSecondUser(chat.getFirstUser());
-            }
-
             int userId = chat.getSecondUser().getId().get();
             try(InputStream in = new BufferedInputStream(
                     new URL(chat.getSecondUser().getProfilePicture().get()).openStream())) {

@@ -19,7 +19,7 @@ public class User {
     private StringProperty role = new SimpleStringProperty();
     private StringProperty profilePicture = new SimpleStringProperty();
     private Restaurant restaurant;
-    private List<Chat> chats = new ArrayList<>();
+    private Map<Integer, Chat> chats = new HashMap<>();
     private LocalDateTime lastCheck;
 
     private ObjectProperty<Image> image = new SimpleObjectProperty<>();
@@ -137,11 +137,11 @@ public class User {
         return image;
     }
 
-    public List<Chat> getChats() {
+    public Map<Integer, Chat> getChats() {
         return chats;
     }
 
-    public void setChats(List<Chat> chats) {
+    public void setChats(Map<Integer, Chat> chats) {
         this.chats = chats;
     }
 
