@@ -75,10 +75,13 @@ public class ServerRequests {
         return httpPost;
     }
 
-    public static HttpRequestBase getLoggedUser(){
-        HttpGet httpGet = new HttpGet(base + "/api/users/polling/auth/getLoggedUser/" + userPageSize);
+    public static HttpRequestBase getLoggedUser() throws URISyntaxException{
+        URIBuilder builder = new URIBuilder(base + "/api/users/polling/auth/getLoggedUser/");
+        builder.setParameter("pageSize", String.valueOf(userPageSize));
 
+        HttpGet httpGet = new HttpGet(builder.build());
         httpGet.setHeader("Authorization", userPreference.get("jwt", null));
+
         return httpGet;
     }
 
