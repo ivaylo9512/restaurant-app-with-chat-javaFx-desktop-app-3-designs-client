@@ -19,8 +19,8 @@ public class RequestTask<T> extends Task<T> {
     private JavaType type;
     private String errorMessage;
 
-    public RequestTask(JavaType type, HttpRequestBase request) {
-        this.type = type;
+    public RequestTask(Class t, HttpRequestBase request) {
+        this.type = mapper.constructType(t);
         this.request = request;
     }
 
@@ -28,6 +28,7 @@ public class RequestTask<T> extends Task<T> {
     protected T call() throws Exception {
         return executeTask();
     }
+
     private T executeTask() throws Exception{
         try {
 
@@ -39,7 +40,7 @@ public class RequestTask<T> extends Task<T> {
             if(content.equals("Success")){
                 return null;
             }
-            return mapper.readValue(content, type);
+            return mapper.readValue(content, mapper.constructType(type));
 
         }catch (IOException e) {
             if(stageManager.currentController instanceof ControllerLogin){

@@ -5,15 +5,11 @@ import helpers.RequestService;
 import helpers.RequestTask;
 import models.User;
 import models.UserRequest;
-import com.fasterxml.jackson.databind.JavaType;
 import javafx.beans.property.*;
-import javafx.concurrent.Service;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
-import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -21,9 +17,6 @@ import static application.RestaurantApplication.*;
 import static application.ServerRequests.*;
 
 public class LoginManager {
-    private RequestService<User> loginService = new RequestService<>(User.class, null, RequestEnum.login);
-    private RequestService<User> registerService = new RequestService<>(User.class, null, RequestEnum.register);
-
     public RequestService<User> sendInfo = new RequestService<>(User.class, null, RequestEnum.sendUserInfo);
     public RequestService<UserRequest> longPollingService = new RequestService<>(UserRequest.class, null, RequestEnum.longPollingRequest);
     private User savedUserInfo;
@@ -36,33 +29,18 @@ public class LoginManager {
     public BooleanProperty loading = new SimpleBooleanProperty(false);
     public RequestService currentService;
 
-    StringProperty username = new SimpleStringProperty();
-    StringProperty password = new SimpleStringProperty();
-
-    StringProperty regUsername = new SimpleStringProperty();
-    StringProperty regPassword = new SimpleStringProperty();
-    StringProperty repeatPassword = new SimpleStringProperty();
-
     LoginManager(){
-        loginService.setOnSucceeded(eventSuccess -> onSuccessfulService(loginService));
-        loginService.setOnFailed(eventFail -> updateError(loginService));
-
-        registerService.setOnSucceeded(eventSuccess -> onSuccessfulService(registerService));
-        registerService.setOnFailed(eventFail -> updateError(registerService));
-
         sendInfo.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendUserInfoSuccess);
         sendInfo.addEventFilter(WorkerStateEvent.WORKER_STATE_FAILED, onSendUserInfoFail);
 
         longPollingService.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onLongPollingSuccess);
     }
 
-    private JavaType type = mapper.constructType(User.class);
     void checkIfLogged() throws URISyntaxException {
         if(userPreference.get("jwt", null) != null){
             loading.setValue(true);
 
-            HttpRequestBase request = ServerRequests.getLoggedUser();
-            RequestTask<User> task = new RequestTask<>(type, request);
+            RequestTask<User> task = new RequestTask<>(User.class, ServerRequests.getLoggedUser());
             tasks.execute(task);
 
             task.setOnSucceeded(event -> setLoggedUser((User)event.getSource().getValue()));
@@ -86,17 +64,6 @@ public class LoginManager {
         longPollingService.restart();
     };
 
-    public void bindLoginFields(StringProperty username, StringProperty password){
-        this.username.bind(username);
-        this.password.bind(password);
-    }
-
-    public void bindRegisterFields(StringProperty username, StringProperty password, StringProperty repeat){
-        regUsername.bind(username);
-        regPassword.bind(password);
-        repeatPassword.bind(repeat);
-    }
-
     public void bindUserFields(StringProperty username, StringProperty firstName, StringProperty lastName,
                                StringProperty country, StringProperty role, StringProperty age, ObjectProperty<Image> image){
         loggedUser.getUsername().bindBidirectional(username);
@@ -108,17 +75,21 @@ public class LoginManager {
         loggedUser.getImage().bindBidirectional(image);
     }
 
-    private void updateError(Service service) {
+    private void updateError() {
         loading.setValue(false);
         stageManager.currentController.resetStage();
-        service.reset();
     }
 
     public void login(){
+        RequestTask<User> login = new RequestTask<>(User.class, ServerRequests.login());
+
+        login.setOnSucceeded(eventSuccess -> onSuccessfulAuthentication(login));
+        login.setOnFailed(eventFail -> updateError());
+
         loading.setValue(true);
 
         currentService = loginService;
-        loginService.start();
+        tasks.execute(login);
     }
     public void register(){
         loading.setValue(true);
@@ -127,13 +98,11 @@ public class LoginManager {
         registerService.start();
     }
 
-    private void onSuccessfulService(Service service) {
+    private void onSuccessfulAuthentication(RequestTask task) {
         alertManager.resetLoginAlerts();
 
-        User loggedUser = (User) service.getValue();
+        User loggedUser = (User) task.getValue();
         setLoggedUser(loggedUser);
-
-        service.reset();
     }
 
     private void setLoggedUser(User loggedUser){
