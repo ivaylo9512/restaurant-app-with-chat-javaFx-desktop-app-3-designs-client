@@ -6,9 +6,7 @@ import javafx.concurrent.Task;
 import org.apache.http.client.methods.HttpRequestBase;
 import controllers.base.ControllerLogged;
 import controllers.base.ControllerLogin;
-
 import java.io.IOException;
-
 import static application.RestaurantApplication.*;
 import static application.ServerRequests.executeRequest;
 import static application.ServerRequests.mapper;
