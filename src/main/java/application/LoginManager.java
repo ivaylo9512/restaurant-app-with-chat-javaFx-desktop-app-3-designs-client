@@ -27,7 +27,14 @@ public class LoginManager {
     public StringProperty role = loggedUser.getRole();
 
     public BooleanProperty loading = new SimpleBooleanProperty(false);
-    public RequestService currentService;
+    public RequestTask currentTask;
+
+    StringProperty username = new SimpleStringProperty();
+    StringProperty password = new SimpleStringProperty();
+
+    StringProperty regUsername = new SimpleStringProperty();
+    StringProperty regPassword = new SimpleStringProperty();
+    StringProperty repeatPassword = new SimpleStringProperty();
 
     LoginManager(){
         sendInfo.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendUserInfoSuccess);
@@ -80,28 +87,38 @@ public class LoginManager {
         stageManager.currentController.resetStage();
     }
 
-    public void login(){
-        RequestTask<User> login = new RequestTask<>(User.class, ServerRequests.login());
+    public void login() {
+        try {
 
-        login.setOnSucceeded(eventSuccess -> onSuccessfulAuthentication(login));
-        login.setOnFailed(eventFail -> updateError());
+            RequestTask<User> login = new RequestTask<>(User.class, ServerRequests.login());
+            loading.setValue(true);
 
-        loading.setValue(true);
+            login.setOnSucceeded(eventSuccess -> onSuccessfulAuthentication(login));
+            login.setOnFailed(eventFail -> updateError());
 
-        currentService = loginService;
-        tasks.execute(login);
+            currentTask = login;
+            tasks.execute(login);
+        }catch (URISyntaxException e){
+            updateError();
+            throw new RuntimeException(e.getMessage());
+        }
     }
+
     public void register(){
+        RequestTask<User> register = new RequestTask<>(User.class, ServerRequests.register());
         loading.setValue(true);
 
-        currentService = registerService;
-        registerService.start();
+        register.setOnSucceeded(eventSuccess -> onSuccessfulAuthentication(register));
+        register.setOnFailed(eventFail -> updateError());
+
+        currentTask = register;
+        tasks.execute(register);
     }
 
-    private void onSuccessfulAuthentication(RequestTask task) {
+    private void onSuccessfulAuthentication(RequestTask<User> task) {
         alertManager.resetLoginAlerts();
 
-        User loggedUser = (User) task.getValue();
+        User loggedUser = task.getValue();
         setLoggedUser(loggedUser);
     }
 
@@ -164,7 +181,7 @@ public class LoginManager {
     public void resetUser(){
         loggedUser.setId(null);
         loggedUser.setUsername(null);
-        loggedUser.setUsername(null);
+        loggedUser.setFirstName(null);
         loggedUser.setLastName(null);
         loggedUser.setAge(null);
         loggedUser.setCountry(null);
@@ -189,5 +206,16 @@ public class LoginManager {
         sendInfo.reset();
 
         savedUserInfo = new User(loggedUser);
+    }
+
+    public void bindLoginFields(StringProperty username, StringProperty password){
+        this.username.bind(username);
+        this.password.bind(password);
+    }
+
+    public void bindRegisterFields(StringProperty username, StringProperty password, StringProperty repeat){
+        regUsername.bind(username);
+        regPassword.bind(password);
+        repeatPassword.bind(repeat);
     }
 }

@@ -14,7 +14,6 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-
 import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -70,8 +69,10 @@ public class ServerRequests {
 
         URIBuilder builder = new URIBuilder(base + "/api/users/polling/login");
         builder.setParameter("pageSize", String.valueOf(userPageSize));
+
         HttpPost httpPost = new HttpPost(builder.build());
         httpPost.setEntity(postEntity);
+
         return httpPost;
     }
 

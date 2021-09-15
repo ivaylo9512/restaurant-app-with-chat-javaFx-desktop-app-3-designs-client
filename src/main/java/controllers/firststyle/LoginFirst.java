@@ -56,7 +56,7 @@ public class LoginFirst extends ControllerLogin {
     }
 
     public void resetStage(){
-        if(loginManager.currentService != null && loginManager.currentService.getState() == FAILED){
+        if(loginManager.currentTask != null && loginManager.currentTask.getState() == FAILED){
             currentMenu.setDisable(false);
             expand.play();
         }else {
@@ -78,17 +78,20 @@ public class LoginFirst extends ControllerLogin {
         animateMenu(loginFields);
         actionButton.setOnMousePressed(this::login);
     }
+
     @FXML
     public void animateRegisterFields(){
         resetFields();
         animateMenu(registerFields);
         actionButton.setOnMousePressed(this::showNextRegisterFields);
     }
+
     @FXML
     public void animateStyleButtons(){
         resetFields();
         animateMenu(styleButtons);
     }
+
     private void animateMenu(Pane requestedMenu){
         if(expand.getCurrentRate() == 0 && reverse.getCurrentRate() == 0 && changeTransition.getCurrentRate() == 0) {
             if (requestedMenu.equals(currentMenu)) {
@@ -135,8 +138,8 @@ public class LoginFirst extends ControllerLogin {
                 currentMenu.setDisable(false);
             }
         }
-
     }
+
     @FXML
     public void showNextRegisterFields(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {

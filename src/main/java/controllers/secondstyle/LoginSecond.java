@@ -29,7 +29,7 @@ public class LoginSecond extends ControllerLogin {
     }
 
     public void resetStage(){
-        if(loginManager.currentService != null && loginManager.currentService.getState() == FAILED){
+        if(loginManager.currentTask != null && loginManager.currentTask.getState() == FAILED){
             currentMenu.setDisable(false);
         }else {
             loginFields.setDisable(false);
