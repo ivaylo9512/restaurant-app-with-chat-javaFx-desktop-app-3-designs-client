@@ -1,0 +1,108 @@
+Button,
+StackPane Label{
+    -fx-text-fill: #bcbcbc;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 0);
+    -fx-background-color: #2A2E37;
+}
+Button:focused{
+    -fx-background-insets: 0 0 0 0, 0, 0, 0;
+}
+Button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 4, 0.0 , 0 , 0);
+}
+Button:pressed{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0);
+}
+.alert-box{
+    -fx-background-color: transparent;
+}
+GridPane > Label{
+    -fx-font-size: 0.8em;
+}
+.content{
+    -fx-background-color: #2A2E37;
+    -fx-border-color: #2A2E37;
+    -fx-border-width: 2.5;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 0.4em, 0.3 , 0 , 0 );
+}
+.translate-content{
+    -fx-translate-y: -9.5em;
+}
+.centered-container{
+    -fx-padding: 2em;
+}
+.inner-shadow{
+    -fx-background-color: #2A2E37;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,1) , 4.5, 0.0 , 0 , 0);
+}
+.alert-icon{
+    -fx-padding: 0 1em;
+}
+.alert-icon AnchorPane,
+.alert-icon VBox{
+    -fx-pref-width: 5em;
+    -fx-pref-height: 5em;
+}
+.alert-icon VBox{
+    -fx-alignment: center;
+    -fx-spacing: 0.4em;
+}
+.alert-icon Rectangle{
+    -fx-arc-height: 1.2em;
+    -fx-arc-width: 1.2em;
+    -fx-fill: #bcbcbc;
+}
+.alert-icon Circle{
+    -fx-fill: #bcbcbc;
+}
+.alert-icon AnchorPane{
+    -fx-border-radius: 5em;
+    -fx-background-radius: 5em;
+    -fx-background-color: #2A2E37;
+}
+.alert-icon AnchorPane:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0 , 0 , 0 );
+}
+.content GridPane{
+    -fx-min-width: 13em;
+    -fx-min-height: 6em;
+}
+.content > GridPane{
+    -fx-padding: 1em 0 1em 0;
+}
+.close-button,
+StackPane Label{
+    -fx-background-color: #2A2E37;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 0;
+    -fx-pref-width: 1.8em;
+    -fx-max-width: 1.8em;
+    -fx-min-width: 1.8em;
+    -fx-max-height: 1.8em;
+    -fx-pref-height: 1.8em;
+    -fx-min-height: 1.8em;
+}
+.close-button{
+    -fx-translate-y: -1.6em;
+    -fx-translate-x: 0.8em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0 , 0 , 0 );
+}
+StackPane Label{
+    -fx-translate-x: 0.3em;
+    -fx-translate-y: -1.3em;
+    -fx-border-radius: 5em;
+    -fx-background-radius: 5em;
+    -fx-background-color: #2A2E37;
+    -fx-text-fill: #bcbcbc;
+}
+.content GridPane > Label {
+    -fx-alignment: center;
+    -fx-padding: 0 5em 0 0;
+    -fx-text-fill: #bcbcbc;
+}
+.next-button{
+    -fx-padding: 0.3em 1em;
+    -fx-translate-x: -1.2em;
+}
