@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import helpers.FontIndicator?>
+<AnchorPane fx:id="root" styleClass="alert-box" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.base.ControllerAlert">
+    <fx:define>
+        <FontIndicator fx:id="font"/>
+    </fx:define>
+    <HBox styleClass="centered-container">
+        <AnchorPane fx:id="content" styleClass="content, translate-content">
+            <AnchorPane styleClass="inner-shadow" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+                <effect><InnerShadow/></effect>
+            </AnchorPane>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints fillHeight="false" maxHeight="1.7976931348623157E308"
+                                        valignment="CENTER" vgrow="NEVER"/>
+                        <RowConstraints minHeight="10.0" vgrow="ALWAYS"/>
+                        <RowConstraints vgrow="NEVER"/>
+                    </rowConstraints>
+                    <Label fx:id="alertMessage" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                           maxWidth="1.7976931348623157E308" text="h" GridPane.rowIndex="1"/>
+                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" GridPane.halignment="RIGHT"
+                               GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <Button fx:id="nextButton" onMouseClicked="#nextAlert" styleClass="next-button" text="ok"/>
+                        <Label fx:id="alertsCount" alignment="CENTER" contentDisplay="CENTER" text="Label"/>
+                    </StackPane>
+                    <Button fx:id="closeButton" onMouseClicked="#closeAlerts" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity"
+                            mnemonicParsing="false" styleClass="close-button" text="x" GridPane.halignment="RIGHT"
+                            GridPane.rowIndex="0"/>
+                </GridPane>
+                <StackPane fx:id="alertIcon" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" styleClass="alert-icon" GridPane.columnIndex="0">
+                    <AnchorPane maxHeight="-Infinity" />
+                    <VBox maxHeight="-Infinity">
+                        <Rectangle width="${font.fontPx * 1}" height="${2.5 * font.fontPx}"/>
+                        <Circle radius="${0.5 * font.fontPx}"/>
+                    </VBox>
+                </StackPane>
+            </GridPane>
+        </AnchorPane>
+    </HBox>
+</AnchorPane>
