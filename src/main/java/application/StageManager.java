@@ -18,9 +18,9 @@ import static application.RestaurantApplication.alertManager;
 import static application.RestaurantApplication.loginManager;
 
 public class StageManager {
-    private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    private final Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    public ControllerAlert currentAlertController, secondLoggedAlertController, secondLoginAlertController;
+    public ControllerAlert currentAlertController, firstLoginAlertController, firstLoggedAlertController, secondLoggedAlertController, secondLoginAlertController;
     public ControllerAdjustable currentController, firstLoggedController, secondLoggedController, secondLoggedMenuController,
             thirdLoggedController, firstLoginController, secondLoginController, thirdLoginController;
     public Stage currentStage, currentStageMenu, currentAlertStage, firstLoggedStage, secondLoggedStage, secondLoggedMenuStage, thirdLoggedStage,
@@ -49,14 +49,15 @@ public class StageManager {
 //        thirdLoggedStage = new Stage();
 //        thirdLoggedController = createStage("logged-third", thirdLoggedStage);
 
-//        createAlertStage(new Stage(), firstLoginStage, true);
-//        createAlertStage(new Stage(), secondLoginStage, false);
-//        createAlertStage(new Stage(), thirdLoginStage, true);
+
+        firstLoginAlert = new Stage();
+        firstLoginAlertController = createAlertStage(firstLoginAlert, firstLoginStage, true, "first-alert");
+        firstLoggedAlert = new Stage();
+        firstLoggedAlertController = createAlertStage(firstLoggedAlert, firstLoggedStage, false, "first-alert");
         secondLoginAlert = new Stage();
         secondLoginAlertController = createAlertStage(secondLoginAlert, secondLoginStage, true, "second-alert");
         secondLoggedAlert = new Stage();
         secondLoggedAlertController = createAlertStage(secondLoggedAlert, secondLoggedMenuStage, false, "second-alert");
-//        createAlertStage(new Stage(), thirdLoggedStage, false);
 
 
         secondLoggedMenuStage.setAlwaysOnTop(true);
@@ -81,6 +82,8 @@ public class StageManager {
         if(stage == firstLoginStage){
             currentStage = firstLoginStage;
             currentController = firstLoginController;
+            currentAlertStage = firstLoginAlert;
+            currentAlertController = secondLoginAlertController;
         }else if(stage == secondLoginStage){
             currentStage = secondLoginStage;
             currentController = secondLoginController;
@@ -92,6 +95,8 @@ public class StageManager {
         }else if(stage == firstLoggedStage){
             currentStage = firstLoggedStage;
             currentController = firstLoggedController;
+            currentAlertStage = firstLoggedAlert;
+            currentAlertController = firstLoggedAlertController;
         }else if(stage == secondLoggedStage){
             currentStage = secondLoggedStage;
             currentController = secondLoggedController;

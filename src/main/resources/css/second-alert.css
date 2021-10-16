@@ -45,7 +45,7 @@ GridPane > Label{
 }
 .alert-icon VBox{
     -fx-alignment: center;
-    -fx-spacing: 0.2em;
+    -fx-spacing: 0.4em;
 }
 .alert-icon Rectangle{
     -fx-arc-height: 1.2em;
@@ -67,8 +67,9 @@ GridPane > Label{
 .content GridPane{
     -fx-min-width: 13em;
     -fx-min-height: 6em;
-    -fx-max-height: 6em;
-    -fx-pref-height: 6em;
+}
+.content > GridPane{
+    -fx-padding: 1em 0 1em 0;
 }
 .close-button,
 StackPane Label{
@@ -85,9 +86,9 @@ StackPane Label{
     -fx-min-height: 1.8em;
 }
 .close-button{
-    -fx-translate-y: -0.6em;
+    -fx-translate-y: -1.6em;
     -fx-translate-x: 0.8em;
-    -fx-effect: none;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0 , 0 , 0 );
 }
 StackPane Label{
     -fx-translate-x: 0.3em;
@@ -98,7 +99,8 @@ StackPane Label{
     -fx-text-fill: white;
 }
 .content GridPane > Label {
-    -fx-padding: 0 3em 0 0;
+    -fx-alignment: center;
+    -fx-padding: 0 5em 0 0;
     -fx-text-fill: white;
 }
 .next-button{
