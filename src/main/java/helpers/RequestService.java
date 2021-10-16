@@ -17,16 +17,10 @@ import static application.RestaurantApplication.stageManager;
 import static application.ServerRequests.mapper;
 
 public class RequestService<T> extends Service<T> {
-
     private JavaType t;
     private MethodHandle function;
-    public RequestService(Class type, Class<? extends Collection> collection, RequestEnum requestType){
-        if (collection == null) {
-            t = mapper.getTypeFactory().constructType(type);
-        } else {
-            t = mapper.getTypeFactory().
-                    constructCollectionType(collection, type);
-        }
+    public RequestService(Class<T> type, RequestEnum requestType){
+        t = mapper.getTypeFactory().constructType(type);
 
         try {
             MethodType methodType = MethodType.methodType(HttpRequestBase.class);

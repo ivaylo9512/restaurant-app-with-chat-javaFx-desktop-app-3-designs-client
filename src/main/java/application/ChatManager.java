@@ -5,14 +5,11 @@ import helpers.RequestTask;
 import com.fasterxml.jackson.databind.JavaType;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import models.Chat;
-import models.ChatValue;
+import models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
-import models.Message;
-import models.Session;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.BufferedInputStream;
@@ -28,13 +25,8 @@ import static application.ServerRequests.*;
 
 
 public class ChatManager {
-
-    private JavaType sessionType = mapper.getTypeFactory().constructCollectionType(List.class, Session.class);
-    private JavaType messageType = mapper.getTypeFactory().constructType(Message.class);
-
     public Map<Integer, ChatValue> chats = new HashMap<>();
     public ObservableList<ChatValue> chatsList = FXCollections.observableArrayList();
-
     public ObjectProperty<ChatValue> mainChatValue = new SimpleObjectProperty<>();
     public ObjectProperty<ChatValue> secondChatValue = new SimpleObjectProperty<>();
 
@@ -65,7 +57,7 @@ public class ChatManager {
         int nextPage = chat.getSessions().size() / pageSize;
 
         try {
-            RequestTask<List<Session>> task = new RequestTask<>(sessionType, ServerRequests.getNextSessions(chatId, nextPage));
+            RequestTask<List<Session>> task = new RequestTask<>(mapper.getTypeFactory().constructCollectionType(List.class, Session.class), ServerRequests.getNextSessions(chatId, nextPage));
             tasks.execute(task);
             task.setOnSucceeded(event -> {
                 List<Session> nextSessions = task.getValue();
@@ -85,7 +77,7 @@ public class ChatManager {
 
     public void sendMessage(String messageText, int chatId, int receiverId){
         HttpRequestBase request = ServerRequests.sendMessage(messageText, chatId, receiverId);
-        RequestTask task = new RequestTask(messageType, request);
+        RequestTask<Message> task = new RequestTask<>(Message.class, request);
         tasks.execute(task);
     }
 

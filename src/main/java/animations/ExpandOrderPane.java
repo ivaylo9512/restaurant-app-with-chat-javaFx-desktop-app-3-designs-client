@@ -156,7 +156,6 @@ public class ExpandOrderPane {
     }
 
     private void paneDrag(MouseEvent event) {
-        System.out.println(widthTransition.getCurrentTime());
         if(widthTransition.getCurrentTime().toMillis() == delay || widthTransition.getCurrentTime().toMillis() == 0){
             if(!isButtonExpanded.getValue()){
                 expandOrderOnDrag(event);

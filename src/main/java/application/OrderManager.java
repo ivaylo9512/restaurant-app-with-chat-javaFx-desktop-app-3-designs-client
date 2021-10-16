@@ -13,8 +13,6 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import org.apache.http.client.methods.HttpRequestBase;
-
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -29,8 +27,9 @@ public class OrderManager {
     public ObservableList<Order> orders = FXCollections.observableArrayList();
     public ObservableList<Menu> newOrderList = FXCollections.observableArrayList();
     public Order newOrder;
+    private final JavaType type = mapper.constructType(Dish.class);
 
-    public RequestService<Order> sendOrder = new RequestService<>(Order.class, null, RequestEnum.sendOrder);
+    public RequestService<Order> sendOrder = new RequestService<>(Order.class, RequestEnum.sendOrder);
 
     OrderManager() {
         sendOrder.addEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendOrderSuccess);
@@ -113,7 +112,6 @@ public class OrderManager {
         }
     }
 
-    private JavaType type = mapper.constructType(Dish.class);
     public void updateDishState(Dish dish){
         HttpRequestBase request = ServerRequests.updateDishState(dish.getOrderId(), dish.getId());
         RequestTask<Dish> task = new RequestTask<>(type, request);

@@ -46,6 +46,7 @@ public class LoginSecond extends ControllerLogin {
         showMenu(loginFields);
         actionBtn.setOnMouseClicked(this::login);
     }
+
     @FXML
     public void showRegisterFields(){
         resetFields();
@@ -53,6 +54,7 @@ public class LoginSecond extends ControllerLogin {
         actionBtn.setOnMouseClicked(this::showNextRegisterFields);
 
     }
+
     @FXML
     public void showNextRegisterFields(Event event){
         if(!KeyEvent.KEY_RELEASED.equals(event.getEventType()) || ((KeyEvent) event).getCode().equals(KeyCode.ENTER)) {
@@ -60,6 +62,7 @@ public class LoginSecond extends ControllerLogin {
             actionBtn.setOnMouseClicked(this::register);
         }
     }
+
     @FXML
     void showStyleButtons(){
         showMenu(styleButtons);

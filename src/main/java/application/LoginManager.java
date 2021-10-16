@@ -17,8 +17,8 @@ import static application.RestaurantApplication.*;
 import static application.ServerRequests.*;
 
 public class LoginManager {
-    public RequestService<User> sendInfo = new RequestService<>(User.class, null, RequestEnum.sendUserInfo);
-    public RequestService<UserRequest> longPollingService = new RequestService<>(UserRequest.class, null, RequestEnum.longPollingRequest);
+    public RequestService<User> sendInfo = new RequestService<>(User.class, RequestEnum.sendUserInfo);
+    public RequestService<UserRequest> longPollingService = new RequestService<>(UserRequest.class, RequestEnum.longPollingRequest);
     private User savedUserInfo;
 
     User loggedUser = new User();
@@ -27,7 +27,7 @@ public class LoginManager {
     public StringProperty role = loggedUser.getRole();
 
     public BooleanProperty loading = new SimpleBooleanProperty(false);
-    public RequestTask currentTask;
+    public RequestTask<User> currentTask;
 
     StringProperty username = new SimpleStringProperty();
     StringProperty password = new SimpleStringProperty();
@@ -89,18 +89,17 @@ public class LoginManager {
 
     public void login() {
         try {
-
             RequestTask<User> login = new RequestTask<>(User.class, ServerRequests.login());
             loading.setValue(true);
 
             login.setOnSucceeded(eventSuccess -> onSuccessfulAuthentication(login));
-            login.setOnFailed(eventFail -> updateError());
+            login.setOnFailed(error -> updateError());
 
             currentTask = login;
             tasks.execute(login);
         }catch (URISyntaxException e){
             updateError();
-            throw new RuntimeException(e.getMessage());
+            alertManager.addLoginAlert(e.getMessage());
         }
     }
 
@@ -109,7 +108,7 @@ public class LoginManager {
         loading.setValue(true);
 
         register.setOnSucceeded(eventSuccess -> onSuccessfulAuthentication(register));
-        register.setOnFailed(eventFail -> updateError());
+        register.setOnFailed(error -> updateError());
 
         currentTask = register;
         tasks.execute(register);

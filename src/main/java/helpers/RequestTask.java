@@ -1,23 +1,29 @@
 package helpers;
 
 import com.fasterxml.jackson.databind.JavaType;
+import exceptions.UnprocessableEntityException;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import org.apache.http.client.methods.HttpRequestBase;
 import controllers.base.ControllerLogged;
 import controllers.base.ControllerLogin;
 import java.io.IOException;
+
 import static application.RestaurantApplication.*;
 import static application.ServerRequests.executeRequest;
 import static application.ServerRequests.mapper;
 
 public class RequestTask<T> extends Task<T> {
-
-    private HttpRequestBase request;
-    private JavaType type;
+    private final HttpRequestBase request;
+    private final JavaType type;
     private String errorMessage;
 
-    public RequestTask(Class t, HttpRequestBase request) {
+    public RequestTask(JavaType type, HttpRequestBase request) {
+        this.type = type;
+        this.request = request;
+    }
+
+    public RequestTask(Class<T> t, HttpRequestBase request) {
         this.type = mapper.constructType(t);
         this.request = request;
     }
