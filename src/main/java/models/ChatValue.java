@@ -2,12 +2,11 @@ package models;
 
 import helpers.ObservableOrderedMap;
 import javafx.scene.image.Image;
-
 import java.time.LocalDate;
 
 public class ChatValue {
-    private int userId;
-    private int chatId;
+    private long userId;
+    private long chatId;
 
     private boolean moreSessions = true;
     private int displayedSessions;
@@ -16,14 +15,14 @@ public class ChatValue {
     private User secondUser;
     private ObservableOrderedMap<LocalDate, Session> sessionsObservable = new ObservableOrderedMap<>();
 
-    public ChatValue(int chatId, int userId, Image profilePicture, User secondUser) {
+    public ChatValue(long chatId, long userId, Image profilePicture, User secondUser) {
         this.chatId = chatId;
         this.userId = userId;
         this.secondUserPicture = profilePicture;
         this.secondUser = secondUser;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
@@ -31,7 +30,7 @@ public class ChatValue {
         this.userId = userId;
     }
 
-    public int getChatId() {
+    public long getChatId() {
         return chatId;
     }
 

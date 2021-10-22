@@ -25,7 +25,7 @@
             </rowConstraints>
             <columnConstraints>
                 <ColumnConstraints maxWidth="Infinity"/>
-                <ColumnConstraints percentWidth="25.8"/>
+                <ColumnConstraints prefWidth="${font.fontPx * 16}"/>
                 <ColumnConstraints prefWidth="0" hgrow="ALWAYS"/>
             </columnConstraints>
             <Pane fx:id="moveBar" styleClass="move-bar"/>
@@ -100,7 +100,7 @@
             <StackPane fx:id="chatView" styleClass="chat-view" disable="true" GridPane.columnIndex="2">
                 <VBox fx:id="mainChat" styleClass="main-chat" disable="true">
                     <ScrollPane fx:id="mainChatScroll" VBox.vgrow="ALWAYS">
-                        <VBox fx:id="mainChatBlock" maxHeight="Infinity" maxWidth="Infinity">
+                        <VBox fx:id="mainChatBlock" styleClass="main-chat-block" maxHeight="Infinity" maxWidth="Infinity">
                             <HBox styleClass="session-info">
                                 <Pane HBox.hgrow="ALWAYS"/>
                                 <TextFlow maxWidth="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
@@ -110,8 +110,8 @@
                             </HBox>
                         </VBox>
                     </ScrollPane>
-                    <HBox maxHeight="Infinity">
-                        <TextArea fx:id="mainChatTextArea" maxHeight="Infinity" wrapText="true"/>
+                    <HBox maxHeight="Infinity" VBox.vgrow="ALWAYS">
+                        <TextArea fx:id="mainChatTextArea" maxHeight="Infinity" HBox.hgrow="ALWAYS" wrapText="true"/>
                         <Button focusTraversable="false" minWidth="-Infinity" minHeight="-Infinity" maxHeight="Infinity" mnemonicParsing="false">
                             <graphic>
                                 <ImageView fitHeight="${font.fontPx * 1.83}" fitWidth="${font.fontPx * 1.83}">

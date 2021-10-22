@@ -4,22 +4,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Message {
-    private int receiverId;
-
-    private int senderId;
-
+    private long receiverId;
+    private long senderId;
     private LocalTime time;
-
     private String message;
-
-    private int chatId;
-
+    private long chatId;
     private LocalDate session;
 
     public Message() {
     }
 
-    public Message(int receiverId, LocalTime time,LocalDate session, String message, int chatId) {
+    public Message(long receiverId, LocalTime time,LocalDate session, String message, long chatId) {
         this.receiverId = receiverId;
         this.time = time;
         this.session = session;
@@ -27,11 +22,11 @@ public class Message {
         this.chatId = chatId;
     }
 
-    public int getReceiverId() {
+    public long getReceiverId() {
         return receiverId;
     }
 
-    public void setReceiverId(int receiverId) {
+    public void setReceiverId(long receiverId) {
         this.receiverId = receiverId;
     }
 
@@ -51,11 +46,11 @@ public class Message {
         this.message = message;
     }
 
-    public int getChatId() {
+    public long getChatId() {
         return chatId;
     }
 
-    public void setChatId(int chatId) {
+    public void setChatId(long chatId) {
         this.chatId = chatId;
     }
 
@@ -67,7 +62,7 @@ public class Message {
         this.session = session;
     }
 
-    public int getSenderId() {
+    public long getSenderId() {
         return senderId;
     }
 

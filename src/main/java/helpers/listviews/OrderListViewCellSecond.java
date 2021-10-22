@@ -37,7 +37,8 @@ public class OrderListViewCellSecond extends ListCell<Order> {
                     e.printStackTrace();
                 }
             }
-            orderId.getChildren().addAll(String.valueOf(order.getId().get())
+
+            orderId.getChildren().setAll(String.valueOf(order.getId().get())
                     .chars()
                     .mapToObj(c -> new Text(String.valueOf((char)c)))
                     .collect(Collectors.toList()));

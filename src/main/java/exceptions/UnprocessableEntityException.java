@@ -2,7 +2,6 @@ package exceptions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-
 import java.util.Map;
 
 import static application.ServerRequests.mapper;

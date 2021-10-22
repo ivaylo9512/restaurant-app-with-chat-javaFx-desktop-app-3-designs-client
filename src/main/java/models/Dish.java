@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Dish{
-    private int id;
+    private long id;
     private String name;
     private boolean ready;
-    private int orderId;
+    private long orderId;
     private boolean loading;
-    private LocalDateTime created;
-    private LocalDateTime updated;
-    private int updatedById;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private long updatedById;
     private boolean orderReady;
 
     public Dish() {
@@ -21,11 +21,11 @@ public class Dish{
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -45,11 +45,11 @@ public class Dish{
         this.ready = ready;
     }
 
-    public int getOrderId() {
+    public long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
 
@@ -61,20 +61,20 @@ public class Dish{
         this.loading = loading;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdated() {
-        return updated;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated(LocalDateTime updated) {
-        this.updated = updated;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
@@ -90,11 +90,11 @@ public class Dish{
         return Objects.hash(id);
     }
 
-    public int getUpdatedById() {
+    public long getUpdatedById() {
         return updatedById;
     }
 
-    public void setUpdatedById(int updatedById) {
+    public void setUpdatedById(long updatedById) {
         this.updatedById = updatedById;
     }
 

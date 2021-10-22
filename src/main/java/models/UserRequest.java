@@ -7,8 +7,8 @@ public class UserRequest {
     private List<Order> orders;
     private List<Message> messages;
     private List<Dish> dishes;
-    private int userId;
-    private int restaurantId;
+    private long userId;
+    private long restaurantId;
     private LocalDateTime lastCheck;
 
     public List<Order> getOrders() {
@@ -35,19 +35,19 @@ public class UserRequest {
         this.dishes = dishes;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
-    public int getRestaurantId() {
+    public long getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(int restaurantId) {
+    public void setRestaurantId(long restaurantId) {
         this.restaurantId = restaurantId;
     }
 

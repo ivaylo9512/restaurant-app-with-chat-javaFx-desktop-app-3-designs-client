@@ -6,11 +6,9 @@ import controllers.base.ControllerLogin;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import org.apache.http.client.methods.HttpRequestBase;
-
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.util.Collection;
 
 import static application.RestaurantApplication.alertManager;
 import static application.RestaurantApplication.stageManager;

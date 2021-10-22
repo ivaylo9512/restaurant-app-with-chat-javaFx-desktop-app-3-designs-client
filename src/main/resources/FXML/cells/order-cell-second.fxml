@@ -2,13 +2,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import helpers.FontIndicator?>
-
 <?import javafx.scene.text.Text?>
+
 <StackPane fx:id="container" styleClass="order-cell" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <fx:define>
-        <FontIndicator fx:id="font"/>
-    </fx:define>
     <StackPane>
         <VBox>
             <HBox>
@@ -17,7 +13,7 @@
             <HBox fx:id="orderId"/>
         </VBox>
         <HBox>
-            <StackPane>
+            <StackPane maxHeight="-Infinity">
                 <Button fx:id="infoButton"/>
                 <Text text="i"/>
             </StackPane>

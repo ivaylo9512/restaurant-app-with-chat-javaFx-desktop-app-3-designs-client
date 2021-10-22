@@ -2,12 +2,10 @@ package models;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Session{
-
     private LocalDate date;
     private ObservableList<Message> messages = FXCollections.observableArrayList();
 

@@ -88,11 +88,12 @@ public class OrderManager {
     }
 
     public void updateDish(Dish dish){
-        int orderId = dish.getOrderId();
+        long orderId = dish.getOrderId();
         int orderIndex = orders.indexOf(new Order(orderId));
+
         if(orderIndex >= 0) {
             Order order = orders.get(orderIndex);
-            order.setUpdated(dish.getUpdated());
+            order.setUpdatedAt(dish.getUpdatedAt());
 
             if (dish.isOrderReady()) {
                 order.setReady(true);

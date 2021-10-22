@@ -48,12 +48,14 @@ public class ControllerAlert extends Controller{
         currentAlert.addListener((observable, oldValue, newValue) -> {
             if(newValue != null){
                 stage.setUserData("active");
+
                 if(!stage.isShowing() && stage.getOwner().isShowing()){
                     stage.show();
-                    stage.setY(0);
-                    stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
-                    fadeInAlert();
                 }
+
+                stage.setY(0);
+                stage.setX((primaryScreenBounds.getWidth() - stage.getWidth()) / 2);
+                fadeInAlert();
             }else{
                 content.getStyleClass().add("translate-content");
                 stage.setUserData("inactive");

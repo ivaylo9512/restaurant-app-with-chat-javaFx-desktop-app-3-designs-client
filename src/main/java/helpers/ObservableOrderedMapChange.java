@@ -4,7 +4,6 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 
 public class ObservableOrderedMapChange<K, V> extends MapChangeListener.Change<K,V> {
-
     private final K key;
     private final V added;
     private int index;

@@ -1,13 +1,10 @@
 package helpers;
 
 import com.fasterxml.jackson.databind.JavaType;
-import exceptions.UnprocessableEntityException;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import org.apache.http.client.methods.HttpRequestBase;
 import controllers.base.ControllerLogged;
-import controllers.base.ControllerLogin;
-import java.io.IOException;
 
 import static application.RestaurantApplication.*;
 import static application.ServerRequests.executeRequest;
@@ -34,36 +31,32 @@ public class RequestTask<T> extends Task<T> {
     }
 
     private T executeTask() throws Exception{
-        try {
-
-            String content = executeRequest(request);
-            while (content.equals("Time out.")){
-                content = executeRequest(request);
-            }
-
-            if(content.equals("Success")){
-                return null;
-            }
-            return mapper.readValue(content, mapper.constructType(type));
-
-        }catch (IOException e) {
-            if(stageManager.currentController instanceof ControllerLogin){
-                throw new IOException("No connection to the server");
-            }
-            return executeTask();
+        String content = executeRequest(request);
+        while (content.equals("Time out.")){
+            content = executeRequest(request);
         }
+
+        if(content.equals("Success")){
+            return null;
+        }
+        return mapper.readValue(content, mapper.constructType(type));
     }
 
     @Override
     protected void failed() {
         super.failed();
         errorMessage = getException().getMessage();
+
         if(errorMessage.equals("Jwt token has expired.")) {
             if(stageManager.currentController instanceof ControllerLogged){
                 Platform.runLater(() -> loginManager.logout());
             }
+
             errorMessage = "Session has expired.";
+        }else if(errorMessage.contains("Connection refused")){
+            errorMessage = "No connection to the server.";
         }
+
         Platform.runLater(() -> alertManager.addAlert(errorMessage));
     }
 }

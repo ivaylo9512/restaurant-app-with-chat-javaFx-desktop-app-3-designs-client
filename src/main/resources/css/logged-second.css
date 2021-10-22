@@ -37,7 +37,7 @@ TextFlow {
     -fx-border-radius: 5;
     -fx-background-insets: -2 -6 -2 -8;
     -fx-background-radius: 5;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 0.05em, 0.0 , 0 , 0 );
 }
 ListView{
     -fx-padding: 0;
@@ -148,16 +148,18 @@ ProgressIndicator {
 }
 .order-cell > StackPane{
     -fx-pref-height: 5em;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1), 0.5, 0 , 0 , 0.5 );
     -fx-background-color: #1a1a1a;
 }
 .order-cell VBox{
-    -fx-spacing: 0.7em;
+    -fx-spacing: 0.5em;
     -fx-alignment: center;
 }
-.order-cell HBox{
+.order-cell StackPane > HBox{
     -fx-alignment: top-right;
     -fx-padding: 0.5em 0.5em 0 0;
+}
+.order-cell StackPane > VBox > HBox{
+    -fx-alignment: center;
 }
 .order-cell Button{
     -fx-effect: dropshadow( three-pass-box, rgba(0,0,0,1), 2, 0, 0.4, 0);
@@ -178,7 +180,7 @@ ProgressIndicator {
 .order-cell Text{
     -fx-text-fill: white;
     -fx-font-family: "Georgia Pro";
-    -fx-font-size: 0.6em;
+    -fx-font-size: 0.8em;
 }
 .order-list .list-cell:hover .order-cell > StackPane{
     -fx-background-color: rgb(252,57,3,0.1);
@@ -229,9 +231,9 @@ ProgressIndicator {
 .orders,
 .chats{
     -fx-background-color: #1a1a1a;
-    -fx-border-width: 0 0.3 0 0;
+    -fx-border-width: 0 0.05em 0 0;
     -fx-border-color: white;
-    -fx-padding: 4.8em 0.6 0 0;
+    -fx-padding: 4.8em 0.05em 0 0;
 }
 .orders:disabled,
 .chats:disabled{
@@ -318,22 +320,24 @@ ProgressIndicator {
 .chat-block{
     -fx-padding: 0 0 7 0;
 }
+.main-chat-block > VBox{
+    -fx-padding: 0 0 0 1em;
+}
 .main-chat:disabled{
     -fx-opacity: 0;
 }
-.main-chat Pane{
-    -fx-pref-width: 40.0;
-    -fx-pref-height: 40.0;
-    -fx-border-radius: 180px;
-    -fx-background-radius: 180px;
-}
-.main-chat ScrollPane > VBox{
-    -fx-pref-width: 396.0px;
-    -fx-padding: 0 4.2em 8.3em 4.2em;
-}
-.main-chat .imageShadow{
-    -fx-background-color: white;
+.main-chat HBox Pane{
+    -fx-translate-y: -1.67em;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 6, 0.0 , 0 , 0 );
+}
+.main-chat HBox Circle{
+    -fx-fill: white;
+}
+.main-chat ImageView{
+    -fx-translate-y: 0.35em;
+}
+.main-chat .message{
+    -fx-fill: #bcbcbc;
 }
 .main-chat Button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );
@@ -348,7 +352,7 @@ ProgressIndicator {
     -fx-fill: #2A2E37;
 }
 .main-chat TextFlow{
-    -fx-padding: 5 5 5 5;
+    -fx-padding: 5 0 5 0;
 }
 .main-chat > HBox{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1), 15, 0.0 , 0 , 2 );
@@ -360,13 +364,13 @@ ProgressIndicator {
     -fx-border-radius: 0;
     -fx-background-insets: none;
     -fx-background-radius: 0;
-    -fx-padding: 0.8em 1.25em;
+    -fx-padding: 1.2em 1.25em;
 }
 .main-chat TextArea{
     -fx-background-color: #1a1a1a;
+    -fx-text-fill: #bcbcbc;
     -fx-border-width: 0 1 0 0;
     -fx-border-color: #bcbcbc;
-    -fx-text-fill: #bcbcbc;
     -fx-min-height: 0;
     -fx-pref-height: 0;
     -fx-padding: 0;
@@ -383,15 +387,19 @@ ProgressIndicator {
 }
 .user-message-first{
     -fx-padding: 15 0 0 165;
+    -fx-alignment: top-right;
 }
 .user-message{
     -fx-padding: 8 40 0 165;
+    -fx-alignment: top-right;
 }
 .second-user-message-first{
     -fx-padding: 17 165 0 0;
+    -fx-alignment: top-left;
 }
 .second-user-message{
     -fx-padding: 8 165 0 40;
+    -fx-alignment: top-left;
 }
 .session-date{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 1, 0.0 , 0 , 0 );

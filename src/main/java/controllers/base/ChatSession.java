@@ -29,10 +29,9 @@ import java.util.*;
 import static application.RestaurantApplication.chatManager;
 import static application.RestaurantApplication.loginManager;
 import static application.ServerRequests.pageSize;
-import static helpers.FontIndicator.fontPx;
 
 public class ChatSession {
-    private ObjectProperty<ChatValue> chatValue;
+    private final ObjectProperty<ChatValue> chatValue;
     private VBox chatBlock;
     private Text chatInfo;
     private TextArea chatTextArea;
@@ -40,11 +39,11 @@ public class ChatSession {
 
     private ObservableList<Message> chatCurrentSession, chatLastSession;
 
-    private ListChangeListener<Message> currentMessageListener = createMessageListener();
-    private ListChangeListener<Message> lastMessageListener  = createMessageListener();
+    private final ListChangeListener<Message> currentMessageListener = createMessageListener();
+    private final ListChangeListener<Message> lastMessageListener  = createMessageListener();
 
-    private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
+    private final static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy");
 
     public ChatSession(Node chatContainer, ObjectProperty<ChatValue> chatValue, VBox chatBlock, Text chatInfo, TextArea chatTextArea) {
         this.chatValue = chatValue;
@@ -98,7 +97,7 @@ public class ChatSession {
         chatValue.get().getSessions().addListener(sessionChange);
     }
 
-    private MapChangeListener<LocalDate, Session> sessionChange = c -> {
+    private final MapChangeListener<LocalDate, Session> sessionChange = c -> {
         int index = ((ObservableOrderedMapChange)c).getIndex();
         addNewSession(c.getValueAdded(), index + 1);
     };
@@ -125,6 +124,7 @@ public class ChatSession {
             if (displayedSessions + nextSessions.size() == loadedSessions && !chatValue.get().isMoreSessions()) {
                 chatInfo.setText("Beginning of the chat");
             }
+
             chatValue.get().setDisplayedSessions(displayedSessions + nextSessions.size());
 
             while (!nextSessions.isEmpty()) appendSession(nextSessions.removeLast(), 1);
@@ -137,8 +137,8 @@ public class ChatSession {
     }
 
     public void addNewMessage(){
-        int chatId = chatValue.get().getChatId();
-        int receiverId = chatValue.get().getUserId();
+        long chatId = chatValue.get().getChatId();
+        long receiverId = chatValue.get().getUserId();
 
         String messageText = chatTextArea.getText();
         chatTextArea.clear();
@@ -299,12 +299,11 @@ public class ChatSession {
             if (message.getReceiverId() == loginManager.userId.get()) {
                 hBox.getStyleClass().add("second-user-message-first");
                 hBox.getChildren().addAll(imageShadow, textFlow);
-                newBlock.getChildren().add(hBox);
             } else {
                 hBox.getStyleClass().add("user-message-first");
                 hBox.getChildren().addAll(textFlow, imageShadow);
-                newBlock.getChildren().add(hBox);
             }
+            newBlock.getChildren().add(hBox);
             sessionBlock.getChildren().add(newBlock);
         }
     }

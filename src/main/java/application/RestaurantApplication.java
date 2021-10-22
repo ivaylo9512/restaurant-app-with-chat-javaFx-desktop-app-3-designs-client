@@ -5,7 +5,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-
 public class RestaurantApplication extends Application{
     public static NotificationManager notificationManager = new NotificationManager();
     public static OrderManager orderManager = new OrderManager();

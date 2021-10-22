@@ -1,41 +1,37 @@
 package models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 public class Order{
-
-    private IntegerProperty id = new SimpleIntegerProperty();
-    private ObservableList<Dish> dishes = FXCollections.observableArrayList();
-    private ObjectProperty<LocalDateTime> created = new SimpleObjectProperty<>();
-    private ObjectProperty<LocalDateTime> updated = new SimpleObjectProperty<>();
-    private int userId;
-    private int restaurantId;
+    private final LongProperty id = new SimpleLongProperty();
+    private final ObservableList<Dish> dishes = FXCollections.observableArrayList();
+    private final ObjectProperty<LocalDateTime> createdAt = new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDateTime> updatedAt = new SimpleObjectProperty<>();
+    private long userId;
+    private long restaurantId;
     private int index;
-
     private boolean ready;
+
     public Order() {
     }
-    public Order(int id) {
+    public Order(long id) {
         this.id.set(id);
     }
     public Order(List<Dish> dishes) {
         this.dishes.setAll(dishes);
     }
 
-    public IntegerProperty getId() {
+    public LongProperty getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id.setValue(id);
     }
 
@@ -48,20 +44,20 @@ public class Order{
         this.dishes.setAll(dishes);
     }
 
-    public ObjectProperty<LocalDateTime> getCreated() {
-        return created;
+    public ObjectProperty<LocalDateTime> getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created.setValue(created);
+    public void setCreatedAt(LocalDateTime created) {
+        this.createdAt.setValue(created);
     }
 
-    public ObjectProperty<LocalDateTime> getUpdated() {
-        return updated;
+    public ObjectProperty<LocalDateTime> getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated(LocalDateTime updated) {
-        this.updated.setValue(updated);
+    public void setUpdatedAt(LocalDateTime updated) {
+        this.updatedAt.setValue(updated);
     }
 
     public boolean isReady() {
@@ -72,27 +68,27 @@ public class Order{
         this.ready = ready;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
     @JsonProperty("id")
-    public int getIdValue(){
+    public long getIdValue(){
         return id.get();
     }
 
-    @JsonProperty("created")
-    public LocalDateTime getCreateValue(){
-        return created.get();
+    @JsonProperty("createdAt")
+    public LocalDateTime getCreateAtValue(){
+        return createdAt.get();
     }
 
-    @JsonProperty("updated")
-    public LocalDateTime getUpdatedValue(){
-        return updated.get();
+    @JsonProperty("updatedAt")
+    public LocalDateTime getUpdatedAtValue(){
+        return updatedAt.get();
     }
 
     @Override
@@ -105,14 +101,14 @@ public class Order{
 
     @Override
     public int hashCode() {
-        return id.get();
+        return Objects.hash(id.get());
     }
 
-    public int getRestaurantId() {
+    public long getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(int restaurantId) {
+    public void setRestaurantId(long restaurantId) {
         this.restaurantId = restaurantId;
     }
 

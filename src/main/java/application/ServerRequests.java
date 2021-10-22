@@ -2,6 +2,7 @@ package application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import exceptions.UnprocessableEntityException;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
@@ -15,6 +16,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,12 +35,8 @@ public class ServerRequests {
 
     static ExecutorService tasks = Executors.newFixedThreadPool(10);
 
-    public static HttpRequestBase getNextSessions(int id, int page) throws Exception{
-        URIBuilder builder = new URIBuilder(base + "/api/chat/auth/nextSessions");
-        builder
-                .setParameter("chatId", String.valueOf(id))
-                .setParameter("page", String.valueOf(page))
-                .setParameter("pageSize", String.valueOf(pageSize));
+    public static HttpRequestBase getNextSessions(long id, LocalDate lastDate) throws Exception{
+        URIBuilder builder = new URIBuilder(String.format("%s/api/chats/auth/findNextSessions/%s/%s", base, id, lastDate));
         HttpGet get = new HttpGet(builder.build());
         get.setHeader("Authorization", userPreference.get("jwt", null));
 
@@ -67,8 +65,7 @@ public class ServerRequests {
         StringEntity postEntity = new StringEntity(json.toString(), "UTF8");
         postEntity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        URIBuilder builder = new URIBuilder(base + "/api/users/polling/login");
-        builder.setParameter("pageSize", String.valueOf(userPageSize));
+        URIBuilder builder = new URIBuilder(base + "/api/users/polling/login/" + pageSize);
 
         HttpPost httpPost = new HttpPost(builder.build());
         httpPost.setEntity(postEntity);
@@ -77,8 +74,7 @@ public class ServerRequests {
     }
 
     public static HttpRequestBase getLoggedUser() throws URISyntaxException{
-        URIBuilder builder = new URIBuilder(base + "/api/users/polling/auth/getLoggedUser/");
-        builder.setParameter("pageSize", String.valueOf(userPageSize));
+        URIBuilder builder = new URIBuilder(base + "/api/users/polling/auth/getLoggedUser/" + pageSize);
 
         HttpGet httpGet = new HttpGet(builder.build());
         httpGet.setHeader("Authorization", userPreference.get("jwt", null));
@@ -121,7 +117,7 @@ public class ServerRequests {
         return post;
     }
 
-    public static HttpRequestBase sendMessage(String messageText, int chatId, int receiverId){
+    public static HttpRequestBase sendMessage(String messageText, long chatId, long receiverId){
         Map<String, Object> jsonValues = new HashMap<>();
         jsonValues.put("message", messageText);
         jsonValues.put("chatId", chatId);
@@ -151,7 +147,7 @@ public class ServerRequests {
         return httpPost;
     }
 
-    public static HttpRequestBase updateDishState(int orderId, int dishId){
+    public static HttpRequestBase updateDishState(long orderId, long dishId){
         HttpPatch patch = new HttpPatch(String.format(base + "/api/order/auth/update/%d/%d", orderId, dishId));
         patch.setHeader("Authorization", userPreference.get("jwt", null));
 
@@ -167,12 +163,16 @@ public class ServerRequests {
             EntityUtils.consume(responseEntity);
 
             if (responseCode != 200) {
+                if(responseCode == 422){
+                    throw new UnprocessableEntityException(content);
+                }
+
                 throw new HttpException(content);
             }
 
-            Header[] authHeaders = response.getHeaders("Authorization");
-            if(authHeaders.length > 0){
-                userPreference.put("jwt", authHeaders[0].getValue());
+            Header authHeader = response.getFirstHeader("Authorization");
+            if(authHeader != null){
+                userPreference.put("jwt", authHeader.getValue());
             }
 
             return content;

@@ -9,28 +9,31 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static application.ServerRequests.base;
+
 public class User {
-    private IntegerProperty id = new SimpleIntegerProperty();
-    private StringProperty username = new SimpleStringProperty();
-    private StringProperty firstName = new SimpleStringProperty();
-    private StringProperty lastName = new SimpleStringProperty();
-    private StringProperty age = new SimpleStringProperty();
-    private StringProperty country = new SimpleStringProperty();
-    private StringProperty role = new SimpleStringProperty();
-    private StringProperty profilePicture = new SimpleStringProperty();
+    private final LongProperty id = new SimpleLongProperty();
+    private final StringProperty username = new SimpleStringProperty();
+    private final StringProperty email = new SimpleStringProperty();
+    private final StringProperty firstName = new SimpleStringProperty();
+    private final StringProperty lastName = new SimpleStringProperty();
+    private final StringProperty age = new SimpleStringProperty();
+    private final StringProperty country = new SimpleStringProperty();
+    private final StringProperty role = new SimpleStringProperty();
+    private final StringProperty profileImage = new SimpleStringProperty();
     private Restaurant restaurant;
-    private Map<Integer, Chat> chats = new HashMap<>();
+    private Map<Long, Chat> chats = new HashMap<>();
     private LocalDateTime lastCheck;
 
-    private ObjectProperty<Image> image = new SimpleObjectProperty<>();
+    private final ObjectProperty<Image> image = new SimpleObjectProperty<>();
 
-    private static Image defaultImage = new Image(User.class.getResourceAsStream("/images/default-picture.png"));
+    private static final Image defaultImage = new Image(User.class.getResourceAsStream("/images/default-picture.png"));
 
 
     public User(){
     }
 
-    public User(int id, String username, String firstName, String lastName, int age, String country, String role, String profilePicture, Restaurant restaurant) {
+    public User(long id, String username, String firstName, String lastName, int age, String country, String role, String profileImage, Restaurant restaurant) {
         this.id.setValue(id);
         this.username.setValue(username);
         this.firstName.setValue(firstName);
@@ -38,7 +41,7 @@ public class User {
         this.age.setValue(String.valueOf(age));
         this.country.setValue(country);
         this.role.setValue(role);
-        this.profilePicture.setValue(profilePicture);
+        this.profileImage.setValue(profileImage);
         this.restaurant = restaurant;
     }
 
@@ -64,11 +67,19 @@ public class User {
         this.username.setValue(username);
     }
 
-    public IntegerProperty getId() {
+    public StringProperty getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email.setValue(email);
+    }
+
+    public LongProperty getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id.setValue(id);
     }
 
@@ -112,17 +123,17 @@ public class User {
         this.country.setValue(country);
     }
 
-    public StringProperty getProfilePicture() {
-        return profilePicture;
+    public StringProperty getProfileImage() {
+        return profileImage;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        try(InputStream in = new BufferedInputStream(new URL(profilePicture).openStream())){
+    public void setProfileImage(String profileImage) {
+        try(InputStream in = new BufferedInputStream(new URL(base + "/api/files/download/" + profileImage).openStream())){
             image.set(new Image(in));
         }catch(Exception e){
             image.set(defaultImage);
         }
-        this.profilePicture.setValue(profilePicture);
+        this.profileImage.setValue(profileImage);
     }
 
     public Restaurant getRestaurant() {
@@ -137,11 +148,11 @@ public class User {
         return image;
     }
 
-    public Map<Integer, Chat> getChats() {
+    public Map<Long, Chat> getChats() {
         return chats;
     }
 
-    public void setChats(Map<Integer, Chat> chats) {
+    public void setChats(Map<Long, Chat> chats) {
         this.chats = chats;
     }
 

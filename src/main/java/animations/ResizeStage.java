@@ -1,6 +1,5 @@
 package animations;
 
-import helpers.FontIndicator;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Cursor;
@@ -26,7 +25,6 @@ public class ResizeStage {
         contentRoot.setOnMouseEntered(event -> {
             height = contentRoot.getHeight();
             width = contentRoot.getWidth();
-
             minWidth = root.getMinWidth();
             minHeight = root.getMinHeight();
             maxWidth = root.getMaxWidth();
@@ -44,12 +42,13 @@ public class ResizeStage {
         contentRoot.addEventFilter(MouseEvent.MOUSE_RELEASED, checkMousePosition);
     }
 
-    private EventHandler<MouseEvent> checkMousePosition = event -> {
-        EventType eventType = event.getEventType();
+    private final EventHandler<MouseEvent> checkMousePosition = event -> {
+        EventType<? extends MouseEvent> eventType = event.getEventType();
         if (MouseEvent.MOUSE_MOVED.equals(eventType) || MouseButton.PRIMARY.equals(event.getButton())) {
-            double border = FontIndicator.fontPx.get() * 6;
+            double border = height * 0.02;
             double mouseX = event.getX();
             double mouseY = event.getY();
+
             if (mouseY <= border) {
                 contentRoot.setCursor(Cursor.N_RESIZE);
             } else if (mouseY >= height - border) {
@@ -61,10 +60,10 @@ public class ResizeStage {
             } else {
                 contentRoot.setCursor(Cursor.DEFAULT);
             }
-            if (MouseEvent.MOUSE_RELEASED.equals(eventType)) {
-                height = contentRoot.getPrefHeight();
-                width = contentRoot.getPrefWidth();
 
+            if (MouseEvent.MOUSE_RELEASED.equals(eventType)) {
+                height = contentRoot.getHeight();
+                width = contentRoot.getWidth();
             }
         }
     };
@@ -86,21 +85,18 @@ public class ResizeStage {
         } else if (Cursor.E_RESIZE.equals(cursor)) {
             double newWidth = mouseX - offsetX;
 
-            if (newWidth >= minWidth && newWidth <= maxWidth) {
-                stage.setWidth(newWidth);
-            } else {
-                stage.setWidth(Math.min(Math.max(newWidth, minWidth), maxWidth));
-            }
+            stage.setWidth(newWidth >= minWidth && newWidth <= maxWidth
+                    ? newWidth
+                    : Math.min(Math.max(newWidth, minWidth), maxWidth));
+
         } else if (Cursor.S_RESIZE.equals(cursor)) {
             double newHeight = mouseY - offsetY;
 
-            if (newHeight >= minHeight && newHeight <= maxHeight) {
-                stage.setHeight(newHeight);
-                contentRoot.setMinHeight(newHeight);
-            } else {
-                stage.setHeight(Math.min(Math.max(newHeight, minHeight), maxHeight));
-                contentRoot.setMinHeight(newHeight);
-            }
+            stage.setHeight(newHeight >= minHeight && newHeight <= maxHeight
+                    ? newHeight
+                    : Math.min(Math.max(newHeight, minHeight), maxHeight));
+
+            contentRoot.setMinHeight(newHeight);
         } else if (Cursor.N_RESIZE.equals(cursor)) {
             double newHeight = stage.getY() - mouseY + root.getPrefHeight();
 

@@ -4,22 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Restaurant {
-    private int id;
-
+    private long id;
     private String name;
-
     private String address;
-
     private String type;
-
     private List<Menu> menu;
-
     private List<Order> orders;
 
     public Restaurant() {
     }
 
-    public Restaurant(int id, String name, String address, String type, List<Menu> menu) {
+    public Restaurant(long id, String name, String address, String type, List<Menu> menu) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -27,11 +22,11 @@ public class Restaurant {
         this.menu = menu;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -4,13 +4,9 @@ package models;
 import java.util.List;
 
 public class Chat {
-
-    private int id;
-
+    private long id;
     private User firstUser;
-
     private User secondUser;
-
     private List<Session> sessions;
 
     public Chat() {
@@ -38,11 +34,11 @@ public class Chat {
         this.secondUser = secondUser;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

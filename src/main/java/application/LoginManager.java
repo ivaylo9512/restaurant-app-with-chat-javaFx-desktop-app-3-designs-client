@@ -22,7 +22,7 @@ public class LoginManager {
     private User savedUserInfo;
 
     User loggedUser = new User();
-    public IntegerProperty userId = loggedUser.getId();
+    public LongProperty userId = loggedUser.getId();
     public ObjectProperty<Image> profileImage = loggedUser.getImage();
     public StringProperty role = loggedUser.getRole();
 
@@ -139,6 +139,7 @@ public class LoginManager {
         longPollingService.start();
         stageManager.changeToOwner();
     }
+
     public void logout(){
         sendInfo.removeEventFilter(WorkerStateEvent.WORKER_STATE_FAILED, onSendUserInfoFail);
         sendInfo.removeEventFilter(WorkerStateEvent.WORKER_STATE_SUCCEEDED, onSendUserInfoSuccess);
@@ -174,7 +175,7 @@ public class LoginManager {
         loggedUser.setAge(Integer.valueOf(user.getAge().get()));
         loggedUser.setCountry(user.getCountry().get());
         loggedUser.setRole(user.getRole().get());
-        loggedUser.setProfilePicture(user.getProfilePicture().get());
+        loggedUser.setProfileImage(user.getProfileImage().get());
     }
 
     public void resetUser(){
@@ -185,7 +186,7 @@ public class LoginManager {
         loggedUser.setAge(null);
         loggedUser.setCountry(null);
         loggedUser.setRole(null);
-        loggedUser.setProfilePicture(null);
+        loggedUser.setProfileImage(null);
     }
     public void sendUserInfo() {
         if(!savedUserInfo.equals(loggedUser)){

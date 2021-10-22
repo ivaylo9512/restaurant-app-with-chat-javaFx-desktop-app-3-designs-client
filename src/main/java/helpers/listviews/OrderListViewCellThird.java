@@ -8,8 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -47,10 +47,14 @@ public class OrderListViewCellThird extends ListCell<Order> {
                     e.printStackTrace();
                 }
             }
-            createdDate.setText(dateFormatter.format(order.getCreated().get()));
-            createdTime.setText(timeFormatter.format(order.getCreated().get()));
-            updatedDate.setText(dateFormatter.format(order.getUpdated().get()));
-            updatedTime.setText(timeFormatter.format(order.getUpdated().get()));
+
+            LocalDateTime createdAt = order.getCreatedAt().get();
+            LocalDateTime updatedAt = order.getUpdatedAt().get();
+
+            createdDate.setText(dateFormatter.format(createdAt));
+            createdTime.setText(timeFormatter.format(createdAt));
+            updatedDate.setText(dateFormatter.format(updatedAt));
+            updatedTime.setText(timeFormatter.format(updatedAt));
             orderId.setText(String.valueOf(order.getId()));
 
             setText(null);
@@ -68,7 +72,7 @@ public class OrderListViewCellThird extends ListCell<Order> {
 
     @FXML
     public void reverseCreated(){
-        createdDate.setText(dateFormatter.format(getItem().getCreated().get()));
+        createdDate.setText(dateFormatter.format(getItem().getCreatedAt().get()));
         TranslateTransition translate = new TranslateTransition(Duration.millis(400), createdDate);
         translate.setToX(0);
         translate.play();
@@ -84,7 +88,7 @@ public class OrderListViewCellThird extends ListCell<Order> {
 
     @FXML
     public void translateUpdated() {
-        updatedDate.setText(dateFormatter.format(getItem().getUpdated().get()));
+        updatedDate.setText(dateFormatter.format(getItem().getUpdatedAt().get()));
         TranslateTransition translate = new TranslateTransition(Duration.millis(400), updatedDate);
         translate.setToX(0);
         translate.play();

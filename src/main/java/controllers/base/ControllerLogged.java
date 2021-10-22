@@ -172,13 +172,13 @@ public abstract class ControllerLogged extends ControllerAdjustable{
 
         orderId.textProperty().bind(currentOrder.getId().asString());
         createdDate.textProperty().bind(Bindings.createObjectBinding(()->
-                dateFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
+                dateFormatter.format(currentOrder.getCreatedAt().get()),currentOrder.getCreatedAt()));
         createdTime.textProperty().bind(Bindings.createObjectBinding(()->
-                timeFormatter.format(currentOrder.getCreated().get()),currentOrder.getCreated()));
+                timeFormatter.format(currentOrder.getCreatedAt().get()),currentOrder.getCreatedAt()));
         updatedDate.textProperty().bind(Bindings.createObjectBinding(()->
-                dateFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
+                dateFormatter.format(currentOrder.getUpdatedAt().get()),currentOrder.getUpdatedAt()));
         updatedTime.textProperty().bind(Bindings.createObjectBinding(()->
-                timeFormatter.format(currentOrder.getUpdated().get()),currentOrder.getUpdated()));
+                timeFormatter.format(currentOrder.getUpdatedAt().get()),currentOrder.getUpdatedAt()));
     }
 
     public void unbindOrderProperties() {
